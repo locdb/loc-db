@@ -1,0 +1,12 @@
+{  
+  "db": {
+    "host": "localhost",
+    "port": "27017",
+    "user": "",
+    "pwd": "",
+    "schema": "locdb"
+  },
+  "urls": {
+    "swbUrl": "http://swbtest.bsz-bw.de/sru/DB=2.1/username=/password=/"
+  }
+}

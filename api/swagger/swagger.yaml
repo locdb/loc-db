@@ -1,0 +1,116 @@
+swagger: "2.0"
+info:
+  version: "0.0.1"
+  title: LOC-DB Central Component
+# during dev, should point to your local machine
+host: localhost:10010
+# basePath prefixes all resource paths 
+basePath: /
+tags:
+  - name: BibliographicResource
+    description: Services related to bibliographic resources.
+# 
+schemes:
+  # tip: remove http to make production-grade
+  - http
+  - https
+# format of bodies a client can send (Content-Type)
+consumes:
+  - application/json
+# format of the responses to the client (Accepts)
+produces:
+  - application/json
+paths:
+  /bibliographicResources:
+    # binds a127 app logic to a route
+    x-swagger-router-controller: bibliographicResource
+    get:
+      tags: [BibliographicResource]
+      description: Returns a list of bibliographic resources
+      # used as the method name of the controller
+      operationId: list
+      responses:
+        "200":
+          description: Success
+          schema:
+            # a pointer to a definition
+            type: array
+            items: 
+              $ref: "#/definitions/BibliographicResource"
+        # responses may fall through to errors
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /bibliographicResource/{id}:
+    # binds a127 app logic to a route
+    x-swagger-router-controller: bibliographicResource
+    get:
+      tags: [BibliographicResource]
+      description: Returns a single bibliographic resource by id
+      # used as the method name of the controller
+      operationId: get
+      parameters:
+        - name: id
+          in: path
+          description: The internal identifier of the bibliographic resource
+          required: true
+          type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            # a pointer to a definition
+            $ref: "#/definitions/BibliographicResource"
+        # responses may fall through to errors
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /createBibliographicResourceByPPN:
+    x-swagger-router-controller: bibliographicResource
+    get:
+      tags: [BibliographicResource]
+      description: Get bibliographic resource by PICA-Prod-Nr.
+      operationId: createByPPN
+      parameters:
+        - name: ppn
+          in: query
+          description: The PICA-Prod-Nr. assigned by SWB
+          required: true
+          type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            # a pointer to a definition
+            $ref: "#/definitions/BibliographicResource"
+        # responses may fall through to errors
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /swagger:
+    x-swagger-pipe: swagger_raw
+# complex objects have schema definitions
+definitions:
+  BibliographicResource:
+    required:
+      - _id
+    properties:
+      _id:
+        type: string
+      keywords:
+        type: array
+        items:
+          type: string
+      title:
+        type: string
+      subTitle:
+        type: string
+  ErrorResponse:
+    required:
+      - message
+    properties:
+      message:
+        type: string

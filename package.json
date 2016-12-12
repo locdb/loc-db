@@ -1,0 +1,27 @@
+{
+  "name": "loc-db",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Linked Open Citation Database",
+  "keywords": [],
+  "author": "Anne Lauscher",
+  "license": "MIT",
+  "main": "app.js",
+  "dependencies": {
+    "ajax-request": "^1.2.1",
+    "express": "^4.12.3",
+    "marc4js": "0.0.8",
+    "mongodb": "^2.2.13",
+    "mongoose": "^4.7.2",
+    "swagger-express-mw": "^0.1.0",
+    "swagger-tools": "^0.10.1"
+  },
+  "devDependencies": {
+    "should": "^11.1.1",
+    "supertest": "^2.0.1"
+  },
+  "scripts": {
+    "start": "node app.js",
+    "test": "swagger project test"
+  }
+}
