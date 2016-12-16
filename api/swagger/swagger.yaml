@@ -94,12 +94,19 @@ paths:
     x-swagger-pipe: swagger_raw
 # complex objects have schema definitions
 definitions:
+
   BibliographicResource:
     required:
       - _id
     properties:
       _id:
         type: string
+      type:
+        type: string
+      identifier:
+        type: array
+        items:
+          $ref: "#/definitions/Identifier"
       keywords:
         type: array
         items:
@@ -108,6 +115,59 @@ definitions:
         type: string
       subTitle:
         type: string
+      responsibleAgents:
+        type: array
+        items:
+          $ref: "#/definitions/ResponsibleAgent"
+      publicationYear:
+        type: number
+      parts:
+        type: array
+        items:
+          type: string
+      partOf:
+        type: string
+      cites:
+        type: array
+        items:
+          type: string
+      embodiedAs:
+        type: array
+        items:
+          $ref: "#/definitions/ResourceEmbodiment"
+  
+  Identifier:
+    required:
+      - id
+      - type
+    properties:
+      id:
+        type: string
+      type:
+        type: string
+        
+  ResponsibleAgent:
+    required:
+      - roleType
+    properties:
+      roleType:
+        type: string
+      firstName:
+        type: string
+      lastName:
+        type: string
+  
+  ResourceEmbodiment:
+    required:
+      - type
+    properties:
+      type:
+        type: string
+      firstPage:
+        type: string
+      lastPage:
+        type: string
+  
   ErrorResponse:
     required:
       - message

@@ -14,7 +14,8 @@
     "mongodb": "^2.2.13",
     "mongoose": "^4.7.2",
     "swagger-express-mw": "^0.1.0",
-    "swagger-tools": "^0.10.1"
+    "swagger-tools": "^0.10.1",
+    "winston": "^2.3.0"
   },
   "devDependencies": {
     "should": "^11.1.1",
