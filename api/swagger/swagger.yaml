@@ -101,30 +101,30 @@ definitions:
     properties:
       _id:
         type: string
-      type:
-        type: string
-      identifier:
+      identifiers:
         type: array
         items:
           $ref: "#/definitions/Identifier"
-      keywords:
-        type: array
-        items:
-          type: string
+      type:
+        type: string
       title:
         type: string
-      subTitle:
+      subtitle:
         type: string
-      responsibleAgents:
+      edition:
+        type: string
+      number:
+        type: number
+      contributors:
         type: array
         items:
-          $ref: "#/definitions/ResponsibleAgent"
+          $ref: "#/definitions/AgentRole"
       publicationYear:
         type: number
       parts:
         type: array
         items:
-          type: string
+          $ref: "#/definitions/BibliographicEntry"
       partOf:
         type: string
       cites:
@@ -138,23 +138,40 @@ definitions:
   
   Identifier:
     required:
-      - id
-      - type
+      - value
+      - scheme
     properties:
-      id:
+      value:
         type: string
-      type:
+      scheme:
         type: string
         
-  ResponsibleAgent:
+  AgentRole:
     required:
       - roleType
     properties:
+      identifiers:
+        type: array
+        items:
+          $ref: "#/definitions/Identifier"
       roleType:
         type: string
-      firstName:
+      heldBy:
+        $ref: "#/definitions/ResponsibleAgent"
+        
+  ResponsibleAgent:
+    required:
+      - nameString
+    properties:
+      identifiers:
+        type: array
+        items:
+          $ref: "#/definitions/Identifier"
+      nameString:
         type: string
-      lastName:
+      givenName:
+        type: string
+      familyName:
         type: string
   
   ResourceEmbodiment:
@@ -163,9 +180,22 @@ definitions:
     properties:
       type:
         type: string
-      firstPage:
+      format:
         type: string
+      firstPage:
+        type: number
       lastPage:
+        type: number
+      url:
+        type: string
+        
+  BibliographicEntry:
+    required:
+      - bibliographicEntryText
+    properties:
+      bibliographicEntryText:
+        type: string
+      references:
         type: string
   
   ErrorResponse:

@@ -33,9 +33,9 @@ Marc21Helper.prototype.parseBibliographicResource = function(xmlString, fnCallba
                     }else if(dataFields[field]._subfields[subfield]._code == "b"){
                         cleanedObject.subTitle = dataFields[field]._subfields[subfield]._data;
                     //rmedium MARC21 245 $h
-                    }else if(dataFields[field]._subfields[subfield]._code == "h"){
-                        cleanedObject.medium = dataFields[field]._subfields[subfield]._data;
-                    }
+                    }//else if(dataFields[field]._subfields[subfield]._code == "h"){
+                     //   cleanedObject.medium = dataFields[field]._subfields[subfield]._data;
+                    //}
                 }
             // subject added entry - topical term MARC21 650
             }else if(dataFields[field]._tag == "650"){

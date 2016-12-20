@@ -12,7 +12,7 @@ function list(req, res){
 }
 
 function get(req, res){
-    var id = req.swagger.params.id.value;
+    var id = req.swagger.params.id.value.trim();
     br.findOne({_id: id},{},function(e,docs){
         res.json(docs);
     }); 
@@ -20,7 +20,7 @@ function get(req, res){
 
 function createByPPN(req, res){
     // Get PPN param from request
-    var ppn = req.swagger.params.ppn.value;
+    var ppn = req.swagger.params.ppn.value.trim();
     var response = res;
     if(typeof ppn == "undefined"){
         response.status(400).send('PPN undefined.');
