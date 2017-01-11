@@ -1,6 +1,7 @@
 # IDE files
 .idea
 .project
+.settings
 
 # Logs
 logs
