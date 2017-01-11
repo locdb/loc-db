@@ -24,20 +24,19 @@ Marc21Helper.prototype.parseBibliographicResource = function(xmlString, fnCallba
 
         var cleanedObject = {};
         cleanedObject.identifiers = [];
+        cleanedObject.contributors = [];
 
         for(var field of dataFields){
-            //title statement MARC21 245
+            //Titles
             if(field._tag == "245"){
                 for(var subfield of field._subfields){
-                    //title MARC21 245 $a
                     if(subfield._code == "a"){
                         cleanedObject.title = subfield._data;
-                    //remainder of title MARC21 245 $b
                     }else if(subfield._code == "b"){
                         cleanedObject.subtitle = subfield._data;
                     }
                 }
-            // identifiers
+            // Identifiers
             }else if(field._tag == "020"){
                 for(var subfield of field._subfields){
                     if(subfield._code == "a"){
@@ -81,6 +80,64 @@ Marc21Helper.prototype.parseBibliographicResource = function(xmlString, fnCallba
                         cleanedObject.number = subfield._data;
                     }
                 }
+            // Contributors
+            }else if(field._tag == "100"){
+                for(var subfield of field._subfields){
+                    if(subfield._code == "a"){
+                        var contributor = {};
+                        contributor.roleType = "Author";
+                        contributor.heldBy = {};
+                        contributor.heldBy.identifiers = [];
+                        contributor.heldBy.nameString = subfield._data;
+                        contributor.heldBy.givenName = subfield._data;
+                        contributor.heldBy.familyName = subfield._data;
+                        cleanedObject.contributors.push(contributor);
+                    }
+                }
+            }else if(field._tag == "110"){
+                for(var subfield of field._subfields){
+                    if(subfield._code == "a"){
+                        var contributor = {};
+                        contributor.roleType = "Corporate";
+                        contributor.heldBy = {};
+                        contributor.heldBy.identifiers = [];
+                        contributor.heldBy.nameString = subfield._data;
+                        cleanedObject.contributors.push(contributor);
+                    }
+                }
+            }else if(field._tag == "111"){
+                for(var subfield of field._subfields){
+                    if(subfield._code == "a"){
+                        var contributor = {};
+                        contributor.roleType = "Congress";
+                        contributor.heldBy = {};
+                        contributor.heldBy.identifiers = [];
+                        contributor.heldBy.nameString = subfield._data;
+                        cleanedObject.contributors.push(contributor);
+                    }
+                }
+            }else if(field._tag == "260"){
+                for(var subfield of field._subfields){
+                    if(subfield._code == "b"){
+                        var contributor = {};
+                        contributor.roleType = "Publisher";
+                        contributor.heldBy = {};
+                        contributor.heldBy.identifiers = [];
+                        contributor.heldBy.nameString = subfield._data;
+                        cleanedObject.contributors.push(contributor);
+                    }
+                }
+            }else if(field._tag == "264"){
+                for(var subfield of field._subfields){
+                    if(subfield._code == "b"){
+                        var contributor = {};
+                        contributor.roleType = "Publisher";
+                        contributor.heldBy = {};
+                        contributor.heldBy.identifiers = [];
+                        contributor.heldBy.nameString = subfield._data;
+                        cleanedObject.contributors.push(contributor);
+                    }
+                }
             }
         }
         
@@ -92,12 +149,12 @@ Marc21Helper.prototype.parseBibliographicResource = function(xmlString, fnCallba
         
         //LEADER
         if(leader._typeOfRecord && leader._typeOfRecord.toLowerCase() == "m"){
-            cleanedObject.embodiedAs = "DIGITAL";
+            cleanedObject.embodiedAs = "Digital";
         }else if(leader._typeOfRecord 
                 && (leader._typeOfRecord.toLowerCase() == "a" 
                 || leader._typeOfRecord.toLowerCase() == "c" 
                 || leader._typeOfRecord.toLowerCase() == "e")){
-            cleanedObject.embodiedAs = "PRINT";
+            cleanedObject.embodiedAs = "Print";
         }
         console.log(cleanedObject);
         fnCallback(cleanedObject);
