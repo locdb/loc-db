@@ -138,10 +138,10 @@ definitions:
   
   Identifier:
     required:
-      - value
+      - literalValue
       - scheme
     properties:
-      value:
+      literalValue:
         type: string
       scheme:
         type: string

@@ -7,7 +7,7 @@ const mongoose = require('mongoose')
 
 const brSchema = new Schema({
     identifiers: [{
-        value: String,
+        literalValue: String,
         scheme: String
     }],
     type: String,

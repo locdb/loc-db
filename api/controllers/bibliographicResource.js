@@ -35,6 +35,7 @@ function createByPPN(req, res){
             method: 'GET',
         }, function(err, res, body) {
               marc21Helper.parseBibliographicResource(body ,function(result){
+
                   if(result == null){
                       response.status(400).send('No entry found.');
                       return;
@@ -44,6 +45,7 @@ function createByPPN(req, res){
                           response.json(doc);
                           return;
                       }else{
+                          console.log(result);
                           new br(result).save().then(function(result){
                               response.json(result);
                           }, function(err){

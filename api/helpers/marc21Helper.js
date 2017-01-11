@@ -12,42 +12,68 @@ var Marc21Helper = function(){
  * 
  */
 Marc21Helper.prototype.parseBibliographicResource = function(xmlString, fnCallback){
-    marc4js.parse(xmlString, {format: 'marcxml'}, function(err, records) {
+	marc4js.parse(xmlString, {format: 'marcxml'}, function(err, records) {
         if(typeof records[1] == "undefined"){
             fnCallback(null);
             return;
         }
-        
-        var dataFields = records[1]._dataFields;
-        var cleanedObject = {};
-        cleanedObject.keywords = [];
 
-        for(var field in dataFields){
+        var dataFields = records[1]._dataFields;
+        var controlFields = records[1]._controlFields;
+
+        var cleanedObject = {};
+        cleanedObject.identifiers = [];
+
+        for(var field of dataFields){
             //title statement MARC21 245
-            if(dataFields[field]._tag == "245"){
-                for(var subfield in dataFields[field]._subfields){
+            if(field._tag == "245"){
+                for(var subfield of field._subfields){
                     //title MARC21 245 $a
-                    if(dataFields[field]._subfields[subfield]._code == "a"){
-                        cleanedObject.title = dataFields[field]._subfields[subfield]._data;
+                    if(subfield._code == "a"){
+                        cleanedObject.title = subfield._data;
                     //remainder of title MARC21 245 $b
-                    }else if(dataFields[field]._subfields[subfield]._code == "b"){
-                        cleanedObject.subTitle = dataFields[field]._subfields[subfield]._data;
-                    //rmedium MARC21 245 $h
-                    }//else if(dataFields[field]._subfields[subfield]._code == "h"){
-                     //   cleanedObject.medium = dataFields[field]._subfields[subfield]._data;
-                    //}
+                    }else if(subfield._code == "b"){
+                        cleanedObject.subtitle = subfield._data;
+                    }
                 }
-            // subject added entry - topical term MARC21 650
-            }else if(dataFields[field]._tag == "650"){
-                for(var subfield in dataFields[field]._subfields){
-                    //topical term or geographic name entry element $a
-                    if(dataFields[field]._subfields[subfield]._code == "a"){
-                        cleanedObject.keywords.push(dataFields[field]._subfields[subfield]._data);
+            // identifiers
+            }else if(field._tag == "020"){
+                for(var subfield of field._subfields){
+                    if(subfield._code == "a"){
+                        cleanedObject.identifiers.push({"literalValue": subfield._data,
+                                "scheme": "ISBN"});
+                    }
+                }
+            }else if(field._tag == "022"){
+                for(var subfield of field._subfields){
+                    if(subfield._code == "a"){
+                        cleanedObject.identifiers.push({"literalValue": subfield._data,
+                                "scheme": "ISSN"});
+                    }
+                }
+            }else if(field._tag == "024"){
+                for(var subfield of field._subfields){
+                    if(subfield._code == "a"){
+                        cleanedObject.identifiers.push({"literalValue": subfield._data,
+                                "scheme": "TBD"});
+                    }
+                }
+            }
+            else if(field._tag == "655"){
+                for(var subfield of field._subfields){
+                    if(subfield._code == "a"){
+                        cleanedObject.type = subfield._data;
                     }
                 }
             }
         }
         
+        for(var field of controlFields){
+            if(field._tag == "008"){
+                cleanedObject.publicationYear = Number(field._data.substring(7,11));
+            }
+        }
+        console.log(cleanedObject);
         fnCallback(cleanedObject);
     });
 }
