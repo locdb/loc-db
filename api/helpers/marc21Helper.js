@@ -20,6 +20,7 @@ Marc21Helper.prototype.parseBibliographicResource = function(xmlString, fnCallba
 
         var dataFields = records[1]._dataFields;
         var controlFields = records[1]._controlFields;
+        var leader = records[1]._leader;
 
         var cleanedObject = {};
         cleanedObject.identifiers = [];
@@ -59,10 +60,25 @@ Marc21Helper.prototype.parseBibliographicResource = function(xmlString, fnCallba
                     }
                 }
             }
+            //Genre/Form
             else if(field._tag == "655"){
                 for(var subfield of field._subfields){
                     if(subfield._code == "a"){
                         cleanedObject.type = subfield._data;
+                    }
+                }
+            // Edition
+            }else if(field._tag == "250"){
+                for(var subfield of field._subfields){
+                    if(subfield._code == "a"){
+                        cleanedObject.edition = subfield._data;
+                    }
+                }
+            // Number
+            }else if(field._tag == "773"){
+                for(var subfield of field._subfields){
+                    if(subfield._code == "g"){
+                        cleanedObject.number = subfield._data;
                     }
                 }
             }
@@ -72,6 +88,16 @@ Marc21Helper.prototype.parseBibliographicResource = function(xmlString, fnCallba
             if(field._tag == "008"){
                 cleanedObject.publicationYear = Number(field._data.substring(7,11));
             }
+        }
+        
+        //LEADER
+        if(leader._typeOfRecord && leader._typeOfRecord.toLowerCase() == "m"){
+            cleanedObject.embodiedAs = "DIGITAL";
+        }else if(leader._typeOfRecord 
+                && (leader._typeOfRecord.toLowerCase() == "a" 
+                || leader._typeOfRecord.toLowerCase() == "c" 
+                || leader._typeOfRecord.toLowerCase() == "e")){
+            cleanedObject.embodiedAs = "PRINT";
         }
         console.log(cleanedObject);
         fnCallback(cleanedObject);
