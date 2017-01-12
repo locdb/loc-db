@@ -12,7 +12,8 @@ var Marc21Helper = function(){
  * 
  */
 Marc21Helper.prototype.parseBibliographicResource = function(xmlString, fnCallback){
-	marc4js.parse(xmlString, {format: 'marcxml'}, function(err, records) {
+    console.log(xmlString);
+    marc4js.parse(xmlString, {format: 'marcxml'}, function(err, records) {
         if(typeof records[1] == "undefined"){
             fnCallback(null);
             return;
@@ -141,6 +142,7 @@ Marc21Helper.prototype.parseBibliographicResource = function(xmlString, fnCallba
             }
         }
         
+        // publicationYear
         for(var field of controlFields){
             if(field._tag == "008"){
                 cleanedObject.publicationYear = Number(field._data.substring(7,11));
@@ -155,8 +157,12 @@ Marc21Helper.prototype.parseBibliographicResource = function(xmlString, fnCallba
                 || leader._typeOfRecord.toLowerCase() == "c" 
                 || leader._typeOfRecord.toLowerCase() == "e")){
             cleanedObject.embodiedAs = "Print";
+        }else if(leader._bibliographicLevel && leader._bibliographicLevel.toLowerCase() == "a"){
+            cleanedObject.type = "Monograph";
+        }else if(leader._bibliographicLevel && leader._bibliographicLevel.toLowerCase() == "s"){
+            cleanedObject.type = "Serial";
         }
-        console.log(cleanedObject);
+        console.log(leader);
         fnCallback(cleanedObject);
     });
 }
