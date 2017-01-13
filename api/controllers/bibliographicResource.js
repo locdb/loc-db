@@ -11,12 +11,22 @@ function list(req, res){
     }); 
 }
 
+
 function get(req, res){
     var id = req.swagger.params.id.value.trim();
     br.findOne({_id: id},{},function(e,docs){
         res.json(docs);
     }); 
 }
+
+
+function deleteAll(req, res){
+    var response = res;
+    br.remove({}, function(err, res){
+        err ? response.status(400).json({"message":'Delete operation failed.'}) : response.status(200).send({"message":'Delete operation succeeded.'});
+    });
+}
+
 
 function createByPPN(req, res){
     // Get PPN param from request
@@ -60,5 +70,6 @@ function createByPPN(req, res){
 module.exports = {
         list : list,
         get : get,
+        deleteAll : deleteAll,
         createByPPN: createByPPN
 };

@@ -42,6 +42,19 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
+    delete:
+      tags: [BibliographicResource]
+      description: Deletes all (!) bibliographic resources (may be removed in a later stage)
+      operationId: deleteAll
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
   /bibliographicResource/{id}:
     # binds a127 app logic to a route
     x-swagger-router-controller: bibliographicResource
@@ -199,6 +212,13 @@ definitions:
         type: string
   
   ErrorResponse:
+    required:
+      - message
+    properties:
+      message:
+        type: string
+
+  SuccessResponse:
     required:
       - message
     properties:
