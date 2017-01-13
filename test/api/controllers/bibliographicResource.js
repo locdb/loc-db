@@ -83,6 +83,36 @@ describe('controllers', function() {
                   });
           });
       });
+      
+      describe('DELETE /bibliographicResources', function(){
+          it('should return response code 200', function(done){
+              request(server)
+                  .delete('/bibliographicResources')
+                  .set('Accept', 'application/json')
+                  .expect('Content-Type', /json/)
+                  .expect(200)
+                  .end(function(err, res){
+                      should.not.exist(err);
+                      done();
+                  });
+          });
+      });
+      
+      describe('GET /bibliographicResources', function(){
+          it('should return a list of bibliographic resources of length 0', function(done){
+              request(server)
+                  .get('/bibliographicResources')
+                  .set('Accept', 'application/json')
+                  .expect('Content-Type', /json/)
+                  .expect(200)
+                  .end(function(err, res){
+                      should.not.exist(err);
+                      res.body.should.be.an.Array();
+                      res.body.should.have.length(0);
+                      done();
+                  });
+          });
+      });
   });
 
 });
