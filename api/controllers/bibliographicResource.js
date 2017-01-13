@@ -28,6 +28,15 @@ function deleteAll(req, res){
 }
 
 
+function deleteSingle(req, res){
+    var id = req.swagger.params.id.value.trim();
+    var response = res;
+    br.remove({_id: id},function(err,res){
+        err ? response.status(400).json({"message":'Delete operation failed.'}) : response.status(200).send({"message":'Delete operation succeeded.'});
+    }); 
+}
+
+
 function createByPPN(req, res){
     // Get PPN param from request
     var ppn = req.swagger.params.ppn.value.trim();
@@ -71,5 +80,6 @@ module.exports = {
         list : list,
         get : get,
         deleteAll : deleteAll,
+        deleteSingle : deleteSingle,
         createByPPN: createByPPN
 };
