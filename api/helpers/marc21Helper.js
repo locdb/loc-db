@@ -90,8 +90,9 @@ Marc21Helper.prototype.parseBibliographicResource = function(xmlString, fnCallba
                         contributor.heldBy = {};
                         contributor.heldBy.identifiers = [];
                         contributor.heldBy.nameString = subfield._data;
-                        contributor.heldBy.givenName = subfield._data;
-                        contributor.heldBy.familyName = subfield._data;
+                        var nameArray = subfield._data.split(',');
+                        contributor.heldBy.givenName =  nameArray[1] ? nameArray[1].trim() : "";
+                        contributor.heldBy.familyName =  nameArray[1] ? nameArray[0].trim() : "";
                         cleanedObject.contributors.push(contributor);
                     }
                 }
