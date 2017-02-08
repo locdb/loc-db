@@ -1,5 +1,4 @@
 const should = require('should');
-const server = require('../../../app');
 const setup = require('./../setup.js').createSetup();
 const marc21Helper = require('./../../../api/helpers/marc21Helper.js').createMarc21Helper();
 const fs = require('fs')
@@ -26,7 +25,7 @@ describe('helpers', function() {
         
         describe('parseBibliographicRessource', function(){
             it('should return a parsed bibliographic resource', function(done) {
-                return marc21Helper.parseBibliographicResource(marc21XML, function(result){
+                marc21Helper.parseBibliographicResource(marc21XML, function(result){
                     result.should.be.ok();
                     result.should.have.property("title", "Der soziologische Blick :");
                     result.should.have.property("subtitle", "vergangene Positionen und gegenwärtige Perspektiven /");
