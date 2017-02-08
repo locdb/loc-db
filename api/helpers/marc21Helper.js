@@ -12,7 +12,7 @@ var Marc21Helper = function(){
  * 
  */
 Marc21Helper.prototype.parseBibliographicResource = function(xmlString, fnCallback){
-    console.log(xmlString);
+    //console.log(xmlString);
     marc4js.parse(xmlString, {format: 'marcxml'}, function(err, records) {
         if(typeof records[1] == "undefined"){
             fnCallback(null);
@@ -163,7 +163,7 @@ Marc21Helper.prototype.parseBibliographicResource = function(xmlString, fnCallba
         }else if(leader._bibliographicLevel && leader._bibliographicLevel.toLowerCase() == "s"){
             cleanedObject.type = "Serial";
         }
-        console.log(leader);
+        //console.log(leader);
         fnCallback(cleanedObject);
     });
 }

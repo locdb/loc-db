@@ -1,0 +1,472 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="http://swbtest.bsz-bw.de/sru/?xsl=searchRetrieveResponse" ?>
+<srw:searchRetrieveResponse xmlns:srw="http://www.loc.gov/zing/srw/"
+                xmlns:dc="http://purl.org/dc/elements/1.1/"
+                xmlns:diag="http://www.loc.gov/zing/srw/diagnostic/"
+                xmlns:xcql="http://www.loc.gov/zing/cql/xcql/">
+    <srw:version>1.1</srw:version>
+    <srw:numberOfRecords>1</srw:numberOfRecords>
+    <srw:resultSetId>SIDc90d8716-0S1</srw:resultSetId>
+    <srw:records>
+    
+
+
+<srw:record>
+<srw:recordSchema>marc21</srw:recordSchema>
+<srw:recordPacking>xml</srw:recordPacking>
+<srw:recordData>
+<record>
+<leader>     cam a22        4500</leader>
+<controlfield tag="001">091790611</controlfield>
+<controlfield tag="003">DE-576</controlfield>
+<controlfield tag="005">20140328162734.0</controlfield>
+<controlfield tag="007">tu</controlfield>
+<controlfield tag="008">010613s2002    xx             00 0 ger c</controlfield>
+<datafield tag="035" ind1=" " ind2=" "><subfield code="a">(OCoLC)216714347</subfield></datafield>
+<datafield tag="020" ind1=" " ind2=" "><subfield code="a">3810032816</subfield>
+<subfield code="9">3-8100-3281-6</subfield></datafield>
+<datafield tag="035" ind1=" " ind2=" "><subfield code="a">(DE-599)BSZ091790611</subfield></datafield>
+<datafield tag="040" ind1=" " ind2=" "><subfield code="a">DE-576</subfield>
+<subfield code="b">ger</subfield>
+<subfield code="c">DE-576</subfield>
+<subfield code="e">rakwb</subfield></datafield>
+<datafield tag="041" ind1=" " ind2=" "><subfield code="a">ger</subfield></datafield>
+<datafield tag="084" ind1=" " ind2=" "><subfield code="a">MQ 2400</subfield>
+<subfield code="2">rvk</subfield></datafield>
+<datafield tag="084" ind1=" " ind2=" "><subfield code="a">MQ 1200</subfield>
+<subfield code="2">rvk</subfield></datafield>
+<datafield tag="084" ind1=" " ind2=" "><subfield code="a">MR 4000</subfield>
+<subfield code="2">rvk</subfield></datafield>
+<datafield tag="084" ind1=" " ind2=" "><subfield code="a">1</subfield>
+<subfield code="2">ssgn</subfield></datafield>
+<datafield tag="245" ind1="1" ind2="4"><subfield code="a">Der soziologische Blick :</subfield>
+<subfield code="b">vergangene Positionen und gegenwärtige Perspektiven /</subfield>
+<subfield code="c">hrsg. vom Inst. für Soziologie u. Sozialforschung d. Carl von Ossietzky-Univ. Oldenburg</subfield></datafield>
+<datafield tag="260" ind1=" " ind2=" "><subfield code="a">Opladen :</subfield>
+<subfield code="b">Leske + Budrich,</subfield>
+<subfield code="c">2002</subfield></datafield>
+<datafield tag="300" ind1=" " ind2=" "><subfield code="a">232 S.</subfield></datafield>
+<datafield tag="490" ind1="0" ind2=" "><subfield code="a">Lehrtexte Soziologie</subfield></datafield>
+<datafield tag="591" ind1=" " ind2=" "><subfield code="a">720 ddsu/sgi ; MR 4000:bvb</subfield></datafield>
+<datafield tag="689" ind1="0" ind2="0"><subfield code="D">s</subfield>
+<subfield code="0">(DE-588)4077624-4</subfield>
+<subfield code="0">(DE-576)209205849</subfield>
+<subfield code="2">gnd</subfield>
+<subfield code="a">Soziologie</subfield></datafield>
+<datafield tag="689" ind1="0" ind2="1"><subfield code="A">f</subfield>
+<subfield code="2">gnd</subfield>
+<subfield code="a">Aufsatzsammlung</subfield></datafield>
+<datafield tag="689" ind1="0" ind2=" "><subfield code="5">DE-576</subfield></datafield>
+<datafield tag="689" ind1="1" ind2="0"><subfield code="D">s</subfield>
+<subfield code="0">(DE-588)4077628-1</subfield>
+<subfield code="0">(DE-576)209205865</subfield>
+<subfield code="2">gnd</subfield>
+<subfield code="a">Soziologische Theorie</subfield></datafield>
+<datafield tag="689" ind1="1" ind2="1"><subfield code="A">f</subfield>
+<subfield code="2">gnd</subfield>
+<subfield code="a">Aufsatzsammlung</subfield></datafield>
+<datafield tag="689" ind1="1" ind2=" "><subfield code="5">DE-576</subfield></datafield>
+<datafield tag="710" ind1="2" ind2=" "><subfield code="a">Institut für Soziologie und Sozialforschung</subfield>
+<subfield code="9">g:Oldenburg (Oldenburg)</subfield>
+<subfield code="0">(DE-588)10041525-8</subfield>
+<subfield code="0">(DE-576)199202699</subfield></datafield>
+<datafield tag="856" ind1="4" ind2="2"><subfield code="m">V:AT-OBV</subfield>
+<subfield code="q">text/html</subfield>
+<subfield code="u">http://media.obvsg.at/AC03277259-1002</subfield>
+<subfield code="v">20090625000000</subfield>
+<subfield code="3">Inhaltsverzeichnis</subfield></datafield>
+<datafield tag="856" ind1="4" ind2="2"><subfield code="m">DE-576;springer</subfield>
+<subfield code="q">image/jpeg</subfield>
+<subfield code="u">http://swbplus.bsz-bw.de/bsz091790611cov.htm</subfield>
+<subfield code="v">20130327111546</subfield>
+<subfield code="3">Cover</subfield></datafield>
+<datafield tag="935" ind1=" " ind2=" "><subfield code="a">mteo</subfield></datafield>
+<datafield tag="935" ind1=" " ind2=" "><subfield code="b">druck</subfield></datafield>
+<datafield tag="936" ind1="r" ind2="v"><subfield code="a">MQ 2400</subfield>
+<subfield code="b">Beiträge zu Einzelproblemen</subfield>
+<subfield code="k">Soziologie</subfield>
+<subfield code="k">Einführung und Geschichte</subfield>
+<subfield code="k">Geschichte der Soziologie</subfield>
+<subfield code="k">Beiträge zu Einzelproblemen</subfield></datafield>
+<datafield tag="936" ind1="r" ind2="v"><subfield code="a">MQ 1200</subfield>
+<subfield code="b">Allgemeine Einführungen in die Soziologie</subfield>
+<subfield code="k">Soziologie</subfield>
+<subfield code="k">Einführung und Geschichte</subfield>
+<subfield code="k">Einführungen und Reader</subfield>
+<subfield code="k">Allgemeine Einführungen in die Soziologie</subfield></datafield>
+<datafield tag="936" ind1="r" ind2="v"><subfield code="a">MR 4000</subfield>
+<subfield code="b">Klassiker der Soziologie (ältere soziologische Theorie)</subfield>
+<subfield code="k">Soziologie</subfield>
+<subfield code="k">Sozialwissenschaftliche Theorien und Methoden</subfield>
+<subfield code="k">Klassiker der Soziologie (ältere soziologische Theorie)</subfield></datafield>
+<leader>000  xxxxxcx  a22     zn 4500</leader>
+<leader>001 39652012X</leader>
+<leader>003  DE-576</leader>
+<leader>004  091790611</leader>
+<leader>005  20100408103044</leader>
+<leader>008  021204||||||||||||||||ger|||||||</leader>
+<leader>541  
+02/1078</leader>
+<leader>852  
+DE-21-31</leader>
+<leader>852 1
+Pw I a 198
+p
+00</leader>
+<leader>938  
+E12
+0</leader>
+<leader>000  xxxxxcx  a22     zn 4500</leader>
+<leader>001 396520146</leader>
+<leader>003  DE-576</leader>
+<leader>004  091790611</leader>
+<leader>005  20100407074818</leader>
+<leader>008  050323||||||||||||||||ger|||||||</leader>
+<leader>541  
+02-202</leader>
+<leader>689  
+s
+241079977
+Soziologie / Theorie</leader>
+<leader>689  
+s
+241080940
+Klassiker</leader>
+<leader>852  
+DE-21-85</leader>
+<leader>852 1
+2.100.2002
+p
+00</leader>
+<leader>935  
+k085</leader>
+<leader>000  xxxxxcx  a22     zn 4500</leader>
+<leader>001 396519970</leader>
+<leader>003  DE-576</leader>
+<leader>004  091790611</leader>
+<leader>005  20020910000000</leader>
+<leader>008  010613||||||||||||||||ger|||||||</leader>
+<leader>852  
+DE-25</leader>
+<leader>852 1
+SW 2002/1003
+00</leader>
+<leader>85281
+SW  2002/01003
+00</leader>
+<leader>86630
+en</leader>
+<leader>935  
+z0</leader>
+<leader>938  
+5a</leader>
+<leader>000  xxxxxnx  a22     zn 4500</leader>
+<leader>001 396519962</leader>
+<leader>003  DE-576</leader>
+<leader>004  091790611</leader>
+<leader>005  20020812000000</leader>
+<leader>008  020812||||||||||||||||ger|||||||</leader>
+<leader>852  
+DE-25-133</leader>
+<leader>852 1
+Frei 133: III A 906
+p
+00</leader>
+<leader>86630
+167.2002-mx</leader>
+<leader>935  
+as</leader>
+<leader>000  xxxxxcx  a22     zn 4500</leader>
+<leader>001 557817374</leader>
+<leader>003  DE-576</leader>
+<leader>004  091790611</leader>
+<leader>005  20130221131158</leader>
+<leader>008  071104||||||||||||||||ger|||||||</leader>
+<leader>035  
+(DE-Sa19)0036504</leader>
+<leader>541  
+2002/320</leader>
+<leader>852  
+00106450</leader>
+<leader>852  
+DE-Sa19</leader>
+<leader>852 1
+MQ 2400 Soz
+00</leader>
+<leader>000  xxxxxcx  a22     zn 4500</leader>
+<leader>001 396519954</leader>
+<leader>003  DE-576</leader>
+<leader>004  091790611</leader>
+<leader>005  20030108000000</leader>
+<leader>008  020903||||||||||||||||ger|||||||</leader>
+<leader>852  
+DE-14</leader>
+<leader>852 1
+00</leader>
+<leader>000  xxxxxcx  a22     zn 4500</leader>
+<leader>001 396520049</leader>
+<leader>003  DE-576</leader>
+<leader>004  091790611</leader>
+<leader>005  20110326041402</leader>
+<leader>008  010613||||||||||||||||ger|||||||</leader>
+<leader>852  
+DE-352</leader>
+<leader>852 1
+soz 128/s68
+00</leader>
+<leader>000  xxxxxcx  a22     zn 4500</leader>
+<leader>001 396520073</leader>
+<leader>003  DE-576</leader>
+<leader>004  091790611</leader>
+<leader>005  20030212000000</leader>
+<leader>008  020927||||||||||||||||ger|||||||</leader>
+<leader>852  
+sa</leader>
+<leader>852  
+DE-24</leader>
+<leader>852 1
+52C/3758
+00</leader>
+<leader>85281
+52C/0003758
+00</leader>
+<leader>938  
+27/09/02 dbs:5
+0</leader>
+<leader>000  xxxxxnx  a22     zn 4500</leader>
+<leader>001 885096274</leader>
+<leader>003  DE-576</leader>
+<leader>004  091790611</leader>
+<leader>005  20160304080903</leader>
+<leader>008  160304||||||||||||||||ger|||||||</leader>
+<leader>035  
+(DE-180)22142931680002561</leader>
+<leader>852  
+DE-180</leader>
+<leader>852 1
+400 MQ 2400 S731
+00</leader>
+<leader>852 2
+400
+00</leader>
+<leader>935  
+alma</leader>
+<leader>000  xxxxxcx  a22     zn 4500</leader>
+<leader>001 396520022</leader>
+<leader>003  DE-576</leader>
+<leader>004  091790611</leader>
+<leader>005  20080612205622</leader>
+<leader>008  020809||||||||||||||||ger|||||||</leader>
+<leader>852  
+DE-16</leader>
+<leader>852 1
+2002 A 8186
+00</leader>
+<leader>000  xxxxxnu  a22     zn 4500</leader>
+<leader>001 396520030</leader>
+<leader>003  DE-576</leader>
+<leader>004  091790611</leader>
+<leader>005  20020809000000</leader>
+<leader>008  020809||||||||||||||||ger|||||||</leader>
+<leader>014  
+396520022
+DE-576</leader>
+<leader>852  
+100776548</leader>
+<leader>852  
+DE-16</leader>
+<leader>852 1
+00</leader>
+<leader>000  xxxxxcx  a22     zn 4500</leader>
+<leader>001 396519989</leader>
+<leader>003  DE-576</leader>
+<leader>004  091790611</leader>
+<leader>005  20140509171406</leader>
+<leader>008  021004||||||||||||||||ger|||||||</leader>
+<leader>689  
+s
+Theorie,soziologische</leader>
+<leader>689  
+s
+Handlungstheorie</leader>
+<leader>689  
+s
+Systemtheorie</leader>
+<leader>689  
+s
+Gesellschaftstheorie</leader>
+<leader>689  
+p
+Marx,Karl</leader>
+<leader>689  
+p
+Simmel,Georg</leader>
+<leader>689  
+p
+Weber,Max</leader>
+<leader>852  
+DE-16-160</leader>
+<leader>852 1
+WS/MQ 2400 I59
+16.01.2007
+00</leader>
+<leader>000  xxxxxcu  a22     zn 4500</leader>
+<leader>001 396519997</leader>
+<leader>003  DE-576</leader>
+<leader>004  091790611</leader>
+<leader>005  20090310223618</leader>
+<leader>008  021004||||||||||||||||ger|||||||</leader>
+<leader>014  
+396519989
+DE-576</leader>
+<leader>541  
+66624</leader>
+<leader>852  
+300360686</leader>
+<leader>852  
+DE-16-160</leader>
+<leader>852 1
+00</leader>
+<leader>000  xxxxxnx  a22     zn 4500</leader>
+<leader>001 396520006</leader>
+<leader>003  DE-576</leader>
+<leader>004  091790611</leader>
+<leader>005  20020827000000</leader>
+<leader>008  020827||||||||||||||||ger|||||||</leader>
+<leader>852  
+DE-16-55</leader>
+<leader>852 1
+S 10,207
+p
+00</leader>
+<leader>000  xxxxxcu  a22     zn 4500</leader>
+<leader>001 396520014</leader>
+<leader>003  DE-576</leader>
+<leader>004  091790611</leader>
+<leader>005  20161102195359</leader>
+<leader>008  020827||||||||||||||||ger|||||||</leader>
+<leader>014  
+396520006
+DE-576</leader>
+<leader>852  
+563072231</leader>
+<leader>852  
+DE-16-55</leader>
+<leader>852 1
+00</leader>
+<leader>938  
+14</leader>
+<leader>000  xxxxxcx  a22     zn 4500</leader>
+<leader>001 396520081</leader>
+<leader>003  DE-576</leader>
+<leader>004  091790611</leader>
+<leader>005  20100710201657</leader>
+<leader>008  030328||||||||||||||||ger|||||||</leader>
+<leader>852  
+1. Ex. im Lesesaal Zentrale</leader>
+<leader>852  
+DE-93</leader>
+<leader>852 1
+5J 3149
+p
+00</leader>
+<leader>852 1
+LSZ:Zv 1000 S731
+01</leader>
+<leader>85281
+5J          3149
+00</leader>
+<leader>85281
+3ZV                 1000
+01</leader>
+<leader>938  
+2003.3427
+0</leader>
+<leader>938  
+28/03/03 NEL:6
+1</leader>
+<leader>000  xxxxxcx  a22     zn 4500</leader>
+<leader>001 39652009X</leader>
+<leader>003  DE-576</leader>
+<leader>004  091790611</leader>
+<leader>005  20131211153940</leader>
+<leader>008  020719||||||||||||||||ger|||||||</leader>
+<leader>852  
+DE-Sp3</leader>
+<leader>852 1
+p
+00</leader>
+<leader>935  
+neul
+13sk</leader>
+<leader>935  
+z0</leader>
+<leader>000  xxxxxcu  a22     zn 4500</leader>
+<leader>001 396520103</leader>
+<leader>003  DE-576</leader>
+<leader>004  091790611</leader>
+<leader>005  20131211153940</leader>
+<leader>008  020719||||||||||||||||ger|||||||</leader>
+<leader>014  
+39652009X
+DE-576</leader>
+<leader>541  
+2002.1359</leader>
+<leader>852  
+DE-Sp3</leader>
+<leader>852 1
+C V 7690
+00</leader>
+<leader>000  xxxxxnx  a22     zn 4500</leader>
+<leader>001 502759186</leader>
+<leader>003  DE-576</leader>
+<leader>004  091790611</leader>
+<leader>005  20060214094124</leader>
+<leader>008  060214||||||||||||||||ger|||||||</leader>
+<leader>852  
+DE-1141</leader>
+<leader>852 1
+MQ 2400 S731
+p
+00</leader></record></srw:recordData><srw:recordPosition>1</srw:recordPosition></srw:record>
+</srw:records>
+    <srw:echoedSearchRetrieveRequest>
+    <srw:version>1.1</srw:version>
+    <srw:query>pica.ppn+%3D+%22091790611%22</srw:query>
+    <srw:xQuery><xcql:searchClause><xcql:index>pica.ppn</xcql:index><xcql:relation><xcql:value>=</xcql:value></xcql:relation><xcql:term>"091790611"</xcql:term></xcql:searchClause></srw:xQuery>
+    <startRecord>1</startRecord>
+    <maximumRecords>1</maximumRecords>
+    <srw:recordPacking>xml</srw:recordPacking>
+    <srw:recordSchema>marc21</srw:recordSchema>
+    <sortKeys>none</sortKeys>
+    <srw:stylesheet>http://swbtest.bsz-bw.de/sru/?xsl=searchRetrieveResponse</srw:stylesheet>
+    </srw:echoedSearchRetrieveRequest>
+    <diag:diagnostics>
+        <diag:uri>info:srw/diagnostic/1/0</diag:uri>
+    
+    
+    </diag:diagnostics>
+    <srw:extraResponseData>
+    <rob:authenticationToken xmlns:rob="info:srw/extension/2/auth-1.0">U998,Pbszgast,I17,B0728+,SY,NRecherche-DB,D2.1,Ec90d8716-0,A,H,R193.197.31.28,FY</rob:authenticationToken>
+        <mg:resultGrouping xmlns:mg="info:srw/extension/5/metadata-grouping-v1.0">
+        
+        <mg:grouping key="9008" description="Sysflag"></mg:grouping>
+        
+        <mg:grouping key="9001" description="Materialart"></mg:grouping>
+        
+        <mg:grouping key="9000" description="Erscheinungsjahr"></mg:grouping>
+        
+        <mg:grouping key="9030" description="LibID-ADI"></mg:grouping>
+        
+        <mg:grouping key="9005" description="jetzt AUI"></mg:grouping>
+        
+        <mg:grouping key="9002" description="Region"></mg:grouping>
+        
+        <mg:grouping key="9004" description="Sprache"></mg:grouping>
+        
+        <mg:grouping key="9015" description="Erschliessungsmaterial"></mg:grouping>
+        
+        
+    </mg:resultGrouping>
+    </srw:extraResponseData>
+</srw:searchRetrieveResponse>
