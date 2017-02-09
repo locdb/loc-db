@@ -44,8 +44,9 @@ APlusPlusHelper.prototype.sax.on("text", function (text) {
         identifier.scheme = "DOI";
         identifier.literalValue = text;
         result.identifiers.push(identifier);
-    }else if(this.currentTag == "ArticleDOI"){
-
+        //TODO: Distinguish between Journal date and article date as well as online date and other date?
+    }else if(this.currentTag == "CopyrightYear"){
+        result.publicationYear = Number(text);
     }
 });
 
@@ -54,6 +55,7 @@ APlusPlusHelper.prototype.parseFile = function(path, callback){
     // TODO: I need another model class..
     result.identifiers = [];
     result.contributors = [];
+    result.embodiedAs = [];
     // TODO: Is this always right?
     result.type = "Article";
     var stream = fs.createReadStream(path).pipe(this.sax);
