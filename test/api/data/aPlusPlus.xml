@@ -1,0 +1,2222 @@
+<?xml version='1.0' encoding='utf8'?>
+<Publisher xmlns:ns0="http://www.springer.com/app/meta" xml:lang="en"><PublisherInfo>
+    <PublisherName>Springer International Publishing</PublisherName>
+    <PublisherLocation>Cham</PublisherLocation>
+    <PublisherImprintName>Springer</PublisherImprintName>
+  </PublisherInfo><Journal OutputMedium="All">
+    <JournalInfo JournalProductType="ArchiveJournal" NumberingStyle="Unnumbered">
+      <JournalID>13317</JournalID>
+      <JournalDOI>10.1007/13317.2038-3274</JournalDOI>
+      <JournalPrintISSN>2038-0305</JournalPrintISSN>
+      <JournalElectronicISSN>2038-3274</JournalElectronicISSN>
+      <JournalTitle>Autoimmunity Highlights</JournalTitle>
+      <JournalAbbreviatedTitle>Autoimmun Highlights</JournalAbbreviatedTitle>
+      <JournalSubjectGroup>
+        <JournalSubject Code="SCB" Type="Primary">Biomedicine</JournalSubject>
+        <JournalSubject Code="SCB14000" Priority="1" Type="Secondary">Immunology</JournalSubject>
+        <SubjectCollection Code="SC3">Biomedical and Life Sciences</SubjectCollection>
+      </JournalSubjectGroup>
+    </JournalInfo>
+    <Volume OutputMedium="All">
+      <VolumeInfo TocLevels="0" VolumeType="Regular">
+        <VolumeIDStart>6</VolumeIDStart>
+        <VolumeIDEnd>6</VolumeIDEnd>
+        <VolumeIssueCount>3</VolumeIssueCount>
+      </VolumeInfo>
+      <Issue IssueType="Regular" OutputMedium="All">
+        <IssueInfo IssueType="Regular" TocLevels="0">
+          <IssueIDStart>3</IssueIDStart>
+          <IssueIDEnd>3</IssueIDEnd>
+          <IssueArticleCount>2</IssueArticleCount>
+          <IssueHistory>
+            <OnlineDate>
+              <Year>2015</Year>
+              <Month>11</Month>
+              <Day>4</Day>
+            </OnlineDate>
+            <PrintDate>
+              <Year>2015</Year>
+              <Month>11</Month>
+              <Day>4</Day>
+            </PrintDate>
+            <CoverDate>
+              <Year>2015</Year>
+              <Month>12</Month>
+            </CoverDate>
+            <PricelistYear>2015</PricelistYear>
+          </IssueHistory>
+          <IssueCopyright>
+            <CopyrightHolderName>The Author(s)</CopyrightHolderName>
+            <CopyrightYear>2015</CopyrightYear>
+          </IssueCopyright>
+        </IssueInfo>
+        <Article ID="s13317-015-0071-9" OutputMedium="All">
+          <ArticleInfo ArticleType="OriginalPaper" ContainsESM="No" Language="En" NumberingStyle="Unnumbered" TocLevels="0">
+            <ArticleID>71</ArticleID>
+            <ArticleDOI>10.1007/s13317-015-0071-9</ArticleDOI>
+            <ArticleSequenceNumber>2</ArticleSequenceNumber>
+            <ArticleTitle Language="En" OutputMedium="All">Typical evanescent and atypical persistent polymorphic cutaneous rash in an adult Brazilian with Still’s disease: a case report and review of the literature</ArticleTitle>
+            <ArticleCategory>Case Report</ArticleCategory>
+            <ArticleFirstPage>39</ArticleFirstPage>
+            <ArticleLastPage>46</ArticleLastPage>
+            <ArticleHistory>
+              <RegistrationDate>
+                <Year>2015</Year>
+                <Month>9</Month>
+                <Day>12</Day>
+              </RegistrationDate>
+              <Received>
+                <Year>2015</Year>
+                <Month>6</Month>
+                <Day>18</Day>
+              </Received>
+              <Accepted>
+                <Year>2015</Year>
+                <Month>9</Month>
+                <Day>11</Day>
+              </Accepted>
+              <OnlineDate>
+                <Year>2015</Year>
+                <Month>9</Month>
+                <Day>30</Day>
+              </OnlineDate>
+            </ArticleHistory>
+            <ArticleFundingInformation>
+              <Fund>
+                <FunderName>Bridgeport Hospital/Yale New Haven</FunderName>
+              </Fund>
+            </ArticleFundingInformation>
+            <ArticleCopyright>
+              <CopyrightHolderName>The Author(s)</CopyrightHolderName>
+              <CopyrightYear>2015</CopyrightYear>
+            </ArticleCopyright>
+            <ArticleGrants Type="OpenChoice">
+              <MetadataGrant Grant="OpenAccess" />
+              <AbstractGrant Grant="OpenAccess" />
+              <BodyPDFGrant Grant="OpenAccess" />
+              <BodyHTMLGrant Grant="OpenAccess" />
+              <BibliographyGrant Grant="OpenAccess" />
+              <ESMGrant Grant="OpenAccess" />
+            </ArticleGrants>
+          </ArticleInfo>
+          <ArticleHeader>
+            <AuthorGroup>
+              <Author AffiliationIDS="Aff1" CorrespondingAffiliationID="Aff1" ID="Au1">
+                <AuthorName DisplayOrder="Western">
+                  <GivenName>Despina</GivenName>
+                  <FamilyName>Michailidou</FamilyName>
+                </AuthorName>
+                <Contact>
+                  <Email>de.michailidou@gmail.com</Email>
+                </Contact>
+              </Author>
+              <Author AffiliationIDS="Aff1" ID="Au2">
+                <AuthorName DisplayOrder="Western">
+                  <GivenName>Junghee</GivenName>
+                  <FamilyName>Shin</FamilyName>
+                </AuthorName>
+              </Author>
+              <Author AffiliationIDS="Aff2" ID="Au3">
+                <AuthorName DisplayOrder="Western">
+                  <GivenName>Inga</GivenName>
+                  <FamilyName>Forde</FamilyName>
+                </AuthorName>
+              </Author>
+              <Author AffiliationIDS="Aff1" ID="Au4">
+                <AuthorName DisplayOrder="Western">
+                  <GivenName>Kavitha</GivenName>
+                  <FamilyName>Gopalratnam</FamilyName>
+                </AuthorName>
+              </Author>
+              <Author AffiliationIDS="Aff3" ID="Au5">
+                <AuthorName DisplayOrder="Western">
+                  <GivenName>Paul</GivenName>
+                  <FamilyName>Cohen</FamilyName>
+                </AuthorName>
+              </Author>
+              <Author AffiliationIDS="Aff1" ID="Au6">
+                <AuthorName DisplayOrder="Western">
+                  <GivenName>Angela</GivenName>
+                  <FamilyName>DeGirolamo</FamilyName>
+                </AuthorName>
+              </Author>
+              <Affiliation ID="Aff1">
+                <OrgDivision>Department of Internal Medicine, Bridgeport Hospital</OrgDivision>
+                <OrgName>Yale-New Haven Health System</OrgName>
+                <OrgAddress>
+                  <City>Bridgeport</City>
+                  <State>CT</State>
+                  <Country>USA</Country>
+                </OrgAddress>
+              </Affiliation>
+              <Affiliation ID="Aff2">
+                <OrgDivision>Section of Pulmonary, Critical Care and Sleep Medicine, Bridgeport Hospital</OrgDivision>
+                <OrgName>Yale-New Haven Health System</OrgName>
+                <OrgAddress>
+                  <City>Bridgeport</City>
+                  <State>CT</State>
+                  <Country>USA</Country>
+                </OrgAddress>
+              </Affiliation>
+              <Affiliation ID="Aff3">
+                <OrgDivision>Department of Pathology, Bridgeport Hospital</OrgDivision>
+                <OrgName>Yale University School of Medicine</OrgName>
+                <OrgAddress>
+                  <City>New Haven</City>
+                  <State>CT</State>
+                  <Country>USA</Country>
+                </OrgAddress>
+              </Affiliation>
+            </AuthorGroup>
+            <Abstract ID="Abs1" Language="En" OutputMedium="All">
+              <Heading>Abstract</Heading>
+              <Para ID="Par1">Adult onset Still’s disease (AOSD) is a systemic auto-inflammatory condition of unknown etiology, characterized by high fever, an evanescent, salmon-pink maculopapular skin rash, arthralgia or arthritis and leukocytosis. AOSD can also present with atypical cutaneous manifestations, such as persistent pruritic coalescent papules or plaques and linear lesions that have highly distinctive pathological features and are usually associated with severe disease. Herein, we present a 31-year-old Brazilian man with both typical Still’s rash and atypical persistent polymorphic cutaneous manifestations associated with severe systemic inflammatory response syndrome. Eosinophils that are consistently lacking in the AOSD-associated skin lesions were evident in the skin biopsy of the persistent atypical cutaneous manifestations and were either drug-related or AOSD-associated.</Para>
+            </Abstract>
+            <KeywordGroup Language="En" OutputMedium="All">
+              <Heading>Keywords</Heading>
+              <Keyword>AOSD</Keyword>
+              <Keyword>Systemic inflammatory response syndrome</Keyword>
+              <Keyword>Eosinophils</Keyword>
+              <Keyword>Atypical cutaneous manifestations</Keyword>
+            </KeywordGroup>
+          </ArticleHeader>
+          <Body>
+            <Section1 ID="Sec1" Type="Introduction">
+              <Heading>Introduction</Heading>
+              <Para ID="Par2">Adult onset Still’s disease (AOSD) is a systemic auto-inflammatory condition of unknown etiology, characterized by intermittent spiking high fever, an evanescent, salmon-pink or erythematous maculopapular skin rash, arthralgia or arthritis and leukocytosis with at least 80 % neutrophils [<CitationRef CitationID="CR1">1</CitationRef>]. Other common symptoms include sore throat, lymphadenopathy, hepatomegaly, and splenomegaly [<CitationRef CitationID="CR2">2</CitationRef>]. High serum ferritin levels, elevated ESR and high CRP levels, absent antinuclear antibody (ANA) and rheumatoid factors (RF) are the most common laboratory findings [<CitationRef CitationID="CR3">3</CitationRef>, <CitationRef CitationID="CR4">4</CitationRef>]. We report a case of AOSD in a 31-year-old Brazilian man presenting with both typical Still’s rash and atypical non-evanescent polymorphic cutaneous manifestations.</Para>
+            </Section1>
+            <Section1 ID="Sec2">
+              <Heading>Case presentation</Heading>
+              <Para ID="Par3">A 31-year-old Brazilian male presented with high quotidian fever and night sweats, non-productive cough, lower back pain and erythematous rash for two weeks. The fever occurred almost daily and ranged from 39 to 40 °C. The rash started from both hands and was characterized by multiple erythematous confluent roundish macules and papules that coalesced to form large, irregular erythematous plaques (Fig. <InternalRef RefID="Fig1">1</InternalRef>). The rash lasted for a few days and then appeared with a different morphology on the flexor surfaces of his arms as an extensive erythematous linear urticarial eruption (Fig. <InternalRef RefID="Fig2">2</InternalRef>a). Subsequently the rash appeared on his upper and lower trunk as multiple intensely pruritic linear urticarial streaks (Fig. <InternalRef RefID="Fig2">2</InternalRef>b). Ibuprofen has been used intermittently to alleviate back pain as well as the fever with minimal relief. He denied any contacts with sick individuals, insect or animal bites and his last trip was to Brazil 10 months ago. He has been sexually active in a monogamous relationship.<Figure Category="Standard" Float="Yes" ID="Fig1">
+                  <Caption Language="En">
+                    <CaptionNumber>Fig. 1</CaptionNumber>
+                    <CaptionContent>
+                      <SimplePara>Typical evanescent rash: Multiple non-pruritic confluent erythematous macules and papules on the dorsal surface of both hands that coalesced to form irregular erythematous plaques</SimplePara>
+                    </CaptionContent>
+                  </Caption>
+                  <MediaObject ID="MO1">
+                    <ImageObject Color="Color" FileRef="MediaObjects/13317_2015_71_Fig1_HTML.jpg" Format="JPEG" Rendition="HTML" Type="Halftone" />
+                  </MediaObject>
+                </Figure>
+                        <Figure Category="Standard" Float="Yes" ID="Fig2">
+                  <Caption Language="En">
+                    <CaptionNumber>Fig. 2</CaptionNumber>
+                    <CaptionContent>
+                      <SimplePara>Atypical urticarial rash: <Emphasis Type="Bold">a</Emphasis> linear urticarial eruption on the flexor surface of arms. <Emphasis Type="Bold">b</Emphasis> Multiple intensely pruritic linear urticarial streaks on the upper and lower trunk</SimplePara>
+                    </CaptionContent>
+                  </Caption>
+                  <MediaObject ID="MO2">
+                    <ImageObject Color="Color" FileRef="MediaObjects/13317_2015_71_Fig2_HTML.jpg" Format="JPEG" Rendition="HTML" Type="Halftone" />
+                  </MediaObject>
+                </Figure>
+                     </Para>
+              <Para ID="Par4">On admission, his temperature was 39 °C and a persistent pigmented plaque V shaped was evident on his anterior chest extending down the midline to the umbilicus (Fig. <InternalRef RefID="Fig3">3</InternalRef>). Further skin examination revealed a confluent salmon-pink papular eruption on his lower back area and a persistent pigmented plaque on the upper area of his back. Besides mild splenomegaly and a tender right wrist, left second and third proximal interphalangeal joints with no signs of swelling or erythema, the rest of the physical exam was unremarkable. Laboratory profile revealed severe neutrophilic leukocytosis (30,000, normal values 4800–10,800/mcL), and a highly elevated serum ferritin levels (&gt;10,000, normal values 17.90–464.00 ng/mL). Autoantibodies (including ANA, ANCA, RF and anti-CCP) were negative. Blood cultures excluded common viral and bacterial infections and RPR were negative. Serological tests for Hepatitis B and C, HIV, Epstein-Barr and Cytomegalovirus were negative. <Emphasis Type="Italic">Borrelia burgdorferi</Emphasis>, <Emphasis Type="Italic">Bartonella henselae</Emphasis>, <Emphasis Type="Italic">Rickettsia typhi</Emphasis>, <Emphasis Type="Italic">RMSF</Emphasis>, <Emphasis Type="Italic">Typhus</Emphasis> and Parvovirus B-19 serologies were negative as well. Parasites for malaria or <Emphasis Type="Italic">Babesia microti</Emphasis> were undetectable on peripheral blood smear. Transthoracic echocardiogram was negative for vegetations and computed tomography (CT) of the neck, chest and abdomen revealed only borderline mild splenomegaly.<Figure Category="Standard" Float="Yes" ID="Fig3">
+                  <Caption Language="En">
+                    <CaptionNumber>Fig. 3</CaptionNumber>
+                    <CaptionContent>
+                      <SimplePara>Atypical persistent rash: persistent pigmented plaque V shaped on the anterior chest extending down the midline to the umbilicus</SimplePara>
+                    </CaptionContent>
+                  </Caption>
+                  <MediaObject ID="MO3">
+                    <ImageObject Color="Color" FileRef="MediaObjects/13317_2015_71_Fig3_HTML.jpg" Format="JPEG" Rendition="HTML" Type="Halftone" />
+                  </MediaObject>
+                </Figure>
+                     </Para>
+              <Para ID="Par5">The clinical and laboratory findings were consistent with the diagnosis of AOSD according to Yamaguchi criteria [<CitationRef CitationID="CR2">2</CitationRef>]. He was started on 50 mg of prednisone. After 2 weeks of treatment, he returned to our hospital with very high daily spiking fever up to 39.5 °C, perfuse sweating, hypotension, elevated liver enzymes and severe leukocytosis with neutrophil predominance. No new skin lesions were noted. The patient was admitted to intensive care unit due to suspected systemic inflammatory response syndrome and was started on broad-spectrum antibiotics and intravenous fluids. Since the blood cultures were negative, antibiotics were discontinued. Anakinra 100 mg daily subcutaneously was added to 50 mg of prednisone with dramatic resolution of his febrile episodes. The patient was discharged with instructions to gradually taper prednisone.</Para>
+              <Para ID="Par6">After 1 week of treatment with Anakinra and while on 40 mg of prednisone the patient remained afebrile but new erythematous plaques appeared on lower abdominal quadrants and a skin biopsy was performed (Fig. <InternalRef RefID="Fig4">4</InternalRef>). Skin biopsy showed a normal epidermis, with an inflammatory infiltrate in the dermis surrounding superficial blood vessels and adnexal structures, and the interstitium as well (Fig. <InternalRef RefID="Fig5">5</InternalRef>a). The inflammatory infiltrate composed of lymphocytes, neutrophils and eosinophils (Fig. <InternalRef RefID="Fig5">5</InternalRef>b). Because of the persistent cutaneous manifestations, the patient was advised to apply on the persistent eruptions of his chest and abdomen triamcinolone cream 0.5 % twice daily. After 1-month follow-up, the skin rash on the above areas almost resolved.<Figure Category="Standard" Float="Yes" ID="Fig4">
+                  <Caption Language="En">
+                    <CaptionNumber>Fig. 4</CaptionNumber>
+                    <CaptionContent>
+                      <SimplePara>Atypical persistent pruritic eruption: edematous erythematous plaques on lower abdominal quadrants. Stich denotes the site of skin biopsy</SimplePara>
+                    </CaptionContent>
+                  </Caption>
+                  <MediaObject ID="MO4">
+                    <ImageObject Color="Color" FileRef="MediaObjects/13317_2015_71_Fig4_HTML.jpg" Format="JPEG" Rendition="HTML" Type="Halftone" />
+                  </MediaObject>
+                </Figure>
+                        <Figure Category="Standard" Float="Yes" ID="Fig5">
+                  <Caption Language="En">
+                    <CaptionNumber>Fig. 5</CaptionNumber>
+                    <CaptionContent>
+                      <SimplePara>
+                                    <Emphasis Type="Bold">a</Emphasis> Hematoxylin and eosin (H&amp;E) stain showing periadnexal and perivascular infiltrate of inflammatory cells surrounding blood vessels, hair follicles and the interstitium (in between the vessels and adnexal structures). Original magnification at ×100. <Emphasis Type="Bold">b</Emphasis> H&amp;E stain showing perivascular inflammatory infiltration of lymphocytes, neutrophils and eosinophils. Original magnification at ×400</SimplePara>
+                    </CaptionContent>
+                  </Caption>
+                  <MediaObject ID="MO5">
+                    <ImageObject Color="Color" FileRef="MediaObjects/13317_2015_71_Fig5_HTML.jpg" Format="JPEG" Rendition="HTML" Type="Halftone" />
+                  </MediaObject>
+                </Figure>
+                     </Para>
+            </Section1>
+            <Section1 ID="Sec3" Type="Discussion">
+              <Heading>Discussion</Heading>
+              <Para ID="Par7">Review of literature, via the PubMed search, using the terms adult onset Still’s disease, cutaneous manifestations and eruptions from 1985 to 2014 to retrieve data on the diversity in clinical manifestations and histopathological findings of polymorphic Still’s rash, was performed (Table <InternalRef RefID="Tab1">1</InternalRef>). AOSD is a rare young adult systemic autoimmune disorder with diverse clinical manifestations and occasionally unwanted serious organ damage like acute liver failure, adult respiratory distress syndrome, disseminated intravascular coagulation, and hemophagocytic syndrome [<CitationRef CitationID="CR5">5</CitationRef>–<CitationRef CitationID="CR10">10</CitationRef>]. Thus, early recognition of AOSD is crucial and should be always considered in the differential diagnosis of a systemic inflammatory syndrome, particularly when extensive microbiological workup is negative.<Table Float="Yes" ID="Tab1">
+                  <Caption Language="En">
+                    <CaptionNumber>Table 1</CaptionNumber>
+                    <CaptionContent>
+                      <SimplePara>Clinical manifestations and histopathological findings of Still’s disease</SimplePara>
+                    </CaptionContent>
+                  </Caption>
+                  <tgroup cols="7">
+                    <colspec align="left" colname="c1" colnum="1" />
+                    <colspec align="left" colname="c2" colnum="2" />
+                    <colspec align="left" colname="c3" colnum="3" />
+                    <colspec align="left" colname="c4" colnum="4" />
+                    <colspec align="left" colname="c5" colnum="5" />
+                    <colspec align="left" colname="c6" colnum="6" />
+                    <colspec align="left" colname="c7" colnum="7" />
+                    <thead>
+                      <row>
+                        <entry align="left" colname="c1">
+                          <SimplePara>Author/Year</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c2">
+                          <SimplePara>No of patients/ age (range) /Sex</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c3">
+                          <SimplePara>Clinical presentation</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c4">
+                          <SimplePara>Laboratory findings</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c5">
+                          <SimplePara>Cutaneous manifestation</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c6">
+                          <SimplePara>Skin Histology</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c7">
+                          <SimplePara>Treatment</SimplePara>
+                        </entry>
+                      </row>
+                    </thead>
+                    <tbody>
+                      <row>
+                        <entry align="left" colname="c1">
+                          <SimplePara>Wouters et al. [<CitationRef CitationID="CR12">12</CitationRef>]</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c2">
+                          <SimplePara>1/66 /F 1/62/M</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c3">
+                          <SimplePara>Polyarthritis, fever, splenomegaly</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c4">
+                          <SimplePara>Leukocytosis, anemia, increased ESRand liver enzymes</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c5">
+                          <SimplePara>Evanescent macular nonpruritic rash on trunk, limbs</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c6">
+                          <SimplePara>-</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c7">
+                          <SimplePara>NSAIDs, Penicillamine</SimplePara>
+                        </entry>
+                      </row>
+                      <row>
+                        <entry align="left" colname="c1">
+                          <SimplePara>Phillips et al. [<CitationRef CitationID="CR21">21</CitationRef>]</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c2">
+                          <SimplePara>1/51/F</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c3">
+                          <SimplePara>Arthralgia, sore throat, lethargy, night sweats</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c4">
+                          <SimplePara>Leukocytosis, anemia, increased ESR, liver enzymes &amp; ferritin</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c5">
+                          <SimplePara>Evanescent erythematous maculopapular pruritic rash on trunk, limbs, face</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c6">
+                          <SimplePara>Perivascular infiltrate in upper dermis and dermal mucin deposition</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c7">
+                          <SimplePara>NSAIDs, Methotrexate</SimplePara>
+                        </entry>
+                      </row>
+                      <row>
+                        <entry align="left" colname="c1">
+                          <SimplePara>Tay et al. [<CitationRef CitationID="CR27">27</CitationRef>]</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c2">
+                          <SimplePara>1/33/F</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c3">
+                          <SimplePara>Fever, arthralgia, malaise, sore throat, headache, lymphadenopathy, hepatomegaly</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c4">
+                          <SimplePara>Leukocytosis, anemia, increased ESR, CRP &amp; immunoglobulins</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c5">
+                          <SimplePara>Evanescent urticarial-like erythematous maculopapular pruritic rash on trunk, limbs</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c6">
+                          <SimplePara>Edema of the upper dermis with perivascular neutrophils and eosinophils</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c7">
+                          <SimplePara>NSAIDs, Prednisolone</SimplePara>
+                        </entry>
+                      </row>
+                      <row>
+                        <entry align="left" colname="c1">
+                          <SimplePara>Setterfield et al. [<CitationRef CitationID="CR30">30</CitationRef>]</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c2">
+                          <SimplePara>1/32/F</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c3">
+                          <SimplePara>Arthralgia, sore throat, fever, anorexia, weight loss</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c4">
+                          <SimplePara>Leukocytosis, anemia, increased ESR, CRP &amp; ferritin</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c5">
+                          <SimplePara>Persistent urticarial annular pruritic lesions on trunk and limbs</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c6">
+                          <SimplePara>Dermal edema, perivascular neutrophilic infiltrate</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c7">
+                          <SimplePara>NSAIDs</SimplePara>
+                        </entry>
+                      </row>
+                      <row>
+                        <entry align="left" colname="c1">
+                          <SimplePara>Lubbe et al. [<CitationRef CitationID="CR33">33</CitationRef>]</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c2">
+                          <SimplePara>1/16/F</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c3">
+                          <SimplePara>Fever, arthritis, sore throat, pericardial effusion, hepatosplenomegaly</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c4">
+                          <SimplePara>Leukocytosis, anemia, increased ESR, CRP &amp; ferritin</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c5">
+                          <SimplePara>Evanescent maculopapular lesions on chest, persistent brownish papules and plaques on face, neck, back</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c6">
+                          <SimplePara>Parakeratosis, acanthosis and scattered intraepithelial keratinocyte necroses</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c7">
+                          <SimplePara>NSAIDs, Prednisone</SimplePara>
+                        </entry>
+                      </row>
+                      <row>
+                        <entry align="left" colname="c1">
+                          <SimplePara>Salaffi et al. [<CitationRef CitationID="CR36">36</CitationRef>]</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c2">
+                          <SimplePara>1/55/F</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c3">
+                          <SimplePara>Fever, arthralgia, fatigue</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c4">
+                          <SimplePara>Leukocytosis, anemia, increased ESR, CRP &amp; ferritin</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c5">
+                          <SimplePara>Urticarial pruritic rash on trunk, limbs and face</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c6">
+                          <SimplePara>Dermal edema with perivascular and interstitial neutrophilic infiltrate</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c7">
+                          <SimplePara>NSAIDs, Prednisone, Methotrexate</SimplePara>
+                        </entry>
+                      </row>
+                      <row>
+                        <entry align="left" colname="c1">
+                          <SimplePara>Suzuki et al. [<CitationRef CitationID="CR18">18</CitationRef>]</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c2">
+                          <SimplePara>1/25/M</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c3">
+                          <SimplePara>Fever, arthralgia, fatigue</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c4">
+                          <SimplePara>Leukocytosis, anemia, increased ESR, CRP, liver enzymes &amp; ferritin</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c5">
+                          <SimplePara>Persistent papules and plaques on trunk, linear pigmentation on chest and back</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c6">
+                          <SimplePara>Mild perivascular infiltration of neutrophils and lymphocytes.</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c7">
+                          <SimplePara>NSAIDs, Prednisolone, Methotrexate</SimplePara>
+                        </entry>
+                      </row>
+                      <row>
+                        <entry align="left" colname="c1">
+                          <SimplePara>Perez et al. [<CitationRef CitationID="CR43">43</CitationRef>]</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c2">
+                          <SimplePara>1/39/M</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c3">
+                          <SimplePara>Polyarthritis, sore throat, fever, chills, lymphadenopathy, hepatosplenomegaly</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c4">
+                          <SimplePara>Leukocytosis, increased ESR, CRP liver enzymes &amp; ferritin</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c5">
+                          <SimplePara>Erythematous papules and plaques on neck, trunk, limbs</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c6">
+                          <SimplePara>Perivascular infiltrate of dermal vessels with eosinophils, histiocytes, lymphocytes and neutrophils within vessels</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c7">
+                          <SimplePara>NSAIDs, Prednisone</SimplePara>
+                        </entry>
+                      </row>
+                      <row>
+                        <entry align="left" colname="c1">
+                          <SimplePara>Lee et al. [<CitationRef CitationID="CR25">25</CitationRef>]</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c2">
+                          <SimplePara>1/46/F</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c3">
+                          <SimplePara>Arthralgia, high fever, headache, nausea, splenomegaly</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c4">
+                          <SimplePara>Anemia, thrombocytopenia, increased ESR, liver enzymes &amp;ferritin</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c5">
+                          <SimplePara>Vesicular and pustular eruption on hands and feet</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c6">
+                          <SimplePara>Fibrin deposit in the vessels, subepidermal bulla and ischemic necrosis of epidermis</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c7">
+                          <SimplePara>NSAIDs, Corticosteroids</SimplePara>
+                        </entry>
+                      </row>
+                      <row>
+                        <entry align="left" colname="c1">
+                          <SimplePara>Elezoglou et al. [<CitationRef CitationID="CR42">42</CitationRef>]</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c2">
+                          <SimplePara>1/47/M</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c3">
+                          <SimplePara>Fever, arthralgia, malaise, sore throat, hepatosplenomegaly glomerulonephritis</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c4">
+                          <SimplePara>Leukocytosis, anemia, increased CRP, liver enzymes &amp; ferritin, cryoglobulinemia</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c5">
+                          <SimplePara>Evanescent maculopapular pruritic rash on head, trunk, buttocks, groin, annular purpuric plaques on ankles and shins</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c6">
+                          <SimplePara>Leuko-cytoclastic vasculitis</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c7">
+                          <SimplePara>Methyl-prednisolone, Methotrexate</SimplePara>
+                        </entry>
+                      </row>
+                      <row>
+                        <entry align="left" colname="c1">
+                          <SimplePara>Thien Huong et al. [<CitationRef CitationID="CR17">17</CitationRef>]</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c2">
+                          <SimplePara>1/23/F</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c3">
+                          <SimplePara>Fever, polyarthralgia, polyadenopathy, myalgia</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c4">
+                          <SimplePara>Leukocytosis, increased ESR &amp; ferritin</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c5">
+                          <SimplePara>Persistent pigmented plaques on trunk</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c6">
+                          <SimplePara>-</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c7">
+                          <SimplePara>Corticosteroids</SimplePara>
+                        </entry>
+                      </row>
+                      <row>
+                        <entry align="left" colname="c1">
+                          <SimplePara>Tomaru et al. [<CitationRef CitationID="CR23">23</CitationRef>]</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c2">
+                          <SimplePara>1/34/F</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c3">
+                          <SimplePara>Fever, polyarthralgia, lymphadenopathy</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c4">
+                          <SimplePara>Leukocytosis, increased CRP, liver enzymes &amp; ferritin</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c5">
+                          <SimplePara>Persistent pruritic erythematous papules with linear arrangement and pigmentary changes on chest and back, evanescent salmon-pink eruption on lower extremities</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c6">
+                          <SimplePara>Mild acanthosis, exocytosis, dyskeratotic cells and liquefaction degeneration in the basal layer, with lichenoid inflammatory reaction</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c7">
+                          <SimplePara>Corticosteroids, Cyclosporine, Methotrexate</SimplePara>
+                        </entry>
+                      </row>
+                      <row>
+                        <entry align="left" colname="c1">
+                          <SimplePara>Criado et al. [<CitationRef CitationID="CR31">31</CitationRef>]</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c2">
+                          <SimplePara>1/52/F</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c3">
+                          <SimplePara>Fever, polyarthralgia, sore throat, mild hepatomegaly, lymphadenopathy</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c4">
+                          <SimplePara>Leukocytosis, increased ESR, CRP, &amp; ferritin, hypergammaglobulinemia</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c5">
+                          <SimplePara>Lenticular urticaria-like rash on face, thorax, abdomen, hands</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c6">
+                          <SimplePara>Interstitial edema in reticular and papillar dermis with neutrophils and leukocytes around vasculitis-free vessels.</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c7">
+                          <SimplePara>NSAIDs, Methotrexate, Thalidomide</SimplePara>
+                        </entry>
+                      </row>
+                      <row>
+                        <entry align="left" colname="c1">
+                          <SimplePara>Yang et al. [<CitationRef CitationID="CR35">35</CitationRef>]</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c2">
+                          <SimplePara>1/47/F</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c3">
+                          <SimplePara>Fever, polyarthralgia, sore throat, myalgia, pleural effusion, splenomegaly</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c4">
+                          <SimplePara>Leukocytosis, elevated liver enzymes &amp; ferritin</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c5">
+                          <SimplePara>Persistent violaceous scaly maculopapular rash with linear lesions on forehead, neck, elbows, knees</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c6">
+                          <SimplePara>Necrotic keratinocytes in the upper epidermis and perivascular infiltrate of lymphocytes and neutrophils</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c7">
+                          <SimplePara>Methyl-prednisolone, Azathioprine</SimplePara>
+                        </entry>
+                      </row>
+                      <row>
+                        <entry align="left" colname="c1">
+                          <SimplePara>Wolgamot et al. [<CitationRef CitationID="CR39">39</CitationRef>]</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c2">
+                          <SimplePara>1/55/F</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c3">
+                          <SimplePara>Fever, polyarthralgia</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c4">
+                          <SimplePara>Leukocytosis, increased ESR, CRP</SimplePara>
+                          <SimplePara>&amp; ferritin</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c5">
+                          <SimplePara>Pruritic maculopapular rash, plaques on face, extremities, trunk</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c6">
+                          <SimplePara>Pattern with dyskeratotic keratinocytes in upper epidermis and stratum corneum</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c7">
+                          <SimplePara>Prednisone, Methotrexate, Etanercept, Anakinra</SimplePara>
+                        </entry>
+                      </row>
+                      <row>
+                        <entry align="left" colname="c1">
+                          <SimplePara>Yanai et al. [<CitationRef CitationID="CR41">41</CitationRef>]</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c2">
+                          <SimplePara>1/43/M</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c3">
+                          <SimplePara>Fever, arthralgia, myalgia, myositis</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c4">
+                          <SimplePara>Increased fibrinogen CRP, creatine kinase &amp; ferritin</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c5">
+                          <SimplePara>Salmon-pink rash on upper arm</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c6">
+                          <SimplePara>Perivascular lymphocytes infiltration and fragmentation of blood cells compatible with leukocytoclastic vasculitis</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c7">
+                          <SimplePara>NSAIDs, corticosteroids</SimplePara>
+                        </entry>
+                      </row>
+                      <row>
+                        <entry align="left" colname="c1">
+                          <SimplePara>Fortna et al. [<CitationRef CitationID="CR40">40</CitationRef>]</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c2">
+                          <SimplePara>3/15-54/F</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c3">
+                          <SimplePara>Fever, polyarthralgia, myalgia, sore throat</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c4">
+                          <SimplePara>Leukocytosis, increased ESR, CRP, liver enzymes &amp; ferritin</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c5">
+                          <SimplePara>Pruritic erythematous blanchable papules and plaques on back, neck, abdomen, limbs</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c6">
+                          <SimplePara>Hyperkeratosis with patchy parakeratosis, areas of dyskeratosis to upper layers of epidermis, and mild acanthosis.</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c7">
+                          <SimplePara>Methyl-prednisolone, Methotrexate, Anakinra</SimplePara>
+                        </entry>
+                      </row>
+                      <row>
+                        <entry align="left" colname="c1">
+                          <SimplePara>Criado et al. [<CitationRef CitationID="CR26">26</CitationRef>]</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c2">
+                          <SimplePara>2/27-34/F</SimplePara>
+                          <SimplePara>1/26/M</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c3">
+                          <SimplePara>Fever, arthritis, sore throat, lymphadenopathy, pleural effusion, splenomegaly</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c4">
+                          <SimplePara>Leukocytosis, anemia, increased ESR, CRP &amp; liver enzymes, hyperferritinemia</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c5">
+                          <SimplePara>Urticarial pruritic rash, linear lesions (dermographism) on trunk, limbs, face</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c6">
+                          <SimplePara>Perivascular and interstitial inflammatory cell infiltrate of lymphocytes and neutrophils with leukocytoclasia.</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c7">
+                          <SimplePara>Prednisone, Chloroquine, Methotrexate,</SimplePara>
+                        </entry>
+                      </row>
+                      <row>
+                        <entry align="left" colname="c1">
+                          <SimplePara>Nagai et al. [<CitationRef CitationID="CR34">34</CitationRef>]</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c2">
+                          <SimplePara>18/16-60/F</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c3">
+                          <SimplePara>Fever, arthralgia, sore throat, splenomegaly, lymphadenopathy</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c4">
+                          <SimplePara>Leukocytosis, increased CRP, liver enzymes &amp; ferritin</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c5">
+                          <SimplePara>Evanescent salmon-pink maculopapular eruption, persistent papules and plaques with linear erythema similar to prurigo pigmentosa, edema of eyelids mimicking dermatomyositis</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c6">
+                          <SimplePara>Parakeratosis and necrotic keratinocytes in epidermis, inflammatory infiltrates of lymphocytes in the papillary and mid-dermis</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c7">
+                          <SimplePara>Corticosteroids, Methotrexate, Mizoribine Cyclosporin, Cyclophosphamide</SimplePara>
+                        </entry>
+                      </row>
+                      <row>
+                        <entry align="left" colname="c1">
+                          <SimplePara>Lee et al. [<CitationRef CitationID="CR14">14</CitationRef>]</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c2">
+                          <SimplePara>30/17-67/F</SimplePara>
+                          <SimplePara>6/17-67/M</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c3">
+                          <SimplePara>Fever, arthralgia, sore throat, splenomegaly, lymphadenopathy</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c4">
+                          <SimplePara>Leukocytosis, elevated liver enzymes &amp; ferritin</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c5">
+                          <SimplePara>Evanescent rash, persistent pruritic urticarial, violaceous papules and plaques, dermatographism-like, prurigo pigmentosa-like and dermatomyositis-like eruption on trunk, neck, face, limbs</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c6">
+                          <SimplePara>Normal epidermis with perivascular infiltrate of neutrophils, nectrotic keratinocytes in upper epidermis.</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c7">
+                          <SimplePara>NSAIDs, Corticosteroids, Methotrexate, Azathioprine</SimplePara>
+                        </entry>
+                      </row>
+                      <row>
+                        <entry align="left" colname="c1">
+                          <SimplePara>Yoshifuku et al. [<CitationRef CitationID="CR16">16</CitationRef>]</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c2">
+                          <SimplePara>1/27/F</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c3">
+                          <SimplePara>Fever, polyarthralgia, sore throat, hepatosplenomegaly lymphadenopathy</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c4">
+                          <SimplePara>Leukocytosis, increased CRP, elevated liver enzymes &amp; ferritin</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c5">
+                          <SimplePara>Pruritic pigmented erythematous plaques and dark-reddish papules on abdomen and back</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c6">
+                          <SimplePara>Mild hyperkeratosis, and presence of dyskeratotic keratinocytes in upper epidermis</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c7">
+                          <SimplePara>Corticosteroids, Cyclosporin,</SimplePara>
+                        </entry>
+                      </row>
+                      <row>
+                        <entry align="left" colname="c1">
+                          <SimplePara>Said et al. [<CitationRef CitationID="CR37">37</CitationRef>]</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c2">
+                          <SimplePara>1/23/M</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c3">
+                          <SimplePara>Fever, sore throat, myopericarditis, arthralgia, hepatosplenomegaly</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c4">
+                          <SimplePara>Leukocytosis, increased ESR &amp;CRP, elevated ferritin, raised cardiac enzymes</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c5">
+                          <SimplePara>Urticated and erythematous plaques and papules on the dorsum of right hand and fingers</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c6">
+                          <SimplePara>Superficial and deep perivascular infiltrates of lymphocytes and neutrophils</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c7">
+                          <SimplePara>Corticosteroids,</SimplePara>
+                          <SimplePara>NSAIDs, Azathioprine</SimplePara>
+                        </entry>
+                      </row>
+                      <row>
+                        <entry align="left" colname="c1">
+                          <SimplePara>Cho et al. [<CitationRef CitationID="CR24">24</CitationRef>]</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c2">
+                          <SimplePara>1/38/F</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c3">
+                          <SimplePara>Fever, polyarthralgia, sore throat hepatosplenomegaly lymphadenopathy</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c4">
+                          <SimplePara>Leukocytosis, elevated liver enzymes &amp; ferritin</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c5">
+                          <SimplePara>Prurigo pigmentosa-like persistent papules and plaques on anterior chest, abdomen, back</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c6">
+                          <SimplePara>Parakeratosis, and perivascular infiltrations of lymphocytes, eosinophils and neutrophils in upper dermis</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c7">
+                          <SimplePara>Methyl-prednisolone, Methotrexate, Hydroxychloroquine</SimplePara>
+                        </entry>
+                      </row>
+                      <row>
+                        <entry align="left" colname="c1">
+                          <SimplePara>Sarkar et al. [<CitationRef CitationID="CR19">19</CitationRef>]</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c2">
+                          <SimplePara>1/36/M</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c3">
+                          <SimplePara>Fever, arthritis, hepatosplenomegaly hemophagocytic lymphohistiocytosis</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c4">
+                          <SimplePara>Leukocytosis, anemia, increased ESR, CRP, liver enzymes &amp; ferritin, hypoalbuminemia</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c5">
+                          <SimplePara>Pigmented patches and plaques on chest, dermal and mucosal hyper-pigmentation</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c6">
+                          <SimplePara>Multiple necrotic keratinocytes in aggregates in upper epidermis</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c7">
+                          <SimplePara>Corticosteroids</SimplePara>
+                        </entry>
+                      </row>
+                      <row>
+                        <entry align="left" colname="c1">
+                          <SimplePara>Cossi et al. [<CitationRef CitationID="CR38">38</CitationRef>]</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c2">
+                          <SimplePara>1/35/M</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c3">
+                          <SimplePara>Fever, cough, dyspnea myopericarditis</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c4">
+                          <SimplePara>Increased CRP, liver enzymes &amp; ferritin hypergammaglobulinemia</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c5">
+                          <SimplePara>Pruritic erythematous-edematous plaques on trunk, upper limbs</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c6">
+                          <SimplePara>Epidermal spongiosis, dermal infiltrate of perivascular lymphocytes and histiocytes, intra- vascular CD15<Superscript>+</Superscript>neutrophils</SimplePara>
+                        </entry>
+                        <entry align="left" colname="c7">
+                          <SimplePara>Methyl-prednisolone, Immunoglobulin IV Methotrexate</SimplePara>
+                        </entry>
+                      </row>
+                    </tbody>
+                  </tgroup>
+                </Table>
+                     </Para>
+              <Para ID="Par8">The typical skin rash of AOSD is an evanescent salmon-pink non-pruritic or mildly pruritic maculopapular rash, with nonspecific histologic characteristics comprised of a superficial perivascular lymphocytic and scattered neutrophilic infiltrate in the upper epidermis [<CitationRef CitationID="CR11">11</CitationRef>–<CitationRef CitationID="CR13">13</CitationRef>]. The lesions often develop on the extremities and over the trunk during the peak of the fever and then resolve. AOSD can also present with various atypical cutaneous manifestations and persistent pruritic eruptions (PPEs) are common [<CitationRef CitationID="CR14">14</CitationRef>].</Para>
+              <Para ID="Par9">PPEs are polymorphic both in morphology and distribution patterns. The more common patterns include lichenoid, linear and dermographism-like eruptions [<CitationRef CitationID="CR14">14</CitationRef>], persistent pruritic coalescent papules and plaques [<CitationRef CitationID="CR15">15</CitationRef>–<CitationRef CitationID="CR17">17</CitationRef>] with linear pigmentation [<CitationRef CitationID="CR18">18</CitationRef>], dermal and mucosal hyperpigmentation [<CitationRef CitationID="CR19">19</CitationRef>], amyloidosis-like skin eruption [<CitationRef CitationID="CR20">20</CitationRef>], generalized peau d’orange appearance of the skin [<CitationRef CitationID="CR21">21</CitationRef>], generalized persistent erythema [<CitationRef CitationID="CR22">22</CitationRef>], prurigo pigmentosa-like eruption [<CitationRef CitationID="CR23">23</CitationRef>, <CitationRef CitationID="CR24">24</CitationRef>], vesiculopustules [<CitationRef CitationID="CR25">25</CitationRef>], urticaria [<CitationRef CitationID="CR26">26</CitationRef>, <CitationRef CitationID="CR27">27</CitationRef>] and fixed papular lesions [<CitationRef CitationID="CR28">28</CitationRef>]. The latter are characterized by atypical wheals, present for more than 24–36 h, with symmetrical distribution [<CitationRef CitationID="CR29">29</CitationRef>, <CitationRef CitationID="CR30">30</CitationRef>]. Pruritic lesions are usually evident with the presence of linear dermographism from scratching, as was evident in our patient. The most common atypical rash manifestation in AOSD includes the persistent pruritic coalescent papules and plaques and linear lesions [<CitationRef CitationID="CR31">31</CitationRef>].</Para>
+              <Para ID="Par10">In addition to the typical maculopapular evanescent Still’s rash, our patient had also an atypical persistent pigmented eruption manifested with different cutaneous morphology and geographic distribution over his body. The linear urticarial streaky and dermographism-like eruptions on upper extremities and torso sequentially gave place to persistent erythematous plaques on his chest and abdomen. We believe that this type of polymorphic cutaneous eruption may be a predictor of severe systemic inflammatory disease like in our case, and could be associated with activation of macrophages and natural killer cells in addition with increased production of IL-2, interferon-γ and tumor necrosis factor (TNF)- α. High levels of IL-8 were demonstrated in Still’s rash and this cytokine is considered as the inducer of the acute phase of inflammatory cascade in AOSD [<CitationRef CitationID="CR32">32</CitationRef>]. We believe that the cutaneous response to Anakinra was slower than the systemic one, since the febrile episodes resolved rapidly after initiation of Anakinra whereas the skin lesions persisted. The introduction of Anakinra therapy in our patient may have slightly exacerbated the pre-existing cutaneous lesions and caused new ones at the initiation of the treatment probably due to its immune modulating effects. Anakinra has been shown to cause interstitial granulomatous drug reaction [<CitationRef CitationID="CR33">33</CitationRef>, <CitationRef CitationID="CR34">34</CitationRef>]. The application of topical corticosteroids facilitated the resolution of the cutaneous manifestations.
+</Para>
+              <Para ID="Par11">The histological features of persistent eruptions include parakeratosis [<CitationRef CitationID="CR35">35</CitationRef>], necrotic keratinocytes in the upper epidermis and a perivascular and interstitial inflammatory infiltrate of lymphocytes and neutrophils in the upper- and mid-dermis [<CitationRef CitationID="CR36">36</CitationRef>–<CitationRef CitationID="CR39">39</CitationRef>]. In urticarial lesions the histopathologic findings demonstrate an intense infiltrate of mature CD15<Subscript>+</Subscript> neutrophils between the dermal collagen bundles. This clinicopathological entity has recently been described as neutrophilic urticarial dermatosis (NUD) [<CitationRef CitationID="CR40">40</CitationRef>].</Para>
+              <Para ID="Par12">Dyskeratosis and dermal mucinosis represent distinctive cutaneous lesions of AOSD [<CitationRef CitationID="CR41">41</CitationRef>, <CitationRef CitationID="CR42">42</CitationRef>]. The presence of fibrin thrombi in the small vessel with scarce inflammatory cell infiltration, suggestive of vasculopathy [<CitationRef CitationID="CR25">25</CitationRef>] has also been observed in cases of AOSD. Leukocytoclastic cutaneous vasculitis [<CitationRef CitationID="CR43">43</CitationRef>, <CitationRef CitationID="CR44">44</CitationRef>] with mixed cryoglobulinemia [<CitationRef CitationID="CR44">44</CitationRef>] in AOSD has been described only rare in the literature.</Para>
+              <Para ID="Par13">Eosinophils that are commonly seen in drug-induced eruption are consistently lacking in the AOSD-associated skin lesions [<CitationRef CitationID="CR14">14</CitationRef>]. Perez et al. described a case of AOSD-related persistent erythematous rash characterized by papules and plaques in which skin biopsy revealed perivascular infiltration of the small vessels in the dermis by eosinophils, histiocytes and lymphocytes [<CitationRef CitationID="CR45">45</CitationRef>]. In our case, the histopathology findings of the new persistent cutaneous eruption included the presence of several perivascular eosinophils not just in the dermis but also in the interstitium. The eosinophilic cutaneous manifestation could be either drug-related (i.e. antibiotics, Anakinra) or AOSD-associated.</Para>
+              <Para ID="Par14">Treatment of AOSD has been empirical. Non-steroidal anti-inflammatory drugs (NSAIDs), oral corticosteroids, disease modifying anti-rheumatic drugs (DMARDs), methotrexate (MTX), cyclosporine, azathioprine, sulfasalazine and minocycline have been used to treat this rare disease. Recently effective biologic agents including TNF-a, IL-1 and IL-6 antagonist have been used for steroid-resistant AOSD [<CitationRef CitationID="CR46">46</CitationRef>]. Laskari et al. provided evidence that Anakinra monotherapy or in combination with a DMARD, such as MTX may be the treatment of choice for patients with refractory Still’s disease [<CitationRef CitationID="CR47">47</CitationRef>]. MTX is recommended in patients with polyarthritis and allows for steroid dose sparing in AOSD [<CitationRef CitationID="CR48">48</CitationRef>]. Our patient did not respond to corticosteroid treatment, but showed dramatic response to initiation of Anakinra treatment.</Para>
+              <Para ID="Par15">In summary, AOSD can manifest with atypical skin lesions that have highly distinctive but non-pathognomonic pathological features and are usually associated with severe disease. Still’s rash can mimic various disorders with maculopapular, urticarial, linear and lichenoid manifestations and skin biopsy of those atypical cutaneous lesions is strongly recommended before or during the treatment course of AOSD because it allows rheumatologists and pathologists to recognize those specific distinctive histopathological characteristics and put the correct diagnosis.</Para>
+            </Section1>
+          </Body>
+          <BodyRef FileRef="BodyRef/PDF/13317_2015_Article_71.pdf" TargetType="OnlinePDF" />
+          <ArticleBackmatter>
+            <Acknowledgments>
+              <Heading>Acknowledgments</Heading>
+              <SimplePara>We thank Emeritus Professor H.M. Moutsopoulos, MD (Department of Pathophysiology, School of Medicine, National and Kapodistrian University of Athens) for his instructive comments and suggestions.</SimplePara>
+            </Acknowledgments>
+            <Ethics>
+              <Heading>Compliance with ethical standards</Heading>
+              <FormalPara ID="FPar1" RenderingStyle="Style1">
+                <Heading>Conflict of interest</Heading>
+                <Para ID="Par16">There is no conflict of interest. All authors participated in the preparation of this manuscript.</Para>
+              </FormalPara>
+              <FormalPara ID="FPar2" RenderingStyle="Style1">
+                <Heading>Human and animal rights</Heading>
+                <Para ID="Par17">For this case report formal consent is not required.</Para>
+              </FormalPara>
+              <FormalPara ID="FPar3" RenderingStyle="Style1">
+                <Heading>Informed consent</Heading>
+                <Para ID="Par18">Informed consent was obtained from all individual participants included in the study.</Para>
+              </FormalPara>
+            </Ethics>
+            <Bibliography ID="Bib1">
+              <Heading>References</Heading>
+              <Citation ID="CR1">
+                <CitationNumber>1.</CitationNumber>
+                <BibArticle>
+                  <BibAuthorName>
+                    <Initials>B</Initials>
+                    <FamilyName>Fautrel</FamilyName>
+                  </BibAuthorName>
+                  <Year>2008</Year>
+                  <ArticleTitle Language="En">Adult-onset Still disease</ArticleTitle>
+                  <JournalTitle>Best Pract Res Clin Rheumatol</JournalTitle>
+                  <VolumeID>22</VolumeID>
+                  <IssueID>5</IssueID>
+                  <FirstPage>773</FirstPage>
+                  <LastPage>792</LastPage>
+                  <Occurrence Type="DOI">
+                    <Handle>10.1016/j.berh.2008.08.006</Handle>
+                  </Occurrence>
+                  <Occurrence Type="PID">
+                    <Handle>19028363</Handle>
+                  </Occurrence>
+                </BibArticle>
+                <BibUnstructured>Fautrel B (2008) Adult-onset Still disease. Best Pract Res Clin Rheumatol 22(5):773–792</BibUnstructured>
+              </Citation>
+              <Citation ID="CR2">
+                <CitationNumber>2.</CitationNumber>
+                <BibArticle>
+                  <BibAuthorName>
+                    <Initials>M</Initials>
+                    <FamilyName>Yamagushi</FamilyName>
+                  </BibAuthorName>
+                  <BibAuthorName>
+                    <Initials>A</Initials>
+                    <FamilyName>Ohta</FamilyName>
+                  </BibAuthorName>
+                  <BibAuthorName>
+                    <Initials>T</Initials>
+                    <FamilyName>Tsunematsu</FamilyName>
+                  </BibAuthorName>
+                  <Etal />
+                  <Year>1992</Year>
+                  <ArticleTitle Language="En">Preliminary criteria for classification of adult Still’s disease</ArticleTitle>
+                  <JournalTitle>J Rheumatol</JournalTitle>
+                  <VolumeID>19</VolumeID>
+                  <FirstPage>424</FirstPage>
+                  <LastPage>430</LastPage>
+                </BibArticle>
+                <BibUnstructured>Yamagushi M, Ohta A, Tsunematsu T et al (1992) Preliminary criteria for classification of adult Still’s disease. J Rheumatol 19:424–430</BibUnstructured>
+              </Citation>
+              <Citation ID="CR3">
+                <CitationNumber>3.</CitationNumber>
+                <BibArticle>
+                  <BibAuthorName>
+                    <Initials>S</Initials>
+                    <FamilyName>Appenzeller</FamilyName>
+                  </BibAuthorName>
+                  <BibAuthorName>
+                    <Initials>GR</Initials>
+                    <FamilyName>Castro</FamilyName>
+                  </BibAuthorName>
+                  <BibAuthorName>
+                    <Initials>LT</Initials>
+                    <FamilyName>Costallat</FamilyName>
+                  </BibAuthorName>
+                  <Etal />
+                  <Year>2005</Year>
+                  <ArticleTitle Language="En">Adult onset Still disease in southeast Brazil</ArticleTitle>
+                  <JournalTitle>J Clin Rheumatol</JournalTitle>
+                  <VolumeID>11</VolumeID>
+                  <FirstPage>76</FirstPage>
+                  <LastPage>80</LastPage>
+                  <Occurrence Type="DOI">
+                    <Handle>10.1097/01.rhu.0000158544.38663.0a</Handle>
+                  </Occurrence>
+                  <Occurrence Type="PID">
+                    <Handle>16357707</Handle>
+                  </Occurrence>
+                </BibArticle>
+                <BibUnstructured>Appenzeller S, Castro GR, Costallat LT et al (2005) Adult onset Still disease in southeast Brazil. J Clin Rheumatol 11:76–80</BibUnstructured>
+              </Citation>
+              <Citation ID="CR4">
+                <CitationNumber>4.</CitationNumber>
+                <BibArticle>
+                  <BibAuthorName>
+                    <Initials>MAI</Initials>
+                    <FamilyName>Jaime</FamilyName>
+                  </BibAuthorName>
+                  <BibAuthorName>
+                    <Initials>R</Initials>
+                    <FamilyName>Baptista</FamilyName>
+                  </BibAuthorName>
+                  <BibAuthorName>
+                    <Initials>MNL</Initials>
+                    <FamilyName>Azevedo</FamilyName>
+                  </BibAuthorName>
+                  <Etal />
+                  <Year>1998</Year>
+                  <ArticleTitle Language="En">Adult onset Still’s disease: study on 25 cases</ArticleTitle>
+                  <JournalTitle>Rev Bras Rheumatol</JournalTitle>
+                  <VolumeID>38</VolumeID>
+                  <FirstPage>285</FirstPage>
+                  <LastPage>290</LastPage>
+                </BibArticle>
+                <BibUnstructured>Jaime MAI, Baptista R, Azevedo MNL et al (1998) Adult onset Still’s disease: study on 25 cases. Rev Bras Rheumatol 38:285–290</BibUnstructured>
+              </Citation>
+              <Citation ID="CR5">
+                <CitationNumber>5.</CitationNumber>
+                <BibArticle>
+                  <BibAuthorName>
+                    <Initials>JC</Initials>
+                    <FamilyName>Crispin</FamilyName>
+                  </BibAuthorName>
+                  <BibAuthorName>
+                    <Initials>D</Initials>
+                    <FamilyName>Martinez-Banos</FamilyName>
+                  </BibAuthorName>
+                  <BibAuthorName>
+                    <Initials>J</Initials>
+                    <FamilyName>Alcocer-Varela</FamilyName>
+                  </BibAuthorName>
+                  <Year>2005</Year>
+                  <ArticleTitle Language="En">Adult-onset Still disease as the cause of fever of unknown origin</ArticleTitle>
+                  <JournalTitle>Medicine (Baltimore)</JournalTitle>
+                  <VolumeID>84</VolumeID>
+                  <FirstPage>331</FirstPage>
+                  <LastPage>337</LastPage>
+                  <Occurrence Type="DOI">
+                    <Handle>10.1097/01.md.0000188009.47085.76</Handle>
+                  </Occurrence>
+                </BibArticle>
+                <BibUnstructured>Crispin JC, Martinez-Banos D, Alcocer-Varela J (2005) Adult-onset Still disease as the cause of fever of unknown origin. Medicine (Baltimore) 84:331–337</BibUnstructured>
+              </Citation>
+              <Citation ID="CR6">
+                <CitationNumber>6.</CitationNumber>
+                <BibArticle>
+                  <BibAuthorName>
+                    <Initials>EG</Initials>
+                    <FamilyName>Bywaters</FamilyName>
+                  </BibAuthorName>
+                  <Year>1971</Year>
+                  <ArticleTitle Language="En">Still’s disease in the adult</ArticleTitle>
+                  <JournalTitle>Ann Rheum Dis</JournalTitle>
+                  <VolumeID>30</VolumeID>
+                  <IssueID>2</IssueID>
+                  <FirstPage>121</FirstPage>
+                  <LastPage>133</LastPage>
+                  <Occurrence Type="PMCID">
+                    <Handle>1005739</Handle>
+                  </Occurrence>
+                  <Occurrence Type="COI">
+                    <Handle>1:STN:280:DyaE3M3os1SksA%3D%3D</Handle>
+                  </Occurrence>
+                  <Occurrence Type="DOI">
+                    <Handle>10.1136/ard.30.2.121</Handle>
+                  </Occurrence>
+                  <Occurrence Type="PID">
+                    <Handle>5315135</Handle>
+                  </Occurrence>
+                </BibArticle>
+                <BibUnstructured>Bywaters EG (1971) Still’s disease in the adult. Ann Rheum Dis 30(2):121–133</BibUnstructured>
+              </Citation>
+              <Citation ID="CR7">
+                <CitationNumber>7.</CitationNumber>
+                <BibArticle>
+                  <BibAuthorName>
+                    <Initials>O</Initials>
+                    <FamilyName>Dino</FamilyName>
+                  </BibAuthorName>
+                  <BibAuthorName>
+                    <Initials>G</Initials>
+                    <FamilyName>Provenzano</FamilyName>
+                  </BibAuthorName>
+                  <BibAuthorName>
+                    <Initials>G</Initials>
+                    <FamilyName>Giannuoli</FamilyName>
+                  </BibAuthorName>
+                  <Etal />
+                  <Year>1996</Year>
+                  <ArticleTitle Language="En">Fulminant hepatic failure in adult onset Still’s disease</ArticleTitle>
+                  <JournalTitle>J Rheumatol</JournalTitle>
+                  <VolumeID>23</VolumeID>
+                  <IssueID>4</IssueID>
+                  <FirstPage>784</FirstPage>
+                  <LastPage>785</LastPage>
+                  <Occurrence Type="COI">
+                    <Handle>1:STN:280:DyaK283otVWqsw%3D%3D</Handle>
+                  </Occurrence>
+                  <Occurrence Type="PID">
+                    <Handle>8730149</Handle>
+                  </Occurrence>
+                </BibArticle>
+                <BibUnstructured>Dino O, Provenzano G, Giannuoli G et al (1996) Fulminant hepatic failure in adult onset Still’s disease. J Rheumatol 23(4):784–785</BibUnstructured>
+              </Citation>
+              <Citation ID="CR8">
+                <CitationNumber>8.</CitationNumber>
+                <BibArticle>
+                  <BibAuthorName>
+                    <Initials>S</Initials>
+                    <FamilyName>Hirohata</FamilyName>
+                  </BibAuthorName>
+                  <BibAuthorName>
+                    <Initials>H</Initials>
+                    <FamilyName>Kamoshita</FamilyName>
+                  </BibAuthorName>
+                  <BibAuthorName>
+                    <Initials>T</Initials>
+                    <FamilyName>Taketani</FamilyName>
+                  </BibAuthorName>
+                  <Etal />
+                  <Year>1986</Year>
+                  <ArticleTitle Language="En">Adult Still’s disease complicated with adult respiratory distress</ArticleTitle>
+                  <JournalTitle>Arch Intern Med</JournalTitle>
+                  <VolumeID>146</VolumeID>
+                  <IssueID>12</IssueID>
+                  <FirstPage>2409</FirstPage>
+                  <LastPage>2410</LastPage>
+                  <Occurrence Type="COI">
+                    <Handle>1:STN:280:DyaL2s%2Fkslyktw%3D%3D</Handle>
+                  </Occurrence>
+                  <Occurrence Type="DOI">
+                    <Handle>10.1001/archinte.1986.00360240157025</Handle>
+                  </Occurrence>
+                  <Occurrence Type="PID">
+                    <Handle>3778078</Handle>
+                  </Occurrence>
+                </BibArticle>
+                <BibUnstructured>Hirohata S, Kamoshita H, Taketani T et al (1986) Adult Still’s disease complicated with adult respiratory distress. Arch Intern Med 146(12):2409–2410</BibUnstructured>
+              </Citation>
+              <Citation ID="CR9">
+                <CitationNumber>9.</CitationNumber>
+                <BibArticle>
+                  <BibAuthorName>
+                    <Initials>NG</Initials>
+                    <FamilyName>Vallianou</FamilyName>
+                  </BibAuthorName>
+                  <BibAuthorName>
+                    <Initials>C</Initials>
+                    <FamilyName>Kouvidou</FamilyName>
+                  </BibAuthorName>
+                  <BibAuthorName>
+                    <Initials>A</Initials>
+                    <FamilyName>Naxaki</FamilyName>
+                  </BibAuthorName>
+                  <Etal />
+                  <Year>2014</Year>
+                  <ArticleTitle Language="En">Acalculous cholecystitis with multiple organ failure and disseminated intravascular coagulation in a patient with adult onset Still’s disease</ArticleTitle>
+                  <JournalTitle>Ann Gastroenterol</JournalTitle>
+                  <VolumeID>27</VolumeID>
+                  <IssueID>3</IssueID>
+                  <FirstPage>289</FirstPage>
+                  <LastPage>290</LastPage>
+                  <Occurrence Type="PMCID">
+                    <Handle>4073042</Handle>
+                  </Occurrence>
+                  <Occurrence Type="PID">
+                    <Handle>24975054</Handle>
+                  </Occurrence>
+                </BibArticle>
+                <BibUnstructured>Vallianou NG, Kouvidou C, Naxaki A et al (2014) Acalculous cholecystitis with multiple organ failure and disseminated intravascular coagulation in a patient with adult onset Still’s disease. Ann Gastroenterol 27(3):289–290</BibUnstructured>
+              </Citation>
+              <Citation ID="CR10">
+                <CitationNumber>10.</CitationNumber>
+                <BibArticle>
+                  <BibAuthorName>
+                    <Initials>CB</Initials>
+                    <FamilyName>Bae</FamilyName>
+                  </BibAuthorName>
+                  <BibAuthorName>
+                    <Initials>JY</Initials>
+                    <FamilyName>Jung</FamilyName>
+                  </BibAuthorName>
+                  <BibAuthorName>
+                    <Initials>HA</Initials>
+                    <FamilyName>Kim</FamilyName>
+                  </BibAuthorName>
+                  <Etal />
+                  <Year>2015</Year>
+                  <ArticleTitle Language="En">Reactive hemophagocytic syndrome in adult-onset Still disease: clinical features, predictive factors, and prognosis in 21 patients</ArticleTitle>
+                  <JournalTitle>Medicine (Baltimore).</JournalTitle>
+                  <VolumeID>94</VolumeID>
+                  <IssueID>4</IssueID>
+                  <FirstPage>e451</FirstPage>
+                  <Occurrence Type="PMCID">
+                    <Handle>4602979</Handle>
+                  </Occurrence>
+                  <Occurrence Type="DOI">
+                    <Handle>10.1097/MD.0000000000000451</Handle>
+                  </Occurrence>
+                  <Occurrence Type="PID">
+                    <Handle>25634183</Handle>
+                  </Occurrence>
+                </BibArticle>
+                <BibUnstructured>Bae CB, Jung JY, Kim HA et al (2015) Reactive hemophagocytic syndrome in adult-onset Still disease: clinical features, predictive factors, and prognosis in 21 patients. Medicine (Baltimore). 94(4):e451</BibUnstructured>
+              </Citation>
+              <Citation ID="CR11">
+                <CitationNumber>11.</CitationNumber>
+                <BibArticle>
+                  <BibAuthorName>
+                    <Initials>JY</Initials>
+                    <FamilyName>Lee</FamilyName>
+                  </BibAuthorName>
+                  <BibAuthorName>
+                    <Initials>C</Initials>
+                    <FamilyName>Yang</FamilyName>
+                  </BibAuthorName>
+                  <BibAuthorName>
+                    <Initials>MM</Initials>
+                    <FamilyName>Hsu</FamilyName>
+                  </BibAuthorName>
+                  <Year>2005</Year>
+                  <ArticleTitle Language="En">Histopathology of persistent papules and plaques in adult-onset Still’s disease</ArticleTitle>
+                  <JournalTitle>J Am Acad Dermpath</JournalTitle>
+                  <VolumeID>52</VolumeID>
+                  <FirstPage>1003</FirstPage>
+                  <LastPage>1008</LastPage>
+                  <Occurrence Type="DOI">
+                    <Handle>10.1016/j.jaad.2005.02.032</Handle>
+                  </Occurrence>
+                </BibArticle>
+                <BibUnstructured>Lee JY, Yang C, Hsu MM (2005) Histopathology of persistent papules and plaques in adult-onset Still’s disease. J Am Acad Dermpath 52:1003–1008</BibUnstructured>
+              </Citation>
+              <Citation ID="CR12">
+                <CitationNumber>12.</CitationNumber>
+                <BibArticle>
+                  <BibAuthorName>
+                    <Initials>JM</Initials>
+                    <FamilyName>Wouters</FamilyName>
+                  </BibAuthorName>
+                  <BibAuthorName>
+                    <Initials>MH</Initials>
+                    <FamilyName>Rijswijk</FamilyName>
+                    <Particle>van</Particle>
+                  </BibAuthorName>
+                  <BibAuthorName>
+                    <Initials>LB</Initials>
+                    <FamilyName>Putte</FamilyName>
+                    <Particle>van de</Particle>
+                  </BibAuthorName>
+                  <Year>1985</Year>
+                  <ArticleTitle Language="En">Adult onset Still’s disease in the elderly: a report of two cases</ArticleTitle>
+                  <JournalTitle>J Rheumatol</JournalTitle>
+                  <VolumeID>12</VolumeID>
+                  <IssueID>4</IssueID>
+                  <FirstPage>791</FirstPage>
+                  <LastPage>793</LastPage>
+                  <Occurrence Type="COI">
+                    <Handle>1:STN:280:DyaL28%2FjslWgug%3D%3D</Handle>
+                  </Occurrence>
+                  <Occurrence Type="PID">
+                    <Handle>4057203</Handle>
+                  </Occurrence>
+                </BibArticle>
+                <BibUnstructured>Wouters JM, van Rijswijk MH, van de Putte LB (1985) Adult onset Still’s disease in the elderly: a report of two cases. J Rheumatol 12(4):791–793</BibUnstructured>
+              </Citation>
+              <Citation ID="CR13">
+                <CitationNumber>13.</CitationNumber>
+                <BibArticle>
+                  <BibAuthorName>
+                    <Initials>T</Initials>
+                    <FamilyName>Koga</FamilyName>
+                  </BibAuthorName>
+                  <BibAuthorName>
+                    <Initials>N</Initials>
+                    <FamilyName>Tokunaga</FamilyName>
+                  </BibAuthorName>
+                  <BibAuthorName>
+                    <Initials>Y</Initials>
+                    <FamilyName>Ichikawa</FamilyName>
+                  </BibAuthorName>
+                  <Etal />
+                  <Year>1992</Year>
+                  <ArticleTitle Language="En">A 72-year-old female with adult Still’s disease</ArticleTitle>
+                  <JournalTitle>Intern Med</JournalTitle>
+                  <VolumeID>31</VolumeID>
+                  <IssueID>12</IssueID>
+                  <FirstPage>1356</FirstPage>
+                  <LastPage>1358</LastPage>
+                  <Occurrence Type="COI">
+                    <Handle>1:STN:280:DyaK3s3jslKltg%3D%3D</Handle>
+                  </Occurrence>
+                  <Occurrence Type="DOI">
+                    <Handle>10.2169/internalmedicine.31.1356</Handle>
+                  </Occurrence>
+                  <Occurrence Type="PID">
+                    <Handle>1300170</Handle>
+                  </Occurrence>
+                </BibArticle>
+                <BibUnstructured>Koga T, Tokunaga N, Ichikawa Y et al (1992) A 72-year-old female with adult Still’s disease. Intern Med 31(12):1356–1358</BibUnstructured>
+              </Citation>
+              <Citation ID="CR14">
+                <CitationNumber>14.</CitationNumber>
+                <BibArticle>
+                  <BibAuthorName>
+                    <Initials>JY</Initials>
+                    <FamilyName>Lee</FamilyName>
+                  </BibAuthorName>
+                  <BibAuthorName>
+                    <Initials>CK</Initials>
+                    <FamilyName>Hsu</FamilyName>
+                  </BibAuthorName>
+                  <BibAuthorName>
+                    <Initials>MF</Initials>
+                    <FamilyName>Liu</FamilyName>
+                  </BibAuthorName>
+                  <Etal />
+                  <Year>2012</Year>
+                  <ArticleTitle Language="En">Evanescent and persistent pruritic eruptions of adult-onset still disease: a clinical and pathologic study of 36 patients</ArticleTitle>
+                  <JournalTitle>Semin Arthritis Rheum</JournalTitle>
+                  <VolumeID>42</VolumeID>
+                  <IssueID>3</IssueID>
+                  <FirstPage>317</FirstPage>
+                  <LastPage>326</LastPage>
+                  <Occurrence Type="DOI">
+                    <Handle>10.1016/j.semarthrit.2012.05.003</Handle>
+                  </Occurrence>
+                  <Occurrence Type="PID">
+                    <Handle>22717204</Handle>
+                  </Occurrence>
+                </BibArticle>
+                <BibUnstructured>Lee JY, Hsu CK, Liu MF et al (2012) Evanescent and persistent pruritic eruptions of adult-onset still disease: a clinical and pathologic study of 36 patients. Semin Arthritis Rheum 42(3):317–326</BibUnstructured>
+              </Citation>
+              <Citation ID="CR15">
+                <CitationNumber>15.</CitationNumber>
+                <BibArticle>
+                  <BibAuthorName>
+                    <Initials>S</Initials>
+                    <FamilyName>Kaur</FamilyName>
+                  </BibAuthorName>
+                  <BibAuthorName>
+                    <Initials>P</Initials>
+                    <FamilyName>Bambery</FamilyName>
+                  </BibAuthorName>
+                  <BibAuthorName>
+                    <Initials>S</Initials>
+                    <FamilyName>Dahr</FamilyName>
+                  </BibAuthorName>
+                  <Year>1994</Year>
+                  <ArticleTitle Language="En">Persistent dermal plaque lesions in adult onset Still’s disease</ArticleTitle>
+                  <JournalTitle>Dermatology</JournalTitle>
+                  <VolumeID>188</VolumeID>
+                  <FirstPage>241</FirstPage>
+                  <LastPage>242</LastPage>
+                  <Occurrence Type="COI">
+                    <Handle>1:STN:280:DyaK2c3ktlSqtw%3D%3D</Handle>
+                  </Occurrence>
+                  <Occurrence Type="DOI">
+                    <Handle>10.1159/000247150</Handle>
+                  </Occurrence>
+                  <Occurrence Type="PID">
+                    <Handle>8186519</Handle>
+                  </Occurrence>
+                </BibArticle>
+                <BibUnstructured>Kaur S, Bambery P, Dahr S (1994) Persistent dermal plaque lesions in adult onset Still’s disease. Dermatology 188:241–242</BibUnstructured>
+              </Citation>
+              <Citation ID="CR16">
+                <CitationNumber>16.</CitationNumber>
+                <BibArticle>
+                  <BibAuthorName>
+                    <Initials>A</Initials>
+                    <FamilyName>Yoshifuku</FamilyName>
+                  </BibAuthorName>
+                  <BibAuthorName>
+                    <Initials>K</Initials>
+                    <FamilyName>Kawai</FamilyName>
+                  </BibAuthorName>
+                  <BibAuthorName>
+                    <Initials>T</Initials>
+                    <FamilyName>Kanekura</FamilyName>
+                  </BibAuthorName>
+                  <Year>2014</Year>
+                  <ArticleTitle Language="En">Adult-onset Still disease with peculiar persistent plaques and papules</ArticleTitle>
+                  <JournalTitle>Clin Exp Dermatol</JournalTitle>
+                  <VolumeID>39</VolumeID>
+                  <IssueID>4</IssueID>
+                  <FirstPage>503</FirstPage>
+                  <LastPage>505</LastPage>
+                  <Occurrence Type="COI">
+                    <Handle>1:STN:280:DC%2BC2cnnsV2jtw%3D%3D</Handle>
+                  </Occurrence>
+                  <Occurrence Type="DOI">
+                    <Handle>10.1111/ced.12335</Handle>
+                  </Occurrence>
+                  <Occurrence Type="PID">
+                    <Handle>24773396</Handle>
+                  </Occurrence>
+                </BibArticle>
+                <BibUnstructured>Yoshifuku A, Kawai K, Kanekura T (2014) Adult-onset Still disease with peculiar persistent plaques and papules. Clin Exp Dermatol 39(4):503–505</BibUnstructured>
+              </Citation>
+              <Citation ID="CR17">
+                <CitationNumber>17.</CitationNumber>
+                <BibUnstructured>Thien Huong NT, Pitche P, Minh Hoa T et al (2005) Persistent pigmented plaques in adult-onset Still’s disease. Ann Dermatol Venereol. 132(8–9 Pt 1):693–696 <Emphasis Type="Bold">(French</Emphasis>
+                           <Emphasis Type="Bold">)</Emphasis>
+                        </BibUnstructured>
+              </Citation>
+              <Citation ID="CR18">
+                <CitationNumber>18.</CitationNumber>
+                <BibUnstructured>Suzuki K, Kimura Y, Aoki M et al (2001) Persistent plaques and linear pigmentation in adult-onset Still’s disease. Dermatology 202(4):333–335 <Emphasis Type="Bold">(Review</Emphasis>
+                           <Emphasis Type="Bold">)</Emphasis>
+                        </BibUnstructured>
+              </Citation>
+              <Citation ID="CR19">
+                <CitationNumber>19.</CitationNumber>
+                <BibArticle>
+                  <BibAuthorName>
+                    <Initials>RN</Initials>
+                    <FamilyName>Sarkar</FamilyName>
+                  </BibAuthorName>
+                  <BibAuthorName>
+                    <Initials>R</Initials>
+                    <FamilyName>Bhattacharya</FamilyName>
+                  </BibAuthorName>
+                  <BibAuthorName>
+                    <Initials>K</Initials>
+                    <FamilyName>Bhattacharyya</FamilyName>
+                  </BibAuthorName>
+                  <Etal />
+                  <Year>2014</Year>
+                  <ArticleTitle Language="En">Adult onset Still’s disease with persistent skin lesions complicated by secondary hemophagocytic lymphohistiocytosis</ArticleTitle>
+                  <JournalTitle>Int J Rheum Dis</JournalTitle>
+                  <VolumeID>17</VolumeID>
+                  <IssueID>1</IssueID>
+                  <FirstPage>118</FirstPage>
+                  <LastPage>121</LastPage>
+                  <Occurrence Type="DOI">
+                    <Handle>10.1111/1756-185X.12170</Handle>
+                  </Occurrence>
+                  <Occurrence Type="PID">
+                    <Handle>24119099</Handle>
+                  </Occurrence>
+                </BibArticle>
+                <BibUnstructured>Sarkar RN, Bhattacharya R, Bhattacharyya K et al (2014) Adult onset Still’s disease with persistent skin lesions complicated by secondary hemophagocytic lymphohistiocytosis. Int J Rheum Dis 17(1):118–121</BibUnstructured>
+              </Citation>
+              <Citation ID="CR20">
+                <CitationNumber>20.</CitationNumber>
+                <BibArticle>
+                  <BibAuthorName>
+                    <Initials>M</Initials>
+                    <FamilyName>Yammamoto</FamilyName>
+                  </BibAuthorName>
+                  <BibAuthorName>
+                    <Initials>H</Initials>
+                    <FamilyName>Sueki</FamilyName>
+                  </BibAuthorName>
+                  <BibAuthorName>
+                    <Initials>R</Initials>
+                    <FamilyName>Fujisawa</FamilyName>
+                  </BibAuthorName>
+                  <Etal />
+                  <Year>1999</Year>
+                  <ArticleTitle Language="En">A case of adult Still’s disease with atypical rash</ArticleTitle>
+                  <JournalTitle>Rinsho Derma</JournalTitle>
+                  <VolumeID>41</VolumeID>
+                  <FirstPage>365</FirstPage>
+                  <LastPage>368</LastPage>
+                </BibArticle>
+                <BibUnstructured>Yammamoto M, Sueki H, Fujisawa R et al (1999) A case of adult Still’s disease with atypical rash. Rinsho Derma 41:365–368</BibUnstructured>
+              </Citation>
+              <Citation ID="CR21">
+                <CitationNumber>21.</CitationNumber>
+                <BibArticle>
+                  <BibAuthorName>
+                    <Initials>WG</Initials>
+                    <FamilyName>Phillips</FamilyName>
+                  </BibAuthorName>
+                  <BibAuthorName>
+                    <Initials>R</Initials>
+                    <FamilyName>Weller</FamilyName>
+                  </BibAuthorName>
+                  <BibAuthorName>
+                    <Initials>SE</Initials>
+                    <FamilyName>Handfield-Johnes</FamilyName>
+                  </BibAuthorName>
+                  <Etal />
+                  <Year>1994</Year>
+                  <ArticleTitle Language="En">Adult Still’s disease</ArticleTitle>
+                  <JournalTitle>Br J Dermatol</JournalTitle>
+                  <VolumeID>130</VolumeID>
+                  <FirstPage>511</FirstPage>
+                  <LastPage>513</LastPage>
+                  <Occurrence Type="COI">
+                    <Handle>1:STN:280:DyaK2c3kt1KgsQ%3D%3D</Handle>
+                  </Occurrence>
+                  <Occurrence Type="DOI">
+                    <Handle>10.1111/j.1365-2133.1994.tb03388.x</Handle>
+                  </Occurrence>
+                  <Occurrence Type="PID">
+                    <Handle>8186120</Handle>
+                  </Occurrence>
+                </BibArticle>
+                <BibUnstructured>Phillips WG, Weller R, Handfield-Johnes SE et al (1994) Adult Still’s disease. Br J Dermatol 130:511–513</BibUnstructured>
+              </Citation>
+              <Citation ID="CR22">
+                <CitationNumber>22.</CitationNumber>
+                <BibArticle>
+                  <BibAuthorName>
+                    <Initials>K</Initials>
+                    <FamilyName>Fujii</FamilyName>
+                  </BibAuthorName>
+                  <BibAuthorName>
+                    <Initials>K</Initials>
+                    <FamilyName>Kobishi</FamilyName>
+                  </BibAuthorName>
+                  <BibAuthorName>
+                    <Initials>Y</Initials>
+                    <FamilyName>Kanno</FamilyName>
+                  </BibAuthorName>
+                  <Etal />
+                  <Year>2003</Year>
+                  <ArticleTitle Language="En">Persistent generalized erythema in adult-onset Still’s disease</ArticleTitle>
+                  <JournalTitle>Int J Dermatol</JournalTitle>
+                  <VolumeID>42</VolumeID>
+                  <FirstPage>824</FirstPage>
+                  <LastPage>825</LastPage>
+                  <Occurrence Type="DOI">
+                    <Handle>10.1046/j.1365-4362.2003.01761.x</Handle>
+                  </Occurrence>
+                  <Occurrence Type="PID">
+                    <Handle>14521701</Handle>
+                  </Occurrence>
+                </BibArticle>
+                <BibUnstructured>Fujii K, Kobishi K, Kanno Y et al (2003) Persistent generalized erythema in adult-onset Still’s disease. Int J Dermatol 42:824–825</BibUnstructured>
+              </Citation>
+              <Citation ID="CR23">
+                <CitationNumber>23.</CitationNumber>
+                <BibArticle>
+                  <BibAuthorName>
+                    <Initials>K</Initials>
+                    <FamilyName>Tomaru</FamilyName>
+                  </BibAuthorName>
+                  <BibAuthorName>
+                    <Initials>Y</Initials>
+                    <FamilyName>Nagai</FamilyName>
+                  </BibAuthorName>
+                  <BibAuthorName>
+                    <Initials>N</Initials>
+                    <FamilyName>Ohyama</FamilyName>
+                  </BibAuthorName>
+                  <Etal />
+                  <Year>2006</Year>
+                  <ArticleTitle Language="En">Adult-onset Still’s disease with prurigo pigmentosa-like skin eruption</ArticleTitle>
+                  <JournalTitle>J Dermatol</JournalTitle>
+                  <VolumeID>33</VolumeID>
+                  <IssueID>1</IssueID>
+                  <FirstPage>55</FirstPage>
+                  <LastPage>58</LastPage>
+                  <Occurrence Type="DOI">
+                    <Handle>10.1111/j.1346-8138.2006.00011.x</Handle>
+                  </Occurrence>
+                  <Occurrence Type="PID">
+                    <Handle>16469087</Handle>
+                  </Occurrence>
+                </BibArticle>
+                <BibUnstructured>Tomaru K, Nagai Y, Ohyama N et al (2006) Adult-onset Still’s disease with prurigo pigmentosa-like skin eruption. J Dermatol 33(1):55–58</BibUnstructured>
+              </Citation>
+              <Citation ID="CR24">
+                <CitationNumber>24.</CitationNumber>
+                <BibArticle>
+                  <BibAuthorName>
+                    <Initials>YT</Initials>
+                    <FamilyName>Cho</FamilyName>
+                  </BibAuthorName>
+                  <BibAuthorName>
+                    <Initials>YH</Initials>
+                    <FamilyName>Liao</FamilyName>
+                  </BibAuthorName>
+                  <Year>2014</Year>
+                  <ArticleTitle Language="En">Prurigo pigmentosa-like persistent papules and plaques in a patient with adult-onset Still’s disease</ArticleTitle>
+                  <JournalTitle>Acta Derm Venereol</JournalTitle>
+                  <VolumeID>94</VolumeID>
+                  <IssueID>1</IssueID>
+                  <FirstPage>102</FirstPage>
+                  <LastPage>103</LastPage>
+                  <Occurrence Type="DOI">
+                    <Handle>10.2340/00015555-1615</Handle>
+                  </Occurrence>
+                  <Occurrence Type="PID">
+                    <Handle>23624720</Handle>
+                  </Occurrence>
+                </BibArticle>
+                <BibUnstructured>Cho YT, Liao YH (2014) Prurigo pigmentosa-like persistent papules and plaques in a patient with adult-onset Still’s disease. Acta Derm Venereol 94(1):102–103</BibUnstructured>
+              </Citation>
+              <Citation ID="CR25">
+                <CitationNumber>25.</CitationNumber>
+                <BibArticle>
+                  <BibAuthorName>
+                    <Initials>JB</Initials>
+                    <FamilyName>Lee</FamilyName>
+                  </BibAuthorName>
+                  <BibAuthorName>
+                    <Initials>JW</Initials>
+                    <FamilyName>Kim</FamilyName>
+                  </BibAuthorName>
+                  <BibAuthorName>
+                    <Initials>SS</Initials>
+                    <FamilyName>Lee</FamilyName>
+                  </BibAuthorName>
+                  <Etal />
+                  <Year>2002</Year>
+                  <ArticleTitle Language="En">Adult-onset Still’s disease with vesiculopustules on the hands and feet</ArticleTitle>
+                  <JournalTitle>J Korean Med Sci</JournalTitle>
+                  <VolumeID>17</VolumeID>
+                  <IssueID>6</IssueID>
+                  <FirstPage>852</FirstPage>
+                  <LastPage>855</LastPage>
+                  <Occurrence Type="PMCID">
+                    <Handle>3054967</Handle>
+                  </Occurrence>
+                  <Occurrence Type="DOI">
+                    <Handle>10.3346/jkms.2002.17.6.852</Handle>
+                  </Occurrence>
+                  <Occurrence Type="PID">
+                    <Handle>12483016</Handle>
+                  </Occurrence>
+                </BibArticle>
+                <BibUnstructured>Lee JB, Kim JW, Lee SS et al (2002) Adult-onset Still’s disease with vesiculopustules on the hands and feet. J Korean Med Sci 17(6):852–855</BibUnstructured>
+              </Citation>
+              <Citation ID="CR26">
+                <CitationNumber>26.</CitationNumber>
+                <BibArticle>
+                  <BibAuthorName>
+                    <Initials>PR</Initials>
+                    <FamilyName>Criado</FamilyName>
+                  </BibAuthorName>
+                  <BibAuthorName>
+                    <Initials>JF</Initials>
+                    <FamilyName>Carvalho</FamilyName>
+                    <Particle>de</Particle>
+                  </BibAuthorName>
+                  <BibAuthorName>
+                    <Initials>LA</Initials>
+                    <FamilyName>Ayabe</FamilyName>
+                  </BibAuthorName>
+                  <Etal />
+                  <Year>2012</Year>
+                  <ArticleTitle Language="En">Urticaria and dermographism in patients with adult-onset Still’s disease</ArticleTitle>
+                  <JournalTitle>Rheumatol Int</JournalTitle>
+                  <VolumeID>32</VolumeID>
+                  <IssueID>8</IssueID>
+                  <FirstPage>2551</FirstPage>
+                  <LastPage>2555</LastPage>
+                  <Occurrence Type="DOI">
+                    <Handle>10.1007/s00296-011-2025-5</Handle>
+                  </Occurrence>
+                  <Occurrence Type="PID">
+                    <Handle>21785958</Handle>
+                  </Occurrence>
+                </BibArticle>
+                <BibUnstructured>Criado PR, de Carvalho JF, Ayabe LA et al (2012) Urticaria and dermographism in patients with adult-onset Still’s disease. Rheumatol Int 32(8):2551–2555</BibUnstructured>
+              </Citation>
+              <Citation ID="CR27">
+                <CitationNumber>27.</CitationNumber>
+                <BibArticle>
+                  <BibAuthorName>
+                    <Initials>YK</Initials>
+                    <FamilyName>Tay</FamilyName>
+                  </BibAuthorName>
+                  <BibAuthorName>
+                    <Initials>RS</Initials>
+                    <FamilyName>Paz</FamilyName>
+                  </BibAuthorName>
+                  <BibAuthorName>
+                    <Initials>SK</Initials>
+                    <FamilyName>Ng</FamilyName>
+                  </BibAuthorName>
+                  <Etal />
+                  <Year>1996</Year>
+                  <ArticleTitle Language="En">A case of adult onset Still’s disease presenting with fever and a rash</ArticleTitle>
+                  <JournalTitle>Ann Acad Med Singap</JournalTitle>
+                  <VolumeID>25</VolumeID>
+                  <IssueID>2</IssueID>
+                  <FirstPage>296</FirstPage>
+                  <LastPage>299</LastPage>
+                  <Occurrence Type="COI">
+                    <Handle>1:STN:280:DyaK28zpt1aitA%3D%3D</Handle>
+                  </Occurrence>
+                  <Occurrence Type="PID">
+                    <Handle>8799028</Handle>
+                  </Occurrence>
+                </BibArticle>
+                <BibUnstructured>Tay YK, Paz RS, Ng SK et al (1996) A case of adult onset Still’s disease presenting with fever and a rash. Ann Acad Med Singap 25(2):296–299</BibUnstructured>
+              </Citation>
+              <Citation ID="CR28">
+                <CitationNumber>28.</CitationNumber>
+                <BibArticle>
+                  <BibAuthorName>
+                    <Initials>M</Initials>
+                    <FamilyName>Soy</FamilyName>
+                  </BibAuthorName>
+                  <Year>2004</Year>
+                  <ArticleTitle Language="En">A case of adult-onset Still’s disease presenting with angioedema</ArticleTitle>
+                  <JournalTitle>Clin Rheumatol</JournalTitle>
+                  <VolumeID>23</VolumeID>
+                  <FirstPage>92</FirstPage>
+                  <Occurrence Type="DOI">
+                    <Handle>10.1007/s10067-003-0822-2</Handle>
+                  </Occurrence>
+                  <Occurrence Type="PID">
+                    <Handle>14749997</Handle>
+                  </Occurrence>
+                </BibArticle>
+                <BibUnstructured>Soy M (2004) A case of adult-onset Still’s disease presenting with angioedema. Clin Rheumatol 23:92</BibUnstructured>
+              </Citation>
+              <Citation ID="CR29">
+                <CitationNumber>29.</CitationNumber>
+                <BibArticle>
+                  <BibAuthorName>
+                    <Initials>A</Initials>
+                    <FamilyName>Peroni</FamilyName>
+                  </BibAuthorName>
+                  <BibAuthorName>
+                    <Initials>C</Initials>
+                    <FamilyName>Colato</FamilyName>
+                  </BibAuthorName>
+                  <BibAuthorName>
+                    <Initials>G</Initials>
+                    <FamilyName>Zanoni</FamilyName>
+                  </BibAuthorName>
+                  <Etal />
+                  <Year>2010</Year>
+                  <ArticleTitle Language="En">Urticarial lesions: if not urticarial, what else? The differential diagnosis of urticaria: part II. Systemic diseases</ArticleTitle>
+                  <JournalTitle>J Am Acad Dermatol</JournalTitle>
+                  <VolumeID>62</VolumeID>
+                  <FirstPage>557</FirstPage>
+                  <LastPage>570</LastPage>
+                  <Occurrence Type="DOI">
+                    <Handle>10.1016/j.jaad.2009.11.687</Handle>
+                  </Occurrence>
+                  <Occurrence Type="PID">
+                    <Handle>20227577</Handle>
+                  </Occurrence>
+                </BibArticle>
+                <BibUnstructured>Peroni A, Colato C, Zanoni G et al (2010) Urticarial lesions: if not urticarial, what else? The differential diagnosis of urticaria: part II. Systemic diseases. J Am Acad Dermatol 62:557–570</BibUnstructured>
+              </Citation>
+              <Citation ID="CR30">
+                <CitationNumber>30.</CitationNumber>
+                <BibArticle>
+                  <BibAuthorName>
+                    <Initials>JE</Initials>
+                    <FamilyName>Setterfield</FamilyName>
+                  </BibAuthorName>
+                  <BibAuthorName>
+                    <Initials>GRV</Initials>
+                    <FamilyName>Hughes</FamilyName>
+                  </BibAuthorName>
+                  <Year>1998</Year>
+                  <ArticleTitle Language="En">Kobza Black A. Urticaria as a presentation of adult Still’s disease</ArticleTitle>
+                  <JournalTitle>Br J Dermatol</JournalTitle>
+                  <VolumeID>138</VolumeID>
+                  <FirstPage>904</FirstPage>
+                  <LastPage>927</LastPage>
+                  <Occurrence Type="DOI">
+                    <Handle>10.1046/j.1365-2133.1998.02235.x</Handle>
+                  </Occurrence>
+                </BibArticle>
+                <BibUnstructured>Setterfield JE, Hughes GRV (1998) Kobza Black A. Urticaria as a presentation of adult Still’s disease. Br J Dermatol 138:904–927</BibUnstructured>
+              </Citation>
+              <Citation ID="CR31">
+                <CitationNumber>31.</CitationNumber>
+                <BibUnstructured>Criado RF, Criado PR, Vasconcellos C et al (2006) Urticaria as a cutaneous sign of adult-onset Still’s disease. J Cutan Med Surg 10(2):99–103</BibUnstructured>
+              </Citation>
+              <Citation ID="CR32">
+                <CitationNumber>32.</CitationNumber>
+                <BibArticle>
+                  <BibAuthorName>
+                    <Initials>DY</Initials>
+                    <FamilyName>Chen</FamilyName>
+                  </BibAuthorName>
+                  <BibAuthorName>
+                    <Initials>JL</Initials>
+                    <FamilyName>Lan</FamilyName>
+                  </BibAuthorName>
+                  <BibAuthorName>
+                    <Initials>FJ</Initials>
+                    <FamilyName>Lin</FamilyName>
+                  </BibAuthorName>
+                  <Etal />
+                  <Year>2004</Year>
+                  <ArticleTitle Language="En">Proinflammatory cytokine profiles in sera and pathological tissues of patients with active untreated adult onset Still’s disease</ArticleTitle>
+                  <JournalTitle>J Rheumatol</JournalTitle>
+                  <VolumeID>31</VolumeID>
+                  <IssueID>11</IssueID>
+                  <FirstPage>2189</FirstPage>
+                  <LastPage>2198</LastPage>
+                  <Occurrence Type="COI">
+                    <Handle>1:CAS:528:DC%2BD2cXhtVCksLrL</Handle>
+                  </Occurrence>
+                  <Occurrence Type="PID">
+                    <Handle>15517632</Handle>
+                  </Occurrence>
+                </BibArticle>
+                <BibUnstructured>Chen DY, Lan JL, Lin FJ et al (2004) Proinflammatory cytokine profiles in sera and pathological tissues of patients with active untreated adult onset Still’s disease. J Rheumatol 31(11):2189–2198</BibUnstructured>
+              </Citation>
+              <Citation ID="CR33">
+                <CitationNumber>33.</CitationNumber>
+                <BibArticle>
+                  <BibAuthorName>
+                    <Initials>CG</Initials>
+                    <FamilyName>Regula</FamilyName>
+                  </BibAuthorName>
+                  <BibAuthorName>
+                    <Initials>J</Initials>
+                    <FamilyName>Hennessy</FamilyName>
+                  </BibAuthorName>
+                  <BibAuthorName>
+                    <Initials>LE</Initials>
+                    <FamilyName>Clarke</FamilyName>
+                  </BibAuthorName>
+                  <Etal />
+                  <Year>2008</Year>
+                  <ArticleTitle Language="En">Interstitial granulomatous drug reaction to anakinra</ArticleTitle>
+                  <JournalTitle>J Am Acad Dermatol</JournalTitle>
+                  <VolumeID>59</VolumeID>
+                  <FirstPage>S25</FirstPage>
+                  <LastPage>S27</LastPage>
+                  <Occurrence Type="DOI">
+                    <Handle>10.1016/j.jaad.2007.11.004</Handle>
+                  </Occurrence>
+                  <Occurrence Type="PID">
+                    <Handle>18625373</Handle>
+                  </Occurrence>
+                </BibArticle>
+                <BibUnstructured>Regula CG, Hennessy J, Clarke LE et al (2008) Interstitial granulomatous drug reaction to anakinra. J Am Acad Dermatol 59:S25–S27</BibUnstructured>
+              </Citation>
+              <Citation ID="CR34">
+                <CitationNumber>34.</CitationNumber>
+                <BibUnstructured>Michailidou D, Voulgarelis M, Pikazis D (2014) Exacerbation of interstitial granulomatous dermatitis with arthritis by anakinra in a patient with diffuse large B-cell lymphoma. Clin Exp Rheumatol 32(2):259–261</BibUnstructured>
+              </Citation>
+              <Citation ID="CR35">
+                <CitationNumber>35.</CitationNumber>
+                <BibArticle>
+                  <BibAuthorName>
+                    <Initials>J</Initials>
+                    <FamilyName>Lübbe</FamilyName>
+                  </BibAuthorName>
+                  <BibAuthorName>
+                    <Initials>M</Initials>
+                    <FamilyName>Hofer</FamilyName>
+                  </BibAuthorName>
+                  <BibAuthorName>
+                    <Initials>P</Initials>
+                    <FamilyName>Chavaz</FamilyName>
+                  </BibAuthorName>
+                  <Etal />
+                  <Year>1999</Year>
+                  <ArticleTitle Language="En">Adult-onset Still’s disease with persistent plaques</ArticleTitle>
+                  <JournalTitle>Br J Dermatol</JournalTitle>
+                  <VolumeID>141</VolumeID>
+                  <IssueID>4</IssueID>
+                  <FirstPage>710</FirstPage>
+                  <LastPage>713</LastPage>
+                  <Occurrence Type="DOI">
+                    <Handle>10.1046/j.1365-2133.1999.03115.x</Handle>
+                  </Occurrence>
+                  <Occurrence Type="PID">
+                    <Handle>10583122</Handle>
+                  </Occurrence>
+                </BibArticle>
+                <BibUnstructured>Lübbe J, Hofer M, Chavaz P et al (1999) Adult-onset Still’s disease with persistent plaques. Br J Dermatol 141(4):710–713</BibUnstructured>
+              </Citation>
+              <Citation ID="CR36">
+                <CitationNumber>36.</CitationNumber>
+                <BibArticle>
+                  <BibAuthorName>
+                    <Initials>Y</Initials>
+                    <FamilyName>Nagai</FamilyName>
+                  </BibAuthorName>
+                  <BibAuthorName>
+                    <Initials>M</Initials>
+                    <FamilyName>Hasegawa</FamilyName>
+                  </BibAuthorName>
+                  <BibAuthorName>
+                    <Initials>E</Initials>
+                    <FamilyName>Okada</FamilyName>
+                  </BibAuthorName>
+                  <Etal />
+                  <Year>2012</Year>
+                  <ArticleTitle Language="En">Clinical follow-up study of adult-onset Still’s disease</ArticleTitle>
+                  <JournalTitle>J Dermatol</JournalTitle>
+                  <VolumeID>39</VolumeID>
+                  <IssueID>11</IssueID>
+                  <FirstPage>898</FirstPage>
+                  <LastPage>901</LastPage>
+                  <Occurrence Type="DOI">
+                    <Handle>10.1111/j.1346-8138.2012.01600.x</Handle>
+                  </Occurrence>
+                  <Occurrence Type="PID">
+                    <Handle>22734944</Handle>
+                  </Occurrence>
+                </BibArticle>
+                <BibUnstructured>Nagai Y, Hasegawa M, Okada E et al (2012) Clinical follow-up study of adult-onset Still’s disease. J Dermatol 39(11):898–901</BibUnstructured>
+              </Citation>
+              <Citation ID="CR37">
+                <CitationNumber>37.</CitationNumber>
+                <BibUnstructured>Yang CC, Lee JY, Liu MF et al (2006) Adult-onset Still’s disease with persistent skin eruption and fatal respiratory failure in a Taiwanese woman. Eur J Dermatol 16(5):593–594</BibUnstructured>
+              </Citation>
+              <Citation ID="CR38">
+                <CitationNumber>38.</CitationNumber>
+                <BibArticle>
+                  <BibAuthorName>
+                    <Initials>F</Initials>
+                    <FamilyName>Salaffi</FamilyName>
+                  </BibAuthorName>
+                  <BibAuthorName>
+                    <Initials>G</Initials>
+                    <FamilyName>Filosa</FamilyName>
+                  </BibAuthorName>
+                  <BibAuthorName>
+                    <Initials>L</Initials>
+                    <FamilyName>Bugatti</FamilyName>
+                  </BibAuthorName>
+                  <Etal />
+                  <Year>2000</Year>
+                  <ArticleTitle Language="En">Urticaria as a presenting manifestation of adult-onset Still’s disease</ArticleTitle>
+                  <JournalTitle>Clin Rheumatol</JournalTitle>
+                  <VolumeID>19</VolumeID>
+                  <IssueID>5</IssueID>
+                  <FirstPage>389</FirstPage>
+                  <LastPage>391</LastPage>
+                  <Occurrence Type="COI">
+                    <Handle>1:STN:280:DC%2BD3crgsFWnuw%3D%3D</Handle>
+                  </Occurrence>
+                  <Occurrence Type="DOI">
+                    <Handle>10.1007/s100670070034</Handle>
+                  </Occurrence>
+                  <Occurrence Type="PID">
+                    <Handle>11055830</Handle>
+                  </Occurrence>
+                </BibArticle>
+                <BibUnstructured>Salaffi F, Filosa G, Bugatti L et al (2000) Urticaria as a presenting manifestation of adult-onset Still’s disease. Clin Rheumatol 19(5):389–391</BibUnstructured>
+              </Citation>
+              <Citation ID="CR39">
+                <CitationNumber>39.</CitationNumber>
+                <BibArticle>
+                  <BibAuthorName>
+                    <Initials>NH</Initials>
+                    <FamilyName>Said</FamilyName>
+                  </BibAuthorName>
+                  <BibAuthorName>
+                    <Initials>SN</Initials>
+                    <FamilyName>Wong</FamilyName>
+                  </BibAuthorName>
+                  <BibAuthorName>
+                    <Initials>WH</Initials>
+                    <FamilyName>Tan</FamilyName>
+                  </BibAuthorName>
+                  <Year>2013</Year>
+                  <ArticleTitle Language="En">A case of adult-onset Still’s disease presenting with urticated plaques and acute myopericarditis</ArticleTitle>
+                  <JournalTitle>Indian J Dermatol</JournalTitle>
+                  <VolumeID>58</VolumeID>
+                  <IssueID>5</IssueID>
+                  <FirstPage>405</FirstPage>
+                  <Occurrence Type="PMCID">
+                    <Handle>3778792</Handle>
+                  </Occurrence>
+                  <Occurrence Type="DOI">
+                    <Handle>10.4103/0019-5154.117316</Handle>
+                  </Occurrence>
+                  <Occurrence Type="PID">
+                    <Handle>24082197</Handle>
+                  </Occurrence>
+                </BibArticle>
+                <BibUnstructured>Said NH, Wong SN, Tan WH (2013) A case of adult-onset Still’s disease presenting with urticated plaques and acute myopericarditis. Indian J Dermatol 58(5):405</BibUnstructured>
+              </Citation>
+              <Citation ID="CR40">
+                <CitationNumber>40.</CitationNumber>
+                <BibUnstructured>Cozzi A, Papagrigoraki A, Biasi D et al (2014) Cutaneous manifestations of adult-onset Still’s disease: a case report and review of literature. Clin Rheumatol. doi:<ExternalRef>
+                    <RefSource>10.1007/s10067-014-2614-2</RefSource>
+                    <RefTarget Address="10.1007/s10067-014-2614-2" TargetType="DOI" />
+                  </ExternalRef>
+                        </BibUnstructured>
+              </Citation>
+              <Citation ID="CR41">
+                <CitationNumber>41.</CitationNumber>
+                <BibArticle>
+                  <BibAuthorName>
+                    <Initials>G</Initials>
+                    <FamilyName>Wolgamot</FamilyName>
+                  </BibAuthorName>
+                  <BibAuthorName>
+                    <Initials>J</Initials>
+                    <FamilyName>Yoo</FamilyName>
+                  </BibAuthorName>
+                  <BibAuthorName>
+                    <Initials>S</Initials>
+                    <FamilyName>Hurst</FamilyName>
+                  </BibAuthorName>
+                  <Etal />
+                  <Year>2007</Year>
+                  <ArticleTitle Language="En">Unique histopathologic findings in a patient with adult-onset Still disease</ArticleTitle>
+                  <JournalTitle>Am J Dermatopathol</JournalTitle>
+                  <VolumeID>29</VolumeID>
+                  <IssueID>2</IssueID>
+                  <FirstPage>194</FirstPage>
+                  <LastPage>196</LastPage>
+                  <Occurrence Type="DOI">
+                    <Handle>10.1097/DAD.0b013e3180332826</Handle>
+                  </Occurrence>
+                  <Occurrence Type="PID">
+                    <Handle>17414447</Handle>
+                  </Occurrence>
+                </BibArticle>
+                <BibUnstructured>Wolgamot G, Yoo J, Hurst S et al (2007) Unique histopathologic findings in a patient with adult-onset Still disease. Am J Dermatopathol 29(2):194–196</BibUnstructured>
+              </Citation>
+              <Citation ID="CR42">
+                <CitationNumber>42.</CitationNumber>
+                <BibArticle>
+                  <BibAuthorName>
+                    <Initials>RR</Initials>
+                    <FamilyName>Fortna</FamilyName>
+                  </BibAuthorName>
+                  <BibAuthorName>
+                    <Initials>JE</Initials>
+                    <FamilyName>Gudjonsson</FamilyName>
+                  </BibAuthorName>
+                  <BibAuthorName>
+                    <Initials>G</Initials>
+                    <FamilyName>Seidel</FamilyName>
+                  </BibAuthorName>
+                  <Etal />
+                  <Year>2010</Year>
+                  <ArticleTitle Language="En">Persistent pruritic papules and plaques: a characteristic histopathologic presentation seen in a subset of patients with adult-onset and juvenile Still’s disease</ArticleTitle>
+                  <JournalTitle>J Cutan Pathol</JournalTitle>
+                  <VolumeID>37</VolumeID>
+                  <IssueID>9</IssueID>
+                  <FirstPage>932</FirstPage>
+                  <LastPage>937</LastPage>
+                  <Occurrence Type="DOI">
+                    <Handle>10.1111/j.1600-0560.2010.01570.x</Handle>
+                  </Occurrence>
+                  <Occurrence Type="PID">
+                    <Handle>20546088</Handle>
+                  </Occurrence>
+                </BibArticle>
+                <BibUnstructured>Fortna RR, Gudjonsson JE, Seidel G et al (2010) Persistent pruritic papules and plaques: a characteristic histopathologic presentation seen in a subset of patients with adult-onset and juvenile Still’s disease. J Cutan Pathol 37(9):932–937</BibUnstructured>
+              </Citation>
+              <Citation ID="CR43">
+                <CitationNumber>43.</CitationNumber>
+                <BibArticle>
+                  <BibAuthorName>
+                    <Initials>H</Initials>
+                    <FamilyName>Yanai</FamilyName>
+                  </BibAuthorName>
+                  <BibAuthorName>
+                    <Initials>N</Initials>
+                    <FamilyName>Furutani</FamilyName>
+                  </BibAuthorName>
+                  <BibAuthorName>
+                    <Initials>H</Initials>
+                    <FamilyName>Yoshida</FamilyName>
+                  </BibAuthorName>
+                  <Etal />
+                  <Year>2009</Year>
+                  <ArticleTitle Language="En">Myositis, vasculitis, hepatic dysfunction in adult-onset Still’s disease</ArticleTitle>
+                  <JournalTitle>Case Rep Med.</JournalTitle>
+                  <VolumeID>2009</VolumeID>
+                  <FirstPage>504897</FirstPage>
+                  <Occurrence Type="PMCID">
+                    <Handle>2729264</Handle>
+                  </Occurrence>
+                  <Occurrence Type="PID">
+                    <Handle>19718245</Handle>
+                  </Occurrence>
+                </BibArticle>
+                <BibUnstructured>Yanai H, Furutani N, Yoshida H et al (2009) Myositis, vasculitis, hepatic dysfunction in adult-onset Still’s disease. Case Rep Med. 2009:504897</BibUnstructured>
+              </Citation>
+              <Citation ID="CR44">
+                <CitationNumber>44.</CitationNumber>
+                <BibUnstructured>Elezoglou AV, Giamarelos-Bourboulis E, Katsilambros N et al (2003) Cutaneous vasculitis associated with mixed cryoglobulinemia in adult Still’s disease. Clin Exp Rheumatol 21(3):405–406</BibUnstructured>
+              </Citation>
+              <Citation ID="CR45">
+                <CitationNumber>45.</CitationNumber>
+                <BibArticle>
+                  <BibAuthorName>
+                    <Initials>C</Initials>
+                    <FamilyName>Perez</FamilyName>
+                  </BibAuthorName>
+                  <BibAuthorName>
+                    <Initials>M</Initials>
+                    <FamilyName>Montes</FamilyName>
+                  </BibAuthorName>
+                  <BibAuthorName>
+                    <Initials>M</Initials>
+                    <FamilyName>Gallego</FamilyName>
+                  </BibAuthorName>
+                  <Etal />
+                  <Year>2001</Year>
+                  <ArticleTitle Language="En">Atypical presentation of adult Still’s disease with generalized rash and hyperferritinaemia</ArticleTitle>
+                  <JournalTitle>Br J Dermatol</JournalTitle>
+                  <VolumeID>145</VolumeID>
+                  <IssueID>1</IssueID>
+                  <FirstPage>187</FirstPage>
+                  <LastPage>188</LastPage>
+                  <Occurrence Type="COI">
+                    <Handle>1:STN:280:DC%2BD3Mvgt12msg%3D%3D</Handle>
+                  </Occurrence>
+                  <Occurrence Type="DOI">
+                    <Handle>10.1046/j.1365-2133.2001.04318.x</Handle>
+                  </Occurrence>
+                  <Occurrence Type="PID">
+                    <Handle>11453943</Handle>
+                  </Occurrence>
+                </BibArticle>
+                <BibUnstructured>Perez C, Montes M, Gallego M et al (2001) Atypical presentation of adult Still’s disease with generalized rash and hyperferritinaemia. Br J Dermatol 145(1):187–188</BibUnstructured>
+              </Citation>
+              <Citation ID="CR46">
+                <CitationNumber>46.</CitationNumber>
+                <BibArticle>
+                  <BibAuthorName>
+                    <Initials>S</Initials>
+                    <FamilyName>Franchini</FamilyName>
+                  </BibAuthorName>
+                  <BibAuthorName>
+                    <Initials>L</Initials>
+                    <FamilyName>Dagna</FamilyName>
+                  </BibAuthorName>
+                  <BibAuthorName>
+                    <Initials>F</Initials>
+                    <FamilyName>Salvo</FamilyName>
+                  </BibAuthorName>
+                  <Etal />
+                  <Year>2010</Year>
+                  <ArticleTitle Language="En">Efficacy of traditional and biologic agents in different clinical phenotypes of adult-onset Still’s disease</ArticleTitle>
+                  <JournalTitle>Arthritis Rheum</JournalTitle>
+                  <VolumeID>62</VolumeID>
+                  <IssueID>8</IssueID>
+                  <FirstPage>2530</FirstPage>
+                  <LastPage>2535</LastPage>
+                  <Occurrence Type="COI">
+                    <Handle>1:CAS:528:DC%2BC3cXhtFOhsr%2FK</Handle>
+                  </Occurrence>
+                  <Occurrence Type="DOI">
+                    <Handle>10.1002/art.27532</Handle>
+                  </Occurrence>
+                  <Occurrence Type="PID">
+                    <Handle>20506370</Handle>
+                  </Occurrence>
+                </BibArticle>
+                <BibUnstructured>Franchini S, Dagna L, Salvo F et al (2010) Efficacy of traditional and biologic agents in different clinical phenotypes of adult-onset Still’s disease. Arthritis Rheum 62(8):2530–2535</BibUnstructured>
+              </Citation>
+              <Citation ID="CR47">
+                <CitationNumber>47.</CitationNumber>
+                <BibArticle>
+                  <BibAuthorName>
+                    <Initials>K</Initials>
+                    <FamilyName>Laskari</FamilyName>
+                  </BibAuthorName>
+                  <BibAuthorName>
+                    <Initials>AG</Initials>
+                    <FamilyName>Tzioufas</FamilyName>
+                  </BibAuthorName>
+                  <BibAuthorName>
+                    <Initials>HM</Initials>
+                    <FamilyName>Moutsopoulos</FamilyName>
+                  </BibAuthorName>
+                  <Year>2011</Year>
+                  <ArticleTitle Language="En">Efficacy and long-term follow-up of IL-1R inhibitor anakinra in adults with Still’s disease: a case-series study</ArticleTitle>
+                  <JournalTitle>Arthritis Res Ther</JournalTitle>
+                  <VolumeID>13</VolumeID>
+                  <IssueID>3</IssueID>
+                  <FirstPage>R91</FirstPage>
+                  <Occurrence Type="PMCID">
+                    <Handle>3218906</Handle>
+                  </Occurrence>
+                  <Occurrence Type="COI">
+                    <Handle>1:CAS:528:DC%2BC3MXotFagu7s%3D</Handle>
+                  </Occurrence>
+                  <Occurrence Type="DOI">
+                    <Handle>10.1186/ar3366</Handle>
+                  </Occurrence>
+                  <Occurrence Type="PID">
+                    <Handle>21682863</Handle>
+                  </Occurrence>
+                </BibArticle>
+                <BibUnstructured>Laskari K, Tzioufas AG, Moutsopoulos HM (2011) Efficacy and long-term follow-up of IL-1R inhibitor anakinra in adults with Still’s disease: a case-series study. Arthritis Res Ther 13(3):R91</BibUnstructured>
+              </Citation>
+              <Citation ID="CR48">
+                <CitationNumber>48.</CitationNumber>
+                <BibArticle>
+                  <BibAuthorName>
+                    <Initials>B</Initials>
+                    <FamilyName>Fautrel</FamilyName>
+                  </BibAuthorName>
+                  <BibAuthorName>
+                    <Initials>C</Initials>
+                    <FamilyName>Borget</FamilyName>
+                  </BibAuthorName>
+                  <BibAuthorName>
+                    <Initials>S</Initials>
+                    <FamilyName>Rozenberg</FamilyName>
+                  </BibAuthorName>
+                  <Etal />
+                  <Year>1999</Year>
+                  <ArticleTitle Language="En">Corticosteroid sparing effect of low dose methotrexate treatment in adult Still’s disease</ArticleTitle>
+                  <JournalTitle>J Rheumatol</JournalTitle>
+                  <VolumeID>26</VolumeID>
+                  <IssueID>2</IssueID>
+                  <FirstPage>373</FirstPage>
+                  <LastPage>378</LastPage>
+                  <Occurrence Type="COI">
+                    <Handle>1:CAS:528:DyaK1MXht1yjt7Y%3D</Handle>
+                  </Occurrence>
+                  <Occurrence Type="PID">
+                    <Handle>9972972</Handle>
+                  </Occurrence>
+                </BibArticle>
+                <BibUnstructured>Fautrel B, Borget C, Rozenberg S et al (1999) Corticosteroid sparing effect of low dose methotrexate treatment in adult Still’s disease. J Rheumatol 26(2):373–378</BibUnstructured>
+              </Citation>
+            </Bibliography>
+          </ArticleBackmatter>
+        </Article>
+      </Issue>
+    </Volume>
+  </Journal><ns0:Info><ns0:DateLoaded>2016-06-22T15:39:55.06498+02:00</ns0:DateLoaded><ns0:Authors><ns0:Author>Michailidou, Despina</ns0:Author><ns0:Author>Shin, Junghee</ns0:Author><ns0:Author>Forde, Inga</ns0:Author><ns0:Author>Gopalratnam, Kavitha</ns0:Author><ns0:Author>Cohen, Paul</ns0:Author><ns0:Author>DeGirolamo, Angela</ns0:Author></ns0:Authors><ns0:Institutions><ns0:Institution geo="-73.1951767,41.1865478"><ns0:OrgName>Yale-New Haven Health System</ns0:OrgName><ns0:GeoOrg type="google">-73.1951767,41.1865478#Yale-New Haven Health System</ns0:GeoOrg></ns0:Institution><ns0:Institution geo="-73.1951767,41.1865478"><ns0:OrgName>Yale-New Haven Health System</ns0:OrgName><ns0:GeoOrg type="google">-73.1951767,41.1865478#Yale-New Haven Health System</ns0:GeoOrg></ns0:Institution><ns0:Institution geo="-72.930106,41.310741,0"><ns0:OrgName>Yale University School of Medicine</ns0:OrgName><ns0:GeoOrg type="code">-72.930106,41.310741,0#Yale University School of Medicine</ns0:GeoOrg><ns0:Country>United States</ns0:Country></ns0:Institution></ns0:Institutions><ns0:Date>2015-12-01</ns0:Date><ns0:Type>Article</ns0:Type><ns0:DOI>10.1007/s13317-015-0071-9</ns0:DOI><ns0:Title>Typical evanescent and atypical persistent polymorphic cutaneous rash in an adult Brazilian with Still’s disease: a case report and review of the literature</ns0:Title><ns0:ISXN>2038-3274</ns0:ISXN><ns0:PubName>Springer</ns0:PubName><ns0:Journal>Autoimmunity Highlights</ns0:Journal><ns0:Publication>Autoimmunity Highlights</ns0:Publication><ns0:PublicationType>Journal</ns0:PublicationType><ns0:SubjectGroup><ns0:Subject Code="SCB" Type="Primary">Biomedicine</ns0:Subject><ns0:Subject Code="SCB14000" Priority="1" Type="Secondary">Immunology</ns0:Subject></ns0:SubjectGroup><ns0:VolumeId>6</ns0:VolumeId><ns0:IssueId>3</ns0:IssueId><ns0:ArticleSequenceNumber>2</ns0:ArticleSequenceNumber></ns0:Info></Publisher>
