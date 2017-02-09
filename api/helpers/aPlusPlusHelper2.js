@@ -20,6 +20,7 @@ APlusPlusHelper.prototype.parseFile = function(path, callback){
         self.result.identifiers = [];
         self.result.contributors = [];
         self.result.embodiedAs = [];
+        self.result.parts = [];
         // TODO: Is this always right?
         self.result.type = "Article";
 
@@ -63,8 +64,16 @@ APlusPlusHelper.prototype.parseFile = function(path, callback){
             }
         }
         
-        // EMBODIMENT
-        
+        // PARTS
+        for(var citationNode of xpath.select("//Citation/*", doc)){
+            var citation = {};
+            citation.bibliographicEntryText="";
+            citation.references="?";
+            if(citationNode.nodeName == "BibUnstructured"){
+                citation.bibliographicEntryText = citationNode.childNodes[0].data;
+                self.result.parts.push(citation);
+            }
+        }
         callback(self.result);
     });
 
