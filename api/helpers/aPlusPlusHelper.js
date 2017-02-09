@@ -1,67 +1,107 @@
 "use strict";
 
-const sax = require('sax');
+const xpath = require('xpath');
+const dom = require('xmldom').DOMParser;
 const fs = require('fs');
-var result= {};
+const pth = require('path');
+const async = require('async');
 
 var APlusPlusHelper = function(){
 }
 
-APlusPlusHelper.prototype.sax = sax.createStream(true);
+APlusPlusHelper.prototype.result = {};
 
-APlusPlusHelper.prototype.sax.currentTag = "";
-
-
-APlusPlusHelper.prototype.sax.on("error", function (e) {
-    // unhandled errors will throw, since this is a proper node 
-    // event emitter. 
-    console.error("error!", e)
-    // clear the error 
-    this._parser.error = null
-    this._parser.resume()
-});
-  
-  
-APlusPlusHelper.prototype.sax.on("opentag", function (node) {
-    // same object as above
-    this.currentTag = node.name;
-});
-
-
-APlusPlusHelper.prototype.sax.on("closetag", function (node) {
-    // same object as above
-    this.currentTag = "";
-});
-
-
-APlusPlusHelper.prototype.sax.on("text", function (text) {
-    var identifier = {};
-    if(this.currentTag == "PublisherName"){
-        result.publisher = text;
-    }else if(this.currentTag == "ArticleTitle"){
-        result.title = text;
-    }else if(this.currentTag == "ArticleDOI"){
-        identifier.scheme = "DOI";
-        identifier.literalValue = text;
-        result.identifiers.push(identifier);
-        //TODO: Distinguish between Journal date and article date as well as online date and other date?
-    }else if(this.currentTag == "CopyrightYear"){
-        result.publicationYear = Number(text);
-    }
-});
+// TODO add Winston here
+APlusPlusHelper.prototype.parseFiles = function(path, callback){
+    var self = this;
+    fs.readdir(path, function(err, files){
+        if (err) {
+            return console.log(err);
+        }
+        var bibliographicResources = [];
+        async.each(files,
+                function(file, callback){
+                    self.parseFile(pth.join(path, file), function(result){
+                        //console.log(result);
+                        bibliographicResources.push(result);
+                        callback();
+                    });
+                }, function(){
+                    callback(bibliographicResources);
+        });
+        
+  });
+};
 
 
 APlusPlusHelper.prototype.parseFile = function(path, callback){
-    // TODO: I need another model class..
-    result.identifiers = [];
-    result.contributors = [];
-    result.embodiedAs = [];
-    // TODO: Is this always right?
-    result.type = "Article";
-    var stream = fs.createReadStream(path).pipe(this.sax);
-    stream.on("end", function(){
-        callback(result)
+    var self = this;
+
+    fs.readFile(path, "utf-8", function(err, xmlString){
+        if (err) {
+            return console.log(err);
+        }
+        // TODO: I need another model class..
+        self.result.identifiers = [];
+        self.result.contributors = [];
+        self.result.embodiedAs = [];
+        self.result.parts = [];
+        // TODO: Is this always right?
+        self.result.type = "Article";
+
+        var doc = new dom().parseFromString(xmlString);
+        
+        // IDENTIFIERS
+        var identifier = {}
+        identifier.scheme = "DOI";
+        identifier.literalValue = xpath.select("//ArticleDOI/text()", doc)[0].data;
+        self.result.identifiers.push(identifier);
+        
+        // TITLE
+        self.result.title = xpath.select("//ArticleTitle/text()", doc)[0].data;
+        
+        // PUBLICATIONYEAR
+        self.result.title = xpath.select("//ArticleHistory/OnlineDate/Year/text()", doc)[0].data;
+        
+        // CONTRIBUTORS
+        var publisher = {};
+        publisher.roleType = "Publisher";
+        publisher.heldBy = {};
+        publisher.heldBy.nameString = xpath.select("//PublisherName/text()", doc)[0].data;
+        self.result.contributors.push(publisher);
+
+        for(var authorNode of xpath.select("//AuthorGroup/Author/*", doc)){
+            var author = {};
+            author.roleType = "Author";
+            author.heldBy = {};
+            author.heldBy.firstName = "";
+            author.heldBy.lastName = "";
+            if(authorNode.nodeName == "AuthorName"){
+                for(var i=0; i < authorNode.childNodes.length; i++){
+                    var nameNode = authorNode.childNodes[i];
+                    if(nameNode.nodeName == "GivenName"){
+                        author.heldBy.firstName = nameNode.childNodes[0].data;
+                    }else if(nameNode.nodeName == "FamilyName"){
+                        author.heldBy.lastName = nameNode.childNodes[0].data;
+                    }
+                }
+                self.result.contributors.push(author);
+            }
+        }
+        
+        // PARTS
+        for(var citationNode of xpath.select("//Citation/*", doc)){
+            var citation = {};
+            citation.bibliographicEntryText="";
+            citation.references="?";
+            if(citationNode.nodeName == "BibUnstructured"){
+                citation.bibliographicEntryText = citationNode.childNodes[0].data;
+                self.result.parts.push(citation);
+            }
+        }
+        callback(self.result);
     });
+
 };
 
 
