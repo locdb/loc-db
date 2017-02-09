@@ -3,11 +3,36 @@
 const xpath = require('xpath');
 const dom = require('xmldom').DOMParser;
 const fs = require('fs');
+const pth = require('path');
+const async = require('async');
 
 var APlusPlusHelper = function(){
 }
 
 APlusPlusHelper.prototype.result = {};
+
+// TODO add Winston here
+APlusPlusHelper.prototype.parseFiles = function(path, callback){
+    var self = this;
+    fs.readdir(path, function(err, files){
+        if (err) {
+            return console.log(err);
+        }
+        var bibliographicResources = [];
+        async.each(files,
+                function(file, callback){
+                    self.parseFile(pth.join(path, file), function(result){
+                        //console.log(result);
+                        bibliographicResources.push(result);
+                        callback();
+                    });
+                }, function(){
+                    callback(bibliographicResources);
+        });
+        
+  });
+};
+
 
 APlusPlusHelper.prototype.parseFile = function(path, callback){
     var self = this;
