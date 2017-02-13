@@ -1,7 +1,7 @@
 const should = require('should');
 const setup = require('./../setup.js').createSetup();
-const aPlusPlusHelper = require('./../../../api/helpers/aPlusPlusHelper2.js').createAPlusPlusHelper();
-const fs = require('fs')
+const aPlusPlusHelper = require('./../../../api/helpers/aPlusPlusHelper.js').createAPlusPlusHelper();
+const fs = require('fs');
 
 describe('helpers', function() {
     describe('aPlusPlusHelper', function() {
@@ -38,7 +38,7 @@ describe('helpers', function() {
         
         describe('parseFiles', function(){
             it('should return a parsed bibliographic resource', function(done) {
-                this.timeout(2000);
+                this.timeout(5000);
                 aPlusPlusHelper.parseFiles("C:/Users/anlausch/Downloads/springer-oa/out/biomedicine/2038-0305", function(result){
                     console.log("FERTIG: " + result.length);
                     
