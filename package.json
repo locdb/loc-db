@@ -10,6 +10,7 @@
   "dependencies": {
     "JSONStream": "^1.3.0",
     "ajax-request": "^1.2.1",
+    "crossref": "^1.2.1",
     "express": "^4.12.3",
     "google-scholar": "^1.2.5",
     "marc4js": "0.0.8",
