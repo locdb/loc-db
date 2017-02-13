@@ -3,7 +3,7 @@ info:
   version: "0.0.1"
   title: LOC-DB Central Component
 # during dev, should point to your local machine
-host: localhost:10010
+host: velsen.informatik.uni-mannheim.de:80
 # basePath prefixes all resource paths 
 basePath: /
 tags:
@@ -55,6 +55,29 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
+    post:
+      tags: [BibliographicResource]
+      description: Saves a new bibliographic resource into the database
+      operationId: save
+      parameters:
+        - name: bibliographicResource
+          in: body
+          description: A bibliographic resource to be saved in the database
+          required: true
+          schema:
+            $ref: "#/definitions/BibliographicResource"
+      responses:
+        "200":
+          description: Success
+          schema:
+            # a pointer to a definition
+            $ref: "#/definitions/BibliographicResource"
+        # responses may fall through to errors
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        
   /bibliographicResources/{id}:
     # binds a127 app logic to a route
     x-swagger-router-controller: bibliographicResource
