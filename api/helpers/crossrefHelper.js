@@ -8,8 +8,13 @@ var CrossrefHelper = function(){
 
 
 CrossrefHelper.prototype.query = function(query, callback){
-    var test = "Test";
-    callback(test);
+    crossref.works({query: query }, (err, objs, nextOpts, done) => {
+        if (err) {
+            return console.log(err);
+        }
+        callback(objs);
+    });
+    
 };
 
 
