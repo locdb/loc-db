@@ -8,8 +8,11 @@ var GoogleScholarHelper = function(){
 
 
 GoogleScholarHelper.prototype.query = function(query, callback){
-    var test = "Test";
-    callback(test);
+    scholar.search(query)
+    .then(resultsObj => {
+        callback(resultsObj);
+    });
+    
 };
 
 

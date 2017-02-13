@@ -19,16 +19,6 @@ describe('helpers', function() {
                 googleScholarHelper.query("Test", function(result){
                     console.log(result);
                     result.should.be.ok();
-//                    result.should.have.property("title", "Der soziologische Blick :");
-//                    result.should.have.property("subtitle", "vergangene Positionen und gegenwärtige Perspektiven /");
-//                    result.should.have.property("publicationYear", 2002);
-//                    result.should.have.property("contributors");
-//                    result.should.have.property("identifiers");
-//                    result.contributors.should.be.Array();
-//                    result.contributors.should.have.length(1);
-//                    result.contributors[0].should.have.property("roleType", "Publisher")
-//                    result.identifiers.should.be.Array();
-//                    result.contributors.should.have.length(1)
                     done();
                 });
                 
