@@ -9,6 +9,8 @@ basePath: /
 tags:
   - name: BibliographicResource
     description: Services related to bibliographic resources.
+  - name: Utils
+    description: Utility services.
 # 
 schemes:
   # tip: remove http to make production-grade
@@ -17,6 +19,7 @@ schemes:
 # format of bodies a client can send (Content-Type)
 consumes:
   - application/json
+  - multipart/form-data 
 # format of the responses to the client (Accepts)
 produces:
   - application/json
@@ -120,6 +123,34 @@ paths:
           schema:
             # a pointer to a definition
             $ref: "#/definitions/SuccessResponse"
+        # responses may fall through to errors
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /saveScan:
+    x-swagger-router-controller: scan
+    post:
+      tags: [Utils]
+      description: Get bibliographic resource by PICA-Prod-Nr.
+      operationId: saveScan
+      parameters:
+#        - name: ppn
+#          in: formData
+#          description: The PICA-Prod-Nr. assigned by SWB
+#          required: true
+#          type: string
+        - name: image
+          in: formData
+          description: The scanned image of the page
+          required: true
+          type: file
+      responses:
+        "200":
+          description: Success
+          schema:
+            # a pointer to a definition
+            $ref: "#/definitions/BibliographicResource"
         # responses may fall through to errors
         default:
           description: Error
