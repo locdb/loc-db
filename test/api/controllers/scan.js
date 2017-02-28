@@ -20,17 +20,17 @@ describe('controllers', function() {
       
       describe('POST /saveScan', function() {
           
-          it('save a file in the file system', function(done) {
+          it.only('save a file in the file system', function(done) {
             request(server)
               .post('/saveScan')
               .type('form')
               //.send({ppn: '400433052'})
               .attach('image', './test/api/data/ocr_example_1/0001.png')
+              .attach('xml', './test/api/data/ocr_example_1/Output021511065733891448X_Verf_Literatruverz.pdf-14.png.xml')
               .set('Accept', 'application/json')
               .expect('Content-Type', /json/)
               .expect(200)
               .end(function(err, res) {
-                console.log("Test")
                 should.not.exist(err);
                 done();
               });

@@ -17,6 +17,7 @@
     "marc4js": "0.0.8",
     "mongodb": "^2.2.13",
     "mongoose": "^4.7.2",
+    "schema-object": "^4.0.10",
     "sparql-http-client": "^1.0.2",
     "stream": "0.0.2",
     "swagger-express-mw": "^0.1.0",
