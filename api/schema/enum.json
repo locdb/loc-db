@@ -1,0 +1,7 @@
+{  
+  "status": {
+    "notOcrProcessed": "NOT_OCR_PROCESSED",
+    "ocrProcessed": "OCR_PROCESSED",
+    "valid": "VALIDATED"
+  }
+}

@@ -1,9 +1,9 @@
 
 // The bibliographicResource model
-
 const mongoose = require('mongoose')
        ,Schema = mongoose.Schema
        ,ObjectId = Schema.ObjectId;
+const status = require('./../schema/enum.json').status
 
 const brSchema = new Schema({
     identifiers: [{
@@ -30,6 +30,12 @@ const brSchema = new Schema({
             givenName: String,
             familyName: String
         }
+    }],
+    scans:[{
+        scanName: String,
+        xmlName: String,
+        status: {type: String, enum: [status.notOcrProcessed, status.ocrProcessed, status.valid]},
+        //pages?
     }],
     //keywords: [String],
     publicationYear: Number,

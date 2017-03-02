@@ -2,7 +2,7 @@
 const config = require('./../../config/config.json');
 const fs = require('fs');
 const xml2js = require('xml2js');
-const BibliographicEntry = require('./../schema/bibliographicEntry.js')
+const BibliographicEntry = require('./../schema/bibliographicEntry.js');
 
 
 var OcrHelper = function(){
@@ -39,7 +39,6 @@ OcrHelper.prototype.parseXML = function(fileName, fileBuffer, callback){
     });
     
 };
-
 
 /**
  * Factory function
