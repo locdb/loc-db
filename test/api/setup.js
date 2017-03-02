@@ -3,6 +3,7 @@ const config = require("./config.json");
 const mongoose = require('mongoose');
 const br = require('./../../api/models/bibliographicResource.js');
 const dataBibliographicResource = require('./data/bibliographicResource');
+const nock = require('nock');
 
 
 var Setup = function(){};
@@ -18,6 +19,12 @@ Setup.prototype.loadBibliographicResources = function(){
         }
     });
 
+};
+
+Setup.prototype.mockOcrServer = function(){
+    var ocrNock = nock('http://akanshaocr.de')
+        .get('/')
+        .replyWithFile(200, __dirname + '/data/ocr_example_1/Output021511065733891448X_Verf_Literatruverz.pdf-14.png.xml');
 };
 
 Setup.prototype.dropDB = function(){

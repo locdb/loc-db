@@ -3,7 +3,8 @@ info:
   version: "0.0.1"
   title: LOC-DB Central Component
 # during dev, should point to your local machine
-host: velsen.informatik.uni-mannheim.de:80
+#host: velsen.informatik.uni-mannheim.de:80
+host: localhost
 # basePath prefixes all resource paths 
 basePath: /
 tags:
@@ -168,6 +169,24 @@ paths:
       tags: [Scan]
       description: Retrieves the BRs including their associated scans that are not processed by the OCR-component yet.
       operationId: getNotOcrProcessedScans
+      responses:
+        "200":
+          description: Success
+          schema:
+            # a pointer to a definition
+            $ref: "#/definitions/BibliographicResource"
+        # responses may fall through to errors
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  
+  /triggerOcrProcessing:
+    x-swagger-router-controller: scan
+    get:
+      tags: [Scan]
+      description: Send a processing request to the OCR component.
+      operationId: triggerOcrProcessing
       responses:
         "200":
           description: Success

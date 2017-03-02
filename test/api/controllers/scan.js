@@ -10,6 +10,7 @@ describe('controllers', function() {
       
       before(function(done) {
           setup.loadBibliographicResources();
+          setup.mockOcrServer();
           done();
       });
       
@@ -56,6 +57,21 @@ describe('controllers', function() {
                 res.body[0].should.have.property("scans");
                 res.body[0].scans.should.be.Array;
                 res.body[0].scans.should.have.lengthOf(1);
+                done();
+              });
+          });
+      });
+      
+      describe('GET /triggerOcrProcessing', function() {
+          
+          it.only('should trigger OCR processing', function(done) {
+            request(server)
+              .get('/triggerOcrProcessing')
+              .set('Accept', 'application/json')
+              .expect('Content-Type', /json/)
+              .expect(200)
+              .end(function(err, res) {
+                should.not.exist(err);
                 done();
               });
           });

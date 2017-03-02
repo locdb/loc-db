@@ -3,6 +3,7 @@ const config = require('./../../config/config.json');
 const fs = require('fs');
 const xml2js = require('xml2js');
 const BibliographicEntry = require('./../schema/bibliographicEntry.js');
+const request = require('ajax-request');
 
 
 var OcrHelper = function(){
@@ -38,6 +39,18 @@ OcrHelper.prototype.parseXML = function(fileName, fileBuffer, callback){
         callback(bes);
     });
     
+};
+
+
+OcrHelper.prototype.query = function(callback){
+    var url = "http://akanshaocr.de"; // nock mocking url
+    request({
+        url: url,
+        method: 'GET',
+    }, function(err, res, body) {
+          if(err) return console.log(err);
+          callback(body);
+    });
 };
 
 /**

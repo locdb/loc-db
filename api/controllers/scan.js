@@ -9,9 +9,11 @@ const mongoBr = require('./../models/bibliographicResource.js');
 
 //TODO: Should I add this to bibliographicResource.js?
 function saveScan(req, res){
+    console.log("Function called");
     var response = res;
     var scan = req.swagger.params.scan.value;
     var ppn = req.swagger.params.ppn.value;
+    console.log(ppn);
     
     async.parallel([
         function(callback){
@@ -27,7 +29,7 @@ function saveScan(req, res){
     ],
     function(err, results) {
         if(err){
-            return res.json("An error occured.");
+            return res.status(400).json("An error occured.");
         }
         var br = new BibliographicResource(results[1]);
         var scan = new Scan({ scanName: results[0], status: status.notOcrProcessed });
@@ -59,6 +61,15 @@ function getNotOcrProcessedScans(req, res){
         response.json(brs);
     });
 };
+
+
+function triggerOcrProcessing(req, res){
+    console.log("Test");
+    ocrHelper.query(function(result){
+        console.log(result);
+        res.json("TEST");
+    });
+}
 
 ////TODO: Should I add this to bibliographicResource.js?
 //function saveScan(req, res){
@@ -104,5 +115,6 @@ function getNotOcrProcessedScans(req, res){
 
 module.exports = {
         saveScan : saveScan,
-        getNotOcrProcessedScans : getNotOcrProcessedScans
+        getNotOcrProcessedScans : getNotOcrProcessedScans,
+        triggerOcrProcessing : triggerOcrProcessing
 };
