@@ -3,7 +3,10 @@ const config = require('./../../config/config.json');
 const fs = require('fs');
 const xml2js = require('xml2js');
 const BibliographicEntry = require('./../schema/bibliographicEntry.js');
-const request = require('ajax-request');
+const request = require('request');
+const errorlog = require('./../util/logger.js').errorlog;
+const accesslog = require('./../util/logger.js').accesslog;
+//const FormData = require('form-data');
 
 
 var OcrHelper = function(){
@@ -19,10 +22,20 @@ OcrHelper.prototype.saveBinaryFile = function(fileName, fileBuffer, callback){
     });
 };
 
+OcrHelper.prototype.saveStringFile = function(fileName, fileString, callback){
+    fs.writeFile(config.upload.imagePath + fileName, fileString, 'utf-8', function(err){
+        if(err){
+            errorlog.error(err);
+            return callback(err, null)
+        }
+        callback(null,null);
+    });
+};
+
 /**
  * Should return a list of bibliographic entries
  */
-OcrHelper.prototype.parseXML = function(fileName, fileBuffer, callback){
+OcrHelper.prototype.parseXMLBuffer = function(fileName, fileBuffer, callback){
     var xmlString = fileBuffer.toString('utf-8');
     xml2js.parseString(xmlString, function(err, ocrResult){
         if(err){
@@ -41,15 +54,49 @@ OcrHelper.prototype.parseXML = function(fileName, fileBuffer, callback){
     
 };
 
+/**
+ * Should return a list of bibliographic entries
+ */
+OcrHelper.prototype.parseXMLString = function(xmlString, callback){
+    xml2js.parseString(xmlString, function(err, ocrResult){
+        if(err){
+            errorlog.error(err);
+            return callback(err, null)
+        }
+        var citations = ocrResult.algorithms.algorithm[0].citationList[0].citation;
+        var bes = [];
+        // How to make use of the additional OCRed information?
+        for (var citation of citations){
+            var be = new BibliographicEntry({bibliographicEntryText: citation.rawString[0]._, coordinates: citation.rawString[0]['$'].coordinates});
+            bes.push(be)
+        }
+        callback(null, bes);
+    });
+    
+};
 
-OcrHelper.prototype.query = function(callback){
-    var url = "http://akanshaocr.de"; // nock mocking url
-    request({
-        url: url,
-        method: 'GET',
-    }, function(err, res, body) {
-          if(err) return console.log(err);
-          callback(body);
+
+OcrHelper.prototype.queryOcrComponent = function(fileName, callback){
+    // retrieve scan file by filename
+    var path = config.upload.imagePath + fileName;
+    
+    console.log(path);
+    fs.access(path, fs.constants.R_OK, function(err){
+        if (err){
+            errorlog.error(err);
+            return callback(err, null);
+        }
+        var form = {
+                my_file: fs.createReadStream(path),
+        };
+        request.post({url: config.urls.ocrUrl, formData: form}, function(err, res, body) {
+            if (err) {
+                errorlog.error(err);
+                return callback(err, null);
+            }
+            accesslog.log("Request to OCR component successfull.", {body: body});
+            callback(null, body);
+        });
     });
 };
 

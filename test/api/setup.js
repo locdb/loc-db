@@ -23,7 +23,10 @@ Setup.prototype.loadBibliographicResources = function(){
 
 Setup.prototype.mockOcrServer = function(){
     var ocrNock = nock('http://akanshaocr.de')
-        .get('/')
+        .post('/', function(body, something){
+            console.log(typeof body);
+            return true;
+        })
         .replyWithFile(200, __dirname + '/data/ocr_example_1/Output021511065733891448X_Verf_Literatruverz.pdf-14.png.xml');
 };
 

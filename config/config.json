@@ -7,7 +7,8 @@
     "schema": "locdb"
   },
   "urls": {
-    "swbUrl": "http://swbtest.bsz-bw.de/sru/DB=2.1/username=/password=/"
+    "swbUrl": "http://swbtest.bsz-bw.de/sru/DB=2.1/username=/password=/",
+    "ocrUrl": "http://akanshaocr.de"
   },
   "upload":{
     "imagePath": "./upload/image/"

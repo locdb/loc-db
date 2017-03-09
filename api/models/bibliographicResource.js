@@ -41,7 +41,10 @@ const brSchema = new Schema({
     publicationYear: Number,
     parts: [{
         bibliographicEntryText: String,
-        references: String //link to other br
+        references: String, //link to other br
+        scanName: String, // TODO: Save scan name here?
+        xmlName: String, // TODO: Save xml name here?
+        coordinates: String // TODO: Save coordinates here?
     }], // reference entries
     partOf: String, // link to other br
     cites: [String], // links to other brs

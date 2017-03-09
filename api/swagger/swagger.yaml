@@ -186,6 +186,12 @@ paths:
     get:
       tags: [Scan]
       description: Send a processing request to the OCR component.
+      parameters:
+        - name: id
+          in: query
+          description: The unique id of the scan which should be send to the OCR component
+          required: true
+          type: string
       operationId: triggerOcrProcessing
       responses:
         "200":

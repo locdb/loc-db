@@ -6,7 +6,8 @@ const setup = require('./../setup.js').createSetup();
 
 describe('controllers', function() {
 
-  describe('scan', function() {
+  describe.only('scan', function() {
+      var id = "58c01713ea3c8d32f0f80a75";
       
       before(function(done) {
           setup.loadBibliographicResources();
@@ -55,6 +56,7 @@ describe('controllers', function() {
                 res.body.should.be.Array;
                 res.body.should.have.lengthOf(1);
                 res.body[0].should.have.property("scans");
+                id = res.body[0].scans[0]._id;
                 res.body[0].scans.should.be.Array;
                 res.body[0].scans.should.have.lengthOf(1);
                 done();
@@ -64,13 +66,15 @@ describe('controllers', function() {
       
       describe('GET /triggerOcrProcessing', function() {
           
-          it.only('should trigger OCR processing', function(done) {
+          it('should trigger OCR processing', function(done) {
             request(server)
               .get('/triggerOcrProcessing')
+              .query({ id: id })
               .set('Accept', 'application/json')
               .expect('Content-Type', /json/)
               .expect(200)
               .end(function(err, res) {
+                console.log(res.body)
                 should.not.exist(err);
                 done();
               });

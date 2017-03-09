@@ -4,23 +4,16 @@ const SwaggerExpress = require('swagger-express-mw');
 const SwaggerUi = require('swagger-tools/middleware/swagger-ui');
 const app = require('express')();
 const mongoose = require('mongoose');
-const winston = require('winston');
+const errorlog = require('./api/util/logger.js').errorlog;
+const accesslog = require('./api/util/logger.js').accesslog;
 
 module.exports = app; // for testing
 
-//winston.level = process.env.LOG_LEVEL;
-winston.level = 'info';
-winston.log('info', 'Winston is logging.', {  
-    level: winston.level
-});
-
 var db = mongoose.connection;
 
-// TODO: Improve logging mechanisms
 db.on('error', console.error);
 db.once('open', function() {
-    winston.log('info', 'DB opended.');
-  // Create your schemas and models here.
+    accesslog.info("DB successfully opened.")
 });
 
 // TODO: Is there a better solution to this?

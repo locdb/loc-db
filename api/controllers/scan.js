@@ -6,6 +6,10 @@ const Scan = require('./../schema/scan.js');
 const status = require('./../schema/enum.json').status;
 const async = require('async');
 const mongoBr = require('./../models/bibliographicResource.js');
+const errorlog = require('./../util/logger.js').errorlog;
+const accesslog = require('./../util/logger.js').accesslog;
+const config = require('./../../config/config.json');
+const mongoose = require('mongoose');
 
 //TODO: Should I add this to bibliographicResource.js?
 function saveScan(req, res){
@@ -55,19 +59,87 @@ function saveScan(req, res){
 
 function getNotOcrProcessedScans(req, res){
     var response = res;
-    console.log("function called");
     mongoBr.find({ 'scans.status': status.notOcrProcessed }, function (err, brs) {
-        if (err) return console.log(err);
+        if(err){
+            errorlog.error(err);
+            return res.status(500).json({"message":"DB query failed."});
+        }
         response.json(brs);
     });
 };
 
 
 function triggerOcrProcessing(req, res){
-    console.log("Test");
-    ocrHelper.query(function(result){
-        console.log(result);
-        res.json("TEST");
+    var id = req.swagger.params.id.value;
+    var response = res;
+    
+    // check if id is valid
+    if(! mongoose.Types.ObjectId.isValid(id)){
+        errorlog.error("Invalid value for parameter id.", {id : id});
+        return res.status(400).json({"message":"Invalid parameter."});
+    }
+    
+    
+    // read the corresponding scan by id
+    mongoBr.findOne({'scans._id': id,  'scans.status': status.notOcrProcessed}, function (err, br) {
+        // do error handling
+        if(err){
+            errorlog.error(err);
+            return response.status(500).json({"message":"DB query failed."});
+        }else if(!br){
+            errorlog.error("No entry found for parameter id.", {id : id});
+            return response.status(400).json({"message":"No entry found."});
+        }
+        
+        // TODO: Can we use a projection for filtering the right scan?
+        for(var scan of br.scans){
+            if(scan._id == id){
+                ocrHelper.queryOcrComponent(scan.scanName, function(err, result){
+                    if(err){
+                        errorlog.error(err);
+                        return res.status(504).json({"message":"OCR request failed."});
+                    }
+                    // TODO: assume that we got this name from the server answer? Mocking purpose.
+                    var name = "xmltest.xml";
+                    async.parallel([
+                        // Do two functions in parallel: 1) parse xml string 2) save xml string in file
+                        function(callback){
+                            ocrHelper.parseXMLString(result, function(err, bes){
+                                if(err){
+                                    errorlog.error(err);
+                                    return res.status(504).json({"message":"XML parsing failed."});
+                                }
+
+                                for(var be of bes){
+                                    be.scanName = scan.scanName;
+                                    be.xmlName = name;
+                                    br.parts.push(be);
+                                }
+                                br.save();
+                                callback(null, br);
+                            });
+                        },
+                        function(callback){
+                            
+                            ocrHelper.saveStringFile(name, result, function(err, res){
+                                if(err){
+                                    errorlog.error(err);
+                                    return callback(err, null);
+                                }
+                                callback(null, name);
+                            });
+                        }
+                    ], function(err, results) {
+                        if(err){
+                            errorlog.error(err);
+                            return response.status(500).json({"message":"An error occured."});
+                        }
+                        res.json(br);
+                    });
+
+                });
+            }
+        }
     });
 }
 
