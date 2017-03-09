@@ -91,8 +91,8 @@ describe('controllers', function() {
                 res.body.scans[0].status.should.be.exactly(status.ocrProcessed);
                 res.body.parts[0].should.have.property("coordinates");
                 res.body.parts[0].should.have.property("bibliographicEntryText");
-                res.body.parts[0].should.have.property("xmlName");
-                res.body.parts[0].should.have.property("scanName");
+                //res.body.parts[0].should.have.property("xmlName");
+                res.body.parts[0].should.have.property("scanId");
                 done();
               });
           });

@@ -111,14 +111,14 @@ function triggerOcrProcessing(req, res){
                                 
                                 bes.map(function(be){
                                     console.log(be);
-                                    be.scanName = scan.scanName;
-                                    be.xmlName = name;
+                                    be.scanId = id;
                                     br.parts.push(be);
                                 });
                                 
                                 // change status in scan
                                 var index = br.scans.indexOf(scan);
                                 scan.status = status.ocrProcessed;
+                                scan.xmlName = name;
                                 br.scans[index] = scan;
                                 
                                 br.save(function(err){
