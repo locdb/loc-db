@@ -110,12 +110,23 @@ function triggerOcrProcessing(req, res){
                                     return res.status(504).json({"message":"XML parsing failed."});
                                 }
 
+                                // TODO: Implement this with map function
                                 for(var be of bes){
                                     be.scanName = scan.scanName;
                                     be.xmlName = name;
                                     br.parts.push(be);
                                 }
-                                br.save();
+                                // change status in scan
+                                var index = br.scans.indexOf(scan);
+                                scan.status = status.ocrProcessed;
+                                br.scans[index] = scan;
+                                
+                                br.save(function(err){
+                                    if(err){
+                                        errorlog.error(err);
+                                        return res.status(504).json({"message":"Saving BR to DB failed."});
+                                    }
+                                });
                                 callback(null, br);
                             });
                         },

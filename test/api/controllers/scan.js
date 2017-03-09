@@ -2,6 +2,7 @@ const should = require('should');
 const request = require('supertest');
 const server = require('../../../app');
 const setup = require('./../setup.js').createSetup();
+const status = require('./../../../api/schema/enum.json').status;
 
 
 describe('controllers', function() {
@@ -86,7 +87,7 @@ describe('controllers', function() {
                 res.body.scans.should.have.lengthOf(1);
                 res.body.parts.should.be.Array;
                 res.body.parts.should.have.lengthOf(53);
-                // TODO: Status of scan has to be changed!!!
+                res.body.scans[0].status.should.be.exactly(status.ocrProcessed);
                 res.body.parts[0].should.have.property("coordinates");
                 res.body.parts[0].should.have.property("bibliographicEntryText");
                 res.body.parts[0].should.have.property("xmlName");
