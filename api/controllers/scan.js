@@ -109,13 +109,14 @@ function triggerOcrProcessing(req, res){
                                     errorlog.error(err);
                                     return res.status(504).json({"message":"XML parsing failed."});
                                 }
-
-                                // TODO: Implement this with map function
-                                for(var be of bes){
+                                
+                                bes.map(function(be){
+                                    console.log(be);
                                     be.scanName = scan.scanName;
                                     be.xmlName = name;
                                     br.parts.push(be);
-                                }
+                                });
+                                
                                 // change status in scan
                                 var index = br.scans.indexOf(scan);
                                 scan.status = status.ocrProcessed;
