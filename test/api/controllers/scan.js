@@ -74,8 +74,23 @@ describe('controllers', function() {
               .expect('Content-Type', /json/)
               .expect(200)
               .end(function(err, res) {
-                console.log(res.body)
+                console.log(res.body);
                 should.not.exist(err);
+                res.body.should.not.be.Array;
+                res.body.should.have.property("_id");
+                res.body.should.have.property("title", "The handbook of the neuropsychology of language");
+                res.body.should.have.property("publicationYear", 2012);
+                res.body.should.have.property("scans");
+                res.body.should.have.property("parts");
+                res.body.scans.should.be.Array;
+                res.body.scans.should.have.lengthOf(1);
+                res.body.parts.should.be.Array;
+                res.body.parts.should.have.lengthOf(53);
+                // TODO: Status of scan has to be changed!!!
+                res.body.parts[0].should.have.property("coordinates");
+                res.body.parts[0].should.have.property("bibliographicEntryText");
+                res.body.parts[0].should.have.property("xmlName");
+                res.body.parts[0].should.have.property("scanName");
                 done();
               });
           });
