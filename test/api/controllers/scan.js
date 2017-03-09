@@ -29,6 +29,7 @@ describe('controllers', function() {
               .post('/saveScan')
               .type('form')
               .field('ppn', '400433052')
+              .field('pages', '2-3')
               .attach('scan', './test/api/data/ocr_example_1/0001.png')
               //.attach('xml', './test/api/data/ocr_example_1/Output021511065733891448X_Verf_Literatruverz.pdf-14.png.xml')
               .set('Accept', 'application/json')

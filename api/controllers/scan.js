@@ -11,13 +11,12 @@ const accesslog = require('./../util/logger.js').accesslog;
 const config = require('./../../config/config.json');
 const mongoose = require('mongoose');
 
-//TODO: Should I add this to bibliographicResource.js?
+
 function saveScan(req, res){
-    console.log("Function called");
     var response = res;
     var scan = req.swagger.params.scan.value;
     var ppn = req.swagger.params.ppn.value;
-    console.log(ppn);
+    var pages = req.swagger.params.pages.value;
     
     async.parallel([
         function(callback){
@@ -36,13 +35,13 @@ function saveScan(req, res){
             return res.status(400).json("An error occured.");
         }
         var br = new BibliographicResource(results[1]);
-        var scan = new Scan({ scanName: results[0], status: status.notOcrProcessed });
+        var scan = new Scan({ scanName: results[0], status: status.notOcrProcessed, pages: pages });
         br.scans=[];
         br.scans[0]=scan;
         // TODO: How to check properly if theres already something? --> SWB ppn?
         mongoBr.findOne({br: br.title}).then((doc) => {
             if(doc  != null){
-                // TODO: If there already exists one, add scan, update db and send back?
+                // TODO: If there already exists one, add scan, update db and send back!
                 return res.json(doc);
             }else{
                 new mongoBr(br.toObject()).save().then(function(result){

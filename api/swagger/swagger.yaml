@@ -141,6 +141,11 @@ paths:
           description: The PICA-Prod-Nr. assigned by SWB
           required: true
           type: string
+        - name: pages
+          in: formData
+          description: The page number(s) of the scan.
+          required: true
+          type: string
         - name: scan
           in: formData
           description: The scanned image of the reference page (binary file)

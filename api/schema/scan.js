@@ -8,7 +8,7 @@ var scan = new SchemaObject({
     scanName: String,
     xmlName: String,
     status: {type: String, enum: [status.notOcrProcessed, status.ocrProcessed, status.valid]},
-    //pages?
+    pages: String
 });
 
 module.exports = scan;

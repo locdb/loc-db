@@ -35,7 +35,7 @@ const brSchema = new Schema({
         scanName: String,
         xmlName: String,
         status: {type: String, enum: [status.notOcrProcessed, status.ocrProcessed, status.valid]},
-        //pages?
+        pages: String
     }],
     //keywords: [String],
     publicationYear: Number,
