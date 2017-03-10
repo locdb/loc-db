@@ -97,5 +97,42 @@ describe('controllers', function() {
               });
           });
       });
+      
+      describe('GET /getOcrProcessedScans', function() {
+          
+          it('should retrieve one br', function(done) {
+            request(server)
+              .get('/getOcrProcessedScans')
+              .set('Accept', 'application/json')
+              .expect('Content-Type', /json/)
+              .expect(200)
+              .end(function(err, res) {
+                should.not.exist(err);
+                res.body.should.be.Array;
+                res.body.should.have.lengthOf(1);
+                res.body[0].should.have.property("scans");
+                id = res.body[0].scans[0]._id;
+                res.body[0].scans.should.be.Array;
+                res.body[0].scans.should.have.lengthOf(1);
+                done();
+              });
+          });
+      });
+      
+      describe('GET /get', function() {
+          
+          it('should retrieve a file', function(done) {
+            request(server)
+              .get('/scans/' + id)
+              //.set('Accept', 'image')
+              //.expect('Content-Type', /image/)
+              .expect(200)
+              .end(function(err, res) {
+                console.log(res.body);
+                should.not.exist(err);
+                done();
+              });
+          });
+      });
   });
 });

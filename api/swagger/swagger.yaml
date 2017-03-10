@@ -24,6 +24,7 @@ consumes:
 # format of the responses to the client (Accepts)
 produces:
   - application/json
+  - image/png
 paths:
   /bibliographicResources:
     # binds a127 app logic to a route
@@ -178,9 +179,56 @@ paths:
         "200":
           description: Success
           schema:
-            # a pointer to a definition
-            $ref: "#/definitions/BibliographicResource"
+            type: array
+            items:
+              # a pointer to a definition
+              $ref: "#/definitions/BibliographicResource"
         # responses may fall through to errors
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  
+  # TODO: Integrate this service with the other one?
+  /getOcrProcessedScans:
+    x-swagger-router-controller: scan
+    get:
+      tags: [Scan]
+      description: Retrieves the BRs (?) including their associated scans that are not processed by a librarian yet.
+      operationId: getOcrProcessedScans
+      responses:
+        "200":
+          description: Success
+          schema:
+            type: array
+            items:
+              # a pointer to a definition
+              $ref: "#/definitions/BibliographicResource"
+        # responses may fall through to errors
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+            
+  /scans/{id}:
+    x-swagger-router-controller: scan
+    get:
+      tags: [Scan]
+      description: Returns a single scan by id
+      # used as the method name of the controller
+      operationId: get
+      parameters:
+        - name: id
+          in: path
+          description: The internal identifier of the scan
+          required: true
+          type: string
+      responses:
+        200:
+          description: Returns Scan
+          schema: 
+            type: file
+          # responses may fall through to errors
         default:
           description: Error
           schema:
@@ -235,6 +283,8 @@ paths:
             $ref: "#/definitions/ErrorResponse"
   /swagger:
     x-swagger-pipe: swagger_raw
+
+
 # complex objects have schema definitions
 definitions:
 

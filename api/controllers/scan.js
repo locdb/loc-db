@@ -10,6 +10,7 @@ const errorlog = require('./../util/logger.js').errorlog;
 const accesslog = require('./../util/logger.js').accesslog;
 const config = require('./../../config/config.json');
 const mongoose = require('mongoose');
+const fs = require('fs');
 
 
 function saveScan(req, res){
@@ -55,7 +56,7 @@ function saveScan(req, res){
     });
 };
 
-
+// TODO: What if more than one scan is associated with the br and one is already processed and the other not?
 function getNotOcrProcessedScans(req, res){
     var response = res;
     mongoBr.find({ 'scans.status': status.notOcrProcessed }, function (err, brs) {
@@ -64,6 +65,51 @@ function getNotOcrProcessedScans(req, res){
             return res.status(500).json({"message":"DB query failed."});
         }
         response.json(brs);
+    });
+};
+
+
+function getOcrProcessedScans(req, res){
+    var response = res;
+    mongoBr.find({ 'scans.status': status.ocrProcessed }, function (err, brs) {
+        if(err){
+            errorlog.error(err);
+            return res.status(500).json({"message":"DB query failed."});
+        }
+        // Loop over BEs and take only the scans that are really OCR processed and also only their id?
+        response.json(brs);
+    });
+};
+
+
+function get(req, res){
+    var response = res;
+    var id = req.swagger.params.id.value;
+    
+    // check if id is valid
+    if(! mongoose.Types.ObjectId.isValid(id)){
+        errorlog.error("Invalid value for parameter id.", {id : id});
+        return res.status(400).json({"message":"Invalid parameter."});
+    }
+    
+    // retrieve corresponding entry from the db
+    mongoBr.findOne({ 'scans._id': id }, function (err, br) {
+        if(err){
+            errorlog.error(err);
+            return response.status(500).json({"message":"DB query failed."});
+        }else if(!br){
+            errorlog.error("No entry found for parameter id.", {id : id});
+            return response.status(400).json({"message":"No entry found."});
+        }
+        for(var scan of br.scans){
+            if(scan._id == id){
+                // send file
+                var filePath = config.upload.imagePath + scan.scanName;
+                return response.sendFile(filePath, {root: process.cwd()}, function(err){
+                    if(err) return errorlog.error(err);
+                });
+            }
+        }
     });
 };
 
@@ -199,5 +245,7 @@ function triggerOcrProcessing(req, res){
 module.exports = {
         saveScan : saveScan,
         getNotOcrProcessedScans : getNotOcrProcessedScans,
-        triggerOcrProcessing : triggerOcrProcessing
+        getOcrProcessedScans : getOcrProcessedScans,
+        triggerOcrProcessing : triggerOcrProcessing,
+        get : get
 };
