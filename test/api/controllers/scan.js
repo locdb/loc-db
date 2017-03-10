@@ -124,8 +124,8 @@ describe('controllers', function() {
           it('should retrieve a file', function(done) {
             request(server)
               .get('/scans/' + id)
-              //.set('Accept', 'image')
-              //.expect('Content-Type', /image/)
+              .set('Accept', 'image/png')
+              .expect('Content-Type', 'image/png')
               .expect(200)
               .end(function(err, res) {
                 console.log(res.body);

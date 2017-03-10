@@ -158,6 +158,7 @@ function triggerOcrProcessing(req, res){
                                 bes.map(function(be){
                                     console.log(be);
                                     be.scanId = id;
+                                    be.status = status.ocrProcessed;
                                     br.parts.push(be);
                                 });
                                 

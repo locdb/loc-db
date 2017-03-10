@@ -44,7 +44,8 @@ const brSchema = new Schema({
         references: String, //link to other br
         scanId: String, // TODO: Save scan name here?
         //xmlName: String, // TODO: Save xml name here?
-        coordinates: String // TODO: Save coordinates here?
+        coordinates: String, // TODO: Save coordinates here?
+        status: {type: String, enum: [status.notOcrProcessed, status.ocrProcessed, status.valid]},
     }], // reference entries
     partOf: String, // link to other br
     cites: [String], // links to other brs
