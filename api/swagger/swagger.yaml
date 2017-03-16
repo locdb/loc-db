@@ -326,6 +326,8 @@ definitions:
           $ref: "#/definitions/Identifier"
       type:
         type: string
+      status:
+        type: string
       title:
         type: string
       subtitle:
@@ -448,6 +450,10 @@ definitions:
         type: string
       status:
         type: string
+      externalUrls:
+        type: array
+        items:
+          type: string
   
   ErrorResponse:
     required:

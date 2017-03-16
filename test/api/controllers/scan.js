@@ -7,7 +7,7 @@ const status = require('./../../../api/schema/enum.json').status;
 
 describe('controllers', function() {
 
-  describe.only('scan', function() {
+  describe('scan', function() {
       var id = "58c01713ea3c8d32f0f80a75";
       
       before(function(done) {

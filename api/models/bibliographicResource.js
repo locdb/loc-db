@@ -14,6 +14,7 @@ const brSchema = new Schema({
     title: String,
     subtitle: String,
     edition: String,
+    status: {type: String, enum: [enums.status.notOcrProcessed, enums.status.ocrProcessed, enums.status.valid]},
     number: Number, // e.g. number of an article in journal
     contributors: [{
         identifiers: [{

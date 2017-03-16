@@ -78,10 +78,8 @@ OcrHelper.prototype.parseXMLString = function(xmlString, callback){
 
 
 OcrHelper.prototype.queryOcrComponent = function(fileName, callback){
-    // retrieve scan file by filename
     var path = config.upload.imagePath + fileName;
-    
-    console.log(path);
+
     fs.access(path, fs.constants.R_OK, function(err){
         if (err){
             errorlog.error(err);
@@ -99,8 +97,8 @@ OcrHelper.prototype.queryOcrComponent = function(fileName, callback){
                 errorlog.error("Request to OCR component failed.");
                 return callback("Request to OCR component failed.", null);
             }
-                accesslog.log("Request to OCR component successfull.", {body: body});
-                callback(null, body);
+            accesslog.log("Request to OCR component successfull.", {body: body});
+            callback(null, body);
          });
     });
 };

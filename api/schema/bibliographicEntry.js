@@ -11,6 +11,7 @@ var bibliographicEntry = new SchemaObject({
     //xmlName: String, // IDEA: Save the path to the corresponding xml here?
     scanId: String, // IDEA: Save the path to the scan here?
     status: {type: String, enum: [status.ocrProcessed, status.valid]},
+    externalURLs: [{type: String}]
 });
 
 module.exports = bibliographicEntry;

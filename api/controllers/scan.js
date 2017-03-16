@@ -124,12 +124,24 @@ function saveScan(req, res){
 };
 
 // TODO: What if more than one scan is associated with the br and one is already processed and the other not?
-function getNotOcrProcessedScans(req, res){
+// old version
+function getNotOcrProcessedScans2(req, res){
     var response = res;
     mongoBr.find({'scans.status': enums.status.notOcrProcessed }, function (err, brs) {
         if(err){
             errorlog.error(err);
             return response.status(500).json({"message":"DB query failed."});
+        }
+        response.json(brs);
+    });
+};
+
+function getNotOcrProcessedScans(req, res){
+    var response = res;
+    mongoBr.find({'scans.status': enums.status.notOcrProcessed }, function (err, brs) {
+        if(err) {
+            errorlog.error(err);
+            return response.status(500).json({"message": "DB query failed."});
         }
         response.json(brs);
     });
