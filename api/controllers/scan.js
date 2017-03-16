@@ -136,19 +136,56 @@ function getNotOcrProcessedScans2(req, res){
     });
 };
 
-function getNotOcrProcessedScans(req, res){
+function getToDo(req, res){
     var response = res;
-    mongoBr.find({'scans.status': enums.status.notOcrProcessed }, function (err, brs) {
+    var status = req.swagger.params.status.value;
+    if((status !== enums.status.notOcrProcessed) && (status !== enums.status.ocrProcessed)){
+        errorlog.error(err);
+        return response.status(400).json({"message": "Invalid parameter."});
+    }
+    mongoBr.find({'scans.status': status}, function (err, parts) {
         if(err) {
             errorlog.error(err);
             return response.status(500).json({"message": "DB query failed."});
         }
-        response.json(brs);
+        var resultArray = [];
+        var resultObject;
+        for(var part of parts){
+            var alreadyIn = false;
+            if(resultArray.length !== 0){
+                for(var i of resultArray){
+                    if(i._id == part.partOf){
+                        alreadyIn = true;
+                        resultObject = i;
+                        break;
+                    }
+                }
+            }else {
+                resultObject = {};
+                resultObject._id = part.partOf;
+                resultObject.parts = [];
+            }
+            var resultPart = {};
+            resultPart._id = part._id;
+            resultPart.status = part.status;
+            var scans = [];
+            for(var scan of part.scans){
+                if(scan.status === status){
+                    scans.push({"_id": scan._id.toString(), "status": scan.status});
+                }
+            }
+            resultPart.scans = scans;
+            resultObject.parts.push(resultPart);
+            if(!alreadyIn){
+                resultArray.push(resultObject);
+            }
+        }
+        response.json(resultArray);
     });
 };
 
 
-function getOcrProcessedScans(req, res){
+/*function getOcrProcessedScans(req, res){
     var response = res;
     mongoBr.find({ 'scans.status': enums.status.ocrProcessed }, function (err, brs) {
         if(err){
@@ -158,7 +195,7 @@ function getOcrProcessedScans(req, res){
         // Loop over BEs and take only the scans that are really OCR processed and also only their id?
         response.json(brs);
     });
-};
+};*/
 
 
 function get(req, res){
@@ -322,8 +359,9 @@ function triggerOcrProcessing(req, res){
 
 module.exports = {
         saveScan : saveScan,
-        getNotOcrProcessedScans : getNotOcrProcessedScans,
-        getOcrProcessedScans : getOcrProcessedScans,
+        getToDo: getToDo,
+        //getNotOcrProcessedScans : getNotOcrProcessedScans,
+        //getOcrProcessedScans : getOcrProcessedScans,
         triggerOcrProcessing : triggerOcrProcessing,
         get : get
 };

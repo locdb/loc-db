@@ -174,12 +174,18 @@ paths:
           schema:
             $ref: "#/definitions/ErrorResponse"
             
-  /getNotOcrProcessedScans:
+  /getToDo:
     x-swagger-router-controller: scan
     get:
       tags: [Scan]
       description: Retrieves the BRs including their associated scans that are not processed by the OCR-component yet.
-      operationId: getNotOcrProcessedScans
+      operationId: getToDo
+      parameters:
+        - name: status
+          in: query
+          description: The status for which the ToDo-list shall be retrieved
+          required: true
+          type: string
       responses:
         "200":
           description: Success
@@ -187,33 +193,33 @@ paths:
             type: array
             items:
               # a pointer to a definition
-              $ref: "#/definitions/BibliographicResource"
+              $ref: "#/definitions/ToDo"
         # responses may fall through to errors
         default:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
   
-  # TODO: Integrate this service with the other one?
-  /getOcrProcessedScans:
-    x-swagger-router-controller: scan
-    get:
-      tags: [Scan]
-      description: Retrieves the BRs (?) including their associated scans that are not processed by a librarian yet.
-      operationId: getOcrProcessedScans
-      responses:
-        "200":
-          description: Success
-          schema:
-            type: array
-            items:
-              # a pointer to a definition
-              $ref: "#/definitions/BibliographicResource"
-        # responses may fall through to errors
-        default:
-          description: Error
-          schema:
-            $ref: "#/definitions/ErrorResponse"
+#  # TODO: Integrate this service with the other one?
+#  /getOcrProcessedScans:
+#    x-swagger-router-controller: scan
+#    get:
+#      tags: [Scan]
+#      description: Retrieves the BRs (?) including their associated scans that are not processed by a librarian yet.
+#      operationId: getOcrProcessedScans
+#      responses:
+#        "200":
+#          description: Success
+#          schema:
+#            type: array
+#            items:
+#              # a pointer to a definition
+#              $ref: "#/definitions/BibliographicResource"
+#        # responses may fall through to errors
+#        default:
+#          description: Error
+#          schema:
+#            $ref: "#/definitions/ErrorResponse"
             
   /scans/{id}:
     x-swagger-router-controller: scan
@@ -464,7 +470,40 @@ definitions:
         type: string
       marker:
         type: string
-  
+
+  ToDo:
+    required:
+      - _id
+    properties:
+      _id:
+        type: string
+      parts:
+        type: array
+        items:
+          $ref: "#/definitions/ToDoParts"
+
+  ToDoParts:
+    required:
+      - _id
+    properties:
+      _id:
+        type: string
+      status:
+        type: string
+      scans:
+        type: array
+        items:
+          $ref: "#/definitions/ToDoScans"
+
+  ToDoScans:
+    required:
+      - _id
+    properties:
+      _id:
+        type: string
+      status:
+        type: string
+
   ErrorResponse:
     required:
       - message

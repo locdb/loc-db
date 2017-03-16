@@ -82,6 +82,7 @@ describe('controllers', function() {
                   .expect(200)
                   .end(function(err, res) {
                       should.not.exist(err);
+                      console.log(res.body)
                       res.body[0].should.have.property("title", "The handbook of the neuropsychology of language");
                       res.body[0].should.have.property("scans");
                       res.body[0].scans.should.be.Array;
@@ -100,28 +101,45 @@ describe('controllers', function() {
           });
       });
       
-      describe('GET /getNotOcrProcessedScans', function() {
+      describe('GET /getToDo', function() {
           
-          it('should retrieve one br', function(done) {
-            request(server)
-              .get('/getNotOcrProcessedScans')
-              .set('Accept', 'application/json')
-              .expect('Content-Type', /json/)
-              .expect(200)
-              .end(function(err, res) {
-                should.not.exist(err);
-                res.body.should.be.Array;
-                res.body.should.have.lengthOf(2);
-                res.body[0].should.have.property("scans");
-                id = res.body[0].scans[0]._id;
-                res.body[0].scans.should.be.Array;
-                res.body[0].scans.should.have.lengthOf(1);
-                done();
-              });
+          it('should retrieve a todo list for the status "NOT_OCR_PROCESSED"', function(done) {
+              request(server)
+                  .get('/getToDo')
+                  .query({ status: "NOT_OCR_PROCESSED" })
+                  .set('Accept', 'application/json')
+                  .expect('Content-Type', /json/)
+                  .expect(200)
+                  .end(function(err, res) {
+                      console.log(res.body);
+                      should.not.exist(err);
+                      res.body.should.be.Array;
+                      res.body.should.have.lengthOf(1);
+                      res.body[0].should.have.property("parts");
+                      res.body[0].parts.should.have.lengthOf(2);
+                      id = res.body[0].parts[0].scans[0]._id;
+                      done();
+                  });
+          });
+
+          it('should retrieve an empty todo list for the status "OCR_PROCESSED"', function(done) {
+              request(server)
+                  .get('/getToDo')
+                  .query({ status: "OCR_PROCESSED" })
+                  .set('Accept', 'application/json')
+                  .expect('Content-Type', /json/)
+                  .expect(200)
+                  .end(function(err, res) {
+                      console.log(res.body);
+                      should.not.exist(err);
+                      res.body.should.be.Array;
+                      res.body.should.have.lengthOf(0);
+                      done();
+                  });
           });
       });
       
-      describe.skip('GET /triggerOcrProcessing', function() {
+      describe('GET /triggerOcrProcessing', function() {
           
           it('should trigger OCR processing', function(done) {
               this.timeout(1000000);
@@ -156,29 +174,26 @@ describe('controllers', function() {
           });
       });
       
-      describe.skip('GET /getOcrProcessedScans', function() {
-          
-          it('should retrieve one br', function(done) {
-            request(server)
-              .get('/getOcrProcessedScans')
-              .set('Accept', 'application/json')
-              .expect('Content-Type', /json/)
-              .expect(200)
-              .end(function(err, res) {
-                should.not.exist(err);
-                res.body.should.be.Array;
-                res.body.should.have.lengthOf(1);
-                res.body[0].should.have.property("scans");
-                id = res.body[0].scans[0]._id;
-                res.body[0].scans.should.be.Array;
-                res.body[0].scans.should.have.lengthOf(1);
-                done();
-              });
+      describe('GET /getToDo', function() {
+          it('should retrieve an todo list for the status "OCR_PROCESSED" of size 1', function(done) {
+              request(server)
+                  .get('/getToDo')
+                  .query({ status: "OCR_PROCESSED" })
+                  .set('Accept', 'application/json')
+                  .expect('Content-Type', /json/)
+                  .expect(200)
+                  .end(function(err, res) {
+                      console.log(res.body);
+                      should.not.exist(err);
+                      res.body.should.be.Array;
+                      res.body.should.have.lengthOf(1);
+                      done();
+                  });
           });
       });
-      
+
       describe('GET /get', function() {
-          
+
           it('should retrieve a file', function(done) {
             request(server)
               .get('/scans/' + id)
