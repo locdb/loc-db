@@ -68,7 +68,24 @@ OcrHelper.prototype.parseXMLString = function(xmlString, callback){
         var bes = [];
         // How to make use of the additional OCRed information?
         for (var citation of citations){
-            var be = new BibliographicEntry({bibliographicEntryText: citation.rawString[0]._, coordinates: citation.rawString[0]['$'].coordinates});
+
+            var title = citation.title ? citation.title[0] : "";
+            var date = citation.date ? citation.date[0] : "";
+            var marker = citation.marker ? citation.marker[0] : "";
+            var authors = [];
+
+            if(citation.authors){
+                for(var a of citation.authors){
+                    var author = a.author ? a.author[0] : "";
+                    authors.push(author);
+                }
+            }
+            var be = new BibliographicEntry({bibliographicEntryText: citation.rawString[0]._,
+                                            coordinates: citation.rawString[0]['$'].coordinates,
+                                            title: title,
+                                            date: date,
+                                            marker: marker,
+                                            authors: authors});
             bes.push(be)
         }
         callback(null, bes);
@@ -97,7 +114,7 @@ OcrHelper.prototype.queryOcrComponent = function(fileName, callback){
                 errorlog.error("Request to OCR component failed.");
                 return callback("Request to OCR component failed.", null);
             }
-            accesslog.log("Request to OCR component successfull.", {body: body});
+            accesslog.log("Request to OCR component successful.", {body: body});
             callback(null, body);
          });
     });

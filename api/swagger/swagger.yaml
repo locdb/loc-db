@@ -454,6 +454,16 @@ definitions:
         type: array
         items:
           type: string
+      authors:
+        type: array
+        items:
+          type: string
+      title:
+        type: string
+      date:
+        type: string
+      marker:
+        type: string
   
   ErrorResponse:
     required:

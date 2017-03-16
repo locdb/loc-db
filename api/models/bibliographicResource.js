@@ -47,6 +47,11 @@ const brSchema = new Schema({
         //xmlName: String, // TODO: Save xml name here?
         coordinates: String, // TODO: Save coordinates here?
         status: {type: String, enum: [enums.status.notOcrProcessed, enums.status.ocrProcessed, enums.status.valid]},
+        externalURLs: [String],
+        authors: [String],
+        title: String,
+        date: String,
+        marker: String
     }], // reference entries
     partOf: String, // link to other br
     parts: [{
