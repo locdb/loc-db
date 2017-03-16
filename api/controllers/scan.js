@@ -24,37 +24,33 @@ function saveScan(req, res){
     mongoBr.findOne({"identifiers.scheme": enums.identifier.ppn, "identifiers.literalValue": ppn}).then(function(parent) {
         if (parent) {
             for (var part of parent.parts) {
-                console.log("Looping over parts: " + part);
                 if (part.pages == pages) {
                     errorlog.error("Duplicate upload.");
                     return response.status(400).json({"message": "Duplicate upload."});
                 }
             }
-            // 0) check if there is already a child br associated to the parent br, which has the same page numbers
-            // a) save Scan
-            // b) create new "empty" br
-            // c) update old br
             ocrHelper.saveBinaryFile(scan.originalname, scan.buffer, function (err, name) {
                 if (err) {
                     errorlog.error(err);
                     return res.status(500).json({"message": "Saving the file failed"});
                 }
-                var child = new BibliographicResource({partOf: parent._id.toString(), pages: pages});
-                var scan = new Scan({scanName: name, status: status.notOcrProcessed});
-                child.scans = [];
-                child.scans[0] = scan;
-                new mongoBr(child.toObject()).save().then(function (result) {
-                    var parts = parent.parts;
-                    if (!parts) {
-                        parts = [];
-                    }
-                    parts.push(result._id);
-                    mongoBr.update({_id: parent._id}, {parts: parts}, function (err, result) {
-                        res.status(200).json(child);
-                    })
+                var scan = new Scan({scanName: name, status: enums.status.notOcrProcessed});
+                var child = new mongoBr({partOf: parent._id.toString(), pages: pages, scans: [scan]});
+                child.save().then(function (result) {
+                    parent.parts.push(new Part({
+                        partId: child._id.toString(),
+                        pages: pages,
+                        status: enums.status.notOcrProcessed
+                    }));
+                    parent.save(function (result) {
+                        return response.status(200).json([parent, child]);
+                    }, function(err){
+                        errorlog.error(err);
+                        return response.status(500).json({"message": "DB failure."});
+                    });
                 }, function (err) {
                     errorlog.error(err);
-                    return res.status(500).json({"message": "DB failure."});
+                    return response.status(500).json({"message": "DB failure."});
                 });
 
             });
@@ -87,7 +83,7 @@ function saveScan(req, res){
                     parent.identifiers.push({scheme: enums.identifier.ppn, literalValue: ppn})
 
                     // create scan and child
-                    var scan = new Scan({scanName: results[0], status: enums.status.notOcrProcessed, pages: pages});
+                    var scan = new Scan({scanName: results[0], status: enums.status.notOcrProcessed});
                     var child = new mongoBr({scans: [scan.toObject()]});
                     parent.parts = [new Part({
                         partId: child._id.toString(),
