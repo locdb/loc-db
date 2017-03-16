@@ -6,7 +6,6 @@ const BibliographicEntry = require('./../schema/bibliographicEntry.js');
 const request = require('request');
 const errorlog = require('./../util/logger.js').errorlog;
 const accesslog = require('./../util/logger.js').accesslog;
-//const FormData = require('form-data');
 
 
 var OcrHelper = function(){
@@ -89,16 +88,20 @@ OcrHelper.prototype.queryOcrComponent = function(fileName, callback){
             return callback(err, null);
         }
         var form = {
-                my_file: fs.createReadStream(path),
+                file: fs.createReadStream(path)//,
+                //filename: fileName
         };
         request.post({url: config.urls.ocrUrl, formData: form}, function(err, res, body) {
             if (err) {
                 errorlog.error(err);
                 return callback(err, null);
+            }else if (res.statusCode!= 200){
+                errorlog.error("Request to OCR component failed.");
+                return callback("Request to OCR component failed.", null);
             }
-            accesslog.log("Request to OCR component successfull.", {body: body});
-            callback(null, body);
-        });
+                accesslog.log("Request to OCR component successfull.", {body: body});
+                callback(null, body);
+         });
     });
 };
 

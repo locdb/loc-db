@@ -188,10 +188,9 @@ function triggerOcrProcessing(req, res){
     // check if id is valid
     if(! mongoose.Types.ObjectId.isValid(id)){
         errorlog.error("Invalid value for parameter id.", {id : id});
-        return res.status(400).json({"message":"Invalid parameter."});
+        return response.status(400).json({"message":"Invalid parameter."});
     }
-    
-    
+
     // read the corresponding scan by id
     mongoBr.findOne({'scans._id': id,  'scans.status': enums.status.notOcrProcessed}, function (err, br) {
         // do error handling
