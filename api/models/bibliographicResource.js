@@ -3,7 +3,7 @@
 const mongoose = require('mongoose')
        ,Schema = mongoose.Schema
        ,ObjectId = Schema.ObjectId;
-const status = require('./../schema/enum.json').status
+const enums = require('./../schema/enum.json');
 
 const brSchema = new Schema({
     identifiers: [{
@@ -17,13 +17,13 @@ const brSchema = new Schema({
     number: Number, // e.g. number of an article in journal
     contributors: [{
         identifiers: [{
-            id: String,
-            type: String
+            literalValue: String,
+            scheme: String
         }],
         roleType: String,
         heldBy:{
             identifiers: [{
-                value: String,
+                literalValue: String,
                 scheme: String
             }],
             nameString: String,
@@ -34,28 +34,32 @@ const brSchema = new Schema({
     scans:[{
         scanName: String,
         xmlName: String,
-        status: {type: String, enum: [status.notOcrProcessed, status.ocrProcessed, status.valid]},
-        pages: String
+        status: {type: String, enum: [enums.status.notOcrProcessed, enums.status.ocrProcessed, enums.status.valid]},
+        //pages: String
     }],
     //keywords: [String],
     publicationYear: Number,
-    parts: [{
+    cites: [{
         bibliographicEntryText: String,
         references: String, //link to other br
         scanId: String, // TODO: Save scan name here?
         //xmlName: String, // TODO: Save xml name here?
         coordinates: String, // TODO: Save coordinates here?
-        status: {type: String, enum: [status.notOcrProcessed, status.ocrProcessed, status.valid]},
+        status: {type: String, enum: [enums.status.notOcrProcessed, enums.status.ocrProcessed, enums.status.valid]},
     }], // reference entries
     partOf: String, // link to other br
-    cites: [String], // links to other brs
-    embodiedAs: [{ // link to ressource embodiment
-        type: String, // digital or print
-        format: String, // IANA media type
-        firstPage: Number,
-        lastPage: Number,
-        url: String
-    }]
+    parts: [{
+        partId: String,
+        pages: String,
+        status: {type: String, enum: [enums.status.notOcrProcessed, enums.status.ocrProcessed, enums.status.valid]},
+    }], // links to other brs
+//    embodiedAs: [{ // link to ressource embodiment
+//        type: String, // digital or print
+//        format: String, // IANA media type
+//        firstPage: Number,
+//        lastPage: Number,
+//        url: String
+//    }]
 });
 
 module.exports = mongoose.model('br', brSchema);

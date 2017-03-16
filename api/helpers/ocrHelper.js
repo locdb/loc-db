@@ -14,11 +14,13 @@ var OcrHelper = function(){
 
 
 OcrHelper.prototype.saveBinaryFile = function(fileName, fileBuffer, callback){
+    var fName = fileName;
     fs.writeFile(config.upload.imagePath + fileName, fileBuffer, 'binary', function(err){
         if(err){
-            return console.log(err);
+            errorlog.error(err);
+            return callback(err, null);;
         }
-        callback();
+        callback(null, fName);
     });
 };
 

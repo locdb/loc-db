@@ -11,7 +11,9 @@ tags:
   - name: BibliographicResource
     description: Services related to bibliographic resources.
   - name: Scan
-    description: Services related to scan processing.
+    description: Services related to scans.
+  - name: BibliographicEntry
+    description: Services related to bibliographic entries.
 # 
 schemes:
   # tip: remove http to make production-grade
@@ -25,6 +27,8 @@ consumes:
 produces:
   - application/json
   - image/png
+
+
 paths:
   /bibliographicResources:
     # binds a127 app logic to a route
@@ -130,6 +134,7 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
+            
   /saveScan:
     x-swagger-router-controller: scan
     post:
@@ -281,6 +286,27 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
+  
+  /getOcrProcessedBibliographicEntries:
+    x-swagger-router-controller: bibliographicEntry
+    get:
+      tags: [BilbiographicEntry]
+      description: Retrieves the BEs that are not processed by a librarian yet.
+      operationId: getOcrProcessedBibliographicEntries
+      responses:
+        "200":
+          description: Success
+          schema:
+            type: array
+            items:
+              # a pointer to a definition
+              $ref: "#/definitions/BibliographicEntry"
+        # responses may fall through to errors
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  
   /swagger:
     x-swagger-pipe: swagger_raw
 
@@ -314,16 +340,20 @@ definitions:
           $ref: "#/definitions/AgentRole"
       publicationYear:
         type: number
-      parts:
+      cites:
         type: array
         items:
           $ref: "#/definitions/BibliographicEntry"
       partOf:
         type: string
-      cites:
+      parts:
         type: array
         items:
-          type: string
+          $ref: "#/definitions/Part"
+      scans:
+        type: array
+        items:
+          $ref: "#/definitions/Scan"
       embodiedAs:
         type: array
         items:
@@ -381,7 +411,29 @@ definitions:
         type: number
       url:
         type: string
-        
+
+  Part:
+    required:
+      - partId
+    properties:
+      partId:
+        type: string
+      pages:
+        type: string
+      status:
+        type: string
+
+  Scan:
+    required:
+      - scanName
+    properties:
+      scanName:
+        type: string
+      xmlName:
+        type: string
+      status:
+        type: string
+
   BibliographicEntry:
     required:
       - bibliographicEntryText

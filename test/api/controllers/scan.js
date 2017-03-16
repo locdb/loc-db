@@ -7,7 +7,7 @@ const status = require('./../../../api/schema/enum.json').status;
 
 describe('controllers', function() {
 
-  describe.only('scan', function() {
+  describe('scan', function() {
       var id = "58c01713ea3c8d32f0f80a75";
       
       before(function(done) {
@@ -22,9 +22,9 @@ describe('controllers', function() {
       });
       
       
-      describe('POST /saveScan', function() {
+      describe.only('POST /saveScan', function() {
           
-          it('should save a scan in the file system and create a br in the db', function(done) {
+          it('should save a scan in the file system and create two br in the db', function(done) {
             request(server)
               .post('/saveScan')
               .type('form')
@@ -36,13 +36,35 @@ describe('controllers', function() {
               .expect('Content-Type', /json/)
               .expect(200)
               .end(function(err, res) {
-                should.not.exist(err);
-                res.body.should.have.property("title", "The handbook of the neuropsychology of language");
-                res.body.should.have.property("scans");
-                res.body.scans.should.be.Array;
-                done();
+                  should.not.exist(err);
+                  res.body[0].should.have.property("title", "The handbook of the neuropsychology of language");
+                  res.body[0].should.have.property("scans");
+                  res.body[0].scans.should.be.Array;
+                  res.body[0].scans.should.have.lengthOf(0);
+                  res.body[1].should.have.property("scans");
+                  res.body[1].scans.should.be.Array;
+                  res.body[1].scans.should.have.lengthOf(1);
+                  done();
               });
           });
+          
+          it('should should return an error as the file has been already uploaded', function(done) {
+              request(server)
+                .post('/saveScan')
+                .type('form')
+                .field('ppn', '400433052')
+                .field('pages', '2-3')
+                .attach('scan', './test/api/data/ocr_example_1/0001.png')
+                //.attach('xml', './test/api/data/ocr_example_1/Output021511065733891448X_Verf_Literatruverz.pdf-14.png.xml')
+                .set('Accept', 'application/json')
+                .expect('Content-Type', /json/)
+                .expect(400)
+                .end(function(err, res) {
+                    should.not.exist(err);
+                    should.exist(res.body)
+                    done();
+                });
+            });
       });
       
       describe('GET /getNotOcrProcessedScans', function() {

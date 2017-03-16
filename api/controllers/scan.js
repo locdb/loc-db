@@ -3,7 +3,8 @@ const ocrHelper = require('./../helpers/ocrHelper.js').createOcrHelper();
 const swbHelper = require('./../helpers/swbHelper.js').createSwbHelper();
 const BibliographicResource = require('./../schema/bibliographicResource.js');
 const Scan = require('./../schema/scan.js');
-const status = require('./../schema/enum.json').status;
+const Part = require('./../schema/part.js');
+const enums = require('./../schema/enum.json');
 const async = require('async');
 const mongoBr = require('./../models/bibliographicResource.js');
 const errorlog = require('./../util/logger.js').errorlog;
@@ -19,40 +20,110 @@ function saveScan(req, res){
     var ppn = req.swagger.params.ppn.value;
     var pages = req.swagger.params.pages.value;
     
-    async.parallel([
-        function(callback){
-            ocrHelper.saveBinaryFile(scan.originalname, scan.buffer, function(){
-                callback(null, scan.originalname)
-            });
-        },
-        function(callback){
-            swbHelper.query(ppn, function(result){
-                callback(null, result);
-            });
-        }
-    ],
-    function(err, results) {
-        if(err){
-            return res.status(400).json("An error occured.");
-        }
-        var br = new BibliographicResource(results[1]);
-        var scan = new Scan({ scanName: results[0], status: status.notOcrProcessed, pages: pages });
-        br.scans=[];
-        br.scans[0]=scan;
-        // TODO: How to check properly if theres already something? --> SWB ppn?
-        mongoBr.findOne({br: br.title}).then((doc) => {
-            if(doc  != null){
-                // TODO: If there already exists one, add scan, update db and send back!
-                return res.json(doc);
-            }else{
-                new mongoBr(br.toObject()).save().then(function(result){
-                    response.json(result);
-                    res.json(br.toObject);
-                }, function(err){
-                    response.status(400).send(err);
-                });
+    // Check wether we already have something in the db
+    mongoBr.findOne({"identifiers.scheme": enums.identifier.ppn, "identifiers.literalValue": ppn}).then(function(parent) {
+        if (parent) {
+            for (var part of parent.parts) {
+                console.log("Looping over parts: " + part);
+                if (part.pages == pages) {
+                    errorlog.error("Duplicate upload.");
+                    return response.status(400).json({"message": "Duplicate upload."});
+                }
             }
-        });
+            // 0) check if there is already a child br associated to the parent br, which has the same page numbers
+            // a) save Scan
+            // b) create new "empty" br
+            // c) update old br
+            ocrHelper.saveBinaryFile(scan.originalname, scan.buffer, function (err, name) {
+                if (err) {
+                    errorlog.error(err);
+                    return res.status(500).json({"message": "Saving the file failed"});
+                }
+                var child = new BibliographicResource({partOf: parent._id.toString(), pages: pages});
+                var scan = new Scan({scanName: name, status: status.notOcrProcessed});
+                child.scans = [];
+                child.scans[0] = scan;
+                new mongoBr(child.toObject()).save().then(function (result) {
+                    var parts = parent.parts;
+                    if (!parts) {
+                        parts = [];
+                    }
+                    parts.push(result._id);
+                    mongoBr.update({_id: parent._id}, {parts: parts}, function (err, result) {
+                        res.status(200).json(child);
+                    })
+                }, function (err) {
+                    errorlog.error(err);
+                    return res.status(500).json({"message": "DB failure."});
+                });
+
+            });
+            // do the same as before but start with creating the new br
+        } else {
+            async.parallel([
+                    function (callback) {
+                        ocrHelper.saveBinaryFile(scan.originalname, scan.buffer, function (err, name) {
+                            if (err) {
+                                errorlog.error(err);
+                                return res.status(500).json({"message": "Saving the file failed"});
+                            }
+                            callback(null, name)
+                        });
+                    },
+                    function (callback) {
+                        // TODO: change interface here
+                        swbHelper.query(ppn, function (result) {
+                            callback(null, result);
+                        });
+                    }
+                ],
+                function (err, results) {
+                    if (err) {
+                        errorlog.error(err);
+                        return res.status(400).json("An error occured.");
+                    }
+                    // create parent
+                    var parent = new mongoBr(results[1]);
+                    parent.identifiers.push({scheme: enums.identifier.ppn, literalValue: ppn})
+
+                    // create scan and child
+                    var scan = new Scan({scanName: results[0], status: enums.status.notOcrProcessed, pages: pages});
+                    var child = new mongoBr({scans: [scan.toObject()]});
+                    parent.parts = [new Part({
+                        partId: child._id.toString(),
+                        pages: pages,
+                        status: enums.status.notOcrProcessed
+                    }).toObject()];
+                    child.partOf = parent._id.toString();
+
+                    // Save scan and child
+                    async.parallel([
+                        function(callback){
+                            new mongoBr(parent.toObject()).save().then(function (result) {
+                                callback(null, result)
+                            }, function (err) {
+                                errorlog.error(err);
+                                return response.status(400).send(err);
+                            });
+                        },
+                        function(callback){
+                            child.save().then(function (result) {
+                                callback(null, result)
+                            }, function (err) {
+                                errorlog.error(err);
+                                return response.status(400).send(err);
+                            });
+                        }],
+                        function(err, result){
+                            if (err) {
+                                errorlog.error(err);
+                                return res.status(400).json("An error occured.");
+                            }
+                            return response.status(200).json(result);
+                        });
+                });
+        }
+        ;
     });
 };
 
