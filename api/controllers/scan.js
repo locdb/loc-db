@@ -126,10 +126,10 @@ function saveScan(req, res){
 // TODO: What if more than one scan is associated with the br and one is already processed and the other not?
 function getNotOcrProcessedScans(req, res){
     var response = res;
-    mongoBr.find({ 'scans.status': status.notOcrProcessed }, function (err, brs) {
+    mongoBr.find({'scans.status': enums.status.notOcrProcessed }, function (err, brs) {
         if(err){
             errorlog.error(err);
-            return res.status(500).json({"message":"DB query failed."});
+            return response.status(500).json({"message":"DB query failed."});
         }
         response.json(brs);
     });
@@ -138,7 +138,7 @@ function getNotOcrProcessedScans(req, res){
 
 function getOcrProcessedScans(req, res){
     var response = res;
-    mongoBr.find({ 'scans.status': status.ocrProcessed }, function (err, brs) {
+    mongoBr.find({ 'scans.status': enums.status.ocrProcessed }, function (err, brs) {
         if(err){
             errorlog.error(err);
             return res.status(500).json({"message":"DB query failed."});
@@ -156,7 +156,7 @@ function get(req, res){
     // check if id is valid
     if(! mongoose.Types.ObjectId.isValid(id)){
         errorlog.error("Invalid value for parameter id.", {id : id});
-        return res.status(400).json({"message":"Invalid parameter."});
+        return response.status(400).json({"message":"Invalid parameter."});
     }
     
     // retrieve corresponding entry from the db
@@ -193,7 +193,7 @@ function triggerOcrProcessing(req, res){
     
     
     // read the corresponding scan by id
-    mongoBr.findOne({'scans._id': id,  'scans.status': status.notOcrProcessed}, function (err, br) {
+    mongoBr.findOne({'scans._id': id,  'scans.status': enums.status.notOcrProcessed}, function (err, br) {
         // do error handling
         if(err){
             errorlog.error(err);
@@ -225,20 +225,20 @@ function triggerOcrProcessing(req, res){
                                 bes.map(function(be){
                                     console.log(be);
                                     be.scanId = id;
-                                    be.status = status.ocrProcessed;
-                                    br.parts.push(be);
+                                    be.status = enums.status.ocrProcessed;
+                                    br.cites.push(be);
                                 });
                                 
                                 // change status in scan
                                 var index = br.scans.indexOf(scan);
-                                scan.status = status.ocrProcessed;
+                                scan.status = enums.status.ocrProcessed;
                                 scan.xmlName = name;
                                 br.scans[index] = scan;
                                 
                                 br.save(function(err){
                                     if(err){
                                         errorlog.error(err);
-                                        return res.status(504).json({"message":"Saving BR to DB failed."});
+                                        return response.status(504).json({"message":"Saving BR to DB failed."});
                                     }
                                 });
                                 callback(null, br);
@@ -259,7 +259,7 @@ function triggerOcrProcessing(req, res){
                             errorlog.error(err);
                             return response.status(500).json({"message":"An error occured."});
                         }
-                        res.json(br);
+                        response.json(br);
                     });
 
                 });

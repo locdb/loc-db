@@ -442,6 +442,12 @@ definitions:
         type: string
       references:
         type: string
+      coordinates:
+        type: string
+      scanId:
+        type: string
+      status:
+        type: string
   
   ErrorResponse:
     required:

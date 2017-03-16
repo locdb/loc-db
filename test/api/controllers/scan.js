@@ -7,7 +7,7 @@ const status = require('./../../../api/schema/enum.json').status;
 
 describe('controllers', function() {
 
-  describe('scan', function() {
+  describe.only('scan', function() {
       var id = "58c01713ea3c8d32f0f80a75";
       
       before(function(done) {
@@ -22,7 +22,7 @@ describe('controllers', function() {
       });
       
       
-      describe.only('POST /saveScan', function() {
+      describe('POST /saveScan', function() {
           
           it('should save a scan in the file system and create two br (parent and child) in the db', function(done) {
             request(server)
@@ -111,7 +111,7 @@ describe('controllers', function() {
               .end(function(err, res) {
                 should.not.exist(err);
                 res.body.should.be.Array;
-                res.body.should.have.lengthOf(1);
+                res.body.should.have.lengthOf(2);
                 res.body[0].should.have.property("scans");
                 id = res.body[0].scans[0]._id;
                 res.body[0].scans.should.be.Array;
@@ -135,19 +135,17 @@ describe('controllers', function() {
                 should.not.exist(err);
                 res.body.should.not.be.Array;
                 res.body.should.have.property("_id");
-                res.body.should.have.property("title", "The handbook of the neuropsychology of language");
-                res.body.should.have.property("publicationYear", 2012);
                 res.body.should.have.property("scans");
-                res.body.should.have.property("parts");
+                res.body.should.have.property("partOf");
                 res.body.scans.should.be.Array;
                 res.body.scans.should.have.lengthOf(1);
                 res.body.parts.should.be.Array;
-                res.body.parts.should.have.lengthOf(53);
+                res.body.cites.should.be.Array;
+                res.body.cites.should.have.lengthOf(53);
                 res.body.scans[0].status.should.be.exactly(status.ocrProcessed);
-                res.body.parts[0].should.have.property("coordinates");
-                res.body.parts[0].should.have.property("bibliographicEntryText");
-                //res.body.parts[0].should.have.property("xmlName");
-                res.body.parts[0].should.have.property("scanId");
+                res.body.cites[0].should.have.property("coordinates");
+                res.body.cites[0].should.have.property("bibliographicEntryText");
+                res.body.cites[0].should.have.property("scanId");
                 done();
               });
           });
