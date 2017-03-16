@@ -5,7 +5,7 @@ const setup = require('./../setup.js').createSetup();
 const status = require('./../../../api/schema/enum.json').status;
 
 
-describe('controllers', function() {
+describe.skip('controllers', function() {
 
   describe('bibliographicEntry', function() {
       

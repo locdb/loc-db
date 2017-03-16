@@ -8,8 +8,8 @@
   },
   "urls": {
     "swbUrl": "http://swbtest.bsz-bw.de/sru/DB=2.1/username=/password=/",
-    "ocrUrl": "http://akanshaocr.de",
-    "realUrl": "https://locdb.opendfki.de/fileupload"
+    "mockOcrUrl": "http://akanshaocr.de",
+    "ocrUrl": "https://locdb.opendfki.de/fileupload/"
   },
   "upload":{
     "imagePath": "./upload/image/"

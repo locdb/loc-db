@@ -222,8 +222,7 @@ function triggerOcrProcessing(req, res){
                         errorlog.error(err);
                         return res.status(504).json({"message":"OCR request failed."});
                     }
-                    // TODO: assume that we got this name from the server answer? Mocking purpose.
-                    var name = "xmltest.xml";
+                    var name = scan._id.toString() + ".xml";
                     async.parallel([
                         // Do two functions in parallel: 1) parse xml string 2) save xml string in file
                         function(callback){
@@ -232,7 +231,7 @@ function triggerOcrProcessing(req, res){
                                     errorlog.error(err);
                                     return res.status(504).json({"message":"XML parsing failed."});
                                 }
-                                
+
                                 bes.map(function(be){
                                     console.log(be);
                                     be.scanId = id;
@@ -270,7 +269,7 @@ function triggerOcrProcessing(req, res){
                             errorlog.error(err);
                             return response.status(500).json({"message":"An error occured."});
                         }
-                        response.json(br);
+                        response.json(results[0].toObject());
                     });
 
                 });

@@ -3,7 +3,7 @@ const request = require('supertest');
 const server = require('../../../app');
 const setup = require('./../setup.js').createSetup();
 
-describe('controllers', function() {
+describe.skip('controllers', function() {
 
   describe('bibliographicResource', function() {
       

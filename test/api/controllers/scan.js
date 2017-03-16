@@ -12,7 +12,7 @@ describe('controllers', function() {
       
       before(function(done) {
           setup.loadBibliographicResources();
-          setup.mockOcrServer();
+          //setup.mockOcrServer();
           done();
       });
       
@@ -121,37 +121,42 @@ describe('controllers', function() {
           });
       });
       
-      describe('GET /triggerOcrProcessing', function() {
+      describe.skip('GET /triggerOcrProcessing', function() {
           
           it('should trigger OCR processing', function(done) {
-            request(server)
-              .get('/triggerOcrProcessing')
-              .query({ id: id })
-              .set('Accept', 'application/json')
-              .expect('Content-Type', /json/)
-              .expect(200)
-              .end(function(err, res) {
-                console.log(res.body);
-                should.not.exist(err);
-                res.body.should.not.be.Array;
-                res.body.should.have.property("_id");
-                res.body.should.have.property("scans");
-                res.body.should.have.property("partOf");
-                res.body.scans.should.be.Array;
-                res.body.scans.should.have.lengthOf(1);
-                res.body.parts.should.be.Array;
-                res.body.cites.should.be.Array;
-                res.body.cites.should.have.lengthOf(53);
-                res.body.scans[0].status.should.be.exactly(status.ocrProcessed);
-                res.body.cites[0].should.have.property("coordinates");
-                res.body.cites[0].should.have.property("bibliographicEntryText");
-                res.body.cites[0].should.have.property("scanId");
-                done();
-              });
+              this.timeout(1000000);
+              request(server)
+                  .get('/triggerOcrProcessing')
+                  .query({ id: id })
+                  .set('Accept', 'application/json')
+                  .expect('Content-Type', /json/)
+                  .expect(200)
+                  .end(function(err, res) {
+                      console.log(res.body);
+                      should.not.exist(err);
+                      res.body.should.not.be.Array;
+                      res.body.should.have.property("_id");
+                      res.body.should.have.property("scans");
+                      res.body.should.have.property("partOf");
+                      res.body.scans.should.be.Array;
+                      res.body.scans.should.have.lengthOf(1);
+                      res.body.parts.should.be.Array;
+                      res.body.cites.should.be.Array;
+                      res.body.cites.should.have.lengthOf(53);
+                      res.body.scans[0].status.should.be.exactly(status.ocrProcessed);
+                      res.body.cites[0].should.have.property("coordinates");
+                      res.body.cites[0].should.have.property("bibliographicEntryText");
+                      res.body.cites[0].should.have.property("scanId");
+                      res.body.cites[0].should.have.property("authors");
+                      res.body.cites[0].should.have.property("title");
+                      res.body.cites[0].should.have.property("date");
+                      res.body.cites[0].should.have.property("marker");
+                      done();
+                  });
           });
       });
       
-      describe('GET /getOcrProcessedScans', function() {
+      describe.skip('GET /getOcrProcessedScans', function() {
           
           it('should retrieve one br', function(done) {
             request(server)

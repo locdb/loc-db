@@ -3,7 +3,7 @@ const setup = require('./../setup.js').createSetup();
 const aPlusPlusHelper = require('./../../../api/helpers/aPlusPlusHelper.js').createAPlusPlusHelper();
 const fs = require('fs');
 
-describe('helpers', function() {
+describe.skip('helpers', function() {
     describe('aPlusPlusHelper', function() {
         before(function(done) {
             setup.dropDB();
