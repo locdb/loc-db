@@ -15,26 +15,12 @@ function getToDoBibliographicEntries(req, res){
             errorlog.error("Invalid value for parameter id.", {scanId : scanId});
             return response.status(400).json({"message":"Invalid parameter."});
         }
-        console.log("Scan ID" + scanId);
         mongoBr.find({ 'cites.status': status.ocrProcessed, 'cites.scanId' : scanId}, function (err, brs) {
             if(err){
                 errorlog.error(err);
                 return res.status(500).json({"message":"DB query failed."});
             }
-            // Loop over BEs and take only the scans that are really OCR processed and also only their id?
-            if(brs.length > 0){
-                var result = [];
-                for(var br of brs){
-                    for(var be of br.cites){
-                        if(be.status === status.ocrProcessed){
-                            result.push(be);
-                        }
-                    }
-                }
-                response.json(result);
-            }else{
-                response.json([]);
-            }
+            response.json(createBibliographicEntriesArray(brs));
         });
     }else{
         mongoBr.find({ 'cites.status': status.ocrProcessed }, function (err, brs) {
@@ -42,21 +28,26 @@ function getToDoBibliographicEntries(req, res){
                 errorlog.error(err);
                 return res.status(500).json({"message":"DB query failed."});
             }
-            // Loop over BEs and take only the scans that are really OCR processed and also only their id?
-            if(brs.length > 0){
-                var result = [];
-                for(var br of brs){
-                    for(var be of br.cites){
-                        if(be.status === status.ocrProcessed){
-                            result.push(be);
-                        }
-                    }
-                }
-                response.json(result);
-            }else{
-                response.json([]);
-            }
+            response.json(createBibliographicEntriesArray(brs));
         });
+    }
+}
+
+
+function createBibliographicEntriesArray(brs){
+    // Loop over BEs and take only the scans that are really OCR processed
+    if(brs.length > 0){
+        var result = [];
+        for(var br of brs){
+            for(var be of br.cites){
+                if(be.status === status.ocrProcessed){
+                    result.push(be);
+                }
+            }
+        }
+        return result;
+    }else{
+        return [];
     }
 }
 
