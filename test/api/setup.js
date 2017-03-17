@@ -3,6 +3,7 @@ const config = require("./config.json");
 const mongoose = require('mongoose');
 const br = require('./../../api/models/bibliographicResource.js');
 const dataBibliographicResource = require('./data/bibliographicResource');
+const dataBibliographicEntry = require('./data/bibliographicEntry');
 const nock = require('nock');
 
 
@@ -15,6 +16,19 @@ Setup.prototype.loadBibliographicResources = function(){
         for (var bibliographicResource of dataBibliographicResource){
             new br(bibliographicResource).save(function(err, res){
                 if(err) console.log(err);
+            });
+        }
+    });
+
+};
+
+
+Setup.prototype.loadBibliographicEntry = function(){
+    br.remove({}, function(err, res){
+        if(err) console.log(err);
+        for (var bibliographicResource of dataBibliographicEntry) {
+            new br(bibliographicResource ).save(function (err, res) {
+                if (err) console.log(err);
             });
         }
     });

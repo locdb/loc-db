@@ -293,12 +293,18 @@ paths:
           schema:
             $ref: "#/definitions/ErrorResponse"
   
-  /getOcrProcessedBibliographicEntries:
+  /getToDoBibliographicEntries:
     x-swagger-router-controller: bibliographicEntry
     get:
       tags: [BilbiographicEntry]
       description: Retrieves the BEs that are not processed by a librarian yet.
-      operationId: getOcrProcessedBibliographicEntries
+      operationId: getToDoBibliographicEntries
+      parameters:
+        - name: scanId
+          in: query
+          description: The Id of the Scan for which the BEs shall be retrieved
+          required: false
+          type: string
       responses:
         "200":
           description: Success
