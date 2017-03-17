@@ -350,6 +350,56 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
+
+  /getInternalSuggestions:
+    x-swagger-router-controller: bibliographicEntry
+    get:
+      tags: [BibliographicEntry]
+      description: Retrieves internal suggestions for a given (probably messy) be.
+      operationId: getInternalSuggestions
+      parameters:
+        - name: bibliographicEntry
+          in: body
+          description: The be for which the suggestions shall be retrieved
+          required: true
+          schema:
+            $ref: "#/definitions/BibliographicEntry"
+      responses:
+        "200":
+          description: Success
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/BibliographicEntry"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /getExternalSuggestions:
+    x-swagger-router-controller: bibliographicEntry
+    get:
+      tags: [BibliographicEntry]
+      description: Retrieves external suggestions for a given (probably messy) be.
+      operationId: getExternalSuggestions
+      parameters:
+        - name: bibliographicEntry
+          in: body
+          description: The be for which the suggestions shall be retrieved
+          required: true
+          schema:
+            $ref: "#/definitions/BibliographicEntry"
+      responses:
+        "200":
+          description: Success
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/BibliographicEntry"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
   
   /swagger:
     x-swagger-pipe: swagger_raw

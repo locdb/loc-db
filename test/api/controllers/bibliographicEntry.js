@@ -98,7 +98,7 @@ describe('controllers', function() {
                         "marker": "THUM, 2000",
                         "authors": [ "Cornelius THUM" ],
                         "externalURLs": [] }`;
-                var update = JSON.parse(update);
+                update = JSON.parse(update);
                 request(server)
                     .put('/bibliographicEntries/' + id)
                     .set('Accept', 'application/json')
@@ -123,7 +123,7 @@ describe('controllers', function() {
                         "scanId": "58cb91fa5452691cd86bc941",
                         "status": "NOT_OCR_PROCESSED",
                         "title": "2Zur Ausgestaltung des Mehrheitsprinzips in der unmittelbaren Demokratie. In: Bayerische Verwaltungsbl&ttcr S. 33--43, 74-79. TmFENBACH, Paul: Sinn oder Unsinn von Abstimmungsquoren. Im Internet:"}`;
-                var update = JSON.parse(update);
+                update = JSON.parse(update);
                 request(server)
                     .put('/bibliographicEntries/' + id)
                     .set('Accept', 'application/json')
@@ -134,6 +134,64 @@ describe('controllers', function() {
                         console.log(res.body);
                         res.body.should.not.deepEqual(update);
                         res.body.should.containDeep(update);
+                        should.not.exist(err);
+                        done();
+                    });
+            });
+        });
+
+        describe('GET /getInternalSuggestions', function () {
+
+            it('should return internal suggestions for a bibliographic entry', function (done) {
+
+                var searchObject = `{
+                        "bibliographicEntryText": "TEST ENTRY 1 -- UPDATED",
+                        "coordinates": "714 317 2238 356",
+                        "scanId": "58cb91fa5452691cd86bc941",
+                        "status": "VALID",
+                        "title": "2Zur Ausgestaltung des Mehrheitsprinzips in der unmittelbaren Demokratie. In: Bayerische Verwaltungsbl&ttcr S. 33--43, 74-79. TmFENBACH, Paul: Sinn oder Unsinn von Abstimmungsquoren. Im Internet:",
+                        "date": "2000",
+                        "marker": "THUM, 2000",
+                        "authors": [ "Cornelius THUM" ],
+                        "externalURLs": [] }`;
+                var searchObject = JSON.parse(searchObject);
+                request(server)
+                    .get('/getInternalSuggestions')
+                    .set('Accept', 'application/json')
+                    .send(searchObject)
+                    .expect('Content-Type', /json/)
+                    .expect(200)
+                    .end(function (err, res) {
+                        console.log(res.body);
+                        should.not.exist(err);
+                        done();
+                    });
+            });
+        });
+
+        describe('GET /getExternalSuggestions', function () {
+
+            it('should return external suggestions for a bibliographic entry', function (done) {
+
+                var searchObject = `{
+                        "bibliographicEntryText": "TEST ENTRY 1 -- UPDATED",
+                        "coordinates": "714 317 2238 356",
+                        "scanId": "58cb91fa5452691cd86bc941",
+                        "status": "VALID",
+                        "title": "2Zur Ausgestaltung des Mehrheitsprinzips in der unmittelbaren Demokratie. In: Bayerische Verwaltungsbl&ttcr S. 33--43, 74-79. TmFENBACH, Paul: Sinn oder Unsinn von Abstimmungsquoren. Im Internet:",
+                        "date": "2000",
+                        "marker": "THUM, 2000",
+                        "authors": [ "Cornelius THUM" ],
+                        "externalURLs": [] }`;
+                var searchObject = JSON.parse(searchObject);
+                request(server)
+                    .get('/getExternalSuggestions')
+                    .set('Accept', 'application/json')
+                    .send(searchObject)
+                    .expect('Content-Type', /json/)
+                    .expect(200)
+                    .end(function (err, res) {
+                        console.log(res.body);
                         should.not.exist(err);
                         done();
                     });

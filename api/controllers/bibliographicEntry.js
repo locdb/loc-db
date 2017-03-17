@@ -92,15 +92,29 @@ function update(req, res){
                 });
             }
         }
-
-
     });
+}
 
 
+function getInternalSuggestions(req, res){
+    var response = res;
+    var searchObject = req.swagger.params.bibliographicEntry.value;
+
+    response.json([]);
 
 }
 
+function getExternalSuggestions(req, res){
+    var response = res;
+    var searchObject = req.swagger.params.bibliographicEntry.value;
+
+    response.json([]);
+}
+
+
 module.exports = {
     getToDoBibliographicEntries : getToDoBibliographicEntries,
-    update: update
+    update: update,
+    getInternalSuggestions : getInternalSuggestions,
+    getExternalSuggestions : getExternalSuggestions
 };
