@@ -178,7 +178,7 @@ paths:
     x-swagger-router-controller: scan
     get:
       tags: [Scan]
-      description: Retrieves the BRs including their associated scans that are not processed by the OCR-component yet.
+      description: Retrieves the BRs including their associated parts and scans that are either not processed or processed by the OCR-component.
       operationId: getToDo
       parameters:
         - name: status
@@ -186,6 +186,9 @@ paths:
           description: The status for which the ToDo-list shall be retrieved
           required: true
           type: string
+          enum:
+            - NOT_OCR_PROCESSED
+            - OCR_PROCESSED
       responses:
         "200":
           description: Success
@@ -296,7 +299,7 @@ paths:
   /getToDoBibliographicEntries:
     x-swagger-router-controller: bibliographicEntry
     get:
-      tags: [BilbiographicEntry]
+      tags: [BibliographicEntry]
       description: Retrieves the BEs that are not processed by a librarian yet.
       operationId: getToDoBibliographicEntries
       parameters:
