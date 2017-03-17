@@ -86,7 +86,7 @@ describe('controllers', function() {
 
         describe('PUT /bibliographicEntries/{id}', function () {
 
-            it('should return a list of not ocr processed bibliographic entries of length 54', function (done) {
+            it('should return a single updated bibliographic entry', function (done) {
 
                 var update = `{
                         "bibliographicEntryText": "TEST ENTRY 1 -- UPDATED",
@@ -106,11 +106,35 @@ describe('controllers', function() {
                     .expect('Content-Type', /json/)
                     .expect(200)
                     .end(function (err, res) {
-                        console.log(res.body)
+                        console.log(res.body);
                         update._id = id;
-                        res.body.should.deepEqual(update)
+                        res.body.should.deepEqual(update);
                         should.not.exist(err);
 
+                        done();
+                    });
+            });
+
+            it('should return a single updated bibliographic entry', function (done) {
+
+                var update = `{
+                        "bibliographicEntryText": "TEST ENTRY 1 -- UPDATED TWICE",
+                        "coordinates": "714 317 2238 356",
+                        "scanId": "58cb91fa5452691cd86bc941",
+                        "status": "NOT_OCR_PROCESSED",
+                        "title": "2Zur Ausgestaltung des Mehrheitsprinzips in der unmittelbaren Demokratie. In: Bayerische Verwaltungsbl&ttcr S. 33--43, 74-79. TmFENBACH, Paul: Sinn oder Unsinn von Abstimmungsquoren. Im Internet:"}`;
+                var update = JSON.parse(update);
+                request(server)
+                    .put('/bibliographicEntries/' + id)
+                    .set('Accept', 'application/json')
+                    .send(update)
+                    .expect('Content-Type', /json/)
+                    .expect(200)
+                    .end(function (err, res) {
+                        console.log(res.body);
+                        res.body.should.not.deepEqual(update);
+                        res.body.should.containDeep(update);
+                        should.not.exist(err);
                         done();
                     });
             });

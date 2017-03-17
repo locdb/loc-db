@@ -92,7 +92,7 @@ paths:
     x-swagger-router-controller: bibliographicEntry
     put:
       tags: [BibliographicEntry]
-      description: Updates a given bibliographic entry by id. Note that the status needs to be changed to VALID if this service is called after validation by a librarian.
+      description: Updates a given bibliographic entry by id. Note that the status needs to be changed to VALID if this service is called after validation by a librarian. Properties that are not given with the update data are preserved.
       operationId: update
       parameters:
         - name: id
