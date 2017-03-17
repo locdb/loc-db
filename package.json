@@ -12,6 +12,7 @@
     "ajax-request": "^1.2.1",
     "crossref": "^1.2.1",
     "express": "^4.12.3",
+    "extend": "^3.0.0",
     "form-data": "^2.1.2",
     "google-scholar": "^1.2.5",
     "isomorphic-fetch": "^2.2.1",

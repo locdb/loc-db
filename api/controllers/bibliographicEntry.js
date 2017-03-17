@@ -4,6 +4,7 @@ const errorlog = require('./../util/logger.js').errorlog;
 const accesslog = require('./../util/logger.js').accesslog;
 const status = require('./../schema/enum.json').status;
 const mongoose = require('mongoose');
+const extend = require('extend');
 
 function getToDoBibliographicEntries(req, res){
     var response = res;
@@ -51,6 +52,55 @@ function createBibliographicEntriesArray(brs){
     }
 }
 
+function update(req, res){
+    var response = res;
+    var id = req.swagger.params.id.value;
+    var update = req.swagger.params.bibliographicEntry.value;
+
+    if(! mongoose.Types.ObjectId.isValid(id)){
+        errorlog.error("Invalid value for parameter id.", {id : id});
+        return response.status(400).json({"message":"Invalid parameter."});
+    }
+
+    mongoBr.findOne({ 'cites._id': id}, function (err, br) {
+        if(err){
+            errorlog.error(err);
+            return res.status(500).json({"message":"DB query failed."});
+        }
+        if(!br){
+            errorlog.error("No bibliographic entry found for id.", {id: id});
+            return res.status(500).json({"message":"No bibliographic entry found for id."});
+        }
+
+
+        for(var be of br.cites){
+            if(be._id.toString() === id){
+                var index = br.cites.indexOf(be);
+                console.log(be);
+                extend(true, be, update);
+                console.log(be);
+                br.cites[index] = be;
+                console.log(br);
+                br.save().then(function(result){
+                    for(var be of br.cites){
+                        if(be._id.toString() === id){
+                            return response.json(be);
+                        }
+                    }
+                }, function(err){
+                    return response.status(500).send(err);
+                });
+            }
+        }
+
+
+    });
+
+
+
+}
+
 module.exports = {
-    getToDoBibliographicEntries : getToDoBibliographicEntries
+    getToDoBibliographicEntries : getToDoBibliographicEntries,
+    update: update
 };

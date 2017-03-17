@@ -86,7 +86,36 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
-        
+
+  /bibliographicEntries/{id}:
+    # binds a127 app logic to a route
+    x-swagger-router-controller: bibliographicEntry
+    put:
+      tags: [BibliographicEntry]
+      description: Updates a given bibliographic entry by id. Note that the status needs to be changed to VALID if this service is called after validation by a librarian.
+      operationId: update
+      parameters:
+        - name: id
+          in: path
+          description: The _id of the bibliographic entry to be updated.
+          required: true
+          type: string
+        - name: bibliographicEntry
+          in: body
+          description: A bibliographic entry with new values to be updated.
+          required: true
+          schema:
+            $ref: "#/definitions/BibliographicEntry"
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/BibliographicEntry"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
   /bibliographicResources/{id}:
     # binds a127 app logic to a route
     x-swagger-router-controller: bibliographicResource

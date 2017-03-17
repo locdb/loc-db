@@ -282,13 +282,13 @@ function triggerOcrProcessing(req, res){
                                 scan.xmlName = name;
                                 br.scans[index] = scan;
                                 
-                                br.save(function(err){
-                                    if(err){
-                                        errorlog.error(err);
-                                        return response.status(504).json({"message":"Saving BR to DB failed."});
-                                    }
+                                br.save().then(function(br){
+                                    callback(null, br);
+                                }, function(err){
+                                    errorlog.error(err);
+                                    callback(err, null)
                                 });
-                                callback(null, br);
+
                             });
                         },
                         function(callback){

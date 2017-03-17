@@ -760,25 +760,10 @@
     "identifiers": []
   },
   {
-    "_id": "58cb91fa5452691cd86bc93b",
     "partOf": "58cb91fa5452691cd86bc93a",
     "__v": 0,
     "parts": [],
     "cites": [
-      {
-        "bibliographicEntryText": "TEST ENTRY 1",
-        "coordinates": "714 317 2238 356",
-        "scanId": "58cb91fa5452691cd86bc941",
-        "status": "OCR_PROCESSED",
-        "title": "2Zur Ausgestaltung des Mehrheitsprinzips in der unmittelbaren Demokratie. In: Bayerische Verwaltungsbl&ttcr S. 33--43, 74-79. TmFENBACH, Paul: Sinn oder Unsinn von Abstimmungsquoren. Im Internet:",
-        "date": "2000",
-        "marker": "THUM, 2000",
-        "_id": "58cb92465452691cd86bc950",
-        "authors": [
-          "Cornelius THUM"
-        ],
-        "externalURLs": []
-      },
       {
         "bibliographicEntryText": "TEST ENTRY 2",
         "coordinates": "714 485 2238 528",
@@ -787,9 +772,21 @@
         "title": "Verfassungsänderung durch Volksgesetzgebung? In: Die Oflentliche Verwaltung S.",
         "date": "2000",
         "marker": "TLLMANNS, 2000",
-        "_id": "58cb92465452691cd86bc949",
         "authors": [
           "Reiner TLLMANNS"
+        ],
+        "externalURLs": []
+      },
+      {
+        "bibliographicEntryText": "TEST ENTRY 1",
+        "coordinates": "714 317 2238 356",
+        "scanId": "58cb91fa5452691cd86bc941",
+        "status": "OCR_PROCESSED",
+        "title": "2Zur Ausgestaltung des Mehrheitsprinzips in der unmittelbaren Demokratie. In: Bayerische Verwaltungsbl&ttcr S. 33--43, 74-79. TmFENBACH, Paul: Sinn oder Unsinn von Abstimmungsquoren. Im Internet:",
+        "date": "2000",
+        "marker": "THUM, 2000",
+        "authors": [
+          "Cornelius THUM"
         ],
         "externalURLs": []
       },
@@ -801,7 +798,6 @@
         "title": "ZZum Mehrheitserfordernis bei Abstimmungen iber verfassungsändernde Volksentscheide. Inn: Ncue Zeitschrift for Verwaltungsrecht S.",
         "date": "2002",
         "marker": "TuLLMANNS, 2002",
-        "_id": "58cb92465452691cd86bc948",
         "authors": [
           "Reiner TuLLMANNS"
         ],
@@ -813,7 +809,7 @@
         "xmlName": "58cb91fa5452691cd86bc940.xml",
         "scanName": "0001.png",
         "status": "OCR_PROCESSED",
-        "_id": "58cb91fa5452691cd86bc941"
+         "_id": "58cb91fa5452691cd86bc941"
       }
     ],
     "contributors": [],
