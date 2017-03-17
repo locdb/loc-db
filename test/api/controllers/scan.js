@@ -139,7 +139,7 @@ describe('controllers', function() {
           });
       });
       
-      describe('GET /triggerOcrProcessing', function() {
+      describe.skip('GET /triggerOcrProcessing', function() {
           
           it('should trigger OCR processing', function(done) {
               this.timeout(1000000);
@@ -174,7 +174,7 @@ describe('controllers', function() {
           });
       });
       
-      describe('GET /getToDo', function() {
+      describe.skip('GET /getToDo', function() {
           it('should retrieve an todo list for the status "OCR_PROCESSED" of size 1', function(done) {
               request(server)
                   .get('/getToDo')

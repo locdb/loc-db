@@ -2,7 +2,7 @@ const should = require('should');
 const setup = require('./../setup.js').createSetup();
 const openCitationsHelper = require('./../../../api/helpers/openCitationsHelper.js').createOpenCitationsHelper();
 
-describe.skip('helpers', function() {
+describe('helpers', function() {
     describe('openCitationsHelper', function() {
         before(function(done) {
             setup.dropDB();

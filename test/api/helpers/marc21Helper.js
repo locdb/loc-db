@@ -3,7 +3,7 @@ const setup = require('./../setup.js').createSetup();
 const marc21Helper = require('./../../../api/helpers/marc21Helper.js').createMarc21Helper();
 const fs = require('fs')
 
-describe.skip('helpers', function() {
+describe('helpers', function() {
     var marc21XML;
     describe('marc21Helper', function() {
         before(function(done) {

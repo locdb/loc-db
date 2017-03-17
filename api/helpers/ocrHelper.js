@@ -96,28 +96,22 @@ OcrHelper.prototype.parseXMLString = function(xmlString, callback){
 
 OcrHelper.prototype.queryOcrComponent = function(fileName, callback){
     var path = config.upload.imagePath + fileName;
+    console.log(path);
 
-    fs.access(path, fs.constants.R_OK, function(err){
-        if (err){
+    var form = {
+            file: fs.createReadStream(path)
+    };
+    request.post({url: config.urls.ocrUrl, formData: form}, function(err, res, body) {
+        if (err) {
             errorlog.error(err);
             return callback(err, null);
+        }else if (res.statusCode!= 200){
+            errorlog.error("Request to OCR component failed.");
+            return callback("Request to OCR component failed.", null);
         }
-        var form = {
-                file: fs.createReadStream(path)//,
-                //filename: fileName
-        };
-        request.post({url: config.urls.ocrUrl, formData: form}, function(err, res, body) {
-            if (err) {
-                errorlog.error(err);
-                return callback(err, null);
-            }else if (res.statusCode!= 200){
-                errorlog.error("Request to OCR component failed.");
-                return callback("Request to OCR component failed.", null);
-            }
-            accesslog.log("Request to OCR component successful.", {body: body});
-            callback(null, body);
-         });
-    });
+        accesslog.log("Request to OCR component successful.", {body: body});
+        callback(null, body);
+     });
 };
 
 /**

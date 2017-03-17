@@ -12,7 +12,7 @@
     "ocrUrl": "https://locdb.opendfki.de/fileupload/"
   },
   "upload":{
-    "imagePath": "./upload/image/"
+    "imagePath": "./upload/"
   }
 }
 

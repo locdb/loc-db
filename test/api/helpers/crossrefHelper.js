@@ -2,7 +2,7 @@ const should = require('should');
 const setup = require('./../setup.js').createSetup();
 const crossrefHelper = require('./../../../api/helpers/crossrefHelper.js').createCrossrefHelper();
 
-describe.skip('helpers', function() {
+describe('helpers', function() {
     describe('crossrefHelper', function() {
         before(function(done) {
             setup.dropDB();
