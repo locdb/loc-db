@@ -2,9 +2,11 @@
 const mongoBr = require('./../models/bibliographicResource.js');
 const errorlog = require('./../util/logger.js').errorlog;
 const accesslog = require('./../util/logger.js').accesslog;
-const status = require('./../schema/enum.json').status;
+const enums = require('./../schema/enum.json');
+const biliographicEntry = require('./../schema/bibliographicEntry');
 const mongoose = require('mongoose');
 const extend = require('extend');
+const async = require('async');
 
 function getToDoBibliographicEntries(req, res){
     var response = res;
@@ -16,7 +18,7 @@ function getToDoBibliographicEntries(req, res){
             errorlog.error("Invalid value for parameter id.", {scanId : scanId});
             return response.status(400).json({"message":"Invalid parameter."});
         }
-        mongoBr.find({ 'cites.status': status.ocrProcessed, 'cites.scanId' : scanId}, function (err, brs) {
+        mongoBr.find({ 'cites.status': enums.status.ocrProcessed, 'cites.scanId' : scanId}, function (err, brs) {
             if(err){
                 errorlog.error(err);
                 return res.status(500).json({"message":"DB query failed."});
@@ -24,7 +26,7 @@ function getToDoBibliographicEntries(req, res){
             response.json(createBibliographicEntriesArray(brs));
         });
     }else{
-        mongoBr.find({ 'cites.status': status.ocrProcessed }, function (err, brs) {
+        mongoBr.find({ 'cites.status': enums.status.ocrProcessed }, function (err, brs) {
             if(err){
                 errorlog.error(err);
                 return res.status(500).json({"message":"DB query failed."});
@@ -41,7 +43,7 @@ function createBibliographicEntriesArray(brs){
         var result = [];
         for(var br of brs){
             for(var be of br.cites){
-                if(be.status === status.ocrProcessed){
+                if(be.status === enums.status.ocrProcessed){
                     result.push(be);
                 }
             }
@@ -99,8 +101,76 @@ function update(req, res){
 function getInternalSuggestions(req, res){
     var response = res;
     var searchObject = req.swagger.params.bibliographicEntry.value;
+    var title = searchObject.title;
+    async.parallel([
+        function(callback){
+            mongoBr.find({'cites':{$elemMatch: {'title': title, 'status': enums.status.valid}}}, function (err, brs) {
+                if(err) {
+                    errorlog.error(err);
+                    return callback(err, null);
+                }
+                if(brs.length == 0){
+                    return callback(null, brs);
+                }
+                var bes = [];
+                for(var br of brs){
+                    for(var be of br.cites.toObject()){
+                        if(be.title == title){
+                            delete be.scanId;
+                            delete be.marker;
+                            delete be.coordinates;
+                            delete be.status;
+                            bes.push(be);
+                        }
+                    }
+                }
+                return callback(bes, null)
+            });
+        },
+        function(callback){
+            mongoBr.find({'title' : title}, function (err, brs) {
+                if(err) {
+                    errorlog.error(err);
+                    return callback(err, null);
+                }
+                if(brs.length == 0){
+                    return callback(null, brs);
+                }
+                var bes = [];
+                for(br of brs){
+                    var authors = [];
+                    for(var contributor of br.contributors){
+                        if(contributor.roleType = enums.roleType.author){
+                            var author = contributor.heldBy.nameString;
+                            authors.push(author);
+                        }
+                    }
+                    var be = new biliographicEntry({title: br.title, date: br.year, authors: authors});
+                    bes.push(be);
+                }
+                return callback(null, bes);
+            });
 
-    response.json([]);
+        }
+    ],
+    function(err, res){
+        if(err) {
+            errorlog.error(err);
+            return response.status(500).json(err);
+        }
+        var result = [];
+        if(res[0].length > 0){
+            for(var be of res[0]){
+                result.push(be);
+            }
+        }
+        if(res[1].length > 0){
+            for(var be of res[1]){
+                result.push(be);
+            }
+        }
+        return response.json(result);
+    });
 
 }
 

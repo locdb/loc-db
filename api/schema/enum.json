@@ -8,5 +8,11 @@
     "isbn": "ISBN",
     "issn": "ISSN",
     "ppn" : "PPN"
+  },
+  "roleType": {
+    "author": "AUTHOR",
+    "publisher": "PUBLISHER",
+    "congress": "CONGRESS",
+    "corporate": "CORPORATE"
   }
 }

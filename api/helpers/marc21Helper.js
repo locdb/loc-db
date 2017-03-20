@@ -1,6 +1,7 @@
 "use strict";
 
 const marc4js = require('marc4js');
+const enums = require('./../schema/enum.json');
 
 var Marc21Helper = function(){
 }
@@ -86,7 +87,7 @@ Marc21Helper.prototype.parseBibliographicResource = function(xmlString, fnCallba
                 for(var subfield of field._subfields){
                     if(subfield._code == "a"){
                         var contributor = {};
-                        contributor.roleType = "Author";
+                        contributor.roleType = enums.roleType.author;
                         contributor.heldBy = {};
                         contributor.heldBy.identifiers = [];
                         contributor.heldBy.nameString = subfield._data;
@@ -100,7 +101,7 @@ Marc21Helper.prototype.parseBibliographicResource = function(xmlString, fnCallba
                 for(var subfield of field._subfields){
                     if(subfield._code == "a"){
                         var contributor = {};
-                        contributor.roleType = "Corporate";
+                        contributor.roleType = enums.roleType.corporate;
                         contributor.heldBy = {};
                         contributor.heldBy.identifiers = [];
                         contributor.heldBy.nameString = subfield._data;
@@ -111,7 +112,7 @@ Marc21Helper.prototype.parseBibliographicResource = function(xmlString, fnCallba
                 for(var subfield of field._subfields){
                     if(subfield._code == "a"){
                         var contributor = {};
-                        contributor.roleType = "Congress";
+                        contributor.roleType = enums.roleType.congress;
                         contributor.heldBy = {};
                         contributor.heldBy.identifiers = [];
                         contributor.heldBy.nameString = subfield._data;
@@ -122,7 +123,7 @@ Marc21Helper.prototype.parseBibliographicResource = function(xmlString, fnCallba
                 for(var subfield of field._subfields){
                     if(subfield._code == "b"){
                         var contributor = {};
-                        contributor.roleType = "Publisher";
+                        contributor.roleType = enums.roleType.publisher;
                         contributor.heldBy = {};
                         contributor.heldBy.identifiers = [];
                         contributor.heldBy.nameString = subfield._data;
@@ -133,7 +134,7 @@ Marc21Helper.prototype.parseBibliographicResource = function(xmlString, fnCallba
                 for(var subfield of field._subfields){
                     if(subfield._code == "b"){
                         var contributor = {};
-                        contributor.roleType = "Publisher";
+                        contributor.roleType = enums.roleType.publisher;
                         contributor.heldBy = {};
                         contributor.heldBy.identifiers = [];
                         contributor.heldBy.nameString = subfield._data;
