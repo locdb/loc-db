@@ -46,8 +46,8 @@ const brSchema = new Schema({
         scanId: String, // TODO: Save scan name here?
         //xmlName: String, // TODO: Save xml name here?
         coordinates: String, // TODO: Save coordinates here?
-        status: {type: String, enum: [enums.status.notOcrProcessed, enums.status.ocrProcessed, enums.status.valid]},
-        externalURLs: [String],
+        status: {type: String, enum: [enums.status.notOcrProcessed, enums.status.ocrProcessed, enums.status.valid, enums.status.external]},
+        externalURLs: [{url: String, source: {type: String, enum: [enums.externalSources.gScholar]}}],
         authors: [String],
         title: String,
         date: String,

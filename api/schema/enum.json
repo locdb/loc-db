@@ -2,7 +2,8 @@
   "status": {
     "notOcrProcessed": "NOT_OCR_PROCESSED",
     "ocrProcessed": "OCR_PROCESSED",
-    "valid": "VALID"
+    "valid": "VALID",
+    "external": "EXTERNAL"
   },
   "identifier": {
     "isbn": "ISBN",
@@ -14,5 +15,8 @@
     "publisher": "PUBLISHER",
     "congress": "CONGRESS",
     "corporate": "CORPORATE"
+  },
+  "externalSources": {
+    "gScholar": "GOOGLE_SCHOLAR"
   }
 }

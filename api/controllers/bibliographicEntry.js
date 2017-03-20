@@ -7,6 +7,7 @@ const biliographicEntry = require('./../schema/bibliographicEntry');
 const mongoose = require('mongoose');
 const extend = require('extend');
 const async = require('async');
+const googleScholarHelper = require('./../helpers/googleScholarHelper.js').createGoogleScholarHelper();
 
 function getToDoBibliographicEntries(req, res){
     var response = res;
@@ -124,7 +125,7 @@ function getInternalSuggestions(req, res){
                         }
                     }
                 }
-                return callback(bes, null)
+                return callback(null, bes)
             });
         },
         function(callback){
@@ -177,8 +178,16 @@ function getInternalSuggestions(req, res){
 function getExternalSuggestions(req, res){
     var response = res;
     var searchObject = req.swagger.params.bibliographicEntry.value;
+    var title = searchObject.title;
 
-    response.json([]);
+    googleScholarHelper.query(title, function (err, res) {
+        if(err) {
+            errorlog.error(err);
+            return res.status(500).json(err);
+        }
+        response.json(res);
+    });
+
 }
 
 

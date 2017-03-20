@@ -814,5 +814,38 @@
     ],
     "contributors": [],
     "identifiers": []
+  },
+  {
+    "partOf": "58cb91fa5452691cd86bc93a",
+    "__v": 0,
+    "parts": [],
+    "cites": [
+      {
+        "bibliographicEntryText": "Bibliographic Entry Test 10",
+        "coordinates": "",
+        "scanId": "",
+        "status": "VALID",
+        "title": "Bibliographic Entry Test 10 Title",
+        "date": "",
+        "marker": "",
+        "authors": [
+          "Test author 1"
+        ],
+        "externalURLs": []
+      },
+      {
+        "bibliographicEntryText": "Bibliographic Entry Test 11",
+        "coordinates": "",
+        "scanId": "",
+        "status": "VALID",
+        "title": "Bibliographic Entry Test 11 Title",
+        "date": "",
+        "marker": "",
+        "authors": [
+          "Test author 2"
+        ],
+        "externalURLs": []
+      }
+    ]
   }
 ]

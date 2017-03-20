@@ -531,8 +531,6 @@ definitions:
         type: string
 
   BibliographicEntry:
-    required:
-      - bibliographicEntryText
     properties:
       bibliographicEntryText:
         type: string
@@ -544,10 +542,10 @@ definitions:
         type: string
       status:
         type: string
-      externalUrls:
+      externalURLs:
         type: array
         items:
-          type: string
+          $ref: "#/definitions/ExternalURL"
       authors:
         type: array
         items:
@@ -558,6 +556,14 @@ definitions:
         type: string
       marker:
         type: string
+
+  ExternalURL:
+    properties:
+      url:
+        type: string
+      source:
+        type: string
+
 
   ToDo:
     required:

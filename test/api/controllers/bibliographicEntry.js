@@ -142,7 +142,7 @@ describe('controllers', function() {
 
         describe('GET /getInternalSuggestions', function () {
 
-            it('should return internal suggestions for a bibliographic entry', function (done) {
+            it('should return 0 internal suggestions for a bibliographic entry', function (done) {
 
                 var searchObject = `{
                         "bibliographicEntryText": "TEST ENTRY 1 -- UPDATED",
@@ -162,7 +162,34 @@ describe('controllers', function() {
                     .expect('Content-Type', /json/)
                     .expect(200)
                     .end(function (err, res) {
+                        res.body.should.have.lengthOf(0);
+                        should.not.exist(err);
+                        done();
+                    });
+            });
+
+            it('should return 1 internal suggestions for a bibliographic entry', function (done) {
+
+                var searchObject = `{
+                        "bibliographicEntryText": "Bibliographic Entry Test 10 Title",
+                        "coordinates": "714 317 2238 356",
+                        "scanId": "58cb91fa5452691cd86bc941",
+                        "status": "",
+                        "title": "Bibliographic Entry Test 10 Title",
+                        "date": "2000",
+                        "marker": "THUM, 2000",
+                        "authors": [],
+                        "externalURLs": [] }`;
+                var searchObject = JSON.parse(searchObject);
+                request(server)
+                    .get('/getInternalSuggestions')
+                    .set('Accept', 'application/json')
+                    .send(searchObject)
+                    .expect('Content-Type', /json/)
+                    .expect(200)
+                    .end(function (err, res) {
                         console.log(res.body);
+                        res.body.should.have.lengthOf(1);
                         should.not.exist(err);
                         done();
                     });
@@ -171,17 +198,15 @@ describe('controllers', function() {
 
         describe('GET /getExternalSuggestions', function () {
 
-            it('should return external suggestions for a bibliographic entry', function (done) {
+            it('should return an external suggestion for a bibliographic entry', function (done) {
 
                 var searchObject = `{
-                        "bibliographicEntryText": "TEST ENTRY 1 -- UPDATED",
-                        "coordinates": "714 317 2238 356",
-                        "scanId": "58cb91fa5452691cd86bc941",
-                        "status": "VALID",
-                        "title": "2Zur Ausgestaltung des Mehrheitsprinzips in der unmittelbaren Demokratie. In: Bayerische Verwaltungsbl&ttcr S. 33--43, 74-79. TmFENBACH, Paul: Sinn oder Unsinn von Abstimmungsquoren. Im Internet:",
-                        "date": "2000",
-                        "marker": "THUM, 2000",
-                        "authors": [ "Cornelius THUM" ],
+                        "bibliographicEntryText": "bibliographicEntryText",
+                        "status": "",
+                        "title": "Direkte Demokratie in der Schweiz: Entwicklungen, Debatten und Wirkungen, In:",
+                        "date": "",
+                        "marker": "",
+                        "authors": [],
                         "externalURLs": [] }`;
                 var searchObject = JSON.parse(searchObject);
                 request(server)
@@ -191,8 +216,14 @@ describe('controllers', function() {
                     .expect('Content-Type', /json/)
                     .expect(200)
                     .end(function (err, res) {
-                        console.log(res.body);
                         should.not.exist(err);
+                        res.body.should.be.Array;
+                        res.body.should.have.lengthOf(1);
+                        res.body[0].should.have.property("title", "Direkte Demokratie in der Schweiz: Entwicklungen, Debatten und Wirkungen");
+                        res.body[0].should.have.property("externalURLs");
+                        res.body[0].externalURLs.should.be.Array;
+                        res.body[0].externalURLs.should.have.lengthOf(1);
+                        res.body[0].externalURLs[0].should.have.property("source", "GOOGLE_SCHOLAR");
                         done();
                     });
             });

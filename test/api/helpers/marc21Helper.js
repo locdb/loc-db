@@ -24,7 +24,7 @@ describe('helpers', function() {
             done();
         });
         
-        describe('parseBibliographicRessource', function(){
+        describe('parseBibliographicResource', function(){
             it('should return a parsed bibliographic resource', function(done) {
                 marc21Helper.parseBibliographicResource(marc21XML, function(result){
                     result.should.be.ok();
@@ -39,7 +39,7 @@ describe('helpers', function() {
                     result.identifiers.should.be.Array();
                     result.contributors.should.have.length(1)
                     done();
-                })
+                });
             });
         });
     });
