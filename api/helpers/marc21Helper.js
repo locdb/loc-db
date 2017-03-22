@@ -153,16 +153,19 @@ Marc21Helper.prototype.parseBibliographicResource = function(xmlString, fnCallba
         
         //LEADER
         if(leader._typeOfRecord && leader._typeOfRecord.toLowerCase() == "m"){
-            cleanedObject.embodiedAs = "Digital";
+            //TODO: Fix this mess --> adapt to new data model!
+            // cleanedObject.embodiedAs = "Digital";
         }else if(leader._typeOfRecord 
                 && (leader._typeOfRecord.toLowerCase() == "a" 
                 || leader._typeOfRecord.toLowerCase() == "c" 
                 || leader._typeOfRecord.toLowerCase() == "e")){
-            cleanedObject.embodiedAs = "Print";
+           // cleanedObject.embodiedAs = "Print";
         }else if(leader._bibliographicLevel && leader._bibliographicLevel.toLowerCase() == "a"){
-            cleanedObject.type = "Monograph";
+            //TODO: Fix this mess --> adapt to new data model!
+            //cleanedObject.type = "Monograph";
         }else if(leader._bibliographicLevel && leader._bibliographicLevel.toLowerCase() == "s"){
-            cleanedObject.type = "Serial";
+            //TODO: Fix this mess --> adapt to new data model!
+            //cleanedObject.type = "Serial";
         }
         //console.log(leader);
         fnCallback(cleanedObject);
