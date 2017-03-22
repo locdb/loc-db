@@ -10,7 +10,7 @@ const brSchema = new Schema({
         literalValue: String,
         scheme: String
     }],
-    type: String,
+    type: {type: String},
     title: String,
     subtitle: String,
     edition: String,
@@ -45,7 +45,6 @@ const brSchema = new Schema({
         scanId: String,
         status: {type: String, enum: [enums.status.ocrProcessed, enums.status.valid, enums.status.external]},
         coordinates: String,
-        //externalURLs: [{url: String, source: {type: String, enum: [enums.externalSources.gScholar]}}], //--> save this also in identifiers
         authors: [String], // maybe use contributors thingy later
         title: String,
         date: String,
@@ -56,8 +55,7 @@ const brSchema = new Schema({
             literalValue: String,
             scheme: String
         }],
-        // TODO: type is a reserved key word in mongo db --> how to deal with this issue?
-        typeMongo: String, // digital or print
+        type: {type: String}, // digital or print
         format: String, // IANA media type
         firstPage: Number,
         lastPage: Number,
