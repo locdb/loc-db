@@ -14,7 +14,6 @@ const brSchema = new Schema({
     title: String,
     subtitle: String,
     edition: String,
-    status: {type: String, enum: [enums.status.notOcrProcessed, enums.status.ocrProcessed, enums.status.valid]},
     number: Number, // e.g. number of an article in journal
     contributors: [{
         identifiers: [{
@@ -30,42 +29,45 @@ const brSchema = new Schema({
             nameString: String,
             givenName: String,
             familyName: String
-        }
+        },
+        next: String // This is not necessary for now, as we are using an array
     }],
-    scans:[{
-        scanName: String,
-        xmlName: String,
-        status: {type: String, enum: [enums.status.notOcrProcessed, enums.status.ocrProcessed, enums.status.valid]},
-        //pages: String
-    }],
-    //keywords: [String],
     publicationYear: Number,
-    cites: [{
+    cites: [String], // reference entries
+    partOf: String, // link to other br
+    parts: [{
+        identifiers: [{
+            literalValue: String,
+            scheme: String
+        }],
         bibliographicEntryText: String,
         references: String, //link to other br
-        scanId: String, // TODO: Save scan name here?
-        //xmlName: String, // TODO: Save xml name here?
-        coordinates: String, // TODO: Save coordinates here?
-        status: {type: String, enum: [enums.status.notOcrProcessed, enums.status.ocrProcessed, enums.status.valid, enums.status.external]},
-        externalURLs: [{url: String, source: {type: String, enum: [enums.externalSources.gScholar]}}],
-        authors: [String],
+        scanId: String,
+        status: {type: String, enum: [enums.status.ocrProcessed, enums.status.valid, enums.status.external]},
+        coordinates: String,
+        //externalURLs: [{url: String, source: {type: String, enum: [enums.externalSources.gScholar]}}], //--> save this also in identifiers
+        authors: [String], // maybe use contributors thingy later
         title: String,
         date: String,
         marker: String
-    }], // reference entries
-    partOf: String, // link to other br
-    parts: [{
-        partId: String,
-        pages: String,
-        status: {type: String, enum: [enums.status.notOcrProcessed, enums.status.ocrProcessed, enums.status.valid]},
     }], // links to other brs
-//    embodiedAs: [{ // link to ressource embodiment
-//        type: String, // digital or print
-//        format: String, // IANA media type
-//        firstPage: Number,
-//        lastPage: Number,
-//        url: String
-//    }]
+    embodiedAs: [{ // Resource Embodiment
+        identifiers: [{
+            literalValue: String,
+            scheme: String
+        }],
+        // TODO: type is a reserved key word in mongo db --> how to deal with this issue?
+        typeMongo: String, // digital or print
+        format: String, // IANA media type
+        firstPage: Number,
+        lastPage: Number,
+        url: String,
+        scans:[{
+            scanName: String,
+            xmlName: String,
+            status: {type: String, enum: [enums.status.notOcrProcessed, enums.status.ocrProcessed, enums.status.valid]},
+        }]
+    }]
 });
 
 module.exports = mongoose.model('br', brSchema);

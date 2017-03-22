@@ -2,9 +2,7 @@
   {
     "_id": "58cb91fa5452691cd86bc93f",
     "partOf": "58cb91fa5452691cd86bc93a",
-    "__v": 0,
-    "parts": [],
-    "cites": [
+    "parts": [
       {
         "bibliographicEntryText": "THUM, Cornelius (2000): 2Zur Ausgestaltung des Mehrheitsprinzips in der unmittelbaren Demokratie. In: Bayerische Verwaltungsbl&ttcr S. 33--43, 74-79. TmFENBACH, Paul: Sinn oder Unsinn von Abstimmungsquoren. Im Internet: http://www.mehrdemokratie.delfileadmin/md/pdfpositionen/posO8.pdf.",
         "coordinates": "714 317 2238 356",
@@ -16,8 +14,7 @@
         "_id": "58cb92465452691cd86bc945",
         "authors": [
           "Cornelius THUM"
-        ],
-        "externalURLs": []
+        ]
       },
       {
         "bibliographicEntryText": "TLLMANNS, Reiner (2000): Verfassungsänderung durch Volksgesetzgebung? In: Die Oflentliche Verwaltung S. 269-275.",
@@ -30,8 +27,7 @@
         "_id": "58cb92465452691cd86bc946",
         "authors": [
           "Reiner TLLMANNS"
-        ],
-        "externalURLs": []
+        ]
       },
       {
         "bibliographicEntryText": "TuLLMANNS, Reiner (2002): ZZum Mehrheitserfordernis bei Abstimmungen iber verfassungsändernde Volksentscheide. Inn: Ncue Zeitschrift for Verwaltungsrecht S. 54-57.",
@@ -44,8 +40,7 @@
         "_id": "58cb92465452691cd86bc947",
         "authors": [
           "Reiner TuLLMANNS"
-        ],
-        "externalURLs": []
+        ]
       },
       {
         "bibliographicEntryText": "TOCQUEVLLE, Alexis de/MAYER, Jacob/ZBIINDEN, Hans (1976): Uber die Demokratie in Amerika: beide Teile in einem Band. München.",
@@ -58,8 +53,7 @@
         "_id": "58cb92465452691cd86bc948",
         "authors": [
           "Alexis deMAYER TOCQUEVLLE"
-        ],
-        "externalURLs": []
+        ]
       },
       {
         "bibliographicEntryText": "TRAPPE, Paul (1973) Basel-Land: Bericht der Expertenkommission zur Hebung der Stimmbeteiligung: Partizipation und Abstinenz. Eine Untersuchung zum politischen Verhalten der Stimmmmbürger im Kanton-Basel-Landschaft. Liestal.",
@@ -72,8 +66,7 @@
         "_id": "58cb92465452691cd86bc949",
         "authors": [
           "Paul TRAPPE"
-        ],
-        "externalURLs": []
+        ]
       },
       {
         "bibliographicEntryText": "TRECCHSEL, AlexanderlSERUCLT, Uwe (1999): Kaleidoskop Volksrechte. Basel.",
@@ -86,8 +79,7 @@
         "_id": "58cb92465452691cd86bc94a",
         "authors": [
           "AlexanderlSERUCLT TRECCHSEL"
-        ],
-        "externalURLs": []
+        ]
       },
       {
         "bibliographicEntryText": "TeIEPEL, Heinrich (1920): Der Weg der Gesetzgebung nach der neuen Reichsverfassung. In: Archiv des Offentlichen Rechts S. 456-546.",
@@ -100,8 +92,7 @@
         "_id": "58cb92465452691cd86bc94b",
         "authors": [
           "Heinrich TeIEPEL"
-        ],
-        "externalURLs": []
+        ]
       },
       {
         "bibliographicEntryText": "TREPEL, Heinrich (1926): Das Abdrosselungsgesetz. In: Deutsche Juristenzeitung S. 846-850.",
@@ -114,8 +105,7 @@
         "_id": "58cb92465452691cd86bc94c",
         "authors": [
           "Heinrich TREPEL"
-        ],
-        "externalURLs": []
+        ]
       },
       {
         "bibliographicEntryText": "TROITzSCH, Klaus (1979): Volksbegehren und Volksentscheid: eine vergleichende Analyse direktdemokratischer Verfassungsinstitutionen unter besonderer Berücksichtigung der Bundesrepublik Deutschland und der Schweiz. Meisenbeim am Glan.",
@@ -128,8 +118,7 @@
         "_id": "58cb92465452691cd86bc94d",
         "authors": [
           "Klaus TROITzSCH"
-        ],
-        "externalURLs": []
+        ]
       },
       {
         "bibliographicEntryText": "TRUMAN, David Bicknell (1951): The governmental process: political interests and public opinion. New York.",
@@ -142,8 +131,7 @@
         "_id": "58cb92465452691cd86bc94e",
         "authors": [
           "David Bicknell TRUMAN"
-        ],
-        "externalURLs": []
+        ]
       },
       {
         "bibliographicEntryText": "TsEars, George (1995): Decision Making in Political Systems: Veto Players in Presidentialism, Multicameralism and Multipartism. In: British Journal of Political Science S. 289f.",
@@ -156,8 +144,7 @@
         "_id": "58cb92465452691cd86bc94f",
         "authors": [
           "George TsEars"
-        ],
-        "externalURLs": []
+        ]
       },
       {
         "bibliographicEntryText": "VATER, Adrian (2007): Direkte Demokratie in der Schweiz: Entwicklungen, Debatten und Wirkungen, In: FREITAG, Markus/WAGSCHAL, Uwe (Hrsg.): Direkte Demokratie - Bestandsaufnahmen und Wirkungen im internationalen Vergleich. Berlin, S. 71-114.",
@@ -170,8 +157,7 @@
         "_id": "58cb92465452691cd86bc950",
         "authors": [
           "Adrian VATER"
-        ],
-        "externalURLs": []
+        ]
       },
       {
         "bibliographicEntryText": "VERBA, Sidney/ScHLOzMAN, Kay Lehman/BRADY, Henry E. (1995): Voice and equality: civic voluntaristn in American politics. Cambridge.",
@@ -184,8 +170,7 @@
         "_id": "58cb92465452691cd86bc951",
         "authors": [
           "SidneyScHLOzMAN VERBA"
-        ],
-        "externalURLs": []
+        ]
       },
       {
         "bibliographicEntryText": "VMAR, Fritz (1973), Strategien der Demokratisierung. Darmstadt.",
@@ -198,8 +183,7 @@
         "_id": "58cb92465452691cd86bc952",
         "authors": [
           "Fritz VMAR"
-        ],
-        "externalURLs": []
+        ]
       },
       {
         "bibliographicEntryText": "VoELeN, Helmut (2003): Neokorporatismus. In: ANDERSEN, Uwe/WoyEE, Wichard (Hrsg.): Handwörterbuch des politischen Systems der Bundesrepublik Deutschland. Opladen. S. 404-406.",
@@ -212,8 +196,7 @@
         "_id": "58cb92465452691cd86bc953",
         "authors": [
           "Helmut VoELeN"
-        ],
-        "externalURLs": []
+        ]
       },
       {
         "bibliographicEntryText": "VOGELSANG, Klaus (1991): Die Verfassungsentwicklung in den neuen Bundesländern. In: Dic 6ffentliche Verwaltung S. 1045-1053.",
@@ -226,8 +209,7 @@
         "_id": "58cb92465452691cd86bc954",
         "authors": [
           "Klaus VOGELSANG"
-        ],
-        "externalURLs": []
+        ]
       },
       {
         "bibliographicEntryText": "VOIGT, Rüdiger/WaLEENHAUS, Ralf (2006): Handwörterbuch zur Verwalttungsreform. Wiesbaden.",
@@ -240,8 +222,7 @@
         "_id": "58cb92465452691cd86bc955",
         "authors": [
           "RüdigerWaLEENHAUS VOIGT"
-        ],
-        "externalURLs": []
+        ]
       },
       {
         "bibliographicEntryText": "VOLLRATH, Karsten (2001): Ohne Bürger geit dat nicht - Anwendung und Wirkungen von Bürgerbegehren in den Hamburger Bezirken. In: BULL, Hans Peter (Hrsg.): FDnf Jabre direkte Beteiligung in Hamburg. S. 142-150.",
@@ -254,8 +235,7 @@
         "_id": "58cb92465452691cd86bc956",
         "authors": [
           "Karsten VOLLRATH"
-        ],
-        "externalURLs": []
+        ]
       },
       {
         "bibliographicEntryText": "VORLANDER, Hans (2003): Demokratie: Geschichte, Fortnen, Theorien. Miünchen.",
@@ -268,8 +248,7 @@
         "_id": "58cb92465452691cd86bc957",
         "authors": [
           "Hans VORLANDER"
-        ],
-        "externalURLs": []
+        ]
       },
       {
         "bibliographicEntryText": "VORLANDER, Hans (2004): Strukturunterschiede und Probleme. In: Informationen zur politischen Bildung Heft 284.",
@@ -282,8 +261,7 @@
         "_id": "58cb92465452691cd86bc958",
         "authors": [
           "Hans VORLANDER"
-        ],
-        "externalURLs": []
+        ]
       },
       {
         "bibliographicEntryText": "WALLER, Sybille (1988): Die Entstehung der Landessatzung von Schleswig-Holstein vom 13.12,1949. Frankfurt am Maitn.",
@@ -296,8 +274,7 @@
         "_id": "58cb92465452691cd86bc959",
         "authors": [
           "Sybille WALLER"
-        ],
-        "externalURLs": []
+        ]
       },
       {
         "bibliographicEntryText": "WARREN, Mark (1992): Democratic Theory And Self-Transformation. In: American Political Science Review S. 8ff.",
@@ -310,8 +287,7 @@
         "_id": "58cb92465452691cd86bc95a",
         "authors": [
           "Mark WARREN"
-        ],
-        "externalURLs": []
+        ]
       },
       {
         "bibliographicEntryText": "WASCHKUHN, Arno (1998): Demokratietheorien. München.",
@@ -324,8 +300,7 @@
         "_id": "58cb92465452691cd86bc95b",
         "authors": [
           "Arno WASCHKUHN"
-        ],
-        "externalURLs": []
+        ]
       },
       {
         "bibliographicEntryText": "WASSERMANN, Rudolf (1986): Die ?uschauerdemokratie. Düsseldorf.",
@@ -338,8 +313,7 @@
         "_id": "58cb92465452691cd86bc95c",
         "authors": [
           "Rudolf WASSERMANN"
-        ],
-        "externalURLs": []
+        ]
       },
       {
         "bibliographicEntryText": "WEBER, Max (1923) Wirtschaft und Gesellschaft. Tdbingen.",
@@ -352,8 +326,7 @@
         "_id": "58cb92465452691cd86bc95d",
         "authors": [
           "Max WEBER"
-        ],
-        "externalURLs": []
+        ]
       },
       {
         "bibliographicEntryText": "WEBER, Tim (2001): Und wieder zugetreten! In: Zeitschrift fdr Dirckte Demokratie S. 20-22.",
@@ -366,8 +339,7 @@
         "_id": "58cb92465452691cd86bc95e",
         "authors": [
           "Tim WEBER"
-        ],
-        "externalURLs": []
+        ]
       },
       {
         "bibliographicEntryText": "WEBER, Max/ULrIG, Alexander (2005): Wirtschaft und Gesellschaft: Grundriss der verstehenden Soziologie. Frankfurt am Main.",
@@ -380,8 +352,7 @@
         "_id": "58cb92465452691cd86bc95f",
         "authors": [
           "MaxULrIG WEBER"
-        ],
-        "externalURLs": []
+        ]
       },
       {
         "bibliographicEntryText": "WEHLING, Hans-Georg/WEHLING, Rosemarie (1972): Parlamentsaufl6sung durch Volksentscheid? In: Zeitschrift fhr Parlamentsftagen S. 76E.",
@@ -394,8 +365,7 @@
         "_id": "58cb92465452691cd86bc960",
         "authors": [
           "Hans-GeorgWEHLING WEHLING"
-        ],
-        "externalURLs": []
+        ]
       },
       {
         "bibliographicEntryText": "WEHR, Matthias (1998): Direkte Demokratic. In: Juristische Schulung S. 411-414.",
@@ -408,8 +378,7 @@
         "_id": "58cb92465452691cd86bc961",
         "authors": [
           "Matthias WEHR"
-        ],
-        "externalURLs": []
+        ]
       },
       {
         "bibliographicEntryText": "WEDO0R, BSrbel Martina (2002): Direkte Demokratie ita den Bundesl8ndern. Opladen. S. 308.",
@@ -422,8 +391,7 @@
         "_id": "58cb92465452691cd86bc962",
         "authors": [
           "BSrbel Martina WEDO0R"
-        ],
-        "externalURLs": []
+        ]
       },
       {
         "bibliographicEntryText": "WEDNER, Barbel Martina (2006): Direkte Demokratie in den Bundesländern. In: Aus Politik und Zeiggeschichte S. 18-24.",
@@ -436,8 +404,7 @@
         "_id": "58cb92465452691cd86bc963",
         "authors": [
           "Barbel Martina WEDNER"
-        ],
-        "externalURLs": []
+        ]
       },
       {
         "bibliographicEntryText": "WEIzSACKER, Richard von/HoFMANN, Gunter/PERGER, Werner A. (1992): Richard von Weizsicker im Gespräch mit Gunter Hofmann und Werner A. Perger. Frankfurt am Main.",
@@ -450,8 +417,7 @@
         "_id": "58cb92465452691cd86bc964",
         "authors": [
           "Richard vonHoFMANN WEIzSACKER"
-        ],
-        "externalURLs": []
+        ]
       },
       {
         "bibliographicEntryText": "WELzEL, Christian (1997): Repräsentation alleine reicht nicht mehr. Sachabstimmungen in einer Theorie der interaktiven Demokratie. In: SCHNEiDER-WILEES, Rainer (Hrsg.): Demokratie in Gefahr? - 2Zum Zustand der deutschen Republik. Mnster. S. 54-80.",
@@ -464,8 +430,7 @@
         "_id": "58cb92465452691cd86bc965",
         "authors": [
           "Christian WELzEL"
-        ],
-        "externalURLs": []
+        ]
       },
       {
         "bibliographicEntryText": "WENDT, RudolfRrdacEER, Roland (2009): Verfassung des Saarlandes. Kommentar. Saarbriicken.",
@@ -478,8 +443,7 @@
         "_id": "58cb92465452691cd86bc966",
         "authors": [
           "RudolfRrdacEER WENDT"
-        ],
-        "externalURLs": []
+        ]
       },
       {
         "bibliographicEntryText": "WERNER, Wolfram/WERNICKE, Kurt Georg/BBooMS, Hans/ScHICK, Rupert (1996): Parlamentarischer Rat 1948 - 1949, Akten und Protokolle. Band 9 Plcnum. Mtinchen.",
@@ -492,8 +456,7 @@
         "_id": "58cb92465452691cd86bc967",
         "authors": [
           "WolframWERNICKE WERNER"
-        ],
-        "externalURLs": []
+        ]
       },
       {
         "bibliographicEntryText": "WEBELS, Bernhard (2000): Die ntwicklung des deutschen Korporatismus. In: Aus Politik und Zeitgeschichte S. 16-21.",
@@ -506,8 +469,7 @@
         "_id": "58cb92465452691cd86bc968",
         "authors": [
           "Bernhard WEBELS"
-        ],
-        "externalURLs": []
+        ]
       },
       {
         "bibliographicEntryText": "WEGANDD, Hanns-Jürgen (2006): Direktdemokratische Elemente in der deutschen Verfassungsgeschichte. Berlin.",
@@ -520,8 +482,7 @@
         "_id": "58cb92465452691cd86bc969",
         "authors": [
           "Hanns-Jürgen WEGANDD"
-        ],
-        "externalURLs": []
+        ]
       },
       {
         "bibliographicEntryText": "WIESENDAHL, Elmar (1990): Der Marsch aus den Institutionen. In: Aus Politik und ?eitgeschichte S. 3-14.",
@@ -534,8 +495,7 @@
         "_id": "58cb92465452691cd86bc96a",
         "authors": [
           "Elmar WIESENDAHL"
-        ],
-        "externalURLs": []
+        ]
       },
       {
         "bibliographicEntryText": "WHELM, Birgit (2007) Das Land Baden-Worttemberg. KoIn.",
@@ -548,8 +508,7 @@
         "_id": "58cb92465452691cd86bc96b",
         "authors": [
           "Birgit WHELM"
-        ],
-        "externalURLs": []
+        ]
       },
       {
         "bibliographicEntryText": "WL, Hans-Urs (1999): Jux populi? 100 Jahre eidgenössische Volksinitiative auf Partialrevision der Bundesverfassung. In: Zeitschrift fhr Schweizerisches Recht S. 485-521.",
@@ -562,8 +521,7 @@
         "_id": "58cb92465452691cd86bc96c",
         "authors": [
           "Hans-Urs WL"
-        ],
-        "externalURLs": []
+        ]
       },
       {
         "bibliographicEntryText": "WLt, Urs (2006): &apos;&apos;Government by the people&apos;&apos; - &apos;&apos;providentia Dei ac confusione bominum&apos;&apos;? In: HRscHER, Gerhard/HuBER, Roman (Hrsg.): Aktive Bürgergesellschaft durch bundesweite Volksentscheide? - Direkte Demokratie in der Diskussion. M(unchen. S. 61-88.",
@@ -576,8 +534,7 @@
         "_id": "58cb92465452691cd86bc96d",
         "authors": [
           "Urs WLt"
-        ],
-        "externalURLs": []
+        ]
       },
       {
         "bibliographicEntryText": "WTRSCHING, Andreas (2003): Konstruktion und rosion: Weimarer Argumente gegen Volksbegebren und Volksentscheid. In: GusY, Christoph (Hrsg.): Weimars lange Schatten - &apos;&apos;Weimar&apos;&apos; als Argument nach 1945. Baden-Baden. S. 335-353.",
@@ -590,8 +547,7 @@
         "_id": "58cb92465452691cd86bc96e",
         "authors": [
           "Andreas WTRSCHING"
-        ],
-        "externalURLs": []
+        ]
       },
       {
         "bibliographicEntryText": "WmT, Christian/DoMRICH, Dirk (1988): Das konsultative Plcbiszit. In: Recht und Politik S. 114-118.",
@@ -604,8 +560,7 @@
         "_id": "58cb92465452691cd86bc96f",
         "authors": [
           "ChristianDoMRICH WmT"
-        ],
-        "externalURLs": []
+        ]
       },
       {
         "bibliographicEntryText": "Wrrra, Jan (1997a): Plebiszitäre Elemente und Anwendungserfahrungen in den norddeutschen Kommunalverfassungen der Weimarer ?eit. In: Zeitschrift fdr Parlamentsfragen S. 425-443.",
@@ -618,8 +573,7 @@
         "_id": "58cb92465452691cd86bc970",
         "authors": [
           "Wrrra"
-        ],
-        "externalURLs": []
+        ]
       },
       {
         "bibliographicEntryText": "WITTTE, Jan (1997b): Unmittelbare Gemeindedemokratie der Weimarer Republik. Baden-Baden.",
@@ -632,8 +586,7 @@
         "_id": "58cb92465452691cd86bc971",
         "authors": [
           "WITTTE"
-        ],
-        "externalURLs": []
+        ]
       },
       {
         "bibliographicEntryText": "WTrrEAMPER, Gerhard (1963): Die verfassungsrechtliche Stellung der Interessenverbände nach dem Grundgesetz. K6In.",
@@ -646,8 +599,7 @@
         "_id": "58cb92465452691cd86bc972",
         "authors": [
           "Gerhard WTrrEAMPER"
-        ],
-        "externalURLs": []
+        ]
       },
       {
         "bibliographicEntryText": "WTMAYER, Leo (1922): Die Weimarer Reichsverfassung. T0bingen.",
@@ -660,8 +612,7 @@
         "_id": "58cb92465452691cd86bc973",
         "authors": [
           "Leo WTMAYER"
-        ],
-        "externalURLs": []
+        ]
       },
       {
         "bibliographicEntryText": "WrrTMAYER, Leo (1969) Rckblicke auf acht Jahre Weimarer Verfassung. In: Zeitschrift far Offentliches Recht S. 497-512.",
@@ -674,8 +625,7 @@
         "_id": "58cb92465452691cd86bc974",
         "authors": [
           "Leo WrrTMAYER"
-        ],
-        "externalURLs": []
+        ]
       },
       {
         "bibliographicEntryText": "WrTTRECK, Fabian (2005): Direkte Demokratie und Verfassungsgerichtsbarkeit. In: Jahrbuch des Offentlichen Rechts S. 132-185.",
@@ -688,8 +638,7 @@
         "_id": "58cb92465452691cd86bc975",
         "authors": [
           "Fabian WrTTRECK"
-        ],
-        "externalURLs": []
+        ]
       },
       {
         "bibliographicEntryText": "WrrrRECK, Fabian (2010): Ausgewihlte Entscheidungen zur direkten Demokratic. In: FELD, Lars/HuBER, PeterlJuNG, Otmar/WELzEL, Christian/WrrrREcK, Fabian (Hrsg.): Jahrbuch fhr direkte Demokratie 2009. Baden-Baden. S. 317-334.",
@@ -702,8 +651,7 @@
         "_id": "58cb92465452691cd86bc976",
         "authors": [
           "Fabian WrrrRECK"
-        ],
-        "externalURLs": []
+        ]
       },
       {
         "bibliographicEntryText": "WoLrF, Thomas(1993): Unmittelbare Gesetzgebung durch Volksbegehren und Volksentscheid in den Verfassungen der Bundesrepublik Deutschland. Bochum.",
@@ -716,8 +664,7 @@
         "_id": "58cb92465452691cd86bc977",
         "authors": [
           "WoLrF"
-        ],
-        "externalURLs": []
+        ]
       },
       {
         "bibliographicEntryText": "2ZAPF, Wolfgang (2001): Modernisierung und Transformation. In: ScHAFERS, Bernhard/ZAPF, Wolf. gang (Hrsg.): Handwotteruch zur Gesellschaft Deutschlands. Opladen. S. 492-501.",
@@ -730,8 +677,7 @@
         "_id": "58cb92465452691cd86bc978",
         "authors": [
           "Wolfgang 2ZAPF"
-        ],
-        "externalURLs": []
+        ]
       },
       {
         "bibliographicEntryText": "2ZIMMER, Annette (1995): Demokratietheorie. In: Gegenwartskunde. Zeitschrift far Gesellschaft, Wirtschaft, Politik und Bildung S. 537-567.",
@@ -744,38 +690,35 @@
         "_id": "58cb92465452691cd86bc979",
         "authors": [
           "Annette 2ZIMMER"
-        ],
-        "externalURLs": []
+        ]
       }
     ],
-    "scans": [
+    "embodiedAs": [
       {
-        "xmlName": "58cb91fa5452691cd86bc940.xml",
-        "scanName": "0001.png",
-        "status": "OCR_PROCESSED",
-        "_id": "58cb91fa5452691cd86bc940"
+        "scans": [
+          {
+            "xmlName": "58cb91fa5452691cd86bc940.xml",
+            "scanName": "0001.png",
+            "status": "OCR_PROCESSED",
+            "_id": "58cb91fa5452691cd86bc940"
+          }
+        ]
       }
-    ],
-    "contributors": [],
-    "identifiers": []
+    ]
   },
   {
     "partOf": "58cb91fa5452691cd86bc93a",
-    "__v": 0,
-    "parts": [],
-    "cites": [
+    "parts": [
       {
         "bibliographicEntryText": "TEST ENTRY 2",
         "coordinates": "714 485 2238 528",
         "scanId": "58cb91fa5452691cd86bc941",
-        "status": "NOT_OCR_PROCESSED",
         "title": "Verfassungsänderung durch Volksgesetzgebung? In: Die Oflentliche Verwaltung S.",
         "date": "2000",
         "marker": "TLLMANNS, 2000",
         "authors": [
           "Reiner TLLMANNS"
-        ],
-        "externalURLs": []
+        ]
       },
       {
         "bibliographicEntryText": "TEST ENTRY 1",
@@ -787,8 +730,7 @@
         "marker": "THUM, 2000",
         "authors": [
           "Cornelius THUM"
-        ],
-        "externalURLs": []
+        ]
       },
       {
         "bibliographicEntryText": "TuLLMANNS, Reiner (2002): ZZum Mehrheitserfordernis bei Abstimmungen iber verfassungsändernde Volksentscheide. Inn: Ncue Zeitschrift for Verwaltungsrecht S. 54-57.",
@@ -800,26 +742,26 @@
         "marker": "TuLLMANNS, 2002",
         "authors": [
           "Reiner TuLLMANNS"
-        ],
-        "externalURLs": []
+        ]
       }
     ],
-    "scans": [
+    "cites": [],
+    "embodiedAs": [
       {
-        "xmlName": "58cb91fa5452691cd86bc940.xml",
-        "scanName": "0001.png",
-        "status": "OCR_PROCESSED",
-         "_id": "58cb91fa5452691cd86bc941"
+        "scans": [
+          {
+            "xmlName": "58cb91fa5452691cd86bc940.xml",
+            "scanName": "0001.png",
+            "status": "OCR_PROCESSED",
+            "_id": "58cb91fa5452691cd86bc941"
+          }
+        ]
       }
-    ],
-    "contributors": [],
-    "identifiers": []
+    ]
   },
   {
     "partOf": "58cb91fa5452691cd86bc93a",
-    "__v": 0,
-    "parts": [],
-    "cites": [
+    "parts": [
       {
         "bibliographicEntryText": "Bibliographic Entry Test 10",
         "coordinates": "",
@@ -830,8 +772,7 @@
         "marker": "",
         "authors": [
           "Test author 1"
-        ],
-        "externalURLs": []
+        ]
       },
       {
         "bibliographicEntryText": "Bibliographic Entry Test 11",
@@ -843,8 +784,7 @@
         "marker": "",
         "authors": [
           "Test author 2"
-        ],
-        "externalURLs": []
+        ]
       }
     ]
   }

@@ -17,6 +17,6 @@
     "corporate": "CORPORATE"
   },
   "externalSources": {
-    "gScholar": "GOOGLE_SCHOLAR"
+    "gScholar": "URL_GOOGLE_SCHOLAR"
   }
 }

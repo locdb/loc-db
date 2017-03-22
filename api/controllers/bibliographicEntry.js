@@ -19,7 +19,7 @@ function getToDoBibliographicEntries(req, res){
             errorlog.error("Invalid value for parameter id.", {scanId : scanId});
             return response.status(400).json({"message":"Invalid parameter."});
         }
-        mongoBr.find({ 'cites.status': enums.status.ocrProcessed, 'cites.scanId' : scanId}, function (err, brs) {
+        mongoBr.find({ 'parts.status': enums.status.ocrProcessed, 'parts.scanId' : scanId}, function (err, brs) {
             if(err){
                 errorlog.error(err);
                 return res.status(500).json({"message":"DB query failed."});
@@ -27,7 +27,7 @@ function getToDoBibliographicEntries(req, res){
             response.json(createBibliographicEntriesArray(brs));
         });
     }else{
-        mongoBr.find({ 'cites.status': enums.status.ocrProcessed }, function (err, brs) {
+        mongoBr.find({ 'parts.status': enums.status.ocrProcessed }, function (err, brs) {
             if(err){
                 errorlog.error(err);
                 return res.status(500).json({"message":"DB query failed."});
@@ -43,7 +43,7 @@ function createBibliographicEntriesArray(brs){
     if(brs.length > 0){
         var result = [];
         for(var br of brs){
-            for(var be of br.cites){
+            for(var be of br.parts){
                 if(be.status === enums.status.ocrProcessed){
                     result.push(be);
                 }
@@ -65,7 +65,7 @@ function update(req, res){
         return response.status(400).json({"message":"Invalid parameter."});
     }
 
-    mongoBr.findOne({ 'cites._id': id}, function (err, br) {
+    mongoBr.findOne({ 'parts._id': id}, function (err, br) {
         if(err){
             errorlog.error(err);
             return res.status(500).json({"message":"DB query failed."});
@@ -76,16 +76,13 @@ function update(req, res){
         }
 
 
-        for(var be of br.cites){
+        for(var be of br.parts){
             if(be._id.toString() === id){
-                var index = br.cites.indexOf(be);
-                console.log(be);
+                var index = br.parts.indexOf(be);
                 extend(true, be, update);
-                console.log(be);
-                br.cites[index] = be;
-                console.log(br);
+                br.parts[index] = be;
                 br.save().then(function(result){
-                    for(var be of br.cites){
+                    for(var be of br.parts){
                         if(be._id.toString() === id){
                             return response.json(be);
                         }
@@ -105,7 +102,7 @@ function getInternalSuggestions(req, res){
     var title = searchObject.title;
     async.parallel([
         function(callback){
-            mongoBr.find({'cites':{$elemMatch: {'title': title, 'status': enums.status.valid}}}, function (err, brs) {
+            mongoBr.find({'parts':{$elemMatch: {'title': title, 'status': enums.status.valid}}}, function (err, brs) {
                 if(err) {
                     errorlog.error(err);
                     return callback(err, null);
@@ -115,7 +112,7 @@ function getInternalSuggestions(req, res){
                 }
                 var bes = [];
                 for(var br of brs){
-                    for(var be of br.cites.toObject()){
+                    for(var be of br.parts.toObject()){
                         if(be.title == title){
                             delete be.scanId;
                             delete be.marker;

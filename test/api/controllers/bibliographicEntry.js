@@ -97,7 +97,8 @@ describe('controllers', function() {
                         "date": "2000",
                         "marker": "THUM, 2000",
                         "authors": [ "Cornelius THUM" ],
-                        "externalURLs": [] }`;
+                        "identifiers":[]
+                        }`;
                 update = JSON.parse(update);
                 request(server)
                     .put('/bibliographicEntries/' + id)
@@ -110,7 +111,6 @@ describe('controllers', function() {
                         update._id = id;
                         res.body.should.deepEqual(update);
                         should.not.exist(err);
-
                         done();
                     });
             });
@@ -121,7 +121,7 @@ describe('controllers', function() {
                         "bibliographicEntryText": "TEST ENTRY 1 -- UPDATED TWICE",
                         "coordinates": "714 317 2238 356",
                         "scanId": "58cb91fa5452691cd86bc941",
-                        "status": "NOT_OCR_PROCESSED",
+                        "status": "OCR_PROCESSED",
                         "title": "2Zur Ausgestaltung des Mehrheitsprinzips in der unmittelbaren Demokratie. In: Bayerische Verwaltungsbl&ttcr S. 33--43, 74-79. TmFENBACH, Paul: Sinn oder Unsinn von Abstimmungsquoren. Im Internet:"}`;
                 update = JSON.parse(update);
                 request(server)
@@ -152,8 +152,8 @@ describe('controllers', function() {
                         "title": "2Zur Ausgestaltung des Mehrheitsprinzips in der unmittelbaren Demokratie. In: Bayerische Verwaltungsbl&ttcr S. 33--43, 74-79. TmFENBACH, Paul: Sinn oder Unsinn von Abstimmungsquoren. Im Internet:",
                         "date": "2000",
                         "marker": "THUM, 2000",
-                        "authors": [ "Cornelius THUM" ],
-                        "externalURLs": [] }`;
+                        "authors": [ "Cornelius THUM" ]
+                        }`;
                 var searchObject = JSON.parse(searchObject);
                 request(server)
                     .get('/getInternalSuggestions')
@@ -206,8 +206,8 @@ describe('controllers', function() {
                         "title": "Direkte Demokratie in der Schweiz: Entwicklungen, Debatten und Wirkungen, In:",
                         "date": "",
                         "marker": "",
-                        "authors": [],
-                        "externalURLs": [] }`;
+                        "authors": []
+                }`;
                 var searchObject = JSON.parse(searchObject);
                 request(server)
                     .get('/getExternalSuggestions')
@@ -220,10 +220,10 @@ describe('controllers', function() {
                         res.body.should.be.Array;
                         res.body.should.have.lengthOf(1);
                         res.body[0].should.have.property("title", "Direkte Demokratie in der Schweiz: Entwicklungen, Debatten und Wirkungen");
-                        res.body[0].should.have.property("externalURLs");
-                        res.body[0].externalURLs.should.be.Array;
-                        res.body[0].externalURLs.should.have.lengthOf(1);
-                        res.body[0].externalURLs[0].should.have.property("source", "GOOGLE_SCHOLAR");
+                        res.body[0].should.have.property("identifiers");
+                        res.body[0].identifiers.should.be.Array;
+                        res.body[0].identifiers.should.have.lengthOf(1);
+                        res.body[0].identifiers[0].should.have.property("scheme", "URL_GOOGLE_SCHOLAR");
                         done();
                     });
             });
