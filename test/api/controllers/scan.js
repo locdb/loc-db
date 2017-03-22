@@ -101,7 +101,6 @@ describe('controllers', function () {
                         res.body[1].should.have.property("partOf");
                         res.body[0]._id.should.be.exactly(res.body[1].partOf);
                         done();
-                        done();
                     });
             });
         });
