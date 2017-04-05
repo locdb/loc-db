@@ -8,7 +8,8 @@
   "identifier": {
     "isbn": "ISBN",
     "issn": "ISSN",
-    "ppn" : "PPN"
+    "ppn" : "PPN",
+    "doi" : "DOI"
   },
   "roleType": {
     "author": "AUTHOR",
@@ -17,6 +18,7 @@
     "corporate": "CORPORATE"
   },
   "externalSources": {
-    "gScholar": "URL_GOOGLE_SCHOLAR"
+    "gScholar": "URL_GOOGLE_SCHOLAR",
+    "crossref": "URL_CROSSREF"
   }
 }

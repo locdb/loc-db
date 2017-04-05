@@ -8,6 +8,7 @@ const mongoose = require('mongoose');
 const extend = require('extend');
 const async = require('async');
 const googleScholarHelper = require('./../helpers/googleScholarHelper.js').createGoogleScholarHelper();
+const crossrefHelper = require('./../helpers/crossrefHelper.js').createCrossrefHelper();
 
 function getToDoBibliographicEntries(req, res){
     var response = res;
@@ -181,14 +182,47 @@ function getExternalSuggestions(req, res){
     var searchObject = req.swagger.params.bibliographicEntry.value;
     var title = searchObject.title;
 
-    googleScholarHelper.query(title, function (err, res) {
-        if(err) {
-            errorlog.error(err);
-            return res.status(500).json(err);
+    async.parallel([
+            function(callback){
+                googleScholarHelper.query(title, function (err, res) {
+                    if(err) {
+                        return callback(err, null);
+                    }
+                    return callback(null, res);
+                });
+            },
+            function(callback){
+                crossrefHelper.query(title, function (err, res) {
+                    if(err) {
+                        return callback(err, null);
+                    }
+                    return callback(null, res);
+                });
+            },
+        ],
+        function(err, res){
+            if(err) {
+                errorlog.error(err);
+                return response.status(500).json(err);
+            }
+            var result = [];
+            if(res[0].length > 0){
+                for(var be of res[0]){
+                    if(Object.keys(be).length !== 0) {
+                        result.push(be);
+                    }
+                }
+            }
+            if(res[1].length > 0){
+                for(var be of res[1]){
+                    if(Object.keys(be).length !== 0) {
+                        result.push(be);
+                    }
+                }
+            }
+            return response.json(result);
         }
-        response.json(res);
-    });
-
+    );
 }
 
 

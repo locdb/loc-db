@@ -198,7 +198,7 @@ describe('controllers', function() {
 
         describe('GET /getExternalSuggestions', function () {
 
-            it('should return an external suggestion for a bibliographic entry', function (done) {
+            it.only('should return an external suggestion for a bibliographic entry', function (done) {
 
                 var searchObject = `{
                         "bibliographicEntryText": "bibliographicEntryText",
