@@ -135,7 +135,7 @@ function getInternalSuggestions(req, res){
                     return callback(null, brs);
                 }
                 var bes = [];
-                for(br of brs){
+                for(var br of brs){
                     var authors = [];
                     for(var contributor of br.contributors){
                         if(contributor.roleType = enums.roleType.author){
@@ -159,12 +159,16 @@ function getInternalSuggestions(req, res){
         var result = [];
         if(res[0].length > 0){
             for(var be of res[0]){
-                result.push(be);
+                if(Object.keys(be).length !== 0) {
+                    result.push(be);
+                }
             }
         }
         if(res[1].length > 0){
             for(var be of res[1]){
-                result.push(be);
+                if(Object.keys(be).length !== 0) {
+                    result.push(be);
+                }
             }
         }
         return response.json(result);
