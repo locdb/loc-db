@@ -19,6 +19,7 @@
     "marc4js": "0.0.8",
     "mongodb": "^2.2.13",
     "mongoose": "^4.7.2",
+    "natural": "^0.5.0",
     "request": "^2.80.0",
     "schema-object": "^4.0.10",
     "sparql-http-client": "^1.0.2",

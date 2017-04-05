@@ -198,7 +198,7 @@ describe('controllers', function() {
 
         describe('GET /getExternalSuggestions', function () {
 
-            it.only('should return an external suggestion for a bibliographic entry', function (done) {
+            it('should return one external suggestion for a bibliographic entry', function (done) {
 
                 var searchObject = `{
                         "bibliographicEntryText": "bibliographicEntryText",
@@ -220,6 +220,36 @@ describe('controllers', function() {
                         res.body.should.be.Array;
                         res.body.should.have.lengthOf(1);
                         res.body[0].should.have.property("title", "Direkte Demokratie in der Schweiz: Entwicklungen, Debatten und Wirkungen");
+                        res.body[0].should.have.property("identifiers");
+                        res.body[0].identifiers.should.be.Array;
+                        res.body[0].identifiers.should.have.lengthOf(1);
+                        res.body[0].identifiers[0].should.have.property("scheme", "URL_GOOGLE_SCHOLAR");
+                        done();
+                    });
+            });
+
+            it.only('should return two external suggestion for a bibliographic entry', function (done) {
+
+                var searchObject = `{
+                        "bibliographicEntryText": "bibliographicEntryText",
+                        "status": "",
+                        "title": "Direkte Demokratie und Umweltpolitik in der Schweiz, In:",
+                        "date": "",
+                        "marker": "",
+                        "authors": []
+                }`;
+                var searchObject = JSON.parse(searchObject);
+                request(server)
+                    .get('/getExternalSuggestions')
+                    .set('Accept', 'application/json')
+                    .send(searchObject)
+                    .expect('Content-Type', /json/)
+                    .expect(200)
+                    .end(function (err, res) {
+                        should.not.exist(err);
+                        res.body.should.be.Array;
+                        res.body.should.have.lengthOf(2);
+                        res.body[0].should.have.property("title", "Direkte Demokratie und Umweltpolitik in der Schweiz");
                         res.body[0].should.have.property("identifiers");
                         res.body[0].identifiers.should.be.Array;
                         res.body[0].identifiers.should.have.lengthOf(1);
