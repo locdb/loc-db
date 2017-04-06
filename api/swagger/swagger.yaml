@@ -351,7 +351,7 @@ paths:
 
   /getInternalSuggestions:
     x-swagger-router-controller: bibliographicEntry
-    get:
+    post:
       tags: [BibliographicEntry]
       description: Retrieves internal suggestions for a given (probably messy) be.
       operationId: getInternalSuggestions
@@ -376,7 +376,7 @@ paths:
 
   /getExternalSuggestions:
     x-swagger-router-controller: bibliographicEntry
-    get:
+    post:
       tags: [BibliographicEntry]
       description: Retrieves external suggestions for a given (probably messy) be.
       operationId: getExternalSuggestions

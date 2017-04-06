@@ -140,7 +140,7 @@ describe('controllers', function() {
             });
         });
 
-        describe('GET /getInternalSuggestions', function () {
+        describe('POST /getInternalSuggestions', function () {
 
             it('should return 0 internal suggestions for a bibliographic entry', function (done) {
 
@@ -156,7 +156,7 @@ describe('controllers', function() {
                         }`;
                 var searchObject = JSON.parse(searchObject);
                 request(server)
-                    .get('/getInternalSuggestions')
+                    .post('/getInternalSuggestions')
                     .set('Accept', 'application/json')
                     .send(searchObject)
                     .expect('Content-Type', /json/)
@@ -182,7 +182,7 @@ describe('controllers', function() {
                         "externalURLs": [] }`;
                 var searchObject = JSON.parse(searchObject);
                 request(server)
-                    .get('/getInternalSuggestions')
+                    .post('/getInternalSuggestions')
                     .set('Accept', 'application/json')
                     .send(searchObject)
                     .expect('Content-Type', /json/)
@@ -210,7 +210,7 @@ describe('controllers', function() {
                 }`;
                 var searchObject = JSON.parse(searchObject);
                 request(server)
-                    .get('/getExternalSuggestions')
+                    .post('/getExternalSuggestions')
                     .set('Accept', 'application/json')
                     .send(searchObject)
                     .expect('Content-Type', /json/)
@@ -240,7 +240,7 @@ describe('controllers', function() {
                 }`;
                 var searchObject = JSON.parse(searchObject);
                 request(server)
-                    .get('/getExternalSuggestions')
+                    .post('/getExternalSuggestions')
                     .set('Accept', 'application/json')
                     .send(searchObject)
                     .expect('Content-Type', /json/)
