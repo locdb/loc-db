@@ -539,6 +539,26 @@ definitions:
     properties:
       _id:
         type: string
+      identifiers:
+        type: array
+        items:
+          $ref: "#/definitions/Identifier"
+      type:
+        type: string
+      title:
+        type: string
+      subtitle:
+        type: string
+      edition:
+        type: string
+      number:
+        type: number
+      contributors:
+        type: array
+        items:
+          $ref: "#/definitions/AgentRole"
+      publicationYear:
+        type: number
       children:
         type: array
         items:

@@ -144,6 +144,35 @@ describe('controllers', function () {
                         done();
                     });
             });
+
+            describe('GET /getToDo with additional data', function () {
+                before(function (done) {
+                    setup.loadAdditionalToDo()
+                    done();
+                });
+
+                it('should retrieve a todo list of size 2 for the status "NOT_OCR_PROCESSED"', function (done) {
+
+                    request(server)
+                        .get('/getToDo')
+                        .query({status: "NOT_OCR_PROCESSED"})
+                        .set('Accept', 'application/json')
+                        .expect('Content-Type', /json/)
+                        .expect(200)
+                        .end(function (err, res) {
+                            console.log(res.body);
+                            should.not.exist(err);
+                            res.body.should.be.Array;
+                            res.body.should.have.lengthOf(2);
+                            res.body[0].should.have.property("children");
+                            res.body[0].children.should.be.Array();
+                            res.body[0].children.should.have.lengthOf(2);
+                            res.body[1].children.should.be.Array();
+                            res.body[1].children.should.have.lengthOf(1);
+                            done();
+                        });
+                });
+            });
         });
 
         describe('GET /triggerOcrProcessing', function () {

@@ -1,0 +1,44 @@
+[
+  {
+    "__v": 0,
+    "title": "Federico II - cultura istituzioni arti :",
+    "subtitle": "atti del seminario di studio, Reggio Calabria 20-21 maggio 1995; [celebrazioni dell' VIII centenario della nascita di Federico II] /",
+    "publicationYear": 1996,
+    "_id": "58e65d5d680edc2210738c78",
+    "embodiedAs": [],
+    "parts": [],
+    "cites": [],
+    "contributors": [],
+    "identifiers": [
+      {
+        "scheme": "PPN",
+        "literalValue": "063579111",
+        "_id": "58e65d5d680edc2210738c79"
+      }
+    ]
+  },
+  {
+    "__v": 0,
+    "partOf": "58e65d5d680edc2210738c78",
+    "_id": "58e65d5d680edc2210738c7a",
+    "embodiedAs": [
+      {
+        "firstPage": 57,
+        "lastPage": 59,
+        "_id": "58e65d5d680edc2210738c7b",
+        "scans": [
+          {
+            "scanName": "0002.png",
+            "status": "NOT_OCR_PROCESSED",
+            "_id": "58e65d5d680edc2210738c7c"
+          }
+        ],
+        "identifiers": []
+      }
+    ],
+    "parts": [],
+    "cites": [],
+    "contributors": [],
+    "identifiers": []
+  }
+]

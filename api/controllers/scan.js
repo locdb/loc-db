@@ -159,6 +159,10 @@ function getToDo(req, res) {
                         alreadyIn = true;
                         resultObject = i;
                         break;
+                    } else {
+                        resultObject = {};
+                        resultObject._id = child.partOf;
+                        resultObject.children = [];
                     }
                 }
             } else {
@@ -168,12 +172,12 @@ function getToDo(req, res) {
             }
             var resultChild = {};
             resultChild._id = child._id;
-            resultChild.status = child.status;
+            //resultChild.status = child.status;
             var scans = [];
             for (var embodiment of child.embodiedAs) {
                 for (var scan of embodiment.scans) {
                     if (scan.status === status) {
-                        scans.push({"_id": scan._id.toString(), "status": scan.status});
+                        scans.push({"_id": scan._id.toString(), "status": scan.status, "firstPage": embodiment.firstPage, "lastPage": embodiment.lastPage});
                     }
                 }
             }
@@ -184,7 +188,34 @@ function getToDo(req, res) {
                 resultArray.push(resultObject);
             }
         }
-        response.json(resultArray);
+        // add additional information for displaying it to the user
+        async.map(resultArray, function(parent, callback) {
+            mongoBr.findOne({'_id': parent._id}, function (err, br) {
+                if (err) {
+                    errorlog.error(err);
+                    return callback(err, null)
+                }
+                if(!br){
+                    callback(null, parent);
+                }
+                parent.identifiers = br.identifiers ? br.identifiers : [];
+                parent.title = br.title ? br.title : "";
+                parent.subtitle = br.subtitle ? br.subtitle : "";
+                parent.publicationYear = br.publicationYear ? br.publicationYear : -1;
+                parent.contributors = br.contributors ? br.contributors : [];
+                parent.type = br.type ? br.type : "";
+                parent.edition = br.edition ? br.edition : "";
+                parent.number = br.number ? br.number : -1;
+                callback(null, parent);
+            });
+        }, function(err, res) {
+            if (err) {
+                errorlog.error(err);
+                return response.status(500).json({"message": "DB query failed."});
+            }
+            response.json(res);
+        });
+
     });
 };
 

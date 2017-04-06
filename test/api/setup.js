@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const br = require('./../../api/models/bibliographicResource.js');
 const dataBibliographicResource = require('./data/bibliographicResource');
 const dataBibliographicEntry = require('./data/bibliographicEntry');
+const dataToDo = require('./data/todo.json');
 const nock = require('nock');
 
 
@@ -33,6 +34,14 @@ Setup.prototype.loadBibliographicEntry = function(){
         }
     });
 
+};
+
+Setup.prototype.loadAdditionalToDo = function(){
+    for (var bibliographicResource of dataToDo) {
+        new br(bibliographicResource ).save(function (err, res) {
+            if (err) console.log(err);
+        });
+    }
 };
 
 Setup.prototype.mockOcrServer = function(){
