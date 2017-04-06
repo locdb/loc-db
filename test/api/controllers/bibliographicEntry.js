@@ -199,7 +199,7 @@ describe('controllers', function() {
         describe('GET /getExternalSuggestions', function () {
 
             it('should return one external suggestion for a bibliographic entry', function (done) {
-
+                this.timeout(5000);
                 var searchObject = `{
                         "bibliographicEntryText": "bibliographicEntryText",
                         "status": "",
@@ -228,8 +228,8 @@ describe('controllers', function() {
                     });
             });
 
-            it.only('should return two external suggestion for a bibliographic entry', function (done) {
-
+            it('should return two external suggestion for a bibliographic entry', function (done) {
+                this.timeout(5000);
                 var searchObject = `{
                         "bibliographicEntryText": "bibliographicEntryText",
                         "status": "",

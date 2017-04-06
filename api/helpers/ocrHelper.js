@@ -101,7 +101,7 @@ OcrHelper.prototype.queryOcrComponent = function(fileName, callback){
     var form = {
             file: fs.createReadStream(path)
     };
-    request.post({url: config.urls.ocrUrl, formData: form}, function(err, res, body) {
+    request.post({url: config.urls.ocrUrl, formData: form, timeout:1000000}, function(err, res, body) {
         if (err) {
             errorlog.error(err);
             return callback(err, null);
