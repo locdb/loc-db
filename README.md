@@ -1,4 +1,7 @@
 # Linked Open Citation Database (LOC-DB)
+
+[![Build Status](https://travis-ci.org/locdb/loc-db.svg?branch=master)](https://travis-ci.org/locdb/loc-db)
+
 This is the central component of the LOC-DB project.
 
 ## project overview
