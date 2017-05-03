@@ -7,17 +7,17 @@ The LOC-DB project will develop ready-to-use tools and processes based on the li
 More information can be found here: https://locdb.bib.uni-mannheim.de/blog/en/ .
 
 ## usage instructions
-###0. Download MongoDB and follow their installation instructions
+### 0. Download MongoDB and follow their installation instructions
 See https://www.mongodb.com .
-###1. Download the project itself and change to project directory
+### 1. Download the project itself and change to project directory
 ```
 cd loc-db
 ```
-###2. Install
+### 2. Install
 ```
 npm install
 ```
-###3. Start or run the tests
+### 3. Start or run the tests
 ```
 swagger project start
 ```
