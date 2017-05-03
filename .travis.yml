@@ -1,0 +1,12 @@
+language: node_js
+node_js:
+  - "7"
+services: mongodb
+notifications:
+  email:
+    recipients:
+      - anne@informatik.uni-mannheim.de
+on_success: change
+on_failure: change
+branches:
+  - master
