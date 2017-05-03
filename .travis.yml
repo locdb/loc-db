@@ -10,8 +10,6 @@ notifications:
       - anne@informatik.uni-mannheim.de
 on_success: change
 on_failure: change
-branches:
-  - master
 addons:
   apt:
     sources:
