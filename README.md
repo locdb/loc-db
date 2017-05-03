@@ -1,6 +1,7 @@
 # Linked Open Citation Database (LOC-DB)
 
 [![Build Status](https://travis-ci.org/locdb/loc-db.svg?branch=master)](https://travis-ci.org/locdb/loc-db)
+[![Greenkeeper badge](https://badges.greenkeeper.io/locdb/loc-db.svg)](https://greenkeeper.io/)
 
 This is the central component of the LOC-DB project.
 
