@@ -1,7 +1,12 @@
 'use strict';
 
 const SwaggerExpress = require('swagger-express-mw');
-const SwaggerUi = require('swagger-tools/middleware/swagger-ui');
+//const SwaggerUi = require('swagger-tools/middleware/swagger-ui');
+const swaggerUi = require('swagger-ui-express');
+const yaml = require('js-yaml');
+const fs = require('fs');
+//const swaggerDocument = require('./api/swagger/swagger.yaml');
+
 const app = require('express')();
 const mongoose = require('mongoose');
 const errorlog = require('./api/util/logger.js').errorlog;
@@ -22,16 +27,19 @@ var uri = "mongodb://" + config.db.host + ":" + config.db.port + "/" + config.db
 
 mongoose.connect(uri);
 
-SwaggerExpress.create({appRoot: __dirname}, function(err, swaggerExpress) {
-  if (err) { throw err; }
-  
-  // add swagger-ui
-  app.use(SwaggerUi(swaggerExpress.runner.swagger));
-  
-  // install middleware
-  swaggerExpress.register(app);
+var swaggerDocument = yaml.safeLoad(fs.readFileSync('./api/swagger/swagger.yaml', 'utf8'));
 
-  var port = process.env.PORT || 80;
-  app.listen(port);
-  
+SwaggerExpress.create({appRoot: __dirname}, function(err, swaggerExpress) {
+    if (err) { throw err; }
+
+    // add swagger-ui
+    //app.use(SwaggerUi(swaggerExpress.runner.swagger));
+    app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
+    // install middleware
+    swaggerExpress.register(app);
+
+    var port = process.env.PORT || 80;
+    app.listen(port);
+
 });
