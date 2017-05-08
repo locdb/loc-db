@@ -5,11 +5,15 @@
     "script"    : "app.js",
     "env_development": {
       "NODE_ENV": "development",
-      "PORT": 3101
+      "PORT": 3101,
+      "SCHEMA": "locdb-dev",
+      "PORT_MAPPED": true
     },
     "env_production" : {
       "NODE_ENV": "production",
-      "PORT": 3100
+      "PORT": 3100,
+      "SCHEMA": "locdb-prod",
+      "PORT_MAPPED": true
     }
   }],
   // Deployment part
@@ -31,15 +35,14 @@
       }
     },
     "staging" : {
-      "user" : "node",
-      "host" : "212.83.163.1",
+      "user" : "anlausch",
+      "host" : "locdb",
       "ref"  : "origin/master",
-      "repo" : "git@github.com:repo.git",
-      "path" : "/var/www/development",
-      "ssh_options": ["StrictHostKeyChecking=no", "PasswordAuthentication=no"],
-      "post-deploy" : "pm2 startOrRestart ecosystem.json --env dev",
+      "repo" : "git@github.com:locdb/loc-db.git",
+      "path" : "~/locdbd-dev",
+      "post-deploy" : "npm install && pm2 startOrRestart pm2.json --env development",
       "env"  : {
-        "NODE_ENV": "staging"
+        "NODE_ENV": "development"
       }
     }
   }
