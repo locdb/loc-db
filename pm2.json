@@ -5,11 +5,11 @@
     "script"    : "app.js",
     "env_development": {
       "NODE_ENV": "development",
-      "PORT": 3100
+      "PORT": 3101
     },
     "env_production" : {
       "NODE_ENV": "production",
-      "PORT": 3101
+      "PORT": 3100
     }
   }],
   // Deployment part
@@ -17,33 +17,14 @@
     "production" : {
       "user" : "anlausch",
       // Multi host is possible, just by passing IPs/hostname as an array
-      "host" : "velsen.informatik.uni-mannheim.de",
+      "host" : "locdb",
       // Branch
       "ref"  : "origin/master",
       // Git repository to clone
       "repo" : "git@github.com:locdb/loc-db.git",
       // Path of the application on target servers
-      "path" : "~/locdbd-test",
-      // Can be used to give options in the format used in the configura-
-      // tion file.  This is useful for specifying options for which there
-      // is no separate command-line flag, see 'man ssh'
-      // can be either a single string or an array of strings
-      // add here the special locdb stuff
-      "ssh_options": "StrictHostKeyChecking=no",
-      // To prepare the host by installing required software (eg: git)
-      // even before the setup process starts
-      // can be multiple commands separated by the character ";"
-      // or path to a script on your local machine
-      //"pre-setup" : "apt-get install git",
-      // Commands / path to a script on the host machine
-      // This will be executed on the host after cloning the repository
-      // eg: placing configurations in the shared dir etc
-      //"post-setup": "ls -la",
-      // Commands to execute locally (on the same machine you deploy things)
-      // Can be multiple commands separated by the character ";"
-      //"pre-deploy-local" : "echo 'This is a local executed command'",
-      // Commands to be executed on the server after the repo has been cloned
-      "post-deploy" : "npm install && sudo pm2 startOrRestart pm2.json --env production",
+      "path" : "~/locdbd-prod",
+      "post-deploy" : "npm install && pm2 startOrRestart pm2.json --env production",
       // Environment variables that must be injected in all applications on this env
       "env"  : {
         "NODE_ENV": "production"
