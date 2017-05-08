@@ -7,13 +7,15 @@
       "NODE_ENV": "development",
       "PORT": 3101,
       "SCHEMA": "locdb-dev",
-      "PORT_MAPPED": true
+      "PORT_MAPPED": true,
+      "HOST": "locdb.bib.uni-mannheim.de"
     },
     "env_production" : {
       "NODE_ENV": "production",
       "PORT": 3100,
       "SCHEMA": "locdb-prod",
-      "PORT_MAPPED": true
+      "PORT_MAPPED": true,
+      "HOST": "locdb.bib.uni-mannheim.de"
     }
   }],
   // Deployment part

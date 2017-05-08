@@ -33,6 +33,8 @@ if(process.env.PORT_MAPPED === true && process.env.NODE_ENV === "production"){
     swaggerDocument.basePath = "/locdb-dev";
 }
 
+swaggerDocument.host = process.env.HOST || localhost;
+
 SwaggerExpress.create({appRoot: __dirname}, function(err, swaggerExpress) {
     if (err) { throw err; }
     app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
