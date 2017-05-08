@@ -27,9 +27,9 @@ mongoose.connect(uri);
 var swaggerDocument = yaml.safeLoad(fs.readFileSync('./api/swagger/swagger.yaml', 'utf8'));
 
 // hack for making port mapping work with swagger ui
-if(process.env.PORT_MAPPED === true && process.env.NODE_ENV === "production"){
+if(process.env.PORT_MAPPED == true && process.env.NODE_ENV == "production"){
     swaggerDocument.basePath = "/locdb";
-}else if (process.env.PORT_MAPPED === true && process.env.NODE_ENV === "development"){
+}else if (process.env.PORT_MAPPED == true && process.env.NODE_ENV == "development"){
     swaggerDocument.basePath = "/locdb-dev";
 }
 
