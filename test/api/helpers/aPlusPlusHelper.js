@@ -38,7 +38,7 @@ describe('helpers', function() {
         
         describe('parseFiles', function(){
             it('should return a parsed bibliographic resource', function(done) {
-                this.timeout(5000);
+                this.timeout(10000);
                 aPlusPlusHelper.parseFiles("C:/Users/anlausch/Downloads/springer-oa/out/biomedicine/2038-0305", function(result){
                     console.log("FERTIG: " + result.length);
                     
