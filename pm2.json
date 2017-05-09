@@ -1,8 +1,9 @@
 {
   // App part
   "apps" : [{
-    "name"      : "LOC-DB-PROD",
+    "name"      : "LOC-DB-",
     "script"    : "app.js",
+    "append_env_to_name": true,
     "env_development": {
       "NODE_ENV": "development",
       "PORT": 3101,
