@@ -218,7 +218,8 @@ describe('controllers', function() {
                     .end(function (err, res) {
                         should.not.exist(err);
                         res.body.should.be.Array;
-                        res.body.should.have.lengthOf(1);
+                        //res.body.should.have.lengthOf(1);
+                        res.body.should.have.lengthOf(21);
                         res.body[0].should.have.property("title", "Direkte Demokratie in der Schweiz: Entwicklungen, Debatten und Wirkungen");
                         res.body[0].should.have.property("identifiers");
                         res.body[0].identifiers.should.be.Array;
@@ -248,7 +249,9 @@ describe('controllers', function() {
                     .end(function (err, res) {
                         should.not.exist(err);
                         res.body.should.be.Array;
-                        res.body.should.have.lengthOf(2);
+                        //res.body.should.have.lengthOf(2);
+                        res.body.should.have.lengthOf(21);
+
                         res.body[0].should.have.property("title", "Direkte Demokratie und Umweltpolitik in der Schweiz");
                         res.body[0].should.have.property("identifiers");
                         res.body[0].identifiers.should.be.Array;

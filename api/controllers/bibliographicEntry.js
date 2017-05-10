@@ -10,7 +10,7 @@ const async = require('async');
 const googleScholarHelper = require('./../helpers/googleScholarHelper.js').createGoogleScholarHelper();
 const crossrefHelper = require('./../helpers/crossrefHelper.js').createCrossrefHelper();
 //const suggestionHelper = require('./../helpers/suggestionHelper').createSuggestionHelper();
-const natural = require('natural');
+//const natural = require('natural');
 
 
 function getToDoBibliographicEntries(req, res){
@@ -211,14 +211,14 @@ function getExternalSuggestions(req, res){
             var result = [];
             if(res[0].length > 0){
                 for(var be of res[0]){
-                    if(Object.keys(be).length !== 0 && natural.LevenshteinDistance(be.title, title) <= 10) {
+                    if(Object.keys(be).length !== 0){ //&& natural.LevenshteinDistance(be.title, title) <= 10) {
                         result.push(be);
                     }
                 }
             }
             if(res[1].length > 0){
                 for(var be of res[1]){
-                    if(Object.keys(be).length !== 0 && natural.LevenshteinDistance(be.title, title) <= 10) {
+                    if(Object.keys(be).length !== 0){ //&& natural.LevenshteinDistance(be.title, title) <= 10) {
                         result.push(be);
                     }
                 }

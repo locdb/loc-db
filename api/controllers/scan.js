@@ -11,6 +11,7 @@ const accesslog = require('./../util/logger.js').accesslog;
 const config = require('./../../config/config.json');
 const mongoose = require('mongoose');
 const fs = require('fs');
+const path = require('path');
 
 
 function saveScan(req, res) {
@@ -244,7 +245,7 @@ function get(req, res) {
                 if (scan._id == id) {
                     // send file
                     var filePath = config.upload.imagePath + scan.scanName;
-                    return response.sendFile(filePath, {root: process.cwd()}, function (err) {
+                    return response.sendFile(path.resolve(filePath), function (err) {
                         if (err) return errorlog.error(err);
                     });
                 }
