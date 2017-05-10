@@ -14,13 +14,30 @@ var OcrHelper = function(){
 
 OcrHelper.prototype.saveBinaryFile = function(fileName, fileBuffer, callback){
     var fName = fileName;
-    fs.writeFile(config.upload.imagePath + fileName, fileBuffer, 'binary', function(err){
-        if(err){
-            errorlog.error(err);
-            return callback(err, null);;
-        }
-        callback(null, fName);
-    });
+    if (!fs.existsSync(config.upload.imagePath)){
+        accesslog.log("Create dir", {name: config.upload.imagePath})
+        fs.mkdir(config.upload.imagePath, function(err, res){
+            if(err){
+                errorlog.error(err);
+                return callback(err, null);;
+            }
+            fs.writeFile(config.upload.imagePath + fileName, fileBuffer, 'binary', function(err){
+                if(err){
+                    errorlog.error(err);
+                    return callback(err, null);;
+                }
+                callback(null, fName);
+            });
+        });
+    }else{
+        fs.writeFile(config.upload.imagePath + fileName, fileBuffer, 'binary', function(err){
+            if(err){
+                errorlog.error(err);
+                return callback(err, null);;
+            }
+            callback(null, fName);
+        });
+    }
 };
 
 OcrHelper.prototype.saveStringFile = function(fileName, fileString, callback){
