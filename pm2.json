@@ -6,17 +6,17 @@
     "append_env_to_name": true,
     "env_development": {
       "NODE_ENV": "development",
-      "PORT": 3101,
-      "SCHEMA": "locdb-dev",
-      "PORT_MAPPED": true,
-      "HOST": "locdb.bib.uni-mannheim.de"
+      "LOCDB_PORT": 3101,
+      "LOCDB_DB_SCHEMA": "locdb-dev",
+      "LOCDB_HOST": "locdb.bib.uni-mannheim.de",
+      "LOCDB_BASEPATH": "/locdb-dev"
     },
     "env_production" : {
       "NODE_ENV": "production",
-      "PORT": 3100,
-      "SCHEMA": "locdb-prod",
-      "PORT_MAPPED": true,
-      "HOST": "locdb.bib.uni-mannheim.de"
+      "LOCDB_PORT": 3100,
+      "LOCDB_DB_SCHEMA": "locdb-prod",
+      "LOCDB_HOST": "locdb.bib.uni-mannheim.de",
+      "LOCDB_BASEPATH": "/locdb"
     }
   }],
   // Deployment part
@@ -43,7 +43,7 @@
       "ref"  : "origin/dev",
       "repo" : "git@github.com:locdb/loc-db.git",
       "path" : "~/locdb-dev",
-      "post-deploy" : "npm install && mkdir -p ./../upload && pm2 startOrRestart pm2.json --env development",
+      "post-deploy" : "npm install && pm2 startOrRestart pm2.json --env development",
       "env"  : {
         "NODE_ENV": "development"
       }

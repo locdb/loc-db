@@ -1,5 +1,5 @@
 "use strict";
-const config = require("./config.json");
+const config = require("./config.js");
 const mongoose = require('mongoose');
 const br = require('./../../api/models/bibliographicResource.js');
 const dataBibliographicResource = require('./data/bibliographicResource');

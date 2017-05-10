@@ -1,5 +1,5 @@
 'use strict';
-const config = require('./../../config/config.json');
+const config = require('./../../config/config.js');
 const fs = require('fs');
 const xml2js = require('xml2js');
 const BibliographicEntry = require('./../schema/bibliographicEntry.js');
@@ -14,14 +14,14 @@ var OcrHelper = function(){
 
 OcrHelper.prototype.saveBinaryFile = function(fileName, fileBuffer, callback){
     var fName = fileName;
-    if (!fs.existsSync(config.upload.imagePath)){
-        accesslog.log("Create dir", {name: config.upload.imagePath})
-        fs.mkdir(config.upload.imagePath, function(err, res){
+    if (!fs.existsSync(config.PATHS.UPLOAD)){
+        accesslog.log("Create dir", {name: config.PATHS.UPLOAD});
+        fs.mkdir(config.PATHS.UPLOAD, function(err, res){
             if(err){
                 errorlog.error(err);
                 return callback(err, null);;
             }
-            fs.writeFile(config.upload.imagePath + fileName, fileBuffer, 'binary', function(err){
+            fs.writeFile(config.PATHS.UPLOAD + fileName, fileBuffer, 'binary', function(err){
                 if(err){
                     errorlog.error(err);
                     return callback(err, null);;
@@ -30,7 +30,7 @@ OcrHelper.prototype.saveBinaryFile = function(fileName, fileBuffer, callback){
             });
         });
     }else{
-        fs.writeFile(config.upload.imagePath + fileName, fileBuffer, 'binary', function(err){
+        fs.writeFile(config.PATHS.UPLOAD + fileName, fileBuffer, 'binary', function(err){
             if(err){
                 errorlog.error(err);
                 return callback(err, null);;
@@ -41,7 +41,7 @@ OcrHelper.prototype.saveBinaryFile = function(fileName, fileBuffer, callback){
 };
 
 OcrHelper.prototype.saveStringFile = function(fileName, fileString, callback){
-    fs.writeFile(config.upload.imagePath + fileName, fileString, 'utf-8', function(err){
+    fs.writeFile(config.PATHS.UPLOAD + fileName, fileString, 'utf-8', function(err){
         if(err){
             errorlog.error(err);
             return callback(err, null)
@@ -112,13 +112,13 @@ OcrHelper.prototype.parseXMLString = function(xmlString, callback){
 
 
 OcrHelper.prototype.queryOcrComponent = function(fileName, callback){
-    var path = config.upload.imagePath + fileName;
+    var path = config.PATHS.UPLOAD + fileName;
     console.log(path);
 
     var form = {
             file: fs.createReadStream(path)
     };
-    request.post({url: config.urls.ocrUrl, formData: form, timeout:1000000000}, function(err, res, body) {
+    request.post({url: config.URLS.OCR, formData: form, timeout:1000000000}, function(err, res, body) {
         if (err) {
             errorlog.error(err);
             return callback(err, null);

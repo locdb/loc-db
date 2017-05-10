@@ -4,7 +4,7 @@ const server = require('../../../app');
 const setup = require('./../setup.js').createSetup();
 const status = require('./../../../api/schema/enum.json').status;
 const fs = require('fs');
-const config = require('./../../../config/config.json');
+const config = require('./../../../config/config.js');
 
 
 describe('controllers', function () {
@@ -52,8 +52,8 @@ describe('controllers', function () {
                         res.body[1].embodiedAs[0].scans[0].should.have.property("status", status.notOcrProcessed);
                         res.body[1].should.have.property("partOf");
                         res.body[0]._id.should.be.exactly(res.body[1].partOf);
-                        should(fs.existsSync(config.upload.imagePath)).equal(true);
-                        should(fs.existsSync(config.upload.imagePath + "0001.png")).equal(true);
+                        should(fs.existsSync(config.PATHS.UPLOAD)).equal(true);
+                        should(fs.existsSync(config.PATHS.UPLOAD + "0001.png")).equal(true);
                         done();
                     });
             });
@@ -104,9 +104,9 @@ describe('controllers', function () {
                         res.body[1].embodiedAs[0].scans[0].should.have.property("status", status.notOcrProcessed);
                         res.body[1].should.have.property("partOf");
                         res.body[0]._id.should.be.exactly(res.body[1].partOf);
-                        should(fs.existsSync(config.upload.imagePath)).equal(true);
-                        should(fs.existsSync(config.upload.imagePath + "0002.png")).equal(true);
-                        should(fs.existsSync(config.upload.imagePath + "0001.png")).equal(true);
+                        should(fs.existsSync(config.PATHS.UPLOAD)).equal(true);
+                        should(fs.existsSync(config.PATHS.UPLOAD + "0002.png")).equal(true);
+                        should(fs.existsSync(config.PATHS.UPLOAD + "0001.png")).equal(true);
                         done();
                     });
             });

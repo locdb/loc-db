@@ -8,7 +8,7 @@ const async = require('async');
 const mongoBr = require('./../models/bibliographicResource.js');
 const errorlog = require('./../util/logger.js').errorlog;
 const accesslog = require('./../util/logger.js').accesslog;
-const config = require('./../../config/config.json');
+const config = require('./../../config/config.js');
 const mongoose = require('mongoose');
 const fs = require('fs');
 const path = require('path');
@@ -244,7 +244,7 @@ function get(req, res) {
             for (var scan of embodiment.scans) {
                 if (scan._id == id) {
                     // send file
-                    var filePath = config.upload.imagePath + scan.scanName;
+                    var filePath = config.PATHS.UPLOAD + scan.scanName;
                     return response.sendFile(path.resolve(filePath), function (err) {
                         if (err) return errorlog.error(err);
                     });

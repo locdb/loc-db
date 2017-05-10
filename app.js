@@ -4,7 +4,6 @@ const SwaggerExpress = require('swagger-express-mw');
 const swaggerUi = require('swagger-ui-express');
 const yaml = require('js-yaml');
 const fs = require('fs');
-
 const app = require('express')();
 const mongoose = require('mongoose');
 const errorlog = require('./api/util/logger.js').errorlog;
@@ -19,27 +18,23 @@ db.once('open', function() {
     accesslog.info("DB successfully opened.")
 });
 
-var config = process.argv.indexOf("test") > 0 ? require("./test/api/config.json") : require("./config/config.json");
-var uri = "mongodb://" + config.db.host + ":" + config.db.port + "/" + (process.env.SCHEMA || config.db.schema);
+//var config = process.argv.indexOf("test") > 0 ? require("./test/api/config.js") : require("./config/config.js");
+var config = require("./config/config.js");
+
+if(process.argv.indexOf("test" >0)){
+    config = Object.assign(config, require("./test/api/config.js"));
+}
+
+accesslog.info("Running config:", {config : JSON.stringify(config)});
+
+var uri = "mongodb://" + config.DB.HOST + ":" + config.DB.PORT + "/" + config.DB.SCHEMA;
 
 mongoose.connect(uri);
 
 var swaggerDocument = yaml.safeLoad(fs.readFileSync('./api/swagger/swagger.yaml', 'utf8'));
-
-// hack for making port mapping work with swagger ui
-if(process.env.PORT_MAPPED === "true" && process.env.NODE_ENV === "production"){
-    swaggerDocument.basePath = "/locdb";
-}else if (process.env.PORT_MAPPED === "true" && process.env.NODE_ENV === "development"){
-    swaggerDocument.basePath = "/locdb-dev";
-}
-
-
-
-swaggerDocument.host = process.env.HOST || "localhost";
-var options = {
-    validatorUrl : null
-};
-app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, false, options));
+swaggerDocument.host = config.HOST;
+swaggerDocument.basePath = config.BASEPATH;
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, false, {validatorUrl : null}));
 
 SwaggerExpress.create({appRoot: __dirname}, function(err, swaggerExpress) {
     if (err) { throw err; }
@@ -51,7 +46,5 @@ SwaggerExpress.create({appRoot: __dirname}, function(err, swaggerExpress) {
 
     // install middleware
     swaggerExpress.register(app);
-
-    var port = process.env.PORT || 80;
-    app.listen(port);
+    app.listen(config.PORT);
 });
