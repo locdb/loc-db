@@ -36,11 +36,13 @@ if(process.env.PORT_MAPPED === "true" && process.env.NODE_ENV === "production"){
 
 
 swaggerDocument.host = process.env.HOST || "localhost";
+var options = {
+    validatorUrl : null
+};
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, false, options));
 
 SwaggerExpress.create({appRoot: __dirname}, function(err, swaggerExpress) {
     if (err) { throw err; }
-    app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-
     // Allow CORS
     app.use(function(req, res, next) {
         res.header("Access-Control-Allow-Origin", "*");

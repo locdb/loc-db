@@ -30,7 +30,7 @@
       // Git repository to clone
       "repo" : "git@github.com:locdb/loc-db.git",
       // Path of the application on target servers
-      "path" : "~/locdbd-prod",
+      "path" : "~/locdb-prod",
       "post-deploy" : "npm install && pm2 startOrRestart pm2.json --env production",
       // Environment variables that must be injected in all applications on this env
       "env"  : {
@@ -42,7 +42,7 @@
       "host" : "locdb",
       "ref"  : "origin/master",
       "repo" : "git@github.com:locdb/loc-db.git",
-      "path" : "~/locdbd-dev",
+      "path" : "~/locdb-dev",
       "post-deploy" : "npm install && pm2 startOrRestart pm2.json --env development",
       "env"  : {
         "NODE_ENV": "development"
