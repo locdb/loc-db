@@ -40,7 +40,7 @@
     "development" : {
       "user" : "anlausch",
       "host" : "locdb",
-      "ref"  : "origin/master",
+      "ref"  : "origin/dev",
       "repo" : "git@github.com:locdb/loc-db.git",
       "path" : "~/locdb-dev",
       "post-deploy" : "npm install && mkdir -p ./../upload && pm2 startOrRestart pm2.json --env development",
