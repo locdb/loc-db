@@ -2,7 +2,6 @@
 
 const SchemaObject = require('schema-object');
 const status = require('./enum.json').status;
-const externalSources = require('./enum.json').externalSources;
 const Identifier = require('./identifier.js');
 
 //Create bibliographicEntry schema 
