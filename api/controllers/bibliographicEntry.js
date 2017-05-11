@@ -103,10 +103,10 @@ function update(req, res){
 function getInternalSuggestions(req, res){
     var response = res;
     var searchObject = req.swagger.params.bibliographicEntry.value;
-    var title = searchObject.title;
+    var title = searchObject.ocrData.title;
     async.parallel([
         function(callback){
-            mongoBr.find({'parts':{$elemMatch: {'title': title, 'status': enums.status.valid}}}, function (err, brs) {
+            mongoBr.find({'parts':{$elemMatch: {'ocrData.title': title, 'status': enums.status.valid}}}, function (err, brs) {
                 if(err) {
                     errorlog.error(err);
                     return callback(err, null);
@@ -117,10 +117,10 @@ function getInternalSuggestions(req, res){
                 var bes = [];
                 for(var br of brs){
                     for(var be of br.parts.toObject()){
-                        if(be.title == title){
+                        if(be.ocrData.title == title){
                             delete be.scanId;
-                            delete be.marker;
-                            delete be.coordinates;
+                            delete be.ocrData.marker;
+                            delete be.ocrData.coordinates;
                             delete be.status;
                             bes.push(be);
                         }
@@ -147,7 +147,7 @@ function getInternalSuggestions(req, res){
                             authors.push(author);
                         }
                     }
-                    var be = new biliographicEntry({title: br.title, date: br.year, authors: authors});
+                    var be = new biliographicEntry({ocrData: {title: br.title, date: br.year, authors: authors}});
                     bes.push(be);
                 }
                 return callback(null, bes);
@@ -183,7 +183,7 @@ function getInternalSuggestions(req, res){
 function getExternalSuggestions(req, res){
     var response = res;
     var searchObject = req.swagger.params.bibliographicEntry.value;
-    var title = searchObject.title;
+    var title = searchObject.ocrData.title;
 
     async.parallel([
             function(callback){

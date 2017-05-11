@@ -89,16 +89,18 @@ describe('controllers', function() {
             it('should return a single updated bibliographic entry', function (done) {
 
                 var update = `{
+                        "identifiers":[],
                         "bibliographicEntryText": "TEST ENTRY 1 -- UPDATED",
-                        "coordinates": "714 317 2238 356",
+                        "ocrData": {
+                            "coordinates": "714 317 2238 356",
+                            "title": "2Zur Ausgestaltung des Mehrheitsprinzips in der unmittelbaren Demokratie. In: Bayerische Verwaltungsbl&ttcr S. 33--43, 74-79. TmFENBACH, Paul: Sinn oder Unsinn von Abstimmungsquoren. Im Internet:",
+                            "date": "2000",
+                            "marker": "THUM, 2000",
+                            "authors": [ "Cornelius THUM" ]
+                            },
                         "scanId": "58cb91fa5452691cd86bc941",
-                        "status": "VALID",
-                        "title": "2Zur Ausgestaltung des Mehrheitsprinzips in der unmittelbaren Demokratie. In: Bayerische Verwaltungsbl&ttcr S. 33--43, 74-79. TmFENBACH, Paul: Sinn oder Unsinn von Abstimmungsquoren. Im Internet:",
-                        "date": "2000",
-                        "marker": "THUM, 2000",
-                        "authors": [ "Cornelius THUM" ],
-                        "identifiers":[]
-                        }`;
+                        "status": "VALID"
+                    }`;
                 update = JSON.parse(update);
                 request(server)
                     .put('/bibliographicEntries/' + id)
@@ -119,10 +121,13 @@ describe('controllers', function() {
 
                 var update = `{
                         "bibliographicEntryText": "TEST ENTRY 1 -- UPDATED TWICE",
-                        "coordinates": "714 317 2238 356",
+                        "ocrData":{
+                            "coordinates": "714 317 2238 356",
+                            "title": "2Zur Ausgestaltung des Mehrheitsprinzips in der unmittelbaren Demokratie. In: Bayerische Verwaltungsbl&ttcr S. 33--43, 74-79. TmFENBACH, Paul: Sinn oder Unsinn von Abstimmungsquoren. Im Internet:"
+                        },
                         "scanId": "58cb91fa5452691cd86bc941",
-                        "status": "OCR_PROCESSED",
-                        "title": "2Zur Ausgestaltung des Mehrheitsprinzips in der unmittelbaren Demokratie. In: Bayerische Verwaltungsbl&ttcr S. 33--43, 74-79. TmFENBACH, Paul: Sinn oder Unsinn von Abstimmungsquoren. Im Internet:"}`;
+                        "status": "OCR_PROCESSED"
+                    }`;
                 update = JSON.parse(update);
                 request(server)
                     .put('/bibliographicEntries/' + id)
@@ -146,13 +151,15 @@ describe('controllers', function() {
 
                 var searchObject = `{
                         "bibliographicEntryText": "TEST ENTRY 1 -- UPDATED",
-                        "coordinates": "714 317 2238 356",
+                        "ocrData": {
+                            "coordinates": "714 317 2238 356",
+                            "title": "2Zur Ausgestaltung des Mehrheitsprinzips in der unmittelbaren Demokratie. In: Bayerische Verwaltungsbl&ttcr S. 33--43, 74-79. TmFENBACH, Paul: Sinn oder Unsinn von Abstimmungsquoren. Im Internet:",
+                            "date": "2000",
+                            "marker": "THUM, 2000",
+                            "authors": [ "Cornelius THUM" ]
+                        },
                         "scanId": "58cb91fa5452691cd86bc941",
-                        "status": "VALID",
-                        "title": "2Zur Ausgestaltung des Mehrheitsprinzips in der unmittelbaren Demokratie. In: Bayerische Verwaltungsbl&ttcr S. 33--43, 74-79. TmFENBACH, Paul: Sinn oder Unsinn von Abstimmungsquoren. Im Internet:",
-                        "date": "2000",
-                        "marker": "THUM, 2000",
-                        "authors": [ "Cornelius THUM" ]
+                        "status": "VALID"
                         }`;
                 var searchObject = JSON.parse(searchObject);
                 request(server)
@@ -172,14 +179,16 @@ describe('controllers', function() {
 
                 var searchObject = `{
                         "bibliographicEntryText": "Bibliographic Entry Test 10 Title",
-                        "coordinates": "714 317 2238 356",
+                        "ocrData":{
+                            "coordinates": "714 317 2238 356",
+                            "title": "Bibliographic Entry Test 10 Title",
+                            "date": "2000",
+                            "marker": "THUM, 2000",
+                            "authors": []
+                        },
                         "scanId": "58cb91fa5452691cd86bc941",
-                        "status": "",
-                        "title": "Bibliographic Entry Test 10 Title",
-                        "date": "2000",
-                        "marker": "THUM, 2000",
-                        "authors": [],
-                        "externalURLs": [] }`;
+                        "status": ""
+                        }`;
                 var searchObject = JSON.parse(searchObject);
                 request(server)
                     .post('/getInternalSuggestions')
@@ -203,10 +212,12 @@ describe('controllers', function() {
                 var searchObject = `{
                         "bibliographicEntryText": "bibliographicEntryText",
                         "status": "",
-                        "title": "Direkte Demokratie in der Schweiz: Entwicklungen, Debatten und Wirkungen, In:",
-                        "date": "",
-                        "marker": "",
-                        "authors": []
+                        "ocrData":{
+                            "title": "Direkte Demokratie in der Schweiz: Entwicklungen, Debatten und Wirkungen, In:",
+                            "date": "",
+                            "marker": "",
+                            "authors": []
+                        }
                 }`;
                 var searchObject = JSON.parse(searchObject);
                 request(server)
@@ -220,7 +231,7 @@ describe('controllers', function() {
                         res.body.should.be.Array;
                         //res.body.should.have.lengthOf(1);
                         res.body.should.have.lengthOf(21);
-                        res.body[0].should.have.property("title", "Direkte Demokratie in der Schweiz: Entwicklungen, Debatten und Wirkungen");
+                        res.body[0].ocrData.should.have.property("title", "Direkte Demokratie in der Schweiz: Entwicklungen, Debatten und Wirkungen");
                         res.body[0].should.have.property("identifiers");
                         res.body[0].identifiers.should.be.Array;
                         res.body[0].identifiers.should.have.lengthOf(1);
@@ -234,11 +245,13 @@ describe('controllers', function() {
                 var searchObject = `{
                         "bibliographicEntryText": "bibliographicEntryText",
                         "status": "",
-                        "title": "Direkte Demokratie und Umweltpolitik in der Schweiz, In:",
-                        "date": "",
-                        "marker": "",
-                        "authors": []
-                }`;
+                        "ocrData":{
+                            "title": "Direkte Demokratie und Umweltpolitik in der Schweiz, In:",
+                            "date": "",
+                            "marker": "",
+                            "authors": []
+                        }
+                    }`;
                 var searchObject = JSON.parse(searchObject);
                 request(server)
                     .post('/getExternalSuggestions')
@@ -252,7 +265,7 @@ describe('controllers', function() {
                         //res.body.should.have.lengthOf(2);
                         res.body.should.have.lengthOf(21);
 
-                        res.body[0].should.have.property("title", "Direkte Demokratie und Umweltpolitik in der Schweiz");
+                        res.body[0].ocrData.should.have.property("title", "Direkte Demokratie und Umweltpolitik in der Schweiz");
                         res.body[0].should.have.property("identifiers");
                         res.body[0].identifiers.should.be.Array;
                         res.body[0].identifiers.should.have.lengthOf(1);

@@ -28,7 +28,7 @@ Setup.prototype.loadBibliographicEntry = function(){
     br.remove({}, function(err, res){
         if(err) console.log(err);
         for (var bibliographicResource of dataBibliographicEntry) {
-            new br(bibliographicResource ).save(function (err, res) {
+            new br(bibliographicResource).save(function (err, res) {
                 if (err) console.log(err);
             });
         }

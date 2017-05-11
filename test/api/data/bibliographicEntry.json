@@ -4,693 +4,852 @@
     "partOf": "58cb91fa5452691cd86bc93a",
     "parts": [
       {
-        "bibliographicEntryText": "THUM, Cornelius (2000): 2Zur Ausgestaltung des Mehrheitsprinzips in der unmittelbaren Demokratie. In: Bayerische Verwaltungsbl&ttcr S. 33--43, 74-79. TmFENBACH, Paul: Sinn oder Unsinn von Abstimmungsquoren. Im Internet: http://www.mehrdemokratie.delfileadmin/md/pdfpositionen/posO8.pdf.",
-        "coordinates": "714 317 2238 356",
-        "scanId": "58cb91fa5452691cd86bc940",
-        "status": "OCR_PROCESSED",
-        "title": "2Zur Ausgestaltung des Mehrheitsprinzips in der unmittelbaren Demokratie. In: Bayerische Verwaltungsbl&ttcr S. 33--43, 74-79. TmFENBACH, Paul: Sinn oder Unsinn von Abstimmungsquoren. Im Internet:",
-        "date": "2000",
-        "marker": "THUM, 2000",
         "_id": "58cb92465452691cd86bc945",
-        "authors": [
-          "Cornelius THUM"
-        ]
+        "bibliographicEntryText": "THUM, Cornelius (2000): 2Zur Ausgestaltung des Mehrheitsprinzips in der unmittelbaren Demokratie. In: Bayerische Verwaltungsbl&ttcr S. 33--43, 74-79. TmFENBACH, Paul: Sinn oder Unsinn von Abstimmungsquoren. Im Internet: http://www.mehrdemokratie.delfileadmin/md/pdfpositionen/posO8.pdf.",
+        "ocrData": {
+          "coordinates": "714 317 2238 356",
+          "authors": [
+            "Cornelius THUM"
+          ],
+          "title": "2Zur Ausgestaltung des Mehrheitsprinzips in der unmittelbaren Demokratie. In: Bayerische Verwaltungsbl&ttcr S. 33--43, 74-79. TmFENBACH, Paul: Sinn oder Unsinn von Abstimmungsquoren. Im Internet:",
+          "date": "2000",
+          "marker": "THUM, 2000",
+          "comments": "test comment"
+        },
+        "scanId": "58cb91fa5452691cd86bc940",
+        "status": "OCR_PROCESSED"
       },
       {
-        "bibliographicEntryText": "TLLMANNS, Reiner (2000): Verfassungsänderung durch Volksgesetzgebung? In: Die Oflentliche Verwaltung S. 269-275.",
-        "coordinates": "714 485 2238 528",
-        "scanId": "58cb91fa5452691cd86bc940",
-        "status": "OCR_PROCESSED",
-        "title": "Verfassungsänderung durch Volksgesetzgebung? In: Die Oflentliche Verwaltung S.",
-        "date": "2000",
-        "marker": "TLLMANNS, 2000",
         "_id": "58cb92465452691cd86bc946",
-        "authors": [
-          "Reiner TLLMANNS"
-        ]
+        "bibliographicEntryText": "TLLMANNS, Reiner (2000): Verfassungsänderung durch Volksgesetzgebung? In: Die Oflentliche Verwaltung S. 269-275.",
+        "ocrData": {
+          "coordinates": "714 485 2238 528",
+          "authors": [
+            "Reiner TLLMANNS"
+          ],
+          "title": "Verfassungsänderung durch Volksgesetzgebung? In: Die Oflentliche Verwaltung S.",
+          "date": "2000",
+          "marker": "TLLMANNS, 2000",
+          "comments": "test comment"
+        },
+        "scanId": "58cb91fa5452691cd86bc940",
+        "status": "OCR_PROCESSED"
       },
       {
-        "bibliographicEntryText": "TuLLMANNS, Reiner (2002): ZZum Mehrheitserfordernis bei Abstimmungen iber verfassungsändernde Volksentscheide. Inn: Ncue Zeitschrift for Verwaltungsrecht S. 54-57.",
-        "coordinates": "714 574 2240 613",
-        "scanId": "58cb91fa5452691cd86bc940",
-        "status": "OCR_PROCESSED",
-        "title": "ZZum Mehrheitserfordernis bei Abstimmungen iber verfassungsändernde Volksentscheide. Inn: Ncue Zeitschrift for Verwaltungsrecht S.",
-        "date": "2002",
-        "marker": "TuLLMANNS, 2002",
         "_id": "58cb92465452691cd86bc947",
-        "authors": [
-          "Reiner TuLLMANNS"
-        ]
+        "bibliographicEntryText": "TuLLMANNS, Reiner (2002): ZZum Mehrheitserfordernis bei Abstimmungen iber verfassungsändernde Volksentscheide. Inn: Ncue Zeitschrift for Verwaltungsrecht S. 54-57.",
+        "ocrData": {
+          "coordinates": "714 574 2240 613",
+          "authors": [
+            "Reiner TuLLMANNS"
+          ],
+          "title": "ZZum Mehrheitserfordernis bei Abstimmungen iber verfassungsändernde Volksentscheide. Inn: Ncue Zeitschrift for Verwaltungsrecht S.",
+          "date": "2002",
+          "marker": "TuLLMANNS, 2002",
+          "comments": "test comment"
+        },
+        "scanId": "58cb91fa5452691cd86bc940",
+        "status": "OCR_PROCESSED"
       },
       {
-        "bibliographicEntryText": "TOCQUEVLLE, Alexis de/MAYER, Jacob/ZBIINDEN, Hans (1976): Uber die Demokratie in Amerika: beide Teile in einem Band. München.",
-        "coordinates": "714 656 2238 699",
-        "scanId": "58cb91fa5452691cd86bc940",
-        "status": "OCR_PROCESSED",
-        "title": "Uber die Demokratie in Amerika: beide Teile in einem Band.",
-        "date": "1976",
-        "marker": "TOCQUEVLLE, JacobZBIINDEN, 1976",
         "_id": "58cb92465452691cd86bc948",
-        "authors": [
-          "Alexis deMAYER TOCQUEVLLE"
-        ]
+        "bibliographicEntryText": "TOCQUEVLLE, Alexis de/MAYER, Jacob/ZBIINDEN, Hans (1976): Uber die Demokratie in Amerika: beide Teile in einem Band. München.",
+        "ocrData": {
+          "coordinates": "714 656 2238 699",
+          "authors": [
+            "Alexis deMAYER TOCQUEVLLE"
+          ],
+          "title": "Uber die Demokratie in Amerika: beide Teile in einem Band.",
+          "date": "1976",
+          "marker": "TOCQUEVLLE, JacobZBIINDEN, 1976",
+          "comments": "test comment"
+        },
+        "scanId": "58cb91fa5452691cd86bc940",
+        "status": "OCR_PROCESSED"
       },
       {
-        "bibliographicEntryText": "TRAPPE, Paul (1973) Basel-Land: Bericht der Expertenkommission zur Hebung der Stimmbeteiligung: Partizipation und Abstinenz. Eine Untersuchung zum politischen Verhalten der Stimmmmbürger im Kanton-Basel-Landschaft. Liestal.",
-        "coordinates": "716 746 2241 786",
-        "scanId": "58cb91fa5452691cd86bc940",
-        "status": "OCR_PROCESSED",
-        "title": "Basel-Land: Bericht der Expertenkommission zur Hebung der Stimmbeteiligung: Partizipation und Abstinenz. Eine Untersuchung zum politischen Verhalten der Stimmmmbürger im Kanton-Basel-Landschaft.",
-        "date": "1973",
-        "marker": "TRAPPE, 1973",
         "_id": "58cb92465452691cd86bc949",
-        "authors": [
-          "Paul TRAPPE"
-        ]
+        "bibliographicEntryText": "TRAPPE, Paul (1973) Basel-Land: Bericht der Expertenkommission zur Hebung der Stimmbeteiligung: Partizipation und Abstinenz. Eine Untersuchung zum politischen Verhalten der Stimmmmbürger im Kanton-Basel-Landschaft. Liestal.",
+        "ocrData": {
+          "coordinates": "716 746 2241 786",
+          "authors": [
+            "Paul TRAPPE"
+          ],
+          "title": "Basel-Land: Bericht der Expertenkommission zur Hebung der Stimmbeteiligung: Partizipation und Abstinenz. Eine Untersuchung zum politischen Verhalten der Stimmmmbürger im Kanton-Basel-Landschaft.",
+          "date": "1973",
+          "marker": "TRAPPE, 1973",
+          "comments": "test comment"
+        },
+        "scanId": "58cb91fa5452691cd86bc940",
+        "status": "OCR_PROCESSED"
       },
       {
-        "bibliographicEntryText": "TRECCHSEL, AlexanderlSERUCLT, Uwe (1999): Kaleidoskop Volksrechte. Basel.",
-        "coordinates": "716 876 1891 914",
-        "scanId": "58cb91fa5452691cd86bc940",
-        "status": "OCR_PROCESSED",
-        "title": "Kaleidoskop Volksrechte.",
-        "date": "1999",
-        "marker": "TRECCHSEL, 1999",
         "_id": "58cb92465452691cd86bc94a",
-        "authors": [
-          "AlexanderlSERUCLT TRECCHSEL"
-        ]
+        "bibliographicEntryText": "TRECCHSEL, AlexanderlSERUCLT, Uwe (1999): Kaleidoskop Volksrechte. Basel.",
+        "ocrData": {
+          "coordinates": "716 876 1891 914",
+          "authors": [
+            "AlexanderlSERUCLT TRECCHSEL"
+          ],
+          "title": "Kaleidoskop Volksrechte.",
+          "date": "1999",
+          "marker": "TRECCHSEL, 1999",
+          "comments": "test comment"
+        },
+        "scanId": "58cb91fa5452691cd86bc940",
+        "status": "OCR_PROCESSED"
       },
       {
-        "bibliographicEntryText": "TeIEPEL, Heinrich (1920): Der Weg der Gesetzgebung nach der neuen Reichsverfassung. In: Archiv des Offentlichen Rechts S. 456-546.",
-        "coordinates": "716 919 2242 958",
-        "scanId": "58cb91fa5452691cd86bc940",
-        "status": "OCR_PROCESSED",
-        "title": "Der Weg der Gesetzgebung nach der neuen Reichsverfassung. In:",
-        "date": "1920",
-        "marker": "TeIEPEL, 1920",
         "_id": "58cb92465452691cd86bc94b",
-        "authors": [
-          "Heinrich TeIEPEL"
-        ]
+        "bibliographicEntryText": "TeIEPEL, Heinrich (1920): Der Weg der Gesetzgebung nach der neuen Reichsverfassung. In: Archiv des Offentlichen Rechts S. 456-546.",
+        "ocrData": {
+          "coordinates": "716 919 2242 958",
+          "authors": [
+            "Heinrich TeIEPEL"
+          ],
+          "title": "Der Weg der Gesetzgebung nach der neuen Reichsverfassung. In:",
+          "date": "1920",
+          "marker": "TeIEPEL, 1920",
+          "comments": "test comment"
+        },
+        "scanId": "58cb91fa5452691cd86bc940",
+        "status": "OCR_PROCESSED"
       },
       {
-        "bibliographicEntryText": "TREPEL, Heinrich (1926): Das Abdrosselungsgesetz. In: Deutsche Juristenzeitung S. 846-850.",
-        "coordinates": "718 1006 2122 1045",
-        "scanId": "58cb91fa5452691cd86bc940",
-        "status": "OCR_PROCESSED",
-        "title": "Das Abdrosselungsgesetz. In:",
-        "date": "1926",
-        "marker": "TREPEL, 1926",
         "_id": "58cb92465452691cd86bc94c",
-        "authors": [
-          "Heinrich TREPEL"
-        ]
+        "bibliographicEntryText": "TREPEL, Heinrich (1926): Das Abdrosselungsgesetz. In: Deutsche Juristenzeitung S. 846-850.",
+        "ocrData": {
+          "coordinates": "718 1006 2122 1045",
+          "authors": [
+            "Heinrich TREPEL"
+          ],
+          "title": "Das Abdrosselungsgesetz. In:",
+          "date": "1926",
+          "marker": "TREPEL, 1926",
+          "comments": "test comment"
+        },
+        "scanId": "58cb91fa5452691cd86bc940",
+        "status": "OCR_PROCESSED"
       },
       {
-        "bibliographicEntryText": "TROITzSCH, Klaus (1979): Volksbegehren und Volksentscheid: eine vergleichende Analyse direktdemokratischer Verfassungsinstitutionen unter besonderer Berücksichtigung der Bundesrepublik Deutschland und der Schweiz. Meisenbeim am Glan.",
-        "coordinates": "718 1048 2242 1087",
-        "scanId": "58cb91fa5452691cd86bc940",
-        "status": "OCR_PROCESSED",
-        "title": "Volksbegehren und Volksentscheid: eine vergleichende Analyse direktdemokratischer Verfassungsinstitutionen unter besonderer Berücksichtigung der Bundesrepublik Deutschland und der Schweiz. Meisenbeim am Glan.",
-        "date": "1979",
-        "marker": "TROITzSCH, 1979",
         "_id": "58cb92465452691cd86bc94d",
-        "authors": [
-          "Klaus TROITzSCH"
-        ]
+        "bibliographicEntryText": "TROITzSCH, Klaus (1979): Volksbegehren und Volksentscheid: eine vergleichende Analyse direktdemokratischer Verfassungsinstitutionen unter besonderer Berücksichtigung der Bundesrepublik Deutschland und der Schweiz. Meisenbeim am Glan.",
+        "ocrData": {
+          "coordinates": "718 1048 2242 1087",
+          "authors": [
+            "Klaus TROITzSCH"
+          ],
+          "title": "Volksbegehren und Volksentscheid: eine vergleichende Analyse direktdemokratischer Verfassungsinstitutionen unter besonderer Berücksichtigung der Bundesrepublik Deutschland und der Schweiz. Meisenbeim am Glan.",
+          "date": "1979",
+          "marker": "TROITzSCH, 1979",
+          "comments": "test comment"
+        },
+        "scanId": "58cb91fa5452691cd86bc940",
+        "status": "OCR_PROCESSED"
       },
       {
-        "bibliographicEntryText": "TRUMAN, David Bicknell (1951): The governmental process: political interests and public opinion. New York.",
-        "coordinates": "718 1178 2242 1217",
-        "scanId": "58cb91fa5452691cd86bc940",
-        "status": "OCR_PROCESSED",
-        "title": "The governmental process: political interests and public opinion.",
-        "date": "1951",
-        "marker": "TRUMAN, 1951",
         "_id": "58cb92465452691cd86bc94e",
-        "authors": [
-          "David Bicknell TRUMAN"
-        ]
+        "bibliographicEntryText": "TRUMAN, David Bicknell (1951): The governmental process: political interests and public opinion. New York.",
+        "ocrData": {
+          "coordinates": "718 1178 2242 1217",
+          "authors": [
+            "David Bicknell TRUMAN"
+          ],
+          "title": "The governmental process: political interests and public opinion.",
+          "date": "1951",
+          "marker": "TRUMAN, 1951",
+          "comments": "test comment"
+        },
+        "scanId": "58cb91fa5452691cd86bc940",
+        "status": "OCR_PROCESSED"
       },
       {
-        "bibliographicEntryText": "TsEars, George (1995): Decision Making in Political Systems: Veto Players in Presidentialism, Multicameralism and Multipartism. In: British Journal of Political Science S. 289f.",
-        "coordinates": "719 1264 2243 1304",
-        "scanId": "58cb91fa5452691cd86bc940",
-        "status": "OCR_PROCESSED",
-        "title": "Decision Making in Political Systems: Veto Players in Presidentialism, Multicameralism and Multipartism. In:",
-        "date": "1995",
-        "marker": "TsEars, 1995",
         "_id": "58cb92465452691cd86bc94f",
-        "authors": [
-          "George TsEars"
-        ]
+        "bibliographicEntryText": "TsEars, George (1995): Decision Making in Political Systems: Veto Players in Presidentialism, Multicameralism and Multipartism. In: British Journal of Political Science S. 289f.",
+        "ocrData": {
+          "coordinates": "719 1264 2243 1304",
+          "authors": [
+            "George TsEars"
+          ],
+          "title": "Decision Making in Political Systems: Veto Players in Presidentialism, Multicameralism and Multipartism. In:",
+          "date": "1995",
+          "marker": "TsEars, 1995",
+          "comments": "test comment"
+        },
+        "scanId": "58cb91fa5452691cd86bc940",
+        "status": "OCR_PROCESSED"
       },
       {
-        "bibliographicEntryText": "VATER, Adrian (2007): Direkte Demokratie in der Schweiz: Entwicklungen, Debatten und Wirkungen, In: FREITAG, Markus/WAGSCHAL, Uwe (Hrsg.): Direkte Demokratie - Bestandsaufnahmen und Wirkungen im internationalen Vergleich. Berlin, S. 71-114.",
-        "coordinates": "718 1350 2244 1390",
-        "scanId": "58cb91fa5452691cd86bc940",
-        "status": "OCR_PROCESSED",
-        "title": "Direkte Demokratie in der Schweiz: Entwicklungen, Debatten und Wirkungen, In:",
-        "date": "2007",
-        "marker": "VATER, 2007",
         "_id": "58cb92465452691cd86bc950",
-        "authors": [
-          "Adrian VATER"
-        ]
+        "bibliographicEntryText": "VATER, Adrian (2007): Direkte Demokratie in der Schweiz: Entwicklungen, Debatten und Wirkungen, In: FREITAG, Markus/WAGSCHAL, Uwe (Hrsg.): Direkte Demokratie - Bestandsaufnahmen und Wirkungen im internationalen Vergleich. Berlin, S. 71-114.",
+        "ocrData": {
+          "coordinates": "718 1350 2244 1390",
+          "authors": [
+            "Adrian VATER"
+          ],
+          "title": "Direkte Demokratie in der Schweiz: Entwicklungen, Debatten und Wirkungen, In:",
+          "date": "2007",
+          "marker": "VATER, 2007",
+          "comments": "test comment"
+        },
+        "scanId": "58cb91fa5452691cd86bc940",
+        "status": "OCR_PROCESSED"
       },
       {
-        "bibliographicEntryText": "VERBA, Sidney/ScHLOzMAN, Kay Lehman/BRADY, Henry E. (1995): Voice and equality: civic voluntaristn in American politics. Cambridge.",
-        "coordinates": "720 1479 2244 1518",
-        "scanId": "58cb91fa5452691cd86bc940",
-        "status": "OCR_PROCESSED",
-        "title": "Voice and equality: civic voluntaristn in American politics.",
-        "date": "1995",
-        "marker": "VERBA, LehmanBRADY, Henry, 1995",
         "_id": "58cb92465452691cd86bc951",
-        "authors": [
-          "SidneyScHLOzMAN VERBA"
-        ]
+        "bibliographicEntryText": "VERBA, Sidney/ScHLOzMAN, Kay Lehman/BRADY, Henry E. (1995): Voice and equality: civic voluntaristn in American politics. Cambridge.",
+        "ocrData": {
+          "coordinates": "720 1479 2244 1518",
+          "authors": [
+            "SidneyScHLOzMAN VERBA"
+          ],
+          "title": "Voice and equality: civic voluntaristn in American politics.",
+          "date": "1995",
+          "marker": "VERBA, LehmanBRADY, Henry, 1995",
+          "comments": "test comment"
+        },
+        "scanId": "58cb91fa5452691cd86bc940",
+        "status": "OCR_PROCESSED"
       },
       {
-        "bibliographicEntryText": "VMAR, Fritz (1973), Strategien der Demokratisierung. Darmstadt.",
-        "coordinates": "720 1567 1726 1605",
-        "scanId": "58cb91fa5452691cd86bc940",
-        "status": "OCR_PROCESSED",
-        "title": "Strategien der Demokratisierung.",
-        "date": "1973",
-        "marker": "VMAR, 1973",
         "_id": "58cb92465452691cd86bc952",
-        "authors": [
-          "Fritz VMAR"
-        ]
+        "bibliographicEntryText": "VMAR, Fritz (1973), Strategien der Demokratisierung. Darmstadt.",
+        "ocrData": {
+          "coordinates": "720 1567 1726 1605",
+          "authors": [
+            "Fritz VMAR"
+          ],
+          "title": "Strategien der Demokratisierung.",
+          "date": "1973",
+          "marker": "VMAR, 1973",
+          "comments": "test comment"
+        },
+        "scanId": "58cb91fa5452691cd86bc940",
+        "status": "OCR_PROCESSED"
       },
       {
-        "bibliographicEntryText": "VoELeN, Helmut (2003): Neokorporatismus. In: ANDERSEN, Uwe/WoyEE, Wichard (Hrsg.): Handwörterbuch des politischen Systems der Bundesrepublik Deutschland. Opladen. S. 404-406.",
-        "coordinates": "720 1608 2244 1648",
-        "scanId": "58cb91fa5452691cd86bc940",
-        "status": "OCR_PROCESSED",
-        "title": "Neokorporatismus. In: ANDERSEN, Uwe/WoyEE, Wichard (Hrsg.): Handwörterbuch des politischen Systems der Bundesrepublik Deutschland.",
-        "date": "2003",
-        "marker": "VoELeN, 2003",
         "_id": "58cb92465452691cd86bc953",
-        "authors": [
-          "Helmut VoELeN"
-        ]
+        "bibliographicEntryText": "VoELeN, Helmut (2003): Neokorporatismus. In: ANDERSEN, Uwe/WoyEE, Wichard (Hrsg.): Handwörterbuch des politischen Systems der Bundesrepublik Deutschland. Opladen. S. 404-406.",
+        "ocrData": {
+          "coordinates": "720 1608 2244 1648",
+          "authors": [
+            "Helmut VoELeN"
+          ],
+          "title": "Neokorporatismus. In: ANDERSEN, Uwe/WoyEE, Wichard (Hrsg.): Handwörterbuch des politischen Systems der Bundesrepublik Deutschland.",
+          "date": "2003",
+          "marker": "VoELeN, 2003",
+          "comments": "test comment"
+        },
+        "scanId": "58cb91fa5452691cd86bc940",
+        "status": "OCR_PROCESSED"
       },
       {
-        "bibliographicEntryText": "VOGELSANG, Klaus (1991): Die Verfassungsentwicklung in den neuen Bundesländern. In: Dic 6ffentliche Verwaltung S. 1045-1053.",
-        "coordinates": "721 1694 2247 1735",
-        "scanId": "58cb91fa5452691cd86bc940",
-        "status": "OCR_PROCESSED",
-        "title": "Die Verfassungsentwicklung in den neuen Bundesländern. In:",
-        "date": "1991",
-        "marker": "VOGELSANG, 1991",
         "_id": "58cb92465452691cd86bc954",
-        "authors": [
-          "Klaus VOGELSANG"
-        ]
+        "bibliographicEntryText": "VOGELSANG, Klaus (1991): Die Verfassungsentwicklung in den neuen Bundesländern. In: Dic 6ffentliche Verwaltung S. 1045-1053.",
+        "ocrData": {
+          "coordinates": "721 1694 2247 1735",
+          "authors": [
+            "Klaus VOGELSANG"
+          ],
+          "title": "Die Verfassungsentwicklung in den neuen Bundesländern. In:",
+          "date": "1991",
+          "marker": "VOGELSANG, 1991",
+          "comments": "test comment"
+        },
+        "scanId": "58cb91fa5452691cd86bc940",
+        "status": "OCR_PROCESSED"
       },
       {
-        "bibliographicEntryText": "VOIGT, Rüdiger/WaLEENHAUS, Ralf (2006): Handwörterbuch zur Verwalttungsreform. Wiesbaden.",
-        "coordinates": "720 1781 2190 1821",
-        "scanId": "58cb91fa5452691cd86bc940",
-        "status": "OCR_PROCESSED",
-        "title": "Ralf (2006): Handwörterbuch zur Verwalttungsreform.",
-        "date": "",
-        "marker": "VOIGT, ",
         "_id": "58cb92465452691cd86bc955",
-        "authors": [
-          "RüdigerWaLEENHAUS VOIGT"
-        ]
+        "bibliographicEntryText": "VOIGT, Rüdiger/WaLEENHAUS, Ralf (2006): Handwörterbuch zur Verwalttungsreform. Wiesbaden.",
+        "ocrData": {
+          "coordinates": "720 1781 2190 1821",
+          "authors": [
+            "RüdigerWaLEENHAUS VOIGT"
+          ],
+          "title": "Ralf (2006): Handwörterbuch zur Verwalttungsreform.",
+          "date": "",
+          "marker": "VOIGT, ",
+          "comments": "test comment"
+        },
+        "scanId": "58cb91fa5452691cd86bc940",
+        "status": "OCR_PROCESSED"
       },
       {
-        "bibliographicEntryText": "VOLLRATH, Karsten (2001): Ohne Bürger geit dat nicht - Anwendung und Wirkungen von Bürgerbegehren in den Hamburger Bezirken. In: BULL, Hans Peter (Hrsg.): FDnf Jabre direkte Beteiligung in Hamburg. S. 142-150.",
-        "coordinates": "722 1821 2244 1864",
-        "scanId": "58cb91fa5452691cd86bc940",
-        "status": "OCR_PROCESSED",
-        "title": "Ohne Bürger geit dat nicht - Anwendung und Wirkungen von Bürgerbegehren in den Hamburger Bezirken. In: BULL, Hans Peter (Hrsg.): FDnf Jabre direkte Beteiligung in Hamburg.",
-        "date": "2001",
-        "marker": "VOLLRATH, 2001",
         "_id": "58cb92465452691cd86bc956",
-        "authors": [
-          "Karsten VOLLRATH"
-        ]
+        "bibliographicEntryText": "VOLLRATH, Karsten (2001): Ohne Bürger geit dat nicht - Anwendung und Wirkungen von Bürgerbegehren in den Hamburger Bezirken. In: BULL, Hans Peter (Hrsg.): FDnf Jabre direkte Beteiligung in Hamburg. S. 142-150.",
+        "ocrData": {
+          "coordinates": "722 1821 2244 1864",
+          "authors": [
+            "Karsten VOLLRATH"
+          ],
+          "title": "Ohne Bürger geit dat nicht - Anwendung und Wirkungen von Bürgerbegehren in den Hamburger Bezirken. In: BULL, Hans Peter (Hrsg.): FDnf Jabre direkte Beteiligung in Hamburg.",
+          "date": "2001",
+          "marker": "VOLLRATH, 2001",
+          "comments": "test comment"
+        },
+        "scanId": "58cb91fa5452691cd86bc940",
+        "status": "OCR_PROCESSED"
       },
       {
-        "bibliographicEntryText": "VORLANDER, Hans (2003): Demokratie: Geschichte, Fortnen, Theorien. Miünchen.",
-        "coordinates": "722 1954 1949 1993",
-        "scanId": "58cb91fa5452691cd86bc940",
-        "status": "OCR_PROCESSED",
-        "title": "Demokratie: Geschichte, Fortnen,",
-        "date": "2003",
-        "marker": "VORLANDER, 2003",
         "_id": "58cb92465452691cd86bc957",
-        "authors": [
-          "Hans VORLANDER"
-        ]
+        "bibliographicEntryText": "VORLANDER, Hans (2003): Demokratie: Geschichte, Fortnen, Theorien. Miünchen.",
+        "ocrData": {
+          "coordinates": "722 1954 1949 1993",
+          "authors": [
+            "Hans VORLANDER"
+          ],
+          "title": "Demokratie: Geschichte, Fortnen,",
+          "date": "2003",
+          "marker": "VORLANDER, 2003",
+          "comments": "test comment"
+        },
+        "scanId": "58cb91fa5452691cd86bc940",
+        "status": "OCR_PROCESSED"
       },
       {
-        "bibliographicEntryText": "VORLANDER, Hans (2004): Strukturunterschiede und Probleme. In: Informationen zur politischen Bildung Heft 284.",
-        "coordinates": "723 1994 2249 2037",
-        "scanId": "58cb91fa5452691cd86bc940",
-        "status": "OCR_PROCESSED",
-        "title": "Strukturunterschiede und Probleme. In: Informationen zur politischen Bildung Heft 284.",
-        "date": "2004",
-        "marker": "VORLANDER, 2004",
         "_id": "58cb92465452691cd86bc958",
-        "authors": [
-          "Hans VORLANDER"
-        ]
+        "bibliographicEntryText": "VORLANDER, Hans (2004): Strukturunterschiede und Probleme. In: Informationen zur politischen Bildung Heft 284.",
+        "ocrData": {
+          "coordinates": "723 1994 2249 2037",
+          "authors": [
+            "Hans VORLANDER"
+          ],
+          "title": "Strukturunterschiede und Probleme. In: Informationen zur politischen Bildung Heft 284.",
+          "date": "2004",
+          "marker": "VORLANDER, 2004",
+          "comments": "test comment"
+        },
+        "scanId": "58cb91fa5452691cd86bc940",
+        "status": "OCR_PROCESSED"
       },
       {
-        "bibliographicEntryText": "WALLER, Sybille (1988): Die Entstehung der Landessatzung von Schleswig-Holstein vom 13.12,1949. Frankfurt am Maitn.",
-        "coordinates": "723 2081 2249 2124",
-        "scanId": "58cb91fa5452691cd86bc940",
-        "status": "OCR_PROCESSED",
-        "title": "Die Entstehung der Landessatzung von Schleswig-Holstein vom 13.12,1949. Frankfurt am Maitn.",
-        "date": "1988",
-        "marker": "WALLER, 1988",
         "_id": "58cb92465452691cd86bc959",
-        "authors": [
-          "Sybille WALLER"
-        ]
+        "bibliographicEntryText": "WALLER, Sybille (1988): Die Entstehung der Landessatzung von Schleswig-Holstein vom 13.12,1949. Frankfurt am Maitn.",
+        "ocrData": {
+          "coordinates": "723 2081 2249 2124",
+          "authors": [
+            "Sybille WALLER"
+          ],
+          "title": "Die Entstehung der Landessatzung von Schleswig-Holstein vom 13.12,1949. Frankfurt am Maitn.",
+          "date": "1988",
+          "marker": "WALLER, 1988",
+          "comments": "test comment"
+        },
+        "scanId": "58cb91fa5452691cd86bc940",
+        "status": "OCR_PROCESSED"
       },
       {
-        "bibliographicEntryText": "WARREN, Mark (1992): Democratic Theory And Self-Transformation. In: American Political Science Review S. 8ff.",
-        "coordinates": "725 2165 2249 2209",
-        "scanId": "58cb91fa5452691cd86bc940",
-        "status": "OCR_PROCESSED",
-        "title": "Democratic Theory And Self-Transformation. In: American Political Science Review S.",
-        "date": "1992",
-        "marker": "WARREN, 1992",
         "_id": "58cb92465452691cd86bc95a",
-        "authors": [
-          "Mark WARREN"
-        ]
+        "bibliographicEntryText": "WARREN, Mark (1992): Democratic Theory And Self-Transformation. In: American Political Science Review S. 8ff.",
+        "ocrData": {
+          "coordinates": "725 2165 2249 2209",
+          "authors": [
+            "Mark WARREN"
+          ],
+          "title": "Democratic Theory And Self-Transformation. In: American Political Science Review S.",
+          "date": "1992",
+          "marker": "WARREN, 1992",
+          "comments": "test comment"
+        },
+        "scanId": "58cb91fa5452691cd86bc940",
+        "status": "OCR_PROCESSED"
       },
       {
-        "bibliographicEntryText": "WASCHKUHN, Arno (1998): Demokratietheorien. München.",
-        "coordinates": "724 2258 1612 2295",
-        "scanId": "58cb91fa5452691cd86bc940",
-        "status": "OCR_PROCESSED",
-        "title": "",
-        "date": "1998",
-        "marker": "WASCHKUHN, 1998",
         "_id": "58cb92465452691cd86bc95b",
-        "authors": [
-          "Arno WASCHKUHN"
-        ]
+        "bibliographicEntryText": "WASCHKUHN, Arno (1998): Demokratietheorien. München.",
+        "ocrData": {
+          "coordinates": "724 2258 1612 2295",
+          "authors": [
+            "Arno WASCHKUHN"
+          ],
+          "title": "",
+          "date": "1998",
+          "marker": "WASCHKUHN, 1998",
+          "comments": "test comment"
+        },
+        "scanId": "58cb91fa5452691cd86bc940",
+        "status": "OCR_PROCESSED"
       },
       {
-        "bibliographicEntryText": "WASSERMANN, Rudolf (1986): Die ?uschauerdemokratie. Düsseldorf.",
-        "coordinates": "724 2300 1765 2338",
-        "scanId": "58cb91fa5452691cd86bc940",
-        "status": "OCR_PROCESSED",
-        "title": "Die ?uschauerdemokratie.",
-        "date": "1986",
-        "marker": "WASSERMANN, 1986",
         "_id": "58cb92465452691cd86bc95c",
-        "authors": [
-          "Rudolf WASSERMANN"
-        ]
+        "bibliographicEntryText": "WASSERMANN, Rudolf (1986): Die ?uschauerdemokratie. Düsseldorf.",
+        "ocrData": {
+          "coordinates": "724 2300 1765 2338",
+          "authors": [
+            "Rudolf WASSERMANN"
+          ],
+          "title": "Die ?uschauerdemokratie.",
+          "date": "1986",
+          "marker": "WASSERMANN, 1986",
+          "comments": "test comment"
+        },
+        "scanId": "58cb91fa5452691cd86bc940",
+        "status": "OCR_PROCESSED"
       },
       {
-        "bibliographicEntryText": "WEBER, Max (1923) Wirtschaft und Gesellschaft. Tdbingen.",
-        "coordinates": "725 2344 1634 2382",
-        "scanId": "58cb91fa5452691cd86bc940",
-        "status": "OCR_PROCESSED",
-        "title": "",
-        "date": "1923",
-        "marker": "WEBER, 1923",
         "_id": "58cb92465452691cd86bc95d",
-        "authors": [
-          "Max WEBER"
-        ]
+        "bibliographicEntryText": "WEBER, Max (1923) Wirtschaft und Gesellschaft. Tdbingen.",
+        "ocrData": {
+          "coordinates": "725 2344 1634 2382",
+          "authors": [
+            "Max WEBER"
+          ],
+          "title": "",
+          "date": "1923",
+          "marker": "WEBER, 1923",
+          "comments": "test comment"
+        },
+        "scanId": "58cb91fa5452691cd86bc940",
+        "status": "OCR_PROCESSED"
       },
       {
-        "bibliographicEntryText": "WEBER, Tim (2001): Und wieder zugetreten! In: Zeitschrift fdr Dirckte Demokratie S. 20-22.",
-        "coordinates": "725 2382 2114 2426",
-        "scanId": "58cb91fa5452691cd86bc940",
-        "status": "OCR_PROCESSED",
-        "title": "Und wieder zugetreten! In: Zeitschrift fdr Dirckte Demokratie S.",
-        "date": "2001",
-        "marker": "WEBER, 2001",
         "_id": "58cb92465452691cd86bc95e",
-        "authors": [
-          "Tim WEBER"
-        ]
+        "bibliographicEntryText": "WEBER, Tim (2001): Und wieder zugetreten! In: Zeitschrift fdr Dirckte Demokratie S. 20-22.",
+        "ocrData": {
+          "coordinates": "725 2382 2114 2426",
+          "authors": [
+            "Tim WEBER"
+          ],
+          "title": "Und wieder zugetreten! In: Zeitschrift fdr Dirckte Demokratie S.",
+          "date": "2001",
+          "marker": "WEBER, 2001",
+          "comments": "test comment"
+        },
+        "scanId": "58cb91fa5452691cd86bc940",
+        "status": "OCR_PROCESSED"
       },
       {
-        "bibliographicEntryText": "WEBER, Max/ULrIG, Alexander (2005): Wirtschaft und Gesellschaft: Grundriss der verstehenden Soziologie. Frankfurt am Main.",
-        "coordinates": "2521 229 4050 269",
-        "scanId": "58cb91fa5452691cd86bc940",
-        "status": "OCR_PROCESSED",
-        "title": "Alexander (2005): Wirtschaft und Gesellschaft: Grundriss der verstehenden Soziologie. Frankfurt am Main.",
-        "date": "",
-        "marker": "WEBER, ",
         "_id": "58cb92465452691cd86bc95f",
-        "authors": [
-          "MaxULrIG WEBER"
-        ]
+        "bibliographicEntryText": "WEBER, Max/ULrIG, Alexander (2005): Wirtschaft und Gesellschaft: Grundriss der verstehenden Soziologie. Frankfurt am Main.",
+        "ocrData": {
+          "coordinates": "2521 229 4050 269",
+          "authors": [
+            "MaxULrIG WEBER"
+          ],
+          "title": "Alexander (2005): Wirtschaft und Gesellschaft: Grundriss der verstehenden Soziologie. Frankfurt am Main.",
+          "date": "",
+          "marker": "WEBER, ",
+          "comments": "test comment"
+        },
+        "scanId": "58cb91fa5452691cd86bc940",
+        "status": "OCR_PROCESSED"
       },
       {
-        "bibliographicEntryText": "WEHLING, Hans-Georg/WEHLING, Rosemarie (1972): Parlamentsaufl6sung durch Volksentscheid? In: Zeitschrift fhr Parlamentsftagen S. 76E.",
-        "coordinates": "2520 316 4045 359",
-        "scanId": "58cb91fa5452691cd86bc940",
-        "status": "OCR_PROCESSED",
-        "title": "Rosemarie (1972): Parlamentsaufl6sung durch Volksentscheid? In: Zeitschrift fhr Parlamentsftagen S.",
-        "date": "",
-        "marker": "WEHLING, ",
         "_id": "58cb92465452691cd86bc960",
-        "authors": [
-          "Hans-GeorgWEHLING WEHLING"
-        ]
+        "bibliographicEntryText": "WEHLING, Hans-Georg/WEHLING, Rosemarie (1972): Parlamentsaufl6sung durch Volksentscheid? In: Zeitschrift fhr Parlamentsftagen S. 76E.",
+        "ocrData": {
+          "coordinates": "2520 316 4045 359",
+          "authors": [
+            "Hans-GeorgWEHLING WEHLING"
+          ],
+          "title": "Rosemarie (1972): Parlamentsaufl6sung durch Volksentscheid? In: Zeitschrift fhr Parlamentsftagen S.",
+          "date": "",
+          "marker": "WEHLING, ",
+          "comments": "test comment"
+        },
+        "scanId": "58cb91fa5452691cd86bc940",
+        "status": "OCR_PROCESSED"
       },
       {
-        "bibliographicEntryText": "WEHR, Matthias (1998): Direkte Demokratic. In: Juristische Schulung S. 411-414.",
-        "coordinates": "2519 402 3744 444",
-        "scanId": "58cb91fa5452691cd86bc940",
-        "status": "OCR_PROCESSED",
-        "title": "Direkte Demokratic. In:",
-        "date": "1998",
-        "marker": "WEHR, 1998",
         "_id": "58cb92465452691cd86bc961",
-        "authors": [
-          "Matthias WEHR"
-        ]
+        "bibliographicEntryText": "WEHR, Matthias (1998): Direkte Demokratic. In: Juristische Schulung S. 411-414.",
+        "ocrData": {
+          "coordinates": "2519 402 3744 444",
+          "authors": [
+            "Matthias WEHR"
+          ],
+          "title": "Direkte Demokratic. In:",
+          "date": "1998",
+          "marker": "WEHR, 1998",
+          "comments": "test comment"
+        },
+        "scanId": "58cb91fa5452691cd86bc940",
+        "status": "OCR_PROCESSED"
       },
       {
-        "bibliographicEntryText": "WEDO0R, BSrbel Martina (2002): Direkte Demokratie ita den Bundesl8ndern. Opladen. S. 308.",
-        "coordinates": "2519 445 3933 488",
-        "scanId": "58cb91fa5452691cd86bc940",
-        "status": "OCR_PROCESSED",
-        "title": "",
-        "date": "2002",
-        "marker": "WEDO0R, 2002",
         "_id": "58cb92465452691cd86bc962",
-        "authors": [
-          "BSrbel Martina WEDO0R"
-        ]
+        "bibliographicEntryText": "WEDO0R, BSrbel Martina (2002): Direkte Demokratie ita den Bundesl8ndern. Opladen. S. 308.",
+        "ocrData": {
+          "coordinates": "2519 445 3933 488",
+          "authors": [
+            "BSrbel Martina WEDO0R"
+          ],
+          "title": "",
+          "date": "2002",
+          "marker": "WEDO0R, 2002",
+          "comments": "test comment"
+        },
+        "scanId": "58cb91fa5452691cd86bc940",
+        "status": "OCR_PROCESSED"
       },
       {
-        "bibliographicEntryText": "WEDNER, Barbel Martina (2006): Direkte Demokratie in den Bundesländern. In: Aus Politik und Zeiggeschichte S. 18-24.",
-        "coordinates": "2517 489 4047 526",
-        "scanId": "58cb91fa5452691cd86bc940",
-        "status": "OCR_PROCESSED",
-        "title": "Direkte Demokratie in den Bundesländern. In:",
-        "date": "2006",
-        "marker": "WEDNER, 2006",
         "_id": "58cb92465452691cd86bc963",
-        "authors": [
-          "Barbel Martina WEDNER"
-        ]
+        "bibliographicEntryText": "WEDNER, Barbel Martina (2006): Direkte Demokratie in den Bundesländern. In: Aus Politik und Zeiggeschichte S. 18-24.",
+        "ocrData": {
+          "coordinates": "2517 489 4047 526",
+          "authors": [
+            "Barbel Martina WEDNER"
+          ],
+          "title": "Direkte Demokratie in den Bundesländern. In:",
+          "date": "2006",
+          "marker": "WEDNER, 2006",
+          "comments": "test comment"
+        },
+        "scanId": "58cb91fa5452691cd86bc940",
+        "status": "OCR_PROCESSED"
       },
       {
-        "bibliographicEntryText": "WEIzSACKER, Richard von/HoFMANN, Gunter/PERGER, Werner A. (1992): Richard von Weizsicker im Gespräch mit Gunter Hofmann und Werner A. Perger. Frankfurt am Main.",
-        "coordinates": "2517 574 4047 617",
-        "scanId": "58cb91fa5452691cd86bc940",
-        "status": "OCR_PROCESSED",
-        "title": "Richard von Weizsicker im Gespräch mit Gunter Hofmann und",
-        "date": "1992",
-        "marker": "WEIzSACKER, GunterPERGER, 1992",
         "_id": "58cb92465452691cd86bc964",
-        "authors": [
-          "Richard vonHoFMANN WEIzSACKER"
-        ]
+        "bibliographicEntryText": "WEIzSACKER, Richard von/HoFMANN, Gunter/PERGER, Werner A. (1992): Richard von Weizsicker im Gespräch mit Gunter Hofmann und Werner A. Perger. Frankfurt am Main.",
+        "ocrData": {
+          "coordinates": "2517 574 4047 617",
+          "authors": [
+            "Richard vonHoFMANN WEIzSACKER"
+          ],
+          "title": "Richard von Weizsicker im Gespräch mit Gunter Hofmann und",
+          "date": "1992",
+          "marker": "WEIzSACKER, GunterPERGER, 1992",
+          "comments": "test comment"
+        },
+        "scanId": "58cb91fa5452691cd86bc940",
+        "status": "OCR_PROCESSED"
       },
       {
-        "bibliographicEntryText": "WELzEL, Christian (1997): Repräsentation alleine reicht nicht mehr. Sachabstimmungen in einer Theorie der interaktiven Demokratie. In: SCHNEiDER-WILEES, Rainer (Hrsg.): Demokratie in Gefahr? - 2Zum Zustand der deutschen Republik. Mnster. S. 54-80.",
-        "coordinates": "2516 660 4047 705",
-        "scanId": "58cb91fa5452691cd86bc940",
-        "status": "OCR_PROCESSED",
-        "title": "Repräsentation alleine reicht nicht mehr. Sachabstimmungen in einer Theorie der interaktiven Demokratie. In: SCHNEiDER-WILEES, Rainer (Hrsg.): Demokratie in Gefahr? - 2Zum Zustand der deutschen Republik.",
-        "date": "1997",
-        "marker": "WELzEL, 1997",
         "_id": "58cb92465452691cd86bc965",
-        "authors": [
-          "Christian WELzEL"
-        ]
+        "bibliographicEntryText": "WELzEL, Christian (1997): Repräsentation alleine reicht nicht mehr. Sachabstimmungen in einer Theorie der interaktiven Demokratie. In: SCHNEiDER-WILEES, Rainer (Hrsg.): Demokratie in Gefahr? - 2Zum Zustand der deutschen Republik. Mnster. S. 54-80.",
+        "ocrData": {
+          "coordinates": "2516 660 4047 705",
+          "authors": [
+            "Christian WELzEL"
+          ],
+          "title": "Repräsentation alleine reicht nicht mehr. Sachabstimmungen in einer Theorie der interaktiven Demokratie. In: SCHNEiDER-WILEES, Rainer (Hrsg.): Demokratie in Gefahr? - 2Zum Zustand der deutschen Republik.",
+          "date": "1997",
+          "marker": "WELzEL, 1997",
+          "comments": "test comment"
+        },
+        "scanId": "58cb91fa5452691cd86bc940",
+        "status": "OCR_PROCESSED"
       },
       {
-        "bibliographicEntryText": "WENDT, RudolfRrdacEER, Roland (2009): Verfassung des Saarlandes. Kommentar. Saarbriicken.",
-        "coordinates": "2516 789 3975 830",
-        "scanId": "58cb91fa5452691cd86bc940",
-        "status": "OCR_PROCESSED",
-        "title": "Verfassung des Saarlandes.",
-        "date": "2009",
-        "marker": "WENDT, Roland, 2009",
         "_id": "58cb92465452691cd86bc966",
-        "authors": [
-          "RudolfRrdacEER WENDT"
-        ]
+        "bibliographicEntryText": "WENDT, RudolfRrdacEER, Roland (2009): Verfassung des Saarlandes. Kommentar. Saarbriicken.",
+        "ocrData": {
+          "coordinates": "2516 789 3975 830",
+          "authors": [
+            "RudolfRrdacEER WENDT"
+          ],
+          "title": "Verfassung des Saarlandes.",
+          "date": "2009",
+          "marker": "WENDT, Roland, 2009",
+          "comments": "test comment"
+        },
+        "scanId": "58cb91fa5452691cd86bc940",
+        "status": "OCR_PROCESSED"
       },
       {
-        "bibliographicEntryText": "WERNER, Wolfram/WERNICKE, Kurt Georg/BBooMS, Hans/ScHICK, Rupert (1996): Parlamentarischer Rat 1948 - 1949, Akten und Protokolle. Band 9 Plcnum. Mtinchen.",
-        "coordinates": "2514 832 4043 876",
-        "scanId": "58cb91fa5452691cd86bc940",
-        "status": "OCR_PROCESSED",
-        "title": "Parlamentarischer Rat",
-        "date": "1996",
-        "marker": "WERNER, GeorgBBooMS, HansScHICK, 1996",
         "_id": "58cb92465452691cd86bc967",
-        "authors": [
-          "WolframWERNICKE WERNER"
-        ]
+        "bibliographicEntryText": "WERNER, Wolfram/WERNICKE, Kurt Georg/BBooMS, Hans/ScHICK, Rupert (1996): Parlamentarischer Rat 1948 - 1949, Akten und Protokolle. Band 9 Plcnum. Mtinchen.",
+        "ocrData": {
+          "coordinates": "2514 832 4043 876",
+          "authors": [
+            "WolframWERNICKE WERNER"
+          ],
+          "title": "Parlamentarischer Rat",
+          "date": "1996",
+          "marker": "WERNER, GeorgBBooMS, HansScHICK, 1996",
+          "comments": "test comment"
+        },
+        "scanId": "58cb91fa5452691cd86bc940",
+        "status": "OCR_PROCESSED"
       },
       {
-        "bibliographicEntryText": "WEBELS, Bernhard (2000): Die ntwicklung des deutschen Korporatismus. In: Aus Politik und Zeitgeschichte S. 16-21.",
-        "coordinates": "2513 918 4042 960",
-        "scanId": "58cb91fa5452691cd86bc940",
-        "status": "OCR_PROCESSED",
-        "title": "Die ntwicklung des deutschen Korporatismus. In:",
-        "date": "2000",
-        "marker": "WEBELS, 2000",
         "_id": "58cb92465452691cd86bc968",
-        "authors": [
-          "Bernhard WEBELS"
-        ]
+        "bibliographicEntryText": "WEBELS, Bernhard (2000): Die ntwicklung des deutschen Korporatismus. In: Aus Politik und Zeitgeschichte S. 16-21.",
+        "ocrData": {
+          "coordinates": "2513 918 4042 960",
+          "authors": [
+            "Bernhard WEBELS"
+          ],
+          "title": "Die ntwicklung des deutschen Korporatismus. In:",
+          "date": "2000",
+          "marker": "WEBELS, 2000",
+          "comments": "test comment"
+        },
+        "scanId": "58cb91fa5452691cd86bc940",
+        "status": "OCR_PROCESSED"
       },
       {
-        "bibliographicEntryText": "WEGANDD, Hanns-Jürgen (2006): Direktdemokratische Elemente in der deutschen Verfassungsgeschichte. Berlin.",
-        "coordinates": "2512 1005 4040 1050",
-        "scanId": "58cb91fa5452691cd86bc940",
-        "status": "OCR_PROCESSED",
-        "title": "Direktdemokratische Elemente in der deutschen Verfassungsgeschichte.",
-        "date": "2006",
-        "marker": "WEGANDD, 2006",
         "_id": "58cb92465452691cd86bc969",
-        "authors": [
-          "Hanns-Jürgen WEGANDD"
-        ]
+        "bibliographicEntryText": "WEGANDD, Hanns-Jürgen (2006): Direktdemokratische Elemente in der deutschen Verfassungsgeschichte. Berlin.",
+        "ocrData": {
+          "coordinates": "2512 1005 4040 1050",
+          "authors": [
+            "Hanns-Jürgen WEGANDD"
+          ],
+          "title": "Direktdemokratische Elemente in der deutschen Verfassungsgeschichte.",
+          "date": "2006",
+          "marker": "WEGANDD, 2006",
+          "comments": "test comment"
+        },
+        "scanId": "58cb91fa5452691cd86bc940",
+        "status": "OCR_PROCESSED"
       },
       {
-        "bibliographicEntryText": "WIESENDAHL, Elmar (1990): Der Marsch aus den Institutionen. In: Aus Politik und ?eitgeschichte S. 3-14.",
-        "coordinates": "2512 1090 4039 1135",
-        "scanId": "58cb91fa5452691cd86bc940",
-        "status": "OCR_PROCESSED",
-        "title": "Der Marsch aus den Institutionen. In:",
-        "date": "1990",
-        "marker": "WIESENDAHL, 1990",
         "_id": "58cb92465452691cd86bc96a",
-        "authors": [
-          "Elmar WIESENDAHL"
-        ]
+        "bibliographicEntryText": "WIESENDAHL, Elmar (1990): Der Marsch aus den Institutionen. In: Aus Politik und ?eitgeschichte S. 3-14.",
+        "ocrData": {
+          "coordinates": "2512 1090 4039 1135",
+          "authors": [
+            "Elmar WIESENDAHL"
+          ],
+          "title": "Der Marsch aus den Institutionen. In:",
+          "date": "1990",
+          "marker": "WIESENDAHL, 1990",
+          "comments": "test comment"
+        },
+        "scanId": "58cb91fa5452691cd86bc940",
+        "status": "OCR_PROCESSED"
       },
       {
-        "bibliographicEntryText": "WHELM, Birgit (2007) Das Land Baden-Worttemberg. KoIn.",
-        "coordinates": "2510 1177 3451 1217",
-        "scanId": "58cb91fa5452691cd86bc940",
-        "status": "OCR_PROCESSED",
-        "title": "Das Land Baden-Worttemberg.",
-        "date": "2007",
-        "marker": "WHELM, 2007",
         "_id": "58cb92465452691cd86bc96b",
-        "authors": [
-          "Birgit WHELM"
-        ]
+        "bibliographicEntryText": "WHELM, Birgit (2007) Das Land Baden-Worttemberg. KoIn.",
+        "ocrData": {
+          "coordinates": "2510 1177 3451 1217",
+          "authors": [
+            "Birgit WHELM"
+          ],
+          "title": "Das Land Baden-Worttemberg.",
+          "date": "2007",
+          "marker": "WHELM, 2007",
+          "comments": "test comment"
+        },
+        "scanId": "58cb91fa5452691cd86bc940",
+        "status": "OCR_PROCESSED"
       },
       {
-        "bibliographicEntryText": "WL, Hans-Urs (1999): Jux populi? 100 Jahre eidgenössische Volksinitiative auf Partialrevision der Bundesverfassung. In: Zeitschrift fhr Schweizerisches Recht S. 485-521.",
-        "coordinates": "2510 1219 4042 1260",
-        "scanId": "58cb91fa5452691cd86bc940",
-        "status": "OCR_PROCESSED",
-        "title": "Jux populi? 100 Jahre eidgenössische Volksinitiative auf Partialrevision der Bundesverfassung. In: Zeitschrift fhr Schweizerisches Recht S.",
-        "date": "1999",
-        "marker": "WL, 1999",
         "_id": "58cb92465452691cd86bc96c",
-        "authors": [
-          "Hans-Urs WL"
-        ]
+        "bibliographicEntryText": "WL, Hans-Urs (1999): Jux populi? 100 Jahre eidgenössische Volksinitiative auf Partialrevision der Bundesverfassung. In: Zeitschrift fhr Schweizerisches Recht S. 485-521.",
+        "ocrData": {
+          "coordinates": "2510 1219 4042 1260",
+          "authors": [
+            "Hans-Urs WL"
+          ],
+          "title": "Jux populi? 100 Jahre eidgenössische Volksinitiative auf Partialrevision der Bundesverfassung. In: Zeitschrift fhr Schweizerisches Recht S.",
+          "date": "1999",
+          "marker": "WL, 1999",
+          "comments": "test comment"
+        },
+        "scanId": "58cb91fa5452691cd86bc940",
+        "status": "OCR_PROCESSED"
       },
       {
-        "bibliographicEntryText": "WLt, Urs (2006): &apos;&apos;Government by the people&apos;&apos; - &apos;&apos;providentia Dei ac confusione bominum&apos;&apos;? In: HRscHER, Gerhard/HuBER, Roman (Hrsg.): Aktive Bürgergesellschaft durch bundesweite Volksentscheide? - Direkte Demokratie in der Diskussion. M(unchen. S. 61-88.",
-        "coordinates": "2592 1350 4038 1391",
-        "scanId": "58cb91fa5452691cd86bc940",
-        "status": "OCR_PROCESSED",
-        "title": "Government by the people&apos;&apos; - &apos;&apos;providentia Dei ac confusione bominum&apos;&apos;? In: HRscHER, Gerhard/HuBER, Roman (Hrsg.): Aktive Bürgergesellschaft durch bundesweite Volksentscheide? - Direkte Demokratie in der Diskussion.",
-        "date": "2006",
-        "marker": "WLt, 2006",
         "_id": "58cb92465452691cd86bc96d",
-        "authors": [
-          "Urs WLt"
-        ]
+        "bibliographicEntryText": "WLt, Urs (2006): &apos;&apos;Government by the people&apos;&apos; - &apos;&apos;providentia Dei ac confusione bominum&apos;&apos;? In: HRscHER, Gerhard/HuBER, Roman (Hrsg.): Aktive Bürgergesellschaft durch bundesweite Volksentscheide? - Direkte Demokratie in der Diskussion. M(unchen. S. 61-88.",
+        "ocrData": {
+          "coordinates": "2592 1350 4038 1391",
+          "authors": [
+            "Urs WLt"
+          ],
+          "title": "Government by the people&apos;&apos; - &apos;&apos;providentia Dei ac confusione bominum&apos;&apos;? In: HRscHER, Gerhard/HuBER, Roman (Hrsg.): Aktive Bürgergesellschaft durch bundesweite Volksentscheide? - Direkte Demokratie in der Diskussion.",
+          "date": "2006",
+          "marker": "WLt, 2006",
+          "comments": "test comment"
+        },
+        "scanId": "58cb91fa5452691cd86bc940",
+        "status": "OCR_PROCESSED"
       },
       {
-        "bibliographicEntryText": "WTRSCHING, Andreas (2003): Konstruktion und rosion: Weimarer Argumente gegen Volksbegebren und Volksentscheid. In: GusY, Christoph (Hrsg.): Weimars lange Schatten - &apos;&apos;Weimar&apos;&apos; als Argument nach 1945. Baden-Baden. S. 335-353.",
-        "coordinates": "2508 1435 4038 1480",
-        "scanId": "58cb91fa5452691cd86bc940",
-        "status": "OCR_PROCESSED",
-        "title": "Konstruktion und rosion: Weimarer Argumente gegen Volksbegebren und Volksentscheid. In: GusY, Christoph (Hrsg.): Weimars lange Schatten - &apos;&apos;Weimar&apos;&apos; als Argument nach",
-        "date": "2003",
-        "marker": "WTRSCHING, 2003",
         "_id": "58cb92465452691cd86bc96e",
-        "authors": [
-          "Andreas WTRSCHING"
-        ]
+        "bibliographicEntryText": "WTRSCHING, Andreas (2003): Konstruktion und rosion: Weimarer Argumente gegen Volksbegebren und Volksentscheid. In: GusY, Christoph (Hrsg.): Weimars lange Schatten - &apos;&apos;Weimar&apos;&apos; als Argument nach 1945. Baden-Baden. S. 335-353.",
+        "ocrData": {
+          "coordinates": "2508 1435 4038 1480",
+          "authors": [
+            "Andreas WTRSCHING"
+          ],
+          "title": "Konstruktion und rosion: Weimarer Argumente gegen Volksbegebren und Volksentscheid. In: GusY, Christoph (Hrsg.): Weimars lange Schatten - &apos;&apos;Weimar&apos;&apos; als Argument nach",
+          "date": "2003",
+          "marker": "WTRSCHING, 2003",
+          "comments": "test comment"
+        },
+        "scanId": "58cb91fa5452691cd86bc940",
+        "status": "OCR_PROCESSED"
       },
       {
-        "bibliographicEntryText": "WmT, Christian/DoMRICH, Dirk (1988): Das konsultative Plcbiszit. In: Recht und Politik S. 114-118.",
-        "coordinates": "2508 1564 4036 1603",
-        "scanId": "58cb91fa5452691cd86bc940",
-        "status": "OCR_PROCESSED",
-        "title": "Das konsultative Plcbiszit. In:",
-        "date": "1988",
-        "marker": "WmT, Dirk, 1988",
         "_id": "58cb92465452691cd86bc96f",
-        "authors": [
-          "ChristianDoMRICH WmT"
-        ]
+        "bibliographicEntryText": "WmT, Christian/DoMRICH, Dirk (1988): Das konsultative Plcbiszit. In: Recht und Politik S. 114-118.",
+        "ocrData": {
+          "coordinates": "2508 1564 4036 1603",
+          "authors": [
+            "ChristianDoMRICH WmT"
+          ],
+          "title": "Das konsultative Plcbiszit. In:",
+          "date": "1988",
+          "marker": "WmT, Dirk, 1988",
+          "comments": "test comment"
+        },
+        "scanId": "58cb91fa5452691cd86bc940",
+        "status": "OCR_PROCESSED"
       },
       {
-        "bibliographicEntryText": "Wrrra, Jan (1997a): Plebiszitäre Elemente und Anwendungserfahrungen in den norddeutschen Kommunalverfassungen der Weimarer ?eit. In: Zeitschrift fdr Parlamentsfragen S. 425-443.",
-        "coordinates": "2506 1650 4036 1692",
-        "scanId": "58cb91fa5452691cd86bc940",
-        "status": "OCR_PROCESSED",
-        "title": "",
-        "date": "1997",
-        "marker": "Wrrra, 1997",
         "_id": "58cb92465452691cd86bc970",
-        "authors": [
-          "Wrrra"
-        ]
+        "bibliographicEntryText": "Wrrra, Jan (1997a): Plebiszitäre Elemente und Anwendungserfahrungen in den norddeutschen Kommunalverfassungen der Weimarer ?eit. In: Zeitschrift fdr Parlamentsfragen S. 425-443.",
+        "ocrData": {
+          "coordinates": "2506 1650 4036 1692",
+          "authors": [
+            "Wrrra"
+          ],
+          "title": "",
+          "date": "1997",
+          "marker": "Wrrra, 1997",
+          "comments": "test comment"
+        },
+        "scanId": "58cb91fa5452691cd86bc940",
+        "status": "OCR_PROCESSED"
       },
       {
-        "bibliographicEntryText": "WITTTE, Jan (1997b): Unmittelbare Gemeindedemokratie der Weimarer Republik. Baden-Baden.",
-        "coordinates": "2506 1737 3939 1779",
-        "scanId": "58cb91fa5452691cd86bc940",
-        "status": "OCR_PROCESSED",
-        "title": "Unmittelbare Gemeindedemokratie der Weimarer Republik.",
-        "date": "1997",
-        "marker": "WITTTE, 1997",
         "_id": "58cb92465452691cd86bc971",
-        "authors": [
-          "WITTTE"
-        ]
+        "bibliographicEntryText": "WITTTE, Jan (1997b): Unmittelbare Gemeindedemokratie der Weimarer Republik. Baden-Baden.",
+        "ocrData": {
+          "coordinates": "2506 1737 3939 1779",
+          "authors": [
+            "WITTTE"
+          ],
+          "title": "Unmittelbare Gemeindedemokratie der Weimarer Republik.",
+          "date": "1997",
+          "marker": "WITTTE, 1997",
+          "comments": "test comment"
+        },
+        "scanId": "58cb91fa5452691cd86bc940",
+        "status": "OCR_PROCESSED"
       },
       {
-        "bibliographicEntryText": "WTrrEAMPER, Gerhard (1963): Die verfassungsrechtliche Stellung der Interessenverbände nach dem Grundgesetz. K6In.",
-        "coordinates": "2505 1779 4035 1821",
-        "scanId": "58cb91fa5452691cd86bc940",
-        "status": "OCR_PROCESSED",
-        "title": "Die verfassungsrechtliche Stellung der Interessenverbände nach dem Grundgesetz.",
-        "date": "1963",
-        "marker": "WTrrEAMPER, 1963",
         "_id": "58cb92465452691cd86bc972",
-        "authors": [
-          "Gerhard WTrrEAMPER"
-        ]
+        "bibliographicEntryText": "WTrrEAMPER, Gerhard (1963): Die verfassungsrechtliche Stellung der Interessenverbände nach dem Grundgesetz. K6In.",
+        "ocrData": {
+          "coordinates": "2505 1779 4035 1821",
+          "authors": [
+            "Gerhard WTrrEAMPER"
+          ],
+          "title": "Die verfassungsrechtliche Stellung der Interessenverbände nach dem Grundgesetz.",
+          "date": "1963",
+          "marker": "WTrrEAMPER, 1963",
+          "comments": "test comment"
+        },
+        "scanId": "58cb91fa5452691cd86bc940",
+        "status": "OCR_PROCESSED"
       },
       {
-        "bibliographicEntryText": "WTMAYER, Leo (1922): Die Weimarer Reichsverfassung. T0bingen.",
-        "coordinates": "2504 1866 3549 1907",
-        "scanId": "58cb91fa5452691cd86bc940",
-        "status": "OCR_PROCESSED",
-        "title": "Die Weimarer Reichsverfassung.",
-        "date": "1922",
-        "marker": "WTMAYER, 1922",
         "_id": "58cb92465452691cd86bc973",
-        "authors": [
-          "Leo WTMAYER"
-        ]
+        "bibliographicEntryText": "WTMAYER, Leo (1922): Die Weimarer Reichsverfassung. T0bingen.",
+        "ocrData": {
+          "coordinates": "2504 1866 3549 1907",
+          "authors": [
+            "Leo WTMAYER"
+          ],
+          "title": "Die Weimarer Reichsverfassung.",
+          "date": "1922",
+          "marker": "WTMAYER, 1922",
+          "comments": "test comment"
+        },
+        "scanId": "58cb91fa5452691cd86bc940",
+        "status": "OCR_PROCESSED"
       },
       {
-        "bibliographicEntryText": "WrrTMAYER, Leo (1969) Rckblicke auf acht Jahre Weimarer Verfassung. In: Zeitschrift far Offentliches Recht S. 497-512.",
-        "coordinates": "2504 1909 4035 1952",
-        "scanId": "58cb91fa5452691cd86bc940",
-        "status": "OCR_PROCESSED",
-        "title": "Rckblicke auf acht Jahre Weimarer Verfassung. In: Zeitschrift far Offentliches Recht S.",
-        "date": "1969",
-        "marker": "WrrTMAYER, 1969",
         "_id": "58cb92465452691cd86bc974",
-        "authors": [
-          "Leo WrrTMAYER"
-        ]
+        "bibliographicEntryText": "WrrTMAYER, Leo (1969) Rckblicke auf acht Jahre Weimarer Verfassung. In: Zeitschrift far Offentliches Recht S. 497-512.",
+        "ocrData": {
+          "coordinates": "2504 1909 4035 1952",
+          "authors": [
+            "Leo WrrTMAYER"
+          ],
+          "title": "Rckblicke auf acht Jahre Weimarer Verfassung. In: Zeitschrift far Offentliches Recht S.",
+          "date": "1969",
+          "marker": "WrrTMAYER, 1969",
+          "comments": "test comment"
+        },
+        "scanId": "58cb91fa5452691cd86bc940",
+        "status": "OCR_PROCESSED"
       },
       {
-        "bibliographicEntryText": "WrTTRECK, Fabian (2005): Direkte Demokratie und Verfassungsgerichtsbarkeit. In: Jahrbuch des Offentlichen Rechts S. 132-185.",
-        "coordinates": "2504 1995 4034 2037",
-        "scanId": "58cb91fa5452691cd86bc940",
-        "status": "OCR_PROCESSED",
-        "title": "Direkte Demokratie und Verfassungsgerichtsbarkeit. In:",
-        "date": "2005",
-        "marker": "WrTTRECK, 2005",
         "_id": "58cb92465452691cd86bc975",
-        "authors": [
-          "Fabian WrTTRECK"
-        ]
+        "bibliographicEntryText": "WrTTRECK, Fabian (2005): Direkte Demokratie und Verfassungsgerichtsbarkeit. In: Jahrbuch des Offentlichen Rechts S. 132-185.",
+        "ocrData": {
+          "coordinates": "2504 1995 4034 2037",
+          "authors": [
+            "Fabian WrTTRECK"
+          ],
+          "title": "Direkte Demokratie und Verfassungsgerichtsbarkeit. In:",
+          "date": "2005",
+          "marker": "WrTTRECK, 2005",
+          "comments": "test comment"
+        },
+        "scanId": "58cb91fa5452691cd86bc940",
+        "status": "OCR_PROCESSED"
       },
       {
-        "bibliographicEntryText": "WrrrRECK, Fabian (2010): Ausgewihlte Entscheidungen zur direkten Demokratic. In: FELD, Lars/HuBER, PeterlJuNG, Otmar/WELzEL, Christian/WrrrREcK, Fabian (Hrsg.): Jahrbuch fhr direkte Demokratie 2009. Baden-Baden. S. 317-334.",
-        "coordinates": "2504 2082 4032 2125",
-        "scanId": "58cb91fa5452691cd86bc940",
-        "status": "OCR_PROCESSED",
-        "title": "Ausgewihlte Entscheidungen zur direkten Demokratic.",
-        "date": "2010",
-        "marker": "WrrrRECK, 2010",
         "_id": "58cb92465452691cd86bc976",
-        "authors": [
-          "Fabian WrrrRECK"
-        ]
+        "bibliographicEntryText": "WrrrRECK, Fabian (2010): Ausgewihlte Entscheidungen zur direkten Demokratic. In: FELD, Lars/HuBER, PeterlJuNG, Otmar/WELzEL, Christian/WrrrREcK, Fabian (Hrsg.): Jahrbuch fhr direkte Demokratie 2009. Baden-Baden. S. 317-334.",
+        "ocrData": {
+          "coordinates": "2504 2082 4032 2125",
+          "authors": [
+            "Fabian WrrrRECK"
+          ],
+          "title": "Ausgewihlte Entscheidungen zur direkten Demokratic.",
+          "date": "2010",
+          "marker": "WrrrRECK, 2010",
+          "comments": "test comment"
+        },
+        "scanId": "58cb91fa5452691cd86bc940",
+        "status": "OCR_PROCESSED"
       },
       {
-        "bibliographicEntryText": "WoLrF, Thomas(1993): Unmittelbare Gesetzgebung durch Volksbegehren und Volksentscheid in den Verfassungen der Bundesrepublik Deutschland. Bochum.",
-        "coordinates": "2502 2211 4033 2252",
-        "scanId": "58cb91fa5452691cd86bc940",
-        "status": "OCR_PROCESSED",
-        "title": "Thomas(1993): Unmittelbare Gesetzgebung durch Volksbegehren und Volksentscheid in den Verfassungen der Bundesrepublik Deutschland.",
-        "date": "",
-        "marker": "WoLrF, ",
         "_id": "58cb92465452691cd86bc977",
-        "authors": [
-          "WoLrF"
-        ]
+        "bibliographicEntryText": "WoLrF, Thomas(1993): Unmittelbare Gesetzgebung durch Volksbegehren und Volksentscheid in den Verfassungen der Bundesrepublik Deutschland. Bochum.",
+        "ocrData": {
+          "coordinates": "2502 2211 4033 2252",
+          "authors": [
+            "WoLrF"
+          ],
+          "title": "Thomas(1993): Unmittelbare Gesetzgebung durch Volksbegehren und Volksentscheid in den Verfassungen der Bundesrepublik Deutschland.",
+          "date": "",
+          "marker": "WoLrF, ",
+          "comments": "test comment"
+        },
+        "scanId": "58cb91fa5452691cd86bc940",
+        "status": "OCR_PROCESSED"
       },
       {
-        "bibliographicEntryText": "2ZAPF, Wolfgang (2001): Modernisierung und Transformation. In: ScHAFERS, Bernhard/ZAPF, Wolf. gang (Hrsg.): Handwotteruch zur Gesellschaft Deutschlands. Opladen. S. 492-501.",
-        "coordinates": "2501 2296 4030 2340",
-        "scanId": "58cb91fa5452691cd86bc940",
-        "status": "OCR_PROCESSED",
-        "title": "Modernisierung und Transformation. In: ScHAFERS, Bernhard/ZAPF, Wolf. gang (Hrsg.): Handwotteruch zur Gesellschaft Deutschlands.",
-        "date": "2001",
-        "marker": "2ZAPF, 2001",
         "_id": "58cb92465452691cd86bc978",
-        "authors": [
-          "Wolfgang 2ZAPF"
-        ]
+        "bibliographicEntryText": "2ZAPF, Wolfgang (2001): Modernisierung und Transformation. In: ScHAFERS, Bernhard/ZAPF, Wolf. gang (Hrsg.): Handwotteruch zur Gesellschaft Deutschlands. Opladen. S. 492-501.",
+        "ocrData": {
+          "coordinates": "2501 2296 4030 2340",
+          "authors": [
+            "Wolfgang 2ZAPF"
+          ],
+          "title": "Modernisierung und Transformation. In: ScHAFERS, Bernhard/ZAPF, Wolf. gang (Hrsg.): Handwotteruch zur Gesellschaft Deutschlands.",
+          "date": "2001",
+          "marker": "2ZAPF, 2001",
+          "comments": "test comment"
+        },
+        "scanId": "58cb91fa5452691cd86bc940",
+        "status": "OCR_PROCESSED"
       },
       {
-        "bibliographicEntryText": "2ZIMMER, Annette (1995): Demokratietheorie. In: Gegenwartskunde. Zeitschrift far Gesellschaft, Wirtschaft, Politik und Bildung S. 537-567.",
-        "coordinates": "2500 2383 4030 2427",
-        "scanId": "58cb91fa5452691cd86bc940",
-        "status": "OCR_PROCESSED",
-        "title": "Demokratietheorie. In:",
-        "date": "1995",
-        "marker": "2ZIMMER, 1995",
         "_id": "58cb92465452691cd86bc979",
-        "authors": [
-          "Annette 2ZIMMER"
-        ]
+        "bibliographicEntryText": "2ZIMMER, Annette (1995): Demokratietheorie. In: Gegenwartskunde. Zeitschrift far Gesellschaft, Wirtschaft, Politik und Bildung S. 537-567.",
+        "ocrData": {
+          "coordinates": "2500 2383 4030 2427",
+          "authors": [
+            "Annette 2ZIMMER"
+          ],
+          "title": "Demokratietheorie. In:",
+          "date": "1995",
+          "marker": "2ZIMMER, 1995",
+          "comments": "test comment"
+        },
+        "scanId": "58cb91fa5452691cd86bc940",
+        "status": "OCR_PROCESSED"
       }
     ],
     "embodiedAs": [
@@ -711,38 +870,47 @@
     "parts": [
       {
         "bibliographicEntryText": "TEST ENTRY 2",
-        "coordinates": "714 485 2238 528",
-        "scanId": "58cb91fa5452691cd86bc941",
-        "title": "Verfassungsänderung durch Volksgesetzgebung? In: Die Oflentliche Verwaltung S.",
-        "date": "2000",
-        "marker": "TLLMANNS, 2000",
-        "authors": [
-          "Reiner TLLMANNS"
-        ]
+        "ocrData": {
+          "coordinates": "714 485 2238 528",
+          "authors": [
+            "Reiner TLLMANNS"
+          ],
+          "title": "Verfassungsänderung durch Volksgesetzgebung? In: Die Oflentliche Verwaltung S.",
+          "date": "2000",
+          "marker": "TLLMANNS, 2000",
+          "comments": "test comment"
+        },
+        "scanId": "58cb91fa5452691cd86bc941"
       },
       {
         "bibliographicEntryText": "TEST ENTRY 1",
-        "coordinates": "714 317 2238 356",
+        "ocrData": {
+          "coordinates": "714 317 2238 356",
+          "authors": [
+            "Cornelius THUM"
+          ],
+          "title": "2Zur Ausgestaltung des Mehrheitsprinzips in der unmittelbaren Demokratie. In: Bayerische Verwaltungsbl&ttcr S. 33--43, 74-79. TmFENBACH, Paul: Sinn oder Unsinn von Abstimmungsquoren. Im Internet:",
+          "date": "2000",
+          "marker": "THUM, 2000",
+          "comments": "test comment"
+        },
         "scanId": "58cb91fa5452691cd86bc941",
-        "status": "OCR_PROCESSED",
-        "title": "2Zur Ausgestaltung des Mehrheitsprinzips in der unmittelbaren Demokratie. In: Bayerische Verwaltungsbl&ttcr S. 33--43, 74-79. TmFENBACH, Paul: Sinn oder Unsinn von Abstimmungsquoren. Im Internet:",
-        "date": "2000",
-        "marker": "THUM, 2000",
-        "authors": [
-          "Cornelius THUM"
-        ]
+        "status": "OCR_PROCESSED"
       },
       {
         "bibliographicEntryText": "TuLLMANNS, Reiner (2002): ZZum Mehrheitserfordernis bei Abstimmungen iber verfassungsändernde Volksentscheide. Inn: Ncue Zeitschrift for Verwaltungsrecht S. 54-57.",
-        "coordinates": "714 574 2240 613",
+        "ocrData": {
+          "coordinates": "714 574 2240 613",
+          "authors": [
+            "Reiner TuLLMANNS"
+          ],
+          "title": "ZZum Mehrheitserfordernis bei Abstimmungen iber verfassungsändernde Volksentscheide. Inn: Ncue Zeitschrift for Verwaltungsrecht S.",
+          "date": "2002",
+          "marker": "TuLLMANNS, 2002",
+          "comments": "test comment"
+        },
         "scanId": "58cb91fa5452691cd86bc941",
-        "status": "VALID",
-        "title": "ZZum Mehrheitserfordernis bei Abstimmungen iber verfassungsändernde Volksentscheide. Inn: Ncue Zeitschrift for Verwaltungsrecht S.",
-        "date": "2002",
-        "marker": "TuLLMANNS, 2002",
-        "authors": [
-          "Reiner TuLLMANNS"
-        ]
+        "status": "VALID"
       }
     ],
     "cites": [],
@@ -764,27 +932,33 @@
     "parts": [
       {
         "bibliographicEntryText": "Bibliographic Entry Test 10",
-        "coordinates": "",
+        "ocrData": {
+          "coordinates": "",
+          "authors": [
+            "Test author 1"
+          ],
+          "title": "Bibliographic Entry Test 10 Title",
+          "date": "",
+          "marker": "",
+          "comments": "test comment"
+        },
         "scanId": "",
-        "status": "VALID",
-        "title": "Bibliographic Entry Test 10 Title",
-        "date": "",
-        "marker": "",
-        "authors": [
-          "Test author 1"
-        ]
+        "status": "VALID"
       },
       {
         "bibliographicEntryText": "Bibliographic Entry Test 11",
-        "coordinates": "",
+        "ocrData": {
+          "coordinates": "",
+          "authors": [
+            "Test author 2"
+          ],
+          "title": "Bibliographic Entry Test 11 Title",
+          "date": "",
+          "marker": "",
+          "comments": "test comment"
+        },
         "scanId": "",
-        "status": "VALID",
-        "title": "Bibliographic Entry Test 11 Title",
-        "date": "",
-        "marker": "",
-        "authors": [
-          "Test author 2"
-        ]
+        "status": "VALID"
       }
     ]
   }

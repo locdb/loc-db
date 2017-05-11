@@ -60,7 +60,7 @@ CrossrefHelper.prototype.parseObjects = function(objects, callback){
         if(obj.title && obj.title[0]){
             title = obj.title[0];
         }
-        var bibliographicEntry = new BibliographicEntry({title: title, authors: authors, identifiers: identifiers});
+        var bibliographicEntry = new BibliographicEntry({ocrData : {title: title, authors: authors}, identifiers: identifiers});
         res.push(bibliographicEntry.toObject());
     }
     callback(null, res);

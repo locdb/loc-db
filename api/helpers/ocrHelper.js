@@ -98,12 +98,14 @@ OcrHelper.prototype.parseXMLString = function(xmlString, callback){
                 }
             }
             var be = new BibliographicEntry({bibliographicEntryText: citation.rawString[0]._,
-                                            coordinates: citation.rawString[0]['$'].coordinates,
-                                            title: title,
-                                            date: date,
-                                            marker: marker,
-                                            authors: authors});
-            bes.push(be)
+                                            ocrData:{
+                                                coordinates: citation.rawString[0]['$'].coordinates,
+                                                title: title,
+                                                date: date,
+                                                marker: marker,
+                                                authors: authors
+                                            }});
+            bes.push(be.toObject())
         }
         callback(null, bes);
     });

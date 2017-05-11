@@ -28,7 +28,7 @@ var bibliographicResource = new SchemaObject({
     cites: [{type: String}],
     pages: String,
     partOf: String, // link to other br
-    parts: [{type: BibliographicEntry}], // links to other brs
+    parts: [{type: BibliographicEntry}],
     embodiedAs: [{ // link to ressource embodiment
         type: String, // digital or print
         format: String, // IANA media type

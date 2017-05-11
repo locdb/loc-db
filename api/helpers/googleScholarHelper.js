@@ -22,7 +22,7 @@ GoogleScholarHelper.prototype.query = function(query, callback){
                 var author = a.name;
                 authors.push(author);
             }
-            var be = new bibliographicEntry({title: res.title, authors: authors, identifiers: [{scheme: enums.externalSources.gScholar, literalValue: res.url}], status: enums.status.external});
+            var be = new bibliographicEntry({ocrData : {title: res.title, authors: authors}, identifiers: [{scheme: enums.externalSources.gScholar, literalValue: res.url}], status: enums.status.external});
             bes.push(be.toObject());
         }
         console.log(bes);

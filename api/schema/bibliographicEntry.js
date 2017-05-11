@@ -7,17 +7,20 @@ const Identifier = require('./identifier.js');
 
 //Create bibliographicEntry schema 
 var bibliographicEntry = new SchemaObject({
+    _id: String,
     identifiers: [{type: Identifier}],
     bibliographicEntryText: String, // the literal text if a bibliographic entry, i.e. "the reference"
     references: String, // the corpus identifier of the br the bibliographic entry references
-    coordinates: String, // coordinates on the respective scan --> extension to the OCC metadata model
-    //xmlName: String, // IDEA: Save the path to the corresponding xml here?
-    scanId: String, // IDEA: Save the path to the scan here?
+    ocrData: {
+        coordinates: String,
+        authors: [String],
+        title: String,
+        date: String,
+        marker: String,
+        comments: String,
+    },
+    scanId: String,
     status: {type: String, enum: [status.ocrProcessed, status.valid, status.external]},
-    authors: [String],
-    title: String,
-    date: String,
-    marker: String
 });
 
 module.exports = bibliographicEntry;

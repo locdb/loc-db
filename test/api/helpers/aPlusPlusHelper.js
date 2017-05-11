@@ -16,7 +16,7 @@ describe('helpers', function() {
         });
         
         describe('parseFile', function(){
-            it('should return a parsed bibliographic resource', function(done) {
+            it.only('should return a parsed bibliographic resource', function(done) {
                 aPlusPlusHelper.parseFile("./test/api/data/aPlusPlus.xml", function(result){
                     //console.log(result.parts);
                     result.should.be.ok();

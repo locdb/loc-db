@@ -290,7 +290,7 @@ function triggerOcrProcessing(req, res) {
                     ocrHelper.queryOcrComponent(scan.scanName, function (err, result) {
                         if (err) {
                             errorlog.error(err);
-                            return res.status(504).json({"message": "OCR request failed."});
+                            return res.status(502).json({"message": "OCR request failed."});
                         }
                         var name = scan._id.toString() + ".xml";
                         async.parallel([
@@ -299,7 +299,7 @@ function triggerOcrProcessing(req, res) {
                                 ocrHelper.parseXMLString(result, function (err, bes) {
                                     if (err) {
                                         errorlog.error(err);
-                                        return res.status(504).json({"message": "XML parsing failed."});
+                                        return res.status(500).json({"message": "XML parsing failed."});
                                     }
 
                                     bes.map(function (be) {
@@ -339,7 +339,7 @@ function triggerOcrProcessing(req, res) {
                                 errorlog.error(err);
                                 return response.status(500).json({"message": "An error occured."});
                             }
-                            response.json(results[0].toObject());
+                            response.json(results[0]);
                         });
 
                     });

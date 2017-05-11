@@ -41,14 +41,17 @@ const brSchema = new Schema({
             scheme: String
         }],
         bibliographicEntryText: String,
-        references: String, //link to other br
+        references: String,
         scanId: String,
         status: {type: String, enum: [enums.status.ocrProcessed, enums.status.valid, enums.status.external]},
-        coordinates: String,
-        authors: [String], // maybe use contributors thingy later
-        title: String,
-        date: String,
-        marker: String
+        ocrData:{
+            coordinates: String,
+            authors: [String], // maybe use contributors thingy later
+            title: String,
+            date: String,
+            marker: String,
+            comments: String
+        }
     }], // links to other brs
     embodiedAs: [{ // Resource Embodiment
         identifiers: [{

@@ -457,15 +457,23 @@ definitions:
 
   BibliographicEntry:
     properties:
+      _id:
+        type: string
       bibliographicEntryText:
         type: string
       references:
         type: string
-      coordinates:
-        type: string
       scanId:
         type: string
       status:
+        type: string
+      ocrData:
+        $ref: "#/definitions/OCRData"
+
+
+  OCRData:
+    properties:
+      coordinates:
         type: string
       authors:
         type: array
@@ -477,7 +485,8 @@ definitions:
         type: string
       marker:
         type: string
-
+      comments:
+        type: string
 
   ToDo:
     required:
