@@ -2,10 +2,7 @@ swagger: "2.0"
 info:
   version: "0.0.1"
   title: LOC-DB Central Component
-# during dev, should point to your local machine
-#host: velsen.informatik.uni-mannheim.de:80
 host: localhost
-# basePath prefixes all resource paths 
 basePath: /
 tags:
   - name: BibliographicResource
@@ -14,37 +11,29 @@ tags:
     description: Services related to scans.
   - name: BibliographicEntry
     description: Services related to bibliographic entries.
-# 
 schemes:
   - https
-# format of bodies a client can send (Content-Type)
 consumes:
   - application/json
-  - multipart/form-data 
-# format of the responses to the client (Accepts)
+  - multipart/form-data
 produces:
   - application/json
   - image/png
 
-
 paths:
   /bibliographicResources:
-    # binds a127 app logic to a route
     x-swagger-router-controller: bibliographicResource
     get:
       tags: [BibliographicResource]
       description: Returns a list of bibliographic resources
-      # used as the method name of the controller
       operationId: list
       responses:
         "200":
           description: Success
           schema:
-            # a pointer to a definition
             type: array
             items: 
               $ref: "#/definitions/BibliographicResource"
-        # responses may fall through to errors
         default:
           description: Error
           schema:
@@ -77,16 +66,13 @@ paths:
         "200":
           description: Success
           schema:
-            # a pointer to a definition
             $ref: "#/definitions/BibliographicResource"
-        # responses may fall through to errors
         default:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
 
   /bibliographicEntries/{id}:
-    # binds a127 app logic to a route
     x-swagger-router-controller: bibliographicEntry
     put:
       tags: [BibliographicEntry]
@@ -115,12 +101,10 @@ paths:
             $ref: "#/definitions/ErrorResponse"
 
   /bibliographicResources/{id}:
-    # binds a127 app logic to a route
     x-swagger-router-controller: bibliographicResource
     get:
       tags: [BibliographicResource]
       description: Returns a single bibliographic resource by id
-      # used as the method name of the controller
       operationId: get
       parameters:
         - name: id
@@ -132,9 +116,7 @@ paths:
         "200":
           description: Success
           schema:
-            # a pointer to a definition
             $ref: "#/definitions/BibliographicResource"
-        # responses may fall through to errors
         default:
           description: Error
           schema:
@@ -142,7 +124,6 @@ paths:
     delete:
       tags: [BibliographicResource]
       description: Deletes a single bibliographic resource by id
-      # used as the method name of the controller
       operationId: deleteSingle
       parameters:
         - name: id
@@ -154,9 +135,7 @@ paths:
         "200":
           description: Success
           schema:
-            # a pointer to a definition
             $ref: "#/definitions/SuccessResponse"
-        # responses may fall through to errors
         default:
           description: Error
           schema:
@@ -220,41 +199,17 @@ paths:
           schema:
             type: array
             items:
-              # a pointer to a definition
               $ref: "#/definitions/ToDo"
-        # responses may fall through to errors
         default:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
-  
-#  # TODO: Integrate this service with the other one?
-#  /getOcrProcessedScans:
-#    x-swagger-router-controller: scan
-#    get:
-#      tags: [Scan]
-#      description: Retrieves the BRs (?) including their associated scans that are not processed by a librarian yet.
-#      operationId: getOcrProcessedScans
-#      responses:
-#        "200":
-#          description: Success
-#          schema:
-#            type: array
-#            items:
-#              # a pointer to a definition
-#              $ref: "#/definitions/BibliographicResource"
-#        # responses may fall through to errors
-#        default:
-#          description: Error
-#          schema:
-#            $ref: "#/definitions/ErrorResponse"
             
   /scans/{id}:
     x-swagger-router-controller: scan
     get:
       tags: [Scan]
       description: Returns a single scan by id
-      # used as the method name of the controller
       operationId: get
       parameters:
         - name: id
@@ -267,7 +222,6 @@ paths:
           description: Returns Scan
           schema: 
             type: file
-          # responses may fall through to errors
         default:
           description: Error
           schema:
@@ -289,9 +243,7 @@ paths:
         "200":
           description: Success
           schema:
-            # a pointer to a definition
             $ref: "#/definitions/BibliographicResource"
-        # responses may fall through to errors
         default:
           description: Error
           schema:
@@ -313,9 +265,7 @@ paths:
         "200":
           description: Success
           schema:
-            # a pointer to a definition
             $ref: "#/definitions/BibliographicResource"
-        # responses may fall through to errors
         default:
           description: Error
           schema:
@@ -339,9 +289,7 @@ paths:
           schema:
             type: array
             items:
-              # a pointer to a definition
               $ref: "#/definitions/BibliographicEntry"
-        # responses may fall through to errors
         default:
           description: Error
           schema:
@@ -401,7 +349,7 @@ paths:
     x-swagger-pipe: swagger_raw
 
 
-# complex objects have schema definitions
+
 definitions:
 
   BibliographicResource:
@@ -496,16 +444,16 @@ definitions:
         items:
           $ref: "#/definitions/ToDoParts"
 
-  Scan:
-    required:
-      - scanName
-    properties:
-      scanName:
-        type: string
-      xmlName:
-        type: string
-      status:
-        type: string
+#  Scan:
+#    required:
+#      - scanName
+#    properties:
+#      scanName:
+#        type: string
+#      xmlName:
+#        type: string
+#      status:
+#        type: string
 
   BibliographicEntry:
     properties:
