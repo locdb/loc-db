@@ -13,28 +13,28 @@ const crossrefHelper = require('./../helpers/crossrefHelper.js').createCrossrefH
 //const natural = require('natural');
 
 
-function getToDoBibliographicEntries(req, res){
+function getToDoBibliographicEntries(req, res) {
     var response = res;
     var scanId = req.swagger.params.scanId.value;
 
-    if(scanId){
+    if (scanId) {
         // check if id is valid
-        if(! mongoose.Types.ObjectId.isValid(scanId)){
-            errorlog.error("Invalid value for parameter id.", {scanId : scanId});
-            return response.status(400).json({"message":"Invalid parameter."});
+        if (!mongoose.Types.ObjectId.isValid(scanId)) {
+            errorlog.error("Invalid value for parameter id.", {scanId: scanId});
+            return response.status(400).json({"message": "Invalid parameter."});
         }
-        mongoBr.find({ 'parts.status': enums.status.ocrProcessed, 'parts.scanId' : scanId}, function (err, brs) {
-            if(err){
+        mongoBr.find({'parts.status': enums.status.ocrProcessed, 'parts.scanId': scanId}, function (err, brs) {
+            if (err) {
                 errorlog.error(err);
-                return res.status(500).json({"message":"DB query failed."});
+                return res.status(500).json({"message": "DB query failed."});
             }
             response.json(createBibliographicEntriesArray(brs));
         });
-    }else{
-        mongoBr.find({ 'parts.status': enums.status.ocrProcessed }, function (err, brs) {
-            if(err){
+    } else {
+        mongoBr.find({'parts.status': enums.status.ocrProcessed}, function (err, brs) {
+            if (err) {
                 errorlog.error(err);
-                return res.status(500).json({"message":"DB query failed."});
+                return res.status(500).json({"message": "DB query failed."});
             }
             response.json(createBibliographicEntriesArray(brs));
         });
@@ -42,56 +42,56 @@ function getToDoBibliographicEntries(req, res){
 }
 
 
-function createBibliographicEntriesArray(brs){
+function createBibliographicEntriesArray(brs) {
     // Loop over BEs and take only the scans that are really OCR processed
-    if(brs.length > 0){
+    if (brs.length > 0) {
         var result = [];
-        for(var br of brs){
-            for(var be of br.parts){
-                if(be.status === enums.status.ocrProcessed){
+        for (var br of brs) {
+            for (var be of br.parts) {
+                if (be.status === enums.status.ocrProcessed) {
                     result.push(be);
                 }
             }
         }
         return result;
-    }else{
+    } else {
         return [];
     }
 }
 
-function update(req, res){
+function update(req, res) {
     var response = res;
     var id = req.swagger.params.id.value;
     var update = req.swagger.params.bibliographicEntry.value;
 
-    if(! mongoose.Types.ObjectId.isValid(id)){
-        errorlog.error("Invalid value for parameter id.", {id : id});
-        return response.status(400).json({"message":"Invalid parameter."});
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        errorlog.error("Invalid value for parameter id.", {id: id});
+        return response.status(400).json({"message": "Invalid parameter."});
     }
 
-    mongoBr.findOne({ 'parts._id': id}, function (err, br) {
-        if(err){
+    mongoBr.findOne({'parts._id': id}, function (err, br) {
+        if (err) {
             errorlog.error(err);
-            return res.status(500).json({"message":"DB query failed."});
+            return res.status(500).json({"message": "DB query failed."});
         }
-        if(!br){
+        if (!br) {
             errorlog.error("No bibliographic entry found for id.", {id: id});
-            return res.status(500).json({"message":"No bibliographic entry found for id."});
+            return res.status(500).json({"message": "No bibliographic entry found for id."});
         }
 
 
-        for(var be of br.parts){
-            if(be._id.toString() === id){
+        for (var be of br.parts) {
+            if (be._id.toString() === id) {
                 var index = br.parts.indexOf(be);
                 extend(true, be, update);
                 br.parts[index] = be;
-                br.save().then(function(result){
-                    for(var be of br.parts){
-                        if(be._id.toString() === id){
+                br.save().then(function (result) {
+                    for (var be of br.parts) {
+                        if (be._id.toString() === id) {
                             return response.json(be);
                         }
                     }
-                }, function(err){
+                }, function (err) {
                     return response.status(500).send(err);
                 });
             }
@@ -100,125 +100,60 @@ function update(req, res){
 }
 
 
-function getInternalSuggestions(req, res){
+function getInternalSuggestions(req, res) {
     var response = res;
     var searchObject = req.swagger.params.bibliographicEntry.value;
     var title = searchObject.ocrData.title;
-    async.parallel([
-        function(callback){
-            mongoBr.find({'parts':{$elemMatch: {'ocrData.title': title, 'status': enums.status.valid}}}, function (err, brs) {
-                if(err) {
-                    errorlog.error(err);
-                    return callback(err, null);
-                }
-                if(brs.length == 0){
-                    return callback(null, brs);
-                }
-                var bes = [];
-                for(var br of brs){
-                    for(var be of br.parts.toObject()){
-                        if(be.ocrData.title == title){
-                            delete be.scanId;
-                            delete be.ocrData.marker;
-                            delete be.ocrData.coordinates;
-                            delete be.status;
-                            bes.push(be);
-                        }
-                    }
-                }
-                return callback(null, bes)
-            });
-        },
-        function(callback){
-            mongoBr.find({'title' : title}, function (err, brs) {
-                if(err) {
-                    errorlog.error(err);
-                    return callback(err, null);
-                }
-                if(brs.length == 0){
-                    return callback(null, brs);
-                }
-                var bes = [];
-                for(var br of brs){
-                    var authors = [];
-                    for(var contributor of br.contributors){
-                        if(contributor.roleType = enums.roleType.author){
-                            var author = contributor.heldBy.nameString;
-                            authors.push(author);
-                        }
-                    }
-                    var be = new biliographicEntry({ocrData: {title: br.title, date: br.year, authors: authors}});
-                    bes.push(be);
-                }
-                return callback(null, bes);
-            });
 
-        }
-    ],
-    function(err, res){
-        if(err) {
+    mongoBr.find({'title': title}, function (err, brs) {
+        if (err) {
             errorlog.error(err);
-            return response.status(500).json(err);
+            return res.status(500).json(err);
         }
-        var result = [];
-        if(res[0].length > 0){
-            for(var be of res[0]){
-                if(Object.keys(be).length !== 0) {
-                    result.push(be);
-                }
-            }
-        }
-        if(res[1].length > 0){
-            for(var be of res[1]){
-                if(Object.keys(be).length !== 0) {
-                    result.push(be);
-                }
-            }
-        }
-        return response.json(result);
+        return response.status(200).json(brs);
     });
 }
 
 
-function getExternalSuggestions(req, res){
+function getExternalSuggestions(req, res) {
     var response = res;
     var searchObject = req.swagger.params.bibliographicEntry.value;
     var title = searchObject.ocrData.title;
 
     async.parallel([
-            function(callback){
+            function (callback) {
                 googleScholarHelper.query(title, function (err, res) {
-                    if(err) {
+                    if (err) {
                         return callback(err, null);
                     }
                     return callback(null, res);
                 });
             },
-            function(callback){
+            function (callback) {
                 crossrefHelper.query(title, function (err, res) {
-                    if(err) {
+                    if (err) {
                         return callback(err, null);
                     }
                     return callback(null, res);
                 });
             },
         ],
-        function(err, res){
-            if(err) {
+        function (err, res) {
+            if (err) {
                 errorlog.error(err);
                 return response.status(500).json(err);
             }
             var result = [];
-            if(res[0].length > 0){
-                for(var be of res[0]){
-                    if(Object.keys(be).length !== 0){ //&& natural.LevenshteinDistance(be.title, title) <= 10) {
+            if (res[0].length > 0) {
+                for (var be of res[0]) {
+                    if (Object.keys(be).length !== 0) { //&& natural.LevenshteinDistance(be.title, title) <= 10) {
                         result.push(be);
                     }
                 }
             }
-            if(res[1].length > 0){
-                for(var be of res[1]){
-                    if(Object.keys(be).length !== 0){ //&& natural.LevenshteinDistance(be.title, title) <= 10) {
+            if (res[1].length > 0) {
+                for (var be of res[1]) {
+                    if (Object.keys(be).length !== 0) { //&& natural.LevenshteinDistance(be.title, title) <= 10) {
                         result.push(be);
                     }
                 }
@@ -230,8 +165,8 @@ function getExternalSuggestions(req, res){
 
 
 module.exports = {
-    getToDoBibliographicEntries : getToDoBibliographicEntries,
+    getToDoBibliographicEntries: getToDoBibliographicEntries,
     update: update,
-    getInternalSuggestions : getInternalSuggestions,
-    getExternalSuggestions : getExternalSuggestions
+    getInternalSuggestions: getInternalSuggestions,
+    getExternalSuggestions: getExternalSuggestions
 };

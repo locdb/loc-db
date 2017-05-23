@@ -12,6 +12,7 @@ tags:
   - name: BibliographicEntry
     description: Services related to bibliographic entries.
 schemes:
+  - http
   - https
 consumes:
   - application/json
@@ -299,7 +300,7 @@ paths:
     x-swagger-router-controller: bibliographicEntry
     post:
       tags: [BibliographicEntry]
-      description: Retrieves internal suggestions for a given (probably messy) be.
+      description: Retrieves internal br suggestions for a given (probably messy) be.
       operationId: getInternalSuggestions
       parameters:
         - name: bibliographicEntry
@@ -314,7 +315,7 @@ paths:
           schema:
             type: array
             items:
-              $ref: "#/definitions/BibliographicEntry"
+              $ref: "#/definitions/BibliographicResource"
         default:
           description: Error
           schema:
@@ -324,7 +325,7 @@ paths:
     x-swagger-router-controller: bibliographicEntry
     post:
       tags: [BibliographicEntry]
-      description: Retrieves external suggestions for a given (probably messy) be.
+      description: Retrieves external br suggestions for a given (probably messy) be.
       operationId: getExternalSuggestions
       parameters:
         - name: bibliographicEntry
@@ -339,7 +340,7 @@ paths:
           schema:
             type: array
             items:
-              $ref: "#/definitions/BibliographicEntry"
+              $ref: "#/definitions/BibliographicResource"
         default:
           description: Error
           schema:

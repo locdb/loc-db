@@ -7,11 +7,12 @@ const status = require('./../../../api/schema/enum.json').status;
 
 describe('controllers', function() {
 
-    describe('bibliographicEntry', function () {
+    describe.only('bibliographicEntry', function () {
         var id = "";
 
         before(function (done) {
             setup.loadBibliographicEntry();
+            setup.loadBibliographicResources();
             done();
         });
 
@@ -178,10 +179,10 @@ describe('controllers', function() {
             it('should return 1 internal suggestions for a bibliographic entry', function (done) {
 
                 var searchObject = `{
-                        "bibliographicEntryText": "Bibliographic Entry Test 10 Title",
+                        "bibliographicEntryText": "The Semantic Web - ISWC 2015",
                         "ocrData":{
                             "coordinates": "714 317 2238 356",
-                            "title": "Bibliographic Entry Test 10 Title",
+                            "title": "The Semantic Web - ISWC 2015",
                             "date": "2000",
                             "marker": "THUM, 2000",
                             "authors": []
@@ -205,7 +206,7 @@ describe('controllers', function() {
             });
         });
 
-        describe('GET /getExternalSuggestions', function () {
+        describe('POST /getExternalSuggestions', function () {
 
             it('should return one external suggestion for a bibliographic entry', function (done) {
                 this.timeout(10000);
