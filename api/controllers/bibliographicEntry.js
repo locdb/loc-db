@@ -145,16 +145,16 @@ function getExternalSuggestions(req, res) {
             }
             var result = [];
             if (res[0].length > 0) {
-                for (var be of res[0]) {
-                    if (Object.keys(be).length !== 0) { //&& natural.LevenshteinDistance(be.title, title) <= 10) {
-                        result.push(be);
+                for (var br of res[0]) {
+                    if (Object.keys(br).length !== 0) { //&& natural.LevenshteinDistance(be.title, title) <= 10) {
+                        result.push(br);
                     }
                 }
             }
             if (res[1].length > 0) {
-                for (var be of res[1]) {
-                    if (Object.keys(be).length !== 0) { //&& natural.LevenshteinDistance(be.title, title) <= 10) {
-                        result.push(be);
+                for (var br of res[1]) {
+                    if (Object.keys(br).length !== 0) { //&& natural.LevenshteinDistance(be.title, title) <= 10) {
+                        result.push(br);
                     }
                 }
             }

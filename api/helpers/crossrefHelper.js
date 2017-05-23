@@ -2,7 +2,8 @@
 
 const crossref = require('crossref');
 const Identifier = require('./../schema/identifier.js');
-const BibliographicEntry = require('./../schema/bibliographicEntry.js');
+const BibliographicResource = require('./../schema/bibliographicResource.js');
+const AgentRole = require('./../schema/agentRole.js');
 const enums = require('./../schema/enum.json');
 const errorlog = require('./../util/logger.js').errorlog;
 
@@ -49,19 +50,30 @@ CrossrefHelper.prototype.parseObjects = function(objects, callback){
             }
         }
         // Contributors
-        var authors = [];
+        var contributors = [];
         if(obj.author){
             for(var author of obj.author){
-                authors.push(author.family + " " + author.given);
+                var agentRole = new AgentRole({roleType: enums.roleType.author, heldBy: {nameString: (author.family + " " + author.given), givenName: author.given, familyName: author.family}});
+                contributors.push(agentRole.toObject());
             }
+        }
+        if(obj.publisher){
+            var agentRole = new AgentRole({roleType: enums.roleType.publisher, heldBy: {nameString: obj.publisher}});
+            contributors.push(agentRole.toObject());
         }
         // Title
         var title = "";
-        if(obj.title && obj.title[0]){
+        if(obj.title && obj.title[0]) {
             title = obj.title[0];
         }
-        var bibliographicEntry = new BibliographicEntry({ocrData : {title: title, authors: authors}, identifiers: identifiers});
-        res.push(bibliographicEntry.toObject());
+        // Subtitle
+        var subtitle = ""
+        if(obj.subtitle && obj.subtitle[0]) {
+            title = obj.subtitle[0];
+        }
+        // TODO: Parse type etc?
+        var bibliographicResource = new BibliographicResource({title: title, subtitle: subtitle, contributors: contributors, identifiers: identifiers, status: enums.status.external});
+        res.push(bibliographicResource.toObject());
     }
     callback(null, res);
 };
