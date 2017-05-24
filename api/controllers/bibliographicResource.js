@@ -1,12 +1,57 @@
 "use strict";
 const swbHelper = require('./../helpers/swbHelper.js').createSwbHelper();
 const br = require('./../models/bibliographicResource.js');
+const errorlog = require('./../util/logger').errorlog;
+const _ = require('lodash');
 
 
 function list(req, res){
-    br.find({},{},function(e,docs){
-        res.json(docs);
+    br.find({},{},function(err,docs){
+        if(err){
+            errorlog.error(err);
+            return res.status(500).json(err);
+        }
+        return res.status(200).json(docs);
     }); 
+}
+
+function save(req, res){
+    var bibliographicResource = req.swagger.params.bibliographicResource.value;
+    // check if an _id is given
+    if(bibliographicResource._id){
+        errorlog.error("The br already exists (field _id is given).");
+        return res.status(400).json("The br already exists (field _id is given, use put endpoint).");
+    }else{
+        // check if there is already an identical entry in the db
+        var query = {};
+        for(var key in bibliographicResource) {
+            if(!Array.isArray(bibliographicResource[key]) && typeof bibliographicResource[key] !== 'object'){
+                query[key] = bibliographicResource[key];
+            }
+        }
+        br.find(query, function(err, docs){
+            if(err){
+                errorlog.error(err);
+                return res.status(500).json(err);
+            }else if(docs && docs.length > 0){
+                for(var doc of docs){
+                    if(_.isMatch(doc, bibliographicResource)){
+                        errorlog.error("The br already exists (entry with exactly the same fields is in the database).");
+                        return res.status(400).json({error: "The br already exists (entry with exactly the same fields is in the database, use put endpoint)."});
+                    }
+                }
+            }else{
+                // if not create a new entry for the br
+                br.create(bibliographicResource, function(err,doc){
+                    if(err){
+                        errorlog.error(err);
+                        return res.status(500).json(err);
+                    }
+                    return res.status(200).json(doc);
+                });
+            }
+        })
+    }
 }
 
 
@@ -69,5 +114,6 @@ module.exports = {
         get : get,
         deleteAll : deleteAll,
         deleteSingle : deleteSingle,
-        createByPPN: createByPPN
+        createByPPN: createByPPN,
+        save: save
 };
