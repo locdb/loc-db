@@ -3,6 +3,7 @@ const swbHelper = require('./../helpers/swbHelper.js').createSwbHelper();
 const br = require('./../models/bibliographicResource.js');
 const errorlog = require('./../util/logger').errorlog;
 const _ = require('lodash');
+const mongoose = require('mongoose');
 
 
 function list(req, res){
@@ -52,6 +53,32 @@ function save(req, res){
             }
         })
     }
+}
+
+
+function update(req, res){
+    var id = req.swagger.params.id.value;
+    var bibliographicResource = req.swagger.params.bibliographicResource.value;
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        errorlog.error("Invalid value for parameter id.", {id: id});
+        return res.status(400).json({"message": "Invalid parameter id."});
+    }
+    br.findById(id, function (err, doc) {
+        if (err){
+            errorlog.error(err);
+            return res.status(500).json(err);
+        }
+
+        _.assign(doc, bibliographicResource);
+
+        doc.save(function (err, doc) {
+            if (err){
+                errorlog.error(err);
+                return res.status(500).json(err);
+            }
+            res.status(200).json(doc);
+        });
+    });
 }
 
 
@@ -115,5 +142,6 @@ module.exports = {
         deleteAll : deleteAll,
         deleteSingle : deleteSingle,
         createByPPN: createByPPN,
-        save: save
+        save: save,
+        update: update
 };

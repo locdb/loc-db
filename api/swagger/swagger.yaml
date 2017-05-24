@@ -73,6 +73,7 @@ paths:
           schema:
             $ref: "#/definitions/ErrorResponse"
 
+
   /bibliographicEntries/{id}:
     x-swagger-router-controller: bibliographicEntry
     put:
@@ -137,6 +138,31 @@ paths:
           description: Success
           schema:
             $ref: "#/definitions/SuccessResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+    put:
+      tags: [BibliographicResource]
+      description: Updates an existing bibliographic resource
+      operationId: update
+      parameters:
+        - name: id
+          in: path
+          description: The _id of the bibliographic resource to be updated.
+          required: true
+          type: string
+        - name: bibliographicResource
+          in: body
+          description: A bibliographic resource to be updated
+          required: true
+          schema:
+            $ref: "#/definitions/BibliographicResource"
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/BibliographicResource"
         default:
           description: Error
           schema:

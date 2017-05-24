@@ -8,7 +8,7 @@ const BibliographicResource = require('./../../../api/schema/bibliographicResour
 describe('controllers', function() {
 
   describe('bibliographicResource', function() {
-      
+      var id = "";
       before(function(done) {
           setup.loadBibliographicResources();
           done();
@@ -129,7 +129,6 @@ describe('controllers', function() {
               contributors: [{
                   roleType: enums.roleType.author,
                   heldBy:{
-                      nameString: String,
                       givenName: "Anne",
                       familyName: "Lauscher"
                   },
@@ -150,6 +149,7 @@ describe('controllers', function() {
                       res.body.should.be.an.Object();
                       res.body.should.containDeepOrdered(data.toObject());
                       res.body.should.have.property("_id");
+                      id = res.body._id;
                       done();
                   });
           });
@@ -162,7 +162,78 @@ describe('controllers', function() {
                   .expect('Content-Type', /json/)
                   .expect(400)
                   .end(function(err, res){
-                      //should.exist(err);
+                      should.not.exist(err);
+                      done();
+                  });
+          });
+      });
+
+
+      describe.only('PUT /bibliographicResources/<id>', function(){
+
+          var data = new BibliographicResource({
+              identifiers: [{
+                  literalValue: "978-3-86680-192-9",
+                  scheme: enums.identifier.isbn
+              }],
+              title: "Title changed",
+              subtitle: "Testing is fun",
+              number: 2,
+              contributors: [{
+                  roleType: enums.roleType.author,
+                  heldBy:{
+                      givenName: "Anne",
+                      familyName: "Lauscher"
+                  },
+              },
+              {
+                  roleType: enums.roleType.author,
+                  heldBy:{
+                      nameString: "Second author added",
+                      givenName: "Kai",
+                      familyName: "Eckert"
+                  },
+              }],
+              publicationYear: 2017,
+              status: enums.status.valid,
+              parts: [{
+                  bibliographicEntryText: "Test test test",
+                  status: enums.status.ocrProcessed,
+                  ocrData:{
+                      title: "Test be title"
+                  }
+              }]
+          });
+
+          it('should update the bibliographicResource', function(done){
+              request(server)
+                  .put('/bibliographicResources/' + id)
+                  .send(data.toObject())
+                  .set('Accept', 'application/json')
+                  .expect('Content-Type', /json/)
+                  .expect(200)
+                  .end(function(err, res){
+                      should.not.exist(err);
+                      res.body.should.be.an.Object();
+                      res.body.should.containDeepOrdered(data.toObject());
+                      res.body.should.have.property("_id");
+                      done();
+                  });
+          });
+
+          it('should not update the bibliographicResource', function(done){
+              // add illegal property to data
+              data = data.toObject();
+              data.test = "Test";
+              request(server)
+                  .put('/bibliographicResources/' + id)
+                  .send(data)
+                  .set('Accept', 'application/json')
+                  .expect('Content-Type', /json/)
+                  .expect(200)
+                  .end(function(err, res){
+                      should.not.exist(err);
+                      res.body.should.not.containDeepOrdered(data);
                       done();
                   });
           });
