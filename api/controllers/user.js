@@ -40,6 +40,7 @@ function findOrCreateUser(username, password, callback){
                     return callback(err, null);
                 }
                 accesslog.log('User Registration successful');
+                delete newUser._doc.password;
                 return callback(null, newUser);
             });
         }
@@ -65,6 +66,7 @@ function signup(req, res){
 }
 
 function login(req, res){
+    delete req.user._doc.password;
     res.json(req.user);
 }
 

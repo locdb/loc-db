@@ -35,6 +35,7 @@ describe('controllers', function () {
                     .expect(200)
                     .end(function (err, res) {
                         should.not.exist(err);
+                        res.body.should.not.have.property("password");
                         res.body.should.be.an.Object();
                         done();
                     });
@@ -65,6 +66,7 @@ describe('controllers', function () {
                     .end(function (err, res) {
                         should.not.exist(err);
                         res.body.should.be.an.Object();
+                        res.body.should.not.have.property("password");
                         done();
                     });
             });

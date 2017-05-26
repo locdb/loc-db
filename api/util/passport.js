@@ -8,6 +8,7 @@ const LocalStrategy = require('passport-local').Strategy;
 const User = require('./../models/user.js');
 const bcrypt = require('bcrypt');
 const errorlog = require('./logger').errorlog;
+const accesslog = require('./logger').accesslog;
 
 passport.serializeUser(function(user, done) {
     done(null, user._id);
@@ -49,7 +50,7 @@ passport.use(new LocalStrategy({
                 // done method which will be treated like success
                 req.login(user, function(error) {
                     if (error) return next(error);
-                    console.log("Request Login supossedly successful.");
+                    accesslog.log("Request Login supossedly successful.");
                     return done(null, user);
                 });
 
