@@ -12,6 +12,7 @@ describe('controllers', function() {
 
         before(function (done) {
             setup.loadBibliographicEntry();
+            setup.loadBibliographicResources();
             done();
         });
 
@@ -178,10 +179,10 @@ describe('controllers', function() {
             it('should return 1 internal suggestions for a bibliographic entry', function (done) {
 
                 var searchObject = `{
-                        "bibliographicEntryText": "Bibliographic Entry Test 10 Title",
+                        "bibliographicEntryText": "The Semantic Web - ISWC 2015",
                         "ocrData":{
                             "coordinates": "714 317 2238 356",
-                            "title": "Bibliographic Entry Test 10 Title",
+                            "title": "The Semantic Web - ISWC 2015",
                             "date": "2000",
                             "marker": "THUM, 2000",
                             "authors": []
@@ -205,7 +206,7 @@ describe('controllers', function() {
             });
         });
 
-        describe('GET /getExternalSuggestions', function () {
+        describe('POST /getExternalSuggestions', function () {
 
             it('should return one external suggestion for a bibliographic entry', function (done) {
                 this.timeout(10000);
@@ -231,7 +232,8 @@ describe('controllers', function() {
                         res.body.should.be.Array;
                         //res.body.should.have.lengthOf(1);
                         res.body.should.have.lengthOf(21);
-                        res.body[0].ocrData.should.have.property("title", "Direkte Demokratie in der Schweiz: Entwicklungen, Debatten und Wirkungen");
+                        res.body[0].should.have.property("title", "Direkte Demokratie in der Schweiz: Entwicklungen, Debatten und Wirkungen");
+                        res.body[0].should.have.property("status", status.external);
                         res.body[0].should.have.property("identifiers");
                         res.body[0].identifiers.should.be.Array;
                         res.body[0].identifiers.should.have.lengthOf(1);
@@ -264,8 +266,8 @@ describe('controllers', function() {
                         res.body.should.be.Array;
                         //res.body.should.have.lengthOf(2);
                         res.body.should.have.lengthOf(21);
-
-                        res.body[0].ocrData.should.have.property("title", "Direkte Demokratie und Umweltpolitik in der Schweiz");
+                        res.body[0].should.have.property("status", status.external);
+                        res.body[0].should.have.property("title", "Direkte Demokratie und Umweltpolitik in der Schweiz");
                         res.body[0].should.have.property("identifiers");
                         res.body[0].identifiers.should.be.Array;
                         res.body[0].identifiers.should.have.lengthOf(1);

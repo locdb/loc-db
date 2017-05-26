@@ -35,6 +35,7 @@ const brSchema = new Schema({
     publicationYear: Number,
     cites: [String], // reference entries
     partOf: String, // link to other br
+    status: {type: String, enum: [enums.status.external, enums.status.valid]},
     parts: [{
         identifiers: [{
             literalValue: String,
@@ -43,7 +44,7 @@ const brSchema = new Schema({
         bibliographicEntryText: String,
         references: String,
         scanId: String,
-        status: {type: String, enum: [enums.status.ocrProcessed, enums.status.valid, enums.status.external]},
+        status: {type: String, enum: [enums.status.ocrProcessed, enums.status.valid]},
         ocrData:{
             coordinates: String,
             authors: [String], // maybe use contributors thingy later

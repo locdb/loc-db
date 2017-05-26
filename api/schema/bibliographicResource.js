@@ -1,8 +1,10 @@
 'use strict';
 const SchemaObject = require('schema-object');
-const BibliographicEntry = require('./bibliographicEntry.js')
-const Identifier = require('./identifier.js')
-const Scan = require('./scan').js
+const BibliographicEntry = require('./bibliographicEntry.js');
+const Identifier = require('./identifier.js');
+const Scan = require('./scan');
+const AgentRole = require('./agentRole');
+const status = require('./enum.json').status;
 
 var bibliographicResource = new SchemaObject({
     identifiers: [{type: Identifier}],
@@ -11,20 +13,9 @@ var bibliographicResource = new SchemaObject({
     subtitle: String,
     edition: String,
     number: Number, // e.g. number of an article in journal
-    contributors: [{
-        identifiers: [{type: Identifier}],
-        roleType: String,
-        heldBy:{
-            identifiers: [{
-                value: String,
-                scheme: String
-            }],
-            nameString: String,
-            givenName: String,
-            familyName: String
-        }
-    }],
+    contributors: [{type: AgentRole}],
     publicationYear: Number,
+    status: {type: String, enum: [status.valid, status.external]},
     cites: [{type: String}],
     pages: String,
     partOf: String, // link to other br

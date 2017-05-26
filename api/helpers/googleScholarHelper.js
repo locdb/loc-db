@@ -3,9 +3,10 @@
 const scholar = require('google-scholar');
 const errorlog = require('./../util/logger.js').errorlog;
 const accesslog = require('./../util/logger.js').accesslog;
-const bibliographicEntry = require('./../schema/bibliographicEntry.js');
+const BibliographicResource = require('./../schema/bibliographicResource.js');
 const enums = require('./../schema/enum.json');
 const Identifier = require('./../schema/identifier.js');
+const AgentRole = require('./../schema/agentRole.js');
 
 
 var GoogleScholarHelper = function(){
@@ -15,18 +16,25 @@ var GoogleScholarHelper = function(){
 GoogleScholarHelper.prototype.query = function(query, callback){
     scholar.search(query)
     .then(resultsObj => {
-        var bes = [];
+        var brs = [];
         for(var res of resultsObj.results){
-            var authors = [];
+            var contributors = [];
             for (var a of res.authors){
-                var author = a.name;
-                authors.push(author);
+                if(a.name){
+                    var identifier = new Identifier({scheme: enums.externalSources.gScholar, literalValue: a.url});
+                    if(a.name.split(' ').length === 2){
+                        var agentRole = new AgentRole({roleType: enums.roleType.author, heldBy: {identifiers: [identifier], nameString: a.name, givenName: a.name.split(' ')[0], familyName: a.name.split(' ')[1]}});
+                    }else{
+                        var agentRole = new AgentRole({roleType: enums.roleType.author, heldBy: {identifiers: [identifier], nameString: a.name}});
+                    }
+                    contributors.push(agentRole.toObject());
+                }
             }
-            var be = new bibliographicEntry({ocrData : {title: res.title, authors: authors}, identifiers: [{scheme: enums.externalSources.gScholar, literalValue: res.url}], status: enums.status.external});
-            bes.push(be.toObject());
+            var br = new BibliographicResource({title: res.title, contributors: contributors, identifiers: [{scheme: enums.externalSources.gScholar, literalValue: res.url}], status: enums.status.external});
+            brs.push(br.toObject());
         }
-        console.log(bes);
-        callback(null, bes);
+        console.log(brs);
+        callback(null, brs);
     });
     
 };
