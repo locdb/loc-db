@@ -1,9 +1,6 @@
 const should = require('should');
 const request = require('supertest');
-const agent = require('superagent');
 const server = require('../../../app');
-const enums = require('./../../../api/schema/enum.json');
-const User = require('./../../../api/models/user');
 const setup = require('./../setup').createSetup();
 
 var dummyUser = request.agent(server);
