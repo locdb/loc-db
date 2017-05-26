@@ -71,6 +71,18 @@ describe('controllers', function () {
                     });
             });
 
+            it('user should now be able to access a service', function (done) {
+                dummyUser
+                    .get('/bibliographicResources')
+                    .set('Accept', 'application/json')
+                    .expect('Content-Type', /json/)
+                    .expect(200)
+                    .end(function (err, res) {
+                        should.not.exist(err);
+                        done();
+                    });
+            });
+
             it('should not login a user as the password is wrong', function (done) {
 
                 user.password = "Wrong";
@@ -111,6 +123,18 @@ describe('controllers', function () {
                     .set('Accept', 'application/json')
                     .expect('Content-Type', /json/)
                     .expect(200)
+                    .end(function (err, res) {
+                        should.not.exist(err);
+                        done();
+                    });
+            });
+
+            it('user should not be able to access a protected endpoint anymore', function (done) {
+                dummyUser
+                    .get('/bibliographicResources')
+                    .set('Accept', 'application/json')
+                    .expect('Content-Type', /json/)
+                    .expect(401)
                     .end(function (err, res) {
                         should.not.exist(err);
                         done();
