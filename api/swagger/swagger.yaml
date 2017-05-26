@@ -81,6 +81,21 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
+  /logout:
+    x-swagger-router-controller: user
+    get:
+      tags: [User]
+      description: Logout service
+      operationId: logout
+      responses:
+        "200":
+          description: Success
+          schema:
+              $ref: "#/definitions/SuccessResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
 
   /bibliographicResources:
     x-swagger-router-controller: bibliographicResource

@@ -57,7 +57,13 @@ function login(req, res){
     res.json(req.user);
 }
 
+function logout(req, res){
+    req.logout();
+    res.json("User logged out successfully.")
+}
+
 module.exports = {
     signup: signup,
-    login: login
+    login: login,
+    logout: logout
 };
