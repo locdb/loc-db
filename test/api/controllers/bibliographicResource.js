@@ -5,13 +5,18 @@ const enums = require('./../../../api/schema/enum.json');
 const setup = require('./../setup.js').createSetup();
 const BibliographicResource = require('./../../../api/schema/bibliographicResource');
 
+var agent = request.agent(server);
+
 describe('controllers', function() {
 
   describe('bibliographicResource', function() {
       var id = "";
       before(function(done) {
           setup.loadBibliographicResources();
-          done();
+          setup.login(agent, function(err, res){
+              if(err) return done(err);
+              done();
+          });
       });
       
       after(function(done) {
@@ -22,7 +27,7 @@ describe('controllers', function() {
       
       describe('GET /bibliographicResources', function(){
           it('should return a list of bibliographic Resources of length 1', function(done){
-              request(server)
+              agent
                   .get('/bibliographicResources')
                   .set('Accept', 'application/json')
                   .expect('Content-Type', /json/)
@@ -40,7 +45,7 @@ describe('controllers', function() {
       describe('GET /createBibliographicResourceByPPN', function() {
           
           it('should return a new bibliographic resouce', function(done) {
-            request(server)
+            agent
               .get('/createBibliographicResourceByPPN')
               .query({ ppn: '400433052'})
               .set('Accept', 'application/json')
@@ -56,7 +61,7 @@ describe('controllers', function() {
           });
           
           it('should return an error', function(done) {
-              request(server)
+              agent
                 .get('/createBibliographicResourceByPPN')
                 .query({ ppn: ''})
                 .set('Accept', 'application/json')
@@ -72,7 +77,7 @@ describe('controllers', function() {
       
       describe('GET /bibliographicResources', function(){
           it('should return a list of bibliographic Resources of length 2', function(done){
-              request(server)
+              agent
                   .get('/bibliographicResources')
                   .set('Accept', 'application/json')
                   .expect('Content-Type', /json/)
@@ -88,7 +93,7 @@ describe('controllers', function() {
       
       describe('DELETE /bibliographicResources', function(){
           it('should return response code 200', function(done){
-              request(server)
+              agent
                   .delete('/bibliographicResources')
                   .set('Accept', 'application/json')
                   .expect('Content-Type', /json/)
@@ -102,7 +107,7 @@ describe('controllers', function() {
       
       describe('GET /bibliographicResources', function(){
           it('should return a list of bibliographic resources of length 0', function(done){
-              request(server)
+              agent
                   .get('/bibliographicResources')
                   .set('Accept', 'application/json')
                   .expect('Content-Type', /json/)
@@ -138,7 +143,7 @@ describe('controllers', function() {
           });
 
           it('should add a new bibliographicResource to the db', function(done){
-              request(server)
+              agent
                   .post('/bibliographicResources')
                   .send(data.toObject())
                   .set('Accept', 'application/json')
@@ -155,7 +160,7 @@ describe('controllers', function() {
           });
 
           it('should not add a new bibliographicResource to the db', function(done){
-              request(server)
+              agent
                   .post('/bibliographicResources')
                   .send(data.toObject())
                   .set('Accept', 'application/json')
@@ -206,7 +211,7 @@ describe('controllers', function() {
           });
 
           it('should update the bibliographicResource', function(done){
-              request(server)
+              agent
                   .put('/bibliographicResources/' + id)
                   .send(data.toObject())
                   .set('Accept', 'application/json')
@@ -225,7 +230,7 @@ describe('controllers', function() {
               // add illegal property to data
               data = data.toObject();
               data.test = "Test";
-              request(server)
+              agent
                   .put('/bibliographicResources/' + id)
                   .send(data)
                   .set('Accept', 'application/json')

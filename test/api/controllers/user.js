@@ -8,7 +8,7 @@ var dummyUser2 = request.agent(server);
 
 describe('controllers', function () {
 
-    describe.only('user', function () {
+    describe('user', function () {
         before(function (done) {
             setup.dropDB();
             done();

@@ -6,6 +6,7 @@ const status = require('./../../../api/schema/enum.json').status;
 const fs = require('fs');
 const config = require('./../../../config/config.js');
 
+var agent = request.agent(server);
 
 describe('controllers', function () {
 
@@ -15,7 +16,10 @@ describe('controllers', function () {
         before(function (done) {
             setup.loadBibliographicResources();
             //setup.mockOcrServer();
-            done();
+            setup.login(agent, function(err, res){
+                if(err) return done(err);
+                done();
+            });
         });
 
         after(function (done) {
@@ -27,7 +31,7 @@ describe('controllers', function () {
         describe('POST /saveScan', function () {
 
             it('should save a scan in the file system and create two br (parent and child) in the db', function (done) {
-                request(server)
+                agent
                     .post('/saveScan')
                     .type('form')
                     .field('ppn', '400433052')
@@ -59,7 +63,7 @@ describe('controllers', function () {
             });
 
             it('should should return an error as the file has been already uploaded', function (done) {
-                request(server)
+                agent
                     .post('/saveScan')
                     .type('form')
                     .field('ppn', '400433052')
@@ -77,7 +81,7 @@ describe('controllers', function () {
             });
 
             it('should should add a new part to an already existing br', function (done) {
-                request(server)
+                agent
                     .post('/saveScan')
                     .type('form')
                     .field('ppn', '400433052')
@@ -115,7 +119,7 @@ describe('controllers', function () {
         describe('GET /getToDo', function () {
 
             it('should retrieve a todo list for the status "NOT_OCR_PROCESSED"', function (done) {
-                request(server)
+                agent
                     .get('/getToDo')
                     .query({status: "NOT_OCR_PROCESSED"})
                     .set('Accept', 'application/json')
@@ -137,7 +141,7 @@ describe('controllers', function () {
             });
 
             it('should retrieve an empty todo list for the status "OCR_PROCESSED"', function (done) {
-                request(server)
+                agent
                     .get('/getToDo')
                     .query({status: "OCR_PROCESSED"})
                     .set('Accept', 'application/json')
@@ -160,7 +164,7 @@ describe('controllers', function () {
 
                 it('should retrieve a todo list of size 2 for the status "NOT_OCR_PROCESSED"', function (done) {
 
-                    request(server)
+                    agent
                         .get('/getToDo')
                         .query({status: "NOT_OCR_PROCESSED"})
                         .set('Accept', 'application/json')
@@ -186,7 +190,7 @@ describe('controllers', function () {
 
             it('should trigger OCR processing', function (done) {
                 this.timeout(1000000);
-                request(server)
+                agent
                     .get('/triggerOcrProcessing')
                     .query({id: id})
                     .set('Accept', 'application/json')
@@ -222,7 +226,7 @@ describe('controllers', function () {
 
         describe('GET /getToDo', function () {
             it('should retrieve an todo list for the status "OCR_PROCESSED" of size 1', function (done) {
-                request(server)
+                agent
                     .get('/getToDo')
                     .query({status: "OCR_PROCESSED"})
                     .set('Accept', 'application/json')
@@ -241,7 +245,7 @@ describe('controllers', function () {
         describe('GET /get', function () {
 
             it('should retrieve a file', function (done) {
-                request(server)
+                agent
                     .get('/scans/' + id)
                     .set('Accept', 'image/png')
                     .expect('Content-Type', 'image/png')

@@ -3,6 +3,7 @@ const config = require("./config.js");
 const mongoose = require('mongoose');
 const br = require('./../../api/models/bibliographicResource.js');
 const user = require('./../../api/models/user.js');
+const signup = require('./../../api/controllers/user.js').findOrCreateUser;
 const dataBibliographicResource = require('./data/bibliographicResource');
 const dataBibliographicEntry = require('./data/bibliographicEntry');
 const dataToDo = require('./data/todo.json');
@@ -61,6 +62,32 @@ Setup.prototype.dropDB = function(){
     user.remove({}, function(err) {
         console.log('Collection User removed');
     });
+};
+
+Setup.prototype.login = function(agent,callback){
+    var dummy = {
+        username: "dummy",
+        password: "dummy"
+    };
+
+    signup(dummy.username, dummy.password, function(err, res){
+        if(err){
+            return console.log(err);
+        }
+        else{
+            agent
+                .post('/login')
+                .send(dummy)
+                .end(function (err, res) {
+                    if(err){
+                        return callback(err, null);
+                    }
+                    return callback(null, agent);
+                });
+        }
+    });
+
+
 };
 
 
