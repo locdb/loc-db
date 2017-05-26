@@ -2,6 +2,7 @@
 const config = require("./config.js");
 const mongoose = require('mongoose');
 const br = require('./../../api/models/bibliographicResource.js');
+const user = require('./../../api/models/user.js');
 const dataBibliographicResource = require('./data/bibliographicResource');
 const dataBibliographicEntry = require('./data/bibliographicEntry');
 const dataToDo = require('./data/todo.json');
@@ -54,7 +55,12 @@ Setup.prototype.mockOcrServer = function(){
 };
 
 Setup.prototype.dropDB = function(){
-    br.remove({});
+    br.remove({}, function(err) {
+        console.log('Collection BR removed');
+    });
+    user.remove({}, function(err) {
+        console.log('Collection User removed');
+    });
 };
 
 

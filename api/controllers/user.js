@@ -14,8 +14,8 @@ var createHash = function(password){
 }
 
 function signup(req, res){
-    var username = req.swagger.params.username.value;
-    var password = req.swagger.params.password.value;
+    var username = req.swagger.params.user.value.username;
+    var password = req.swagger.params.user.value.password;
     var findOrCreateUser = function(){
         // find a user in Mongo with provided username
         User.findOne({'username':username},function(err, user) {
@@ -26,7 +26,7 @@ function signup(req, res){
             // already exists
             if (user) {
                 errorlog.error('User already exists');
-                return res.json("User already exists.");
+                return res.status(400).json("User already exists.");
             } else {
                 // if there is no user with that email
                 // create the user
@@ -39,7 +39,7 @@ function signup(req, res){
                 newUser.save(function(err) {
                     if (err){
                         errorlog.error(err);
-                        return res.json('Error in Saving user: ' + err);
+                        return res.status(500).json('Error in Saving user: ' + err);
                     }
                     accesslog.log('User Registration successful');
                     return res.json(newUser);
@@ -54,7 +54,7 @@ function signup(req, res){
 }
 
 function login(req, res){
-    res.json("User logged in.");
+    res.json(req.user);
 }
 
 module.exports = {

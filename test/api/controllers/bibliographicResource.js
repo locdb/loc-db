@@ -116,7 +116,7 @@ describe('controllers', function() {
           });
       });
 
-      describe.only('POST /bibliographicResources', function(){
+      describe('POST /bibliographicResources', function(){
 
           var data = new BibliographicResource({
               identifiers: [{
@@ -169,7 +169,7 @@ describe('controllers', function() {
       });
 
 
-      describe.only('PUT /bibliographicResources/<id>', function(){
+      describe('PUT /bibliographicResources/<id>', function(){
 
           var data = new BibliographicResource({
               identifiers: [{

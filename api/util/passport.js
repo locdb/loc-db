@@ -7,6 +7,7 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const User = require('./../models/user.js');
 const bcrypt = require('bcrypt');
+const errorlog = require('./logger').errorlog;
 
 passport.serializeUser(function(user, done) {
     done(null, user._id);
@@ -35,15 +36,14 @@ passport.use(new LocalStrategy({
                     return done(err);
                 // Username does not exist, log error & redirect back
                 if (!user){
-                    console.log('User Not Found with username '+username);
-                    return done(null, false,
-                        req.res.json('User Not found.'));
+                    errorlog.error('User not found:', {username: username, password: password});
+                    return done(null, false);
                 }
                 // User exists but wrong password, log the error
                 if (!isValidPassword(user, password)){
-                    console.log('Invalid Password');
-                    return done(null, false,
-                        req.res.json('Invalid Password'));
+                    errorlog.error('Invalid Password:', {username: username, password: password});
+                    return done(null, false);
+                       // req.res.json('Invalid Password'));
                 }
                 // User and password both match, return user from
                 // done method which will be treated like success
