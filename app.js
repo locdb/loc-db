@@ -43,7 +43,8 @@ mongoose.connect(uri);
 var swaggerDocument = yaml.safeLoad(fs.readFileSync('./api/swagger/swagger.yaml', 'utf8'));
 swaggerDocument.host = config.HOST;
 swaggerDocument.basePath = config.BASEPATH;
-app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, false, {validatorUrl : null}));
+swaggerDocument.securityDefinitions = null;
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, false, {validatorUrl : null, }));
 
 SwaggerExpress.create({appRoot: __dirname, securityHandlers: {
     basicAuth: function (req, authOrSecDef, callback){
