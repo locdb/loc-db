@@ -7,6 +7,7 @@ const User = require('./../../../api/models/user');
 const setup = require('./../setup').createSetup();
 
 var dummyUser = request.agent(server);
+var dummyUser2 = request.agent(server);
 
 describe('controllers', function () {
 
@@ -77,6 +78,18 @@ describe('controllers', function () {
                     .set('Accept', 'application/json')
                     .expect('Content-Type', /json/)
                     .expect(200)
+                    .end(function (err, res) {
+                        should.not.exist(err);
+                        done();
+                    });
+            });
+
+            it('another user should still be unable to access a protected endpoint', function (done) {
+                dummyUser2
+                    .get('/bibliographicResources')
+                    .set('Accept', 'application/json')
+                    .expect('Content-Type', /json/)
+                    .expect(401)
                     .end(function (err, res) {
                         should.not.exist(err);
                         done();
