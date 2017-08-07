@@ -105,7 +105,11 @@ function getInternalSuggestions(req, res) {
     var searchObject = req.swagger.params.bibliographicEntry.value;
     var title = searchObject.ocrData.title;
 
-    mongoBr.find({'title': title}, function (err, brs) {
+    mongoBr.search({
+        query_string: {
+            query: title
+        }
+    }, function (err, brs) {
         if (err) {
             errorlog.error(err);
             return res.status(500).json(err);
