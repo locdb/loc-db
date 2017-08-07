@@ -33,9 +33,10 @@ passport.use(new LocalStrategy({
         User.findOne({ 'username' :  username },
             function(err, user) {
                 // In case of any error, return using the done method
-                if (err)
+                if (err){
                     errorlog.error('Error while looking up user:', err);
                     return done(err);
+                }
                 // Username does not exist, log error & redirect back
                 if (!user){
                     errorlog.error('User not found:', {username: username, password: password});
