@@ -57,7 +57,7 @@ describe('controllers', function () {
                         res.body[1].should.have.property("partOf");
                         res.body[0]._id.should.be.exactly(res.body[1].partOf);
                         should(fs.existsSync(config.PATHS.UPLOAD)).equal(true);
-                        should(fs.existsSync(config.PATHS.UPLOAD + "0001.png")).equal(true);
+                        should(fs.existsSync(config.PATHS.UPLOAD + res.body[1].embodiedAs[0].scans[0].scanName)).equal(true);
                         done();
                     });
             });
@@ -109,8 +109,7 @@ describe('controllers', function () {
                         res.body[1].should.have.property("partOf");
                         res.body[0]._id.should.be.exactly(res.body[1].partOf);
                         should(fs.existsSync(config.PATHS.UPLOAD)).equal(true);
-                        should(fs.existsSync(config.PATHS.UPLOAD + "0002.png")).equal(true);
-                        should(fs.existsSync(config.PATHS.UPLOAD + "0001.png")).equal(true);
+                        should(fs.existsSync(config.PATHS.UPLOAD + res.body[1].embodiedAs[0].scans[0].scanName)).equal(true);
                         done();
                     });
             });

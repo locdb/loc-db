@@ -21,11 +21,12 @@ function saveScan(req, res) {
     var firstPage = req.swagger.params.firstPage.value;
     var lastPage = req.swagger.params.lastPage.value;
 
-    // TODO: fix this service
     mongoBr.findOne({
         "identifiers.scheme": enums.identifier.ppn,
         "identifiers.literalValue": ppn
     }).then(function (parent) {
+        // We want to save each scan with a unique id. So, first of all, we have to generate it.
+        var scanId = mongoose.Types.ObjectId().toString();
         if (parent) {
             mongoBr.find({
                 partOf: parent._id,
@@ -39,12 +40,12 @@ function saveScan(req, res) {
                     errorlog.error("Duplicate upload.");
                     return response.status(400).json({"message": "Duplicate upload."});
                 }
-                ocrHelper.saveBinaryFile(scan.originalname, scan.buffer, function (err, name) {
+                ocrHelper.saveBinaryFile(scanId, scan.buffer, function (err, scanName) {
                     if (err) {
                         errorlog.error(err);
                         return res.status(500).json({"message": "Saving the file failed"});
                     }
-                    var scan = new Scan({scanName: name, status: enums.status.notOcrProcessed});
+                    var scan = new Scan({_id: scanName.split(".png")[0], scanName: scanName, status: enums.status.notOcrProcessed});
                     var child = new mongoBr({
                         partOf: parent._id.toString(),
                         embodiedAs: [{firstPage: firstPage, lastPage: lastPage, scans: [scan]}]
@@ -60,16 +61,15 @@ function saveScan(req, res) {
         } else {
             async.parallel([
                     function (callback) {
-                        ocrHelper.saveBinaryFile(scan.originalname, scan.buffer, function (err, name) {
+                        ocrHelper.saveBinaryFile(scanId, scan.buffer, function (err, scanName) {
                             if (err) {
                                 errorlog.error(err);
                                 return res.status(500).json({"message": "Saving the file failed"});
                             }
-                            callback(null, name)
+                            callback(null, scanName)
                         });
                     },
                     function (callback) {
-                        // TODO: change interface here
                         swbHelper.query(ppn, function (result) {
                             callback(null, result);
                         });
@@ -85,7 +85,7 @@ function saveScan(req, res) {
                     parent.identifiers.push({scheme: enums.identifier.ppn, literalValue: ppn})
 
                     // create scan and child
-                    var scan = new Scan({scanName: results[0], status: enums.status.notOcrProcessed});
+                    var scan = new Scan({_id: results[0].split(".png")[0], scanName: results[0], status: enums.status.notOcrProcessed});
                     var child = new mongoBr({
                         partOf: parent._id.toString(),
                         embodiedAs: [{
