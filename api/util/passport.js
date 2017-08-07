@@ -24,7 +24,7 @@ var isValidPassword = function(user, password){
     return bcrypt.compareSync(password, user.password);
 }
 
-// passport/login.js
+
 passport.use(new LocalStrategy({
         passReqToCallback : true
     },
@@ -34,6 +34,7 @@ passport.use(new LocalStrategy({
             function(err, user) {
                 // In case of any error, return using the done method
                 if (err)
+                    errorlog.error('Error while looking up user:', err);
                     return done(err);
                 // Username does not exist, log error & redirect back
                 if (!user){
@@ -44,7 +45,6 @@ passport.use(new LocalStrategy({
                 if (!isValidPassword(user, password)){
                     errorlog.error('Invalid Password:', {username: username, password: password});
                     return done(null, false);
-                       // req.res.json('Invalid Password'));
                 }
                 // User and password both match, return user from
                 // done method which will be treated like success
