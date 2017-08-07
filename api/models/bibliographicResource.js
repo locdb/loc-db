@@ -4,6 +4,7 @@ const mongoose = require('mongoose')
        ,Schema = mongoose.Schema
        ,ObjectId = Schema.ObjectId;
 const enums = require('./../schema/enum.json');
+const mongoosastic = require('mongoosastic');
 
 const brSchema = new Schema({
     identifiers: [{
@@ -71,5 +72,7 @@ const brSchema = new Schema({
         }]
     }]
 });
+
+brSchema.plugin(mongoosastic);
 
 module.exports = mongoose.model('br', brSchema);
