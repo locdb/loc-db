@@ -72,7 +72,16 @@ Setup.prototype.login = function(agent,callback){
 
     signup(dummy.username, dummy.password, function(err, res){
         if(err){
-            return console.log(err);
+            console.log(err);
+            agent
+                .post('/login')
+                .send(dummy)
+                .end(function (err, res) {
+                    if(err){
+                        return callback(err, null);
+                    }
+                    return callback(null, agent);
+                });
         }
         else{
             agent

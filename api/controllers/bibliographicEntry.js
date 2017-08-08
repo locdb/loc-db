@@ -3,7 +3,7 @@ const mongoBr = require('./../models/bibliographicResource.js');
 const errorlog = require('./../util/logger.js').errorlog;
 const accesslog = require('./../util/logger.js').accesslog;
 const enums = require('./../schema/enum.json');
-const biliographicEntry = require('./../schema/bibliographicEntry');
+const bibliographicResource = require('./../schema/bibliographicResource');
 const mongoose = require('mongoose');
 const extend = require('extend');
 const async = require('async');
@@ -102,19 +102,40 @@ function update(req, res) {
 
 function getInternalSuggestions(req, res) {
     var response = res;
-    var searchObject = req.swagger.params.bibliographicEntry.value;
-    var title = searchObject.ocrData.title;
+    var title = req.swagger.params.bibliographicEntry.value.ocrData.title.replace(/:/g, ' ');
+    var authors = req.swagger.params.bibliographicEntry.value.ocrData.authors
+    authors = authors.join(' ').replace(/:/g, ' ');
+    var bibliographicEntryText = req.swagger.params.bibliographicEntry.value.bibliographicEntryText.replace(/:/g, ' ')
 
+    // the search function offers an interface to elastic
     mongoBr.search({
-        query_string: {
-            query: title
+        multi_match: {
+            query: title + " " + authors + " " + bibliographicEntryText,
+            fields: [
+                "title",
+                "subtitle",
+                "contributors.heldBy.nameString",
+                "contributors.heldBy.givenName",
+                "contributors.heldBy.familyName"
+            ]
         }
-    }, function (err, brs) {
+    }, {hydrate: true}, function (err, brs) {
+        var result = [];
         if (err) {
             errorlog.error(err);
             return res.status(500).json(err);
         }
-        return response.status(200).json(brs);
+        if (brs.hits && brs.hits.hits) {
+            for (var i in brs.hits.hits) {
+                var br = brs.hits.hits[i];
+                // return only the top 5 result
+                // but only if they do not only exist in elastic but also in mongo
+                if (br && result.length <= 5) {
+                    result.push(br.toObject());
+                }
+            }
+        }
+        return response.status(200).json(result);
     });
 }
 
