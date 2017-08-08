@@ -14,17 +14,21 @@ describe('controllers', function () {
         var id = "58c01713ea3c8d32f0f80a75";
 
         before(function (done) {
-            setup.loadBibliographicResources();
-            //setup.mockOcrServer();
-            setup.login(agent, function(err, res){
-                if(err) return done(err);
-                done();
+            setup.dropDB(function(err){
+                setup.loadBibliographicResources(function(err,res){
+                    //setup.mockOcrServer();
+                    setup.login(agent, function(err, res){
+                        if(err) return done(err);
+                        done();
+                    });
+                });
             });
         });
 
         after(function (done) {
-            setup.dropDB();
-            done();
+            setup.dropDB(function(err){
+                done();
+            });
         });
 
 
@@ -157,8 +161,9 @@ describe('controllers', function () {
 
             describe('GET /getToDo with additional data', function () {
                 before(function (done) {
-                    setup.loadAdditionalToDo()
-                    done();
+                    setup.loadAdditionalToDo(function(err, res){
+                        done();
+                    });
                 });
 
                 it('should retrieve a todo list of size 2 for the status "NOT_OCR_PROCESSED"', function (done) {

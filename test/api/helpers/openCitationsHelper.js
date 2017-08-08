@@ -5,13 +5,15 @@ const openCitationsHelper = require('./../../../api/helpers/openCitationsHelper.
 describe('helpers', function() {
     describe('openCitationsHelper', function() {
         before(function(done) {
-            setup.dropDB();
-            done();
+            setup.dropDB(function(err){
+                done();
+            });
         });
         
         after(function(done) {
-            setup.dropDB();
-            done();
+            setup.dropDB(function(err){
+                done();
+            });
         });
         
         describe('query', function(){

@@ -12,16 +12,18 @@ describe('controllers', function() {
   describe('bibliographicResource', function() {
       var id = "";
       before(function(done) {
-          setup.loadBibliographicResources();
-          setup.login(agent, function(err, res){
-              if(err) return done(err);
-              done();
+          setup.loadBibliographicResources(function(err,res){
+              setup.login(agent, function(err, res){
+                  if(err) return done(err);
+                  done();
+              });
           });
       });
       
       after(function(done) {
-          setup.dropDB();
-          done();
+          setup.dropDB(function(err){
+              done();
+          });
       });
       
       

@@ -12,18 +12,24 @@ describe('controllers', function() {
         var id = "";
 
         before(function (done) {
-            setup.loadBibliographicEntry();
-            setup.loadBibliographicResources();
-            setup.login(agent, function(err, res){
-                if(err) return done(err);
-                done();
+            setup.dropDB(function(){
+                setup.loadBibliographicEntry(function(err, result){
+                    if(err) return done(err);
+                    setup.loadBibliographicResources(function(err, result){
+                        if(err) return done(err);
+                        setup.login(agent, function(err, result){
+                            if(err) return done(err);
+                            done();
+                        });
+                    });
+                });
             });
-
         });
 
         after(function (done) {
-            setup.dropDB();
-            done();
+            setup.dropDB(function(err){
+                done();
+            });
         });
 
 
@@ -196,6 +202,7 @@ describe('controllers', function() {
                         "status": ""
                         }`;
                 var searchObject = JSON.parse(searchObject);
+                console.log("Suggestions called");
                 agent
                     .post('/getInternalSuggestions')
                     .set('Accept', 'application/json')

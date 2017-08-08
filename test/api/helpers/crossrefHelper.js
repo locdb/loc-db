@@ -6,13 +6,15 @@ const enums = require('./../../../api/schema/enum.json');
 describe('helpers', function() {
     describe('crossrefHelper', function() {
         before(function(done) {
-            setup.dropDB();
-            done();
+            setup.dropDB(function(err){
+                done();
+            });
         });
         
         after(function(done) {
-            setup.dropDB();
-            done();
+            setup.dropDB(function(err){
+                done();
+            });
         });
         
         describe('query', function(){

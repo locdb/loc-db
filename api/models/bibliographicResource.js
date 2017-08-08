@@ -73,6 +73,14 @@ const brSchema = new Schema({
     }]
 });
 
-brSchema.plugin(mongoosastic);
+// we want to run a single elastic for the beginning. As the model name corresponds to the index name in elastic, we make
+// sure that we do not mix up everything by adding the connection name to the index name
+brSchema.plugin(mongoosastic,{
+    index: mongoose.connection.name + '_br'
+});
 
-module.exports = mongoose.model('br', brSchema);
+
+var br = mongoose.model('br', brSchema)
+//br.synchronize();
+
+module.exports = br;

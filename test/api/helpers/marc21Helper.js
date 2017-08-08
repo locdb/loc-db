@@ -8,20 +8,21 @@ describe('helpers', function() {
     var marc21XML;
     describe('marc21Helper', function() {
         before(function(done) {
-            setup.dropDB();
-            fs.readFile('./test/api/data/marc21SWB.xml',"utf-8", function read(err, data) {
-                if (err) {
-                    throw err;
-                }
-                marc21XML = data;
-                done();
+            setup.dropDB(function(err){
+                fs.readFile('./test/api/data/marc21SWB.xml',"utf-8", function read(err, data) {
+                    if (err) {
+                        throw err;
+                    }
+                    marc21XML = data;
+                    done();
+                });
             });
-            
         });
         
         after(function(done) {
-            setup.dropDB();
-            done();
+            setup.dropDB(function(err){
+                done();
+            });
         });
         
         describe('parseBibliographicResource', function(){

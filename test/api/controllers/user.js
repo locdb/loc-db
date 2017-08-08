@@ -10,13 +10,15 @@ describe('controllers', function () {
 
     describe('user', function () {
         before(function (done) {
-            setup.dropDB();
-            done();
+            setup.dropDB(function(err){
+                done();
+            });
         });
 
         after(function (done) {
-            setup.dropDB();
-            done();
+            setup.dropDB(function(err){
+                done();
+            });
         });
 
         var user = {

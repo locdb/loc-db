@@ -8,42 +8,60 @@ const dataBibliographicResource = require('./data/bibliographicResource');
 const dataBibliographicEntry = require('./data/bibliographicEntry');
 const dataToDo = require('./data/todo.json');
 const nock = require('nock');
+const async = require('async');
 
 
 var Setup = function(){};
 
 
-Setup.prototype.loadBibliographicResources = function(){
-    br.remove({}, function(err, res){
-        if(err) console.log(err);
-        for (var bibliographicResource of dataBibliographicResource){
-            new br(bibliographicResource).save(function(err, res){
+Setup.prototype.loadBibliographicResources = function(cb){
+        async.each(dataBibliographicResource, function(bibliographicResource, callback){
+            var bibliographicResource = new br(bibliographicResource);
+            bibliographicResource.save(function(err, res){
                 if(err) console.log(err);
+                bibliographicResource.on('es-indexed', function(err, res){
+                    if (err) console.log(err);
+                    console.log('es-indexed');
+                    callback(err,bibliographicResource);
+                });
             });
-        }
-    });
-
-};
-
-
-Setup.prototype.loadBibliographicEntry = function(){
-    br.remove({}, function(err, res){
-        if(err) console.log(err);
-        for (var bibliographicResource of dataBibliographicEntry) {
-            new br(bibliographicResource).save(function (err, res) {
-                if (err) console.log(err);
-            });
-        }
-    });
-
-};
-
-Setup.prototype.loadAdditionalToDo = function(){
-    for (var bibliographicResource of dataToDo) {
-        new br(bibliographicResource ).save(function (err, res) {
-            if (err) console.log(err);
+        }, function(err, results) {
+            console.log("Data loaded");
+            return cb(err, results);
         });
-    }
+
+};
+
+
+Setup.prototype.loadBibliographicEntry = function(cb){
+        async.each(dataBibliographicEntry, function(bibliographicResource, callback){
+            var bibliographicResource = new br(bibliographicResource);
+            bibliographicResource.save(function(err, res){
+                if(err) console.log(err);
+                bibliographicResource.on('es-indexed', function(err, res){
+                    if (err) console.log(err);
+                    callback(err, bibliographicResource);
+                });
+            });
+        }, function(err, results) {
+            cb(err, results);
+        });
+
+};
+
+Setup.prototype.loadAdditionalToDo = function(cb){
+    async.each(dataToDo, function(bibliographicResource, callback){
+        var bibliographicResource = new br(bibliographicResource);
+        bibliographicResource.save(function(err, res){
+            if(err) console.log(err);
+            bibliographicResource.on('es-indexed', function(err, res){
+                if (err) console.log(err);
+                callback(err, bibliographicResource);
+            });
+        });
+    }, function(err, results) {
+        cb(err, results);
+    });
 };
 
 Setup.prototype.mockOcrServer = function(){
@@ -55,13 +73,18 @@ Setup.prototype.mockOcrServer = function(){
         .replyWithFile(200, __dirname + '/data/ocr_example_1/Output021511065733891448X_Verf_Literatruverz.pdf-14.png.xml');
 };
 
-Setup.prototype.dropDB = function(){
+Setup.prototype.dropDB = function(callback){
     br.remove({}, function(err) {
         console.log('Collection BR removed');
+        br.esTruncate(function(err){
+            console.log('Elastic BR index cleaned.');
+            user.remove({}, function(err) {
+                console.log('Collection User removed');
+                callback(err)
+            });
+        });
     });
-    user.remove({}, function(err) {
-        console.log('Collection User removed');
-    });
+
 };
 
 Setup.prototype.login = function(agent,callback){
