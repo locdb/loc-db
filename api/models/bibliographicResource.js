@@ -76,7 +76,8 @@ const brSchema = new Schema({
 // we want to run a single elastic for the beginning. As the model name corresponds to the index name in elastic, we make
 // sure that we do not mix up everything by adding the connection name to the index name
 brSchema.plugin(mongoosastic,{
-    index: mongoose.connection.name + '_br'
+    index: mongoose.connection.name + '_br',
+    port: 9300
 });
 
 
