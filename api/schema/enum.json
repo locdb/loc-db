@@ -17,6 +17,11 @@
     "congress": "CONGRESS",
     "corporate": "CORPORATE"
   },
+  "resourceType": {
+    "monograph": "MONOGRAPH",
+    "collection": "COLLECTION",
+    "journal": "JOURNAL"
+  },
   "externalSources": {
     "gScholar": "URL_GOOGLE_SCHOLAR",
     "crossref": "URL_CROSSREF"

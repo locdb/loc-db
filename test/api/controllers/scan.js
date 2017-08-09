@@ -3,6 +3,7 @@ const request = require('supertest');
 const server = require('../../../app');
 const setup = require('./../setup.js').createSetup();
 const status = require('./../../../api/schema/enum.json').status;
+const resourceType = require('./../../../api/schema/enum.json').resourceType;
 const fs = require('fs');
 const config = require('./../../../config/config.js');
 
@@ -32,7 +33,7 @@ describe('controllers', function () {
         });
 
 
-        describe('POST /saveScan', function () {
+        describe('POST /saveScan - Resource Type: Collection', function () {
 
             it('should save a scan in the file system and create two br (parent and child) in the db', function (done) {
                 agent
@@ -41,6 +42,7 @@ describe('controllers', function () {
                     .field('ppn', '400433052')
                     .field('firstPage', '2')
                     .field('lastPage', '3')
+                    .field('resourceType', resourceType.collection)
                     .attach('scan', './test/api/data/ocr_example_1/0001.png')
                     .set('Accept', 'application/json')
                     .expect('Content-Type', /json/)
@@ -73,6 +75,7 @@ describe('controllers', function () {
                     .field('ppn', '400433052')
                     .field('firstPage', '2')
                     .field('lastPage', '3')
+                    .field('resourceType', resourceType.collection)
                     .attach('scan', './test/api/data/ocr_example_1/0001.png')
                     .set('Accept', 'application/json')
                     .expect('Content-Type', /json/)
@@ -91,6 +94,7 @@ describe('controllers', function () {
                     .field('ppn', '400433052')
                     .field('firstPage', '4')
                     .field('lastPage', '10')
+                    .field('resourceType', resourceType.collection)
                     .attach('scan', './test/api/data/ocr_example_1/0002.png')
                     .set('Accept', 'application/json')
                     .expect('Content-Type', /json/)

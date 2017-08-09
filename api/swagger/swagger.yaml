@@ -270,6 +270,11 @@ paths:
           description: The scanned image of the reference page (binary file)
           required: true
           type: file
+        - name: resourceType
+          in: formData
+          description: The type of the resource, e.g. monography
+          required: true
+          type: string
       responses:
         "200":
           description: Success
