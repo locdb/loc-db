@@ -81,6 +81,6 @@ brSchema.plugin(mongoosastic,{
 
 
 var br = mongoose.model('br', brSchema)
-//br.synchronize();
+br.synchronize();
 
 module.exports = br;
