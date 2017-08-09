@@ -12,6 +12,7 @@ describe('controllers', function() {
         var id = "";
 
         before(function (done) {
+            this.timeout(3000);
             setup.dropDB(function(){
                 setup.loadBibliographicEntry(function(err, result){
                     if(err) return done(err);
@@ -19,7 +20,9 @@ describe('controllers', function() {
                         if(err) return done(err);
                         setup.login(agent, function(err, result){
                             if(err) return done(err);
-                            done();
+                            setTimeout(function () {
+                                done();
+                            }, 2000);
                         });
                     });
                 });
@@ -160,6 +163,7 @@ describe('controllers', function() {
         describe('POST /getInternalSuggestions', function () {
 
             it('should return 0 internal suggestions for a bibliographic entry', function (done) {
+
 
                 var searchObject = `{
                         "bibliographicEntryText": "TEST ENTRY 1 -- UPDATED",

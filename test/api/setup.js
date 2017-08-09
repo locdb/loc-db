@@ -55,6 +55,9 @@ Setup.prototype.loadAdditionalToDo = function(cb){
         bibliographicResource.save(function(err, res){
             if(err) console.log(err);
             bibliographicResource.on('es-indexed', function(err, res){
+                // this event idicates, that elasticsearch has received the indexing request,
+                // but according to [1] it only refreshes once per second, so the new elems might not be indexed yet
+                // [1] https://github.com/elastic/elasticsearch-js/issues/231
                 if (err) console.log(err);
                 callback(err, bibliographicResource);
             });
