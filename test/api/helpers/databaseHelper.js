@@ -10,8 +10,9 @@ const enums = require('./../../../api/schema/enum.json');
 const config = require('./../../../config/config');
 
 describe('helpers', function() {
-    describe.only('databaseHelper', function() {
+    describe('databaseHelper', function() {
         var scan;
+        var ppn = "257904107";
         before(function(done) {
             this.timeout(3000);
             setup.dropDB(function(err){
@@ -41,6 +42,25 @@ describe('helpers', function() {
                     result.should.have.property("scanName");
                     result.should.have.property("status", enums.status.notOcrProcessed);
                     var scanPath = config.PATHS.UPLOAD + result.scanName;
+                    fs.exists(scanPath, function(res){
+                        res.should.equal(true);
+                        done();
+                    });
+                });
+            });
+        });
+
+        describe('saveScanAndRetrieveMetadata', function(){
+            it.only('should save a scan in the file system and retrieve the meta data via ppn', function(done) {
+                databaseHelper.saveScanAndRetrieveMetadata(scan, ppn, function(err, result){
+                    console.log(result);
+                    should.not.exists(err);
+                    result.should.be.Array;
+                    result[0].should.have.property("scanName");
+                    result[0].should.have.property("status", enums.status.notOcrProcessed);
+                    result[1].should.have.property("title", "Soziologie der Gesundheit /");
+                    result[1].should.have.property("publicationYear", 2006);
+                    var scanPath = config.PATHS.UPLOAD + result[0].scanName;
                     fs.exists(scanPath, function(res){
                         res.should.equal(true);
                         done();

@@ -8,6 +8,7 @@ const mongoose = require('mongoose');
 const enums = require('./../schema/enum.json');
 const errorlog = require('./../util/logger').errorlog;
 const ocrHelper = require('./ocrHelper').createOcrHelper();
+const swbHelper = require('./swbHelper').createSwbHelper();
 const async = require('async');
 const Scan = require('./../schema/scan');
 
@@ -74,8 +75,6 @@ DatabaseHelper.prototype.saveMonograph = function(scan, ppn, callback){
  * Assumption for this function: The br for which the ppn is given is not in the db yet, we need to get metadata
  * @param scan
  * @param ppn
- * @param firstPage
- * @param lastPage
  * @param callback
  */
 // TODO: Use this and test this!!
@@ -84,7 +83,7 @@ DatabaseHelper.prototype.saveScanAndRetrieveMetadata = function(scan, ppn, callb
     // run the saving and the retrieval of metadata in parallel
     async.parallel([
         // 1. save scan
-        function(scan, callback){
+        function(callback){
             self.saveScan(scan, function(err, scan){
                 callback(err, scan);
             });
