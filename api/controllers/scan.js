@@ -12,6 +12,7 @@ const config = require('./../../config/config.js');
 const mongoose = require('mongoose');
 const fs = require('fs');
 const path = require('path');
+const databaseHelper = require('./../helpers/databaseHelper.js').createDatabaseHelper();
 
 
 function saveScan(req, res) {
@@ -22,7 +23,17 @@ function saveScan(req, res) {
     var lastPage = req.swagger.params.lastPage.value;
     var resourceType = req.swagger.params.resourceType.value;
 
-
+    if(resourceType == enums.resourceType.monograph){
+        databaseHelper.savePrintMonograph(scan, ppn, function(err,res){
+            response.json(res);
+        });
+    }else if(resourceType == enums.resourceType.journal
+        || resourceType == enums.resourceType.collection) {
+        databaseHelper.savePrintSubresource(scan, firstPage, lastPage, ppn, function (err, res) {
+            response.json(res);
+        });
+    }
+/*
 
 
     mongoBr.findOne({
@@ -126,7 +137,7 @@ function saveScan(req, res) {
                         });
                 });
         }
-    });
+    });*/
 };
 
 // TODO: What if more than one scan is associated with the br and one is already processed and the other not?
@@ -222,7 +233,7 @@ function getToDo(req, res) {
         });
 
     });
-};
+}
 
 
 function get(req, res) {
@@ -256,7 +267,7 @@ function get(req, res) {
             }
         }
     });
-};
+}
 
 
 function triggerOcrProcessing(req, res) {

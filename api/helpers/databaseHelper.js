@@ -15,10 +15,8 @@ const Scan = require('./../schema/scan');
 var DatabaseHelper = function(){
 };
 
-// TODO: Use this and test this!!
-// TODO: Write a similar function for Collections and Joutnals
 /**
- * Saves a monograph if a resource with the given ppn does not exist yet
+ * Saves a monograph
  * @param scan - file to save in the filesystem
  * @param ppn - pica prod number (~id) of the monograph
  * @param callback - callback function
@@ -76,6 +74,142 @@ DatabaseHelper.prototype.savePrintMonograph = function(scan, ppn, callback){
     });
 };
 
+/**
+ * Saves an article or chapter in a collection
+ * @param scan - file to save in the filesystem
+ * @param firstPage - first page of the subresource (part of a unique identifier)
+ * @param lastPage - last page of the subresource (part of a unique identifier)
+ * @param ppn - pica prod number (~id) of the monograph
+ * @param callback - callback function
+ */
+DatabaseHelper.prototype.savePrintSubresource = function(scan, firstPage, lastPage, ppn, callback){
+    var self = this;
+    // check first whether the container resource already exists
+    mongoBr.findOne({
+        "identifiers.scheme": enums.identifier.ppn,
+        "identifiers.literalValue": ppn
+    }, function (err, parent) {
+        // if there is an error, log it and return
+        if(err){
+            errorlog.error(err);
+            return callback(err, null);
+        }
+        // if the parent is filled, then there is already a container resource for the given ppn
+        // we have to check, whether there is already a db instance for the the sub resource
+        if(parent) {
+            mongoBr.findOne({
+                "partOf": parent._id,
+                "embodiedAs": {$elemMatch: {firstPage: firstPage, lastPage: lastPage}}
+            }, function (err, child) {
+                // the parent resource already exists, the sub resource already exists, apparently, the user is just adding another scan page
+                if(child){
+                    self.saveScan(scan, function(err,result){
+                        if(err){
+                            errorlog.error(err);
+                            return callback(err, null);
+                        }
+                        for(var embodiment of child.embodiedAs){
+                            if(embodiment.type == enums.embodimentType.print && embodiment.firstPage == firstPage
+                            && embodiment.lastPage == lastPage){
+                                embodiment.scans.push(scan);
+                                break;
+                            }
+                        }
+                        // We have to save the child in both cases
+                        child.save(function (err, result) {
+                            if(err){
+                                errorlog.error(err);
+                                callback(err, null);
+                            }
+                            var res = []
+                            res.push(parent);
+                            res.push(child);
+                            return callback(null, res);
+                        });
+                    });
+                }else{
+                    // the child resource does not exist yet, but the parent does
+                    self.saveScan(scan, function(err,result){
+                        if(err){
+                            errorlog.error(err);
+                            return callback(err, null);
+                        }
+                        var scan = result;
+                        child = new mongoBr({
+                            partOf: parent._id.toString(),
+                            embodiedAs: [{
+                                type: enums.embodimentType.print,
+                                firstPage: firstPage,
+                                lastPage: lastPage,
+                                scans: [scan]}]
+                        });
+
+                        // We have to save the child in both cases
+                        child.save(function (err, result) {
+                            if(err){
+                                errorlog.error(err);
+                                callback(err, null);
+                            }
+                            var res = []
+                            res.push(parent);
+                            res.push(child);
+                            return callback(null, res);
+                        });
+
+                    });
+                }
+            });
+        }else{
+            // the container br does not exist at all yet
+            // ergo the sub-resource does not exist neither
+            // we have to retrieve all the metadata and we have to save the file
+            self.saveScanAndRetrieveMetadata(scan, ppn, function (err, result) {
+                if (err) {
+                    errorlog.log(err);
+                    return callback(err, null);
+                }
+                var scan = result[0];
+                var parent = new mongoBr(result[1]);
+                var child = new mongoBr({
+                    partOf: parent._id.toString(),
+                    embodiedAs: [{
+                        type: enums.embodimentType.print,
+                        firstPage: firstPage,
+                        lastPage: lastPage,
+                        scans: [scan]}]
+                });
+                // Save parent and child
+                async.parallel([
+                        function (callback) {
+                            parent.save(function (err, result) {
+                                if(err){
+                                    errorlog.error(err);
+                                    callback(err, null);
+                                }
+                                callback(null, result);
+                            });
+                        },
+                        function (callback) {
+                            child.save(function (err, result) {
+                                if(err){
+                                    errorlog.error(err);
+                                    callback(err, null);
+                                }
+                                callback(null, result);
+                            });
+                        }],
+                    function (err, result) {
+                        if (err) {
+                            errorlog.error(err);
+                            return callback(err, null);
+                        }
+                        return callback(null, result);
+                    });
+            });
+        }
+
+    });
+};
 
 /**
  * Assumption for this function: The br for which the ppn is given is not in the db yet, we need to get metadata

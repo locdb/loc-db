@@ -68,7 +68,7 @@ describe('controllers', function () {
                     });
             });
 
-            it('should should return an error as the file has been already uploaded', function (done) {
+/*            it('should should return an error as the file has been already uploaded', function (done) {
                 agent
                     .post('/saveScan')
                     .type('form')
@@ -85,7 +85,7 @@ describe('controllers', function () {
                         should.exist(res.body)
                         done();
                     });
-            });
+            });*/
 
             it('should should add a new part to an already existing br', function (done) {
                 agent
