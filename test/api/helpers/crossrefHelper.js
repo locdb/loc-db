@@ -10,13 +10,13 @@ describe('helpers', function() {
                 done();
             });
         });
-        
+
         after(function(done) {
             setup.dropDB(function(err){
                 done();
             });
         });
-        
+
         describe('query', function(){
             it('should return result for a given query', function(done) {
                 this.timeout(5000);
