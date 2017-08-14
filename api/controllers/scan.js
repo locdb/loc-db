@@ -20,6 +20,10 @@ function saveScan(req, res) {
     var ppn = req.swagger.params.ppn.value;
     var firstPage = req.swagger.params.firstPage.value;
     var lastPage = req.swagger.params.lastPage.value;
+    var resourceType = req.swagger.params.resourceType.value;
+
+
+
 
     mongoBr.findOne({
         "identifiers.scheme": enums.identifier.ppn,
