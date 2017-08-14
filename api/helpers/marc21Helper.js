@@ -147,7 +147,7 @@ Marc21Helper.prototype.parseBibliographicResource = function(xmlString, fnCallba
         // publicationYear
         for(var field of controlFields){
             if(field._tag == "008"){
-                cleanedObject.publicationYear = Number(field._data.substring(7,11));
+                cleanedObject.publicationYear = field._data.substring(7,11);
             }
         }
         

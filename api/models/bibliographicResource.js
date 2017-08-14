@@ -34,7 +34,7 @@ const brSchema = new Schema({
         },
         next: String // This is not necessary for now, as we are using an array
     }],
-    publicationYear: Number,
+    publicationYear: String,
     cites: [String], // reference entries
     partOf: String, // link to other br
     status: {type: String, enum: [enums.status.external, enums.status.valid]},
