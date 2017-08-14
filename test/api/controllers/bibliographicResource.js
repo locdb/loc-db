@@ -140,7 +140,7 @@ describe('controllers', function() {
                       familyName: "Lauscher"
                   },
               }],
-              publicationYear: 2017,
+              publicationYear: "2017",
               status: enums.status.valid,
           });
 

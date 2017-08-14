@@ -22,6 +22,10 @@
     "collection": "COLLECTION",
     "journal": "JOURNAL"
   },
+  "embodimentType": {
+    "digital": "DIGITAL",
+    "print": "PRINT"
+  },
   "externalSources": {
     "gScholar": "URL_GOOGLE_SCHOLAR",
     "crossref": "URL_CROSSREF"

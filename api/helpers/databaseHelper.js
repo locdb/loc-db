@@ -23,7 +23,7 @@ var DatabaseHelper = function(){
  * @param ppn - pica prod number (~id) of the monograph
  * @param callback - callback function
  */
-DatabaseHelper.prototype.saveMonograph = function(scan, ppn, callback){
+DatabaseHelper.prototype.savePrintMonograph = function(scan, ppn, callback){
     var self = this;
     // check first whether the monograph already exists
     mongoBr.findOne({
@@ -39,8 +39,13 @@ DatabaseHelper.prototype.saveMonograph = function(scan, ppn, callback){
         if(br) {
             // then we only have to save the scan but not the whole metadata
             self.saveScan(scan, function(err,scan){
-                // TODO: It might not always be the first embodiment
-                br.embodiedAs[0].scans.push(scan.toObject());
+                for (var embodiment of br.embodiedAs){
+                    // we check for the print embodiment and append the scan to it
+                    if(embodiment.type == enums.embodimentType.print){
+                        embodiment.scans.push(scan.toObject());
+                        break;
+                    }
+                }
                 br.save(function (err, result) {
                     callback(err, result);
                 });
@@ -56,13 +61,14 @@ DatabaseHelper.prototype.saveMonograph = function(scan, ppn, callback){
                 var scan = result[0];
                 var br = result[1];
                 br.embodiedAs = [{
-                    firstPage: firstPage,
-                    lastPage: lastPage,
+                    type: enums.embodimentType.print,
+                    //firstPage: firstPage,
+                    //lastPage: lastPage,
                     scans: [scan.toObject()]
                 }];
                 br = new mongoBr(br);
                 br.save(function (err, result) {
-                    callback(err, result);
+                    return callback(err, result.toObject());
                 });
             });
         }

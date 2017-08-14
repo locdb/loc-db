@@ -31,7 +31,7 @@ describe('helpers', function() {
                     result.should.be.ok();
                     result.should.have.property("title", "Der soziologische Blick :");
                     result.should.have.property("subtitle", "vergangene Positionen und gegenwärtige Perspektiven /");
-                    result.should.have.property("publicationYear", 2002);
+                    result.should.have.property("publicationYear", "2002");
                     result.should.have.property("contributors");
                     result.should.have.property("identifiers");
                     result.contributors.should.be.Array();
