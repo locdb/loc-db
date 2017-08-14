@@ -79,6 +79,29 @@ describe('helpers', function() {
                     result.embodiedAs.should.have.lengthOf(1);
                     result.embodiedAs[0].should.have.property("scans");
                     result.embodiedAs[0].scans.should.be.Array;
+                    result.embodiedAs[0].scans.should.have.lengthOf(1);
+                    result.embodiedAs[0].scans[0].should.have.property("scanName");
+                    result.embodiedAs[0].scans[0].should.have.property("status", enums.status.notOcrProcessed);
+                    result.should.have.property("title", "Handbuch der empirischen Sozialforschung /");
+                    result.should.have.property("publicationYear", "19uu");
+                    var scanPath = config.PATHS.UPLOAD + result.embodiedAs[0].scans[0].scanName;
+                    fs.exists(scanPath, function(res){
+                        res.should.equal(true);
+                        done();
+                    });
+                });
+            });
+
+            it('should save a scan in the file system and save br and scan in the db', function(done) {
+                databaseHelper.savePrintMonograph(scan, ppn, function(err, result){
+                    console.log(result);
+                    should.not.exists(err);
+                    result.should.have.property("embodiedAs");
+                    result.embodiedAs.should.be.Array;
+                    result.embodiedAs.should.have.lengthOf(1);
+                    result.embodiedAs[0].should.have.property("scans");
+                    result.embodiedAs[0].scans.should.be.Array;
+                    result.embodiedAs[0].scans.should.have.lengthOf(2);
                     result.embodiedAs[0].scans[0].should.have.property("scanName");
                     result.embodiedAs[0].scans[0].should.have.property("status", enums.status.notOcrProcessed);
                     result.should.have.property("title", "Handbuch der empirischen Sozialforschung /");
