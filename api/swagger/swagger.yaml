@@ -482,7 +482,7 @@ definitions:
         items:
           $ref: "#/definitions/AgentRole"
       publicationYear:
-        type: number
+        type: string
       status:
         type: string
       parts:
@@ -618,7 +618,7 @@ definitions:
         items:
           $ref: "#/definitions/AgentRole"
       publicationYear:
-        type: number
+        type: string
       children:
         type: array
         items:
