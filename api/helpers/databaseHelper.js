@@ -21,7 +21,7 @@ var DatabaseHelper = function(){
  * @param ppn - pica prod number (~id) of the monograph
  * @param callback - callback function
  */
-DatabaseHelper.prototype.savePrintMonograph = function(scan, ppn, callback){
+DatabaseHelper.prototype.saveIndependentPrintResource = function(scan, ppn, callback){
     var self = this;
     // check first whether the monograph already exists
     mongoBr.findOne({
@@ -82,7 +82,7 @@ DatabaseHelper.prototype.savePrintMonograph = function(scan, ppn, callback){
  * @param ppn - pica prod number (~id) of the monograph
  * @param callback - callback function
  */
-DatabaseHelper.prototype.savePrintSubresource = function(scan, firstPage, lastPage, ppn, callback){
+DatabaseHelper.prototype.saveDependentPrintResource = function(scan, firstPage, lastPage, ppn, callback){
     var self = this;
     // check first whether the container resource already exists
     mongoBr.findOne({

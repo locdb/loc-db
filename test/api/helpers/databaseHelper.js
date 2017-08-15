@@ -69,9 +69,9 @@ describe('helpers', function() {
             });
         });
 
-        describe('savePrintMonograph', function(){
+        describe('saveIndependentPrintResource', function(){
             it('should save a scan in the file system, retrieve the meta data via ppn, and save br and scan in the db', function(done) {
-                databaseHelper.savePrintMonograph(scan, ppn, function(err, result){
+                databaseHelper.saveIndependentPrintResource(scan, ppn, function(err, result){
                     console.log(result);
                     should.not.exists(err);
                     result.should.have.property("embodiedAs");
@@ -93,7 +93,7 @@ describe('helpers', function() {
             });
 
             it('should save a scan in the file system and save br and scan in the db', function(done) {
-                databaseHelper.savePrintMonograph(scan, ppn, function(err, result){
+                databaseHelper.saveIndependentPrintResource(scan, ppn, function(err, result){
                     console.log(result);
                     should.not.exists(err);
                     result.should.have.property("embodiedAs");

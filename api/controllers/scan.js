@@ -24,12 +24,12 @@ function saveScan(req, res) {
     var resourceType = req.swagger.params.resourceType.value;
 
     if(resourceType == enums.resourceType.monograph){
-        databaseHelper.savePrintMonograph(scan, ppn, function(err,res){
+        databaseHelper.saveIndependentPrintResource(scan, ppn, function(err,res){
             response.json(res);
         });
     }else if(resourceType == enums.resourceType.journal
         || resourceType == enums.resourceType.collection) {
-        databaseHelper.savePrintSubresource(scan, firstPage, lastPage, ppn, function (err, res) {
+        databaseHelper.saveDependentPrintResource(scan, firstPage, lastPage, ppn, function (err, res) {
             response.json(res);
         });
     }
