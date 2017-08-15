@@ -148,19 +148,6 @@ function saveScan(req, res) {
     });*/
 };
 
-// TODO: What if more than one scan is associated with the br and one is already processed and the other not?
-// old version
-function getNotOcrProcessedScans2(req, res) {
-    var response = res;
-    mongoBr.find({'scans.status': enums.status.notOcrProcessed}, function (err, brs) {
-        if (err) {
-            errorlog.error(err);
-            return response.status(500).json({"message": "DB query failed."});
-        }
-        response.json(brs);
-    });
-};
-
 function getToDo(req, res) {
     var response = res;
     var status = req.swagger.params.status.value;
@@ -176,62 +163,86 @@ function getToDo(req, res) {
         var resultArray = [];
         var resultObject;
         for (var child of children) {
-            var alreadyIn = false;
-            if (resultArray.length !== 0) {
-                for (var i of resultArray) {
-                    if (i._id == child.partOf) {
-                        alreadyIn = true;
-                        resultObject = i;
-                        break;
-                    } else {
-                        resultObject = {};
-                        resultObject._id = child.partOf;
-                        resultObject.children = [];
+            // check here whether it is really a child
+            if(child.partOf){
+                // this applies to dependent resources
+                var alreadyIn = false;
+                if (resultArray.length !== 0) {
+                    for (var i of resultArray) {
+                        if (i._id == child.partOf) {
+                            alreadyIn = true;
+                            resultObject = i;
+                            break;
+                        } else {
+                            resultObject = {};
+                            resultObject._id = child.partOf;
+                            resultObject.children = [];
+                        }
+                    }
+                } else {
+                    resultObject = {};
+                    resultObject._id = child.partOf;
+                    resultObject.children = [];
+                }
+                var resultChild = {};
+                resultChild._id = child._id;
+                //resultChild.status = child.status;
+                var scans = [];
+                for (var embodiment of child.embodiedAs) {
+                    for (var scan of embodiment.scans) {
+                        if (scan.status === status) {
+                            scans.push({"_id": scan._id.toString(), "status": scan.status, "firstPage": embodiment.firstPage, "lastPage": embodiment.lastPage});
+                        }
                     }
                 }
-            } else {
-                resultObject = {};
-                resultObject._id = child.partOf;
-                resultObject.children = [];
-            }
-            var resultChild = {};
-            resultChild._id = child._id;
-            //resultChild.status = child.status;
-            var scans = [];
-            for (var embodiment of child.embodiedAs) {
-                for (var scan of embodiment.scans) {
-                    if (scan.status === status) {
-                        scans.push({"_id": scan._id.toString(), "status": scan.status, "firstPage": embodiment.firstPage, "lastPage": embodiment.lastPage});
-                    }
-                }
-            }
 
-            resultChild.scans = scans;
-            resultObject.children.push(resultChild);
-            if (!alreadyIn) {
+                resultChild.scans = scans;
+                resultObject.children.push(resultChild);
+                if (!alreadyIn) {
+                    resultArray.push(resultObject);
+                }
+            }else{
+                // This applies to independent resources
+                var scans = [];
+                var resultObject = child;
+                for (var embodiment of child.embodiedAs) {
+                    for (var scan of embodiment.scans) {
+                        if (scan.status === status) {
+                            scans.push({"_id": scan._id.toString(), "status": scan.status});
+                        }
+                    }
+                }
+                resultObject = resultObject.toObject();
+                delete resultObject.embodiedAs;
+                resultObject.scans = scans;
                 resultArray.push(resultObject);
             }
         }
         // add additional information for displaying it to the user
         async.map(resultArray, function(parent, callback) {
-            mongoBr.findOne({'_id': parent._id}, function (err, br) {
-                if (err) {
-                    errorlog.error(err);
-                    return callback(err, null)
-                }
-                if(!br){
+            // check first whether it is really a parent
+            if(parent.children){
+                mongoBr.findOne({'_id': parent._id}, function (err, br) {
+                    if (err) {
+                        errorlog.error(err);
+                        return callback(err, null)
+                    }
+                    if(!br){
+                        callback(null, parent);
+                    }
+                    parent.identifiers = br.identifiers ? br.identifiers : [];
+                    parent.title = br.title ? br.title : "";
+                    parent.subtitle = br.subtitle ? br.subtitle : "";
+                    parent.publicationYear = br.publicationYear ? br.publicationYear : -1;
+                    parent.contributors = br.contributors ? br.contributors : [];
+                    parent.type = br.type ? br.type : "";
+                    parent.edition = br.edition ? br.edition : "";
+                    parent.number = br.number ? br.number : -1;
                     callback(null, parent);
-                }
-                parent.identifiers = br.identifiers ? br.identifiers : [];
-                parent.title = br.title ? br.title : "";
-                parent.subtitle = br.subtitle ? br.subtitle : "";
-                parent.publicationYear = br.publicationYear ? br.publicationYear : -1;
-                parent.contributors = br.contributors ? br.contributors : [];
-                parent.type = br.type ? br.type : "";
-                parent.edition = br.edition ? br.edition : "";
-                parent.number = br.number ? br.number : -1;
+                });
+            }else{
                 callback(null, parent);
-            });
+            }
         }, function(err, res) {
             if (err) {
                 errorlog.error(err);

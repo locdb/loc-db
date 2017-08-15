@@ -167,7 +167,7 @@ describe('controllers', function () {
                         console.log(res.body);
                         should.not.exist(err);
                         res.body.should.be.Array;
-                        res.body.should.have.lengthOf(1);
+                        res.body.should.have.lengthOf(2);
                         res.body[0].should.have.property("children");
                         res.body[0].children.should.have.lengthOf(2);
                         res.body[0].children[0].should.have.property("scans");
@@ -213,12 +213,13 @@ describe('controllers', function () {
                             console.log(res.body);
                             should.not.exist(err);
                             res.body.should.be.Array;
-                            res.body.should.have.lengthOf(2);
+                            res.body.should.have.lengthOf(3);
                             res.body[0].should.have.property("children");
+                            res.body[1].should.not.have.property("children");
                             res.body[0].children.should.be.Array();
                             res.body[0].children.should.have.lengthOf(2);
-                            res.body[1].children.should.be.Array();
-                            res.body[1].children.should.have.lengthOf(1);
+                            res.body[2].children.should.be.Array();
+                            res.body[2].children.should.have.lengthOf(1);
                             done();
                         });
                 });
