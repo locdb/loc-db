@@ -10,9 +10,10 @@ const enums = require('./../../../api/schema/enum.json');
 const config = require('./../../../config/config');
 
 describe('helpers', function() {
-    describe('databaseHelper', function() {
+    describe.only('databaseHelper', function() {
         var scan;
-        var ppn = "004000951";
+        var ppnIndependent = "004000951";
+        var ppnDependent = "06453832X";
         before(function(done) {
             this.timeout(3000);
             setup.dropDB(function(err){
@@ -52,7 +53,7 @@ describe('helpers', function() {
 
         describe('saveScanAndRetrieveMetadata', function(){
             it('should save a scan in the file system and retrieve the meta data via ppn', function(done) {
-                databaseHelper.saveScanAndRetrieveMetadata(scan, ppn, function(err, result){
+                databaseHelper.saveScanAndRetrieveMetadata(scan, ppnIndependent, function(err, result){
                     console.log(result);
                     should.not.exists(err);
                     result.should.be.Array;
@@ -71,7 +72,7 @@ describe('helpers', function() {
 
         describe('saveIndependentPrintResource', function(){
             it('should save a scan in the file system, retrieve the meta data via ppn, and save br and scan in the db', function(done) {
-                databaseHelper.saveIndependentPrintResource(scan, ppn, function(err, result){
+                databaseHelper.saveIndependentPrintResource(scan, ppnIndependent, function(err, result){
                     console.log(result);
                     should.not.exists(err);
                     result.should.have.property("embodiedAs");
@@ -93,7 +94,7 @@ describe('helpers', function() {
             });
 
             it('should save a scan in the file system and save br and scan in the db', function(done) {
-                databaseHelper.saveIndependentPrintResource(scan, ppn, function(err, result){
+                databaseHelper.saveIndependentPrintResource(scan, ppnIndependent, function(err, result){
                     console.log(result);
                     should.not.exists(err);
                     result.should.have.property("embodiedAs");
@@ -107,6 +108,37 @@ describe('helpers', function() {
                     result.should.have.property("title", "Handbuch der empirischen Sozialforschung /");
                     result.should.have.property("publicationYear", "19uu");
                     var scanPath = config.PATHS.UPLOAD + result.embodiedAs[0].scans[0].scanName;
+                    fs.exists(scanPath, function(res){
+                        res.should.equal(true);
+                        done();
+                    });
+                });
+            });
+        });
+
+        describe('saveDependentPrintResource', function(){
+            it('should save a scan in the file system, retrieve the meta data of the container resource via ppn, ' +
+                'and save the parent br and the child br and the scan in the db', function(done) {
+                var firstPage = 10;
+                var lastPage = 15;
+                databaseHelper.saveDependentPrintResource(scan, firstPage, lastPage, ppnDependent, function(err, result){
+                    console.log(result);
+                    should.not.exists(err);
+                    result.should.be.Array;
+                    result.should.have.lengthOf(2);
+                    result[0].should.have.property("title", "Zeitschrift für Soziologie der Erziehung und Sozialisation :");
+                    result[0].should.have.property("subtitle", "ZSE = Journal for sociology of education and socialization");
+                    result[0].should.have.property("publicationYear", "1998");
+                    result[1].should.have.property("partOf", result[0]._id.toString());
+                    result[1].should.have.property("embodiedAs");
+                    result[1].embodiedAs.should.be.Array;
+                    result[1].embodiedAs.should.have.lengthOf(1);
+                    result[1].embodiedAs[0].scans.should.be.Array;
+                    result[1].embodiedAs[0].scans.should.have.lengthOf(1);
+                    result[1].embodiedAs[0].scans[0].should.have.property("scanName");
+                    result[1].embodiedAs[0].scans[0].should.have.property("status", enums.status.notOcrProcessed);
+                    result[1].embodiedAs[0].should.have.property("type", enums.embodimentType.print);
+                    var scanPath = config.PATHS.UPLOAD + result[1].embodiedAs[0].scans[0].scanName;
                     fs.exists(scanPath, function(res){
                         res.should.equal(true);
                         done();

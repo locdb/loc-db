@@ -151,8 +151,8 @@ DatabaseHelper.prototype.saveDependentPrintResource = function(scan, firstPage, 
                                 callback(err, null);
                             }
                             var res = []
-                            res.push(parent);
-                            res.push(child);
+                            res.push(parent.toObject());
+                            res.push(child.toObject());
                             return callback(null, res);
                         });
 
