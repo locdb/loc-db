@@ -25,12 +25,20 @@ function saveScan(req, res) {
 
     if(resourceType == enums.resourceType.monograph){
         databaseHelper.saveIndependentPrintResource(scan, ppn, function(err,res){
-            response.json(res);
+            if(err){
+                errorlog.error(err);
+                return response.json(err);
+            }
+            return response.json(res);
         });
     }else if(resourceType == enums.resourceType.journal
         || resourceType == enums.resourceType.collection) {
         databaseHelper.saveDependentPrintResource(scan, firstPage, lastPage, ppn, function (err, res) {
-            response.json(res);
+            if(err){
+                errorlog.error(err);
+                return response.json(err);
+            }
+            return response.json(res);
         });
     }
 /*

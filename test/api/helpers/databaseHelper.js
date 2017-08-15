@@ -11,7 +11,7 @@ const config = require('./../../../config/config');
 const mongoBr = require('./../../../api/models/bibliographicResource.js');
 
 describe('helpers', function() {
-    describe.only('databaseHelper', function() {
+    describe('databaseHelper', function() {
         var scan;
         var ppnIndependent = "004000951";
         var ppnDependent = "06453832X";
