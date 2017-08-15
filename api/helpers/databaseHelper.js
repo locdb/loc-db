@@ -21,7 +21,7 @@ var DatabaseHelper = function(){
  * @param ppn - pica prod number (~id) of the monograph
  * @param callback - callback function
  */
-DatabaseHelper.prototype.saveIndependentPrintResource = function(scan, ppn, callback){
+DatabaseHelper.prototype.saveIndependentPrintResource = function(scan, ppn, resourceType, callback){
     var self = this;
     // check first whether the monograph already exists
     mongoBr.findOne({
@@ -44,6 +44,7 @@ DatabaseHelper.prototype.saveIndependentPrintResource = function(scan, ppn, call
                         break;
                     }
                 }
+                br.type = resourceType;
                 br.save(function (err, result) {
                     callback(err, result);
                 });
@@ -58,6 +59,7 @@ DatabaseHelper.prototype.saveIndependentPrintResource = function(scan, ppn, call
                 }
                 var scan = result[0];
                 var br = result[1];
+                br.type = resourceType;
                 br.embodiedAs = [{
                     type: enums.embodimentType.print,
                     //firstPage: firstPage,
@@ -82,7 +84,7 @@ DatabaseHelper.prototype.saveIndependentPrintResource = function(scan, ppn, call
  * @param ppn - pica prod number (~id) of the monograph
  * @param callback - callback function
  */
-DatabaseHelper.prototype.saveDependentPrintResource = function(scan, firstPage, lastPage, ppn, callback){
+DatabaseHelper.prototype.saveDependentPrintResource = function(scan, firstPage, lastPage, ppn, resourceType, callback){
     var self = this;
     // check first whether the container resource already exists
     mongoBr.findOne({
@@ -169,6 +171,7 @@ DatabaseHelper.prototype.saveDependentPrintResource = function(scan, firstPage, 
                     return callback(err, null);
                 }
                 var scan = result[0];
+                result[1].type = resourceType;
                 var parent = new mongoBr(result[1]);
                 var child = new mongoBr({
                     partOf: parent._id.toString(),

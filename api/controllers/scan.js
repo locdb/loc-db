@@ -24,7 +24,7 @@ function saveScan(req, res) {
     var resourceType = req.swagger.params.resourceType.value;
 
     if(resourceType == enums.resourceType.monograph){
-        databaseHelper.saveIndependentPrintResource(scan, ppn, function(err,res){
+        databaseHelper.saveIndependentPrintResource(scan, ppn, resourceType, function(err,res){
             if(err){
                 errorlog.error(err);
                 return response.json(err);
@@ -33,7 +33,7 @@ function saveScan(req, res) {
         });
     }else if(resourceType == enums.resourceType.journal
         || resourceType == enums.resourceType.collection) {
-        databaseHelper.saveDependentPrintResource(scan, firstPage, lastPage, ppn, function (err, res) {
+        databaseHelper.saveDependentPrintResource(scan, firstPage, lastPage, ppn, resourceType, function (err, res) {
             if(err){
                 errorlog.error(err);
                 return response.json(err);
@@ -41,111 +41,6 @@ function saveScan(req, res) {
             return response.json(res);
         });
     }
-/*
-
-
-    mongoBr.findOne({
-        "identifiers.scheme": enums.identifier.ppn,
-        "identifiers.literalValue": ppn
-    }).then(function (parent) {
-        // We want to save each scan with a unique id. So, first of all, we have to generate it.
-        var scanId = mongoose.Types.ObjectId().toString();
-        if (parent) {
-            mongoBr.find({
-                partOf: parent._id,
-                embodiedAs: {$elemMatch: {firstPage: firstPage, lastPage: lastPage}}
-            }, function (err, brs) {
-                if (err) {
-                    errorlog.error(err);
-                    return res.status(500).json({"message": "DB error."});
-                }
-                if (brs.length > 0) {
-                    errorlog.error("Duplicate upload.");
-                    return response.status(400).json({"message": "Duplicate upload."});
-                }
-                ocrHelper.saveBinaryFile(scanId, scan.buffer, function (err, scanName) {
-                    if (err) {
-                        errorlog.error(err);
-                        return res.status(500).json({"message": "Saving the file failed"});
-                    }
-                    var scan = new Scan({_id: scanName.split(".png")[0], scanName: scanName, status: enums.status.notOcrProcessed});
-                    var child = new mongoBr({
-                        partOf: parent._id.toString(),
-                        embodiedAs: [{firstPage: firstPage, lastPage: lastPage, scans: [scan]}]
-                    });
-                    child.save().then(function (result) {
-                        return response.status(200).json([parent, child]);
-                    }, function (err) {
-                        errorlog.error(err);
-                        return response.status(500).json({"message": "DB failure."});
-                    });
-                });
-            });
-        } else {
-            async.parallel([
-                    function (callback) {
-                        ocrHelper.saveBinaryFile(scanId, scan.buffer, function (err, scanName) {
-                            if (err) {
-                                errorlog.error(err);
-                                return res.status(500).json({"message": "Saving the file failed"});
-                            }
-                            callback(null, scanName)
-                        });
-                    },
-                    function (callback) {
-                        swbHelper.query(ppn, function (result) {
-                            callback(null, result);
-                        });
-                    }
-                ],
-                function (err, results) {
-                    if (err) {
-                        errorlog.error(err);
-                        return res.status(400).json("An error occured.");
-                    }
-                    // create parent
-                    var parent = new mongoBr(results[1]);
-                    parent.identifiers.push({scheme: enums.identifier.ppn, literalValue: ppn})
-
-                    // create scan and child
-                    var scan = new Scan({_id: results[0].split(".png")[0], scanName: results[0], status: enums.status.notOcrProcessed});
-                    var child = new mongoBr({
-                        partOf: parent._id.toString(),
-                        embodiedAs: [{
-                            firstPage: firstPage,
-                            lastPage: lastPage,
-                            scans: [scan.toObject()]
-                        }]
-                    });
-
-                    // Save parent and child
-                    async.parallel([
-                            function (callback) {
-                                parent.save().then(function (result) {
-                                    callback(null, result)
-                                }, function (err) {
-                                    errorlog.error(err);
-                                    return response.status(400).send(err);
-                                });
-                            },
-                            function (callback) {
-                                child.save().then(function (result) {
-                                    callback(null, result)
-                                }, function (err) {
-                                    errorlog.error(err);
-                                    return response.status(400).send(err);
-                                });
-                            }],
-                        function (err, result) {
-                            if (err) {
-                                errorlog.error(err);
-                                return res.status(400).json("An error occured.");
-                            }
-                            return response.status(200).json(result);
-                        });
-                });
-        }
-    });*/
 };
 
 function getToDo(req, res) {

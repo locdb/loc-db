@@ -105,7 +105,7 @@ describe('controllers', function () {
             });
         });
 
-        describe('POST /saveScan - Resource Type: Monography', function () {
+        describe('POST /saveScan - Resource Type: Monograph', function () {
 
             it('should save a scan in the file system and create a single br in the db', function (done) {
                 agent

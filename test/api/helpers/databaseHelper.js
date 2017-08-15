@@ -77,7 +77,7 @@ describe('helpers', function() {
 
         describe('saveIndependentPrintResource', function(){
             it('should save a scan in the file system, retrieve the meta data via ppn, and save br and scan in the db', function(done) {
-                databaseHelper.saveIndependentPrintResource(scan, ppnIndependent, function(err, result){
+                databaseHelper.saveIndependentPrintResource(scan, ppnIndependent, enums.resourceType.monograph, function(err, result){
                     console.log(result);
                     should.not.exists(err);
                     result.should.have.property("embodiedAs");
@@ -112,7 +112,7 @@ describe('helpers', function() {
             });
 
             it('should save a scan in the file system and save br and scan in the db', function(done) {
-                databaseHelper.saveIndependentPrintResource(scan, ppnIndependent, function(err, result){
+                databaseHelper.saveIndependentPrintResource(scan, ppnIndependent, enums.resourceType.monograph, function(err, result){
                     console.log(result);
                     should.not.exists(err);
                     result.should.have.property("embodiedAs");
@@ -155,7 +155,7 @@ describe('helpers', function() {
                 'and save the parent br and the child br and the scan in the db', function(done) {
                 var firstPage = 10;
                 var lastPage = 15;
-                databaseHelper.saveDependentPrintResource(scan, firstPage, lastPage, ppnDependent, function(err, result){
+                databaseHelper.saveDependentPrintResource(scan, firstPage, lastPage, ppnDependent, enums.resourceType.collection, function(err, result){
                     should.not.exists(err);
                     result.should.be.Array;
                     result.should.have.lengthOf(2);
@@ -203,7 +203,7 @@ describe('helpers', function() {
                 'and leave the parent br as it was and add a new scan to the child br', function(done) {
                 var firstPage = 10;
                 var lastPage = 15;
-                databaseHelper.saveDependentPrintResource(scan, firstPage, lastPage, ppnDependent, function(err, result){
+                databaseHelper.saveDependentPrintResource(scan, firstPage, lastPage, ppnDependent, enums.resourceType.collection, function(err, result){
                     should.not.exists(err);
                     result.should.be.Array;
                     result.should.have.lengthOf(2);
@@ -251,7 +251,7 @@ describe('helpers', function() {
                 'and leave the parent br as it was and add a new scan to a new child br', function(done) {
                 var firstPage = 16;
                 var lastPage = 30;
-                databaseHelper.saveDependentPrintResource(scan, firstPage, lastPage, ppnDependent, function(err, result){
+                databaseHelper.saveDependentPrintResource(scan, firstPage, lastPage, ppnDependent, enums.resourceType.collection, function(err, result){
                     should.not.exists(err);
                     result.should.be.Array;
                     result.should.have.lengthOf(2);
