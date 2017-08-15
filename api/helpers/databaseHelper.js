@@ -111,7 +111,7 @@ DatabaseHelper.prototype.saveDependentPrintResource = function(scan, firstPage, 
                         for(var embodiment of child.embodiedAs){
                             if(embodiment.type == enums.embodimentType.print && embodiment.firstPage == firstPage
                             && embodiment.lastPage == lastPage){
-                                embodiment.scans.push(scan);
+                                embodiment.scans.push(result);
                                 break;
                             }
                         }
