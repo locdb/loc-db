@@ -8,6 +8,7 @@ const databaseHelper = require('./../../../api/helpers/databaseHelper.js').creat
 const fs = require('fs');
 const enums = require('./../../../api/schema/enum.json');
 const config = require('./../../../config/config');
+const mongoBr = require('./../../../api/models/bibliographicResource.js');
 
 describe('helpers', function() {
     describe.only('databaseHelper', function() {
@@ -64,7 +65,11 @@ describe('helpers', function() {
                     var scanPath = config.PATHS.UPLOAD + result[0].scanName;
                     fs.exists(scanPath, function(res){
                         res.should.equal(true);
-                        done();
+                        mongoBr.findOne({_id: result[1]._id}, function(err, br){
+                            should.not.exist(br);
+                            done();
+                        });
+
                     });
                 });
             });
@@ -88,7 +93,20 @@ describe('helpers', function() {
                     var scanPath = config.PATHS.UPLOAD + result.embodiedAs[0].scans[0].scanName;
                     fs.exists(scanPath, function(res){
                         res.should.equal(true);
-                        done();
+                        mongoBr.findOne({_id: result._id}, function(err, br){
+                            br.should.be.ok;
+                            result.should.have.property("embodiedAs");
+                            br.embodiedAs.should.be.Array;
+                            br.embodiedAs.should.have.lengthOf(1);
+                            br.embodiedAs[0].should.have.property("scans");
+                            br.embodiedAs[0].scans.should.be.Array;
+                            br.embodiedAs[0].scans.should.have.lengthOf(1);
+                            br.embodiedAs[0].scans[0].should.have.property("scanName");
+                            br.embodiedAs[0].scans[0].should.have.property("status", enums.status.notOcrProcessed);
+                            br.should.have.property("title", "Handbuch der empirischen Sozialforschung /");
+                            br.should.have.property("publicationYear", "19uu");
+                            done();
+                        });
                     });
                 });
             });
@@ -110,7 +128,20 @@ describe('helpers', function() {
                     var scanPath = config.PATHS.UPLOAD + result.embodiedAs[0].scans[0].scanName;
                     fs.exists(scanPath, function(res){
                         res.should.equal(true);
-                        done();
+                        mongoBr.findOne({_id: result._id}, function(err, br){
+                            br.should.be.ok;
+                            result.should.have.property("embodiedAs");
+                            br.embodiedAs.should.be.Array;
+                            br.embodiedAs.should.have.lengthOf(1);
+                            br.embodiedAs[0].should.have.property("scans");
+                            br.embodiedAs[0].scans.should.be.Array;
+                            br.embodiedAs[0].scans.should.have.lengthOf(2);
+                            br.embodiedAs[0].scans[0].should.have.property("scanName");
+                            br.embodiedAs[0].scans[0].should.have.property("status", enums.status.notOcrProcessed);
+                            br.should.have.property("title", "Handbuch der empirischen Sozialforschung /");
+                            br.should.have.property("publicationYear", "19uu");
+                            done();
+                        });
                     });
                 });
             });
@@ -122,7 +153,6 @@ describe('helpers', function() {
                 var firstPage = 10;
                 var lastPage = 15;
                 databaseHelper.saveDependentPrintResource(scan, firstPage, lastPage, ppnDependent, function(err, result){
-                    console.log(result);
                     should.not.exists(err);
                     result.should.be.Array;
                     result.should.have.lengthOf(2);
@@ -141,7 +171,25 @@ describe('helpers', function() {
                     var scanPath = config.PATHS.UPLOAD + result[1].embodiedAs[0].scans[0].scanName;
                     fs.exists(scanPath, function(res){
                         res.should.equal(true);
-                        done();
+                        mongoBr.findOne({_id: result[0]._id}, function(err, parent){
+                            parent.should.be.ok;
+                            parent.should.have.property("title", "Zeitschrift für Soziologie der Erziehung und Sozialisation :");
+                            parent.should.have.property("subtitle", "ZSE = Journal for sociology of education and socialization");
+                            parent.should.have.property("publicationYear", "1998");
+                            mongoBr.findOne({_id: result[1]._id}, function(err, child){
+                                child.should.be.ok;
+                                child.should.have.property("partOf", result[0]._id.toString());
+                                child.should.have.property("embodiedAs");
+                                child.embodiedAs.should.be.Array;
+                                child.embodiedAs.should.have.lengthOf(1);
+                                child.embodiedAs[0].scans.should.be.Array;
+                                child.embodiedAs[0].scans.should.have.lengthOf(1);
+                                child.embodiedAs[0].scans[0].should.have.property("scanName");
+                                child.embodiedAs[0].scans[0].should.have.property("status", enums.status.notOcrProcessed);
+                                child.embodiedAs[0].should.have.property("type", enums.embodimentType.print);
+                                done();
+                            });
+                        });
                     });
                 });
             });
