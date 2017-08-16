@@ -9,7 +9,7 @@ const extend = require('extend');
 const async = require('async');
 const googleScholarHelper = require('./../helpers/googleScholarHelper.js').createGoogleScholarHelper();
 const crossrefHelper = require('./../helpers/crossrefHelper.js').createCrossrefHelper();
-//const suggestionHelper = require('./../helpers/suggestionHelper').createSuggestionHelper();
+const swbHelper = require('./../helpers/swbHelper.js').createSwbHelper();
 //const natural = require('natural');
 
 
@@ -156,6 +156,14 @@ function getExternalSuggestions(req, res) {
             },
             function (callback) {
                 crossrefHelper.query(title, function (err, res) {
+                    if (err) {
+                        return callback(err, null);
+                    }
+                    return callback(null, res);
+                });
+            },
+            function (callback) {
+                swbHelper.query(title, function (err, res) {
                     if (err) {
                         return callback(err, null);
                     }

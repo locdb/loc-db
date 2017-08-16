@@ -27,7 +27,8 @@ describe('helpers', function() {
         
         describe('parseBibliographicResource', function(){
             it('should return a parsed bibliographic resource', function(done) {
-                marc21Helper.parseBibliographicResource(marc21XML, function(result){
+                marc21Helper.parseBibliographicResource(marc21XML, function(err, result){
+                    should.not.exist(err);
                     result.should.be.ok();
                     result.should.have.property("title", "Der soziologische Blick :");
                     result.should.have.property("subtitle", "vergangene Positionen und gegenwärtige Perspektiven /");

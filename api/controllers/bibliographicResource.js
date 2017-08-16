@@ -115,8 +115,12 @@ function createByPPN(req, res){
         response.status(400).send('PPN undefined.');
     }else{
         // Call Swb Helper
-        swbHelper.query(ppn, function(result){
-            if(result == null){
+        swbHelper.query(ppn, function(err, result){
+            if(err){
+                errorlog.error(err);
+                return response.status(500).json(err);
+            }
+            if(result.length == 0){
                 response.status(400).send('No entry found.');
                 return;
             }

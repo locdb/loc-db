@@ -220,7 +220,6 @@ DatabaseHelper.prototype.saveDependentPrintResource = function(scan, firstPage, 
  * @param ppn
  * @param callback
  */
-// TODO: Use this and test this!!
 DatabaseHelper.prototype.saveScanAndRetrieveMetadata = function(scan, ppn, callback){
     var self = this;
     // run the saving and the retrieval of metadata in parallel
@@ -228,13 +227,20 @@ DatabaseHelper.prototype.saveScanAndRetrieveMetadata = function(scan, ppn, callb
         // 1. save scan
         function(callback){
             self.saveScan(scan, function(err, scan){
-                callback(err, scan);
+                if(err){
+                    errorlog.error(err);
+                    return callback(err, null)
+                }
+                callback(null, scan);
             });
         },
         // 2. retrieve metadata for ppn
         function(callback){
-            // TODO: Adapt this function to the err, result pattern
-            swbHelper.query(ppn, function (result) {
+            swbHelper.query(ppn, function (err, result) {
+                if(err){
+                    errorlog.error(err);
+                    return callback(err, null)
+                }
                 callback(null, result);
             });
         }
