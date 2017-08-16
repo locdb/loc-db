@@ -40,7 +40,7 @@ SwbHelper.prototype.queryByTitle = function(title, callback){
         + '?query=pica.tit+Any+"'
         + title
         + '"&version=1.1&operation=searchRetrieve&recordSchema=marc21'
-        + '&maximumRecords=10&startRecord=2&recordPacking=xml&sortKeys=none'
+        + '&maximumRecords=5&startRecord=2&recordPacking=xml&sortKeys=none'
         +'&x-info-5-mg-requestGroupings=none';
     request({
         url: url,

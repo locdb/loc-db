@@ -28,7 +28,7 @@ describe('helpers', function() {
                 swbHelper.queryByTitle("Test", function(err, result){
                     result.should.be.ok;
                     result.should.be.Array;
-                    result.should.have.lengthOf(10);
+                    result.should.have.lengthOf(5);
                     console.log(result);
                     done();
                 });
