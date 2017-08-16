@@ -4,6 +4,7 @@ const crossref = require('crossref');
 const Identifier = require('./../schema/identifier.js');
 const BibliographicResource = require('./../schema/bibliographicResource.js');
 const AgentRole = require('./../schema/agentRole.js');
+const BibliographicEntry = require('./../schema/bibliographicEntry.js');
 const enums = require('./../schema/enum.json');
 const errorlog = require('./../util/logger.js').errorlog;
 
@@ -19,6 +20,31 @@ CrossrefHelper.prototype.query = function(query, callback){
             return callback(err, null);
         }
         self.parseObjects(objs, function(err, res){
+            if (err) {
+                errorlog.error(err);
+                return callback(err, null);
+            }
+            return callback(null, res);
+        });
+    });
+};
+
+
+CrossrefHelper.prototype.queryReferences = function(query, callback){
+    var self = this;
+    crossref.works({query: query, filter:{"has-references" : true}}, (err, objs, nextOpts, done) => {
+        if (err) {
+            errorlog.error(err);
+            return callback(err, null);
+        }
+        // check whether they really contain the 'reference' property
+        var candidates = [];
+        for(var obj of objs){
+            if(obj.reference){
+                candidates.push(obj);
+            }
+        }
+        self.parseObjects(candidates, function(err, res){
             if (err) {
                 errorlog.error(err);
                 return callback(err, null);
@@ -71,8 +97,33 @@ CrossrefHelper.prototype.parseObjects = function(objects, callback){
         if(obj.subtitle && obj.subtitle[0]) {
             title = obj.subtitle[0];
         }
+
+        // Reference list
+        if(obj.reference){
+            var bes = [];
+            for(var reference of obj.reference){
+                var bibliographicEntry = new BibliographicEntry({
+                    identifiers:[new Identifier({scheme: enums.identifier.doi, literalValue: reference.DOI})],
+                    ocrData:{
+                        title: reference['article-title'],
+                        date: reference.year
+                    },
+                    status: enums.status.external});
+                bes.push(bibliographicEntry);
+            }
+
+        }
         // TODO: Parse type etc?
-        var bibliographicResource = new BibliographicResource({title: title, subtitle: subtitle, contributors: contributors, identifiers: identifiers, status: enums.status.external});
+        var bibliographicResource = new BibliographicResource({
+            title: title,
+            subtitle: subtitle,
+            contributors: contributors,
+            identifiers: identifiers,
+            status: enums.status.external,
+            parts: bes
+        });
+
+
         res.push(bibliographicResource.toObject());
     }
     callback(null, res);
