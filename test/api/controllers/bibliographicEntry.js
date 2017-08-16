@@ -8,7 +8,7 @@ var agent = request.agent(server);
 
 describe('controllers', function() {
 
-    describe('bibliographicEntry', function () {
+    describe.only('bibliographicEntry', function () {
         var id = "";
 
         before(function (done) {
@@ -264,7 +264,7 @@ describe('controllers', function() {
                         "bibliographicEntryText": "bibliographicEntryText",
                         "status": "",
                         "ocrData":{
-                            "title": "Direkte Demokratie und Umweltpolitik in der Schweiz, In:",
+                            "title": "Direkte Demokratie",
                             "date": "",
                             "marker": "",
                             "authors": []
@@ -281,7 +281,7 @@ describe('controllers', function() {
                         should.not.exist(err);
                         res.body.should.be.Array;
                         //res.body.should.have.lengthOf(2);
-                        res.body.should.have.lengthOf(21);
+                        res.body.should.have.lengthOf(40);
                         res.body[0].should.have.property("status", status.external);
                         res.body[0].should.have.property("title", "Direkte Demokratie und Umweltpolitik in der Schweiz");
                         res.body[0].should.have.property("identifiers");

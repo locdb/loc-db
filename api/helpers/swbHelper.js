@@ -2,6 +2,8 @@
 const request = require('ajax-request');
 const config = require('./../../config/config.js');
 const marc21Helper = require('./../helpers/marc21Helper.js').createMarc21Helper();
+const enums = require('./../schema/enum.json');
+const BibliographicResource = require('./../schema/bibliographicResource');
 
 
 var SwbHelper = function(){
@@ -35,7 +37,7 @@ SwbHelper.prototype.query = function(ppn, callback){
  */
 SwbHelper.prototype.queryByTitle = function(title, callback){
     var url = config.URLS.SWB
-        + '?query=pica.tit+%3D+"'
+        + '?query=pica.tit+Any+"'
         + title
         + '"&version=1.1&operation=searchRetrieve&recordSchema=marc21'
         + '&maximumRecords=10&startRecord=2&recordPacking=xml&sortKeys=none'
@@ -54,7 +56,20 @@ SwbHelper.prototype.queryByTitle = function(title, callback){
                 errorlog.error(err);
                 return callback(err, null);
             }
-            return callback(null, result);
+            var brs = [];
+            for(var res of result){
+                var br = new BibliographicResource(res);
+                br = br.toObject();
+                // TODO: Maybe add ppn here?
+                if(br.identifiers){
+                    br.identifiers.push({scheme: enums.externalSources.swb, literalValue: ""});
+                }else{
+                    br.identifiers = [{scheme: enums.externalSources.swb, literalValue: ""}];
+                }
+                br.status = enums.status.external;
+                brs.push(br);
+            }
+            return callback(null, brs);
         });
     });
 };

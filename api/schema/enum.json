@@ -28,6 +28,7 @@
   },
   "externalSources": {
     "gScholar": "URL_GOOGLE_SCHOLAR",
-    "crossref": "URL_CROSSREF"
+    "crossref": "URL_CROSSREF",
+    "swb": "URL_SWB"
   }
 }
