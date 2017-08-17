@@ -4,6 +4,8 @@ const mongoose = require('mongoose')
        ,Schema = mongoose.Schema
        ,ObjectId = Schema.ObjectId;
 const enums = require('./../schema/enum.json');
+const mongoosastic = require('mongoosastic');
+const config = require('./../../config/config');
 
 const brSchema = new Schema({
     identifiers: [{
@@ -72,4 +74,17 @@ const brSchema = new Schema({
     }]
 });
 
-module.exports = mongoose.model('br', brSchema);
+// we want to run a single elastic for the beginning. As the model name corresponds to the index name in elastic, we make
+// sure that we do not mix up everything by adding the connection name to the index name
+brSchema.plugin(mongoosastic,{
+    index: mongoose.connection.name + '_br',
+    host: config.SEARCHINDEX.HOST,
+    port: config.SEARCHINDEX.PORT,
+    protocol: config.SEARCHINDEX.PROTOCOL
+});
+
+
+var br = mongoose.model('br', brSchema)
+br.synchronize();
+
+module.exports = br;

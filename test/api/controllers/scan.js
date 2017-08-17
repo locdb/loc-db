@@ -6,6 +6,7 @@ const status = require('./../../../api/schema/enum.json').status;
 const fs = require('fs');
 const config = require('./../../../config/config.js');
 
+var agent = request.agent(server);
 
 describe('controllers', function () {
 
@@ -13,21 +14,28 @@ describe('controllers', function () {
         var id = "58c01713ea3c8d32f0f80a75";
 
         before(function (done) {
-            setup.loadBibliographicResources();
-            //setup.mockOcrServer();
-            done();
+            setup.dropDB(function(err){
+                setup.loadBibliographicResources(function(err,res){
+                    //setup.mockOcrServer();
+                    setup.login(agent, function(err, res){
+                        if(err) return done(err);
+                        done();
+                    });
+                });
+            });
         });
 
         after(function (done) {
-            setup.dropDB();
-            done();
+            setup.dropDB(function(err){
+                done();
+            });
         });
 
 
         describe('POST /saveScan', function () {
 
             it('should save a scan in the file system and create two br (parent and child) in the db', function (done) {
-                request(server)
+                agent
                     .post('/saveScan')
                     .type('form')
                     .field('ppn', '400433052')
@@ -53,13 +61,13 @@ describe('controllers', function () {
                         res.body[1].should.have.property("partOf");
                         res.body[0]._id.should.be.exactly(res.body[1].partOf);
                         should(fs.existsSync(config.PATHS.UPLOAD)).equal(true);
-                        should(fs.existsSync(config.PATHS.UPLOAD + "0001.png")).equal(true);
+                        should(fs.existsSync(config.PATHS.UPLOAD + res.body[1].embodiedAs[0].scans[0].scanName)).equal(true);
                         done();
                     });
             });
 
             it('should should return an error as the file has been already uploaded', function (done) {
-                request(server)
+                agent
                     .post('/saveScan')
                     .type('form')
                     .field('ppn', '400433052')
@@ -77,7 +85,7 @@ describe('controllers', function () {
             });
 
             it('should should add a new part to an already existing br', function (done) {
-                request(server)
+                agent
                     .post('/saveScan')
                     .type('form')
                     .field('ppn', '400433052')
@@ -105,8 +113,7 @@ describe('controllers', function () {
                         res.body[1].should.have.property("partOf");
                         res.body[0]._id.should.be.exactly(res.body[1].partOf);
                         should(fs.existsSync(config.PATHS.UPLOAD)).equal(true);
-                        should(fs.existsSync(config.PATHS.UPLOAD + "0002.png")).equal(true);
-                        should(fs.existsSync(config.PATHS.UPLOAD + "0001.png")).equal(true);
+                        should(fs.existsSync(config.PATHS.UPLOAD + res.body[1].embodiedAs[0].scans[0].scanName)).equal(true);
                         done();
                     });
             });
@@ -115,7 +122,7 @@ describe('controllers', function () {
         describe('GET /getToDo', function () {
 
             it('should retrieve a todo list for the status "NOT_OCR_PROCESSED"', function (done) {
-                request(server)
+                agent
                     .get('/getToDo')
                     .query({status: "NOT_OCR_PROCESSED"})
                     .set('Accept', 'application/json')
@@ -137,7 +144,7 @@ describe('controllers', function () {
             });
 
             it('should retrieve an empty todo list for the status "OCR_PROCESSED"', function (done) {
-                request(server)
+                agent
                     .get('/getToDo')
                     .query({status: "OCR_PROCESSED"})
                     .set('Accept', 'application/json')
@@ -154,13 +161,14 @@ describe('controllers', function () {
 
             describe('GET /getToDo with additional data', function () {
                 before(function (done) {
-                    setup.loadAdditionalToDo()
-                    done();
+                    setup.loadAdditionalToDo(function(err, res){
+                        done();
+                    });
                 });
 
                 it('should retrieve a todo list of size 2 for the status "NOT_OCR_PROCESSED"', function (done) {
 
-                    request(server)
+                    agent
                         .get('/getToDo')
                         .query({status: "NOT_OCR_PROCESSED"})
                         .set('Accept', 'application/json')
@@ -186,7 +194,7 @@ describe('controllers', function () {
 
             it('should trigger OCR processing', function (done) {
                 this.timeout(1000000);
-                request(server)
+                agent
                     .get('/triggerOcrProcessing')
                     .query({id: id})
                     .set('Accept', 'application/json')
@@ -222,7 +230,7 @@ describe('controllers', function () {
 
         describe('GET /getToDo', function () {
             it('should retrieve an todo list for the status "OCR_PROCESSED" of size 1', function (done) {
-                request(server)
+                agent
                     .get('/getToDo')
                     .query({status: "OCR_PROCESSED"})
                     .set('Accept', 'application/json')
@@ -241,7 +249,7 @@ describe('controllers', function () {
         describe('GET /get', function () {
 
             it('should retrieve a file', function (done) {
-                request(server)
+                agent
                     .get('/scans/' + id)
                     .set('Accept', 'image/png')
                     .expect('Content-Type', 'image/png')

@@ -5,6 +5,8 @@ info:
 host: localhost
 basePath: /
 tags:
+  - name: User
+    description: Services related to user management.
   - name: BibliographicResource
     description: Services related to bibliographic resources.
   - name: Scan
@@ -12,7 +14,7 @@ tags:
   - name: BibliographicEntry
     description: Services related to bibliographic entries.
 schemes:
-  #- http
+  - http
   - https
 consumes:
   - application/json
@@ -20,8 +22,81 @@ consumes:
 produces:
   - application/json
   - image/png
+securityDefinitions:
+  basicAuth:
+    type: basic
+  login:
+    type: basic
+
+# To apply Basic auth to the whole API:
+security:
+  - basicAuth: []
+
 
 paths:
+  /login:
+    x-swagger-router-controller: user
+    post:
+      tags: [User]
+      description: Login service
+      operationId: login
+      security:
+        - login: []
+      parameters:
+        - name: user
+          in: body
+          description: The user object consisting of username and password
+          required: true
+          schema:
+              $ref: "#/definitions/User"
+      responses:
+        "200":
+          description: Success
+          schema:
+              $ref: "#/definitions/User"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /signup:
+    x-swagger-router-controller: user
+    post:
+      tags: [User]
+      description: Signup service
+      operationId: signup
+      security: []
+      parameters:
+        - name: user
+          in: body
+          description: The user object consisting of username and password
+          required: true
+          schema:
+              $ref: "#/definitions/User"
+      responses:
+        "200":
+          description: Success
+          schema:
+              $ref: "#/definitions/User"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /logout:
+    x-swagger-router-controller: user
+    get:
+      tags: [User]
+      description: Logout service
+      operationId: logout
+      responses:
+        "200":
+          description: Success
+          schema:
+              $ref: "#/definitions/SuccessResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
   /bibliographicResources:
     x-swagger-router-controller: bibliographicResource
     get:
@@ -564,6 +639,13 @@ definitions:
       _id:
         type: string
       status:
+        type: string
+
+  User:
+    properties:
+      username:
+        type: string
+      password:
         type: string
 
   ErrorResponse:

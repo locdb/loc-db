@@ -5,13 +5,15 @@ const googleScholarHelper = require('./../../../api/helpers/googleScholarHelper.
 describe('helpers', function() {
     describe('googleScholarHelper', function() {
         before(function(done) {
-            setup.dropDB();
-            done();
+            setup.dropDB(function(err){
+                done();
+            });
         });
         
         after(function(done) {
-            setup.dropDB();
-            done();
+            setup.dropDB(function(err){
+                done();
+            });
         });
         
         describe('parseFile', function(){

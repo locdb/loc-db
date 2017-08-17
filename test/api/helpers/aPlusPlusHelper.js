@@ -6,13 +6,15 @@ const fs = require('fs');
 describe('helpers', function() {
     describe('aPlusPlusHelper', function() {
         before(function(done) {
-            setup.dropDB();
-            done();
+            setup.dropDB(function(err){
+                done();
+            });
         });
         
         after(function(done) {
-            setup.dropDB();
-            done();
+            setup.dropDB(function(err){
+                done();
+            });
         });
         
         describe('parseFile', function(){

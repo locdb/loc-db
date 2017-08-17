@@ -4,6 +4,7 @@ const server = require('../../../app');
 const setup = require('./../setup.js').createSetup();
 const status = require('./../../../api/schema/enum.json').status;
 
+var agent = request.agent(server);
 
 describe('controllers', function() {
 
@@ -11,21 +12,34 @@ describe('controllers', function() {
         var id = "";
 
         before(function (done) {
-            setup.loadBibliographicEntry();
-            setup.loadBibliographicResources();
-            done();
+            this.timeout(3000);
+            setup.dropDB(function(){
+                setup.loadBibliographicEntry(function(err, result){
+                    if(err) return done(err);
+                    setup.loadBibliographicResources(function(err, result){
+                        if(err) return done(err);
+                        setup.login(agent, function(err, result){
+                            if(err) return done(err);
+                            setTimeout(function () {
+                                done();
+                            }, 2000);
+                        });
+                    });
+                });
+            });
         });
 
         after(function (done) {
-            setup.dropDB();
-            done();
+            setup.dropDB(function(err){
+                done();
+            });
         });
 
 
         describe('GET /getToDoBibliographicEntries', function () {
 
             it('should return a list of not ocr processed bibliographic entries of length 54', function (done) {
-                request(server)
+                agent
                     .get('/getToDoBibliographicEntries')
                     .set('Accept', 'application/json')
                     .expect('Content-Type', /json/)
@@ -44,7 +58,7 @@ describe('controllers', function() {
 
             it('should return a list of not ocr processed bibliographic entries by scanId of length 53', function (done) {
                 var scanId = "58cb91fa5452691cd86bc940";
-                request(server)
+                agent
                     .get('/getToDoBibliographicEntries')
                     .query({scanId: "58cb91fa5452691cd86bc940"})
                     .set('Accept', 'application/json')
@@ -65,7 +79,7 @@ describe('controllers', function() {
 
             it('should return a list of not ocr processed bibliographic entries by scanId of length 1', function (done) {
                 var scanId = "58cb91fa5452691cd86bc941";
-                request(server)
+                agent
                     .get('/getToDoBibliographicEntries')
                     .query({scanId: scanId})
                     .set('Accept', 'application/json')
@@ -103,7 +117,7 @@ describe('controllers', function() {
                         "status": "VALID"
                     }`;
                 update = JSON.parse(update);
-                request(server)
+                agent
                     .put('/bibliographicEntries/' + id)
                     .set('Accept', 'application/json')
                     .send(update)
@@ -130,7 +144,7 @@ describe('controllers', function() {
                         "status": "OCR_PROCESSED"
                     }`;
                 update = JSON.parse(update);
-                request(server)
+                agent
                     .put('/bibliographicEntries/' + id)
                     .set('Accept', 'application/json')
                     .send(update)
@@ -150,6 +164,7 @@ describe('controllers', function() {
 
             it('should return 0 internal suggestions for a bibliographic entry', function (done) {
 
+
                 var searchObject = `{
                         "bibliographicEntryText": "TEST ENTRY 1 -- UPDATED",
                         "ocrData": {
@@ -163,7 +178,7 @@ describe('controllers', function() {
                         "status": "VALID"
                         }`;
                 var searchObject = JSON.parse(searchObject);
-                request(server)
+                agent
                     .post('/getInternalSuggestions')
                     .set('Accept', 'application/json')
                     .send(searchObject)
@@ -191,7 +206,8 @@ describe('controllers', function() {
                         "status": ""
                         }`;
                 var searchObject = JSON.parse(searchObject);
-                request(server)
+                console.log("Suggestions called");
+                agent
                     .post('/getInternalSuggestions')
                     .set('Accept', 'application/json')
                     .send(searchObject)
@@ -221,7 +237,7 @@ describe('controllers', function() {
                         }
                 }`;
                 var searchObject = JSON.parse(searchObject);
-                request(server)
+                agent
                     .post('/getExternalSuggestions')
                     .set('Accept', 'application/json')
                     .send(searchObject)
@@ -255,7 +271,7 @@ describe('controllers', function() {
                         }
                     }`;
                 var searchObject = JSON.parse(searchObject);
-                request(server)
+                agent
                     .post('/getExternalSuggestions')
                     .set('Accept', 'application/json')
                     .send(searchObject)
