@@ -126,8 +126,9 @@ CrossrefHelper.prototype.parseObjects = function(objects, callback){
             for(var reference of obj.reference){
                 var bibliographicEntry = new BibliographicEntry({
                     identifiers:[new Identifier({scheme: enums.identifier.doi, literalValue: reference.DOI})],
+                    bibliographicEntryText: reference.unstructured,
                     ocrData:{
-                        title: reference['article-title'],
+                        title: reference['article-title'] || reference['volume-title'],
                         date: reference.year
                     },
                     status: enums.status.external});
