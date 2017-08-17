@@ -4,7 +4,7 @@ const crossrefHelper = require('./../../../api/helpers/crossrefHelper.js').creat
 const enums = require('./../../../api/schema/enum.json');
 
 describe('helpers', function() {
-    describe.only('crossrefHelper', function() {
+    describe('crossrefHelper', function() {
         before(function(done) {
             setup.dropDB(function(err){
                 done();
