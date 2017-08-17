@@ -248,16 +248,17 @@ describe('controllers', function() {
 
 
       describe('POST /getCrossrefReferences', function(){
+          this.timeout(5000);
 
-          var data = new BibliographicResource({
-              identifiers: [{
-                  literalValue: "10.1007/s11617-006-0056-1",
-                  scheme: enums.identifier.doi
-              }],
-              title: "Perspektiven der Politischen Soziologie"
-          });
+          it('should retrieve crossref references by doi', function(done){
+              var data = new BibliographicResource({
+                  identifiers: [{
+                      literalValue: "10.1007/s11617-006-0056-1",
+                      scheme: enums.identifier.doi
+                  }],
+                  title: "Perspektiven der Politischen Soziologie"
+              });
 
-          it('should retrieve crossref references', function(done){
               agent
                   .post('/getCrossrefReferences')
                   .send(data.toObject())
@@ -268,6 +269,33 @@ describe('controllers', function() {
                       should.not.exist(err);
                       res.body.should.be.Array;
                       res.body.should.have.lengthOf(1);
+                      res.body[0].should.have.property("title", "Perspektiven der Politischen Soziologie");
+                      res.body[0].should.have.property("parts");
+                      res.body[0].parts.should.be.Array;
+                      res.body[0].parts.should.have.lengthOf(25);
+                      done();
+                  });
+          });
+
+          it('should retrieve crossref references by query', function(done){
+              var data = new BibliographicResource({
+                  identifiers: [{
+                      literalValue: "some ISBN",
+                      scheme: enums.identifier.isbn
+                  }],
+                  title: "Perspektiven der Politischen Soziologie"
+              });
+
+              agent
+                  .post('/getCrossrefReferences')
+                  .send(data.toObject())
+                  .set('Accept', 'application/json')
+                  .expect('Content-Type', /json/)
+                  .expect(200)
+                  .end(function(err, res){
+                      should.not.exist(err);
+                      res.body.should.be.Array;
+                      res.body.should.have.lengthOf(18);
                       res.body[0].should.have.property("title", "Perspektiven der Politischen Soziologie");
                       res.body[0].should.have.property("parts");
                       res.body[0].parts.should.be.Array;
