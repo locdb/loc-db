@@ -150,7 +150,7 @@ paths:
 
   /getCrossrefReferences:
     x-swagger-router-controller: bibliographicResource
-    get:
+    post:
       tags: [BibliographicResource]
       description: |
         Returns the br including a list of bibliographic entries retrieved via Crossref. If there is a doi

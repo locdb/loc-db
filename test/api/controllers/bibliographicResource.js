@@ -247,7 +247,7 @@ describe('controllers', function() {
       });
 
 
-      describe('GET /getCrossrefReferences', function(){
+      describe('POST /getCrossrefReferences', function(){
 
           var data = new BibliographicResource({
               identifiers: [{
@@ -259,7 +259,7 @@ describe('controllers', function() {
 
           it('should retrieve crossref references', function(done){
               agent
-                  .get('/getCrossrefReferences')
+                  .post('/getCrossrefReferences')
                   .send(data.toObject())
                   .set('Accept', 'application/json')
                   .expect('Content-Type', /json/)
