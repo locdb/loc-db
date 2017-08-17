@@ -30,28 +30,50 @@ CrossrefHelper.prototype.query = function(query, callback){
 };
 
 
-CrossrefHelper.prototype.queryReferences = function(query, callback){
+CrossrefHelper.prototype.queryReferences = function(doi, query, callback){
     var self = this;
-    crossref.works({query: query, filter:{"has-references" : true}}, (err, objs, nextOpts, done) => {
-        if (err) {
-            errorlog.error(err);
-            return callback(err, null);
-        }
-        // check whether they really contain the 'reference' property
-        var candidates = [];
-        for(var obj of objs){
-            if(obj.reference){
-                candidates.push(obj);
-            }
-        }
-        self.parseObjects(candidates, function(err, res){
+    if(doi != null){
+        crossref.work(doi, (err, obj, nextOpts, done) => {
             if (err) {
                 errorlog.error(err);
                 return callback(err, null);
             }
-            return callback(null, res);
+            // check whether they really contain the 'reference' property
+            var candidates = [];
+            if(obj.reference){
+                candidates.push(obj);
+            }
+            self.parseObjects(candidates, function(err, res){
+                if (err) {
+                    errorlog.error(err);
+                    return callback(err, null);
+                }
+                return callback(null, res);
+            });
         });
-    });
+    }else if(query != null){
+        crossref.works({query: query, filter:{"has-references" : true}}, (err, objs, nextOpts, done) => {
+            if (err) {
+                errorlog.error(err);
+                return callback(err, null);
+            }
+            // check whether they really contain the 'reference' property
+            var candidates = [];
+            for(var obj of objs){
+                if(obj.reference){
+                    candidates.push(obj);
+                }
+            }
+            self.parseObjects(candidates, function(err, res){
+                if (err) {
+                    errorlog.error(err);
+                    return callback(err, null);
+                }
+                return callback(null, res);
+            });
+        });
+    }
+
 };
 
 

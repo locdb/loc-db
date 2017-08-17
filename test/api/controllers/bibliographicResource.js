@@ -193,14 +193,14 @@ describe('controllers', function() {
                       familyName: "Lauscher"
                   },
               },
-              {
-                  roleType: enums.roleType.author,
-                  heldBy:{
-                      nameString: "Second author added",
-                      givenName: "Kai",
-                      familyName: "Eckert"
-                  },
-              }],
+                  {
+                      roleType: enums.roleType.author,
+                      heldBy:{
+                          nameString: "Second author added",
+                          givenName: "Kai",
+                          familyName: "Eckert"
+                      },
+                  }],
               publicationYear: 2017,
               status: enums.status.valid,
               parts: [{
@@ -241,6 +241,37 @@ describe('controllers', function() {
                   .end(function(err, res){
                       should.not.exist(err);
                       res.body.should.not.containDeepOrdered(data);
+                      done();
+                  });
+          });
+      });
+
+
+      describe('GET /getCrossrefReferences', function(){
+
+          var data = new BibliographicResource({
+              identifiers: [{
+                  literalValue: "10.1007/s11617-006-0056-1",
+                  scheme: enums.identifier.doi
+              }],
+              title: "Perspektiven der Politischen Soziologie"
+          });
+
+          it('should retrieve crossref references', function(done){
+              agent
+                  .get('/getCrossrefReferences')
+                  .send(data.toObject())
+                  .set('Accept', 'application/json')
+                  .expect('Content-Type', /json/)
+                  .expect(200)
+                  .end(function(err, res){
+                      should.not.exist(err);
+                      res.body.should.be.Array;
+                      res.body.should.have.lengthOf(1);
+                      res.body[0].should.have.property("title", "Perspektiven der Politischen Soziologie");
+                      res.body[0].should.have.property("parts");
+                      res.body[0].parts.should.be.Array;
+                      res.body[0].parts.should.have.lengthOf(25);
                       done();
                   });
           });

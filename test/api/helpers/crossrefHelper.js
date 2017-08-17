@@ -37,8 +37,8 @@ describe('helpers', function() {
 
         describe('queryReferences', function(){
             it('should return result for a given query', function(done) {
-                this.timeout(5000);
-                crossrefHelper.queryReferences("", function(err, result){
+                this.timeout(10000);
+                crossrefHelper.queryReferences(null, "", function(err, result){
                     console.log(result);
                     should.not.exists(err);
                     result.should.be.ok();
@@ -51,6 +51,29 @@ describe('helpers', function() {
                     result[0].should.have.property("parts");
                     result[0].parts.should.be.Array;
                     result[0].parts.should.have.lengthOf(58);
+                    result[0].parts[0].should.have.property("identifiers");
+                    result[0].parts[0].identifiers.should.be.Array;
+                    result[0].parts[0].identifiers.should.have.lengthOf(1);
+                    result[0].parts[0].identifiers[0].should.have.property("scheme", enums.identifier.doi);
+                    done();
+                });
+            });
+
+            it('should return result for a given doi', function(done) {
+                this.timeout(10000);
+                crossrefHelper.queryReferences("10.1007/s11617-006-0056-1", null, function(err, result){
+                    console.log(result);
+                    should.not.exists(err);
+                    result.should.be.ok();
+                    result.should.be.Array();
+                    result.should.have.lengthOf(1);
+                    result[0].should.have.property("identifiers");
+                    result[0].identifiers.should.be.Array();
+                    result[0].identifiers.should.have.lengthOf(4);
+                    result[0].identifiers[1].should.have.property("scheme", enums.externalSources.crossref);
+                    result[0].should.have.property("parts");
+                    result[0].parts.should.be.Array;
+                    result[0].parts.should.have.lengthOf(25);
                     result[0].parts[0].should.have.property("identifiers");
                     result[0].parts[0].identifiers.should.be.Array;
                     result[0].parts[0].identifiers.should.have.lengthOf(1);
