@@ -14,7 +14,7 @@ tags:
   - name: BibliographicEntry
     description: Services related to bibliographic entries.
 schemes:
-  - http
+  #- http
   - https
 consumes:
   - application/json
