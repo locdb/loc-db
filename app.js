@@ -45,7 +45,7 @@ var swaggerDocument = yaml.safeLoad(fs.readFileSync('./api/swagger/swagger.yaml'
 swaggerDocument.host = config.HOST;
 swaggerDocument.basePath = config.BASEPATH;
 swaggerDocument.securityDefinitions = null;
-app.use(cors({credentials: true, origin: "http://localhost:4200"})); // include before other routes
+
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, false, {validatorUrl : null, }));
 
 SwaggerExpress.create({appRoot: __dirname, securityHandlers: {
@@ -69,6 +69,7 @@ SwaggerExpress.create({appRoot: __dirname, securityHandlers: {
     app.use(expressSession({secret: 'mySecretKey'}));
     app.use(passport.initialize());
     app.use(passport.session());
+    app.use(cors({credentials: true, origin: "http://localhost:4200"})); // include before other routes
     swaggerExpress.register(app);
     app.listen(config.PORT);
 });
