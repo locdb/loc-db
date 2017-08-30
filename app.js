@@ -48,14 +48,15 @@ swaggerDocument.securityDefinitions = null;
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, false, {validatorUrl : null, }));
 // Allow CORS
 app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE, OPTIONS");
-    res.header("Access-Control-Allow-Credentials", "true");
+    res.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE, OPTIONS");
+    res.setHeader("Access-Control-Allow-Credentials", "true");
+    res.setHeader("Anne", "true");
     errorlog.error(req.method);
     if (req.method == 'OPTIONS') {
         errorlog.error("Is in options path");
-        res.header("Access-Control-Allow-Origin", "http://localhost:4200");
+        res.setHeader("Access-Control-Allow-Origin", "http://localhost:4200");
     } else {
-        res.header("Access-Control-Allow-Origin", "*");
+        res.setHeader("Access-Control-Allow-Origin", "*");
     }
     next();
 });
