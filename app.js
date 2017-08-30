@@ -68,7 +68,7 @@ SwaggerExpress.create({appRoot: __dirname, securityHandlers: {
     app.use(expressSession({secret: 'mySecretKey'}));
     app.use(passport.initialize());
     app.use(passport.session());
-    app.use(cors({origin: "http://localhost:4200", withCredentials: true}));
+    app.use(cors({origin: "http://localhost:4200", credentials: true}));
     swaggerExpress.register(app);
     app.listen(config.PORT);
 });
