@@ -71,6 +71,7 @@ SwaggerExpress.create({appRoot: __dirname, securityHandlers: {
         res.header("Access-Control-Allow-Credentials", "true");
         errorlog.error(req.method);
         if (req.method == 'OPTIONS') {
+            errorlog.error("Is in options path");
             res.header("Access-Control-Allow-Origin", "http://localhost:4200");
         } else {
             res.header("Access-Control-Allow-Origin", "*");
