@@ -71,7 +71,7 @@ SwaggerExpress.create({appRoot: __dirname, securityHandlers: {
         res.header("Access-Control-Allow-Credentials", "true");
         next();
     });*/
-    app.use(cors());
+    app.use(cors({credentials: true}));
     app.options('*', cors()) // include before other routes
     app.use(expressSession({secret: 'mySecretKey'}));
     app.use(passport.initialize());
