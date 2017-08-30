@@ -72,10 +72,10 @@ SwaggerExpress.create({appRoot: __dirname, securityHandlers: {
 }}, function(err, swaggerExpress) {
     if (err) { throw err; }
     app.options('*',cors({credentials: true, origin: "http://localhost:4200"})); // include before other routes
-    //app.get('*',cors({credentials: true, origin: "http://localhost:4200"}));
-    //app.post('*',cors({credentials: true, origin: "http://localhost:4200"}));
-    //app.put('*',cors({credentials: true, origin: "http://localhost:4200"}));
-    //app.delete('*',cors({credentials: true, origin: "http://localhost:4200"}));
+    app.get('*',cors({credentials: true, origin: "http://localhost:4200"}));
+    app.post('*',cors({credentials: true, origin: "http://localhost:4200"}));
+    app.put('*',cors({credentials: true, origin: "http://localhost:4200"}));
+    app.delete('*',cors({credentials: true, origin: "http://localhost:4200"}));
     app.use(expressSession({secret: 'mySecretKey'}));
     app.use(passport.initialize());
     app.use(passport.session());
