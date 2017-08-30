@@ -69,7 +69,7 @@ SwaggerExpress.create({appRoot: __dirname, securityHandlers: {
     app.use(function(req, res, next) {
         res.header("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE, OPTIONS");
         res.header("Access-Control-Allow-Credentials", "true");
-        if (req.method === 'OPTIONS') {
+        if (req.method == 'OPTIONS') {
             res.header("Access-Control-Allow-Origin", "http://localhost:4200");
         } else {
             res.header("Access-Control-Allow-Origin", "*");
