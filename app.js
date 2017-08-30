@@ -50,13 +50,13 @@ app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, false, {valid
 app.use(function(req, res, next) {
     res.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE, OPTIONS");
     res.setHeader("Access-Control-Allow-Credentials", "true");
-    res.setHeader("Anne", "true");
     errorlog.error(req.method);
     if (req.method == 'OPTIONS') {
         errorlog.error("Is in options path");
         res.setHeader("Access-Control-Allow-Origin", "http://localhost:4200");
     } else {
-        res.setHeader("Access-Control-Allow-Origin", "*");
+        //res.setHeader("Access-Control-Allow-Origin", "*");
+        errorlog.error("Somewhere else");
     }
     next();
 });
