@@ -8,7 +8,7 @@ const app = require('express')();
 const mongoose = require('mongoose');
 const errorlog = require('./api/util/logger.js').errorlog;
 const accesslog = require('./api/util/logger.js').accesslog;
-const cors = require('cors')
+const cors = require('cors');
 
 
 
@@ -69,7 +69,7 @@ SwaggerExpress.create({appRoot: __dirname, securityHandlers: {
     app.use(expressSession({secret: 'mySecretKey'}));
     app.use(passport.initialize());
     app.use(passport.session());
-    app.use(cors({credentials: true, origin: "http://localhost:4200"})); // include before other routes
     swaggerExpress.register(app);
+    app.use(cors({credentials: true, origin: "http://localhost:4200"})); // include before other routes
     app.listen(config.PORT);
 });
