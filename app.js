@@ -45,13 +45,8 @@ var swaggerDocument = yaml.safeLoad(fs.readFileSync('./api/swagger/swagger.yaml'
 swaggerDocument.host = config.HOST;
 swaggerDocument.basePath = config.BASEPATH;
 swaggerDocument.securityDefinitions = null;
+app.use(cors({credentials: true, origin: "http://localhost:4200"})); // include before other routes
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, false, {validatorUrl : null, }));
-// Allow CORS
-//app.use(function(req, res, next) {
-//    res.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE, OPTIONS");
-//    res.setHeader("Access-Control-Allow-Credentials", "true");
-//    next();
-//});
 
 SwaggerExpress.create({appRoot: __dirname, securityHandlers: {
     basicAuth: function (req, authOrSecDef, callback){
@@ -71,11 +66,6 @@ SwaggerExpress.create({appRoot: __dirname, securityHandlers: {
     }
 }}, function(err, swaggerExpress) {
     if (err) { throw err; }
-    app.options('*',cors({credentials: true, origin: "http://localhost:4200"})); // include before other routes
-    app.get('*',cors({credentials: true, origin: "http://localhost:4200"}));
-    app.post('*',cors({credentials: true, origin: "http://localhost:4200"}));
-    app.put('*',cors({credentials: true, origin: "http://localhost:4200"}));
-    app.delete('*',cors({credentials: true, origin: "http://localhost:4200"}));
     app.use(expressSession({secret: 'mySecretKey'}));
     app.use(passport.initialize());
     app.use(passport.session());
