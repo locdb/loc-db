@@ -5,6 +5,7 @@ const swaggerUi = require('swagger-ui-express');
 const yaml = require('js-yaml');
 const fs = require('fs');
 const app = require('express')();
+app.use(cors({credentials: true, origin: "http://localhost:4200"})); // include before other routes
 const mongoose = require('mongoose');
 const errorlog = require('./api/util/logger.js').errorlog;
 const accesslog = require('./api/util/logger.js').accesslog;
@@ -70,6 +71,5 @@ SwaggerExpress.create({appRoot: __dirname, securityHandlers: {
     app.use(passport.initialize());
     app.use(passport.session());
     swaggerExpress.register(app);
-    app.use(cors({credentials: true, origin: "http://localhost:4200"})); // include before other routes
     app.listen(config.PORT);
 });
