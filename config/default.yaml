@@ -24,7 +24,7 @@ swagger:
     # pipe for all swagger-node controllers
     swagger_controllers:
       - onError: json_error_handler
-      - cors
+      #- cors
       - swagger_params_parser
       - swagger_security
       - _swagger_validate
@@ -34,6 +34,6 @@ swagger:
     # pipe to serve swagger (endpoint is in swagger.yaml)
     swagger_raw:
       name: swagger_raw
-      - cors
+      #- cors
 
 # any other values in this file are just loaded into the config for application access...

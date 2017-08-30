@@ -64,6 +64,11 @@ SwaggerExpress.create({appRoot: __dirname, securityHandlers: {
             }
         })(req, null, callback);
     }
+}, middleware:{
+        cors: function(req, res, next){
+            res.header("Access-Control-Origin", "http://localhost:4200");
+            next();
+        }
 }}, function(err, swaggerExpress) {
     if (err) { throw err; }
     app.use(expressSession({secret: 'mySecretKey'}));
