@@ -71,7 +71,7 @@ SwaggerExpress.create({appRoot: __dirname, securityHandlers: {
     }
 }}, function(err, swaggerExpress) {
     if (err) { throw err; }
-    app.use('*', cors({credentials: true, origin: "http://localhost:4200"})); // include before other routes
+    app.use(cors({credentials: true, origin: "http://localhost:4200", preflightContinue: true})); // include before other routes
     app.use(expressSession({secret: 'mySecretKey'}));
     app.use(passport.initialize());
     app.use(passport.session());
