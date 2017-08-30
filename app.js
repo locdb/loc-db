@@ -47,19 +47,11 @@ swaggerDocument.basePath = config.BASEPATH;
 swaggerDocument.securityDefinitions = null;
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, false, {validatorUrl : null, }));
 // Allow CORS
-app.use(function(req, res, next) {
-    res.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE, OPTIONS");
-    res.setHeader("Access-Control-Allow-Credentials", "true");
-    errorlog.error(req.method);
-    if (req.method == 'OPTIONS') {
-        errorlog.error("Is in options path");
-        res.setHeader("Access-Control-Allow-Origin", "http://localhost:4200");
-    } else {
-        //res.setHeader("Access-Control-Allow-Origin", "*");
-        errorlog.error("Somewhere else");
-    }
-    next();
-});
+//app.use(function(req, res, next) {
+//    res.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE, OPTIONS");
+//    res.setHeader("Access-Control-Allow-Credentials", "true");
+//    next();
+//});
 
 SwaggerExpress.create({appRoot: __dirname, securityHandlers: {
     basicAuth: function (req, authOrSecDef, callback){
@@ -79,8 +71,7 @@ SwaggerExpress.create({appRoot: __dirname, securityHandlers: {
     }
 }}, function(err, swaggerExpress) {
     if (err) { throw err; }
-    //app.use(cors({credentials: true, origin: "*"}));
-    app.options('*', cors({origin: "http://localhost:4200"})) // include before other routes
+    app.use('*', cors({credentials: true, origin: "http://localhost:4200"})); // include before other routes
     app.use(expressSession({secret: 'mySecretKey'}));
     app.use(passport.initialize());
     app.use(passport.session());
