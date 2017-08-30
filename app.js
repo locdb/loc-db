@@ -8,7 +8,7 @@ const app = require('express')();
 const mongoose = require('mongoose');
 const errorlog = require('./api/util/logger.js').errorlog;
 const accesslog = require('./api/util/logger.js').accesslog;
-//const cors = require('cors');
+const cors = require('cors');
 
 
 
@@ -45,7 +45,6 @@ var swaggerDocument = yaml.safeLoad(fs.readFileSync('./api/swagger/swagger.yaml'
 swaggerDocument.host = config.HOST;
 swaggerDocument.basePath = config.BASEPATH;
 swaggerDocument.securityDefinitions = null;
-
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, false, {validatorUrl : null, }));
 
 SwaggerExpress.create({appRoot: __dirname, securityHandlers: {
@@ -64,16 +63,12 @@ SwaggerExpress.create({appRoot: __dirname, securityHandlers: {
             }
         })(req, null, callback);
     }
-}, middleware:{
-        cors: function(req, res, next){
-            res.header("Access-Control-Origin", "http://localhost:4200");
-            next();
-        }
 }}, function(err, swaggerExpress) {
     if (err) { throw err; }
     app.use(expressSession({secret: 'mySecretKey'}));
     app.use(passport.initialize());
     app.use(passport.session());
+    app.use(cors({origin: "http://localhost:4200"}));
     swaggerExpress.register(app);
     app.listen(config.PORT);
 });
