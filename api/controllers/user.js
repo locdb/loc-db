@@ -70,12 +70,19 @@ function addFeed(req, res){
     var response = res;
     var user = req.user;
     user.feeds.push(feed);
-    User.findOneAndUpdate({'username': user.username}, user, {new: true}, function(err, res){
+    User.findOneAndUpdate({'username': user.username, 'feeds.url': {$ne: feed.url}}, user, {new: true}, function(err, res){
         if(err){
             errorlog.error(err);
             return response.status(500).json({"message":"Something went wrong with inserting the feed"});
         }else{
-            return response.status(200).json(res);
+            if(res){
+                accesslog.log("Feed added to user feed list.");
+                return response.status(200).json(res);
+            }else {
+                // res is null and err is null which means, that the feed url already existed
+                accesslog.log("Feed url already exists in user feed list");
+                return response.status(400).json({"message": "Feed url already exists in user feed list"});
+            }
         }
     });
 }

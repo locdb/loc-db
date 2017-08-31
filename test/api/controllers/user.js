@@ -180,6 +180,25 @@ describe('controllers', function () {
                         done();
                     });
             });
+
+            it('should not add the same feed object to user again', function (done) {
+
+                var feed = {
+                    name: "Die Zeit2",
+                    url: "http://newsfeed.zeit.de/index"
+                };
+
+                dummyUser
+                    .post('/addFeed')
+                    .send(feed)
+                    .set('Accept', 'application/json')
+                    .expect('Content-Type', /json/)
+                    .expect(400)
+                    .end(function (err, res) {
+                        should.not.exist(err);
+                        done();
+                    });
+            });
         });
 
         describe('GET /logout', function() {
