@@ -221,6 +221,22 @@ describe('controllers', function () {
                         done();
                     });
             });
+
+            it('should not delete a feed from the users feed list as the id does not exist anymore', function (done) {
+                dummyUser
+                    .delete('/deleteFeed/' + feedId)
+                    .set('Accept', 'application/json')
+                    .expect('Content-Type', /json/)
+                    .expect(200)
+                    .end(function (err, res) {
+                        should.not.exist(err);
+                        res.body.should.be.ok;
+                        res.body.should.have.property("feeds");
+                        res.body.feeds.should.have.lengthOf(1);
+                        res.body.feeds[0].should.have.property("name", "Tagesschau");
+                        done();
+                    });
+            });
         });
 
         describe('GET /logout', function() {

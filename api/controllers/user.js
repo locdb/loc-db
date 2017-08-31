@@ -98,14 +98,8 @@ function deleteFeed(req, res){
             errorlog.error(err);
             return response.status(500).json({"message":"Something went wrong with deleting the feed"});
         }else{
-            if(res){
-                accesslog.log("Feed deleted from the user feed list.");
-                return response.status(200).json(res);
-            }else {
-                // res is null and err is null which means, that the feed url already existed
-                accesslog.log("Feed url already exists in user feed list");
-                return response.status(400).json({"message": "Feed url already exists in user feed list"});
-            }
+            accesslog.log("Feed deleted from the user feed list.");
+            return response.status(200).json(res);
         }
     });
 }
