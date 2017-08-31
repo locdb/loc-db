@@ -22,6 +22,7 @@ swagger:
       validateResponse: true
 
     cors:
+      name: cors
       origin: "http://localhost:4200"
       credentials: true
 
