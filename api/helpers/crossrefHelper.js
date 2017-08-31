@@ -11,7 +11,11 @@ const errorlog = require('./../util/logger.js').errorlog;
 var CrossrefHelper = function(){
 };
 
-
+/**
+ * Places a fuzzy string query to Crossref and returns an array of matching BRs
+ * @param query
+ * @param callback
+ */
 CrossrefHelper.prototype.query = function(query, callback){
     var self = this;
     crossref.works({query: query }, (err, objs, nextOpts, done) => {
@@ -30,6 +34,12 @@ CrossrefHelper.prototype.query = function(query, callback){
 };
 
 
+/**
+ * Retrieves references from Crossref given a DOI or a query string and returns an array of BRs
+ * @param doi
+ * @param query
+ * @param callback
+ */
 CrossrefHelper.prototype.queryReferences = function(doi, query, callback){
     var self = this;
     if(doi != null){
@@ -76,7 +86,11 @@ CrossrefHelper.prototype.queryReferences = function(doi, query, callback){
 
 };
 
-
+/**
+ * Parses an array of Crossref objects and returns an array of BRs
+ * @param objects
+ * @param callback
+ */
 CrossrefHelper.prototype.parseObjects = function(objects, callback){
     var res = [];
     for(var obj of objects){
