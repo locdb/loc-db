@@ -130,6 +130,33 @@ describe('controllers', function () {
             });
         });
 
+        describe('POST /addFeed', function() {
+            it('should add a feed object to the user', function (done) {
+
+                var feed = {
+                    name: "Tagesschau",
+                    url: "http://www.tagesschau.de/xml/rss2"
+                };
+
+                dummyUser
+                    .post('/addFeed')
+                    .send(feed)
+                    .set('Accept', 'application/json')
+                    .expect('Content-Type', /json/)
+                    .expect(200)
+                    .end(function (err, res) {
+                        should.not.exist(err);
+                        res.body.should.be.ok;
+                        res.body.should.have.property("feeds");
+                        res.body.feeds.should.be.Array;
+                        res.body.feeds.should.have.lengthOf(1);
+                        res.body.feeds[0].should.have.property("name", "Tagesschau");
+                        res.body.feeds[0].should.have.property("url", "http://www.tagesschau.de/xml/rss2");
+                        done();
+                    });
+            });
+        });
+
         describe('GET /logout', function() {
             it('should logout a user', function (done) {
                 dummyUser

@@ -225,7 +225,7 @@ describe('controllers', function() {
         describe('POST /getExternalSuggestions', function () {
 
             it('should return one external suggestion for a bibliographic entry', function (done) {
-                this.timeout(10000);
+                this.timeout(100000);
                 var searchObject = `{
                         "bibliographicEntryText": "bibliographicEntryText",
                         "status": "",

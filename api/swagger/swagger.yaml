@@ -34,6 +34,28 @@ security:
 
 
 paths:
+  /addFeed:
+    x-swagger-router-controller: user
+    post:
+      tags: [User]
+      description: Adds an RSS or Atom Feed the users feed list
+      operationId: addFeed
+      parameters:
+        - name: feed
+          in: body
+          description: The feed object consisting of name (may be user specified) and URL of the feed
+          required: true
+          schema:
+              $ref: "#/definitions/Feed"
+      responses:
+        "200":
+          description: Success
+          schema:
+              $ref: "#/definitions/User"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
   /login:
     x-swagger-router-controller: user
     post:
@@ -680,6 +702,17 @@ definitions:
       username:
         type: string
       password:
+        type: string
+      feeds:
+        type: array
+        items:
+          $ref: "#/definitions/Feed"
+
+  Feed:
+    properties:
+      name:
+        type: string
+      url:
         type: string
 
   ErrorResponse:

@@ -5,8 +5,24 @@
 const request = require('request');
 const Feedparser = require('feedparser');
 const errorlog = require('./../util/logger.js').errorlog;
+const async = require('async');
 
 var FeedHelper = function(){
+};
+
+
+FeedHelper.prototype.fetchMultiple = function(feedUrls, callback){
+    var self = this;
+    async.map(feedUrls, self.fetchSingle, function(err, results) {
+        if(err){
+            errorlog.log(err);
+            return callback(err, null);
+        }
+        else{
+            return callback(null, results);
+        }
+        console.log(results);
+    });
 };
 
 
@@ -18,14 +34,20 @@ FeedHelper.prototype.fetchSingle = function(feedUrl, callback){
     var posts = [];
 
     // Define our handlers
-    req.on('error', self.handleErrors);
+    req.on('error', function(err, callback){
+        errorlog.error(err);
+        return callback(null, err);
+    });
 
     req.on('response', function(res) {
         // And boom goes the dynamite
         res.pipe(feedparser);
     });
 
-    feedparser.on('error', self.handleErrors);
+    feedparser.on('error', function(err, callback){
+        errorlog.error(err);
+        return callback(null, err);
+    });
     feedparser.on('end', function(){
         return callback(null, posts);
     });
@@ -39,10 +61,10 @@ FeedHelper.prototype.fetchSingle = function(feedUrl, callback){
     });
 };
 
-FeedHelper.prototype.handleErrors = function(err, callback){
+/*FeedHelper.prototype.handleErrors = function(err, callback){
    errorlog.error(err);
    return callback(null, err);
-};
+};*/
 
 /**
  * Factory function

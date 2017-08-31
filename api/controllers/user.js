@@ -65,6 +65,21 @@ function signup(req, res){
     });
 }
 
+function addFeed(req, res){
+    var feed = req.swagger.params.feed.value;
+    var response = res;
+    var user = req.user;
+    user.feeds.push(feed);
+    User.findOneAndUpdate({'username': user.username}, user, {new: true}, function(err, res){
+        if(err){
+            errorlog.error(err);
+            return response.status(500).json({"message":"Something went wrong with inserting the feed"});
+        }else{
+            return response.status(200).json(res);
+        }
+    });
+}
+
 function login(req, res){
     delete req.user._doc.password;
     res.json(req.user);
@@ -79,5 +94,6 @@ module.exports = {
     signup: signup,
     login: login,
     logout: logout,
-    findOrCreateUser: findOrCreateUser
+    findOrCreateUser: findOrCreateUser,
+    addFeed: addFeed
 };
