@@ -21,15 +21,9 @@ swagger:
       name: swagger_validator
       validateResponse: true
 
-    cors:
-      name: cors
-      origin: "http://localhost:4200"
-      credentials: true
-
     # pipe for all swagger-node controllers
     swagger_controllers:
       - onError: json_error_handler
-      - cors
       - swagger_params_parser
       - swagger_security
       - _swagger_validate
