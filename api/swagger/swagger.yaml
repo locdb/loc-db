@@ -56,6 +56,27 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
+  /deleteFeed/{id}:
+    x-swagger-router-controller: user
+    delete:
+      tags: [User]
+      description: Deletes an RSS or Atom Feed from the users feed list
+      operationId: deleteFeed
+      parameters:
+        - name: id
+          in: path
+          description: The id of the feed to be deleted from the users feed list
+          required: true
+          type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+              $ref: "#/definitions/User"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
   /login:
     x-swagger-router-controller: user
     post:
@@ -710,6 +731,8 @@ definitions:
 
   Feed:
     properties:
+      _id:
+        type: string
       name:
         type: string
       url:

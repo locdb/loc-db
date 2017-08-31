@@ -26,6 +26,8 @@ describe('controllers', function () {
             password: "Test"
         };
 
+        var feedId = "";
+
         describe('POST /signup', function () {
 
             it('should signup a user', function (done) {
@@ -177,6 +179,7 @@ describe('controllers', function () {
                         res.body.feeds.should.have.lengthOf(2);
                         res.body.feeds[1].should.have.property("name", "Die Zeit");
                         res.body.feeds[1].should.have.property("url", "http://newsfeed.zeit.de/index");
+                        feedId = res.body.feeds[1]._id;
                         done();
                     });
             });
@@ -196,6 +199,25 @@ describe('controllers', function () {
                     .expect(400)
                     .end(function (err, res) {
                         should.not.exist(err);
+                        done();
+                    });
+            });
+        });
+
+
+        describe('DELETE /deleteFeed', function() {
+            it('should delete a feed from the users feed list', function (done) {
+                dummyUser
+                    .delete('/deleteFeed/' + feedId)
+                    .set('Accept', 'application/json')
+                    .expect('Content-Type', /json/)
+                    .expect(200)
+                    .end(function (err, res) {
+                        should.not.exist(err);
+                        res.body.should.be.ok;
+                        res.body.should.have.property("feeds");
+                        res.body.feeds.should.have.lengthOf(1);
+                        res.body.feeds[0].should.have.property("name", "Tagesschau");
                         done();
                     });
             });

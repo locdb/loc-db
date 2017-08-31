@@ -55,6 +55,7 @@ function signup(req, res){
     // Delay the execution of findOrCreateUser and execute
     // the method in the next tick of the event loop
     process.nextTick(function(){
+        // TODO: Username has to be unique?
         findOrCreateUser(username, password, function(err, res){
             if(err){
                 errorlog.error(err);
@@ -70,7 +71,7 @@ function addFeed(req, res){
     var response = res;
     var user = req.user;
     user.feeds.push(feed);
-    User.findOneAndUpdate({'username': user.username, 'feeds.url': {$ne: feed.url}}, user, {new: true}, function(err, res){
+    User.findOneAndUpdate({'_id': user._id, 'feeds.url': {$ne: feed.url}}, user, {new: true}, function(err, res){
         if(err){
             errorlog.error(err);
             return response.status(500).json({"message":"Something went wrong with inserting the feed"});
@@ -87,6 +88,29 @@ function addFeed(req, res){
     });
 }
 
+
+function deleteFeed(req, res){
+    var feedId = req.swagger.params.id.value;
+    var response = res;
+    var user = req.user;
+    User.findOneAndUpdate({'_id': user._id}, {$pull: {"feeds" : {"_id": feedId}}}, {new: true}, function(err, res){
+        if(err){
+            errorlog.error(err);
+            return response.status(500).json({"message":"Something went wrong with deleting the feed"});
+        }else{
+            if(res){
+                accesslog.log("Feed deleted from the user feed list.");
+                return response.status(200).json(res);
+            }else {
+                // res is null and err is null which means, that the feed url already existed
+                accesslog.log("Feed url already exists in user feed list");
+                return response.status(400).json({"message": "Feed url already exists in user feed list"});
+            }
+        }
+    });
+}
+
+
 function login(req, res){
     delete req.user._doc.password;
     res.json(req.user);
@@ -102,5 +126,6 @@ module.exports = {
     login: login,
     logout: logout,
     findOrCreateUser: findOrCreateUser,
-    addFeed: addFeed
+    addFeed: addFeed,
+    deleteFeed: deleteFeed,
 };
