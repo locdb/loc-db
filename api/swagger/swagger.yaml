@@ -68,7 +68,9 @@ paths:
           schema:
             type: array
             items:
-              $ref: "#/definitions/FeedEntry"
+              type: array
+              items:
+                $ref: "#/definitions/FeedEntry"
         default:
           description: Error
           schema:
@@ -756,8 +758,92 @@ definitions:
         type: string
 
   FeedEntry:
-    description: Can be anything
-
+    description: |
+      An entry returned by an RSS/ Atom/ RDF feed.
+      A description of all the fields can be found here: https://www.npmjs.com/package/feedparser
+    properties:
+      title:
+        type: string
+      description:
+        type: string
+      summary:
+        type: string
+      link:
+        type: string
+      origlink:
+        type: string
+      permalink:
+        type: string
+      date:
+        type: string
+      pubdate:
+        type: string
+      author:
+        type: string
+      guid:
+        type: string
+      comments:
+        type: string
+      image:
+        properties:
+          url:
+            type: string
+          title:
+            type: string
+      categories:
+        type: array
+        items:
+          type: string
+      source:
+        properties:
+          url:
+            type: string
+          title:
+            type: string
+      enclosures:
+        type: array
+        items:
+          properties:
+            url:
+              type: string
+            type:
+              type: string
+            length:
+              type: string
+      meta:
+        properties:
+          title:
+            type: string
+          description:
+            type: string
+          link:
+            type: string
+          xmlurl:
+            type: string
+          date:
+            type: string
+          pubdate:
+            type: string
+          author:
+            type: string
+          language:
+            type: string
+          image:
+            properties:
+              url:
+                type: string
+              title:
+                type: string
+          favicon:
+            type: string
+          copyright:
+            type: string
+          generator:
+            type: string
+          categories:
+            type: array
+            items:
+              type: string
 
   ErrorResponse:
     required:

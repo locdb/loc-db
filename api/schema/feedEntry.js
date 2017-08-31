@@ -2,7 +2,7 @@
 
 const SchemaObject = require('schema-object');
 
-//Create bibliographicEntry schema 
+//Create feedEntry schema
 var feedEntry = new SchemaObject({
     title: String,
     description: String,
