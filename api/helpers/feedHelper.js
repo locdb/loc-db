@@ -6,6 +6,7 @@ const request = require('request');
 const Feedparser = require('feedparser');
 const errorlog = require('./../util/logger.js').errorlog;
 const async = require('async');
+const FeedEntry = require('./../schema/feedEntry');
 
 var FeedHelper = function(){
 };
@@ -30,7 +31,7 @@ FeedHelper.prototype.fetchSingle = function(feed, callback){
     var self = this;
     // Define our streams
     var req = request(feed.url, {timeout: 10000});
-    var feedparser = new Feedparser();
+    var feedparser = new Feedparser({normalize: true, addmeta:true});
     var posts = [];
 
     // Define our handlers
@@ -56,6 +57,7 @@ FeedHelper.prototype.fetchSingle = function(feed, callback){
         var post;
 
         while (post = this.read()) {
+            post = new FeedEntry(post);
             posts.push(post);
         }
     });
