@@ -8,7 +8,7 @@ var dummyUser2 = request.agent(server);
 
 describe('controllers', function () {
 
-    describe('user', function () {
+    describe.only('user', function () {
         before(function (done) {
             setup.dropDB(function(err){
                 done();
@@ -152,6 +152,31 @@ describe('controllers', function () {
                         res.body.feeds.should.have.lengthOf(1);
                         res.body.feeds[0].should.have.property("name", "Tagesschau");
                         res.body.feeds[0].should.have.property("url", "http://www.tagesschau.de/xml/rss2");
+                        done();
+                    });
+            });
+
+            it('should add another feed object to the user', function (done) {
+
+                var feed = {
+                    name: "Die Zeit",
+                    url: "http://newsfeed.zeit.de/index"
+                };
+
+                dummyUser
+                    .post('/addFeed')
+                    .send(feed)
+                    .set('Accept', 'application/json')
+                    .expect('Content-Type', /json/)
+                    .expect(200)
+                    .end(function (err, res) {
+                        should.not.exist(err);
+                        res.body.should.be.ok;
+                        res.body.should.have.property("feeds");
+                        res.body.feeds.should.be.Array;
+                        res.body.feeds.should.have.lengthOf(2);
+                        res.body.feeds[1].should.have.property("name", "Die Zeit");
+                        res.body.feeds[1].should.have.property("url", "http://newsfeed.zeit.de/index");
                         done();
                     });
             });
