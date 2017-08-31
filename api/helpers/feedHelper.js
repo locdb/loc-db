@@ -11,9 +11,9 @@ var FeedHelper = function(){
 };
 
 
-FeedHelper.prototype.fetchMultiple = function(feedUrls, callback){
+FeedHelper.prototype.fetchMultiple = function(feeds, callback){
     var self = this;
-    async.map(feedUrls, self.fetchSingle, function(err, results) {
+    async.map(feeds, self.fetchSingle, function(err, results) {
         if(err){
             errorlog.log(err);
             return callback(err, null);
@@ -26,10 +26,10 @@ FeedHelper.prototype.fetchMultiple = function(feedUrls, callback){
 };
 
 
-FeedHelper.prototype.fetchSingle = function(feedUrl, callback){
+FeedHelper.prototype.fetchSingle = function(feed, callback){
     var self = this;
     // Define our streams
-    var req = request(feedUrl, {timeout: 10000});
+    var req = request(feed.url, {timeout: 10000});
     var feedparser = new Feedparser();
     var posts = [];
 

@@ -7,6 +7,7 @@ const User = require('./../models/user.js');
 const bcrypt = require('bcrypt');
 const errorlog = require('./../util/logger.js').errorlog;
 const accesslog = require('./../util/logger.js').accesslog;
+const feedHelper = require('./../helpers/feedHelper').createFeedHelper();
 
 // Generates hash using bCrypt
 var createHash = function(password){
@@ -104,6 +105,19 @@ function deleteFeed(req, res){
     });
 }
 
+function fetchFeeds(req, res){
+    var response = res;
+    var user = req.user;
+    // get list of urls
+    feedHelper.fetchMultiple(user.feeds, function(err, res){
+        if(err){
+            errorlog.error(err);
+            return response.status(500).json({"message": "Something went wrong with fetching the feeds."});
+        }
+        return response.json(res);
+    });
+}
+
 
 function login(req, res){
     delete req.user._doc.password;
@@ -122,4 +136,5 @@ module.exports = {
     findOrCreateUser: findOrCreateUser,
     addFeed: addFeed,
     deleteFeed: deleteFeed,
+    fetchFeeds: fetchFeeds
 };

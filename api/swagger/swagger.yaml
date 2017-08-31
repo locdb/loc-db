@@ -56,6 +56,23 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
+  /fetchFeeds:
+    x-swagger-router-controller: user
+    get:
+      tags: [User]
+      description: Fetches all the feeds entries a user subscribed to
+      operationId: fetchFeeds
+      responses:
+        "200":
+          description: Success
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/FeedEntry"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
   /deleteFeed/{id}:
     x-swagger-router-controller: user
     delete:
@@ -737,6 +754,10 @@ definitions:
         type: string
       url:
         type: string
+
+  FeedEntry:
+    description: Can be anything
+
 
   ErrorResponse:
     required:

@@ -204,6 +204,21 @@ describe('controllers', function () {
             });
         });
 
+        describe('GET /fetchFeeds', function() {
+            it('should fetch the new feeds related to the users subscriptions', function (done) {
+                dummyUser
+                    .get('/fetchFeeds')
+                    .set('Accept', 'application/json')
+                    .expect('Content-Type', /json/)
+                    .expect(200)
+                    .end(function (err, res) {
+                        should.not.exist(err);
+                        res.body.should.be.ok;
+                        console.log(res);
+                        done();
+                    });
+            });
+        });
 
         describe('DELETE /deleteFeed', function() {
             it('should delete a feed from the users feed list', function (done) {
