@@ -10,12 +10,18 @@ var SwbHelper = function(){
 };
 
 
-SwbHelper.prototype.query = function(ppn, callback){
-    var url = config.URLS.SWB + '?query=pica.ppn+%3D+"'
-    + ppn 
-    + '"&version=1.1&operation=searchRetrieve&recordSchema=marc21'
-    + '&maximumRecords=1&startRecord=1&recordPacking=xml&sortKeys=none'
-    +'&x-info-5-mg-requestGroupings=none';
+SwbHelper.prototype.query = function(ppn, resourceType, callback){
+    if(resourceType === enums.resourceType.journal){
+        var url = config.URLS.ZDB + '?version=1.1&operation=searchRetrieve&query=idn%3D'
+                + ppn
+                + '&recordSchema=MARC21-xml&maximumRecords=1';
+    }else{
+        var url = config.URLS.SWB + '?query=pica.ppn+%3D+"'
+            + ppn
+            + '"&version=1.1&operation=searchRetrieve&recordSchema=marc21'
+            + '&maximumRecords=1&startRecord=1&recordPacking=xml&sortKeys=none'
+            +'&x-info-5-mg-requestGroupings=none';
+    }
     request({
         url: url,
         method: 'GET',

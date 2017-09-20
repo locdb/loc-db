@@ -459,6 +459,11 @@ paths:
           description: The PICA-Prod-Nr. assigned by SWB
           required: true
           type: string
+        - name: resourceType
+          in: query
+          description: The type of the resource
+          required: true
+          type: string
       responses:
         "200":
           description: Success

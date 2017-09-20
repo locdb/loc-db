@@ -105,6 +105,79 @@ describe('controllers', function () {
             });
         });
 
+
+        describe('POST /saveScan - Resource Type: Journal', function () {
+
+            it('should save a scan in the file system and create two br (parent and child) in the db', function (done) {
+                agent
+                    .post('/saveScan')
+                    .type('form')
+                    .field('ppn', '023724153')
+                    .field('firstPage', '2')
+                    .field('lastPage', '3')
+                    .field('resourceType', resourceType.journal)
+                    .attach('scan', './test/api/data/ocr_example_1/0001.png')
+                    .set('Accept', 'application/json')
+                    .expect('Content-Type', /json/)
+                    .expect(200)
+                    .end(function (err, res) {
+                        should.not.exist(err);
+                        res.body[0].should.have.property("title", "Arbeitspapiere Fachgebiet Soziologie");
+                        res.body[0].should.have.property("embodiedAs");
+                        res.body[0].embodiedAs.should.be.Array;
+                        res.body[0].embodiedAs.should.have.lengthOf(0);
+                        res.body[1].should.have.property("embodiedAs");
+                        res.body[1].embodiedAs.should.be.Array;
+                        res.body[1].embodiedAs.should.have.lengthOf(1);
+                        res.body[1].embodiedAs[0].should.have.property("scans");
+                        res.body[1].embodiedAs[0].scans.should.be.Array;
+                        res.body[1].embodiedAs[0].scans.should.have.lengthOf(1);
+                        res.body[1].embodiedAs[0].scans[0].should.have.property("status", status.notOcrProcessed);
+                        res.body[1].should.have.property("partOf");
+                        res.body[0]._id.should.be.exactly(res.body[1].partOf);
+                        should(fs.existsSync(config.PATHS.UPLOAD)).equal(true);
+                        should(fs.existsSync(config.PATHS.UPLOAD + res.body[1].embodiedAs[0].scans[0].scanName)).equal(true);
+                        done();
+                    });
+            });
+
+            it('should should add a new part to an already existing br', function (done) {
+                agent
+                    .post('/saveScan')
+                    .type('form')
+                    .field('ppn', '023724153')
+                    .field('firstPage', '4')
+                    .field('lastPage', '10')
+                    .field('resourceType', resourceType.journal)
+                    .attach('scan', './test/api/data/ocr_example_1/0002.png')
+                    .set('Accept', 'application/json')
+                    .expect('Content-Type', /json/)
+                    .expect(200)
+                    .end(function (err, res) {
+                        should.not.exist(err);
+                        console.log(res.body)
+                        should.not.exist(err);
+                        res.body[0].should.have.property("title", "Arbeitspapiere Fachgebiet Soziologie");
+                        res.body[0].should.have.property("embodiedAs");
+                        res.body[0].embodiedAs.should.be.Array;
+                        res.body[0].embodiedAs.should.have.lengthOf(0);
+                        res.body[1].should.have.property("embodiedAs");
+                        res.body[1].embodiedAs.should.be.Array;
+                        res.body[1].embodiedAs.should.have.lengthOf(1);
+                        res.body[1].embodiedAs[0].should.have.property("scans");
+                        res.body[1].embodiedAs[0].scans.should.be.Array;
+                        res.body[1].embodiedAs[0].scans.should.have.lengthOf(1);
+                        res.body[1].embodiedAs[0].scans[0].should.have.property("status", status.notOcrProcessed);
+                        res.body[1].should.have.property("partOf");
+                        res.body[0]._id.should.be.exactly(res.body[1].partOf);
+                        should(fs.existsSync(config.PATHS.UPLOAD)).equal(true);
+                        should(fs.existsSync(config.PATHS.UPLOAD + res.body[1].embodiedAs[0].scans[0].scanName)).equal(true);
+                        done();
+                    });
+            });
+        });
+
+
         describe('POST /saveScan - Resource Type: Monograph', function () {
 
             it('should save a scan in the file system and create a single br in the db', function (done) {
@@ -167,7 +240,7 @@ describe('controllers', function () {
                         console.log(res.body);
                         should.not.exist(err);
                         res.body.should.be.Array;
-                        res.body.should.have.lengthOf(2);
+                        res.body.should.have.lengthOf(3);
                         res.body[0].should.have.property("children");
                         res.body[0].children.should.have.lengthOf(2);
                         res.body[0].children[0].should.have.property("scans");
@@ -201,7 +274,7 @@ describe('controllers', function () {
                     });
                 });
 
-                it('should retrieve a todo list of size 2 for the status "NOT_OCR_PROCESSED"', function (done) {
+                it('should retrieve a todo list of size 4 for the status "NOT_OCR_PROCESSED"', function (done) {
 
                     agent
                         .get('/getToDo')
@@ -213,13 +286,16 @@ describe('controllers', function () {
                             console.log(res.body);
                             should.not.exist(err);
                             res.body.should.be.Array;
-                            res.body.should.have.lengthOf(3);
+                            res.body.should.have.lengthOf(4);
                             res.body[0].should.have.property("children");
-                            res.body[1].should.not.have.property("children");
+                            res.body[1].should.have.property("children");
+                            res.body[2].should.not.have.property("children");
                             res.body[0].children.should.be.Array();
                             res.body[0].children.should.have.lengthOf(2);
-                            res.body[2].children.should.be.Array();
-                            res.body[2].children.should.have.lengthOf(1);
+                            res.body[1].children.should.be.Array();
+                            res.body[1].children.should.have.lengthOf(2);
+                            res.body[3].children.should.be.Array();
+                            res.body[3].children.should.have.lengthOf(1);
                             done();
                         });
                 });

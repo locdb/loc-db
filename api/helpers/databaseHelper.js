@@ -52,7 +52,7 @@ DatabaseHelper.prototype.saveIndependentPrintResource = function(scan, ppn, reso
         }else{
             // the br does not exist at all yet
             // we have to retrieve all the metadata and we have to save the file
-            self.saveScanAndRetrieveMetadata(scan, ppn, function (err, result) {
+            self.saveScanAndRetrieveMetadata(scan, ppn, resourceType, function (err, result) {
                 if (err) {
                     errorlog.log(err);
                     return callback(err, null);
@@ -165,7 +165,7 @@ DatabaseHelper.prototype.saveDependentPrintResource = function(scan, firstPage, 
             // the container br does not exist at all yet
             // ergo the sub-resource does not exist neither
             // we have to retrieve all the metadata and we have to save the file
-            self.saveScanAndRetrieveMetadata(scan, ppn, function (err, result) {
+            self.saveScanAndRetrieveMetadata(scan, ppn, resourceType, function (err, result) {
                 if (err) {
                     errorlog.log(err);
                     return callback(err, null);
@@ -220,7 +220,7 @@ DatabaseHelper.prototype.saveDependentPrintResource = function(scan, firstPage, 
  * @param ppn
  * @param callback
  */
-DatabaseHelper.prototype.saveScanAndRetrieveMetadata = function(scan, ppn, callback){
+DatabaseHelper.prototype.saveScanAndRetrieveMetadata = function(scan, ppn, resourceType, callback){
     var self = this;
     // run the saving and the retrieval of metadata in parallel
     async.parallel([
@@ -236,7 +236,7 @@ DatabaseHelper.prototype.saveScanAndRetrieveMetadata = function(scan, ppn, callb
         },
         // 2. retrieve metadata for ppn
         function(callback){
-            swbHelper.query(ppn, function (err, result) {
+            swbHelper.query(ppn, resourceType, function (err, result) {
                 if(err){
                     errorlog.error(err);
                     return callback(err, null)

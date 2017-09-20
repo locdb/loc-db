@@ -54,7 +54,7 @@ describe('helpers', function() {
 
         describe('saveScanAndRetrieveMetadata', function(){
             it('should save a scan in the file system and retrieve the meta data via ppn', function(done) {
-                databaseHelper.saveScanAndRetrieveMetadata(scan, ppnIndependent, function(err, result){
+                databaseHelper.saveScanAndRetrieveMetadata(scan, ppnIndependent, enums.resourceType.collection, function(err, result){
                     console.log(result);
                     should.not.exists(err);
                     result.should.be.Array;

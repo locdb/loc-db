@@ -49,7 +49,7 @@ describe('controllers', function() {
           it('should return a new bibliographic resouce', function(done) {
             agent
               .get('/createBibliographicResourceByPPN')
-              .query({ ppn: '400433052'})
+              .query({ ppn: '400433052', resourceType: enums.resourceType.collection})
               .set('Accept', 'application/json')
               .expect('Content-Type', /json/)
               .expect(200)
@@ -65,7 +65,7 @@ describe('controllers', function() {
           it('should return an error', function(done) {
               agent
                 .get('/createBibliographicResourceByPPN')
-                .query({ ppn: ''})
+                .query({ ppn: '', resourceType: enums.resourceType.monograph})
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
                 .expect(200)

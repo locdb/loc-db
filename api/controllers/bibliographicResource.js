@@ -111,13 +111,14 @@ function deleteSingle(req, res){
 
 function createByPPN(req, res){
     // Get PPN param from request
-    var ppn = req.swagger.params.ppn.value.trim();
+    var ppn = req.swagger.params.ppn.value;
+    var resourceType = req.swagger.params.resourceType.value;
     var response = res;
     if(typeof ppn == "undefined"){
         response.status(400).send('PPN undefined.');
     }else{
         // Call Swb Helper
-        swbHelper.query(ppn, function(err, result){
+        swbHelper.query(ppn, resourceType, function(err, result){
             if(err){
                 errorlog.error(err);
                 return response.status(500).json(err);
