@@ -10,22 +10,34 @@ The LOC-DB project will develop ready-to-use tools and processes based on the li
 
 More information can be found here: https://locdb.bib.uni-mannheim.de/blog/en/ .
 
-## usage instructions
+## Basic usage instructions
 ### 0. Download MongoDB and follow their installation instructions
 See https://www.mongodb.com .
-### 1. Download the project itself and change to project directory
+### 1. Download Elasticsearch and follow their installation instructions
+See Link
+### 2. Download the project itself and change to project directory
 ```
 cd loc-db
 ```
-### 2. Install
+### 3. Install the Node.js modules needed
 ```
 npm install
 ```
-### 3. Start or run the tests
+### 4. Start or run the tests
 ```
-swagger project start
+npm start
 ```
 or
 ```
-swagger project test
+npm test
 ```
+
+## Configuration
+The configuration of the project can be managed in two ways:
+### 1. Editing config.js
+The file /api/config/config.js holds basic configuration, such as database host and port.
+You can edit the string values to define your own default configuration.
+### 2. Setting environment variables
+Another way to specify the configuration of the project is to use a set of predefined environment variables.
+When the project is loaded, the default values in config.js are overwritten with the values of the corresponding
+environment variables in case they are set.
