@@ -32,7 +32,7 @@ or
 npm test
 ```
 
-## Configuration
+## Configuration Managment
 The configuration of the project can be managed in two ways:
 ### 1. Editing config.js
 The file /api/config/config.js holds basic configuration, such as database host and port.
@@ -41,3 +41,9 @@ You can edit the string values to define your own default configuration.
 Another way to specify the configuration of the project is to use a set of predefined environment variables.
 When the project is loaded, the default values in config.js are overwritten with the values of the corresponding
 environment variables in case they are set.
+
+## Deployment
+We recommend to use a production manager for the deployment of the project such as PM2.
+
+## User Management
+User authentication is handled via basic username and password mechanism using Passport.js's 'Local' strategy.
