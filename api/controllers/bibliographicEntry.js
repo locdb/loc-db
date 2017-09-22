@@ -9,7 +9,7 @@ const extend = require('extend');
 const async = require('async');
 const googleScholarHelper = require('./../helpers/googleScholarHelper.js').createGoogleScholarHelper();
 const crossrefHelper = require('./../helpers/crossrefHelper.js').createCrossrefHelper();
-//const suggestionHelper = require('./../helpers/suggestionHelper').createSuggestionHelper();
+const swbHelper = require('./../helpers/swbHelper.js').createSwbHelper();
 //const natural = require('natural');
 
 
@@ -147,6 +147,14 @@ function getExternalSuggestions(req, res) {
 
     async.parallel([
             function (callback) {
+                swbHelper.queryByTitle(title, function (err, res) {
+                    if (err) {
+                        return callback(err, null);
+                    }
+                    return callback(null, res);
+                });
+            },
+            function (callback) {
                 googleScholarHelper.query(title, function (err, res) {
                     if (err) {
                         return callback(err, null);
@@ -161,7 +169,7 @@ function getExternalSuggestions(req, res) {
                     }
                     return callback(null, res);
                 });
-            },
+            }
         ],
         function (err, res) {
             if (err) {
@@ -169,17 +177,12 @@ function getExternalSuggestions(req, res) {
                 return response.status(500).json(err);
             }
             var result = [];
-            if (res[0].length > 0) {
-                for (var br of res[0]) {
-                    if (Object.keys(br).length !== 0) { //&& natural.LevenshteinDistance(be.title, title) <= 10) {
-                        result.push(br);
-                    }
-                }
-            }
-            if (res[1].length > 0) {
-                for (var br of res[1]) {
-                    if (Object.keys(br).length !== 0) { //&& natural.LevenshteinDistance(be.title, title) <= 10) {
-                        result.push(br);
+            for(var sourceResults of res){
+                if (sourceResults.length > 0) {
+                    for (var br of sourceResults) {
+                        if (Object.keys(br).length !== 0) { //&& natural.LevenshteinDistance(be.title, title) <= 10) {
+                            result.push(br);
+                        }
                     }
                 }
             }

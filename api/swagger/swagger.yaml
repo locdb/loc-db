@@ -14,7 +14,7 @@ tags:
   - name: BibliographicEntry
     description: Services related to bibliographic entries.
 schemes:
-  - http
+  #- http
   - https
 consumes:
   - application/json
@@ -34,6 +34,68 @@ security:
 
 
 paths:
+  /addFeed:
+    x-swagger-router-controller: user
+    post:
+      tags: [User]
+      description: Adds an RSS or Atom Feed the users feed list
+      operationId: addFeed
+      parameters:
+        - name: feed
+          in: body
+          description: The feed object consisting of name (may be user specified) and URL of the feed
+          required: true
+          schema:
+              $ref: "#/definitions/Feed"
+      responses:
+        "200":
+          description: Success
+          schema:
+              $ref: "#/definitions/User"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /fetchFeeds:
+    x-swagger-router-controller: user
+    get:
+      tags: [User]
+      description: Fetches all the feeds entries a user subscribed to
+      operationId: fetchFeeds
+      responses:
+        "200":
+          description: Success
+          schema:
+            type: array
+            items:
+              type: array
+              items:
+                $ref: "#/definitions/FeedEntry"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /deleteFeed/{id}:
+    x-swagger-router-controller: user
+    delete:
+      tags: [User]
+      description: Deletes an RSS or Atom Feed from the users feed list
+      operationId: deleteFeed
+      parameters:
+        - name: id
+          in: path
+          description: The id of the feed to be deleted from the users feed list
+          required: true
+          type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+              $ref: "#/definitions/User"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
   /login:
     x-swagger-router-controller: user
     post:
@@ -143,6 +205,35 @@ paths:
           description: Success
           schema:
             $ref: "#/definitions/BibliographicResource"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /getCrossrefReferences:
+    x-swagger-router-controller: bibliographicResource
+    post:
+      tags: [BibliographicResource]
+      description: |
+        Returns the br including a list of bibliographic entries retrieved via Crossref. If there is a doi
+        given in the br, the search will be performed based on the identifier and at max one br will be returned.
+        Is no doi given, the search will be fuzzy based on a combination of several br fields (title, subtitle, author,..).
+        The br returned is not the one in our mongo. You only get Crossref data. A working doi example in the domain of sociology is "10.1007/s11617-006-0056-1".
+      operationId: getCrossrefReferences
+      parameters:
+        - name: bibliographicResource
+          in: body
+          description: A bibliographic resource for which the Crossref references should be retrieved
+          required: true
+          schema:
+            $ref: "#/definitions/BibliographicResource"
+      responses:
+        "200":
+          description: Success
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/BibliographicResource"
         default:
           description: Error
           schema:
@@ -270,6 +361,11 @@ paths:
           description: The scanned image of the reference page (binary file)
           required: true
           type: file
+        - name: resourceType
+          in: formData
+          description: The type of the resource, e.g. monography
+          required: true
+          type: string
       responses:
         "200":
           description: Success
@@ -361,6 +457,11 @@ paths:
         - name: ppn
           in: query
           description: The PICA-Prod-Nr. assigned by SWB
+          required: true
+          type: string
+        - name: resourceType
+          in: query
+          description: The type of the resource
           required: true
           type: string
       responses:
@@ -477,7 +578,7 @@ definitions:
         items:
           $ref: "#/definitions/AgentRole"
       publicationYear:
-        type: number
+        type: string
       status:
         type: string
       parts:
@@ -613,7 +714,7 @@ definitions:
         items:
           $ref: "#/definitions/AgentRole"
       publicationYear:
-        type: number
+        type: string
       children:
         type: array
         items:
@@ -647,6 +748,107 @@ definitions:
         type: string
       password:
         type: string
+      feeds:
+        type: array
+        items:
+          $ref: "#/definitions/Feed"
+
+  Feed:
+    properties:
+      _id:
+        type: string
+      name:
+        type: string
+      url:
+        type: string
+
+  FeedEntry:
+    description: |
+      An entry returned by an RSS/ Atom/ RDF feed.
+      A description of all the fields can be found here: https://www.npmjs.com/package/feedparser
+    properties:
+      title:
+        type: string
+      description:
+        type: string
+      summary:
+        type: string
+      link:
+        type: string
+      origlink:
+        type: string
+      permalink:
+        type: string
+      date:
+        type: string
+      pubdate:
+        type: string
+      author:
+        type: string
+      guid:
+        type: string
+      comments:
+        type: string
+      image:
+        properties:
+          url:
+            type: string
+          title:
+            type: string
+      categories:
+        type: array
+        items:
+          type: string
+      source:
+        properties:
+          url:
+            type: string
+          title:
+            type: string
+      enclosures:
+        type: array
+        items:
+          properties:
+            url:
+              type: string
+            type:
+              type: string
+            length:
+              type: string
+      meta:
+        properties:
+          title:
+            type: string
+          description:
+            type: string
+          link:
+            type: string
+          xmlurl:
+            type: string
+          date:
+            type: string
+          pubdate:
+            type: string
+          author:
+            type: string
+          language:
+            type: string
+          image:
+            properties:
+              url:
+                type: string
+              title:
+                type: string
+          favicon:
+            type: string
+          copyright:
+            type: string
+          generator:
+            type: string
+          categories:
+            type: array
+            items:
+              type: string
 
   ErrorResponse:
     required:

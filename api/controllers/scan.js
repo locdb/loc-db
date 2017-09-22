@@ -12,6 +12,7 @@ const config = require('./../../config/config.js');
 const mongoose = require('mongoose');
 const fs = require('fs');
 const path = require('path');
+const databaseHelper = require('./../helpers/databaseHelper.js').createDatabaseHelper();
 
 
 function saveScan(req, res) {
@@ -20,122 +21,26 @@ function saveScan(req, res) {
     var ppn = req.swagger.params.ppn.value;
     var firstPage = req.swagger.params.firstPage.value;
     var lastPage = req.swagger.params.lastPage.value;
+    var resourceType = req.swagger.params.resourceType.value;
 
-    mongoBr.findOne({
-        "identifiers.scheme": enums.identifier.ppn,
-        "identifiers.literalValue": ppn
-    }).then(function (parent) {
-        // We want to save each scan with a unique id. So, first of all, we have to generate it.
-        var scanId = mongoose.Types.ObjectId().toString();
-        if (parent) {
-            mongoBr.find({
-                partOf: parent._id,
-                embodiedAs: {$elemMatch: {firstPage: firstPage, lastPage: lastPage}}
-            }, function (err, brs) {
-                if (err) {
-                    errorlog.error(err);
-                    return res.status(500).json({"message": "DB error."});
-                }
-                if (brs.length > 0) {
-                    errorlog.error("Duplicate upload.");
-                    return response.status(400).json({"message": "Duplicate upload."});
-                }
-                ocrHelper.saveBinaryFile(scanId, scan.buffer, function (err, scanName) {
-                    if (err) {
-                        errorlog.error(err);
-                        return res.status(500).json({"message": "Saving the file failed"});
-                    }
-                    var scan = new Scan({_id: scanName.split(".png")[0], scanName: scanName, status: enums.status.notOcrProcessed});
-                    var child = new mongoBr({
-                        partOf: parent._id.toString(),
-                        embodiedAs: [{firstPage: firstPage, lastPage: lastPage, scans: [scan]}]
-                    });
-                    child.save().then(function (result) {
-                        return response.status(200).json([parent, child]);
-                    }, function (err) {
-                        errorlog.error(err);
-                        return response.status(500).json({"message": "DB failure."});
-                    });
-                });
-            });
-        } else {
-            async.parallel([
-                    function (callback) {
-                        ocrHelper.saveBinaryFile(scanId, scan.buffer, function (err, scanName) {
-                            if (err) {
-                                errorlog.error(err);
-                                return res.status(500).json({"message": "Saving the file failed"});
-                            }
-                            callback(null, scanName)
-                        });
-                    },
-                    function (callback) {
-                        swbHelper.query(ppn, function (result) {
-                            callback(null, result);
-                        });
-                    }
-                ],
-                function (err, results) {
-                    if (err) {
-                        errorlog.error(err);
-                        return res.status(400).json("An error occured.");
-                    }
-                    // create parent
-                    var parent = new mongoBr(results[1]);
-                    parent.identifiers.push({scheme: enums.identifier.ppn, literalValue: ppn})
-
-                    // create scan and child
-                    var scan = new Scan({_id: results[0].split(".png")[0], scanName: results[0], status: enums.status.notOcrProcessed});
-                    var child = new mongoBr({
-                        partOf: parent._id.toString(),
-                        embodiedAs: [{
-                            firstPage: firstPage,
-                            lastPage: lastPage,
-                            scans: [scan.toObject()]
-                        }]
-                    });
-
-                    // Save parent and child
-                    async.parallel([
-                            function (callback) {
-                                parent.save().then(function (result) {
-                                    callback(null, result)
-                                }, function (err) {
-                                    errorlog.error(err);
-                                    return response.status(400).send(err);
-                                });
-                            },
-                            function (callback) {
-                                child.save().then(function (result) {
-                                    callback(null, result)
-                                }, function (err) {
-                                    errorlog.error(err);
-                                    return response.status(400).send(err);
-                                });
-                            }],
-                        function (err, result) {
-                            if (err) {
-                                errorlog.error(err);
-                                return res.status(400).json("An error occured.");
-                            }
-                            return response.status(200).json(result);
-                        });
-                });
-        }
-    });
-};
-
-// TODO: What if more than one scan is associated with the br and one is already processed and the other not?
-// old version
-function getNotOcrProcessedScans2(req, res) {
-    var response = res;
-    mongoBr.find({'scans.status': enums.status.notOcrProcessed}, function (err, brs) {
-        if (err) {
-            errorlog.error(err);
-            return response.status(500).json({"message": "DB query failed."});
-        }
-        response.json(brs);
-    });
+    if(resourceType == enums.resourceType.monograph){
+        databaseHelper.saveIndependentPrintResource(scan, ppn, resourceType, function(err,res){
+            if(err){
+                errorlog.error(err);
+                return response.json(err);
+            }
+            return response.json(res);
+        });
+    }else if(resourceType == enums.resourceType.journal
+        || resourceType == enums.resourceType.collection) {
+        databaseHelper.saveDependentPrintResource(scan, firstPage, lastPage, ppn, resourceType, function (err, res) {
+            if(err){
+                errorlog.error(err);
+                return response.json(err);
+            }
+            return response.json(res);
+        });
+    }
 };
 
 function getToDo(req, res) {
@@ -153,62 +58,86 @@ function getToDo(req, res) {
         var resultArray = [];
         var resultObject;
         for (var child of children) {
-            var alreadyIn = false;
-            if (resultArray.length !== 0) {
-                for (var i of resultArray) {
-                    if (i._id == child.partOf) {
-                        alreadyIn = true;
-                        resultObject = i;
-                        break;
-                    } else {
-                        resultObject = {};
-                        resultObject._id = child.partOf;
-                        resultObject.children = [];
+            // check here whether it is really a child
+            if(child.partOf){
+                // this applies to dependent resources
+                var alreadyIn = false;
+                if (resultArray.length !== 0) {
+                    for (var i of resultArray) {
+                        if (i._id == child.partOf) {
+                            alreadyIn = true;
+                            resultObject = i;
+                            break;
+                        } else {
+                            resultObject = {};
+                            resultObject._id = child.partOf;
+                            resultObject.children = [];
+                        }
+                    }
+                } else {
+                    resultObject = {};
+                    resultObject._id = child.partOf;
+                    resultObject.children = [];
+                }
+                var resultChild = {};
+                resultChild._id = child._id;
+                //resultChild.status = child.status;
+                var scans = [];
+                for (var embodiment of child.embodiedAs) {
+                    for (var scan of embodiment.scans) {
+                        if (scan.status === status) {
+                            scans.push({"_id": scan._id.toString(), "status": scan.status, "firstPage": embodiment.firstPage, "lastPage": embodiment.lastPage});
+                        }
                     }
                 }
-            } else {
-                resultObject = {};
-                resultObject._id = child.partOf;
-                resultObject.children = [];
-            }
-            var resultChild = {};
-            resultChild._id = child._id;
-            //resultChild.status = child.status;
-            var scans = [];
-            for (var embodiment of child.embodiedAs) {
-                for (var scan of embodiment.scans) {
-                    if (scan.status === status) {
-                        scans.push({"_id": scan._id.toString(), "status": scan.status, "firstPage": embodiment.firstPage, "lastPage": embodiment.lastPage});
-                    }
-                }
-            }
 
-            resultChild.scans = scans;
-            resultObject.children.push(resultChild);
-            if (!alreadyIn) {
+                resultChild.scans = scans;
+                resultObject.children.push(resultChild);
+                if (!alreadyIn) {
+                    resultArray.push(resultObject);
+                }
+            }else{
+                // This applies to independent resources
+                var scans = [];
+                var resultObject = child;
+                for (var embodiment of child.embodiedAs) {
+                    for (var scan of embodiment.scans) {
+                        if (scan.status === status) {
+                            scans.push({"_id": scan._id.toString(), "status": scan.status});
+                        }
+                    }
+                }
+                resultObject = resultObject.toObject();
+                delete resultObject.embodiedAs;
+                resultObject.scans = scans;
                 resultArray.push(resultObject);
             }
         }
         // add additional information for displaying it to the user
         async.map(resultArray, function(parent, callback) {
-            mongoBr.findOne({'_id': parent._id}, function (err, br) {
-                if (err) {
-                    errorlog.error(err);
-                    return callback(err, null)
-                }
-                if(!br){
+            // check first whether it is really a parent
+            if(parent.children){
+                mongoBr.findOne({'_id': parent._id}, function (err, br) {
+                    if (err) {
+                        errorlog.error(err);
+                        return callback(err, null)
+                    }
+                    if(!br){
+                        callback(null, parent);
+                    }
+                    parent.identifiers = br.identifiers ? br.identifiers : [];
+                    parent.title = br.title ? br.title : "";
+                    parent.subtitle = br.subtitle ? br.subtitle : "";
+                    parent.publicationYear = br.publicationYear ? br.publicationYear : -1;
+                    parent.contributors = br.contributors ? br.contributors : [];
+                    parent.type = br.type ? br.type : "";
+                    parent.edition = br.edition ? br.edition : "";
+                    parent.number = br.number ? br.number : -1;
                     callback(null, parent);
-                }
-                parent.identifiers = br.identifiers ? br.identifiers : [];
-                parent.title = br.title ? br.title : "";
-                parent.subtitle = br.subtitle ? br.subtitle : "";
-                parent.publicationYear = br.publicationYear ? br.publicationYear : -1;
-                parent.contributors = br.contributors ? br.contributors : [];
-                parent.type = br.type ? br.type : "";
-                parent.edition = br.edition ? br.edition : "";
-                parent.number = br.number ? br.number : -1;
+                });
+            }else{
                 callback(null, parent);
-            });
+            }
         }, function(err, res) {
             if (err) {
                 errorlog.error(err);
@@ -218,7 +147,7 @@ function getToDo(req, res) {
         });
 
     });
-};
+}
 
 
 function get(req, res) {
@@ -252,7 +181,7 @@ function get(req, res) {
             }
         }
     });
-};
+}
 
 
 function triggerOcrProcessing(req, res) {

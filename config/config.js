@@ -18,6 +18,7 @@ var config = {
     },
     URLS: {
         SWB: "http://swbtest.bsz-bw.de/sru/DB=2.1/username=/password=/",
+        ZDB: "http://services.dnb.de/sru/zdb",
         OCR: "https://locdb.opendfki.de/fileupload/"
     },
     PATHS: {

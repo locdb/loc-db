@@ -8,6 +8,7 @@ const app = require('express')();
 const mongoose = require('mongoose');
 const errorlog = require('./api/util/logger.js').errorlog;
 const accesslog = require('./api/util/logger.js').accesslog;
+const cors = require('cors');
 
 
 
@@ -64,14 +65,10 @@ SwaggerExpress.create({appRoot: __dirname, securityHandlers: {
     }
 }}, function(err, swaggerExpress) {
     if (err) { throw err; }
-    // Allow CORS
-    app.use(function(req, res, next) {
-        res.header("Access-Control-Allow-Origin", "*");
-        next();
-    });
     app.use(expressSession({secret: 'mySecretKey'}));
     app.use(passport.initialize());
     app.use(passport.session());
+    app.use(cors({origin: "http://localhost:4200", credentials: true}));
     swaggerExpress.register(app);
     app.listen(config.PORT);
 });

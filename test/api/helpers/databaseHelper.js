@@ -1,0 +1,303 @@
+/**
+ * Created by anlausch on 14/8/2017.
+ */
+
+const should = require('should');
+const setup = require('./../setup.js').createSetup();
+const databaseHelper = require('./../../../api/helpers/databaseHelper.js').createDatabaseHelper();
+const fs = require('fs');
+const enums = require('./../../../api/schema/enum.json');
+const config = require('./../../../config/config');
+const mongoBr = require('./../../../api/models/bibliographicResource.js');
+
+describe('helpers', function() {
+    describe('databaseHelper', function() {
+        var scan;
+        var ppnIndependent = "004000951";
+        var ppnDependent = "06453832X";
+        before(function(done) {
+            this.timeout(3000);
+            setup.dropDB(function(err){
+                fs.readFile('./test/api/data/ocr_example_1/0002.png', function(err,res){
+                    if(err){
+                        done(err);
+                    }
+                    else{
+                        scan = res;
+                        done();
+                    }
+                });
+            });
+        });
+
+        after(function(done) {
+            setup.dropDB(function(err){
+                done();
+            });
+        });
+
+        describe('saveScan', function(){
+            it('should save a scan with a unique id in the file system', function(done) {
+                databaseHelper.saveScan(scan, function(err, result){
+                    console.log(result);
+                    should.not.exists(err);
+                    result.should.have.property("scanName");
+                    result.should.have.property("status", enums.status.notOcrProcessed);
+                    var scanPath = config.PATHS.UPLOAD + result.scanName;
+                    fs.exists(scanPath, function(res){
+                        res.should.equal(true);
+                        done();
+                    });
+                });
+            });
+        });
+
+        describe('saveScanAndRetrieveMetadata', function(){
+            it('should save a scan in the file system and retrieve the meta data via ppn', function(done) {
+                databaseHelper.saveScanAndRetrieveMetadata(scan, ppnIndependent, enums.resourceType.collection, function(err, result){
+                    console.log(result);
+                    should.not.exists(err);
+                    result.should.be.Array;
+                    result[0].should.have.property("scanName");
+                    result[0].should.have.property("status", enums.status.notOcrProcessed);
+                    result[1].should.have.property("title", "Handbuch der empirischen Sozialforschung /");
+                    //result[1].should.have.property("publicationYear", 2006);
+                    var scanPath = config.PATHS.UPLOAD + result[0].scanName;
+                    fs.exists(scanPath, function(res){
+                        res.should.equal(true);
+                        mongoBr.findOne({_id: result[1]._id}, function(err, br){
+                            should.not.exist(br);
+                            done();
+                        });
+
+                    });
+                });
+            });
+        });
+
+        describe('saveIndependentPrintResource', function(){
+            it('should save a scan in the file system, retrieve the meta data via ppn, and save br and scan in the db', function(done) {
+                databaseHelper.saveIndependentPrintResource(scan, ppnIndependent, enums.resourceType.monograph, function(err, result){
+                    console.log(result);
+                    should.not.exists(err);
+                    result.should.have.property("embodiedAs");
+                    result.embodiedAs.should.be.Array;
+                    result.embodiedAs.should.have.lengthOf(1);
+                    result.embodiedAs[0].should.have.property("scans");
+                    result.embodiedAs[0].scans.should.be.Array;
+                    result.embodiedAs[0].scans.should.have.lengthOf(1);
+                    result.embodiedAs[0].scans[0].should.have.property("scanName");
+                    result.embodiedAs[0].scans[0].should.have.property("status", enums.status.notOcrProcessed);
+                    result.should.have.property("title", "Handbuch der empirischen Sozialforschung /");
+                    result.should.have.property("publicationYear", "19uu");
+                    var scanPath = config.PATHS.UPLOAD + result.embodiedAs[0].scans[0].scanName;
+                    fs.exists(scanPath, function(res){
+                        res.should.equal(true);
+                        mongoBr.findOne({_id: result._id}, function(err, br){
+                            br.should.be.ok;
+                            result.should.have.property("embodiedAs");
+                            br.embodiedAs.should.be.Array;
+                            br.embodiedAs.should.have.lengthOf(1);
+                            br.embodiedAs[0].should.have.property("scans");
+                            br.embodiedAs[0].scans.should.be.Array;
+                            br.embodiedAs[0].scans.should.have.lengthOf(1);
+                            br.embodiedAs[0].scans[0].should.have.property("scanName");
+                            br.embodiedAs[0].scans[0].should.have.property("status", enums.status.notOcrProcessed);
+                            br.should.have.property("title", "Handbuch der empirischen Sozialforschung /");
+                            br.should.have.property("publicationYear", "19uu");
+                            done();
+                        });
+                    });
+                });
+            });
+
+            it('should save a scan in the file system and save br and scan in the db', function(done) {
+                databaseHelper.saveIndependentPrintResource(scan, ppnIndependent, enums.resourceType.monograph, function(err, result){
+                    console.log(result);
+                    should.not.exists(err);
+                    result.should.have.property("embodiedAs");
+                    result.embodiedAs.should.be.Array;
+                    result.embodiedAs.should.have.lengthOf(1);
+                    result.embodiedAs[0].should.have.property("scans");
+                    result.embodiedAs[0].scans.should.be.Array;
+                    result.embodiedAs[0].scans.should.have.lengthOf(2);
+                    result.embodiedAs[0].scans[0].should.have.property("scanName");
+                    result.embodiedAs[0].scans[0].should.have.property("status", enums.status.notOcrProcessed);
+                    result.should.have.property("title", "Handbuch der empirischen Sozialforschung /");
+                    result.should.have.property("publicationYear", "19uu");
+                    var scanPath = config.PATHS.UPLOAD + result.embodiedAs[0].scans[0].scanName;
+                    fs.exists(scanPath, function(res){
+                        res.should.equal(true);
+                        mongoBr.findOne({_id: result._id}, function(err, br){
+                            br.should.be.ok;
+                            result.should.have.property("embodiedAs");
+                            br.embodiedAs.should.be.Array;
+                            br.embodiedAs.should.have.lengthOf(1);
+                            br.embodiedAs[0].should.have.property("scans");
+                            br.embodiedAs[0].scans.should.be.Array;
+                            br.embodiedAs[0].scans.should.have.lengthOf(2);
+                            br.embodiedAs[0].scans[0].should.have.property("scanName");
+                            br.embodiedAs[0].scans[0].should.have.property("status", enums.status.notOcrProcessed);
+                            br.should.have.property("title", "Handbuch der empirischen Sozialforschung /");
+                            br.should.have.property("publicationYear", "19uu");
+                            done();
+                        });
+                    });
+                });
+            });
+        });
+
+        describe('saveDependentPrintResource', function(){
+            var parentId;
+            var childId;
+
+            it('should save a scan in the file system, retrieve the meta data of the container resource via ppn, ' +
+                'and save the parent br and the child br and the scan in the db', function(done) {
+                var firstPage = 10;
+                var lastPage = 15;
+                databaseHelper.saveDependentPrintResource(scan, firstPage, lastPage, ppnDependent, enums.resourceType.collection, function(err, result){
+                    should.not.exists(err);
+                    result.should.be.Array;
+                    result.should.have.lengthOf(2);
+                    result[0].should.have.property("title", "Zeitschrift für Soziologie der Erziehung und Sozialisation :");
+                    result[0].should.have.property("subtitle", "ZSE = Journal for sociology of education and socialization");
+                    result[0].should.have.property("publicationYear", "1998");
+                    result[1].should.have.property("partOf", result[0]._id.toString());
+                    result[1].should.have.property("embodiedAs");
+                    result[1].embodiedAs.should.be.Array;
+                    result[1].embodiedAs.should.have.lengthOf(1);
+                    result[1].embodiedAs[0].scans.should.be.Array;
+                    result[1].embodiedAs[0].scans.should.have.lengthOf(1);
+                    result[1].embodiedAs[0].scans[0].should.have.property("scanName");
+                    result[1].embodiedAs[0].scans[0].should.have.property("status", enums.status.notOcrProcessed);
+                    result[1].embodiedAs[0].should.have.property("type", enums.embodimentType.print);
+                    parentId = result[0]._id;
+                    childId = result[1]._id;
+                    var scanPath = config.PATHS.UPLOAD + result[1].embodiedAs[0].scans[0].scanName;
+                    fs.exists(scanPath, function(res){
+                        res.should.equal(true);
+                        mongoBr.findOne({_id: result[0]._id}, function(err, parent){
+                            parent.should.be.ok;
+                            parent.should.have.property("title", "Zeitschrift für Soziologie der Erziehung und Sozialisation :");
+                            parent.should.have.property("subtitle", "ZSE = Journal for sociology of education and socialization");
+                            parent.should.have.property("publicationYear", "1998");
+                            mongoBr.findOne({_id: result[1]._id}, function(err, child){
+                                child.should.be.ok;
+                                child.should.have.property("partOf", result[0]._id.toString());
+                                child.should.have.property("embodiedAs");
+                                child.embodiedAs.should.be.Array;
+                                child.embodiedAs.should.have.lengthOf(1);
+                                child.embodiedAs[0].scans.should.be.Array;
+                                child.embodiedAs[0].scans.should.have.lengthOf(1);
+                                child.embodiedAs[0].scans[0].should.have.property("scanName");
+                                child.embodiedAs[0].scans[0].should.have.property("status", enums.status.notOcrProcessed);
+                                child.embodiedAs[0].should.have.property("type", enums.embodimentType.print);
+                                done();
+                            });
+                        });
+                    });
+                });
+            });
+
+            it('should save a scan in the file system ' +
+                'and leave the parent br as it was and add a new scan to the child br', function(done) {
+                var firstPage = 10;
+                var lastPage = 15;
+                databaseHelper.saveDependentPrintResource(scan, firstPage, lastPage, ppnDependent, enums.resourceType.collection, function(err, result){
+                    should.not.exists(err);
+                    result.should.be.Array;
+                    result.should.have.lengthOf(2);
+                    result[0].should.have.property("_id", parentId);
+                    result[0].should.have.property("title", "Zeitschrift für Soziologie der Erziehung und Sozialisation :");
+                    result[0].should.have.property("subtitle", "ZSE = Journal for sociology of education and socialization");
+                    result[0].should.have.property("publicationYear", "1998");
+                    result[1].should.have.property("_id", childId);
+                    result[1].should.have.property("partOf", result[0]._id.toString());
+                    result[1].should.have.property("embodiedAs");
+                    result[1].embodiedAs.should.be.Array;
+                    result[1].embodiedAs.should.have.lengthOf(1);
+                    result[1].embodiedAs[0].scans.should.be.Array;
+                    result[1].embodiedAs[0].scans.should.have.lengthOf(2);
+                    result[1].embodiedAs[0].scans[0].should.have.property("scanName");
+                    result[1].embodiedAs[0].scans[0].should.have.property("status", enums.status.notOcrProcessed);
+                    result[1].embodiedAs[0].should.have.property("type", enums.embodimentType.print);
+                    var scanPath = config.PATHS.UPLOAD + result[1].embodiedAs[0].scans[0].scanName;
+                    fs.exists(scanPath, function(res){
+                        res.should.equal(true);
+                        mongoBr.findOne({_id: result[0]._id}, function(err, parent){
+                            parent.should.be.ok;
+                            parent.should.have.property("title", "Zeitschrift für Soziologie der Erziehung und Sozialisation :");
+                            parent.should.have.property("subtitle", "ZSE = Journal for sociology of education and socialization");
+                            parent.should.have.property("publicationYear", "1998");
+                            mongoBr.findOne({_id: result[1]._id}, function(err, child){
+                                child.should.be.ok;
+                                child.should.have.property("partOf", result[0]._id.toString());
+                                child.should.have.property("embodiedAs");
+                                child.embodiedAs.should.be.Array;
+                                child.embodiedAs.should.have.lengthOf(1);
+                                child.embodiedAs[0].scans.should.be.Array;
+                                child.embodiedAs[0].scans.should.have.lengthOf(2);
+                                child.embodiedAs[0].scans[0].should.have.property("scanName");
+                                child.embodiedAs[0].scans[0].should.have.property("status", enums.status.notOcrProcessed);
+                                child.embodiedAs[0].should.have.property("type", enums.embodimentType.print);
+                                done();
+                            });
+                        });
+                    });
+                });
+            });
+
+            it('should save a scan in the file system ' +
+                'and leave the parent br as it was and add a new scan to a new child br', function(done) {
+                var firstPage = 16;
+                var lastPage = 30;
+                databaseHelper.saveDependentPrintResource(scan, firstPage, lastPage, ppnDependent, enums.resourceType.collection, function(err, result){
+                    should.not.exists(err);
+                    result.should.be.Array;
+                    result.should.have.lengthOf(2);
+                    result[0].should.have.property("_id", parentId);
+                    result[0].should.have.property("title", "Zeitschrift für Soziologie der Erziehung und Sozialisation :");
+                    result[0].should.have.property("subtitle", "ZSE = Journal for sociology of education and socialization");
+                    result[0].should.have.property("publicationYear", "1998");
+                    result[1]._id.should.not.equal(childId);
+                    result[1].should.have.property("partOf", result[0]._id.toString());
+                    result[1].should.have.property("embodiedAs");
+                    result[1].embodiedAs.should.be.Array;
+                    result[1].embodiedAs.should.have.lengthOf(1);
+                    result[1].embodiedAs[0].scans.should.be.Array;
+                    result[1].embodiedAs[0].scans.should.have.lengthOf(1);
+                    result[1].embodiedAs[0].scans[0].should.have.property("scanName");
+                    result[1].embodiedAs[0].scans[0].should.have.property("status", enums.status.notOcrProcessed);
+                    result[1].embodiedAs[0].should.have.property("type", enums.embodimentType.print);
+                    var scanPath = config.PATHS.UPLOAD + result[1].embodiedAs[0].scans[0].scanName;
+                    fs.exists(scanPath, function(res){
+                        res.should.equal(true);
+                        mongoBr.findOne({_id: result[0]._id}, function(err, parent){
+                            parent.should.be.ok;
+                            parent.should.have.property("title", "Zeitschrift für Soziologie der Erziehung und Sozialisation :");
+                            parent.should.have.property("subtitle", "ZSE = Journal for sociology of education and socialization");
+                            parent.should.have.property("publicationYear", "1998");
+                            mongoBr.findOne({_id: result[1]._id}, function(err, child){
+                                child.should.be.ok;
+                                child.should.have.property("partOf", result[0]._id.toString());
+                                child.should.have.property("embodiedAs");
+                                child.embodiedAs.should.be.Array;
+                                child.embodiedAs.should.have.lengthOf(1);
+                                child.embodiedAs[0].scans.should.be.Array;
+                                child.embodiedAs[0].scans.should.have.lengthOf(1);
+                                child.embodiedAs[0].scans[0].should.have.property("scanName");
+                                child.embodiedAs[0].scans[0].should.have.property("status", enums.status.notOcrProcessed);
+                                child.embodiedAs[0].should.have.property("type", enums.embodimentType.print);
+                                mongoBr.find({partOf: parentId}, function(err, children) {
+                                    children.should.be.Array;
+                                    children.should.have.lengthOf(2);
+                                    done();
+                                });
+                            });
+                        });
+                    });
+                });
+            });
+        });
+    });
+});

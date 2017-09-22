@@ -6,6 +6,7 @@ const BibliographicEntry = require('./../schema/bibliographicEntry.js');
 const request = require('request');
 const errorlog = require('./../util/logger.js').errorlog;
 const accesslog = require('./../util/logger.js').accesslog;
+const fileType = require('file-type');
 
 
 var OcrHelper = function(){
@@ -13,7 +14,9 @@ var OcrHelper = function(){
 
 
 OcrHelper.prototype.saveBinaryFile = function(fileName, fileBuffer, callback){
-    var fileName = fileName + ".png";
+    var fileExtension = fileType(fileBuffer).ext;
+    var fileName = fileName + '.' + fileExtension;
+
     if (!fs.existsSync(config.PATHS.UPLOAD)){
         accesslog.log("Create dir", {name: config.PATHS.UPLOAD});
         fs.mkdir(config.PATHS.UPLOAD, function(err, res){

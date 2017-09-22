@@ -4,6 +4,8 @@ const br = require('./../models/bibliographicResource.js');
 const errorlog = require('./../util/logger').errorlog;
 const _ = require('lodash');
 const mongoose = require('mongoose');
+const crossrefHelper = require('./../helpers/crossrefHelper.js').createCrossrefHelper();
+const enums = require('./../schema/enum.json');
 
 
 function list(req, res){
@@ -109,14 +111,19 @@ function deleteSingle(req, res){
 
 function createByPPN(req, res){
     // Get PPN param from request
-    var ppn = req.swagger.params.ppn.value.trim();
+    var ppn = req.swagger.params.ppn.value;
+    var resourceType = req.swagger.params.resourceType.value;
     var response = res;
     if(typeof ppn == "undefined"){
         response.status(400).send('PPN undefined.');
     }else{
         // Call Swb Helper
-        swbHelper.query(ppn, function(result){
-            if(result == null){
+        swbHelper.query(ppn, resourceType, function(err, result){
+            if(err){
+                errorlog.error(err);
+                return response.status(500).json(err);
+            }
+            if(result.length == 0){
                 response.status(400).send('No entry found.');
                 return;
             }
@@ -136,6 +143,33 @@ function createByPPN(req, res){
     }
 }
 
+
+function getCrossrefReferences(req, res){
+    var br = req.swagger.params.bibliographicResource.value;
+    var response = res;
+    // first check whether it has a doi, because then it is way easier to retrieve the data
+    var doi = null;
+    var query = null;
+    for(var identifier of br.identifiers){
+        if(identifier.scheme == enums.identifier.doi){
+            doi = identifier.literalValue;
+            break;
+        }
+    }
+    // if there is no doi given, we prepare a query string
+    if(!doi){
+        // TODO: Improve query?
+        query = br.title + " " + br.subtitle;
+    }
+    crossrefHelper.queryReferences(doi, query, function(err,res){
+        if(err){
+            errorlog.error(err);
+            return response.status(500).json(err);
+        }
+        response.json(res);
+    });
+}
+
 module.exports = {
         list : list,
         get : get,
@@ -143,5 +177,6 @@ module.exports = {
         deleteSingle : deleteSingle,
         createByPPN: createByPPN,
         save: save,
-        update: update
+        update: update,
+        getCrossrefReferences: getCrossrefReferences
 };
