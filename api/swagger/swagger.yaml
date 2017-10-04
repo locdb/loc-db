@@ -363,9 +363,10 @@ paths:
           type: file
         - name: resourceType
           in: formData
-          description: The type of the resource, e.g. monography
+          description: The type of the resource.
           required: true
           type: string
+          enum: [MONOGRAPH, JOURNAL, COLLECTION]
       responses:
         "200":
           description: Success
