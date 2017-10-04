@@ -588,6 +588,10 @@ definitions:
           $ref: "#/definitions/BibliographicEntry"
       partOf:
         type: string
+      cites:
+        type: array
+        items:
+          type: string
       embodiedAs:
         type: array
         items:
