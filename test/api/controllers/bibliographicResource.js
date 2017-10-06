@@ -306,7 +306,7 @@ describe('controllers', function() {
       });
 
 
-      describe.only('GET /getPublisherUrl', function(){
+      describe('GET /getPublisherUrl', function(){
           this.timeout(5000);
 
           it('should retrieve the publisher url', function(done){
