@@ -304,6 +304,32 @@ describe('controllers', function() {
                   });
           });
       });
+
+
+      describe.only('GET /getPublisherUrl', function(){
+          this.timeout(5000);
+
+          it('should retrieve the publisher url', function(done){
+              var ppn = "429152140";
+              var resourceType = enums.resourceType.monograph;
+
+              agent
+                  .get('/getPublisherUrl')
+                  .query({ppn: ppn})
+                  .query({resourceType: resourceType})
+                  .set('Accept', 'application/json')
+                  .expect('Content-Type', /json/)
+                  .expect(200)
+                  .end(function(err, res){
+                      should.not.exist(err);
+                      res.body.should.not.be.Array;
+                      res.body.should.be.Object;
+                      res.body.should.have.property("scheme", "URI");
+                      res.body.should.have.property("literalValue", "http://dx.doi.org/10.1007/978-3-322-81004-5")
+                      done();
+                  });
+          });
+      });
   });
 
 });

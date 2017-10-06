@@ -6,7 +6,7 @@ const setup = require('./../setup.js').createSetup();
 const ocrHelper = require('./../../../api/helpers/ocrHelper.js').createOcrHelper();
 
 describe('helpers', function() {
-    describe.only('ocrHelper', function() {
+    describe('ocrHelper', function() {
         before(function (done) {
             setup.dropDB(function (err) {
                 done();

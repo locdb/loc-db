@@ -170,6 +170,29 @@ function getCrossrefReferences(req, res){
     });
 }
 
+
+function getPublisherUrl(req, res){
+    var ppn = req.swagger.params.ppn.value;
+    var resourceType = req.swagger.params.resourceType.value;
+    var response = res;
+
+    swbHelper.query(ppn, resourceType, function(err, result) {
+        if (err) {
+            errorlog.error(err);
+            return response.status(500).json(err);
+        }else{
+            for (var identifier of result.identifiers){
+                // TODO: Shall we save the resource? Shall we return the whole resource?
+                if(identifier.scheme === "URI"){
+                    return response.status(200).json(identifier);
+                }
+            }
+            return response.status(200).json({message: "No URI found."});
+        }
+    });
+}
+
+
 module.exports = {
         list : list,
         get : get,
@@ -178,5 +201,6 @@ module.exports = {
         createByPPN: createByPPN,
         save: save,
         update: update,
-        getCrossrefReferences: getCrossrefReferences
+        getCrossrefReferences: getCrossrefReferences,
+        getPublisherUrl: getPublisherUrl
 };
