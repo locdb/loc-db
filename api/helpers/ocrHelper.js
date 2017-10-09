@@ -121,7 +121,9 @@ OcrHelper.prototype.queryOcrComponent = function(fileName, callback){
     console.log(path);
 
     var form = {
-            file: fs.createReadStream(path)
+            files: fs.createReadStream(path),
+            colNumb: '2',
+            pdfFlag: 'on',
     };
     request.post({url: config.URLS.OCR, formData: form, timeout:1000000000}, function(err, res, body) {
         if (err) {
@@ -131,6 +133,7 @@ OcrHelper.prototype.queryOcrComponent = function(fileName, callback){
             errorlog.error("Request to OCR component failed.");
             return callback("Request to OCR component failed.", null);
         }
+        console.log(body);
         accesslog.log("Request to OCR component successful.", {body: body});
         callback(null, body);
      });
