@@ -84,7 +84,8 @@ OcrHelper.prototype.parseXMLString = function(xmlString, callback){
             errorlog.error(err);
             return callback(err, null)
         }
-        var citations = ocrResult.algorithms.algorithm[0].citationList[0].citation;
+        //var citations = ocrResult.algorithms.algorithm[0].citationList[0].citation;
+        var citations = ocrResult.algorithm.BibStructured;
         var bes = [];
         // How to make use of the additional OCRed information?
         for (var citation of citations){
@@ -121,10 +122,17 @@ OcrHelper.prototype.queryOcrComponent = function(fileName, callback){
     console.log(path);
 
     var form = {
-            files: fs.createReadStream(path),
-            colNumb: '2',
-            pdfFlag: 'on',
-    };
+     files: fs.createReadStream(path),
+     colNumb: '2',
+     pdfFlag: 'on',
+     };
+
+/*    var files = [fs.createReadStream(path), fs.createReadStream(path)];
+    var form = {
+     files: files,
+     colNumb: '2',
+     pdfFlag: 'on',
+    };*/
     request.post({url: config.URLS.OCR, formData: form, timeout:1000000000}, function(err, res, body) {
         if (err) {
             errorlog.error(err);

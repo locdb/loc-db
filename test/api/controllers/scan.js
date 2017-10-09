@@ -12,7 +12,7 @@ var agent = request.agent(server);
 
 describe('controllers', function () {
 
-    describe('scan', function () {
+    describe.only('scan', function () {
         var id = "58c01713ea3c8d32f0f80a75";
 
         before(function (done) {
@@ -44,7 +44,7 @@ describe('controllers', function () {
                     .field('firstPage', '2')
                     .field('lastPage', '3')
                     .field('resourceType', resourceType.collection)
-                    .attach('scan', './test/api/data/ocr_example_1/0001.png')
+                    .attach('scan', './test/api/data/ocr_example_1/0002.png')
                     .set('Accept', 'application/json')
                     .expect('Content-Type', /json/)
                     .expect(200)
@@ -116,7 +116,7 @@ describe('controllers', function () {
                     .field('firstPage', '2')
                     .field('lastPage', '3')
                     .field('resourceType', resourceType.journal)
-                    .attach('scan', './test/api/data/ocr_example_1/0001.png')
+                    .attach('scan', './test/api/data/ocr_example_1/0002.png')
                     .set('Accept', 'application/json')
                     .expect('Content-Type', /json/)
                     .expect(200)
@@ -188,7 +188,7 @@ describe('controllers', function () {
                     .field('firstPage', '-1')
                     .field('lastPage', '-1')
                     .field('resourceType', resourceType.monograph)
-                    .attach('scan', './test/api/data/ocr_example_1/0001.png')
+                    .attach('scan', './test/api/data/ocr_example_1/0002.png')
                     .set('Accept', 'application/json')
                     .expect('Content-Type', /json/)
                     .expect(200)
@@ -325,7 +325,7 @@ describe('controllers', function () {
                         res.body.embodiedAs[0].scans.should.be.Array;
                         res.body.embodiedAs[0].scans.should.have.lengthOf(1);
                         res.body.parts.should.be.Array;
-                        res.body.parts.should.have.lengthOf(53);
+                        res.body.parts.should.have.lengthOf(27);
                         res.body.embodiedAs[0].scans[0].status.should.be.exactly(status.ocrProcessed);
                         res.body.parts[0].should.have.property("ocrData");
                         res.body.parts[0].ocrData.should.have.property("coordinates");
