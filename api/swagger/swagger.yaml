@@ -301,6 +301,38 @@ paths:
           schema:
             $ref: "#/definitions/ErrorResponse"
 
+  /addTargetBibliographicResource:
+    x-swagger-router-controller: bibliographicEntry
+    get:
+      tags: [BibliographicEntry]
+      description: |
+        Given the _id of a bibliographic entry and the _id of a target, i.e., a cited, bibliographic resource,
+        this service takes care of setting all related properties in a consistent way. More precisely, the following three things happen:
+        1) The 'status' of the bibliographic entry will be changed to VALID
+        2) The 'references' property of the bibliographic entry will be set to the _id of the target bibliographic resource
+        3) The 'cites' property of the parent resource of the entry will be extended with the _id of the target bibliographic reource
+      operationId: addTargetBibliographicResource
+      parameters:
+        - name: bibliographicEntryId
+          in: query
+          description: The _id of the subject bibliographic entry that should point to the target bibliographic resource
+          required: true
+          type: string
+        - name: bibliographicResourceId
+          in: query
+          description: The _id of the target bibliographic resource which the bibliographic entry should point to
+          required: true
+          type: string
+      responses:
+        "200":
+          description: Success; In case the operation suceeds, the updated source bibliographic resource including the respective bibliographic entry will be returned
+          schema:
+            $ref: "#/definitions/BibliographicResource"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
   /bibliographicResources/{id}:
     x-swagger-router-controller: bibliographicResource
     get:

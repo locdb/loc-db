@@ -11,6 +11,7 @@ const googleScholarHelper = require('./../helpers/googleScholarHelper.js').creat
 const crossrefHelper = require('./../helpers/crossrefHelper.js').createCrossrefHelper();
 const swbHelper = require('./../helpers/swbHelper.js').createSwbHelper();
 //const natural = require('natural');
+var ObjectId = require('mongoose').Types.ObjectId;
 
 
 function getToDoBibliographicEntries(req, res) {
@@ -192,9 +193,60 @@ function getExternalSuggestions(req, res) {
 }
 
 
+function addTargetBibliographicResource(req, res) {
+    var response = res;
+    var bibliographicEntryId = req.swagger.params.bibliographicEntryId.value;
+    var bibliographicResourceId = req.swagger.params.bibliographicResourceId.value;
+
+    // first check whether we received valid mongo ids
+    if (!mongoose.Types.ObjectId.isValid(bibliographicEntryId) || !mongoose.Types.ObjectId.isValid(bibliographicResourceId)) {
+        errorlog.error("Invalid value for parameter id.", {
+            bibliographicEntryId: bibliographicEntryId,
+            bibliographicResourceId: bibliographicResourceId
+        });
+        return response.status(400).json({"message": "Invalid parameter."});
+    }
+
+    // check also whether the resource id belongs to the source resource, we do not want circles
+    // and check whether the target br exists.. just to be sure
+
+    // load the source br which also contains the source be
+    mongoBr.findOne({'parts._id': bibliographicEntryId}, function (err, br) {
+        if (err){
+            errorlog.error(err);
+            return response.status(500).json(err);
+        }
+
+        // project to corresponding be and
+        // 1. update status
+        // 2. update references prop
+        for(var be of br.parts){
+            if(be._id == bibliographicEntryId){
+                be.references = bibliographicResourceId;
+                be.status = enums.status.valid;
+                break;
+            }
+        }
+        // 3. update cites prop
+        br.cites.push(bibliographicResourceId);
+
+        // save the updated br in the db
+        br.save(function (err, br) {
+            if (err){
+                errorlog.error(err);
+                return response.status(500).json(err);
+            }
+            response.status(200).json(br);
+        });
+    });
+
+
+}
+
 module.exports = {
     getToDoBibliographicEntries: getToDoBibliographicEntries,
     update: update,
     getInternalSuggestions: getInternalSuggestions,
-    getExternalSuggestions: getExternalSuggestions
+    getExternalSuggestions: getExternalSuggestions,
+    addTargetBibliographicResource: addTargetBibliographicResource
 };

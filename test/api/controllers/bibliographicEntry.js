@@ -292,5 +292,24 @@ describe('controllers', function() {
                     });
             });
         });
+
+
+        describe.only('GET /addTargetBibliographicResource', function () {
+
+            it('should add a target resource to a bibliographic entry', function (done) {
+                agent
+                    .get('/addTargetBibliographicResource')
+                    .set('Accept', 'application/json')
+                    .query({bibliographicEntryId: '58cb92465452691cd86bc94b',
+                        bibliographicResourceId: '58e65d5d680edc2210738c78'}) // arbitrary ids from our test data, this would be nicer with actual matching entries
+                    //.expect('Content-Type', 'application/json')
+                    .expect(200)
+                    .end(function (err, res) {
+                        should.not.exist(err);
+                        console.log(res)
+                        done();
+                    });
+            });
+        });
     });
 });
