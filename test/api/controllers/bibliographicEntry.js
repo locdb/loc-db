@@ -305,7 +305,6 @@ describe('controllers', function() {
                     .set('Accept', 'application/json')
                     .query({bibliographicEntryId: bibliographicEntryId,
                         bibliographicResourceId: bibliographicResourceId}) // arbitrary ids from our test data, this would be nicer with actual matching entries
-                    //.expect('Content-Type', 'application/json')
                     .expect(200)
                     .end(function (err, res) {
                         should.not.exist(err);
@@ -324,6 +323,24 @@ describe('controllers', function() {
                                 be.should.have.property("status", status.valid);
                             }
                         }
+                        done();
+                    });
+            });
+
+            it('should not add a target resource to a bibliographic entry because of a dependency circle', function (done) {
+                var  bibliographicResourceId = '58cb91fa5452691cd86bc93f';
+                var bibliographicEntryId = '58cb92465452691cd86bc94b';
+
+                agent
+                    .get('/addTargetBibliographicResource')
+                    .set('Accept', 'application/json')
+                    .query({bibliographicEntryId: bibliographicEntryId,
+                        bibliographicResourceId: bibliographicResourceId}) // arbitrary ids from our test data, this would be nicer with actual matching entries
+                    .expect(400)
+                    .end(function (err, res) {
+                        should.not.exist(err);
+                        res.body.should.be.Object;
+                        res.body.should.not.have.property("cites");
                         done();
                     });
             });
