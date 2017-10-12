@@ -230,9 +230,16 @@ function addTargetBibliographicResource(req, res) {
             // 2. update references prop
             for(var be of br.parts){
                 if(be._id == bibliographicEntryId){
-                    be.references = bibliographicResourceId;
-                    be.status = enums.status.valid;
-                    break;
+                    // but update only if references is still empty
+                    if(!be.references || be.references == ""){
+                        be.references = bibliographicResourceId;
+                        be.status = enums.status.valid;
+                        break;
+                    }else{
+                        // entry is apparently already linked
+                        errorlog.error("The entry is already linked.");
+                        return response.status(400).json("The entry is already linked.");
+                    }
                 }
             }
             // 3. update cites prop

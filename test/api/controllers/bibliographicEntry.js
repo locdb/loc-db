@@ -344,6 +344,26 @@ describe('controllers', function() {
                         done();
                     });
             });
+
+
+            it('should not add a target resource to a bibliographic entry because the entry is already linked', function (done) {
+                var  bibliographicResourceId = '592420955e7d7f3e54934304';
+                var bibliographicEntryId = '58cb92465452691cd86bc94b';
+
+                agent
+                    .get('/addTargetBibliographicResource')
+                    .set('Accept', 'application/json')
+                    .query({bibliographicEntryId: bibliographicEntryId,
+                        bibliographicResourceId: bibliographicResourceId}) // arbitrary ids from our test data, this would be nicer with actual matching entries
+                    .expect(400)
+                    .end(function (err, res) {
+                        should.not.exist(err);
+                        res.body.should.be.Object;
+                        res.body.should.equal("The entry is already linked.");
+                        done();
+                    });
+            });
+
         });
     });
 });
