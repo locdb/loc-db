@@ -297,16 +297,33 @@ describe('controllers', function() {
         describe.only('GET /addTargetBibliographicResource', function () {
 
             it('should add a target resource to a bibliographic entry', function (done) {
+                var  bibliographicResourceId = '592420955e7d7f3e54934304';
+                var bibliographicEntryId = '58cb92465452691cd86bc94b';
+
                 agent
                     .get('/addTargetBibliographicResource')
                     .set('Accept', 'application/json')
-                    .query({bibliographicEntryId: '58cb92465452691cd86bc94b',
-                        bibliographicResourceId: '58e65d5d680edc2210738c78'}) // arbitrary ids from our test data, this would be nicer with actual matching entries
+                    .query({bibliographicEntryId: bibliographicEntryId,
+                        bibliographicResourceId: bibliographicResourceId}) // arbitrary ids from our test data, this would be nicer with actual matching entries
                     //.expect('Content-Type', 'application/json')
                     .expect(200)
                     .end(function (err, res) {
                         should.not.exist(err);
-                        console.log(res)
+                        res.body.should.be.Object;
+                        res.body.should.have.property("cites");
+                        res.body.cites.should.be.Array;
+                        res.body.cites.should.have.lengthOf(1);
+                        res.body.cites[0].should.equal(bibliographicResourceId);
+                        res.body.should.have.property("parts");
+                        res.body.parts.should.be.Array;
+                        res.body.parts.should.have.lengthOf(53);
+                        res.body.parts.should.containDeep([{"_id": bibliographicEntryId}]);
+                        for(var be of res.body.parts){
+                            if(be._id == bibliographicEntryId){
+                                be.should.have.property("references", bibliographicResourceId);
+                                be.should.have.property("status", status.valid);
+                            }
+                        }
                         done();
                     });
             });
