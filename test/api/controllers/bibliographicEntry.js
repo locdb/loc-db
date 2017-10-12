@@ -8,7 +8,7 @@ var agent = request.agent(server);
 
 describe('controllers', function() {
 
-    describe('bibliographicEntry', function () {
+    describe.only('bibliographicEntry', function () {
         var id = "";
 
         before(function (done) {
@@ -294,7 +294,7 @@ describe('controllers', function() {
         });
 
 
-        describe.only('GET /addTargetBibliographicResource', function () {
+        describe('GET /addTargetBibliographicResource', function () {
 
             it('should add a target resource to a bibliographic entry', function (done) {
                 var  bibliographicResourceId = '592420955e7d7f3e54934304';
@@ -364,6 +364,38 @@ describe('controllers', function() {
                     });
             });
 
+        });
+
+
+        describe('GET /removeTargetBibliographicResource', function () {
+
+            it('should add a target resource to a bibliographic entry', function (done) {
+                var bibliographicEntryId = '58cb92465452691cd86bc94b';
+
+                agent
+                    .get('/removeTargetBibliographicResource')
+                    .set('Accept', 'application/json')
+                    .query({bibliographicEntryId: bibliographicEntryId}) // arbitrary ids from our test data, this would be nicer with actual matching entries
+                    .expect(200)
+                    .end(function (err, res) {
+                        should.not.exist(err);
+                        res.body.should.be.Object;
+                        res.body.should.have.property("cites");
+                        res.body.cites.should.be.Array;
+                        res.body.cites.should.have.lengthOf(0);
+                        res.body.should.have.property("parts");
+                        res.body.parts.should.be.Array;
+                        res.body.parts.should.have.lengthOf(53);
+                        res.body.parts.should.containDeep([{"_id": bibliographicEntryId}]);
+                        for(var be of res.body.parts){
+                            if(be._id == bibliographicEntryId){
+                                be.should.have.property("references", "");
+                                be.should.have.property("status", status.ocrProcessed);
+                            }
+                        }
+                        done();
+                    });
+            });
         });
     });
 });

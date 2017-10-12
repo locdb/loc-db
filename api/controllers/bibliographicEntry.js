@@ -255,8 +255,56 @@ function addTargetBibliographicResource(req, res) {
             });
         });
     });
+}
 
+function removeTargetBibliographicResource(req, res) {
+    var response = res;
+    var bibliographicEntryId = req.swagger.params.bibliographicEntryId.value;
 
+    // first check whether we received valid mongo ids
+    if (!mongoose.Types.ObjectId.isValid(bibliographicEntryId)) {
+        errorlog.error("Invalid value for parameter id.", {
+            bibliographicEntryId: bibliographicEntryId
+        });
+        return response.status(400).json({"message": "Invalid parameter."});
+    }
+
+    // load the source br which also contains the source be
+    mongoBr.findOne({'parts._id': bibliographicEntryId}, function (err, br) {
+        if (err) {
+            errorlog.error(err);
+            return response.status(500).json(err);
+        }
+
+        // project to corresponding be and
+        // 1. update status
+        // 2. clear references prop
+        var idTarget = "";
+        for (var be of br.parts) {
+            if (be._id == bibliographicEntryId) {
+                idTarget = be.references;
+                be.references = "";
+                be.status = enums.status.ocrProcessed; // Is that correct?
+                break;
+            }
+        }
+        // 3. update cites prop
+        if(idTarget != ""){
+            var index = br.cites.indexOf(idTarget);
+            if (index > -1) {
+                br.cites.splice(index, 1);
+            }
+        }
+
+        // save the updated br in the db
+        br.save(function (err, br) {
+            if (err) {
+                errorlog.error(err);
+                return response.status(500).json(err);
+            }
+            response.status(200).json(br);
+        });
+    });
 
 }
 
@@ -265,5 +313,6 @@ module.exports = {
     update: update,
     getInternalSuggestions: getInternalSuggestions,
     getExternalSuggestions: getExternalSuggestions,
-    addTargetBibliographicResource: addTargetBibliographicResource
+    addTargetBibliographicResource: addTargetBibliographicResource,
+    removeTargetBibliographicResource : removeTargetBibliographicResource,
 };

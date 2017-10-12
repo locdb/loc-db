@@ -333,6 +333,33 @@ paths:
           schema:
             $ref: "#/definitions/ErrorResponse"
 
+  /removeTargetBibliographicResource:
+    x-swagger-router-controller: bibliographicEntry
+    get:
+      tags: [BibliographicEntry]
+      description: |
+        Given the _id of a bibliographic entry this service clears all properties related to a potential target resource in a consistent way. More precisely, the following three things happen:
+        1) The 'references' property of the bibliographic entry will be cleared
+        2) The _id of the old target resource will be removed from teh 'cites' property of the parent resource of the entry
+        3) The 'status' of the bibliographic entry will be changed to OCR_PROCESSED --> Is this always ok?
+        Note that the old target bibliographic resource will not be deleted.
+      operationId: removeTargetBibliographicResource
+      parameters:
+        - name: bibliographicEntryId
+          in: query
+          description: The _id of the subject bibliographic entry that should point to the target bibliographic resource
+          required: true
+          type: string
+      responses:
+        "200":
+          description: Success; In case the operation suceeds, the updated source bibliographic resource including the respective bibliographic entry will be returned
+          schema:
+            $ref: "#/definitions/BibliographicResource"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
   /bibliographicResources/{id}:
     x-swagger-router-controller: bibliographicResource
     get:
