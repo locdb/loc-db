@@ -27,7 +27,7 @@ function saveScan(req, res) {
         databaseHelper.saveIndependentPrintResource(scan, ppn, resourceType, function(err,res){
             if(err){
                 errorlog.error(err);
-                return response.json(err);
+                return response.status(400).json(err);
             }
             return response.json(res);
         });
@@ -36,7 +36,7 @@ function saveScan(req, res) {
         databaseHelper.saveDependentPrintResource(scan, firstPage, lastPage, ppn, resourceType, function (err, res) {
             if(err){
                 errorlog.error(err);
-                return response.json(err);
+                return response.status(400).json(err);
             }
             return response.json(res);
         });

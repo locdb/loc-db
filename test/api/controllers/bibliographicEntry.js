@@ -8,7 +8,7 @@ var agent = request.agent(server);
 
 describe('controllers', function() {
 
-    describe.only('bibliographicEntry', function () {
+    describe('bibliographicEntry', function () {
         var id = "";
 
         before(function (done) {

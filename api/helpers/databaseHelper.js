@@ -249,6 +249,10 @@ DatabaseHelper.prototype.saveScanAndRetrieveMetadata = function(scan, ppn, resou
             errorlog.error(err);
             return callback(err, null);
         }
+        if(!results[1].identifiers){
+            errorlog.error("Something went wrong with retrieving data from the union catalog.");
+            return callback(new Error("Something went wrong with retrieving data from the union catalog."), null);
+        }
         results[1].identifiers.push({scheme: enums.identifier.ppn, literalValue: ppn});
         return callback(err, results);
     });
