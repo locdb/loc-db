@@ -117,7 +117,7 @@ OcrHelper.prototype.parseXMLString = function(xmlString, callback){
 };
 
 
-OcrHelper.prototype.queryOcrComponent = function(fileName, callback){
+/*OcrHelper.prototype.queryOcrComponent = function(fileName, callback){
     var path = config.PATHS.UPLOAD + fileName;
     console.log(path);
 
@@ -127,12 +127,12 @@ OcrHelper.prototype.queryOcrComponent = function(fileName, callback){
      pdfFlag: 'on',
      };
 
-/*    var files = [fs.createReadStream(path), fs.createReadStream(path)];
+/!*    var files = [fs.createReadStream(path), fs.createReadStream(path)];
     var form = {
      files: files,
      colNumb: '2',
      pdfFlag: 'on',
-    };*/
+    };*!/
     request.post({url: config.URLS.OCR, formData: form, timeout:1000000000}, function(err, res, body) {
         if (err) {
             errorlog.error(err);
@@ -145,6 +145,43 @@ OcrHelper.prototype.queryOcrComponent = function(fileName, callback){
         accesslog.log("Request to OCR component successful.", {body: body});
         callback(null, body);
      });
+};*/
+
+
+OcrHelper.prototype.ocr_fileupload = function(fileName, callback){
+    var path = config.PATHS.UPLOAD + fileName;
+    var ext = fileName.split('.')[fileName.split('.').length -1].toLowerCase();
+    //pdfFlag: This flag can be set for both textual and Image pdf files. It is mandatory for image pdf file
+    //but optional for Textual pdf. If this flag is set for textual pdf then, it will process textual pdf as an
+    //image pdf, which might result in potential loss in accuracy because of involvement of OCR and
+    //increase in processing time.
+    //Txt_dummy: This flag should be set for textual pdf files. It adds dummy text at the start of the file to
+    //increase its accuracy by including the pages with single or few referenc
+    var form;
+    if(ext === "pdf"){
+        form = {
+            files: fs.createReadStream(path),
+            pdfFlag: 'on',
+            txt_dummy: 'on'
+        };
+    }else{
+        form = {
+            files: fs.createReadStream(path)
+        };
+    }
+
+    request.post({url: config.URLS.OCR_FILEUPLOAD, formData: form, timeout:1000000000}, function(err, res, body) {
+        if (err) {
+            errorlog.error(err);
+            return callback(err, null);
+        }else if (res.statusCode!= 200){
+            errorlog.error("Request to OCR component failed.");
+            return callback("Request to OCR component failed.", null);
+        }
+        console.log(body);
+        accesslog.log("Request to OCR component successful.", {body: body});
+        callback(null, body);
+    });
 };
 
 /**

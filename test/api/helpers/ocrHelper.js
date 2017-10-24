@@ -19,7 +19,7 @@ describe('helpers', function() {
             });
         });
 
-        describe('triggerOCRProcessing', function () {
+        /*describe('triggerOCRProcessing', function () {
             it('should return something', function (done) {
                 this.timeout(1000000000);
                 ocrHelper.queryOcrComponent("./../loc-db/test/api/data/ocr_example_1/0002.png", function (err, result) {
@@ -28,7 +28,28 @@ describe('helpers', function() {
                     done();
                 });
             });
+        });*/
+
+        describe('OCR: fileupload', function () {
+            it('should return an xml string for a png', function (done) {
+                this.timeout(1000000000);
+                ocrHelper.ocr_fileupload("./../loc-db/test/api/data/ocr_example_1/0002.png", function (err, result) {
+                    console.log(result);
+                    should.not.exists(err);
+                    done();
+                });
+            });
+
+            it.only('should return an xml string for a pdf', function (done) {
+                this.timeout(1000000000);
+                ocrHelper.ocr_fileupload("./../loc-db/test/api/data/ocr_example_1/references.pdf", function (err, result) {
+                    console.log(result);
+                    should.not.exists(err);
+                    done();
+                });
+            });
         });
+
 
     });
 });
