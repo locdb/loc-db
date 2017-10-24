@@ -12,7 +12,7 @@ var agent = request.agent(server);
 
 describe('controllers', function () {
 
-    describe.only('scan', function () {
+    describe('scan', function () {
         var id = "58c01713ea3c8d32f0f80a75";
 
         before(function (done) {
@@ -69,7 +69,7 @@ describe('controllers', function () {
                     });
             });
 
-            it('should should add a new part to an already existing br', function (done) {
+            it('should should add a new part to an already existing br: pdf', function (done) {
                 agent
                     .post('/saveScan')
                     .type('form')
@@ -77,7 +77,7 @@ describe('controllers', function () {
                     .field('firstPage', '4')
                     .field('lastPage', '10')
                     .field('resourceType', resourceType.collection)
-                    .attach('scan', './test/api/data/ocr_example_1/0002.png')
+                    .attach('scan', './test/api/data/ocr_example_1/references.pdf')
                     .set('Accept', 'application/json')
                     .expect('Content-Type', /json/)
                     .expect(200)

@@ -43,7 +43,7 @@ describe('helpers', function() {
                     should.not.exists(err);
                     result.should.be.ok();
                     result.should.be.Array();
-                    result.should.have.lengthOf(7);
+                    result.should.have.lengthOf(5);
                     result[0].should.have.property("identifiers");
                     result[0].identifiers.should.be.Array();
                     result[0].identifiers.should.have.lengthOf(4);
