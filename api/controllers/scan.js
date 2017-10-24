@@ -216,7 +216,7 @@ function triggerOcrProcessing(req, res) {
         for (var embodiment of br.embodiedAs) {
             for (var scan of embodiment.scans) {
                 if (scan._id == id) {
-                    ocrHelper.queryOcrComponent(scan.scanName, function (err, result) {
+                    ocrHelper.ocr_fileupload(scan.scanName, function (err, result) {
                         if (err) {
                             errorlog.error(err);
                             return res.status(502).json({"message": "OCR request failed."});

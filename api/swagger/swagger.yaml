@@ -22,6 +22,7 @@ consumes:
 produces:
   - application/json
   - image/png
+  - application/pdf
 securityDefinitions:
   basicAuth:
     type: basic
@@ -784,6 +785,10 @@ definitions:
       marker:
         type: string
       comments:
+        type: string
+      journal:
+        type: string
+      volume:
         type: string
 
   ToDo:

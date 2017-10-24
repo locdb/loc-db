@@ -40,7 +40,7 @@ describe('helpers', function() {
                 });
             });
 
-            it.only('should return an xml string for a pdf', function (done) {
+            it('should return an xml string for a pdf', function (done) {
                 this.timeout(1000000000);
                 ocrHelper.ocr_fileupload("./../loc-db/test/api/data/ocr_example_1/references.pdf", function (err, result) {
                     console.log(result);

@@ -12,7 +12,7 @@ var agent = request.agent(server);
 
 describe('controllers', function () {
 
-    describe('scan', function () {
+    describe.only('scan', function () {
         var id = "58c01713ea3c8d32f0f80a75";
 
         before(function (done) {
@@ -325,7 +325,7 @@ describe('controllers', function () {
                         res.body.embodiedAs[0].scans.should.be.Array;
                         res.body.embodiedAs[0].scans.should.have.lengthOf(1);
                         res.body.parts.should.be.Array;
-                        res.body.parts.should.have.lengthOf(27);
+                        res.body.parts.should.have.lengthOf(48);
                         res.body.embodiedAs[0].scans[0].status.should.be.exactly(status.ocrProcessed);
                         res.body.parts[0].should.have.property("ocrData");
                         res.body.parts[0].ocrData.should.have.property("coordinates");

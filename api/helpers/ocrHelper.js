@@ -85,7 +85,11 @@ OcrHelper.prototype.parseXMLString = function(xmlString, callback){
             return callback(err, null)
         }
         //var citations = ocrResult.algorithms.algorithm[0].citationList[0].citation;
-        var citations = ocrResult.algorithm.BibStructured;
+        //var citations = ocrResult.algorithm.BibStructured;
+
+        // check for the filename
+        // .$.fname
+        var citations = ocrResult.LOCDBViewResults.algorithm[0].BibStructured;
         var bes = [];
         // How to make use of the additional OCRed information?
         for (var citation of citations){
@@ -93,6 +97,8 @@ OcrHelper.prototype.parseXMLString = function(xmlString, callback){
             var title = citation.title ? citation.title[0] : "";
             var date = citation.date ? citation.date[0] : "";
             var marker = citation.marker ? citation.marker[0] : "";
+            var journal = citation.journal ? citation.journal[0] : "";
+            var volume = citation.volume ? citation.volume[0] : "";
             var authors = [];
 
             if(citation.authors){
@@ -107,7 +113,9 @@ OcrHelper.prototype.parseXMLString = function(xmlString, callback){
                                                 title: title,
                                                 date: date,
                                                 marker: marker,
-                                                authors: authors
+                                                authors: authors,
+                                                journal: journal,
+                                                volume: volume
                                             }});
             bes.push(be.toObject())
         }

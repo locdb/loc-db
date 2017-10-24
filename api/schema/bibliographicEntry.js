@@ -17,6 +17,8 @@ var bibliographicEntry = new SchemaObject({
         date: String,
         marker: String,
         comments: String,
+        journal: String,
+        volume: String
     },
     scanId: String,
     status: {type: String, enum: [status.ocrProcessed, status.valid, status.external]},

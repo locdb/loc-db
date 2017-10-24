@@ -53,7 +53,9 @@ const brSchema = new Schema({
             title: String,
             date: String,
             marker: String,
-            comments: String
+            comments: String,
+            journal: String,
+            volume: String
         }
     }], // links to other brs
     embodiedAs: [{ // Resource Embodiment
