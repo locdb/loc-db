@@ -8,7 +8,7 @@ var agent = request.agent(server);
 
 describe('controllers', function() {
 
-    describe('bibliographicEntry', function () {
+    describe.only('bibliographicEntry', function () {
         var id = "";
 
         before(function (done) {
@@ -221,6 +221,44 @@ describe('controllers', function() {
                     });
             });
         });
+
+        describe('GET /getInternalSuggestionsByQueryString', function () {
+
+            it('should return 0 internal suggestions for a bibliographic entry', function (done) {
+
+
+                var query = "Test";
+                agent
+                    .get('/getInternalSuggestionsByQueryString')
+                    .query({ query: query })
+                    .set('Accept', 'application/json')
+                    .expect('Content-Type', /json/)
+                    .expect(200)
+                    .end(function (err, res) {
+                        res.body.should.have.lengthOf(0);
+                        should.not.exist(err);
+                        done();
+                    });
+            });
+
+            it('should return 1 internal suggestions for a bibliographic entry', function (done) {
+
+
+                var query = "The Semantic Web - ISWC 2015";
+                agent
+                    .get('/getInternalSuggestionsByQueryString')
+                    .query({ query: query })
+                    .set('Accept', 'application/json')
+                    .expect('Content-Type', /json/)
+                    .expect(200)
+                    .end(function (err, res) {
+                        res.body.should.have.lengthOf(1);
+                        should.not.exist(err);
+                        done();
+                    });
+            });
+        });
+
 
         describe('POST /getExternalSuggestions', function () {
 

@@ -140,6 +140,42 @@ function getInternalSuggestions(req, res) {
 }
 
 
+function getInternalSuggestionsByQueryString(req, res) {
+    var response = res;
+    var query = req.swagger.params.query.value;
+
+    // the search function offers an interface to elastic
+    mongoBr.search({
+        multi_match: {
+            query: query,
+            fields: [
+                "title",
+                "subtitle",
+                "contributors.heldBy.nameString",
+                "contributors.heldBy.givenName",
+                "contributors.heldBy.familyName"
+            ]
+        }
+    }, {hydrate: true}, function (err, brs) {
+        var result = [];
+        if (err) {
+            errorlog.error(err);
+            return res.status(500).json(err);
+        }
+        if (brs.hits && brs.hits.hits) {
+            for (var i in brs.hits.hits) {
+                var br = brs.hits.hits[i];
+                // return only the top 5 result
+                // but only if they do not only exist in elastic but also in mongo
+                if (br && result.length <= 5) {
+                    result.push(br.toObject());
+                }
+            }
+        }
+        return response.status(200).json(result);
+    });
+}
+
 function getExternalSuggestions(req, res) {
     var response = res;
     var searchObject = req.swagger.params.bibliographicEntry.value;
@@ -315,4 +351,5 @@ module.exports = {
     getExternalSuggestions: getExternalSuggestions,
     addTargetBibliographicResource: addTargetBibliographicResource,
     removeTargetBibliographicResource : removeTargetBibliographicResource,
+    getInternalSuggestionsByQueryString : getInternalSuggestionsByQueryString
 };
