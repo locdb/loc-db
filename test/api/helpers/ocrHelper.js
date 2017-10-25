@@ -4,6 +4,7 @@
 const should = require('should');
 const setup = require('./../setup.js').createSetup();
 const ocrHelper = require('./../../../api/helpers/ocrHelper.js').createOcrHelper();
+const fs = require('fs');
 
 describe('helpers', function() {
     describe('ocrHelper', function() {
@@ -46,6 +47,38 @@ describe('helpers', function() {
                     console.log(result);
                     should.not.exists(err);
                     done();
+                });
+            });
+        });
+
+        describe.only('parseXMLString', function () {
+            it('should return bibliographicEntries given the ocr output', function (done) {
+                fs.readFile("./../loc-db/test/api/data/ocr_data/ocr_output_v2.xml", function(err,res){
+                    if(err){
+                        done(err);
+                    }
+                    ocrHelper.parseXMLString(res, function (err, result) {
+                        console.log(result);
+                        should.not.exists(err);
+                        result.should.be.Array().and.have.lengthOf(48);
+                        result[0].should.be.Object();
+                        result[0].should.have.property("bibliographicEntryText", "ScHONEBOHM, Friedrich Karl (1983): " +
+                            "Die Volksgesetzgebung nach der Hessischen Verfassung. " +
+                            "In: AvENARIUS, Hermann (Hrsg.): " +
+                            "Festschrift fhr Erwin Stein. Bad Homburg vor der Hohe. S. 378.");
+                        result[0].should.have.property("ocrData").which.is.an.Object();
+                        result[0].ocrData.should.have.property("coordinates","728 349 2253 474");
+                        result[0].ocrData.should.have.property("date","1983");
+                        result[0].ocrData.should.have.property("journal","S.");
+                        result[0].ocrData.should.have.property("marker","ScHONEBOHM, 1983");
+                        result[0].ocrData.should.have.property("title","Die Volksgesetzgebung nach der Hessischen Verfassung. " +
+                            "In: AvENARIUS, Hermann (Hrsg.): " +
+                            "Festschrift fhr Erwin Stein. Bad Homburg vor der Hohe.");
+                        result[0].ocrData.should.have.property("volume","378");
+                        result[0].ocrData.authors.should.be.Array().and.have.lengthOf(1);
+                        result[0].ocrData.authors[0].should.equal("Friedrich Karl ScHONEBOHM");
+                        done();
+                    });
                 });
             });
         });
