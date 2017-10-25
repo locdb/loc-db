@@ -18,7 +18,7 @@ describe('helpers', function() {
         before(function(done) {
             this.timeout(3000);
             setup.dropDB(function(err){
-                fs.readFile('./test/api/data/ocr_example_1/0002.png', function(err,res){
+                fs.readFile('./test/api/data/ocr_data/0002.png', function(err,res){
                     if(err){
                         done(err);
                     }

@@ -76,7 +76,7 @@ OcrHelper.prototype.parseXMLBuffer = function(fileName, fileBuffer, callback){
 };
 
 /**
- * Should return a list of bibliographic entries
+ * Should return a list of bibliographic entries for a given filename
  */
 OcrHelper.prototype.parseXMLString = function(xmlString, callback){
     xml2js.parseString(xmlString, function(err, ocrResult){
