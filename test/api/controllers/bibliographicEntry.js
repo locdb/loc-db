@@ -332,6 +332,60 @@ describe('controllers', function() {
         });
 
 
+        describe.only('GET /getExternalSuggestionsByQueryString', function () {
+
+            it('should return 21 suggestion for a bibliographic entry', function (done) {
+                this.timeout(100000);
+                var query = "Direkte Demokratie in der Schweiz: Entwicklungen, Debatten und Wirkungen";
+
+                agent
+                    .get('/getExternalSuggestionsByQueryString')
+                    .set('Accept', 'application/json')
+                    .query({ query: query })
+                    .expect('Content-Type', /json/)
+                    .expect(200)
+                    .end(function (err, res) {
+                        should.not.exist(err);
+                        res.body.should.be.Array;
+                        //res.body.should.have.lengthOf(1);
+                        res.body.should.have.lengthOf(21);
+                        //res.body[0].should.have.property("title", "Direkte Demokratie in der Schweiz: Entwicklungen, Debatten und Wirkungen");
+                        res.body[0].should.have.property("status", status.external);
+                        res.body[0].should.have.property("identifiers");
+                        res.body[0].identifiers.should.be.Array;
+                        res.body[0].identifiers.should.have.lengthOf(1);
+                        res.body[0].identifiers[0].should.have.property("scheme", "URL_GOOGLE_SCHOLAR");
+                        done();
+                    });
+            });
+
+            it('should return 35 external suggestion for a bibliographic entry', function (done) {
+                this.timeout(100000);
+                var query = "Direkte Demokratie";
+
+                agent
+                    .get('/getExternalSuggestionsByQueryString')
+                    .set('Accept', 'application/json')
+                    .query({ query: query })
+                    .expect('Content-Type', /json/)
+                    .expect(200)
+                    .end(function (err, res) {
+                        should.not.exist(err);
+                        res.body.should.be.Array;
+                        //res.body.should.have.lengthOf(2);
+                        res.body.should.have.lengthOf(35);
+                        res.body[0].should.have.property("status", status.external);
+                        //res.body[0].should.have.property("title", "Direkte Demokratie und Umweltpolitik in der Schweiz");
+                        res.body[0].should.have.property("identifiers");
+                        res.body[0].identifiers.should.be.Array;
+                        res.body[0].identifiers.should.have.lengthOf(3);
+                        res.body[6].identifiers[0].should.have.property("scheme", "URL_GOOGLE_SCHOLAR");
+                        done();
+                    });
+            });
+        });
+
+
         describe('GET /addTargetBibliographicResource', function () {
 
             it('should add a target resource to a bibliographic entry', function (done) {

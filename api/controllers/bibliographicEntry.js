@@ -228,6 +228,56 @@ function getExternalSuggestions(req, res) {
 }
 
 
+function getExternalSuggestionsByQueryString(req, res) {
+    var response = res;
+    var query = req.swagger.params.query.value;
+
+    async.parallel([
+            function (callback) {
+                swbHelper.queryByQueryString(query, function (err, res) {
+                    if (err) {
+                        return callback(err, null);
+                    }
+                    return callback(null, res);
+                });
+            },
+            function (callback) {
+                googleScholarHelper.query(query, function (err, res) {
+                    if (err) {
+                        return callback(err, null);
+                    }
+                    return callback(null, res);
+                });
+            },
+            function (callback) {
+                crossrefHelper.query(query, function (err, res) {
+                    if (err) {
+                        return callback(err, null);
+                    }
+                    return callback(null, res);
+                });
+            }
+        ],
+        function (err, res) {
+            if (err) {
+                errorlog.error(err);
+                return response.status(500).json(err);
+            }
+            var result = [];
+            for(var sourceResults of res){
+                if (sourceResults.length > 0) {
+                    for (var br of sourceResults) {
+                        if (Object.keys(br).length !== 0) { //&& natural.LevenshteinDistance(be.title, title) <= 10) {
+                            result.push(br);
+                        }
+                    }
+                }
+            }
+            return response.json(result);
+        }
+    );
+}
+
 function addTargetBibliographicResource(req, res) {
     var response = res;
     var bibliographicEntryId = req.swagger.params.bibliographicEntryId.value;
@@ -351,5 +401,6 @@ module.exports = {
     getExternalSuggestions: getExternalSuggestions,
     addTargetBibliographicResource: addTargetBibliographicResource,
     removeTargetBibliographicResource : removeTargetBibliographicResource,
-    getInternalSuggestionsByQueryString : getInternalSuggestionsByQueryString
+    getInternalSuggestionsByQueryString : getInternalSuggestionsByQueryString,
+    getExternalSuggestionsByQueryString : getExternalSuggestionsByQueryString
 };

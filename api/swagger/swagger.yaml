@@ -666,6 +666,30 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
+
+  /getExternalSuggestionsByQueryString:
+    x-swagger-router-controller: bibliographicEntry
+    get:
+      tags: [BibliographicEntry]
+      description: Retrieves external br suggestions for a given query string related to a bibliographic entry.
+      operationId: getExternalSuggestionsByQueryString
+      parameters:
+        - name: query
+          in: query
+          description: The query string for which the suggestions shall be retrieved
+          required: true
+          type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/BibliographicResource"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
   
   /swagger:
     x-swagger-pipe: swagger_raw
