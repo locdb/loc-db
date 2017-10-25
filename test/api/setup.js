@@ -73,7 +73,7 @@ Setup.prototype.mockOcrServer = function(){
             console.log(typeof body);
             return true;
         })
-        .replyWithFile(200, __dirname + '/data/ocr_data/Output021511065733891448X_Verf_Literatruverz.pdf-14.png.xml');
+        .replyWithFile(200, __dirname + '/data/ocr_data/ocr_output_v1.xml');
 };
 
 Setup.prototype.dropDB = function(callback){
