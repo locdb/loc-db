@@ -51,13 +51,13 @@ describe('helpers', function() {
             });
         });
 
-        describe.only('parseXMLString', function () {
+        describe('parseXMLString', function () {
             it('should return bibliographicEntries given the ocr output', function (done) {
                 fs.readFile("./../loc-db/test/api/data/ocr_data/ocr_output_v2.xml", function(err,res){
                     if(err){
                         done(err);
                     }
-                    ocrHelper.parseXMLString(res, function (err, result) {
+                    ocrHelper.parseXMLString(res,"59f04e71d18ed24f84df3bb1.png", function (err, result) {
                         console.log(result);
                         should.not.exists(err);
                         result.should.be.Array().and.have.lengthOf(48);

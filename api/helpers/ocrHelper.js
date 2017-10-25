@@ -78,50 +78,49 @@ OcrHelper.prototype.parseXMLBuffer = function(fileName, fileBuffer, callback){
 /**
  * Should return a list of bibliographic entries for a given filename
  */
-OcrHelper.prototype.parseXMLString = function(xmlString, callback){
+OcrHelper.prototype.parseXMLString = function(xmlString, fileName, callback){
     xml2js.parseString(xmlString, function(err, ocrResult){
         if(err){
             errorlog.error(err);
             return callback(err, null)
         }
-        //var citations = ocrResult.algorithms.algorithm[0].citationList[0].citation;
-        //var citations = ocrResult.algorithm.BibStructured;
 
-        // check for the filename
-        // .$.fname
-        var citations = ocrResult.LOCDBViewResults.algorithm[0].BibStructured;
         var bes = [];
-        // How to make use of the additional OCRed information?
-        for (var citation of citations){
+        for(var algorithm of ocrResult.LOCDBViewResults.algorithm){
+            if(algorithm.$.fname === fileName){
+                var citations = algorithm.BibStructured;
+                for (var citation of citations){
 
-            var title = citation.title ? citation.title[0] : "";
-            var date = citation.date ? citation.date[0] : "";
-            var marker = citation.marker ? citation.marker[0] : "";
-            var journal = citation.journal ? citation.journal[0] : "";
-            var volume = citation.volume ? citation.volume[0] : "";
-            var authors = [];
+                    var title = citation.title ? citation.title[0] : "";
+                    var date = citation.date ? citation.date[0] : "";
+                    var marker = citation.marker ? citation.marker[0] : "";
+                    var journal = citation.journal ? citation.journal[0] : "";
+                    var volume = citation.volume ? citation.volume[0] : "";
+                    var authors = [];
 
-            if(citation.authors){
-                for(var a of citation.authors){
-                    var author = a.author ? a.author[0] : "";
-                    authors.push(author);
+                    if(citation.authors){
+                        for(var a of citation.authors){
+                            var author = a.author ? a.author[0] : "";
+                            authors.push(author);
+                        }
+                    }
+                    var be = new BibliographicEntry({bibliographicEntryText: citation.rawString[0]._,
+                        ocrData:{
+                            coordinates: citation.rawString[0]['$'].coordinates,
+                            title: title,
+                            date: date,
+                            marker: marker,
+                            authors: authors,
+                            journal: journal,
+                            volume: volume
+                        }});
+                    bes.push(be.toObject())
                 }
+                return callback(null, bes);
             }
-            var be = new BibliographicEntry({bibliographicEntryText: citation.rawString[0]._,
-                                            ocrData:{
-                                                coordinates: citation.rawString[0]['$'].coordinates,
-                                                title: title,
-                                                date: date,
-                                                marker: marker,
-                                                authors: authors,
-                                                journal: journal,
-                                                volume: volume
-                                            }});
-            bes.push(be.toObject())
         }
-        callback(null, bes);
+        return callback(null, bes);
     });
-    
 };
 
 

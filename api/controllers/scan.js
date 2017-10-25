@@ -225,7 +225,7 @@ function triggerOcrProcessing(req, res) {
                         async.parallel([
                             // Do two functions in parallel: 1) parse xml string 2) save xml string in file
                             function (callback) {
-                                ocrHelper.parseXMLString(result, function (err, bes) {
+                                ocrHelper.parseXMLString(result, scan.scanName, function (err, bes) {
                                     if (err) {
                                         errorlog.error(err);
                                         return res.status(500).json({"message": "XML parsing failed."});
