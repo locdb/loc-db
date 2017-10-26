@@ -20,7 +20,7 @@ GoogleScholarHelper.prototype.query = function(query, callback){
         for(var res of resultsObj.results){
             var contributors = [];
             for (var a of res.authors){
-                if(a.name){
+                if(a.name && !/^\d+$/.test(a.name)){
                     var identifier = new Identifier({scheme: enums.externalSources.gScholar, literalValue: a.url});
                     if(a.name.split(' ').length === 2){
                         var agentRole = new AgentRole({roleType: enums.roleType.author, heldBy: {identifiers: [identifier], nameString: a.name, givenName: a.name.split(' ')[0], familyName: a.name.split(' ')[1]}});

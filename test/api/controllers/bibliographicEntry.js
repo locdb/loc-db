@@ -8,7 +8,7 @@ var agent = request.agent(server);
 
 describe('controllers', function() {
 
-    describe.only('bibliographicEntry', function () {
+    describe('bibliographicEntry', function () {
         var id = "";
 
         before(function (done) {
@@ -332,7 +332,7 @@ describe('controllers', function() {
         });
 
 
-        describe.only('GET /getExternalSuggestionsByQueryString', function () {
+        describe('GET /getExternalSuggestionsByQueryString', function () {
 
             it('should return 21 suggestion for a bibliographic entry', function (done) {
                 this.timeout(100000);
