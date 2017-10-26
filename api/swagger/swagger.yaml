@@ -461,12 +461,12 @@ paths:
         - name: firstPage
           in: formData
           description: The number of the first page of the resource.
-          required: true
+          required: false
           type: number
         - name: lastPage
           in: formData
           description: The number of the last page of the resource.
-          required: true
+          required: false
           type: number
         - name: scan
           in: formData
