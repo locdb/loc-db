@@ -301,6 +301,25 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
+    delete:
+      tags: [BibliographicEntry]
+      description: Deletes a given bibliographic entry by id.
+      operationId: remove
+      parameters:
+        - name: id
+          in: path
+          description: The _id of the bibliographic entry to be deleted.
+          required: true
+          type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/BibliographicEntry"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
 
   /addTargetBibliographicResource:
     x-swagger-router-controller: bibliographicEntry

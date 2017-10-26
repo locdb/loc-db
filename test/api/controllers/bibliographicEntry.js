@@ -489,5 +489,29 @@ describe('controllers', function() {
                     });
             });
         });
+
+        describe('DELETE /bibliographicEntries/{id}', function () {
+
+            it('should delete a bibliographic entry from a given br', function (done) {
+                var bibliographicEntryId = '58cb92465452691cd86bc94b';
+
+                agent
+                    .delete('/bibliographicEntries/' + bibliographicEntryId)
+                    .set('Accept', 'application/json')
+                    .expect(200)
+                    .end(function (err, res) {
+                        should.not.exist(err);
+                        res.body.should.be.Object;
+                        res.body.should.have.property("cites");
+                        res.body.cites.should.be.Array;
+                        res.body.cites.should.have.lengthOf(0);
+                        res.body.should.have.property("parts");
+                        res.body.parts.should.be.Array;
+                        res.body.parts.should.have.lengthOf(52);
+                        res.body.parts.should.not.containDeep([{"_id": bibliographicEntryId}]);
+                        done();
+                    });
+            });
+        });
     });
 });

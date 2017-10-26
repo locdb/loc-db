@@ -76,7 +76,7 @@ function update(req, res) {
         }
         if (!br) {
             errorlog.error("No bibliographic entry found for id.", {id: id});
-            return res.status(500).json({"message": "No bibliographic entry found for id."});
+            return res.status(400).json({"message": "No bibliographic entry found for id."});
         }
 
 
@@ -92,6 +92,42 @@ function update(req, res) {
                         }
                     }
                 }, function (err) {
+                    return response.status(500).send(err);
+                });
+            }
+        }
+    });
+}
+
+
+function remove(req, res) {
+    var response = res;
+    var id = req.swagger.params.id.value;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        errorlog.error("Invalid value for parameter id.", {id: id});
+        return response.status(400).json({"message": "Invalid parameter."});
+    }
+
+    mongoBr.findOne({'parts._id': id}, function (err, br) {
+        if (err) {
+            errorlog.error(err);
+            return res.status(500).json({"message": "DB query failed."});
+        }
+        if (!br) {
+            errorlog.error("No bibliographic entry found for id.", {id: id});
+            return res.status(400).json({"message": "No bibliographic entry found for id."});
+        }
+
+
+        for (var be of br.parts) {
+            if (be._id.toString() === id) {
+                var index = br.parts.indexOf(be);
+                br.parts.splice(index, 1);
+                br.save().then(function (result) {
+                    return response.json(result);
+                }, function (err) {
+                    errorlog.error(err);
                     return response.status(500).send(err);
                 });
             }
@@ -397,6 +433,7 @@ function removeTargetBibliographicResource(req, res) {
 module.exports = {
     getToDoBibliographicEntries: getToDoBibliographicEntries,
     update: update,
+    remove: remove,
     getInternalSuggestions: getInternalSuggestions,
     getExternalSuggestions: getExternalSuggestions,
     addTargetBibliographicResource: addTargetBibliographicResource,
