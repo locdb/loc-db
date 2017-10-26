@@ -2,7 +2,7 @@ const should = require('should');
 const setup = require('./../setup.js').createSetup();
 const googleScholarHelper = require('./../../../api/helpers/googleScholarHelper.js').createGoogleScholarHelper();
 
-describe.only('helpers', function() {
+describe('helpers', function() {
     describe('googleScholarHelper', function() {
         before(function(done) {
             setup.dropDB(function(err){

@@ -67,14 +67,19 @@ Setup.prototype.loadAdditionalToDo = function(cb){
     });
 };
 
-Setup.prototype.mockOcrServer = function(){
-    var ocrNock = nock('http://akanshaocr.de')
-        .post('/', function(body, something){
-            console.log(typeof body);
-            return true;
-        })
-        .replyWithFile(200, __dirname + '/data/ocr_data/ocr_output_v1.xml');
+Setup.prototype.mockOCRFileUpload = function(){
+    nock("https://locdb-dev.opendfki.de")
+        .post('/fileupload/')
+        .replyWithFile(200, __dirname + '/data/ocr_data/ocr_output_v2.xml');
 };
+
+
+Setup.prototype.mockOCRGetImage = function(){
+    nock("https://locdb-dev.opendfki.de")
+        .post('/getimage/')
+        .replyWithFile(200, __dirname + '/data/ocr_data/references.png');
+};
+
 
 Setup.prototype.dropDB = function(callback){
     br.remove({}, function(err) {

@@ -29,7 +29,7 @@ OcrHelper.prototype.saveBinaryFile = function(fileName, fileBuffer, callback){
                     errorlog.error(err);
                     return callback(err, null);
                 }
-                callback(null, fileName);
+                return callback(null, fileName);
             });
         });
     }else{
@@ -38,7 +38,7 @@ OcrHelper.prototype.saveBinaryFile = function(fileName, fileBuffer, callback){
                 errorlog.error(err);
                 return callback(err, null);
             }
-            callback(null, fileName);
+            return callback(null, fileName);
         });
     }
 };
@@ -189,6 +189,32 @@ OcrHelper.prototype.ocr_fileupload = function(fileName, callback){
         accesslog.log("Request to OCR component successful.", {body: body});
         callback(null, body);
     });
+};
+
+OcrHelper.prototype.getImageForPDF = function(fileName, callback){
+    var path = config.PATHS.UPLOAD + fileName;
+    var ext = fileName.split('.')[fileName.split('.').length -1].toLowerCase();
+
+    var form;
+    if(ext === "pdf"){
+        form = {
+            files: fs.createReadStream(path),
+        };
+
+        request.post({url: config.URLS.OCR_IMAGEVIEW, formData: form, timeout:1000000, encoding: null}, function(err, res, body) {
+            if (err) {
+                errorlog.error(err);
+                return callback(err, null);
+            }else if (res.statusCode!= 200) {
+                errorlog.error("Request to OCR component failed.");
+                return callback("Request to OCR component failed.", null);
+            }
+            accesslog.log("Request to OCR component successful.");
+            return callback(null, body);
+        });
+    }else{
+        return callback(null, null);
+    }
 };
 
 /**

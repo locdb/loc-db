@@ -262,13 +262,39 @@ function triggerOcrProcessing(req, res) {
                                     }
                                     callback(null, name);
                                 });
+                            },
+                            function (callback) {
+                                ocrHelper.getImageForPDF(scan.scanName, function (err, res) {
+                                    if (err) {
+                                        errorlog.error(err);
+                                        return callback(err, null);
+                                    }
+                                    callback(null, res);
+                                });
                             }
                         ], function (err, results) {
                             if (err) {
                                 errorlog.error(err);
                                 return response.status(500).json({"message": "An error occured."});
                             }
-                            response.json(results[0]);
+                            if(results[2]){
+                                ocrHelper.saveBinaryFile(scan._id.toString(), results[2], function(err, res){
+                                    if (err) {
+                                        errorlog.error(err);
+                                        return response.status(500).json({"message": "An error occured."});
+                                    }
+                                    scan.scanName = res;
+                                    br.save(function (err, doc) {
+                                        if (err){
+                                            errorlog.error(err);
+                                            return response.status(500).json(err);
+                                        }
+                                        return response.json(results[0]);
+                                    });
+                                });
+                            }else{
+                                return response.json(results[0]);
+                            }
                         });
 
                     });

@@ -20,7 +20,8 @@ var config = {
         SWB: "http://swbtest.bsz-bw.de/sru/DB=2.1/username=/password=/",
         ZDB: "http://services.dnb.de/sru/zdb",
         OCR_FILEUPLOAD: "https://locdb-dev.opendfki.de/fileupload/",
-        OCR_FILEVIEW: "https://locdb-dev.opendfki.de/fileview/"
+        OCR_FILEVIEW: "https://locdb-dev.opendfki.de/fileview/",
+        OCR_IMAGEVIEW: "https://locdb-dev.opendfki.de/getimage/"
     },
     PATHS: {
         UPLOAD: (process.env.LOCDB_UPLOAD_PATH || "./../upload/")
