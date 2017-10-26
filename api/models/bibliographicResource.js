@@ -46,7 +46,7 @@ const brSchema = new Schema({
         bibliographicEntryText: String,
         references: String,
         scanId: String,
-        status: {type: String, enum: [enums.status.ocrProcessed, enums.status.valid]},
+        status: {type: String, enum: [enums.status.ocrProcessed, enums.status.valid, enums.status.external]},
         ocrData:{
             coordinates: String,
             authors: [String], // maybe use contributors thingy later

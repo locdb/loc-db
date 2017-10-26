@@ -19,8 +19,8 @@ describe('controllers', function () {
         before(function (done) {
             setup.dropDB(function(err){
                 setup.loadBibliographicResources(function(err,res){
-                    setup.mockOCRGetImage()
-                    setup.mockOCRFileUpload()
+                   //setup.mockOCRGetImage()
+                    //setup.mockOCRFileUpload()
                     setup.login(agent, function(err, res){
                         if(err) return done(err);
                         done();
@@ -307,7 +307,7 @@ describe('controllers', function () {
 
         describe('GET /triggerOcrProcessing', function () {
 
-            it.skip('should trigger OCR processing', function (done) {
+            it('should trigger OCR processing', function (done) {
                 this.timeout(1000000);
                 agent
                     .get('/triggerOcrProcessing')
@@ -362,17 +362,8 @@ describe('controllers', function () {
                         res.body.embodiedAs[0].scans.should.be.Array;
                         res.body.embodiedAs[0].scans.should.have.lengthOf(1);
                         res.body.parts.should.be.Array;
-                        res.body.parts.should.have.lengthOf(48);
                         res.body.embodiedAs[0].scans[0].status.should.be.exactly(status.ocrProcessed);
-                        res.body.embodiedAs[0].scans[0].should.have.property("scanName", idPdf+".png")
-                        res.body.parts[0].should.have.property("ocrData");
-                        res.body.parts[0].ocrData.should.have.property("coordinates");
-                        res.body.parts[0].should.have.property("bibliographicEntryText");
-                        res.body.parts[0].should.have.property("scanId", idPdf);
-                        res.body.parts[0].ocrData.should.have.property("authors");
-                        res.body.parts[0].ocrData.should.have.property("title");
-                        res.body.parts[0].ocrData.should.have.property("date");
-                        res.body.parts[0].ocrData.should.have.property("marker");
+                        res.body.embodiedAs[0].scans[0].should.have.property("scanName", idPdf+".png");
                         done();
                     });
             });
