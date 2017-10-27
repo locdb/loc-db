@@ -89,34 +89,36 @@ OcrHelper.prototype.parseXMLString = function(xmlString, fileName, callback){
         for(var algorithm of ocrResult.LOCDBViewResults.algorithm){
             if(algorithm.$.fname === fileName){
                 var citations = algorithm.BibStructured;
-                for (var citation of citations){
+                if(citations){
+                    for (var citation of citations){
 
-                    var title = citation.title ? citation.title[0] : "";
-                    var date = citation.date ? citation.date[0] : "";
-                    var marker = citation.marker ? citation.marker[0] : "";
-                    var journal = citation.journal ? citation.journal[0] : "";
-                    var volume = citation.volume ? citation.volume[0] : "";
-                    var authors = [];
+                        var title = citation.title ? citation.title[0] : "";
+                        var date = citation.date ? citation.date[0] : "";
+                        var marker = citation.marker ? citation.marker[0] : "";
+                        var journal = citation.journal ? citation.journal[0] : "";
+                        var volume = citation.volume ? citation.volume[0] : "";
+                        var authors = [];
 
-                    if(citation.authors){
-                        for(var a of citation.authors){
-                            var author = a.author ? a.author[0] : "";
-                            authors.push(author);
+                        if(citation.authors){
+                            for(var a of citation.authors){
+                                var author = a.author ? a.author[0] : "";
+                                authors.push(author);
+                            }
                         }
+                        var be = new BibliographicEntry({bibliographicEntryText: citation.rawString[0]._,
+                            ocrData:{
+                                coordinates: citation.rawString[0]['$'].coordinates,
+                                title: title,
+                                date: date,
+                                marker: marker,
+                                authors: authors,
+                                journal: journal,
+                                volume: volume
+                            }});
+                        bes.push(be.toObject())
                     }
-                    var be = new BibliographicEntry({bibliographicEntryText: citation.rawString[0]._,
-                        ocrData:{
-                            coordinates: citation.rawString[0]['$'].coordinates,
-                            title: title,
-                            date: date,
-                            marker: marker,
-                            authors: authors,
-                            journal: journal,
-                            volume: volume
-                        }});
-                    bes.push(be.toObject())
+                    return callback(null, bes);
                 }
-                return callback(null, bes);
             }
         }
         return callback(null, bes);
