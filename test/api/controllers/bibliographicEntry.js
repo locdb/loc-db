@@ -297,7 +297,7 @@ describe('controllers', function() {
             });
 
             it('should return two external suggestion for a bibliographic entry', function (done) {
-                this.timeout(10000);
+                this.timeout(1000000000);
                 var searchObject = `{
                         "bibliographicEntryText": "bibliographicEntryText",
                         "status": "",

@@ -248,7 +248,7 @@ describe('controllers', function() {
 
 
       describe('POST /getCrossrefReferences', function(){
-          this.timeout(5000);
+          this.timeout(1000000000);
 
           it('should retrieve crossref references by doi', function(done){
               var data = new BibliographicResource({
@@ -278,6 +278,7 @@ describe('controllers', function() {
           });
 
           it('should retrieve crossref references by query', function(done){
+              this.timeout(1000000000);
               var data = new BibliographicResource({
                   identifiers: [{
                       literalValue: "some ISBN",
@@ -307,7 +308,7 @@ describe('controllers', function() {
 
 
       describe('GET /getPublisherUrl', function(){
-          this.timeout(5000);
+          this.timeout(1000000000);
 
           it('should retrieve the publisher url', function(done){
               var ppn = "429152140";

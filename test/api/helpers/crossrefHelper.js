@@ -19,7 +19,7 @@ describe('helpers', function() {
 
         describe('query', function(){
             it('should return result for a given query', function(done) {
-                this.timeout(5000);
+                this.timeout(1000000000);
                 crossrefHelper.query("Test", function(err, result){
                     console.log(result);
                     should.not.exists(err);
@@ -37,7 +37,7 @@ describe('helpers', function() {
 
         describe('queryReferences', function(){
             it('should return result for a given query', function(done) {
-                this.timeout(10000);
+                this.timeout(1000000000);
                 crossrefHelper.queryReferences(null, "", function(err, result){
                     console.log(result);
                     should.not.exists(err);
@@ -60,7 +60,7 @@ describe('helpers', function() {
             });
 
             it('should return result for a given doi', function(done) {
-                this.timeout(10000);
+                this.timeout(1000000000);
                 crossrefHelper.queryReferences("10.1007/s11617-006-0056-1", null, function(err, result){
                     console.log(result);
                     should.not.exists(err);
