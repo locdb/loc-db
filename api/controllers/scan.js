@@ -92,6 +92,9 @@ function getToDo(req, res) {
                 }
 
                 resultChild.scans = scans;
+                if(!resultObject.children){
+                    resultObject.children = [];
+                }
                 resultObject.children.push(resultChild);
                 if (!alreadyIn) {
                     resultArray.push(resultObject);
