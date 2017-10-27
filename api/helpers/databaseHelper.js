@@ -68,7 +68,7 @@ DatabaseHelper.prototype.saveIndependentPrintResource = function(scan, ppn, reso
                 }];
                 br = new mongoBr(br);
                 br.save(function (err, result) {
-                    return callback(err, result.toObject());
+                    return callback(err, result);
                 });
             });
         }
