@@ -16,7 +16,7 @@ const brSchema = new Schema({
     title: String,
     subtitle: String,
     edition: String,
-    number: Number, // e.g. number of an article in journal
+    number: String, // e.g. number of an article in journal
     contributors: [{
         identifiers: [{
             literalValue: String,

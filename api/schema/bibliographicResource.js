@@ -12,7 +12,7 @@ var bibliographicResource = new SchemaObject({
     title: String,
     subtitle: String,
     edition: String,
-    number: Number, // e.g. number of an article in journal
+    number: String, // e.g. number of an article in journal
     contributors: [{type: AgentRole}],
     publicationYear: String,
     status: {type: String, enum: [status.valid, status.external]},
