@@ -286,13 +286,38 @@ function triggerOcrProcessing(req, res) {
                                         errorlog.error(err);
                                         return response.status(500).json({"message": "An error occured."});
                                     }
-                                    scan.scanName = res;
-                                    br.save(function (err, doc) {
-                                        if (err){
-                                            errorlog.error(err);
-                                            return response.status(500).json(err);
+
+                                    mongoBr.findOne({
+                                        'embodiedAs.scans': {
+                                            '$elemMatch': {
+                                                '_id': id
+                                            }
                                         }
-                                        return response.json(results[0]);
+                                    }, function (err, br) {
+                                        // do error handling
+                                        if (err) {
+                                            errorlog.error(err);
+                                            return response.status(500).json({"message": "DB query failed."});
+                                        }
+                                        for (var embodiment of br.embodiedAs) {
+                                            for (var scan of embodiment.scans) {
+                                                if (scan._id == id) {
+                                                    // Interestingly, mongodb seems not to be aware of the update
+                                                    // when you change the scan directly
+                                                    var embodimentIndex = br.embodiedAs.indexOf(embodiment);
+                                                    var scanIndex = embodiment.scans.indexOf(scan);
+                                                    scan.scanName = res;
+                                                    br.embodiedAs[embodimentIndex].scans[scanIndex] = scan;
+
+                                                    br.save().then(function (br) {
+                                                        return response.json(br);
+                                                    }, function (err) {
+                                                        errorlog.error(err);
+                                                        return response.status(500).json(err);
+                                                    });
+                                                }
+                                            }
+                                        }
                                     });
                                 });
                             }else{
