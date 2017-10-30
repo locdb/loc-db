@@ -4,6 +4,7 @@ const config = require('./../../config/config.js');
 const marc21Helper = require('./../helpers/marc21Helper.js').createMarc21Helper();
 const enums = require('./../schema/enum.json');
 const BibliographicResource = require('./../schema/bibliographicResource');
+const errorlog = require('./../util/logger').errorlog;
 
 
 var SwbHelper = function(){
