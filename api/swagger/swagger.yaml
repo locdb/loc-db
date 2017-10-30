@@ -517,7 +517,7 @@ paths:
     x-swagger-router-controller: scan
     get:
       tags: [Scan]
-      description: Retrieves the BRs including their associated parts and scans that are either not processed or processed by the OCR-component.
+      description: Retrieves the BRs including their associated parts and scans that are either not processed or processed by the OCR-component or retrieved from external.
       operationId: getToDo
       parameters:
         - name: status
@@ -528,6 +528,7 @@ paths:
           enum:
             - NOT_OCR_PROCESSED
             - OCR_PROCESSED
+            - EXTERNAL
       responses:
         "200":
           description: Success

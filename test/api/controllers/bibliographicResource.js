@@ -333,7 +333,7 @@ describe('controllers', function() {
       });
 
 
-      describe.only('GET /saveElectronicJournal', function(){
+      describe('GET /saveElectronicJournal', function(){
           this.timeout(1000000000);
 
           it('should retrieve the meta data from crossref and create the parent as well as the child resource', function(done){
