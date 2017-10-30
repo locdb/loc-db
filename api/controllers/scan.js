@@ -214,117 +214,123 @@ function triggerOcrProcessing(req, res) {
             errorlog.error("No entry found for parameter id.", {id: id});
             return response.status(400).json({"message": "No entry found."});
         }
-
-        // TODO: Can we use a projection for filtering the right scan?
         for (var embodiment of br.embodiedAs) {
             for (var scan of embodiment.scans) {
                 if (scan._id == id) {
-                    ocrHelper.ocr_fileupload(scan.scanName, function (err, result) {
-                        if (err) {
-                            errorlog.error(err);
-                            return res.status(502).json({"message": "OCR request failed."});
-                        }
-                        var name = scan._id.toString() + ".xml";
-                        async.parallel([
-                            // Do two functions in parallel: 1) parse xml string 2) save xml string in file
-                            function (callback) {
-                                ocrHelper.parseXMLString(result, scan.scanName, function (err, bes) {
-                                    if (err) {
-                                        errorlog.error(err);
-                                        return res.status(500).json({"message": "XML parsing failed."});
-                                    }
+                    // set the status such that we know that the scan is already in the queue
+                    scan.status = enums.status.ocrProcessing;
 
-                                    bes.map(function (be) {
-                                        console.log(be);
-                                        be.scanId = id;
-                                        be.status = enums.status.ocrProcessed;
-                                        br.parts.push(be);
-                                    });
+                    var embodimentIndex = br.embodiedAs.indexOf(embodiment);
+                    var scanIndex = embodiment.scans.indexOf(scan);
+                    br.embodiedAs[embodimentIndex].scans[scanIndex] = scan;
 
-                                    var embodimentIndex = br.embodiedAs.indexOf(embodiment);
-                                    var scanIndex = embodiment.scans.indexOf(scan);
-                                    scan.status = enums.status.ocrProcessed;
-                                    scan.xmlName = name;
-                                    br.embodiedAs[embodimentIndex].scans[scanIndex] = scan;
-
-                                    br.save().then(function (br) {
-                                        callback(null, br);
-                                    }, function (err) {
-                                        errorlog.error(err);
-                                        callback(err, null)
-                                    });
-
-                                });
-                            },
-                            function (callback) {
-
-                                ocrHelper.saveStringFile(name, result, function (err, res) {
-                                    if (err) {
-                                        errorlog.error(err);
-                                        return callback(err, null);
-                                    }
-                                    callback(null, name);
-                                });
-                            },
-                            function (callback) {
-                                ocrHelper.getImageForPDF(scan.scanName, function (err, res) {
-                                    if (err) {
-                                        errorlog.error(err);
-                                        return callback(err, null);
-                                    }
-                                    callback(null, res);
-                                });
-                            }
-                        ], function (err, results) {
+                    br.save(function(err,res){
+                        ocrHelper.ocr_fileupload(scan.scanName, function (err, result) {
                             if (err) {
                                 errorlog.error(err);
-                                return response.status(500).json({"message": "An error occured."});
+                                return response.status(502).json({"message": "OCR request failed."});
                             }
-                            if(results[2]){
-                                ocrHelper.saveBinaryFile(scan._id.toString(), results[2], function(err, res){
-                                    if (err) {
-                                        errorlog.error(err);
-                                        return response.status(500).json({"message": "An error occured."});
-                                    }
 
-                                    mongoBr.findOne({
-                                        'embodiedAs.scans': {
-                                            '$elemMatch': {
-                                                '_id': id
-                                            }
-                                        }
-                                    }, function (err, br) {
-                                        // do error handling
+                            async.parallel([
+                                // Do two functions in parallel: 1) parse xml string 2) save xml string in file
+                                function (callback) {
+                                    ocrHelper.parseXMLString(result, scan.scanName, function (err, bes) {
                                         if (err) {
                                             errorlog.error(err);
-                                            return response.status(500).json({"message": "DB query failed."});
+                                            return res.status(500).json({"message": "XML parsing failed."});
                                         }
-                                        for (var embodiment of br.embodiedAs) {
-                                            for (var scan of embodiment.scans) {
-                                                if (scan._id == id) {
-                                                    // Interestingly, mongodb seems not to be aware of the update
-                                                    // when you change the scan directly
-                                                    var embodimentIndex = br.embodiedAs.indexOf(embodiment);
-                                                    var scanIndex = embodiment.scans.indexOf(scan);
-                                                    scan.scanName = res;
-                                                    br.embodiedAs[embodimentIndex].scans[scanIndex] = scan;
 
-                                                    br.save().then(function (br) {
-                                                        return response.json(br);
-                                                    }, function (err) {
-                                                        errorlog.error(err);
-                                                        return response.status(500).json(err);
-                                                    });
+                                        bes.map(function (be) {
+                                            console.log(be);
+                                            be.scanId = id;
+                                            be.status = enums.status.ocrProcessed;
+                                            br.parts.push(be);
+                                        });
+
+                                        var embodimentIndex = br.embodiedAs.indexOf(embodiment);
+                                        var scanIndex = embodiment.scans.indexOf(scan);
+                                        var name = scan._id.toString() + ".xml";
+                                        scan.xmlName = name;
+                                        br.embodiedAs[embodimentIndex].scans[scanIndex] = scan;
+
+                                        br.save().then(function (br) {
+                                            callback(null, br);
+                                        }, function (err) {
+                                            errorlog.error(err);
+                                            callback(err, null)
+                                        });
+
+                                    });
+                                },
+                                function (callback) {
+
+                                    ocrHelper.saveStringFile(name, result, function (err, res) {
+                                        if (err) {
+                                            errorlog.error(err);
+                                            return callback(err, null);
+                                        }
+                                        callback(null, name);
+                                    });
+                                },
+                                function (callback) {
+                                    ocrHelper.getImageForPDF(scan.scanName, function (err, res) {
+                                        if (err) {
+                                            errorlog.error(err);
+                                            return callback(err, null);
+                                        }
+                                        callback(null, res);
+                                    });
+                                }
+                            ], function (err, results) {
+                                if (err) {
+                                    errorlog.error(err);
+                                    return response.status(500).json({"message": "An error occured."});
+                                }
+                                if(results[2]){
+                                    ocrHelper.saveBinaryFile(scan._id.toString(), results[2], function(err, res){
+                                        if (err) {
+                                            errorlog.error(err);
+                                            return response.status(500).json({"message": "An error occured."});
+                                        }
+
+                                        mongoBr.findOne({
+                                            'embodiedAs.scans': {
+                                                '$elemMatch': {
+                                                    '_id': id
                                                 }
                                             }
-                                        }
+                                        }, function (err, br) {
+                                            // do error handling
+                                            if (err) {
+                                                errorlog.error(err);
+                                                return response.status(500).json({"message": "DB query failed."});
+                                            }
+                                            for (var embodiment of br.embodiedAs) {
+                                                for (var scan of embodiment.scans) {
+                                                    if (scan._id == id) {
+                                                        // Interestingly, mongodb seems not to be aware of the update
+                                                        // when you change the scan directly
+                                                        var embodimentIndex = br.embodiedAs.indexOf(embodiment);
+                                                        var scanIndex = embodiment.scans.indexOf(scan);
+                                                        scan.scanName = res;
+                                                        scan.status = enums.status.ocrProcessed;
+                                                        br.embodiedAs[embodimentIndex].scans[scanIndex] = scan;
+                                                        br.save().then(function (br) {
+                                                            return response.json(br);
+                                                        }, function (err) {
+                                                            errorlog.error(err);
+                                                            return response.status(500).json(err);
+                                                        });
+                                                    }
+                                                }
+                                            }
+                                        });
                                     });
-                                });
-                            }else{
-                                return response.json(results[0]);
-                            }
+                                }else{
+                                    return response.json(results[0]);
+                                }
+                            });
                         });
-
                     });
                 }
             }

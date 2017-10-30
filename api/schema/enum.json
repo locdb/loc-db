@@ -1,6 +1,7 @@
 {  
   "status": {
     "notOcrProcessed": "NOT_OCR_PROCESSED",
+    "ocrProcessing": "OCR_PROCESSING",
     "ocrProcessed": "OCR_PROCESSED",
     "valid": "VALID",
     "external": "EXTERNAL"
