@@ -18,7 +18,7 @@ var CrossrefHelper = function(){
  */
 CrossrefHelper.prototype.query = function(query, callback){
     var self = this;
-    crossref.works({query: query }, (err, objs, nextOpts, done) => {
+    crossref.works({query: query, mailto:"anne@informatik.uni-mannheim.de"}, (err, objs, nextOpts, done) => {
         if (err) {
             errorlog.error(err);
             return callback(err, null);
@@ -43,7 +43,7 @@ CrossrefHelper.prototype.query = function(query, callback){
 CrossrefHelper.prototype.queryReferences = function(doi, query, callback){
     var self = this;
     if(doi != null){
-        crossref.work(doi, (err, obj, nextOpts, done) => {
+        crossref.work(doi,(err, obj, nextOpts, done) => {
             if (err) {
                 errorlog.error(err);
                 return callback(err, null);
@@ -62,7 +62,7 @@ CrossrefHelper.prototype.queryReferences = function(doi, query, callback){
             });
         });
     }else if(query != null){
-        crossref.works({query: query, filter:{"has-references" : true}}, (err, objs, nextOpts, done) => {
+        crossref.works({query: query, filter:{"has-references" : true}, mailto: "anne@informatik.uni-mannheim.de"}, (err, objs, nextOpts, done) => {
             if (err) {
                 errorlog.error(err);
                 return callback(err, null);
