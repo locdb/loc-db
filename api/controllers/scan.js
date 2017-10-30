@@ -126,7 +126,7 @@ function getToDo(req, res) {
                         return callback(err, null)
                     }
                     if(!br){
-                        callback(null, parent);
+                        return callback(null, parent);
                     }
                     parent.identifiers = br.identifiers ? br.identifiers : [];
                     parent.title = br.title ? br.title : "";
