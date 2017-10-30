@@ -86,6 +86,36 @@ CrossrefHelper.prototype.queryReferences = function(doi, query, callback){
 
 };
 
+
+/**
+ * Retrieves meta data from Crossref given a DOI
+ * @param doi
+ * @param callback
+ */
+CrossrefHelper.prototype.queryByDOI = function(doi, callback){
+    var self = this;
+    crossref.work(doi, (err, obj, nextOpts, done) => {
+        if (err) {
+            errorlog.error(err);
+            return callback(err, null);
+        }
+        // check whether they really contain the 'reference' property
+        var candidates = [];
+        candidates.push(obj);
+        self.parseObjects(candidates, function(err, res){
+            if (err) {
+                errorlog.error(err);
+                return callback(err, null);
+            }
+            if (res.length >0){
+                return callback(null, res[0]);
+            }
+            return callback(null, null);
+        });
+    });
+};
+
+
 /**
  * Parses an array of Crossref objects and returns an array of BRs
  * @param objects

@@ -331,6 +331,30 @@ describe('controllers', function() {
                   });
           });
       });
+
+
+      describe.only('GET /saveElectronicJournal', function(){
+          this.timeout(1000000000);
+
+          it('should retrieve the publisher url', function(done){
+              var doi = "10.1007/s11617-006-0056-1";
+
+              agent
+                  .get('/saveElectronicJournal')
+                  .query({doi: doi})
+                  .set('Accept', 'application/json')
+                  .expect('Content-Type', /json/)
+                  .expect(200)
+                  .end(function(err, res){
+                      should.not.exist(err);
+                      res.body.should.not.be.Array;
+                      res.body.should.be.Object;
+                      res.body.should.have.property("status", enums.status.valid);
+                      done();
+                  });
+          });
+      });
+
   });
 
 });

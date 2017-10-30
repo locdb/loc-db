@@ -193,6 +193,37 @@ function getPublisherUrl(req, res){
 }
 
 
+function saveElectronicJournal(req, res) {
+    var doi = req.swagger.params.doi.value;
+    var response = res;
+
+    crossrefHelper.queryByDOI(doi, function (err, result) {
+        if (err) {
+            errorlog.error(err);
+            return response.status(500).json(err);
+        } else {
+            if (!result) {
+                errorlog.error("No entry found in crossref for doi", {"doi": doi});
+                return response.status(400).json("No entry found in crossref for doi.");
+            } else {
+                var resource = new br(result);
+                resource.type = enums.resourceType.journal;
+                // we assume that data retrieved from crossref is correct as it comes from the publishers.
+                resource.status = enums.status.valid;
+                resource.save(function (err, result) {
+                    if (err) {
+                        errorlog.error(err);
+                        return response.status(500).json(err);
+                    } else {
+                        return response.status(200).json(result);
+                    }
+                });
+            }
+        }
+    });
+}
+
+
 module.exports = {
         list : list,
         get : get,
@@ -202,5 +233,6 @@ module.exports = {
         save: save,
         update: update,
         getCrossrefReferences: getCrossrefReferences,
-        getPublisherUrl: getPublisherUrl
+        getPublisherUrl: getPublisherUrl,
+        saveElectronicJournal: saveElectronicJournal
 };

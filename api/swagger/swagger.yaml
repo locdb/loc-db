@@ -243,6 +243,30 @@ paths:
             $ref: "#/definitions/ErrorResponse"
 
 
+  /saveElectronicJournal:
+    x-swagger-router-controller: bibliographicResource
+    get:
+      tags: [BibliographicResource]
+      description: |
+        Given an article doi this service retrieves meta data from Crossref and save a new bibliographic resource in our db.
+      operationId: saveElectronicJournal
+      parameters:
+        - name: doi
+          in: query
+          description: The doi of the article for which the meta data shall be retrieved.
+          required: true
+          type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/Identifier"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+
 
   /getCrossrefReferences:
     x-swagger-router-controller: bibliographicResource
