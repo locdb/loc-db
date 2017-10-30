@@ -102,13 +102,17 @@ CrossrefHelper.prototype.queryByDOI = function(doi, callback){
         // check whether they really contain the 'reference' property
         var candidates = [];
         candidates.push(obj);
+        var containerTitle = obj['container-title'] ? obj['container-title'] [0] : obj['container-title'];
         self.parseObjects(candidates, function(err, res){
             if (err) {
                 errorlog.error(err);
                 return callback(err, null);
             }
             if (res.length >0){
-                return callback(null, res[0]);
+                var result = []
+                result[0] = res[0];
+                result[1] = containerTitle;
+                return callback(null, result);
             }
             return callback(null, null);
         });

@@ -336,7 +336,7 @@ describe('controllers', function() {
       describe.only('GET /saveElectronicJournal', function(){
           this.timeout(1000000000);
 
-          it('should retrieve the publisher url', function(done){
+          it('should retrieve the meta data from crossref and create the parent as well as the child resource', function(done){
               var doi = "10.1007/s11617-006-0056-1";
 
               agent
@@ -347,9 +347,34 @@ describe('controllers', function() {
                   .expect(200)
                   .end(function(err, res){
                       should.not.exist(err);
-                      res.body.should.not.be.Array;
-                      res.body.should.be.Object;
-                      res.body.should.have.property("status", enums.status.valid);
+                      res.body.should.be.Array;
+                      res.body.should.have.length(2);
+                      res.body[0].should.have.property("title", "Soziologie");
+                      res.body[0].should.not.have.property("partOf");
+                      res.body[1].should.have.property("status", enums.status.external);
+                      res.body[1].should.have.property("partOf", res.body[0]._id);
+                      done();
+                  });
+          });
+
+
+          it('should retrieve the meta data from crossref and create the child resource (parent is already existing)', function(done){
+              var doi = "10.1007/s11617-006-0056-1";
+
+              agent
+                  .get('/saveElectronicJournal')
+                  .query({doi: doi})
+                  .set('Accept', 'application/json')
+                  .expect('Content-Type', /json/)
+                  .expect(200)
+                  .end(function(err, res){
+                      should.not.exist(err);
+                      res.body.should.be.Array;
+                      res.body.should.have.length(2);
+                      res.body[0].should.have.property("title", "Soziologie");
+                      res.body[0].should.not.have.property("partOf");
+                      res.body[1].should.have.property("status", enums.status.external);
+                      res.body[1].should.have.property("partOf", res.body[0]._id);
                       done();
                   });
           });
