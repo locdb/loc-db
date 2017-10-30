@@ -43,6 +43,48 @@ function saveScan(req, res) {
     }
 };
 
+
+function saveScanForElectronicJournal(req, res) {
+    var response = res;
+    var scan = req.swagger.params.scan.value;
+    var doi = req.swagger.params.doi.value;
+
+    mongoBr.findOne({
+        "identifiers.scheme": enums.identifier.doi,
+        "identifiers.literalValue": doi
+    }, function (err, child) {
+        // if there is an error, log it and return
+        if (err) {
+            errorlog.error(err);
+            return response.status(500).json(err);
+        }
+        // we only have to save the file and add it to the child and we have to change the status of the child
+        databaseHelper.saveScan(scan, function(err,scan){
+            child.status = enums.status.valid;
+            if(child.embodiedAs.length == 0){
+                child.embodiedAs.push({scans: [], type : enums.embodimentType.digital});
+                child.embodiedAs[0].scans.push(scan);
+            }else{
+                for (var embodiment of child.embodiedAs){
+                    // we check for the digital embodiment and append the scan to it
+                    if(embodiment.type == enums.embodimentType.digital){
+                        embodiment.scans.push(scan);
+                        break;
+                    }
+                }
+            }
+            child.save(function (err, result) {
+                if(err){
+                    errorlog.log(err);
+                    return response.status(500).json(err);
+                }
+                return response.status(200).json(result);
+            });
+        });
+    });
+};
+
+
 function getToDo(req, res) {
     var response = res;
     var status = req.swagger.params.status.value;
@@ -434,6 +476,7 @@ function triggerOcrProcessing(req, res) {
 
 module.exports = {
     saveScan: saveScan,
+    saveScanForElectronicJournal: saveScanForElectronicJournal,
     getToDo: getToDo,
     triggerOcrProcessing: triggerOcrProcessing,
     get: get

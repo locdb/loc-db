@@ -512,6 +512,33 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
+
+  /saveScanForElectronicJournal:
+      x-swagger-router-controller: scan
+      post:
+        tags: [Scan]
+        description: Saves a scan in the file system and retrieves a biliographic ressource from SWB-BSZ by PICA-Prod-Nr.The br is saved in the DB.
+        operationId: saveScanForElectronicJournal
+        parameters:
+          - name: doi
+            in: formData
+            description: The DOI of the Article
+            required: true
+            type: string
+          - name: scan
+            in: formData
+            description: The scanned image of the reference page (binary file)
+            required: true
+            type: file
+        responses:
+          "200":
+            description: Success
+            schema:
+              $ref: "#/definitions/BibliographicResource"
+          default:
+            description: Error
+            schema:
+              $ref: "#/definitions/ErrorResponse"
             
   /getToDo:
     x-swagger-router-controller: scan
