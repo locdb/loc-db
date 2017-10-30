@@ -140,6 +140,16 @@ function getToDo(req, res) {
                     }
 
                     resultChild.scans = scans;
+                    // TODO: We want to show more information to the user
+                    resultChild.title = child.title;
+                    resultChild.subtitle = child.subtitle;
+                    resultChild.type = child.subtitle;
+                    resultChild.publicationYear = child.publicationYear;
+                    resultChild.edition = child.edition;
+                    resultChild.number = child.number;
+                    resultChild.contributors = child.contributors;
+                    resultChild.identifiers = child.identifiers;
+
                     if (!resultObject.children) {
                         resultObject.children = [];
                     }
@@ -235,7 +245,15 @@ function getToDo(req, res) {
                     }
                     var resultChild = {};
                     resultChild._id = child._id;
-                    //resultChild.status = child.status;
+                    // TODO: We want to show more information to the user
+                    resultChild.title = child.title;
+                    resultChild.subtitle = child.subtitle;
+                    resultChild.type = child.subtitle;
+                    resultChild.publicationYear = child.publicationYear;
+                    resultChild.edition = child.edition;
+                    resultChild.number = child.number;
+                    resultChild.contributors = child.contributors;
+                    resultChild.identifiers = child.identifiers;
                     var scans = [];
                     // this is the difference now: Before we needed to add the scans, but now, we only add a dummy.
                     scans.push({

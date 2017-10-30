@@ -137,6 +137,7 @@ DatabaseHelper.prototype.saveDependentPrintResource = function(scan, firstPage, 
                             return callback(err, null);
                         }
                         var scan = result;
+                        // TODO: Call crossref to get chapter meta data
                         child = new mongoBr({
                             partOf: parent._id.toString(),
                             embodiedAs: [{
