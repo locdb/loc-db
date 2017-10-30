@@ -230,7 +230,7 @@ function triggerOcrProcessing(req, res) {
                                 errorlog.error(err);
                                 return response.status(502).json({"message": "OCR request failed."});
                             }
-
+                            var name = scan._id.toString() + ".xml";
                             async.parallel([
                                 // Do two functions in parallel: 1) parse xml string 2) save xml string in file
                                 function (callback) {
@@ -249,7 +249,7 @@ function triggerOcrProcessing(req, res) {
 
                                         var embodimentIndex = br.embodiedAs.indexOf(embodiment);
                                         var scanIndex = embodiment.scans.indexOf(scan);
-                                        var name = scan._id.toString() + ".xml";
+
                                         scan.xmlName = name;
                                         br.embodiedAs[embodimentIndex].scans[scanIndex] = scan;
 
