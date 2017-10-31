@@ -10,7 +10,7 @@ const async = require('async');
 const googleScholarHelper = require('./../helpers/googleScholarHelper.js').createGoogleScholarHelper();
 const crossrefHelper = require('./../helpers/crossrefHelper.js').createCrossrefHelper();
 const swbHelper = require('./../helpers/swbHelper.js').createSwbHelper();
-//const natural = require('natural');
+const stringSimilarity = require('string-similarity');
 
 
 function getToDoBibliographicEntries(req, res) {
@@ -271,6 +271,10 @@ function getExternalSuggestions(req, res) {
 function getExternalSuggestionsByQueryString(req, res) {
     var response = res;
     var query = req.swagger.params.query.value;
+    var threshold = req.swagger.params.threshold.value;
+    if(!threshold){
+        threshold = 0.45;
+    }
 
     async.parallel([
             function (callback) {
@@ -307,7 +311,7 @@ function getExternalSuggestionsByQueryString(req, res) {
             for(var sourceResults of res){
                 if (sourceResults.length > 0) {
                     for (var br of sourceResults) {
-                        if (Object.keys(br).length !== 0) { //&& natural.LevenshteinDistance(be.title, title) <= 10) {
+                        if (Object.keys(br).length !== 0 && stringSimilarity.compareTwoStrings(br.title + br.subtitle + br.contributors, query) > threshold) {
                             result.push(br);
                         }
                     }

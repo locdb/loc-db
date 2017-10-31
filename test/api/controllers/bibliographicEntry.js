@@ -335,21 +335,22 @@ describe('controllers', function() {
 
         describe('GET /getExternalSuggestionsByQueryString', function () {
 
-            it('should return 21 suggestion for a bibliographic entry', function (done) {
-                this.timeout(100000);
-                var query = "Direkte Demokratie in der Schweiz: Entwicklungen, Debatten und Wirkungen";
+            it.only('should return 5 suggestion for a query string', function (done) {
+                this.timeout(1000000);
+                var query = "The association between social capital and juvenile crime: The role of individual and structural factors.";
 
                 agent
                     .get('/getExternalSuggestionsByQueryString')
                     .set('Accept', 'application/json')
                     .query({ query: query })
+                    //.query({ threshold: 0.9 })
                     .expect('Content-Type', /json/)
                     .expect(200)
                     .end(function (err, res) {
                         should.not.exist(err);
                         res.body.should.be.Array;
                         //res.body.should.have.lengthOf(1);
-                        res.body.should.have.lengthOf(21);
+                        res.body.should.have.lengthOf(5);
                         //res.body[0].should.have.property("title", "Direkte Demokratie in der Schweiz: Entwicklungen, Debatten und Wirkungen");
                         res.body[0].should.have.property("status", status.external);
                         res.body[0].should.have.property("identifiers");

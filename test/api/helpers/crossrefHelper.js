@@ -17,7 +17,7 @@ describe('helpers', function() {
             });
         });
 
-        describe.only('query', function(){
+        describe('query', function(){
             it('should return result for a given query', function(done) {
                 this.timeout(1000000000);
                 crossrefHelper.query("The association between social capital and juvenile crime: The role of individual and structural factors.", function(err, result){

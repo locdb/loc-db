@@ -754,6 +754,11 @@ paths:
           description: The query string for which the suggestions shall be retrieved
           required: true
           type: string
+        - name: threshold
+          in: query
+          description: The elastic relevance score for above which entrys shall be retrieved
+          required: false
+          type: number
       responses:
         "200":
           description: Success
