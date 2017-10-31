@@ -98,6 +98,7 @@ OcrHelper.prototype.parseXMLString = function(xmlString, fileName, callback){
                         var journal = citation.journal ? citation.journal[0] : "";
                         var volume = citation.volume ? citation.volume[0] : "";
                         var authors = [];
+                        var coordinates = (citation.rawString && citation.rawString[0]  && citation.rawString[0]['$']) ? citation.rawString[0]['$'].coordinates : "";
 
                         if(citation.authors){
                             for(var a of citation.authors){
@@ -105,9 +106,10 @@ OcrHelper.prototype.parseXMLString = function(xmlString, fileName, callback){
                                 authors.push(author);
                             }
                         }
+
                         var be = new BibliographicEntry({bibliographicEntryText: citation.rawString[0]._,
                             ocrData:{
-                                coordinates: citation.rawString[0]['$'].coordinates,
+                                coordinates: coordinates,
                                 title: title,
                                 date: date,
                                 marker: marker,
