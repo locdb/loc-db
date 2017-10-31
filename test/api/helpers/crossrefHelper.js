@@ -82,31 +82,50 @@ describe('helpers', function() {
                 });
             });
         });
-    });
 
+        describe('queryByDOI', function(){
 
-    describe('queryByDOI', function(){
+            it('should return result for a given doi', function(done) {
+                this.timeout(1000000000);
+                crossrefHelper.queryByDOI("10.1007/s11617-006-0056-1", function(err, result){
+                    console.log(result);
+                    should.not.exists(err);
+                    result.should.be.ok();
+                    result.should.be.Object().and.not.Array();
+                    result.should.have.property("identifiers");
+                    result.identifiers.should.be.Array();
+                    result.identifiers.should.have.lengthOf(4);
+                    result.identifiers[1].should.have.property("scheme", enums.externalSources.crossref);
+                    result.should.have.property("parts");
+                    result.parts.should.be.Array;
+                    result.parts.should.have.lengthOf(25);
+                    result.parts[0].should.have.property("identifiers");
+                    result.parts[0].identifiers.should.be.Array;
+                    result.parts[0].identifiers.should.have.lengthOf(1);
+                    result.parts[0].identifiers[0].should.have.property("scheme", enums.identifier.doi);
+                    done();
+                });
+            });
+        });
 
-        it('should return result for a given doi', function(done) {
-            this.timeout(1000000000);
-            crossrefHelper.queryByDOI("10.1007/s11617-006-0056-1", function(err, result){
-                console.log(result);
-                should.not.exists(err);
-                result.should.be.ok();
-                result.should.be.Object().and.not.Array();
-                result.should.have.property("identifiers");
-                result.identifiers.should.be.Array();
-                result.identifiers.should.have.lengthOf(4);
-                result.identifiers[1].should.have.property("scheme", enums.externalSources.crossref);
-                result.should.have.property("parts");
-                result.parts.should.be.Array;
-                result.parts.should.have.lengthOf(25);
-                result.parts[0].should.have.property("identifiers");
-                result.parts[0].identifiers.should.be.Array;
-                result.parts[0].identifiers.should.have.lengthOf(1);
-                result.parts[0].identifiers[0].should.have.property("scheme", enums.identifier.doi);
-                done();
+        describe('queryChapterMetaData', function(){
+
+            it('should return result for a given doi', function(done) {
+                this.timeout(1000000000);
+                crossrefHelper.queryChapterMetaData("Modelling and analysis in arms control", 51,95, function(err, result){
+                    console.log(result);
+                    should.not.exists(err);
+                    result.should.be.ok();
+                    result.should.be.Array();
+                    result.should.have.lengthOf(1);
+                    result[0].should.have.property("identifiers");
+                    result[0].identifiers.should.be.Array();
+                    result[0].identifiers[1].should.have.property("scheme", enums.externalSources.crossref);
+                    result[0].should.have.property("title", "Arms Control: Lessons Learned and the Future");
+                    done();
+                });
             });
         });
     });
+
 });

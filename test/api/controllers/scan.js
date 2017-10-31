@@ -10,9 +10,9 @@ const mongoBr = require('./../../../api/models/bibliographicResource');
 
 var agent = request.agent(server);
 
-describe.only('controllers', function () {
+describe('controllers', function () {
 
-    describe('scan', function () {
+    describe.only('scan', function () {
         var id = "58c01713ea3c8d32f0f80a75";
         var idPdf = "";
 
@@ -37,14 +37,14 @@ describe.only('controllers', function () {
 
 
         describe('POST /saveScan - Resource Type: Collection', function () {
-
+            this.timeout(1000000);
             it('should save a scan in the file system and create two br (parent and child) in the db', function (done) {
                 agent
                     .post('/saveScan')
                     .type('form')
-                    .field('ppn', '400433052')
-                    .field('firstPage', '2')
-                    .field('lastPage', '3')
+                    .field('ppn', '012678775')
+                    .field('firstPage', '51')
+                    .field('lastPage', '95')
                     .field('resourceType', resourceType.collection)
                     .attach('scan', './test/api/data/ocr_data/02_input.png')
                     .set('Accept', 'application/json')
@@ -52,11 +52,12 @@ describe.only('controllers', function () {
                     .expect(200)
                     .end(function (err, res) {
                         should.not.exist(err);
-                        res.body[0].should.have.property("title", "The handbook of the neuropsychology of language");
+                        res.body[0].should.have.property("title", "Modelling and analysis in arms control :");
                         res.body[0].should.have.property("embodiedAs");
                         res.body[0].embodiedAs.should.be.Array;
                         res.body[0].embodiedAs.should.have.lengthOf(0);
                         res.body[1].should.have.property("embodiedAs");
+                        res.body[1].should.have.property("title", "Arms Control: Lessons Learned and the Future");
                         res.body[1].embodiedAs.should.be.Array;
                         res.body[1].embodiedAs.should.have.lengthOf(1);
                         res.body[1].embodiedAs[0].should.have.property("scans");
@@ -75,9 +76,9 @@ describe.only('controllers', function () {
                 agent
                     .post('/saveScan')
                     .type('form')
-                    .field('ppn', '400433052')
-                    .field('firstPage', '4')
-                    .field('lastPage', '10')
+                    .field('ppn', '012678775')
+                    .field('firstPage', '33')
+                    .field('lastPage', '41')
                     .field('resourceType', resourceType.collection)
                     .attach('scan', './test/api/data/ocr_data/references.pdf')
                     .set('Accept', 'application/json')
@@ -87,11 +88,12 @@ describe.only('controllers', function () {
                         should.not.exist(err);
                         console.log(res.body)
                         should.not.exist(err);
-                        res.body[0].should.have.property("title", "The handbook of the neuropsychology of language");
+                        res.body[0].should.have.property("title", "Modelling and analysis in arms control :");
                         res.body[0].should.have.property("embodiedAs");
                         res.body[0].embodiedAs.should.be.Array;
                         res.body[0].embodiedAs.should.have.lengthOf(0);
                         res.body[1].should.have.property("embodiedAs");
+                        res.body[1].should.have.property("title", "Arms Control and Strategic Military Stability");
                         res.body[1].embodiedAs.should.be.Array;
                         res.body[1].embodiedAs.should.have.lengthOf(1);
                         res.body[1].embodiedAs[0].should.have.property("scans");
@@ -112,6 +114,7 @@ describe.only('controllers', function () {
         describe('POST /saveScan - Resource Type: Journal', function () {
 
             it('should save a scan in the file system and create two br (parent and child) in the db', function (done) {
+                this.timeout(1000000);
                 agent
                     .post('/saveScan')
                     .type('form')

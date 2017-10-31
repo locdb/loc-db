@@ -7,6 +7,7 @@ const AgentRole = require('./../schema/agentRole.js');
 const BibliographicEntry = require('./../schema/bibliographicEntry.js');
 const enums = require('./../schema/enum.json');
 const errorlog = require('./../util/logger.js').errorlog;
+const stringSimilarity = require('string-similarity');
 
 var CrossrefHelper = function(){
 };
@@ -24,6 +25,37 @@ CrossrefHelper.prototype.query = function(query, callback){
             return callback(err, null);
         }
         self.parseObjects(objs, function(err, res){
+            if (err) {
+                errorlog.error(err);
+                return callback(err, null);
+            }
+            return callback(null, res);
+        });
+    });
+};
+
+
+/**
+ * Places a fuzzy string query to Crossref for searching for chapter metadata via the container-title and returns an array of matching BRs
+ * @param query
+ * @param callback
+ */
+CrossrefHelper.prototype.queryChapterMetaData = function(containerTitle, firstPage, lastPage, callback){
+    var self = this;
+    crossref.works({"query.container-title": containerTitle, mailto:"anne@informatik.uni-mannheim.de"}, (err, objs, nextOpts, done) => {
+        if (err) {
+            errorlog.error(err);
+            return callback(err, null);
+        }
+        var candidates = [];
+        for(var obj of objs){
+            if(stringSimilarity.compareTwoStrings(obj['container-title'][0], containerTitle) > 0.95
+                && (obj['page'] == firstPage + "-" + lastPage || obj['page'] == firstPage + "--" + lastPage)){
+                console.log("Match on pages and title, similarity = " + stringSimilarity.compareTwoStrings(obj['container-title'][0], containerTitle));
+                candidates.push(obj);
+            }
+        }
+        self.parseObjects(candidates, function(err, res){
             if (err) {
                 errorlog.error(err);
                 return callback(err, null);
