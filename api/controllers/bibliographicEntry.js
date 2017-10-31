@@ -181,7 +181,7 @@ function getInternalSuggestionsByQueryString(req, res) {
     var query = req.swagger.params.query.value;
     var threshold = req.swagger.params.threshold.value;
     if(!threshold){
-        threshold = 0.5;
+        threshold = 1.0;
     }
 
     // the search function offers an interface to elastic
