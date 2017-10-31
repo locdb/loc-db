@@ -121,29 +121,29 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
-  /signup:
-    x-swagger-router-controller: user
-    post:
-      tags: [User]
-      description: Signup service
-      operationId: signup
-      security: []
-      parameters:
-        - name: user
-          in: body
-          description: The user object consisting of username and password
-          required: true
-          schema:
-              $ref: "#/definitions/User"
-      responses:
-        "200":
-          description: Success
-          schema:
-              $ref: "#/definitions/User"
-        default:
-          description: Error
-          schema:
-            $ref: "#/definitions/ErrorResponse"
+#  /signup:
+#    x-swagger-router-controller: user
+#    post:
+#      tags: [User]
+#      description: Signup service
+#      operationId: signup
+#      security: []
+#      parameters:
+#        - name: user
+#          in: body
+#          description: The user object consisting of username and password
+#          required: true
+#          schema:
+#              $ref: "#/definitions/User"
+#      responses:
+#        "200":
+#          description: Success
+#          schema:
+#              $ref: "#/definitions/User"
+#        default:
+#          description: Error
+#          schema:
+#            $ref: "#/definitions/ErrorResponse"
   /logout:
     x-swagger-router-controller: user
     get:
