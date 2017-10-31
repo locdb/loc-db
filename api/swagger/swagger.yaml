@@ -786,7 +786,7 @@ definitions:
       edition:
         type: string
       number:
-        type: number
+        type: string
       contributors:
         type: array
         items:

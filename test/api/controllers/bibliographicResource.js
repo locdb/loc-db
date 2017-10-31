@@ -44,7 +44,7 @@ describe('controllers', function() {
       });
       
       
-      describe('GET /createBibliographicResourceByPPN', function() {
+      describe.skip('GET /createBibliographicResourceByPPN', function() {
           
           it('should return a new bibliographic resouce', function(done) {
             agent
@@ -87,7 +87,7 @@ describe('controllers', function() {
                   .end(function(err, res){
                       should.not.exist(err);
                       res.body.should.be.an.Array();
-                      res.body.should.have.length(2);
+                      res.body.should.have.length(1);
                       done();
                   });
           });
