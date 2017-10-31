@@ -179,6 +179,10 @@ function getInternalSuggestions(req, res) {
 function getInternalSuggestionsByQueryString(req, res) {
     var response = res;
     var query = req.swagger.params.query.value;
+    var threshold = req.swagger.params.threshold.value;
+    if(!threshold){
+        threshold = 0.5;
+    }
 
     // the search function offers an interface to elastic
     mongoBr.search({
@@ -192,7 +196,7 @@ function getInternalSuggestionsByQueryString(req, res) {
                 "contributors.heldBy.familyName"
             ]
         }
-    }, {hydrate: true}, function (err, brs) {
+    }, {hydrate: true, hydrateWithESResults: true}, function (err, brs) {
         var result = [];
         if (err) {
             errorlog.error(err);
@@ -201,9 +205,9 @@ function getInternalSuggestionsByQueryString(req, res) {
         if (brs.hits && brs.hits.hits) {
             for (var i in brs.hits.hits) {
                 var br = brs.hits.hits[i];
-                // return only the top 5 result
-                // but only if they do not only exist in elastic but also in mongo
-                if (br && result.length <= 5) {
+
+                // we check, whether the result is good enough
+                if(br._esResult._score > threshold){
                     result.push(br.toObject());
                 }
             }

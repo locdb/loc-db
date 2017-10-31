@@ -222,7 +222,7 @@ describe('controllers', function() {
             });
         });
 
-        describe('GET /getInternalSuggestionsByQueryString', function () {
+        describe.only('GET /getInternalSuggestionsByQueryString', function () {
 
             it('should return 0 internal suggestions for a bibliographic entry', function (done) {
 
