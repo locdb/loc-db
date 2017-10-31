@@ -17,16 +17,17 @@ describe('helpers', function() {
             });
         });
 
-        describe('query', function(){
+        describe.only('query', function(){
             it('should return result for a given query', function(done) {
                 this.timeout(1000000000);
-                crossrefHelper.query("Test", function(err, result){
+                crossrefHelper.query("The association between social capital and juvenile crime: The role of individual and structural factors.", function(err, result){
                     console.log(result);
                     should.not.exists(err);
                     result.should.be.ok();
                     result.should.be.Array();
                     result.should.have.lengthOf(20);
                     result[1].should.have.property("identifiers");
+                    result[0].should.have.property("title", "The Association between Social Capital and Juvenile Crime");
                     result[1].identifiers.should.be.Array();
                     result[1].identifiers.should.have.lengthOf(3);
                     result[1].identifiers[1].should.have.property("scheme", enums.externalSources.crossref);

@@ -222,12 +222,12 @@ describe('controllers', function() {
             });
         });
 
-        describe.only('GET /getInternalSuggestionsByQueryString', function () {
+        describe('GET /getInternalSuggestionsByQueryString', function () {
 
             it('should return 0 internal suggestions for a bibliographic entry', function (done) {
 
 
-                var query = "Test";
+                var query = "The Semantic Web";
                 agent
                     .get('/getInternalSuggestionsByQueryString')
                     .query({ query: query })
@@ -248,6 +248,7 @@ describe('controllers', function() {
                 agent
                     .get('/getInternalSuggestionsByQueryString')
                     .query({ query: query })
+                    .query({ threshold: 1.4 })
                     .set('Accept', 'application/json')
                     .expect('Content-Type', /json/)
                     .expect(200)

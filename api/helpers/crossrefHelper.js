@@ -197,7 +197,7 @@ CrossrefHelper.prototype.parseObjects = function(objects, callback){
         // Subtitle
         var subtitle = ""
         if(obj.subtitle && obj.subtitle[0]) {
-            title = obj.subtitle[0];
+            subtitle = obj.subtitle[0];
         }
 
         // Reference list
