@@ -92,8 +92,124 @@ function getToDo(req, res) {
         errorlog.error(err);
         return response.status(400).json({"message": "Invalid parameter."});
     }
-    if((status == enums.status.notOcrProcessed) || (status == enums.status.ocrProcessed)) {
+    if(status == enums.status.ocrProcessed) {
         mongoBr.find({'embodiedAs.scans.status': status}, function (err, children) {
+            if (err) {
+                errorlog.error(err);
+                return response.status(500).json({"message": "DB query failed."});
+            }
+            var resultArray = [];
+            var resultObject;
+            for (var child of children) {
+                // check here whether it is really a child
+                if (child.partOf) {
+                    // this applies to dependent resources
+                    var alreadyIn = false;
+                    if (resultArray.length !== 0) {
+                        for (var i of resultArray) {
+                            if (i._id == child.partOf) {
+                                alreadyIn = true;
+                                resultObject = i;
+                                break;
+                            } else {
+                                resultObject = {};
+                                resultObject._id = child.partOf;
+                                resultObject.children = [];
+                            }
+                        }
+                    } else {
+                        resultObject = {};
+                        resultObject._id = child.partOf;
+                        resultObject.children = [];
+                    }
+                    var resultChild = {};
+                    resultChild._id = child._id;
+                    //resultChild.status = child.status;
+                    var scans = [];
+                    for (var embodiment of child.embodiedAs) {
+                        for (var scan of embodiment.scans) {
+                            if (scan.status === status) {
+                                scans.push({
+                                    "_id": scan._id.toString(),
+                                    "status": scan.status,
+                                    "firstPage": embodiment.firstPage,
+                                    "lastPage": embodiment.lastPage
+                                });
+                            }
+                        }
+                    }
+
+                    resultChild.scans = scans;
+                    // TODO: We want to show more information to the user
+                    resultChild.title = child.title;
+                    resultChild.subtitle = child.subtitle;
+                    resultChild.type = child.subtitle;
+                    resultChild.publicationYear = child.publicationYear;
+                    resultChild.edition = child.edition;
+                    resultChild.number = child.number;
+                    resultChild.contributors = child.contributors;
+                    resultChild.identifiers = child.identifiers;
+
+                    if (!resultObject.children) {
+                        resultObject.children = [];
+                    }
+                    resultObject.children.push(resultChild);
+                    if (!alreadyIn) {
+                        resultArray.push(resultObject);
+                    }
+                } else {
+                    // This applies to independent resources
+                    var scans = [];
+                    var resultObject = child;
+                    for (var embodiment of child.embodiedAs) {
+                        for (var scan of embodiment.scans) {
+                            if (scan.status === status) {
+                                scans.push({"_id": scan._id.toString(), "status": scan.status});
+                            }
+                        }
+                    }
+                    resultObject = resultObject.toObject();
+                    delete resultObject.embodiedAs;
+                    resultObject.scans = scans;
+                    resultArray.push(resultObject);
+                }
+            }
+            // add additional information for displaying it to the user
+            async.map(resultArray, function (parent, callback) {
+                // check first whether it is really a parent
+                if (parent.children) {
+                    mongoBr.findOne({'_id': parent._id}, function (err, br) {
+                        if (err) {
+                            errorlog.error(err);
+                            return callback(err, null)
+                        }
+                        if (!br) {
+                            return callback(null, parent);
+                        }
+                        parent.identifiers = br.identifiers ? br.identifiers : [];
+                        parent.title = br.title ? br.title : "";
+                        parent.subtitle = br.subtitle ? br.subtitle : "";
+                        parent.publicationYear = br.publicationYear ? br.publicationYear : -1;
+                        parent.contributors = br.contributors ? br.contributors : [];
+                        parent.type = br.type ? br.type : "";
+                        parent.edition = br.edition ? br.edition : "";
+                        parent.number = br.number ? br.number : -1;
+                        callback(null, parent);
+                    });
+                } else {
+                    callback(null, parent);
+                }
+            }, function (err, res) {
+                if (err) {
+                    errorlog.error(err);
+                    return response.status(500).json({"message": "DB query failed."});
+                }
+                response.json(res);
+            });
+
+        });
+    }else if (status == enums.status.notOcrProcessed){
+        mongoBr.find({ $or: [ {'embodiedAs.scans.status': enums.status.notOcrProcessed}, {'embodiedAs.scans.status': enums.status.ocrProcessing}] }, function (err, children) {
             if (err) {
                 errorlog.error(err);
                 return response.status(500).json({"message": "DB query failed."});

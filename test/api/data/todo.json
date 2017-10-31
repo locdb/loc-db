@@ -29,7 +29,7 @@
         "scans": [
           {
             "scanName": "0002.png",
-            "status": "NOT_OCR_PROCESSED",
+            "status": "OCR_PROCESSING",
             "_id": "58e65d5d680edc2210738c7c"
           }
         ],
