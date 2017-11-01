@@ -253,7 +253,12 @@ paths:
         - name: doi
           in: query
           description: The doi of the article for which the meta data shall be retrieved.
-          required: true
+          required: false
+          type: string
+        - name: ppn
+          in: query
+          description: The PPN of the article for retrieval via OLCSSG
+          required: false
           type: string
       responses:
         "200":
@@ -516,18 +521,13 @@ paths:
       x-swagger-router-controller: scan
       post:
         tags: [Scan]
-        description: Saves a scan in the file system and retrieves a biliographic ressource from SWB-BSZ by PICA-Prod-Nr.The br is saved in the DB.
+        description: Saves a scan in the file system
         operationId: saveScanForElectronicJournal
         parameters:
           - name: doi
             in: formData
             description: The DOI of the article for retrieval via Crossref
-            required: false
-            type: string
-          - name: ppn
-            in: formData
-            description: The PPN of the article for retrieval via OLCSSG
-            required: false
+            required: true
             type: string
           - name: scan
             in: formData

@@ -195,112 +195,216 @@ function getPublisherUrl(req, res){
 
 
 function saveElectronicJournal(req, res) {
-    // TODO: This needs proper testing: Case 1) there is no parent Case 2) there is a parent
     var doi = req.swagger.params.doi.value;
+    var ppn = req.swagger.params.ppn.value;
     var response = res;
 
-    crossrefHelper.queryByDOI(doi, function (err, result) {
-        if (err) {
-            errorlog.error(err);
-            return response.status(500).json(err);
-        } else {
-            if (!result) {
-                errorlog.error("No entry found in crossref for doi", {"doi": doi});
-                return response.status(400).json("No entry found in crossref for doi.");
+    if(doi && !ppn) {
+        crossrefHelper.queryByDOI(doi, function (err, result) {
+            if (err) {
+                errorlog.error(err);
+                return response.status(500).json(err);
             } else {
-                var resource = new br(result[0]);
-                resource.type = enums.resourceType.journal;
-                resource.status = enums.status.external;
-                // we should try to find the parent resource in our system
-                // therefore we have to extract the issns if available
-                var issns = [];
-                for(var id of resource.identifiers){
-                    if(id.scheme == enums.identifier.issn){
-                        issns.push(id.literalValue);
-                    }
-                }
-                // this is a precondition for finding or creating the parent resource.
-                // If we do not have the information, just save and return the article
-                if(issns.length > 0 && result[1]){
-                    br.find({'title': result[1]}, function (err, parents) {
-                        if (err) {
-                            errorlog.error(err);
-                            return response.status(500).json(err);
+                if (!result) {
+                    errorlog.error("No entry found in crossref for doi", {"doi": doi});
+                    return response.status(400).json("No entry found in crossref for doi.");
+                } else {
+                    var resource = new br(result[0]);
+                    resource.type = enums.resourceType.journal;
+                    resource.status = enums.status.external;
+                    // we should try to find the parent resource in our system
+                    // therefore we have to extract the issns if available
+                    var issns = [];
+                    for (var id of resource.identifiers) {
+                        if (id.scheme == enums.identifier.issn) {
+                            issns.push(id.literalValue);
                         }
-                        if(parents.length > 0){
-                            // parent candidates exists
-                            // check now for the issn if it exists in the article metadata
-                            for(var parent of parents){
-                                // check if it really seems to be a parent
-                                if(!parent.partOf || parent.partOf == ""){
-                                    for(var identifier of parent.identifiers){
-                                        if(identifier.scheme == enums.identifier.issn && issns.indexOf(identifier.literalValue) > -1 ){
-                                            // we have a match
-                                            // now we have to add the article to the parent journal by adding the property value accordingly
-                                            resource.partOf = parent._id;
+                    }
+                    // this is a precondition for finding or creating the parent resource.
+                    // If we do not have the information, just save and return the article
+                    if (issns.length > 0 && result[1]) {
+                        br.find({'title': result[1]}, function (err, parents) {
+                            if (err) {
+                                errorlog.error(err);
+                                return response.status(500).json(err);
+                            }
+                            if (parents.length > 0) {
+                                // parent candidates exists
+                                // check now for the issn if it exists in the article metadata
+                                for (var parent of parents) {
+                                    // check if it really seems to be a parent
+                                    if (!parent.partOf || parent.partOf == "") {
+                                        for (var identifier of parent.identifiers) {
+                                            if (identifier.scheme == enums.identifier.issn && issns.indexOf(identifier.literalValue) > -1) {
+                                                // we have a match
+                                                // now we have to add the article to the parent journal by adding the property value accordingly
+                                                resource.partOf = parent._id;
 
-                                            // We save the resource and return it
-                                            return resource.save(function (err, resource) {
-                                                if (err) {
-                                                    errorlog.error(err);
-                                                    return response.status(500).json(err);
-                                                } else {
-                                                    var result = [];
-                                                    result.push(parent);
-                                                    result.push(resource);
-                                                    return response.status(200).json(result);
-                                                }
-                                            });
+                                                // We save the resource and return it
+                                                return resource.save(function (err, resource) {
+                                                    if (err) {
+                                                        errorlog.error(err);
+                                                        return response.status(500).json(err);
+                                                    } else {
+                                                        var result = [];
+                                                        result.push(parent);
+                                                        result.push(resource);
+                                                        return response.status(200).json(result);
+                                                    }
+                                                });
 
+                                            }
                                         }
                                     }
                                 }
                             }
-                        }
-                        // TODO: if no match was found, create new parent
-                        if(!resource.partOf || resource.partOf ==""){
+                            // TODO: if no match was found, create new parent
+                            if (!resource.partOf || resource.partOf == "") {
 
-                            var parent = new br();
-                            parent.title = result[1];
-                            parent.identifiers = [];
-                            parent.type = enums.resourceType.journal;
-                            for(var issn of issns){
-                                parent.identifiers.push(new Identifier({scheme: enums.identifier.issn, literalValue: issn}));
-                            }
-                            parent.save(function(err, parent){
-                                if (err) {
-                                    errorlog.error(err);
-                                    return response.status(500).json(err);
+                                var parent = new br();
+                                parent.title = result[1];
+                                parent.identifiers = [];
+                                parent.type = enums.resourceType.journal;
+                                for (var issn of issns) {
+                                    parent.identifiers.push(new Identifier({
+                                        scheme: enums.identifier.issn,
+                                        literalValue: issn
+                                    }));
                                 }
-                                resource.partOf = parent._id;
-                                resource.save(function (err, resource) {
+                                parent.save(function (err, parent) {
                                     if (err) {
                                         errorlog.error(err);
                                         return response.status(500).json(err);
-                                    } else {
-                                        var result = [];
-                                        result.push(parent);
-                                        result.push(resource);
-                                        return response.status(200).json(result);
                                     }
+                                    resource.partOf = parent._id;
+                                    resource.save(function (err, resource) {
+                                        if (err) {
+                                            errorlog.error(err);
+                                            return response.status(500).json(err);
+                                        } else {
+                                            var result = [];
+                                            result.push(parent);
+                                            result.push(resource);
+                                            return response.status(200).json(result);
+                                        }
+                                    });
                                 });
-                            });
-                        }
-                    });
-                }else{
-                    // If we do not have the information, just save and return the article
-                    resource.save(function (err, result) {
-                        if (err) {
-                            errorlog.error(err);
-                            return response.status(500).json(err);
-                        } else {
-                            return response.status(200).json(result);
-                        }
-                    });
+                            }
+                        });
+                    } else {
+                        // If we do not have the information, just save and return the article
+                        resource.save(function (err, result) {
+                            if (err) {
+                                errorlog.error(err);
+                                return response.status(500).json(err);
+                            } else {
+                                return response.status(200).json(result);
+                            }
+                        });
+                    }
                 }
             }
-        }
-    });
+        });
+    }else if (ppn && !doi){
+        // TODO: Query OLCSSG
+        swbHelper.queryOLC(ppn, function (err, result) {
+            if (err) {
+                errorlog.error(err);
+                return response.status(500).json(err);
+            } else {
+                if (!result || result.length == 0) {
+                    errorlog.error("No entry found in olc for ppn", {"ppn": ppn});
+                    return response.status(400).json("No entry found in olc for ppn.");
+                } else {
+                    var resource = new br(result);
+                    resource.type = enums.resourceType.journal;
+                    resource.status = enums.status.external;
+                    // we should try to find the parent resource in our system
+                    // therefore we have to extract the issns if available
+                    var issns = [];
+                    for (var id of resource.identifiers) {
+                        if (id.scheme == enums.identifier.issn) {
+                            issns.push(id.literalValue);
+                        }
+                    }
+                    // this is a precondition for finding or creating the parent resource.
+                    // If we do not have the information, just save and return the article
+                    if (issns.length > 0) {
+                        br.find({'identifiers.literalValue': issns[0]}, function (err, parents) {
+                            if (err) {
+                                errorlog.error(err);
+                                return response.status(500).json(err);
+                            }
+                            if (parents.length > 0) {
+                                for (var parent of parents){
+                                    if (!parent.partOf || parent.partOf == "") {
+                                        // we have a match
+                                        // now we have to add the article to the parent journal by adding the property value accordingly
+                                        resource.partOf = parent._id;
+
+                                        // We save the resource and return it
+                                        return resource.save(function (err, resource) {
+                                            if (err) {
+                                                errorlog.error(err);
+                                                return response.status(500).json(err);
+                                            } else {
+                                                var result = [];
+                                                result.push(parent);
+                                                result.push(resource);
+                                                return response.status(200).json(result);
+                                            }
+                                        });
+                                    }
+
+                                }
+
+                            }
+                            if (!resource.partOf || resource.partOf == "") {
+
+                                var parent = new br();
+                                parent.identifiers = [];
+                                parent.type = enums.resourceType.journal;
+                                for (var issn of issns) {
+                                    parent.identifiers.push(new Identifier({
+                                        scheme: enums.identifier.issn,
+                                        literalValue: issn
+                                    }));
+                                }
+                                return parent.save(function (err, parent) {
+                                    if (err) {
+                                        errorlog.error(err);
+                                        return response.status(500).json(err);
+                                    }
+                                    resource.partOf = parent._id;
+                                    return resource.save(function (err, resource) {
+                                        if (err) {
+                                            errorlog.error(err);
+                                            return response.status(500).json(err);
+                                        } else {
+                                            var result = [];
+                                            result.push(parent);
+                                            result.push(resource);
+                                            return response.status(200).json(result);
+                                        }
+                                    });
+                                });
+                            }
+                        });
+                    } else {
+                        // If we do not have the information, just save and return the article
+                        return resource.save(function (err, result) {
+                            if (err) {
+                                errorlog.error(err);
+                                return response.status(500).json(err);
+                            } else {
+                                return response.status(200).json(result);
+                            }
+                        });
+                    }
+                }
+            }
+        });
+    }
 }
 
 

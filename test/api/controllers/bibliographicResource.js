@@ -378,6 +378,47 @@ describe.only('controllers', function() {
                       done();
                   });
           });
+
+
+          it('should retrieve the meta data from olcssg and create the parent and child', function(done){
+              var ppn = "1994632569";
+
+              agent
+                  .get('/saveElectronicJournal')
+                  .query({ppn: ppn})
+                  .set('Accept', 'application/json')
+                  .expect('Content-Type', /json/)
+                  .expect(200)
+                  .end(function(err, res){
+                      should.not.exist(err);
+                      res.body.should.be.Array;
+                      res.body.should.have.length(2);
+                      res.body[0].should.not.have.property("partOf");
+                      res.body[1].should.have.property("status", enums.status.external);
+                      res.body[1].should.have.property("partOf", res.body[0]._id);
+                      done();
+                  });
+          });
+
+          it('should retrieve the meta data from olcssg and create the child', function(done){
+              var ppn = "1994632569";
+
+              agent
+                  .get('/saveElectronicJournal')
+                  .query({ppn: ppn})
+                  .set('Accept', 'application/json')
+                  .expect('Content-Type', /json/)
+                  .expect(200)
+                  .end(function(err, res){
+                      should.not.exist(err);
+                      res.body.should.be.Array;
+                      res.body.should.have.length(2);
+                      res.body[0].should.not.have.property("partOf");
+                      res.body[1].should.have.property("status", enums.status.external);
+                      res.body[1].should.have.property("partOf", res.body[0]._id);
+                      done();
+                  });
+          });
       });
 
   });

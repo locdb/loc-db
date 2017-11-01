@@ -135,6 +135,9 @@ Marc21Helper.prototype.extractData = function(records, callback){
             for(var subfield of field._subfields){
                 if(subfield._code == "g"){
                     cleanedObject.number = subfield._data;
+                }else if(subfield._code == "x"){
+                    cleanedObject.identifiers.push({"literalValue": subfield._data,
+                        "scheme": enums.identifier.issn});
                 }
             }
             // Contributors
