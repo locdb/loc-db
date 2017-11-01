@@ -756,7 +756,7 @@ paths:
           type: string
         - name: threshold
           in: query
-          description: The elastic relevance score for above which entrys shall be retrieved
+          description: The sring similarity (dice coefficient) between the query string and the title + subtile + contributors above which suggestions shall be retrieved
           required: false
           type: number
       responses:
