@@ -416,10 +416,87 @@ function saveElectronicJournal(req, res) {
                             }
 
                         });
+                    }else{
+                        // this is a precondition for finding or creating the parent resource.
+                        // If we do not have the information, just save and return the article
+                        if (issns.length > 0) {
+                            br.find({'identifiers.literalValue': issns[0]}, function (err, parents) {
+                                if (err) {
+                                    errorlog.error(err);
+                                    return response.status(500).json(err);
+                                }
+                                if (parents.length > 0) {
+                                    for (var parent of parents){
+                                        if (!parent.partOf || parent.partOf == "") {
+                                            // we have a match
+                                            // now we have to add the article to the parent journal by adding the property value accordingly
+                                            resource.partOf = parent._id;
+
+                                            // We save the resource and return it
+                                            return resource.save(function (err, resource) {
+                                                if (err) {
+                                                    errorlog.error(err);
+                                                    return response.status(500).json(err);
+                                                } else {
+                                                    var result = [];
+                                                    result.push(parent);
+                                                    result.push(resource);
+                                                    return response.status(200).json(result);
+                                                }
+                                            });
+                                        }
+
+                                    }
+
+                                }
+                                if (!resource.partOf || resource.partOf == "") {
+
+                                    var parent = new br();
+                                    parent.identifiers = [];
+                                    parent.type = enums.resourceType.journal;
+                                    for (var issn of issns) {
+                                        parent.identifiers.push(new Identifier({
+                                            scheme: enums.identifier.issn,
+                                            literalValue: issn
+                                        }));
+                                    }
+                                    return parent.save(function (err, parent) {
+                                        if (err) {
+                                            errorlog.error(err);
+                                            return response.status(500).json(err);
+                                        }
+                                        resource.partOf = parent._id;
+                                        return resource.save(function (err, resource) {
+                                            if (err) {
+                                                errorlog.error(err);
+                                                return response.status(500).json(err);
+                                            } else {
+                                                var result = [];
+                                                result.push(parent);
+                                                result.push(resource);
+                                                return response.status(200).json(result);
+                                            }
+                                        });
+                                    });
+                                }
+                            });
+                        } else {
+                            // If we do not have the information, just save and return the article
+                            return resource.save(function (err, result) {
+                                if (err) {
+                                    errorlog.error(err);
+                                    return response.status(500).json(err);
+                                } else {
+                                    return response.status(200).json(result);
+                                }
+                            });
+                        }
                     }
                 }
             }
         });
+    }else{
+        return response.status(400).json("Please enter identifiers correctly.");
     }
 }
 
