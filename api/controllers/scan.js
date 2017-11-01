@@ -371,13 +371,13 @@ function getToDo(req, res) {
                     resultChild.contributors = child.contributors;
                     resultChild.identifiers = child.identifiers;
                     resultChild.parts = child.parts;
-                    var scans = [];
+/*                    var scans = [];
                     // this is the difference now: Before we needed to add the scans, but now, we only add a dummy.
                     scans.push({
                         "_id": "No scan available."
-                    });
+                    });*/
 
-                    resultChild.scans = scans;
+                    //resultChild.scans = scans;
                     if (!resultObject.children) {
                         resultObject.children = [];
                     }
