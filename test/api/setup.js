@@ -70,14 +70,16 @@ Setup.prototype.loadAdditionalToDo = function(cb){
 Setup.prototype.mockOCRFileUpload = function(){
     nock("https://locdb-dev.opendfki.de")
         .post('/fileupload/')
-        .replyWithFile(200, __dirname + '/data/ocr_data/ocr_output_v2.xml');
+        .replyWithFile(200, __dirname + '/data/ocr_data/ocr_output_v2.xml')
+        .persist();
 };
 
 
 Setup.prototype.mockOCRGetImage = function(){
     nock("https://locdb-dev.opendfki.de")
         .post('/getimage/')
-        .replyWithFile(200, __dirname + '/data/ocr_data/references.png');
+        .replyWithFile(200, __dirname + '/data/ocr_data/references.png')
+        .persist();
 };
 
 
