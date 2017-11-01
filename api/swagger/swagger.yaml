@@ -521,8 +521,13 @@ paths:
         parameters:
           - name: doi
             in: formData
-            description: The DOI of the Article
-            required: true
+            description: The DOI of the article for retrieval via Crossref
+            required: false
+            type: string
+          - name: ppn
+            in: formData
+            description: The PPN of the article for retrieval via OLCSSG
+            required: false
             type: string
           - name: scan
             in: formData
