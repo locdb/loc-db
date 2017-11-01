@@ -5,7 +5,7 @@
 
 const SchemaObject = require('schema-object');
 const Identifier = require('./identifier.js');
-const Scan = require('./Scan.js');
+const Scan = require('./scan.js');
 
 //Create bibliographicEntry schema
 var resourceEmbodiment = new SchemaObject({ // link to resource embodiment
