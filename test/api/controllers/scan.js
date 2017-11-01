@@ -12,15 +12,13 @@ var agent = request.agent(server);
 
 describe('controllers', function () {
 
-    describe('scan', function () {
+    describe.only('scan', function () {
         var id = "58c01713ea3c8d32f0f80a75";
         var idPdf = "";
 
         before(function (done) {
             setup.dropDB(function(err){
                 setup.loadBibliographicResources(function(err,res){
-                    setup.mockOCRGetImage();
-                    setup.mockOCRFileUpload();
                     setup.login(agent, function(err, res){
                         if(err) return done(err);
                         done();
@@ -309,8 +307,24 @@ describe('controllers', function () {
         });
 
         describe('GET /triggerOcrProcessing', function () {
+            it('should be able to deal with errors from the ocr component', function (done) {
+                this.timeout(1000000);
+                setup.mockOCRError();
+                agent
+                    .get('/triggerOcrProcessing')
+                    .query({id: id})
+                    .set('Accept', 'application/json')
+                    .expect('Content-Type', /json/)
+                    .expect(502)
+                    .end(function (err, res) {
+                        console.log(res.body);
+                        should.not.exist(err);
+                        done();
+                    });
+            });
 
             it('should trigger OCR processing', function (done) {
+                setup.mockOCRFileUpload();
                 this.timeout(1000000);
                 agent
                     .get('/triggerOcrProcessing')
@@ -345,8 +359,11 @@ describe('controllers', function () {
                     });
             });
 
+
             it('should trigger OCR processing for a pdf and download the image', function (done) {
                 this.timeout(100000000000000);
+                setup.mockOCRGetImage();
+                setup.mockOCRFileUpload();
                 agent
                     .get('/triggerOcrProcessing')
                     .query({id: idPdf})

@@ -87,7 +87,7 @@ OcrHelper.prototype.parseXMLString = function(xmlString, fileName, callback){
 
         var bes = [];
         for(var algorithm of ocrResult.LOCDBViewResults.algorithm){
-            if(algorithm.$.fname === fileName){
+            //if(algorithm.$.fname === fileName){
                 var citations = algorithm.BibStructured;
                 if(citations){
                     for (var citation of citations){
@@ -121,7 +121,7 @@ OcrHelper.prototype.parseXMLString = function(xmlString, fileName, callback){
                     }
                     return callback(null, bes);
                 }
-            }
+            //}
         }
         return callback(null, bes);
     });

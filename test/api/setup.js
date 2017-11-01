@@ -74,6 +74,12 @@ Setup.prototype.mockOCRFileUpload = function(){
         .persist();
 };
 
+Setup.prototype.mockOCRError = function(){
+    nock("https://locdb-dev.opendfki.de")
+        .post('/fileupload/')
+        .reply('500');
+};
+
 
 Setup.prototype.mockOCRGetImage = function(){
     nock("https://locdb-dev.opendfki.de")

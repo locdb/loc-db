@@ -498,7 +498,28 @@ function triggerOcrProcessing(req, res) {
                         ocrHelper.ocr_fileupload(scan.scanName, function (err, result) {
                             if (err) {
                                 errorlog.error(err);
-                                return response.status(502).json({"message": "OCR request failed."});
+                                accesslog.log("We try to set back the status of the scan");
+                                return mongoBr.findOne({
+                                    'embodiedAs.scans': {
+                                        '$elemMatch': {
+                                            '_id': id
+                                        }
+                                    }
+                                }, function (err, br) {
+                                    for (var embodiment of br.embodiedAs) {
+                                        for (var scan of embodiment.scans) {
+                                            if (scan._id == id) {
+                                                var embodimentIndex = br.embodiedAs.indexOf(embodiment);
+                                                var scanIndex = embodiment.scans.indexOf(scan);
+                                                scan.status = enums.status.notOcrProcessed;
+                                                br.embodiedAs[embodimentIndex].scans[scanIndex] = scan;
+                                                return br.save(function (err, res) {
+                                                    return response.status(502).json({"message": "OCR request failed."});
+                                                });
+                                            }
+                                        }
+                                    }
+                                });
                             }
                             var name = scan._id.toString() + ".xml";
                             async.parallel([
@@ -507,7 +528,7 @@ function triggerOcrProcessing(req, res) {
                                     ocrHelper.parseXMLString(result, scan.scanName, function (err, bes) {
                                         if (err) {
                                             errorlog.error(err);
-                                            return res.status(500).json({"message": "XML parsing failed."});
+                                            return response.status(500).json({"message": "XML parsing failed."});
                                         }
 
                                         bes.map(function (be) {
@@ -597,7 +618,16 @@ function triggerOcrProcessing(req, res) {
                                         });
                                     });
                                 }else{
-                                    return response.json(results[0]);
+                                    var embodimentIndex = br.embodiedAs.indexOf(embodiment);
+                                    var scanIndex = embodiment.scans.indexOf(scan);
+                                    scan.status = enums.status.ocrProcessed;
+                                    results[0].embodiedAs[embodimentIndex].scans[scanIndex] = scan;
+                                    results[0].save().then(function (br) {
+                                        return response.json(br);
+                                    }, function (err) {
+                                        errorlog.error(err);
+                                        return response.status(500).json(err);
+                                    });
                                 }
                             });
                         });
