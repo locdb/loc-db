@@ -384,7 +384,7 @@ describe('controllers', function() {
                             res.body[0].should.have.property("status", status.external);
                             res.body[0].should.have.property("identifiers");
                             res.body[0].identifiers.should.be.Array;
-                            res.body[0].identifiers.should.have.lengthOf(1);
+                            res.body[0].identifiers.should.have.lengthOf(7);
                             res.body[0].identifiers[6].should.have.property("scheme", "URL_SWB");
                             done();
                         });
