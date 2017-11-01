@@ -375,7 +375,7 @@ describe('controllers', function() {
                         should.not.exist(err);
                         res.body.should.be.Array;
                         //res.body.should.have.lengthOf(2);
-                        res.body.should.have.lengthOf(35);
+                        res.body.should.have.lengthOf(10);
                         res.body[0].should.have.property("status", status.external);
                         //res.body[0].should.have.property("title", "Direkte Demokratie und Umweltpolitik in der Schweiz");
                         res.body[0].should.have.property("identifiers");
