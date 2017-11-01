@@ -104,8 +104,14 @@ Marc21Helper.prototype.extractData = function(records, callback){
         }else if(field._tag == "024"){
             for(var subfield of field._subfields){
                 if(subfield._code == "a"){
-                    cleanedObject.identifiers.push({"literalValue": subfield._data,
-                        "scheme": "DOI?"});
+                    var re = /10.\d{4,9}\/[-._;()\/:(a-z)(A-Z)\d]+$/;
+                    if(re.test(subfield._data)){
+                        cleanedObject.identifiers.push({"literalValue": subfield._data,
+                            "scheme": "DOI"});
+                    }else{
+                        cleanedObject.identifiers.push({"literalValue": subfield._data,
+                            "scheme": "TBA"});
+                    }
                 }
             }
         }else if(field._tag == "856"){
