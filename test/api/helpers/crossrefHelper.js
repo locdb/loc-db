@@ -26,6 +26,8 @@ describe('helpers', function() {
                     result.should.be.ok();
                     result.should.be.Array();
                     result.should.have.lengthOf(20);
+                    result[0].should.have.property("embodiedAs").which.is.Array();
+                    result[0].embodiedAs[0].should.have.property("firstPage");
                     result[1].should.have.property("identifiers");
                     result[0].should.have.property("title", "The Association between Social Capital and Juvenile Crime");
                     result[1].identifiers.should.be.Array();

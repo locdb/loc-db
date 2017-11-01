@@ -335,7 +335,7 @@ describe('controllers', function() {
 
         describe('GET /getExternalSuggestionsByQueryString', function () {
 
-            it.only('should return 5 suggestion for a query string', function (done) {
+            it('should return 5 suggestion for a query string', function (done) {
                 this.timeout(1000000);
                 var query = "The association between social capital and juvenile crime: The role of individual and structural factors.";
 

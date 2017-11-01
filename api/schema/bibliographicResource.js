@@ -2,9 +2,9 @@
 const SchemaObject = require('schema-object');
 const BibliographicEntry = require('./bibliographicEntry.js');
 const Identifier = require('./identifier.js');
-const Scan = require('./scan');
 const AgentRole = require('./agentRole');
 const status = require('./enum.json').status;
+const ResourceEmbodiment = require('./resourceEmbodiment');
 
 var bibliographicResource = new SchemaObject({
     identifiers: [{type: Identifier}],
@@ -20,14 +20,7 @@ var bibliographicResource = new SchemaObject({
     pages: String,
     partOf: String, // link to other br
     parts: [{type: BibliographicEntry}],
-    embodiedAs: [{ // link to ressource embodiment
-        type: String, // digital or print
-        format: String, // IANA media type
-        firstPage: Number,
-        lastPage: Number,
-        url: String,
-        scans: [{type: Scan}]
-    }]
+    embodiedAs: [{type: ResourceEmbodiment}]
 });
 
 module.exports = bibliographicResource;

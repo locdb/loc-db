@@ -5,6 +5,7 @@ const Identifier = require('./../schema/identifier.js');
 const BibliographicResource = require('./../schema/bibliographicResource.js');
 const AgentRole = require('./../schema/agentRole.js');
 const BibliographicEntry = require('./../schema/bibliographicEntry.js');
+const ResourceEmbodiment = require('./../schema/resourceEmbodiment.js');
 const enums = require('./../schema/enum.json');
 const errorlog = require('./../util/logger.js').errorlog;
 const stringSimilarity = require('string-similarity');
@@ -216,6 +217,10 @@ CrossrefHelper.prototype.parseObjects = function(objects, callback){
             }
 
         }
+        var firstPage = obj.page && obj.page.split('-').length == 2  ? obj.page.split('-')[0] : obj.page ;
+        var lastPage = obj.page && obj.page.split('-').length == 2 ? obj.page.split('-')[1] : "" ;
+        var embodiedAs = [new ResourceEmbodiment({firstPage: firstPage, lastPage:lastPage})];
+
         // TODO: Parse type etc?
         var bibliographicResource = new BibliographicResource({
             title: title,
@@ -223,7 +228,8 @@ CrossrefHelper.prototype.parseObjects = function(objects, callback){
             contributors: contributors,
             identifiers: identifiers,
             status: enums.status.external,
-            parts: bes
+            parts: bes,
+            embodiedAs: embodiedAs
         });
 
 
