@@ -37,6 +37,24 @@ SwbHelper.prototype.query = function(ppn, resourceType, callback){
     });
 };
 
+SwbHelper.prototype.queryOLC = function(ppn, callback){
+    var url = config.URLS.OLCSSGSOZ + '?query=pica.ppn+%3D+"'
+        + ppn + '"&maximumRecords=1';
+    request({
+        url: url,
+        method: 'GET',
+    }, function(err, res, body) {
+        marc21Helper.parseBibliographicResource(body ,function(err, result){
+            if(err){
+                errorlog.error(err);
+                return callback(err, null);
+            }
+            return callback(null, result);
+        });
+    });
+};
+
+
 /**
  * Retrieves the top 10 records from swb for a given title query
  * @param title

@@ -9,7 +9,7 @@ const swbHelper = require('./../../../api/helpers/swbHelper').createSwbHelper();
 const enums = require('./../../../api/schema/enum.json');
 
 describe('helpers', function() {
-    describe('swbHelper', function() {
+    describe.only('swbHelper', function() {
         before(function(done) {
             setup.dropDB(function(err){
                 done();
@@ -29,6 +29,19 @@ describe('helpers', function() {
                     result.should.be.ok;
                     result.should.be.Array;
                     result.should.have.lengthOf(5);
+                    console.log(result);
+                    done();
+                });
+            });
+        });
+
+        describe('queryOLC', function(){
+            this.timeout(3000)
+            it('should return a result for a given query', function(done) {
+                swbHelper.queryOLC("1994632569", function(err, result){
+                    result.should.be.ok;
+                    result.should.be.Object;
+                    result.should.have.property("title","The strong referendum paradox");
                     console.log(result);
                     done();
                 });
