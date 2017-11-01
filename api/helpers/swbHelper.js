@@ -109,8 +109,7 @@ SwbHelper.prototype.queryByQueryString = function(query, callback){
         + '?query=pica.all%3D"'
         + query
         + '"&version=1.1&operation=searchRetrieve&recordSchema=marc21'
-        + '&maximumRecords=5&startRecord=2&recordPacking=xml&sortKeys=none'
-        +'&x-info-5-mg-requestGroupings=none';
+        + '&maximumRecords=5&recordPacking=xml';
     request({
         url: url,
         method: 'GET',
@@ -120,7 +119,7 @@ SwbHelper.prototype.queryByQueryString = function(query, callback){
             return callback(err, null);
         }
 
-        marc21Helper.parseBibliographicResources(body ,function(err, result){
+        return marc21Helper.parseBibliographicResources(body ,function(err, result){
             if(err){
                 errorlog.error(err);
                 return callback(err, null);

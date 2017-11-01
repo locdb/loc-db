@@ -361,6 +361,35 @@ describe('controllers', function() {
                     });
             });
 
+
+                it.only('should return a match from SWB', function (done) {
+                    this.timeout(1000000);
+                    var query = "Academically%2520Adrift:" +
+                        "%2520Limited%2520Learning%2520on%2520College%2520Campuses";
+                    var threshold = 0.5;
+
+                    agent
+                        .get('/getExternalSuggestionsByQueryString')
+                        .set('Accept', 'application/json')
+                        .query({ query: query })
+                        .query({ threshold: 0.5 })
+                        .expect('Content-Type', /json/)
+                        .expect(200)
+                        .end(function (err, res) {
+                            should.not.exist(err);
+                            res.body.should.be.Array;
+                            //res.body.should.have.lengthOf(1);
+                            res.body.should.have.lengthOf(9);
+                            //res.body[0].should.have.property("title", "Direkte Demokratie in der Schweiz: Entwicklungen, Debatten und Wirkungen");
+                            res.body[0].should.have.property("status", status.external);
+                            res.body[0].should.have.property("identifiers");
+                            res.body[0].identifiers.should.be.Array;
+                            res.body[0].identifiers.should.have.lengthOf(1);
+                            res.body[0].identifiers[6].should.have.property("scheme", "URL_SWB");
+                            done();
+                        });
+                });
+
             it('should return 35 external suggestion for a bibliographic entry', function (done) {
                 this.timeout(100000);
                 var query = "Direkte Demokratie";

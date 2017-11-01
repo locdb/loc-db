@@ -178,6 +178,7 @@ function getInternalSuggestions(req, res) {
 
 function getInternalSuggestionsByQueryString(req, res) {
     var response = res;
+    var query = decodeURI(decodeURI(query));
     var query = req.swagger.params.query.value;
     var threshold = req.swagger.params.threshold.value;
     if(!threshold){
@@ -271,6 +272,7 @@ function getExternalSuggestions(req, res) {
 function getExternalSuggestionsByQueryString(req, res) {
     var response = res;
     var query = req.swagger.params.query.value;
+    query = decodeURI(decodeURI(query));
     var threshold = req.swagger.params.threshold.value;
     if(!threshold){
         threshold = 0.45;
