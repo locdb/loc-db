@@ -459,6 +459,49 @@ function get(req, res) {
 }
 
 
+function remove(req, res) {
+    var response = res;
+    var id = req.swagger.params.id.value;
+
+    // check if id is valid
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        errorlog.error("Invalid value for parameter id.", {id: id});
+        return response.status(400).json({"message": "Invalid parameter."});
+    }
+
+    // retrieve corresponding entry from the db
+    mongoBr.findOne({'embodiedAs.scans._id': id}, function (err, br) {
+        if (err) {
+            errorlog.error(err);
+            return response.status(500).json({"message": "DB query failed."});
+        } else if (!br) {
+            errorlog.error("No entry found for parameter id.", {id: id});
+            return response.status(400).json({"message": "No entry found."});
+        }
+        for (var embodiment of br.embodiedAs) {
+            for (var scan of embodiment.scans) {
+                if (scan._id == id) {
+                    // remove scan
+                   var scanIndex =  embodiment.scans.indexOf(scan);
+                    if (scanIndex > -1) {
+                        embodiment.scans.splice(scanIndex, 1);
+                    }
+                    var embodimentIndex = br.embodiedAs.indexOf(embodiment);
+                    br.embodiedAs[embodimentIndex] = embodiment;
+                    return br.save(function(err, res){
+                        if (err) {
+                            errorlog.error(err);
+                            return response.status(500).json({"message": "DB query failed."});
+                        }
+                        return response.status(200).json({"message": "Delete succeeded"})
+                    });
+                }
+            }
+        }
+    });
+}
+
+
 function triggerOcrProcessing(req, res) {
     var id = req.swagger.params.id.value;
     var response = res;
@@ -645,5 +688,6 @@ module.exports = {
     saveScanForElectronicJournal: saveScanForElectronicJournal,
     getToDo: getToDo,
     triggerOcrProcessing: triggerOcrProcessing,
-    get: get
+    get: get,
+    remove: remove
 };

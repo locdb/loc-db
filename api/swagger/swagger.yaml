@@ -593,7 +593,26 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
-  
+    delete:
+      tags: [Scan]
+      description: Deletes a single scan by id
+      operationId: remove
+      parameters:
+        - name: id
+          in: path
+          description: The internal identifier of the scan
+          required: true
+          type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
   /triggerOcrProcessing:
     x-swagger-router-controller: scan
     get:

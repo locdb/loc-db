@@ -422,5 +422,32 @@ describe('controllers', function () {
                     });
             });
         });
+
+        describe('DELETE /delete', function () {
+            // TODO: Delete also from the file system
+            it('should delete a scan', function (done) {
+                agent
+                    .delete('/scans/' + id)
+                    .set('Accept', 'application/json')
+                    .expect(200)
+                    .end(function (err, res) {
+                        console.log(res.body);
+                        should.not.exist(err);
+                        done();
+                    });
+            });
+
+            it('should not retrieve a file', function (done) {
+                agent
+                    .get('/scans/' + id)
+                    .set('Accept', 'application/json')
+                    .expect(400)
+                    .end(function (err, res) {
+                        console.log(res.body);
+                        should.not.exist(err);
+                        done();
+                    });
+            });
+        });
     });
 });
