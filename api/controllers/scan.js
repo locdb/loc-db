@@ -370,6 +370,7 @@ function getToDo(req, res) {
                     resultChild.number = child.number;
                     resultChild.contributors = child.contributors;
                     resultChild.identifiers = child.identifiers;
+                    resultChild.parts = child.parts;
                     var scans = [];
                     // this is the difference now: Before we needed to add the scans, but now, we only add a dummy.
                     scans.push({
@@ -405,7 +406,8 @@ function getToDo(req, res) {
                         parent.contributors = br.contributors ? br.contributors : [];
                         parent.type = br.type ? br.type : "";
                         parent.edition = br.edition ? br.edition : "";
-                        parent.number = br.number ? br.number : -1;
+                        parent.number = br.number ? br.number : "-1";
+                        parent.parts = br.parts ? br.parts : [];
                         callback(null, parent);
                     });
                 } else {
