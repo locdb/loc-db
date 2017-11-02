@@ -524,10 +524,15 @@ paths:
         description: Saves a scan in the file system
         operationId: saveScanForElectronicJournal
         parameters:
-          - name: id
+          - name: doi
             in: formData
-            description: The _id of the article to which the scan should be appended
-            required: true
+            description: The doi of the article to which the scan should be appended
+            required: false
+            type: string
+          - name: ppn
+            in: formData
+            description: The ppn of the article to which the scan should be appended
+            required: false
             type: string
           - name: scan
             in: formData

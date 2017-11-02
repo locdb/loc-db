@@ -47,50 +47,99 @@ function saveScan(req, res) {
 function saveScanForElectronicJournal(req, res) {
     var response = res;
     var scan = req.swagger.params.scan.value;
-    var id = req.swagger.params.id.value;
+    //var id = req.swagger.params.id.value;
     // check if id is valid
-    if (!mongoose.Types.ObjectId.isValid(id)) {
+/*    if (!mongoose.Types.ObjectId.isValid(id)) {
         errorlog.error("Invalid value for parameter id.", {id: id});
         return response.status(400).json({"message": "Invalid parameter."});
-    }
+    }*/
+    var doi = req.swagger.params.doi.value;
+    var ppn = req.swagger.params.ppn.value;
 
-
-    mongoBr.findOne({
-        '_id': id
-    }, function (err, child) {
-        // if there is an error, log it and return
-        if (err) {
-            errorlog.error(err);
-            return response.status(500).json(err);
-        }
-        if(!child){
-            errorlog.error("No br could be found for parameter _id.", {'_id': id});
-            return response.status(400).json(err);
-        }
-        // we only have to save the file and add it to the child and we have to change the status of the child
-        databaseHelper.saveScan(scan, function(err,scan){
-            child.status = enums.status.valid;
-            if(child.embodiedAs.length == 0){
-                child.embodiedAs.push({scans: [], type : enums.embodimentType.digital});
-                child.embodiedAs[0].scans.push(scan);
-            }else{
-                for (var embodiment of child.embodiedAs){
-                    // we check for the digital embodiment and append the scan to it
-                    if(embodiment.type == enums.embodimentType.digital){
-                        embodiment.scans.push(scan);
-                        break;
+    if(doi && !ppn){
+        accesslog.log("Doi was given.");
+        mongoBr.findOne({
+            //'_id': id
+            "identifiers.scheme": enums.identifier.doi,
+            "identifiers.literalValue": doi
+        }, function (err, child) {
+            // if there is an error, log it and return
+            if (err) {
+                errorlog.error(err);
+                return response.status(500).json(err);
+            }
+            if(!child){
+                errorlog.error("No br could be found for parameter doi.", {'doi': doi});
+                return response.status(400).json(err);
+            }
+            // we only have to save the file and add it to the child and we have to change the status of the child
+            databaseHelper.saveScan(scan, function(err,scan){
+                child.status = enums.status.valid;
+                if(child.embodiedAs.length == 0){
+                    child.embodiedAs.push({scans: [], type : enums.embodimentType.digital});
+                    child.embodiedAs[0].scans.push(scan);
+                }else{
+                    for (var embodiment of child.embodiedAs){
+                        // we check for the digital embodiment and append the scan to it
+                        if(embodiment.type == enums.embodimentType.digital || !embodiment.type){
+                            embodiment.scans.push(scan);
+                            break;
+                        }
                     }
                 }
-            }
-            child.save(function (err, result) {
-                if(err){
-                    errorlog.log(err);
-                    return response.status(500).json(err);
-                }
-                return response.status(200).json(result);
+                return child.save(function (err, result) {
+                    if(err){
+                        errorlog.log(err);
+                        return response.status(500).json(err);
+                    }
+                    return response.status(200).json(result);
+                });
             });
         });
-    });
+    }else if (ppn && !doi){
+        accesslog.log("PPN was given.");
+        mongoBr.findOne({
+            //'_id': id
+            "identifiers.scheme": enums.identifier.ppn,
+            "identifiers.literalValue": ppn
+        }, function (err, child) {
+            // if there is an error, log it and return
+            if (err) {
+                errorlog.error(err);
+                return response.status(500).json(err);
+            }
+            if(!child){
+                errorlog.error("No br could be found for parameter ppn.", {'doi': ppn});
+                return response.status(400).json(err);
+            }
+            // we only have to save the file and add it to the child and we have to change the status of the child
+            databaseHelper.saveScan(scan, function(err,scan){
+                child.status = enums.status.valid;
+                if(child.embodiedAs.length == 0){
+                    child.embodiedAs.push({scans: [], type : enums.embodimentType.digital});
+                    child.embodiedAs[0].scans.push(scan);
+                }else{
+                    for (var embodiment of child.embodiedAs){
+                        // we check for the digital embodiment and append the scan to it
+                        if(embodiment.type == enums.embodimentType.digital){
+                            embodiment.scans.push(scan);
+                            break;
+                        }
+                    }
+                }
+                return child.save(function (err, result) {
+                    if(err){
+                        errorlog.log(err);
+                        return response.status(500).json(err);
+                    }
+                    return response.status(200).json(result);
+                });
+            });
+        });
+    }else{
+        return response.status(400).json("Wrong parameter input.");
+    }
+
 };
 
 

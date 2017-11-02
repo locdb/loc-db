@@ -424,11 +424,36 @@ describe('controllers', function() {
 
       describe('GET /saveScanForElectronicJournal', function() {
           it('should append a scan to an article', function (done) {
-
+              var ppn = "1994632569";
               agent
                   .post('/saveScanForElectronicJournal')
                   .type('form')
-                  .field('id', id)
+                  .field('ppn', ppn)
+                  .attach('scan', './test/api/data/ocr_data/02_input.png')
+                  .set('Accept', 'application/json')
+                  .expect('Content-Type', /json/)
+                  .expect(200)
+                  .end(function (err, res) {
+                      should.not.exist(err);
+                      res.body.should.be.Object;
+                      res.body.should.have.property("partOf");
+                      res.body.should.have.property("status", enums.status.valid);
+                      res.body.should.have.property("partOf");
+                      res.body.should.have.property("embodiedAs");
+                      res.body.embodiedAs.should.have.lengthOf(1);
+                      res.body.embodiedAs[0].should.have.property("scans");
+                      res.body.embodiedAs[0].scans.should.have.lengthOf(1);
+                      res.body.embodiedAs[0].scans[0].should.have.property("status", enums.status.notOcrProcessed);
+                      done();
+                  });
+          });
+
+          it('should append a scan to an article by doi', function (done) {
+              var doi = "10.1007/s11617-006-0056-1";
+              agent
+                  .post('/saveScanForElectronicJournal')
+                  .type('form')
+                  .field('doi', doi)
                   .attach('scan', './test/api/data/ocr_data/02_input.png')
                   .set('Accept', 'application/json')
                   .expect('Content-Type', /json/)
