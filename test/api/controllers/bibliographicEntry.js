@@ -362,7 +362,7 @@ describe('controllers', function() {
             });
 
 
-                it.only('should return a match from SWB', function (done) {
+                it('should return a match from SWB', function (done) {
                     this.timeout(1000000);
                     var query = "Academically%2520Adrift:" +
                         "%2520Limited%2520Learning%2520on%2520College%2520Campuses";

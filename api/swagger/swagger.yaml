@@ -524,9 +524,9 @@ paths:
         description: Saves a scan in the file system
         operationId: saveScanForElectronicJournal
         parameters:
-          - name: doi
+          - name: id
             in: formData
-            description: The DOI of the article for retrieval via Crossref
+            description: The _id of the article to which the scan should be appended
             required: true
             type: string
           - name: scan

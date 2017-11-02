@@ -47,16 +47,25 @@ function saveScan(req, res) {
 function saveScanForElectronicJournal(req, res) {
     var response = res;
     var scan = req.swagger.params.scan.value;
-    var doi = req.swagger.params.doi.value;
+    var id = req.swagger.params.id.value;
+    // check if id is valid
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        errorlog.error("Invalid value for parameter id.", {id: id});
+        return response.status(400).json({"message": "Invalid parameter."});
+    }
+
 
     mongoBr.findOne({
-        "identifiers.scheme": enums.identifier.doi,
-        "identifiers.literalValue": doi
+        '_id': id
     }, function (err, child) {
         // if there is an error, log it and return
         if (err) {
             errorlog.error(err);
             return response.status(500).json(err);
+        }
+        if(!child){
+            errorlog.error("No br could be found for parameter _id.", {'_id': id});
+            return response.status(400).json(err);
         }
         // we only have to save the file and add it to the child and we have to change the status of the child
         databaseHelper.saveScan(scan, function(err,scan){
