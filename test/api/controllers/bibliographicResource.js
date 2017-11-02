@@ -9,7 +9,7 @@ var agent = request.agent(server);
 
 describe('controllers', function() {
 
-  describe('bibliographicResource', function() {
+  describe.only('bibliographicResource', function() {
       var id = "";
       before(function(done) {
           setup.loadBibliographicResources(function(err,res){
@@ -44,7 +44,7 @@ describe('controllers', function() {
       });
       
       
-      describe('GET /createBibliographicResourceByPPN', function() {
+      describe.skip('GET /createBibliographicResourceByPPN', function() {
           
           it('should return a new bibliographic resouce', function(done) {
             agent
@@ -87,7 +87,7 @@ describe('controllers', function() {
                   .end(function(err, res){
                       should.not.exist(err);
                       res.body.should.be.an.Array();
-                      res.body.should.have.length(2);
+                      res.body.should.have.length(1);
                       done();
                   });
           });
@@ -248,7 +248,7 @@ describe('controllers', function() {
 
 
       describe('POST /getCrossrefReferences', function(){
-          this.timeout(5000);
+          this.timeout(1000000000);
 
           it('should retrieve crossref references by doi', function(done){
               var data = new BibliographicResource({
@@ -278,6 +278,7 @@ describe('controllers', function() {
           });
 
           it('should retrieve crossref references by query', function(done){
+              this.timeout(1000000000);
               var data = new BibliographicResource({
                   identifiers: [{
                       literalValue: "some ISBN",
@@ -304,6 +305,175 @@ describe('controllers', function() {
                   });
           });
       });
+
+
+      describe('GET /getPublisherUrl', function(){
+          this.timeout(1000000000);
+
+          it('should retrieve the publisher url', function(done){
+              var ppn = "429152140";
+              var resourceType = enums.resourceType.monograph;
+
+              agent
+                  .get('/getPublisherUrl')
+                  .query({ppn: ppn})
+                  .query({resourceType: resourceType})
+                  .set('Accept', 'application/json')
+                  .expect('Content-Type', /json/)
+                  .expect(200)
+                  .end(function(err, res){
+                      should.not.exist(err);
+                      res.body.should.not.be.Array;
+                      res.body.should.be.Object;
+                      res.body.should.have.property("scheme", "URI");
+                      res.body.should.have.property("literalValue", "http://dx.doi.org/10.1007/978-3-322-81004-5")
+                      done();
+                  });
+          });
+      });
+
+
+      describe('GET /saveElectronicJournal', function(){
+          this.timeout(1000000000);
+
+          it('should retrieve the meta data from crossref and create the parent as well as the child resource', function(done){
+              var doi = "10.1007/s11617-006-0056-1";
+
+              agent
+                  .get('/saveElectronicJournal')
+                  .query({doi: doi})
+                  .set('Accept', 'application/json')
+                  .expect('Content-Type', /json/)
+                  .expect(200)
+                  .end(function(err, res){
+                      should.not.exist(err);
+                      res.body.should.be.Array;
+                      res.body.should.have.length(2);
+                      res.body[0].should.have.property("title", "Soziologie");
+                      res.body[0].should.not.have.property("partOf");
+                      res.body[1].should.have.property("status", enums.status.external);
+                      res.body[1].should.have.property("partOf", res.body[0]._id);
+                      done();
+                  });
+          });
+
+
+          it('should retrieve the meta data from crossref and create the child resource (parent is already existing)', function(done){
+              var doi = "10.1007/s11617-006-0056-1";
+
+              agent
+                  .get('/saveElectronicJournal')
+                  .query({doi: doi})
+                  .set('Accept', 'application/json')
+                  .expect('Content-Type', /json/)
+                  .expect(200)
+                  .end(function(err, res){
+                      should.not.exist(err);
+                      res.body.should.be.Array;
+                      res.body.should.have.length(2);
+                      res.body[0].should.have.property("title", "Soziologie");
+                      res.body[0].should.not.have.property("partOf");
+                      res.body[1].should.have.property("status", enums.status.external);
+                      res.body[1].should.have.property("partOf", res.body[0]._id);
+                      done();
+                  });
+          });
+
+
+          it('should retrieve the meta data from olcssg and create the parent and child', function(done){
+              var ppn = "1994632569";
+
+              agent
+                  .get('/saveElectronicJournal')
+                  .query({ppn: ppn})
+                  .set('Accept', 'application/json')
+                  .expect('Content-Type', /json/)
+                  .expect(200)
+                  .end(function(err, res){
+                      should.not.exist(err);
+                      res.body.should.be.Array;
+                      res.body.should.have.length(2);
+                      res.body[0].should.not.have.property("partOf");
+                      res.body[1].should.have.property("status", enums.status.external);
+                      res.body[1].should.have.property("partOf", res.body[0]._id);
+                      done();
+                  });
+          });
+
+          it('should retrieve the meta data from olcssg and create the child', function(done){
+              var ppn = "1994632569";
+
+              agent
+                  .get('/saveElectronicJournal')
+                  .query({ppn: ppn})
+                  .set('Accept', 'application/json')
+                  .expect('Content-Type', /json/)
+                  .expect(200)
+                  .end(function(err, res){
+                      should.not.exist(err);
+                      res.body.should.be.Array;
+                      res.body.should.have.length(2);
+                      res.body[0].should.not.have.property("partOf");
+                      res.body[1].should.have.property("status", enums.status.external);
+                      res.body[1].should.have.property("partOf", res.body[0]._id);
+                      id = res.body[1]._id;
+                      done();
+                  });
+          });
+      });
+
+      describe('GET /saveScanForElectronicJournal', function() {
+          it('should append a scan to an article', function (done) {
+              var ppn = "1994632569";
+              agent
+                  .post('/saveScanForElectronicJournal')
+                  .type('form')
+                  .field('ppn', ppn)
+                  .attach('scan', './test/api/data/ocr_data/02_input.png')
+                  .set('Accept', 'application/json')
+                  .expect('Content-Type', /json/)
+                  .expect(200)
+                  .end(function (err, res) {
+                      should.not.exist(err);
+                      res.body.should.be.Object;
+                      res.body.should.have.property("partOf");
+                      res.body.should.have.property("status", enums.status.valid);
+                      res.body.should.have.property("partOf");
+                      res.body.should.have.property("embodiedAs");
+                      res.body.embodiedAs.should.have.lengthOf(1);
+                      res.body.embodiedAs[0].should.have.property("scans");
+                      res.body.embodiedAs[0].scans.should.have.lengthOf(1);
+                      res.body.embodiedAs[0].scans[0].should.have.property("status", enums.status.notOcrProcessed);
+                      done();
+                  });
+          });
+
+          it('should append a scan to an article by doi', function (done) {
+              var doi = "10.1007/s11617-006-0056-1";
+              agent
+                  .post('/saveScanForElectronicJournal')
+                  .type('form')
+                  .field('doi', doi)
+                  .attach('scan', './test/api/data/ocr_data/02_input.png')
+                  .set('Accept', 'application/json')
+                  .expect('Content-Type', /json/)
+                  .expect(200)
+                  .end(function (err, res) {
+                      should.not.exist(err);
+                      res.body.should.be.Object;
+                      res.body.should.have.property("partOf");
+                      res.body.should.have.property("status", enums.status.valid);
+                      res.body.should.have.property("partOf");
+                      res.body.should.have.property("embodiedAs");
+                      res.body.embodiedAs.should.have.lengthOf(1);
+                      res.body.embodiedAs[0].should.have.property("scans");
+                      res.body.embodiedAs[0].scans.should.have.lengthOf(1);
+                      res.body.embodiedAs[0].scans[0].should.have.property("status", enums.status.notOcrProcessed);
+                      done();
+                  });
+          });
+      });
+
   });
 
 });

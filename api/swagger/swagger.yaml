@@ -22,6 +22,7 @@ consumes:
 produces:
   - application/json
   - image/png
+  - application/pdf
 securityDefinitions:
   basicAuth:
     type: basic
@@ -126,7 +127,6 @@ paths:
       tags: [User]
       description: Signup service
       operationId: signup
-      security: []
       parameters:
         - name: user
           in: body
@@ -210,6 +210,68 @@ paths:
           schema:
             $ref: "#/definitions/ErrorResponse"
 
+  /getPublisherUrl:
+    x-swagger-router-controller: bibliographicResource
+    get:
+      tags: [BibliographicResource]
+      description: |
+        Given a unique identifier of a bibliographic resource from a union catalog, such as for example an SWB-PICA-Prod-Nr. (PPN), as well as the type of the resource,
+        this service retrieves the URL to the publisher website if available.
+        This services is intended for use in the workflow for electronic resources.
+        TODO: Shall we extend that service such that the BR is also written into the db and the whole br is returned?
+      operationId: getPublisherUrl
+      parameters:
+        - name: ppn
+          in: query
+          description: The identifier of the bibliographic resource in the union catalog for which the publisher URL shall be retrieved
+          required: true
+          type: string
+        - name: resourceType
+          in: query
+          description: The type of the bibliographic resource
+          required: true
+          type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/Identifier"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+
+  /saveElectronicJournal:
+    x-swagger-router-controller: bibliographicResource
+    get:
+      tags: [BibliographicResource]
+      description: |
+        Given an article doi this service retrieves meta data from Crossref and save a new bibliographic resource in our db.
+      operationId: saveElectronicJournal
+      parameters:
+        - name: doi
+          in: query
+          description: The doi of the article for which the meta data shall be retrieved.
+          required: false
+          type: string
+        - name: ppn
+          in: query
+          description: The PPN of the article for retrieval via OLCSSG
+          required: false
+          type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/Identifier"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+
+
   /getCrossrefReferences:
     x-swagger-router-controller: bibliographicResource
     post:
@@ -263,6 +325,84 @@ paths:
           description: Success
           schema:
             $ref: "#/definitions/BibliographicEntry"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+    delete:
+      tags: [BibliographicEntry]
+      description: Deletes a given bibliographic entry by id.
+      operationId: remove
+      parameters:
+        - name: id
+          in: path
+          description: The _id of the bibliographic entry to be deleted.
+          required: true
+          type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/BibliographicEntry"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /addTargetBibliographicResource:
+    x-swagger-router-controller: bibliographicEntry
+    get:
+      tags: [BibliographicEntry]
+      description: |
+        Given the _id of a bibliographic entry and the _id of a target, i.e., a cited, bibliographic resource,
+        this service takes care of setting all related properties in a consistent way. More precisely, the following three things happen:
+        1) The 'status' of the bibliographic entry will be changed to VALID
+        2) The 'references' property of the bibliographic entry will be set to the _id of the target bibliographic resource
+        3) The 'cites' property of the parent resource of the entry will be extended with the _id of the target bibliographic reource
+      operationId: addTargetBibliographicResource
+      parameters:
+        - name: bibliographicEntryId
+          in: query
+          description: The _id of the subject bibliographic entry that should point to the target bibliographic resource
+          required: true
+          type: string
+        - name: bibliographicResourceId
+          in: query
+          description: The _id of the target bibliographic resource which the bibliographic entry should point to
+          required: true
+          type: string
+      responses:
+        "200":
+          description: Success; In case the operation suceeds, the updated source bibliographic resource including the respective bibliographic entry will be returned
+          schema:
+            $ref: "#/definitions/BibliographicResource"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /removeTargetBibliographicResource:
+    x-swagger-router-controller: bibliographicEntry
+    get:
+      tags: [BibliographicEntry]
+      description: |
+        Given the _id of a bibliographic entry this service clears all properties related to a potential target resource in a consistent way. More precisely, the following three things happen:
+        1) The 'references' property of the bibliographic entry will be cleared
+        2) The _id of the old target resource will be removed from teh 'cites' property of the parent resource of the entry
+        3) The 'status' of the bibliographic entry will be changed to OCR_PROCESSED --> Is this always ok?
+        Note that the old target bibliographic resource will not be deleted.
+      operationId: removeTargetBibliographicResource
+      parameters:
+        - name: bibliographicEntryId
+          in: query
+          description: The _id of the subject bibliographic entry that should point to the target bibliographic resource
+          required: true
+          type: string
+      responses:
+        "200":
+          description: Success; In case the operation suceeds, the updated source bibliographic resource including the respective bibliographic entry will be returned
+          schema:
+            $ref: "#/definitions/BibliographicResource"
         default:
           description: Error
           schema:
@@ -349,12 +489,12 @@ paths:
         - name: firstPage
           in: formData
           description: The number of the first page of the resource.
-          required: true
+          required: false
           type: number
         - name: lastPage
           in: formData
           description: The number of the last page of the resource.
-          required: true
+          required: false
           type: number
         - name: scan
           in: formData
@@ -363,9 +503,10 @@ paths:
           type: file
         - name: resourceType
           in: formData
-          description: The type of the resource, e.g. monography
+          description: The type of the resource.
           required: true
           type: string
+          enum: [MONOGRAPH, JOURNAL, COLLECTION]
       responses:
         "200":
           description: Success
@@ -375,12 +516,44 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
+
+  /saveScanForElectronicJournal:
+      x-swagger-router-controller: scan
+      post:
+        tags: [Scan]
+        description: Saves a scan in the file system
+        operationId: saveScanForElectronicJournal
+        parameters:
+          - name: doi
+            in: formData
+            description: The doi of the article to which the scan should be appended
+            required: false
+            type: string
+          - name: ppn
+            in: formData
+            description: The ppn of the article to which the scan should be appended
+            required: false
+            type: string
+          - name: scan
+            in: formData
+            description: The scanned image of the reference page (binary file)
+            required: true
+            type: file
+        responses:
+          "200":
+            description: Success
+            schema:
+              $ref: "#/definitions/BibliographicResource"
+          default:
+            description: Error
+            schema:
+              $ref: "#/definitions/ErrorResponse"
             
   /getToDo:
     x-swagger-router-controller: scan
     get:
       tags: [Scan]
-      description: Retrieves the BRs including their associated parts and scans that are either not processed or processed by the OCR-component.
+      description: Retrieves the BRs including their associated parts and scans that are either not processed or processed by the OCR-component or retrieved from external.
       operationId: getToDo
       parameters:
         - name: status
@@ -391,6 +564,7 @@ paths:
           enum:
             - NOT_OCR_PROCESSED
             - OCR_PROCESSED
+            - EXTERNAL
       responses:
         "200":
           description: Success
@@ -424,7 +598,26 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
-  
+    delete:
+      tags: [Scan]
+      description: Deletes a single scan by id
+      operationId: remove
+      parameters:
+        - name: id
+          in: path
+          description: The internal identifier of the scan
+          required: true
+          type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
   /triggerOcrProcessing:
     x-swagger-router-controller: scan
     get:
@@ -523,6 +716,36 @@ paths:
           schema:
             $ref: "#/definitions/ErrorResponse"
 
+
+  /getInternalSuggestionsByQueryString:
+    x-swagger-router-controller: bibliographicEntry
+    get:
+      tags: [BibliographicEntry]
+      description: Retrieves internal br suggestions for a given query string related to a bibliographic entry.
+      operationId: getInternalSuggestionsByQueryString
+      parameters:
+        - name: query
+          in: query
+          description: The query string for which the suggestions shall be retrieved
+          required: true
+          type: string
+        - name: threshold
+          in: query
+          description: The elastic relevance score for above which entrys shall be retrieved
+          required: false
+          type: number
+      responses:
+        "200":
+          description: Success
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/BibliographicResource"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
   /getExternalSuggestions:
     x-swagger-router-controller: bibliographicEntry
     post:
@@ -536,6 +759,35 @@ paths:
           required: true
           schema:
             $ref: "#/definitions/BibliographicEntry"
+      responses:
+        "200":
+          description: Success
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/BibliographicResource"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /getExternalSuggestionsByQueryString:
+    x-swagger-router-controller: bibliographicEntry
+    get:
+      tags: [BibliographicEntry]
+      description: Retrieves external br suggestions for a given query string related to a bibliographic entry.
+      operationId: getExternalSuggestionsByQueryString
+      parameters:
+        - name: query
+          in: query
+          description: The query string for which the suggestions shall be retrieved
+          required: true
+          type: string
+        - name: threshold
+          in: query
+          description: The sring similarity (dice coefficient) between the query string and the title + subtile + contributors above which suggestions shall be retrieved
+          required: false
+          type: number
       responses:
         "200":
           description: Success
@@ -572,7 +824,7 @@ definitions:
       edition:
         type: string
       number:
-        type: number
+        type: string
       contributors:
         type: array
         items:
@@ -587,6 +839,10 @@ definitions:
           $ref: "#/definitions/BibliographicEntry"
       partOf:
         type: string
+      cites:
+        type: array
+        items:
+          type: string
       embodiedAs:
         type: array
         items:
@@ -687,6 +943,10 @@ definitions:
       marker:
         type: string
       comments:
+        type: string
+      journal:
+        type: string
+      volume:
         type: string
 
   ToDo:

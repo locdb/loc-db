@@ -104,8 +104,21 @@ Marc21Helper.prototype.extractData = function(records, callback){
         }else if(field._tag == "024"){
             for(var subfield of field._subfields){
                 if(subfield._code == "a"){
+                    var re = /10.\d{4,9}\/[-._;()\/:(a-z)(A-Z)\d]+$/;
+                    if(re.test(subfield._data)){
+                        cleanedObject.identifiers.push({"literalValue": subfield._data,
+                            "scheme": "DOI"});
+                    }else{
+                        cleanedObject.identifiers.push({"literalValue": subfield._data,
+                            "scheme": "TBA"});
+                    }
+                }
+            }
+        }else if(field._tag == "856"){
+            for(var subfield of field._subfields){
+                if(subfield._code == "u"){
                     cleanedObject.identifiers.push({"literalValue": subfield._data,
-                        "scheme": "TBD"});
+                        "scheme": "URI"});
                 }
             }
         }
@@ -128,6 +141,9 @@ Marc21Helper.prototype.extractData = function(records, callback){
             for(var subfield of field._subfields){
                 if(subfield._code == "g"){
                     cleanedObject.number = subfield._data;
+                }else if(subfield._code == "x"){
+                    cleanedObject.identifiers.push({"literalValue": subfield._data,
+                        "scheme": enums.identifier.issn});
                 }
             }
             // Contributors

@@ -29,7 +29,7 @@ OcrHelper.prototype.saveBinaryFile = function(fileName, fileBuffer, callback){
                     errorlog.error(err);
                     return callback(err, null);
                 }
-                callback(null, fileName);
+                return callback(null, fileName);
             });
         });
     }else{
@@ -38,7 +38,7 @@ OcrHelper.prototype.saveBinaryFile = function(fileName, fileBuffer, callback){
                 errorlog.error(err);
                 return callback(err, null);
             }
-            callback(null, fileName);
+            return callback(null, fileName);
         });
     }
 };
@@ -76,53 +76,74 @@ OcrHelper.prototype.parseXMLBuffer = function(fileName, fileBuffer, callback){
 };
 
 /**
- * Should return a list of bibliographic entries
+ * Should return a list of bibliographic entries for a given filename
  */
-OcrHelper.prototype.parseXMLString = function(xmlString, callback){
+OcrHelper.prototype.parseXMLString = function(xmlString, fileName, callback){
     xml2js.parseString(xmlString, function(err, ocrResult){
         if(err){
             errorlog.error(err);
             return callback(err, null)
         }
-        var citations = ocrResult.algorithms.algorithm[0].citationList[0].citation;
+
         var bes = [];
-        // How to make use of the additional OCRed information?
-        for (var citation of citations){
+        for(var algorithm of ocrResult.LOCDBViewResults.algorithm){
+            //if(algorithm.$.fname === fileName){
+                var citations = algorithm.BibStructured;
+                if(citations){
+                    for (var citation of citations){
 
-            var title = citation.title ? citation.title[0] : "";
-            var date = citation.date ? citation.date[0] : "";
-            var marker = citation.marker ? citation.marker[0] : "";
-            var authors = [];
+                        var title = citation.title ? citation.title[0] : "";
+                        var date = citation.date ? citation.date[0] : "";
+                        var marker = citation.marker ? citation.marker[0] : "";
+                        var journal = citation.journal ? citation.journal[0] : "";
+                        var volume = citation.volume ? citation.volume[0] : "";
+                        var authors = [];
+                        var coordinates = (citation.rawString && citation.rawString[0]  && citation.rawString[0]['$']) ? citation.rawString[0]['$'].coordinates : "";
 
-            if(citation.authors){
-                for(var a of citation.authors){
-                    var author = a.author ? a.author[0] : "";
-                    authors.push(author);
+                        if(citation.authors){
+                            for(var a of citation.authors){
+                                var author = a.author ? a.author[0] : "";
+                                authors.push(author);
+                            }
+                        }
+
+                        var be = new BibliographicEntry({bibliographicEntryText: citation.rawString[0]._,
+                            ocrData:{
+                                coordinates: coordinates,
+                                title: title,
+                                date: date,
+                                marker: marker,
+                                authors: authors,
+                                journal: journal,
+                                volume: volume
+                            }});
+                        bes.push(be.toObject())
+                    }
+                    return callback(null, bes);
                 }
-            }
-            var be = new BibliographicEntry({bibliographicEntryText: citation.rawString[0]._,
-                                            ocrData:{
-                                                coordinates: citation.rawString[0]['$'].coordinates,
-                                                title: title,
-                                                date: date,
-                                                marker: marker,
-                                                authors: authors
-                                            }});
-            bes.push(be.toObject())
+            //}
         }
-        callback(null, bes);
+        return callback(null, bes);
     });
-    
 };
 
 
-OcrHelper.prototype.queryOcrComponent = function(fileName, callback){
+/*OcrHelper.prototype.queryOcrComponent = function(fileName, callback){
     var path = config.PATHS.UPLOAD + fileName;
     console.log(path);
 
     var form = {
-            file: fs.createReadStream(path)
-    };
+     files: fs.createReadStream(path),
+     colNumb: '2',
+     pdfFlag: 'on',
+     };
+
+/!*    var files = [fs.createReadStream(path), fs.createReadStream(path)];
+    var form = {
+     files: files,
+     colNumb: '2',
+     pdfFlag: 'on',
+    };*!/
     request.post({url: config.URLS.OCR, formData: form, timeout:1000000000}, function(err, res, body) {
         if (err) {
             errorlog.error(err);
@@ -131,9 +152,73 @@ OcrHelper.prototype.queryOcrComponent = function(fileName, callback){
             errorlog.error("Request to OCR component failed.");
             return callback("Request to OCR component failed.", null);
         }
+        console.log(body);
         accesslog.log("Request to OCR component successful.", {body: body});
         callback(null, body);
      });
+};*/
+
+
+OcrHelper.prototype.ocr_fileupload = function(fileName, callback){
+    var path = config.PATHS.UPLOAD + fileName;
+    var ext = fileName.split('.')[fileName.split('.').length -1].toLowerCase();
+    //pdfFlag: This flag can be set for both textual and Image pdf files. It is mandatory for image pdf file
+    //but optional for Textual pdf. If this flag is set for textual pdf then, it will process textual pdf as an
+    //image pdf, which might result in potential loss in accuracy because of involvement of OCR and
+    //increase in processing time.
+    //Txt_dummy: This flag should be set for textual pdf files. It adds dummy text at the start of the file to
+    //increase its accuracy by including the pages with single or few referenc
+    var form;
+    if(ext === "pdf"){
+        form = {
+            files: fs.createReadStream(path),
+            pdfFlag: 'on',
+            txt_dummy: 'on'
+        };
+    }else{
+        form = {
+            files: fs.createReadStream(path)
+        };
+    }
+
+    request.post({url: config.URLS.OCR_FILEUPLOAD, formData: form, timeout:1000000000}, function(err, res, body) {
+        if (err) {
+            errorlog.error(err);
+            return callback(err, null);
+        }else if (res.statusCode!= 200){
+            errorlog.error("Request to OCR component failed.");
+            return callback("Request to OCR component failed.", null);
+        }
+        console.log(body);
+        accesslog.log("Request to OCR component successful.", {body: body});
+        callback(null, body);
+    });
+};
+
+OcrHelper.prototype.getImageForPDF = function(fileName, callback){
+    var path = config.PATHS.UPLOAD + fileName;
+    var ext = fileName.split('.')[fileName.split('.').length -1].toLowerCase();
+
+    var form;
+    if(ext === "pdf"){
+        form = {
+            files: fs.createReadStream(path),
+        };
+
+        request.post({url: config.URLS.OCR_IMAGEVIEW, formData: form, timeout:1000000, encoding: null}, function(err, res, body) {
+            if (err) {
+                errorlog.error(err);
+                return callback(err, null);
+            }else if (res.statusCode!= 200) {
+                errorlog.error("Request to OCR component failed.");
+                return callback("Request to OCR component failed.", null);
+            }
+            accesslog.log("Request to OCR component successful.");
+            return callback(null, body);
+        });
+    }else{
+        return callback(null, null);
+    }
 };
 
 /**

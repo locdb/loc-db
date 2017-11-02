@@ -7,7 +7,7 @@ const status = require('./enum.json').status
 var scan = new SchemaObject({
     scanName: String,
     xmlName: String,
-    status: {type: String, enum: [status.notOcrProcessed, status.ocrProcessed, status.valid]}
+    status: {type: String, enum: [status.notOcrProcessed, status.ocrProcessing, status.ocrProcessed, status.valid]}
 });
 
 module.exports = scan;

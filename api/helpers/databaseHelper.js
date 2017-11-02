@@ -9,6 +9,7 @@ const enums = require('./../schema/enum.json');
 const errorlog = require('./../util/logger').errorlog;
 const ocrHelper = require('./ocrHelper').createOcrHelper();
 const swbHelper = require('./swbHelper').createSwbHelper();
+const crossrefHelper = require('./crossrefHelper').createCrossrefHelper();
 const async = require('async');
 const Scan = require('./../schema/scan');
 
@@ -68,7 +69,7 @@ DatabaseHelper.prototype.saveIndependentPrintResource = function(scan, ppn, reso
                 }];
                 br = new mongoBr(br);
                 br.save(function (err, result) {
-                    return callback(err, result.toObject());
+                    return callback(err, result);
                 });
             });
         }
@@ -137,31 +138,48 @@ DatabaseHelper.prototype.saveDependentPrintResource = function(scan, firstPage, 
                             return callback(err, null);
                         }
                         var scan = result;
-                        child = new mongoBr({
-                            partOf: parent._id.toString(),
-                            embodiedAs: [{
-                                type: enums.embodimentType.print,
-                                firstPage: firstPage,
-                                lastPage: lastPage,
-                                scans: [scan]}]
-                        });
-
-                        // We have to save the child in both cases
-                        child.save(function (err, result) {
+                        // TODO: Test this properly!
+                        crossrefHelper.queryChapterMetaData(parent.title ,firstPage, lastPage, function(err, res){
                             if(err){
                                 errorlog.error(err);
-                                callback(err, null);
+                                return callback(err, null);
                             }
-                            var res = []
-                            res.push(parent.toObject());
-                            res.push(child.toObject());
-                            return callback(null, res);
-                        });
+                            if(res[0]) {
+                                child = new mongoBr(res[0]);
+                                child.partOf = parent._id.toString();
+                                child.embodiedAs = [{
+                                    type: enums.embodimentType.print,
+                                    firstPage: firstPage,
+                                    lastPage: lastPage,
+                                    scans: [scan]
+                                }];
+                            }else {
+                                child = new mongoBr({
+                                    partOf: parent._id.toString(),
+                                    embodiedAs: [{
+                                        type: enums.embodimentType.print,
+                                        firstPage: firstPage,
+                                        lastPage: lastPage,
+                                        scans: [scan]}]
+                                });
 
+                            }
+                            // We have to save the child in both cases
+                            child.save(function (err, result) {
+                                if(err){
+                                    errorlog.error(err);
+                                    callback(err, null);
+                                }
+                                var res = []
+                                res.push(parent.toObject());
+                                res.push(child.toObject());
+                                return callback(null, res);
+                            });
+                        });
                     });
                 }
             });
-        }else{
+        }else {
             // the container br does not exist at all yet
             // ergo the sub-resource does not exist neither
             // we have to retrieve all the metadata and we have to save the file
@@ -173,44 +191,63 @@ DatabaseHelper.prototype.saveDependentPrintResource = function(scan, firstPage, 
                 var scan = result[0];
                 result[1].type = resourceType;
                 var parent = new mongoBr(result[1]);
-                var child = new mongoBr({
-                    partOf: parent._id.toString(),
-                    embodiedAs: [{
-                        type: enums.embodimentType.print,
-                        firstPage: firstPage,
-                        lastPage: lastPage,
-                        scans: [scan]}]
+                // TODO: Test this properly!
+                crossrefHelper.queryChapterMetaData(parent.title, firstPage, lastPage, function (err, res) {
+                    if (err) {
+                        errorlog.error(err);
+                        return callback(err, null);
+                    }
+                    if (res[0]) {
+                        var child = new mongoBr(res[0]);
+                        child.partOf = parent._id.toString();
+                        child.embodiedAs = [{
+                            type: enums.embodimentType.print,
+                            firstPage: firstPage,
+                            lastPage: lastPage,
+                            scans: [scan]
+                        }];
+                    } else {
+                        child = new mongoBr({
+                            partOf: parent._id.toString(),
+                            embodiedAs: [{
+                                type: enums.embodimentType.print,
+                                firstPage: firstPage,
+                                lastPage: lastPage,
+                                scans: [scan]
+                            }]
+                        });
+
+                    }
+                    // Save parent and child
+                    async.parallel([
+                            function (callback) {
+                                parent.save(function (err, result) {
+                                    if (err) {
+                                        errorlog.error(err);
+                                        callback(err, null);
+                                    }
+                                    callback(null, result);
+                                });
+                            },
+                            function (callback) {
+                                child.save(function (err, result) {
+                                    if (err) {
+                                        errorlog.error(err);
+                                        callback(err, null);
+                                    }
+                                    callback(null, result);
+                                });
+                            }],
+                        function (err, result) {
+                            if (err) {
+                                errorlog.error(err);
+                                return callback(err, null);
+                            }
+                            return callback(null, result);
+                        });
                 });
-                // Save parent and child
-                async.parallel([
-                        function (callback) {
-                            parent.save(function (err, result) {
-                                if(err){
-                                    errorlog.error(err);
-                                    callback(err, null);
-                                }
-                                callback(null, result);
-                            });
-                        },
-                        function (callback) {
-                            child.save(function (err, result) {
-                                if(err){
-                                    errorlog.error(err);
-                                    callback(err, null);
-                                }
-                                callback(null, result);
-                            });
-                        }],
-                    function (err, result) {
-                        if (err) {
-                            errorlog.error(err);
-                            return callback(err, null);
-                        }
-                        return callback(null, result);
-                    });
             });
         }
-
     });
 };
 
@@ -248,6 +285,10 @@ DatabaseHelper.prototype.saveScanAndRetrieveMetadata = function(scan, ppn, resou
         if (err) {
             errorlog.error(err);
             return callback(err, null);
+        }
+        if(!results[1].identifiers){
+            errorlog.error("Something went wrong with retrieving data from the union catalog.");
+            return callback(new Error("Something went wrong with retrieving data from the union catalog."), null);
         }
         results[1].identifiers.push({scheme: enums.identifier.ppn, literalValue: ppn});
         return callback(err, results);

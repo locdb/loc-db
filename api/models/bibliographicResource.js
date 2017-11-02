@@ -16,7 +16,7 @@ const brSchema = new Schema({
     title: String,
     subtitle: String,
     edition: String,
-    number: Number, // e.g. number of an article in journal
+    number: String, // e.g. number of an article in journal
     contributors: [{
         identifiers: [{
             literalValue: String,
@@ -46,14 +46,16 @@ const brSchema = new Schema({
         bibliographicEntryText: String,
         references: String,
         scanId: String,
-        status: {type: String, enum: [enums.status.ocrProcessed, enums.status.valid]},
+        status: {type: String, enum: [enums.status.ocrProcessed, enums.status.valid, enums.status.external]},
         ocrData:{
             coordinates: String,
             authors: [String], // maybe use contributors thingy later
             title: String,
             date: String,
             marker: String,
-            comments: String
+            comments: String,
+            journal: String,
+            volume: String
         }
     }], // links to other brs
     embodiedAs: [{ // Resource Embodiment
@@ -69,7 +71,7 @@ const brSchema = new Schema({
         scans:[{
             scanName: String,
             xmlName: String,
-            status: {type: String, enum: [enums.status.notOcrProcessed, enums.status.ocrProcessed, enums.status.valid]},
+            status: {type: String, enum: [enums.status.notOcrProcessed, enums.status.ocrProcessing, enums.status.ocrProcessed, enums.status.valid]},
         }]
     }]
 });

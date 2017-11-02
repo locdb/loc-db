@@ -34,5 +34,18 @@ describe('helpers', function() {
                 });
             });
         });
+
+        describe('queryOLC', function(){
+            this.timeout(3000)
+            it('should return a result for a given query', function(done) {
+                swbHelper.queryOLC("1994632569", function(err, result){
+                    result.should.be.ok;
+                    result.should.be.Object;
+                    result.should.have.property("title","The strong referendum paradox");
+                    console.log(result);
+                    done();
+                });
+            });
+        });
     });
 });
