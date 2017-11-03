@@ -181,7 +181,8 @@ OcrHelper.prototype.ocr_fileupload = function(fileName, textualPdf, callback){
         };
     }else{
         form = {
-            files: fs.createReadStream(path)
+            files: fs.createReadStream(path),
+            pdfFlag: 'on'
         };
     }
 
