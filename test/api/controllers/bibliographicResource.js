@@ -7,7 +7,7 @@ const BibliographicResource = require('./../../../api/schema/bibliographicResour
 
 var agent = request.agent(server);
 
-describe.only('controllers', function() {
+describe('controllers', function() {
 
   describe('bibliographicResource', function() {
       var id = "";
