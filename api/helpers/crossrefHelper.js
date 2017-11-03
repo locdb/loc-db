@@ -220,6 +220,7 @@ CrossrefHelper.prototype.parseObjects = function(objects, callback){
         var firstPage = obj.page && obj.page.split('-').length == 2  ? obj.page.split('-')[0] : obj.page ;
         var lastPage = obj.page && obj.page.split('-').length == 2 ? obj.page.split('-')[1] : "" ;
         var embodiedAs = [new ResourceEmbodiment({firstPage: firstPage, lastPage:lastPage})];
+        var containerTitle = obj['container-title'] ? obj['container-title'] : "";
 
         // TODO: Parse type etc?
         var bibliographicResource = new BibliographicResource({
@@ -229,7 +230,8 @@ CrossrefHelper.prototype.parseObjects = function(objects, callback){
             identifiers: identifiers,
             status: enums.status.external,
             parts: bes,
-            embodiedAs: embodiedAs
+            embodiedAs: embodiedAs,
+            containerTitle: containerTitle
         });
 
 
