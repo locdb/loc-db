@@ -6,7 +6,7 @@ const setup = require('./../setup.js').createSetup();
 const ocrHelper = require('./../../../api/helpers/ocrHelper.js').createOcrHelper();
 const fs = require('fs');
 
-describe('helpers', function() {
+describe.only('helpers', function() {
     describe('ocrHelper', function() {
         before(function (done) {
             setup.dropDB(function (err) {
@@ -34,7 +34,7 @@ describe('helpers', function() {
         describe('OCR: fileupload', function () {
             it('should return an xml string for a png', function (done) {
                 this.timeout(1000000000);
-                ocrHelper.ocr_fileupload("./../loc-db/test/api/data/ocr_data/02_input.png", function (err, result) {
+                ocrHelper.ocr_fileupload("./../loc-db/test/api/data/ocr_data/02_input.png", false, function (err, result) {
                     console.log(result);
                     should.not.exists(err);
                     done();
@@ -43,7 +43,7 @@ describe('helpers', function() {
 
             it('should return an xml string for a pdf', function (done) {
                 this.timeout(1000000000);
-                ocrHelper.ocr_fileupload("./../loc-db/test/api/data/ocr_data/references.pdf", function (err, result) {
+                ocrHelper.ocr_fileupload("./../loc-db/test/api/data/ocr_data/references.pdf", true, function (err, result) {
                     console.log(result);
                     should.not.exists(err);
                     done();

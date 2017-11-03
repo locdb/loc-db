@@ -71,6 +71,7 @@ const brSchema = new Schema({
         scans:[{
             scanName: String,
             xmlName: String,
+            textualPdf: Boolean,
             status: {type: String, enum: [enums.status.notOcrProcessed, enums.status.ocrProcessing, enums.status.ocrProcessed, enums.status.valid]},
         }]
     }]

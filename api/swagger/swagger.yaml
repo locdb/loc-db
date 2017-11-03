@@ -496,6 +496,11 @@ paths:
           description: The number of the last page of the resource.
           required: false
           type: number
+        - name: textualPdf
+          in: formData
+          description: Whether the file is a PDF with textual content
+          required: true
+          type: boolean
         - name: scan
           in: formData
           description: The scanned image of the reference page (binary file)
@@ -534,6 +539,11 @@ paths:
             description: The ppn of the article to which the scan should be appended
             required: false
             type: string
+          - name: textualPdf
+            in: formData
+            description: Whether the file is a PDF with textual content
+            required: true
+            type: boolean
           - name: scan
             in: formData
             description: The scanned image of the reference page (binary file)

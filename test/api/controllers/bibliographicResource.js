@@ -9,7 +9,7 @@ var agent = request.agent(server);
 
 describe('controllers', function() {
 
-  describe.only('bibliographicResource', function() {
+  describe('bibliographicResource', function() {
       var id = "";
       before(function(done) {
           setup.loadBibliographicResources(function(err,res){
@@ -429,6 +429,7 @@ describe('controllers', function() {
                   .post('/saveScanForElectronicJournal')
                   .type('form')
                   .field('ppn', ppn)
+                  .field('textualPdf', false)
                   .attach('scan', './test/api/data/ocr_data/02_input.png')
                   .set('Accept', 'application/json')
                   .expect('Content-Type', /json/)
@@ -444,6 +445,7 @@ describe('controllers', function() {
                       res.body.embodiedAs[0].should.have.property("scans");
                       res.body.embodiedAs[0].scans.should.have.lengthOf(1);
                       res.body.embodiedAs[0].scans[0].should.have.property("status", enums.status.notOcrProcessed);
+                      res.body.embodiedAs[0].scans[0].should.have.property("textualPdf", false);
                       done();
                   });
           });
@@ -454,7 +456,8 @@ describe('controllers', function() {
                   .post('/saveScanForElectronicJournal')
                   .type('form')
                   .field('doi', doi)
-                  .attach('scan', './test/api/data/ocr_data/02_input.png')
+                  .field('textualPdf', true)
+                  .attach('scan', './test/api/data/ocr_data/references.pdf')
                   .set('Accept', 'application/json')
                   .expect('Content-Type', /json/)
                   .expect(200)
@@ -469,6 +472,7 @@ describe('controllers', function() {
                       res.body.embodiedAs[0].should.have.property("scans");
                       res.body.embodiedAs[0].scans.should.have.lengthOf(1);
                       res.body.embodiedAs[0].scans[0].should.have.property("status", enums.status.notOcrProcessed);
+                      res.body.embodiedAs[0].scans[0].should.have.property("textualPdf", true);
                       done();
                   });
           });

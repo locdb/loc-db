@@ -159,21 +159,25 @@ OcrHelper.prototype.parseXMLString = function(xmlString, fileName, callback){
 };*/
 
 
-OcrHelper.prototype.ocr_fileupload = function(fileName, callback){
+OcrHelper.prototype.ocr_fileupload = function(fileName, textualPdf, callback){
     var path = config.PATHS.UPLOAD + fileName;
     var ext = fileName.split('.')[fileName.split('.').length -1].toLowerCase();
     //pdfFlag: This flag can be set for both textual and Image pdf files. It is mandatory for image pdf file
     //but optional for Textual pdf. If this flag is set for textual pdf then, it will process textual pdf as an
     //image pdf, which might result in potential loss in accuracy because of involvement of OCR and
     //increase in processing time.
-    //Txt_dummy: This flag should be set for textual pdf files. It adds dummy text at the start of the file to
+    //Txt_Dummy: This flag should be set for textual pdf files. It adds dummy text at the start of the file to
     //increase its accuracy by including the pages with single or few referenc
     var form;
-    if(ext === "pdf"){
+    if((ext === "pdf" || ext === "PDF") && !textualPdf){
         form = {
             files: fs.createReadStream(path),
-            pdfFlag: 'on',
-            txt_dummy: 'on'
+            pdfFlag: 'on'
+        };
+    }else if((ext === "pdf" || ext === "PDF") && textualPdf){
+        form = {
+            files: fs.createReadStream(path),
+            Txt_Dummy: 'on'
         };
     }else{
         form = {
