@@ -287,14 +287,14 @@ function getExternalSuggestionsByQueryString(req, res) {
                     return callback(null, res);
                 });
             },
-            function (callback) {
+            /*function (callback) {
                 googleScholarHelper.query(query, function (err, res) {
                     if (err) {
                         return callback(err, null);
                     }
                     return callback(null, res);
                 });
-            },
+            },*/
             function (callback) {
                 crossrefHelper.query(query, function (err, res) {
                     if (err) {
