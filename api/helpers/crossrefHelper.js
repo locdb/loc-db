@@ -205,12 +205,29 @@ CrossrefHelper.prototype.parseObjects = function(objects, callback){
         if(obj.reference){
             var bes = [];
             for(var reference of obj.reference){
+                var title = reference['article-title'] ? reference['article-title'] : "";
+                var author = reference.author ? reference.author : "";
+                var year = reference.year ? reference.year : "";
+                var journal = reference['journal-title'] ? reference['journal-title'] : "";
+                var volume = reference.volume ? reference.volume : "";
+                if(reference['first-page']){
+                    var comments = "First page: " + reference['first-page'];
+                }
+
+                if(volume === ""){
+                    volume = reference['volume-title'] ? reference['volume-title'] : "";
+                }
+
                 var bibliographicEntry = new BibliographicEntry({
                     identifiers:[new Identifier({scheme: enums.identifier.doi, literalValue: reference.DOI})],
                     bibliographicEntryText: reference.unstructured,
                     ocrData:{
-                        title: reference['article-title'] || reference['volume-title'],
-                        date: reference.year
+                        title: title,
+                        date: year,
+                        authors: [author],
+                        journal: journal,
+                        volume: volume,
+                        comments: comments
                     },
                     status: enums.status.external});
                 bes.push(bibliographicEntry);
