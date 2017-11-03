@@ -28,7 +28,7 @@ function getToDoBibliographicEntries(req, res) {
                 errorlog.error(err);
                 return res.status(500).json({"message": "DB query failed."});
             }
-            response.json(createBibliographicEntriesArray(brs));
+            response.json(createBibliographicEntriesArray(brs, scanId));
         });
     } else {
         mongoBr.find({'parts.status': enums.status.ocrProcessed}, function (err, brs) {
@@ -36,19 +36,19 @@ function getToDoBibliographicEntries(req, res) {
                 errorlog.error(err);
                 return res.status(500).json({"message": "DB query failed."});
             }
-            response.json(createBibliographicEntriesArray(brs));
+            response.json(createBibliographicEntriesArray(brs, scanId));
         });
     }
 }
 
 
-function createBibliographicEntriesArray(brs) {
+function createBibliographicEntriesArray(brs, scanId) {
     // Loop over BEs and take only the scans that are really OCR processed
     if (brs.length > 0) {
         var result = [];
         for (var br of brs) {
             for (var be of br.parts) {
-                if (be.status === enums.status.ocrProcessed) {
+                if (be.status === enums.status.ocrProcessed && be.scanId === scanId) {
                     result.push(be);
                 }
             }
