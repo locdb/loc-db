@@ -600,7 +600,7 @@ function triggerOcrProcessing(req, res) {
                     br.embodiedAs[embodimentIndex].scans[scanIndex] = scan;
 
                     br.save(function(err,res){
-                        ocrHelper.ocr_fileupload(scan.scanName, function (err, result) {
+                        ocrHelper.ocr_fileupload(scan.scanName, scan.textualPdf, function (err, result) {
                             if (err) {
                                 errorlog.error(err);
                                 accesslog.log("We try to set back the status of the scan");
