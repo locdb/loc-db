@@ -421,6 +421,27 @@ describe('controllers', function() {
                       done();
                   });
           });
+
+          it.only('should retrieve the meta data from crossref; issue with subtitle in type field', function(done){
+              var doi = "10.1177/0146167216676479";
+
+              agent
+                  .get('/saveElectronicJournal')
+                  .query({doi: doi})
+                  .set('Accept', 'application/json')
+                  .expect('Content-Type', /json/)
+                  .expect(200)
+                  .end(function(err, res){
+                      should.not.exist(err);
+                      res.body.should.be.Array;
+                      res.body.should.have.length(2);
+                      res.body[0].should.not.have.property("partOf");
+                      res.body[1].should.have.property("status", enums.status.external);
+                      res.body[1].should.have.property("partOf", res.body[0]._id);
+                      id = res.body[1]._id;
+                      done();
+                  });
+          });
       });
 
       describe('GET /saveScanForElectronicJournal', function() {

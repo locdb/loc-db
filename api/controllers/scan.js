@@ -424,7 +424,7 @@ function getToDo(req, res) {
                     // TODO: We want to show more information to the user
                     resultChild.title = child.title;
                     resultChild.subtitle = child.subtitle;
-                    resultChild.type = child.subtitle;
+                    resultChild.type = child.type;
                     resultChild.publicationYear = child.publicationYear;
                     resultChild.edition = child.edition;
                     resultChild.number = child.number;
