@@ -19,6 +19,7 @@ var bibliographicResource = new SchemaObject({
     cites: [{type: String}],
     pages: String,
     partOf: String, // link to other br
+    containerTitle: String,
     parts: [{type: BibliographicEntry}],
     embodiedAs: [{type: ResourceEmbodiment}]
 });

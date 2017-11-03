@@ -6,7 +6,7 @@ const status = require('./../../../api/schema/enum.json').status;
 
 var agent = request.agent(server);
 
-describe.only('controllers', function() {
+describe('controllers', function() {
 
     describe('bibliographicEntry', function () {
         var id = "";

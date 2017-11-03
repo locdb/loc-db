@@ -37,6 +37,7 @@ const brSchema = new Schema({
     publicationYear: String,
     cites: [String], // reference entries
     partOf: String, // link to other br
+    containerTitle: String,
     status: {type: String, enum: [enums.status.external, enums.status.valid]},
     parts: [{
         identifiers: [{
