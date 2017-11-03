@@ -43,6 +43,7 @@ describe('controllers', function () {
                     .field('ppn', '012678775')
                     .field('firstPage', '51')
                     .field('lastPage', '95')
+                    .field('textualPdf', false)
                     .field('resourceType', resourceType.collection)
                     .attach('scan', './test/api/data/ocr_data/02_input.png')
                     .set('Accept', 'application/json')
@@ -62,6 +63,7 @@ describe('controllers', function () {
                         res.body[1].embodiedAs[0].scans.should.be.Array;
                         res.body[1].embodiedAs[0].scans.should.have.lengthOf(1);
                         res.body[1].embodiedAs[0].scans[0].should.have.property("status", status.notOcrProcessed);
+                        res.body[1].embodiedAs[0].scans[0].should.have.property("textualPdf", false);
                         res.body[1].should.have.property("partOf");
                         res.body[0]._id.should.be.exactly(res.body[1].partOf);
                         should(fs.existsSync(config.PATHS.UPLOAD)).equal(true);
@@ -77,6 +79,7 @@ describe('controllers', function () {
                     .field('ppn', '012678775')
                     .field('firstPage', '33')
                     .field('lastPage', '41')
+                    .field('textualPdf', true)
                     .field('resourceType', resourceType.collection)
                     .attach('scan', './test/api/data/ocr_data/references.pdf')
                     .set('Accept', 'application/json')
@@ -97,6 +100,7 @@ describe('controllers', function () {
                         res.body[1].embodiedAs[0].should.have.property("scans");
                         res.body[1].embodiedAs[0].scans.should.be.Array;
                         res.body[1].embodiedAs[0].scans.should.have.lengthOf(1);
+                        res.body[1].embodiedAs[0].scans[0].should.have.property("textualPdf", true);
                         res.body[1].embodiedAs[0].scans[0].should.have.property("status", status.notOcrProcessed);
                         res.body[1].should.have.property("partOf");
                         res.body[0]._id.should.be.exactly(res.body[1].partOf);
@@ -119,6 +123,7 @@ describe('controllers', function () {
                     .field('ppn', '023724153')
                     .field('firstPage', '2')
                     .field('lastPage', '3')
+                    .field('textualPdf', false)
                     .field('resourceType', resourceType.journal)
                     .attach('scan', './test/api/data/ocr_data/02_input.png')
                     .set('Accept', 'application/json')
@@ -136,6 +141,7 @@ describe('controllers', function () {
                         res.body[1].embodiedAs[0].should.have.property("scans");
                         res.body[1].embodiedAs[0].scans.should.be.Array;
                         res.body[1].embodiedAs[0].scans.should.have.lengthOf(1);
+                        res.body[1].embodiedAs[0].scans[0].should.have.property("textualPdf", false);
                         res.body[1].embodiedAs[0].scans[0].should.have.property("status", status.notOcrProcessed);
                         res.body[1].should.have.property("partOf");
                         res.body[0]._id.should.be.exactly(res.body[1].partOf);
@@ -153,6 +159,7 @@ describe('controllers', function () {
                     .field('firstPage', '4')
                     .field('lastPage', '10')
                     .field('resourceType', resourceType.journal)
+                    .field('textualPdf', false)
                     .attach('scan', './test/api/data/ocr_data/02_input.png')
                     .set('Accept', 'application/json')
                     .expect('Content-Type', /json/)
@@ -171,6 +178,7 @@ describe('controllers', function () {
                         res.body[1].embodiedAs[0].should.have.property("scans");
                         res.body[1].embodiedAs[0].scans.should.be.Array;
                         res.body[1].embodiedAs[0].scans.should.have.lengthOf(1);
+                        res.body[1].embodiedAs[0].scans[0].should.have.property("textualPdf", false);
                         res.body[1].embodiedAs[0].scans[0].should.have.property("status", status.notOcrProcessed);
                         res.body[1].should.have.property("partOf");
                         res.body[0]._id.should.be.exactly(res.body[1].partOf);
@@ -192,6 +200,7 @@ describe('controllers', function () {
                     .field('firstPage', '-1')
                     .field('lastPage', '-1')
                     .field('resourceType', resourceType.monograph)
+                    .field('textualPdf', false)
                     .attach('scan', './test/api/data/ocr_data/02_input.png')
                     .set('Accept', 'application/json')
                     .expect('Content-Type', /json/)

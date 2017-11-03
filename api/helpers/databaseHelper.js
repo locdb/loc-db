@@ -22,7 +22,7 @@ var DatabaseHelper = function(){
  * @param ppn - pica prod number (~id) of the monograph
  * @param callback - callback function
  */
-DatabaseHelper.prototype.saveIndependentPrintResource = function(scan, ppn, resourceType, callback){
+DatabaseHelper.prototype.saveIndependentPrintResource = function(scan, ppn, resourceType, textualPdf, callback){
     var self = this;
     // check first whether the monograph already exists
     mongoBr.findOne({
@@ -37,7 +37,7 @@ DatabaseHelper.prototype.saveIndependentPrintResource = function(scan, ppn, reso
         // if the br is filled, then there is already a resource for the given identifier and it is another scan page
         if(br) {
             // then we only have to save the scan but not the whole metadata
-            self.saveScan(scan, function(err,scan){
+            return self.saveScan(scan, textualPdf, function(err,scan){
                 for (var embodiment of br.embodiedAs){
                     // we check for the print embodiment and append the scan to it
                     if(embodiment.type == enums.embodimentType.print){
@@ -46,14 +46,14 @@ DatabaseHelper.prototype.saveIndependentPrintResource = function(scan, ppn, reso
                     }
                 }
                 br.type = resourceType;
-                br.save(function (err, result) {
-                    callback(err, result);
+                return br.save(function (err, result) {
+                    return callback(err, result);
                 });
             });
         }else{
             // the br does not exist at all yet
             // we have to retrieve all the metadata and we have to save the file
-            self.saveScanAndRetrieveMetadata(scan, ppn, resourceType, function (err, result) {
+            self.saveScanAndRetrieveMetadata(scan, ppn, resourceType, textualPdf, function (err, result) {
                 if (err) {
                     errorlog.log(err);
                     return callback(err, null);
@@ -85,7 +85,7 @@ DatabaseHelper.prototype.saveIndependentPrintResource = function(scan, ppn, reso
  * @param ppn - pica prod number (~id) of the monograph
  * @param callback - callback function
  */
-DatabaseHelper.prototype.saveDependentPrintResource = function(scan, firstPage, lastPage, ppn, resourceType, callback){
+DatabaseHelper.prototype.saveDependentPrintResource = function(scan, firstPage, lastPage, ppn, resourceType, textualPdf, callback){
     var self = this;
     // check first whether the container resource already exists
     mongoBr.findOne({
@@ -106,7 +106,7 @@ DatabaseHelper.prototype.saveDependentPrintResource = function(scan, firstPage, 
             }, function (err, child) {
                 // the parent resource already exists, the sub resource already exists, apparently, the user is just adding another scan page
                 if(child){
-                    self.saveScan(scan, function(err,result){
+                    self.saveScan(scan, textualPdf, function(err,result){
                         if(err){
                             errorlog.error(err);
                             return callback(err, null);
@@ -132,7 +132,7 @@ DatabaseHelper.prototype.saveDependentPrintResource = function(scan, firstPage, 
                     });
                 }else{
                     // the child resource does not exist yet, but the parent does
-                    self.saveScan(scan, function(err,result){
+                    self.saveScan(scan, textualPdf, function(err,result){
                         if(err){
                             errorlog.error(err);
                             return callback(err, null);
@@ -183,7 +183,7 @@ DatabaseHelper.prototype.saveDependentPrintResource = function(scan, firstPage, 
             // the container br does not exist at all yet
             // ergo the sub-resource does not exist neither
             // we have to retrieve all the metadata and we have to save the file
-            self.saveScanAndRetrieveMetadata(scan, ppn, resourceType, function (err, result) {
+            self.saveScanAndRetrieveMetadata(scan, ppn, resourceType, textualPdf, function (err, result) {
                 if (err) {
                     errorlog.log(err);
                     return callback(err, null);
@@ -257,13 +257,13 @@ DatabaseHelper.prototype.saveDependentPrintResource = function(scan, firstPage, 
  * @param ppn
  * @param callback
  */
-DatabaseHelper.prototype.saveScanAndRetrieveMetadata = function(scan, ppn, resourceType, callback){
+DatabaseHelper.prototype.saveScanAndRetrieveMetadata = function(scan, ppn, resourceType, textualPdf, callback){
     var self = this;
     // run the saving and the retrieval of metadata in parallel
     async.parallel([
         // 1. save scan
         function(callback){
-            self.saveScan(scan, function(err, scan){
+            self.saveScan(scan, textualPdf, function(err, scan){
                 if(err){
                     errorlog.error(err);
                     return callback(err, null)
@@ -296,7 +296,7 @@ DatabaseHelper.prototype.saveScanAndRetrieveMetadata = function(scan, ppn, resou
 };
 
 
-DatabaseHelper.prototype.saveScan = function(scan, callback){
+DatabaseHelper.prototype.saveScan = function(scan, textualPdf, callback){
     // get unique id from mongo which we use as filename
     var scanId = mongoose.Types.ObjectId().toString();
 
@@ -307,7 +307,7 @@ DatabaseHelper.prototype.saveScan = function(scan, callback){
             return callback(err, null)
         }
         // if not, create a scan object
-        var scan = new Scan({_id: scanId, scanName: scanName, status: enums.status.notOcrProcessed});
+        var scan = new Scan({_id: scanId, scanName: scanName, status: enums.status.notOcrProcessed, textualPdf: textualPdf});
 
         // return scan object to the caller
         callback(null, scan);

@@ -22,9 +22,10 @@ function saveScan(req, res) {
     var firstPage = req.swagger.params.firstPage.value;
     var lastPage = req.swagger.params.lastPage.value;
     var resourceType = req.swagger.params.resourceType.value;
+    var textualPdf = req.swagger.params.textualPdf.value;
 
     if(resourceType == enums.resourceType.monograph){
-        databaseHelper.saveIndependentPrintResource(scan, ppn, resourceType, function(err,res){
+        databaseHelper.saveIndependentPrintResource(scan, ppn, resourceType, textualPdf, function(err,res){
             if(err){
                 errorlog.error(err);
                 return response.status(400).json(err);
@@ -33,7 +34,7 @@ function saveScan(req, res) {
         });
     }else if(resourceType == enums.resourceType.journal
         || resourceType == enums.resourceType.collection) {
-        databaseHelper.saveDependentPrintResource(scan, firstPage, lastPage, ppn, resourceType, function (err, res) {
+        databaseHelper.saveDependentPrintResource(scan, firstPage, lastPage, ppn, resourceType, textualPdf, function (err, res) {
             if(err){
                 errorlog.error(err);
                 return response.status(400).json(err);
@@ -47,6 +48,7 @@ function saveScan(req, res) {
 function saveScanForElectronicJournal(req, res) {
     var response = res;
     var scan = req.swagger.params.scan.value;
+    var textualPdf = req.swagger.params.textualPdf.value;
     //var id = req.swagger.params.id.value;
     // check if id is valid
 /*    if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -73,7 +75,7 @@ function saveScanForElectronicJournal(req, res) {
                 return response.status(400).json(err);
             }
             // we only have to save the file and add it to the child and we have to change the status of the child
-            databaseHelper.saveScan(scan, function(err,scan){
+            databaseHelper.saveScan(scan, textualPdf, function(err,scan){
                 child.status = enums.status.valid;
                 if(child.embodiedAs.length == 0){
                     child.embodiedAs.push({scans: [], type : enums.embodimentType.digital});
@@ -113,7 +115,7 @@ function saveScanForElectronicJournal(req, res) {
                 return response.status(400).json(err);
             }
             // we only have to save the file and add it to the child and we have to change the status of the child
-            databaseHelper.saveScan(scan, function(err,scan){
+            databaseHelper.saveScan(scan, textualPdf, function(err,scan){
                 child.status = enums.status.valid;
                 if(child.embodiedAs.length == 0){
                     child.embodiedAs.push({scans: [], type : enums.embodimentType.digital});
