@@ -7,7 +7,7 @@ const BibliographicResource = require('./../../../api/schema/bibliographicResour
 
 var agent = request.agent(server);
 
-describe('controllers', function() {
+describe.only('controllers', function() {
 
   describe('bibliographicResource', function() {
       var id = "";
@@ -133,6 +133,7 @@ describe('controllers', function() {
               title: "Test Bibliographic Resource",
               subtitle: "Testing is fun",
               number: 2,
+              containerTitle: "This is the title of the parent resource.",
               contributors: [{
                   roleType: enums.roleType.author,
                   heldBy:{
