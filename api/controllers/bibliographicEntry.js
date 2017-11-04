@@ -144,35 +144,40 @@ function getInternalSuggestions(req, res) {
     var bibliographicEntryText = req.swagger.params.bibliographicEntry.value.bibliographicEntryText.replace(/:/g, ' ')
 
     // the search function offers an interface to elastic
-    mongoBr.search({
-        multi_match: {
-            query: title + " " + authors + " " + bibliographicEntryText,
-            fields: [
-                "title",
-                "subtitle",
-                "contributors.heldBy.nameString",
-                "contributors.heldBy.givenName",
-                "contributors.heldBy.familyName"
-            ]
-        }
-    }, {hydrate: true}, function (err, brs) {
-        var result = [];
-        if (err) {
-            errorlog.error(err);
-            return res.status(500).json(err);
-        }
-        if (brs.hits && brs.hits.hits) {
-            for (var i in brs.hits.hits) {
-                var br = brs.hits.hits[i];
-                // return only the top 5 result
-                // but only if they do not only exist in elastic but also in mongo
-                if (br && result.length <= 5) {
-                    result.push(br.toObject());
+    try {
+        mongoBr.search({
+            multi_match: {
+                query: title + " " + authors + " " + bibliographicEntryText,
+                fields: [
+                    "title",
+                    "subtitle",
+                    "contributors.heldBy.nameString",
+                    "contributors.heldBy.givenName",
+                    "contributors.heldBy.familyName"
+                ]
+            }
+        }, {hydrate: true}, function (err, brs) {
+            var result = [];
+            if (err) {
+                errorlog.error(err);
+                return res.status(500).json(err);
+            }
+            if (brs.hits && brs.hits.hits) {
+                for (var i in brs.hits.hits) {
+                    var br = brs.hits.hits[i];
+                    // return only the top 5 result
+                    // but only if they do not only exist in elastic but also in mongo
+                    if (br && result.length <= 5) {
+                        result.push(br.toObject());
+                    }
                 }
             }
-        }
-        return response.status(200).json(result);
-    });
+            return response.status(200).json(result);
+        });
+    }catch (err) {
+        errorlog.error(err);
+        return response.json("Something went wrong with the internal suggestions");
+    }
 }
 
 
@@ -186,35 +191,40 @@ function getInternalSuggestionsByQueryString(req, res) {
     }
 
     // the search function offers an interface to elastic
-    mongoBr.search({
-        multi_match: {
-            query: query,
-            fields: [
-                "title",
-                "subtitle",
-                "contributors.heldBy.nameString",
-                "contributors.heldBy.givenName",
-                "contributors.heldBy.familyName"
-            ]
-        }
-    }, {hydrate: true, hydrateWithESResults: true}, function (err, brs) {
-        var result = [];
-        if (err) {
-            errorlog.error(err);
-            return res.status(500).json(err);
-        }
-        if (brs.hits && brs.hits.hits) {
-            for (var i in brs.hits.hits) {
-                var br = brs.hits.hits[i];
+    try{
+        mongoBr.search({
+            multi_match: {
+                query: query,
+                fields: [
+                    "title",
+                    "subtitle",
+                    "contributors.heldBy.nameString",
+                    "contributors.heldBy.givenName",
+                    "contributors.heldBy.familyName"
+                ]
+            }
+        }, {hydrate: true, hydrateWithESResults: true}, function (err, brs) {
+            var result = [];
+            if (err) {
+                errorlog.error(err);
+                return res.status(500).json(err);
+            }
+            if (brs.hits && brs.hits.hits) {
+                for (var i in brs.hits.hits) {
+                    var br = brs.hits.hits[i];
 
-                // we check, whether the result is good enough
-                if(br._esResult._score > threshold){
-                    result.push(br.toObject());
+                    // we check, whether the result is good enough
+                    if(br._esResult._score > threshold){
+                        result.push(br.toObject());
+                    }
                 }
             }
-        }
-        return response.status(200).json(result);
-    });
+            return response.status(200).json(result);
+        });
+    }catch (err) {
+        errorlog.error(err);
+        return response.json("Something went wrong with the internal suggestions");
+    }
 }
 
 function getExternalSuggestions(req, res) {

@@ -248,7 +248,7 @@ describe('controllers', function() {
                 agent
                     .get('/getInternalSuggestionsByQueryString')
                     .query({ query: query })
-                    .query({ threshold: 1.4 })
+                    .query({ threshold: 0.5 })
                     .set('Accept', 'application/json')
                     .expect('Content-Type', /json/)
                     .expect(200)
