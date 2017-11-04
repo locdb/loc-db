@@ -214,8 +214,8 @@ CrossrefHelper.prototype.parseObjects = function(objects, callback){
                     var referenceComments = "First page: " + reference['first-page'];
                 }
 
-                if(referenceVolume === ""){
-                    referenceVolume = reference['volume-title'] ? reference['volume-title'] : "";
+                if(referenceTitle === ""){
+                    referenceTitle = reference['volume-title'] ? reference['volume-title'] : "";
                 }
 
                 var bibliographicEntry = new BibliographicEntry({
