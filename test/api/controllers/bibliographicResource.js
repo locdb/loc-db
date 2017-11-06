@@ -444,7 +444,7 @@ describe('controllers', function() {
           });
 
 
-          it.only('should retrieve the meta data and references with details crossref', function(done){
+          it('should retrieve the meta data and references with details crossref', function(done){
               var doi = "10.1111/1468-4446.12286";
 
               agent

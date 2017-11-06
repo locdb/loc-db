@@ -30,8 +30,8 @@ securityDefinitions:
     type: basic
 
 # To apply Basic auth to the whole API:
-security:
-  - basicAuth: []
+#security:
+#  - basicAuth: []
 
 
 paths:
