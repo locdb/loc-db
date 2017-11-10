@@ -928,6 +928,10 @@ definitions:
     properties:
       _id:
         type: string
+      identifiers:
+        type: array
+        items:
+          $ref: "#/definitions/Identifier"
       bibliographicEntryText:
         type: string
       references:
