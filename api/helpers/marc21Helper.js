@@ -108,10 +108,11 @@ Marc21Helper.prototype.extractData = function(records, callback){
                     if(re.test(subfield._data)){
                         cleanedObject.identifiers.push({"literalValue": subfield._data,
                             "scheme": "DOI"});
-                    }else{
+                    }
+/*                    else{
                         cleanedObject.identifiers.push({"literalValue": subfield._data,
                             "scheme": "TBA"});
-                    }
+                    }*/
                 }
             }
         }else if(field._tag == "856"){
