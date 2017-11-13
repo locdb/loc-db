@@ -48,7 +48,7 @@ function createBibliographicEntriesArray(brs, scanId) {
         var result = [];
         for (var br of brs) {
             for (var be of br.parts) {
-                if (be.status === enums.status.ocrProcessed && be.scanId === scanId) {
+                if (be.scanId === scanId) {
                     result.push(be);
                 }
             }
