@@ -464,6 +464,46 @@ describe('controllers', function() {
                       done();
                   });
           });
+
+          it.only('Whats going on with the encoding', function(done){
+              var doi = "10.1007/978-3-658-17092-9_4";
+
+              agent
+                  .get('/saveElectronicJournal')
+                  .query({doi: doi})
+                  .set('Accept', 'application/json')
+                  .expect('Content-Type', /json/)
+                  .expect(200)
+                  .end(function(err, res){
+                      should.not.exist(err);
+                      res.body.should.be.Array;
+                      res.body.should.have.length(2);
+                      res.body[0].should.not.have.property("partOf");
+                      res.body[1].should.have.property("status", enums.status.external);
+                      res.body[1].should.have.property("partOf", res.body[0]._id);
+                      done();
+                  });
+          });
+
+          it.only('Whats going on with the encoding 2', function(done){
+              var doi = "10.1007/978-3-658-17092-9_6";
+
+              agent
+                  .get('/saveElectronicJournal')
+                  .query({doi: doi})
+                  .set('Accept', 'application/json')
+                  .expect('Content-Type', /json/)
+                  .expect(200)
+                  .end(function(err, res){
+                      should.not.exist(err);
+                      res.body.should.be.Array;
+                      res.body.should.have.length(2);
+                      res.body[0].should.not.have.property("partOf");
+                      res.body[1].should.have.property("status", enums.status.external);
+                      res.body[1].should.have.property("partOf", res.body[0]._id);
+                      done();
+                  });
+          });
       });
 
       describe('GET /saveScanForElectronicJournal', function() {

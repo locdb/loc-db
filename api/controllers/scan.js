@@ -399,7 +399,7 @@ function getToDo(req, res) {
             var resultObject;
             for (var child of children) {
                 // check here whether it is really a child
-                if (child.partOf) {
+                if (child.partOf || child.containerTitle) {
                     // this applies to dependent resources
                     var alreadyIn = false;
                     if (resultArray.length !== 0) {
