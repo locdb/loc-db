@@ -48,16 +48,13 @@ DatabaseHelper.prototype.saveIndependentPrintResource = function(scan, ppn, reso
                 br.type = resourceType;
                 return br.save(function (err, result) {
                     // now search for the scanId
-                    for(var embodiment of result.embodiedAs){
-                        for(var savedScan of embodiment.scans){
-                            if(savedScan.scanName === scan.scanName){
-                                var res=[];
-                                res.push(result);
-                                res.push(savedScan);
-                                return callback(null, res);
-                            }
-                        }
-                    }
+                    // now search for the scanId
+                    self.findScanByScanName(result, scan.scanName, function(err, scan){
+                        var res=[];
+                        res.push(result);
+                        res.push(scan);
+                        return callback(null, res);
+                    });
                 });
             });
         }else{
@@ -80,16 +77,12 @@ DatabaseHelper.prototype.saveIndependentPrintResource = function(scan, ppn, reso
                 br = new mongoBr(br);
                 br.save(function (err, result) {
                     // now search for the scanId
-                    for(var embodiment of result.embodiedAs){
-                        for(var savedScan of embodiment.scans){
-                            if(savedScan.scanName === scan.scanName){
-                                var res=[];
-                                res.push(result);
-                                res.push(savedScan);
-                                return callback(null, res);
-                            }
-                        }
-                    }
+                    self.findScanByScanName(result, scan.scanName, function(err, scan){
+                        var res=[];
+                        res.push(result);
+                        res.push(scan);
+                        return callback(null, res);
+                    });
                 });
             });
         }
@@ -148,14 +141,10 @@ DatabaseHelper.prototype.saveDependentPrintResource = function(scan, firstPage, 
                             res.push(parent);
                             res.push(child);
                             // now search for the scanId
-                            for(var embodiment of result.embodiedAs){
-                                for(var savedScan of embodiment.scans){
-                                    if(savedScan.scanName === scan.scanName){
-                                        res.push(savedScan);
-                                        return callback(null, res);
-                                    }
-                                }
-                            }
+                            self.findScanByScanName(result, scan.scanName, function(err, scan){
+                                res.push(scan);
+                                return callback(null, res);
+                            });
                         });
                     });
                 }else{
@@ -201,15 +190,11 @@ DatabaseHelper.prototype.saveDependentPrintResource = function(scan, firstPage, 
                                 var res = []
                                 res.push(parent.toObject());
                                 res.push(child.toObject());
-                                // now search for the scanId
-                                for(var embodiment of child.embodiedAs){
-                                    for(var savedScan of embodiment.scans){
-                                        if(savedScan.scanName === scan.scanName){
-                                            res.push(savedScan);
-                                            return callback(null, res);
-                                        }
-                                    }
-                                }
+
+                                self.findScanByScanName(result, scan.scanName, function(err, scan){
+                                    res.push(scan);
+                                    return callback(null, res);
+                                });
                             });
                         });
                     });
@@ -279,15 +264,10 @@ DatabaseHelper.prototype.saveDependentPrintResource = function(scan, firstPage, 
                                 errorlog.error(err);
                                 return callback(err, null);
                             }
-                            // now search for the scanId
-                            for(var embodiment of result[1].embodiedAs){
-                                for(var savedScan of embodiment.scans){
-                                    if(savedScan.scanName === scan.scanName){
-                                        result.push(savedScan);
-                                        return callback(null, result);
-                                    }
-                                }
-                            }
+                            self.findScanByScanName(result[1], scan.scanName, function(err, scan){
+                                result.push(scan);
+                                return callback(null, result);
+                            });
                         });
                 });
             });
@@ -339,6 +319,18 @@ DatabaseHelper.prototype.saveScanAndRetrieveMetadata = function(scan, ppn, resou
     });
 };
 
+
+DatabaseHelper.prototype.findScanByScanName = function(br, scanName, callback){
+    // now search for the scanId
+    for(var embodiment of br.embodiedAs){
+        for(var scan of embodiment.scans){
+            if(scan.scanName === scanName){
+                return callback(null, scan);
+            }
+        }
+    }
+    return callback(null, null);
+};
 
 DatabaseHelper.prototype.saveScan = function(scan, textualPdf, callback){
     // get unique id from mongo which we use as filename
