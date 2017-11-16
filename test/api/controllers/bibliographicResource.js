@@ -481,8 +481,8 @@ describe('controllers', function() {
                   });
           });
 
-          it('Whats going on with the encoding 2', function(done){
-              var doi = "10.1007/978-3-658-17092-9_6";
+          it('Issue 179', function(done){
+              var doi = "10.1017/s0003055417000326";
 
               agent
                   .get('/saveElectronicJournal')
@@ -492,7 +492,8 @@ describe('controllers', function() {
                   .expect(200)
                   .end(function(err, res){
                       should.not.exist(err);
-                      // TODO: Check encoding
+                      res.body[1].parts[0].ocrData.should.have.property("comments", "First page: 159");
+                      res.body[1].parts[1].ocrData.should.have.property("comments", "");
                       done();
                   });
           });

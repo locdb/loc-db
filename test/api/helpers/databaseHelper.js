@@ -82,23 +82,23 @@ describe('helpers', function() {
                 databaseHelper.saveIndependentPrintResource(scan, ppnIndependent, enums.resourceType.monograph, false, function(err, result){
                     console.log(result);
                     should.not.exists(err);
-                    result.should.have.property("embodiedAs");
-                    result.embodiedAs.should.be.Array;
-                    result.embodiedAs.should.have.lengthOf(1);
-                    result.embodiedAs[0].should.have.property("scans");
-                    result.embodiedAs[0].scans.should.be.Array;
-                    result.embodiedAs[0].scans.should.have.lengthOf(1);
-                    result.embodiedAs[0].scans[0].should.have.property("scanName");
-                    result.embodiedAs[0].scans[0].should.have.property("status", enums.status.notOcrProcessed);
-                    result.embodiedAs[0].scans[0].should.have.property("textualPdf", false);
-                    result.should.have.property("title", "Handbuch der empirischen Sozialforschung /");
-                    result.should.have.property("publicationYear", "19uu");
-                    var scanPath = config.PATHS.UPLOAD + result.embodiedAs[0].scans[0].scanName;
+                    result[0].should.have.property("embodiedAs");
+                    result[0].embodiedAs.should.be.Array;
+                    result[0].embodiedAs.should.have.lengthOf(1);
+                    result[0].embodiedAs[0].should.have.property("scans");
+                    result[0].embodiedAs[0].scans.should.be.Array;
+                    result[0].embodiedAs[0].scans.should.have.lengthOf(1);
+                    result[0].embodiedAs[0].scans[0].should.have.property("scanName");
+                    result[0].embodiedAs[0].scans[0].should.have.property("status", enums.status.notOcrProcessed);
+                    result[0].embodiedAs[0].scans[0].should.have.property("textualPdf", false);
+                    result[0].should.have.property("title", "Handbuch der empirischen Sozialforschung /");
+                    result[0].should.have.property("publicationYear", "19uu");
+                    var scanPath = config.PATHS.UPLOAD + result[0].embodiedAs[0].scans[0].scanName;
                     fs.exists(scanPath, function(res){
                         res.should.equal(true);
-                        mongoBr.findOne({_id: result._id}, function(err, br){
+                        mongoBr.findOne({_id: result[0]._id}, function(err, br){
                             br.should.be.ok;
-                            result.should.have.property("embodiedAs");
+                            result[0].should.have.property("embodiedAs");
                             br.embodiedAs.should.be.Array;
                             br.embodiedAs.should.have.lengthOf(1);
                             br.embodiedAs[0].should.have.property("scans");
@@ -114,34 +114,34 @@ describe('helpers', function() {
                 });
             });
 
-            it.skip('should save a scan in the file system and save br and scan in the db', function(done) {
+            it('should save a scan in the file system and save br and scan in the db', function(done) {
                 databaseHelper.saveIndependentPrintResource(scan, ppnIndependent, enums.resourceType.monograph, true, function(err, result){
                     console.log(result);
                     should.not.exists(err);
-                    result.should.have.property("embodiedAs");
-                    result.embodiedAs.should.be.Array;
-                    result.embodiedAs.should.have.lengthOf(1);
-                    result.embodiedAs[0].should.have.property("scans");
-                    result.embodiedAs[0].scans.should.be.Array;
-                    result.embodiedAs[0].scans.should.have.lengthOf(2);
-                    result.embodiedAs[0].scans[0].should.have.property("scanName");
-                    result.embodiedAs[0].scans[0].should.have.property("status", enums.status.notOcrProcessed);
-                    result.embodiedAs[0].scans[0].should.have.property("textualPdf", true);
-                    result.should.have.property("title", "Handbuch der empirischen Sozialforschung /");
-                    result.should.have.property("publicationYear", "19uu");
-                    var scanPath = config.PATHS.UPLOAD + result.embodiedAs[0].scans[0].scanName;
+                    result[0].should.have.property("embodiedAs");
+                    result[0].embodiedAs.should.be.Array;
+                    result[0].embodiedAs.should.have.lengthOf(1);
+                    result[0].embodiedAs[0].should.have.property("scans");
+                    result[0].embodiedAs[0].scans.should.be.Array;
+                    result[0].embodiedAs[0].scans.should.have.lengthOf(2);
+                    result[0].embodiedAs[0].scans[1].should.have.property("scanName");
+                    result[0].embodiedAs[0].scans[1].should.have.property("status", enums.status.notOcrProcessed);
+                    result[0].embodiedAs[0].scans[1].should.have.property("textualPdf", true);
+                    result[0].should.have.property("title", "Handbuch der empirischen Sozialforschung /");
+                    result[0].should.have.property("publicationYear", "19uu");
+                    var scanPath = config.PATHS.UPLOAD + result[0].embodiedAs[0].scans[1].scanName;
                     fs.exists(scanPath, function(res){
                         res.should.equal(true);
-                        mongoBr.findOne({_id: result._id}, function(err, br){
+                        mongoBr.findOne({_id: result[0]._id}, function(err, br){
                             br.should.be.ok;
-                            result.should.have.property("embodiedAs");
+                            result[0].should.have.property("embodiedAs");
                             br.embodiedAs.should.be.Array;
                             br.embodiedAs.should.have.lengthOf(1);
                             br.embodiedAs[0].should.have.property("scans");
                             br.embodiedAs[0].scans.should.be.Array;
                             br.embodiedAs[0].scans.should.have.lengthOf(2);
-                            br.embodiedAs[0].scans[0].should.have.property("scanName");
-                            br.embodiedAs[0].scans[0].should.have.property("status", enums.status.notOcrProcessed);
+                            br.embodiedAs[0].scans[1].should.have.property("scanName");
+                            br.embodiedAs[0].scans[1].should.have.property("status", enums.status.notOcrProcessed);
                             br.should.have.property("title", "Handbuch der empirischen Sozialforschung /");
                             br.should.have.property("publicationYear", "19uu");
                             done();

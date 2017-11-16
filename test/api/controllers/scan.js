@@ -64,6 +64,7 @@ describe('controllers', function () {
                         res.body[1].embodiedAs[0].scans.should.have.lengthOf(1);
                         res.body[1].embodiedAs[0].scans[0].should.have.property("status", status.notOcrProcessed);
                         res.body[1].embodiedAs[0].scans[0].should.have.property("textualPdf", false);
+                        res.body[2].should.deepEqual(res.body[1].embodiedAs[0].scans[0]);
                         res.body[1].should.have.property("partOf");
                         res.body[0]._id.should.be.exactly(res.body[1].partOf);
                         should(fs.existsSync(config.PATHS.UPLOAD)).equal(true);
@@ -102,6 +103,7 @@ describe('controllers', function () {
                         res.body[1].embodiedAs[0].scans.should.have.lengthOf(1);
                         res.body[1].embodiedAs[0].scans[0].should.have.property("textualPdf", true);
                         res.body[1].embodiedAs[0].scans[0].should.have.property("status", status.notOcrProcessed);
+                        res.body[2].should.deepEqual(res.body[1].embodiedAs[0].scans[0]);
                         res.body[1].should.have.property("partOf");
                         res.body[0]._id.should.be.exactly(res.body[1].partOf);
                         should(fs.existsSync(config.PATHS.UPLOAD)).equal(true);
@@ -143,6 +145,7 @@ describe('controllers', function () {
                         res.body[1].embodiedAs[0].scans.should.have.lengthOf(1);
                         res.body[1].embodiedAs[0].scans[0].should.have.property("textualPdf", false);
                         res.body[1].embodiedAs[0].scans[0].should.have.property("status", status.notOcrProcessed);
+                        res.body[2].should.deepEqual(res.body[1].embodiedAs[0].scans[0]);
                         res.body[1].should.have.property("partOf");
                         res.body[0]._id.should.be.exactly(res.body[1].partOf);
                         should(fs.existsSync(config.PATHS.UPLOAD)).equal(true);
@@ -180,6 +183,7 @@ describe('controllers', function () {
                         res.body[1].embodiedAs[0].scans.should.have.lengthOf(1);
                         res.body[1].embodiedAs[0].scans[0].should.have.property("textualPdf", false);
                         res.body[1].embodiedAs[0].scans[0].should.have.property("status", status.notOcrProcessed);
+                        res.body[2].should.deepEqual(res.body[1].embodiedAs[0].scans[0]);
                         res.body[1].should.have.property("partOf");
                         res.body[0]._id.should.be.exactly(res.body[1].partOf);
                         should(fs.existsSync(config.PATHS.UPLOAD)).equal(true);
@@ -207,21 +211,22 @@ describe('controllers', function () {
                     .expect(200)
                     .end(function (err, res) {
                         should.not.exist(err);
-                        res.body.should.not.be.Array;
-                        res.body.should.have.property("embodiedAs");
-                        res.body.embodiedAs.should.be.Array;
-                        res.body.embodiedAs.should.have.lengthOf(1);
-                        res.body.embodiedAs[0].should.have.property("scans");
-                        res.body.embodiedAs[0].scans.should.be.Array;
-                        res.body.embodiedAs[0].scans.should.have.lengthOf(1);
-                        res.body.embodiedAs[0].scans[0].should.have.property("scanName");
-                        res.body.embodiedAs[0].scans[0].should.have.property("status", status.notOcrProcessed);
-                        res.body.should.have.property("title", "Handbuch der empirischen Sozialforschung /");
-                        res.body.should.have.property("publicationYear", "19uu");
-                        var scanPath = config.PATHS.UPLOAD + res.body.embodiedAs[0].scans[0].scanName;
+                        res.body.should.be.Array;
+                        res.body[0].should.have.property("embodiedAs");
+                        res.body[0].embodiedAs.should.be.Array;
+                        res.body[0].embodiedAs.should.have.lengthOf(1);
+                        res.body[0].embodiedAs[0].should.have.property("scans");
+                        res.body[0].embodiedAs[0].scans.should.be.Array;
+                        res.body[0].embodiedAs[0].scans.should.have.lengthOf(1);
+                        res.body[0].embodiedAs[0].scans[0].should.have.property("scanName");
+                        res.body[0].embodiedAs[0].scans[0].should.have.property("status", status.notOcrProcessed);
+                        res.body[1].should.deepEqual(res.body[0].embodiedAs[0].scans[0]);
+                        res.body[0].should.have.property("title", "Handbuch der empirischen Sozialforschung /");
+                        res.body[0].should.have.property("publicationYear", "19uu");
+                        var scanPath = config.PATHS.UPLOAD + res.body[0].embodiedAs[0].scans[0].scanName;
                         fs.exists(scanPath, function(result){
                             result.should.equal(true);
-                            mongoBr.findOne({_id: res.body._id}, function(err, br){
+                            mongoBr.findOne({_id: res.body[0]._id}, function(err, br){
                                 br.should.be.ok;
                                 br.should.have.property("embodiedAs");
                                 br.embodiedAs.should.be.Array;
