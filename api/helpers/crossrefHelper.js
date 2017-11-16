@@ -210,9 +210,8 @@ CrossrefHelper.prototype.parseObjects = function(objects, callback){
                 var referenceYear = reference.year ? reference.year : "";
                 var referenceJournal = reference['journal-title'] ? reference['journal-title'] : "";
                 var referenceVolume = reference.volume ? reference.volume : "";
-                if(reference['first-page']){
-                    var referenceComments = "First page: " + reference['first-page'];
-                }
+                var referenceComments = reference['first-page']? "First page: " + reference['first-page'] : "";
+
 
                 if(referenceTitle === ""){
                     referenceTitle = reference['volume-title'] ? reference['volume-title'] : "";
