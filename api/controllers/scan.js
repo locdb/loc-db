@@ -15,6 +15,8 @@ const path = require('path');
 const databaseHelper = require('./../helpers/databaseHelper.js').createDatabaseHelper();
 
 
+
+
 function saveScan(req, res) {
     var response = res;
     var scan = req.swagger.params.scan.value;
@@ -33,7 +35,7 @@ function saveScan(req, res) {
             return response.json(res);
         });
     }else if(resourceType == enums.resourceType.journal
-        || resourceType == enums.resourceType.collection) {
+        || resourceType == enums.resourceType.bookChapter || resourceType == enums.resourceType.proceedingsArticle) {
         databaseHelper.saveDependentPrintResource(scan, firstPage, lastPage, ppn, resourceType, textualPdf, function (err, res) {
             if(err){
                 errorlog.error(err);

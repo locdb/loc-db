@@ -511,7 +511,9 @@ paths:
           description: The type of the resource.
           required: true
           type: string
-          enum: [MONOGRAPH, JOURNAL, COLLECTION]
+          enum: [BOOK, BOOK_CHAPTER, BOOK_PART, BOOK_SECTION, BOOK_SERIES, BOOK_SET,
+           BOOK_TRACK, COMPONENT, DATASET, DISSERTATION, EDITED_BOOK, JOURNAL_ARTICLE, JOURNAL_ISSUE, JOURNAL_VOLUME,
+            MONOGRAPH, JOURNAL, PROCEEDINGS_ARTICLE, PROCEEDINGS, REFERENCE_BOOK, REFERENCE_ENTRY, REPORT_SERIES, REPORT, STANDARD_SERIES, STANDARD]
       responses:
         "200":
           description: Success

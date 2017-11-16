@@ -151,7 +151,7 @@ describe('helpers', function() {
             });
         });
 
-        describe('saveDependentPrintResource', function(){
+        describe.skip('saveDependentPrintResource', function(){
             var parentId;
             var childId;
 
