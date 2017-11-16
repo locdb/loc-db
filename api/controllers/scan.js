@@ -96,7 +96,10 @@ function saveScanForElectronicJournal(req, res) {
                         errorlog.log(err);
                         return response.status(500).json(err);
                     }
-                    return response.status(200).json(result);
+                    databaseHelper.findScanByScanName(result, scan.scanName, function(err, scan){
+                        var res = [result, scan];
+                        return response.status(200).json(res);
+                    });
                 });
             });
         });
@@ -136,7 +139,10 @@ function saveScanForElectronicJournal(req, res) {
                         errorlog.log(err);
                         return response.status(500).json(err);
                     }
-                    return response.status(200).json(result);
+                    databaseHelper.findScanByScanName(result, scan.scanName, function(err, scan){
+                        var res = [result, scan];
+                        return response.status(200).json(res);
+                    });
                 });
             });
         });

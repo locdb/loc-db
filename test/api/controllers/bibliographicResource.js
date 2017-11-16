@@ -513,16 +513,17 @@ describe('controllers', function() {
                   .expect(200)
                   .end(function (err, res) {
                       should.not.exist(err);
-                      res.body.should.be.Object;
-                      res.body.should.have.property("partOf");
-                      res.body.should.have.property("status", enums.status.valid);
-                      res.body.should.have.property("partOf");
-                      res.body.should.have.property("embodiedAs");
-                      res.body.embodiedAs.should.have.lengthOf(1);
-                      res.body.embodiedAs[0].should.have.property("scans");
-                      res.body.embodiedAs[0].scans.should.have.lengthOf(1);
-                      res.body.embodiedAs[0].scans[0].should.have.property("status", enums.status.notOcrProcessed);
-                      res.body.embodiedAs[0].scans[0].should.have.property("textualPdf", false);
+                      res.body.should.be.Array;
+                      res.body[0].should.have.property("partOf");
+                      res.body[0].should.have.property("status", enums.status.valid);
+                      res.body[0].should.have.property("partOf");
+                      res.body[0].should.have.property("embodiedAs");
+                      res.body[0].embodiedAs.should.have.lengthOf(1);
+                      res.body[0].embodiedAs[0].should.have.property("scans");
+                      res.body[0].embodiedAs[0].scans.should.have.lengthOf(1);
+                      res.body[0].embodiedAs[0].scans[0].should.have.property("status", enums.status.notOcrProcessed);
+                      res.body[0].embodiedAs[0].scans[0].should.have.property("textualPdf", false);
+                      res.body[1].should.deepEqual(res.body[0].embodiedAs[0].scans[0]);
                       done();
                   });
           });
@@ -540,16 +541,17 @@ describe('controllers', function() {
                   .expect(200)
                   .end(function (err, res) {
                       should.not.exist(err);
-                      res.body.should.be.Object;
-                      res.body.should.have.property("partOf");
-                      res.body.should.have.property("status", enums.status.valid);
-                      res.body.should.have.property("partOf");
-                      res.body.should.have.property("embodiedAs");
-                      res.body.embodiedAs.should.have.lengthOf(1);
-                      res.body.embodiedAs[0].should.have.property("scans");
-                      res.body.embodiedAs[0].scans.should.have.lengthOf(1);
-                      res.body.embodiedAs[0].scans[0].should.have.property("status", enums.status.notOcrProcessed);
-                      res.body.embodiedAs[0].scans[0].should.have.property("textualPdf", true);
+                      res.body.should.be.Array;
+                      res.body[0].should.have.property("partOf");
+                      res.body[0].should.have.property("status", enums.status.valid);
+                      res.body[0].should.have.property("partOf");
+                      res.body[0].should.have.property("embodiedAs");
+                      res.body[0].embodiedAs.should.have.lengthOf(1);
+                      res.body[0].embodiedAs[0].should.have.property("scans");
+                      res.body[0].embodiedAs[0].scans.should.have.lengthOf(1);
+                      res.body[0].embodiedAs[0].scans[0].should.have.property("status", enums.status.notOcrProcessed);
+                      res.body[0].embodiedAs[0].scans[0].should.have.property("textualPdf", true);
+                      res.body[1].should.deepEqual(res.body[0].embodiedAs[0].scans[0]);
                       done();
                   });
           });
