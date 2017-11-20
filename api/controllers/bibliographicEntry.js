@@ -83,9 +83,12 @@ function update(req, res) {
         for (var be of br.parts) {
             if (be._id.toString() === id) {
                 var index = br.parts.indexOf(be);
-                extend(true, be, update);
-                br.parts[index] = be;
-                br.save().then(function (result) {
+                //extend(true, be, update);
+
+                //be._id = id;
+                update._id = be._id;
+                br.parts[index] = update;
+                return br.save().then(function (result) {
                     for (var be of br.parts) {
                         if (be._id.toString() === id) {
                             return response.json(be);
