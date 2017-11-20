@@ -9,7 +9,10 @@
   "identifier": {
     "isbn": "ISBN",
     "issn": "ISSN",
-    "ppn" : "PPN",
+    "swb_ppn" : "SWB_PPN",
+    "olc_ppn" : "OLC_PPN",
+    "zdb_ppn" : "ZDB_PPN",
+    "ppn": "PPN",
     "doi" : "DOI"
   },
   "roleType": {

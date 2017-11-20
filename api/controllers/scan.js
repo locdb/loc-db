@@ -15,7 +15,9 @@ const path = require('path');
 const databaseHelper = require('./../helpers/databaseHelper.js').createDatabaseHelper();
 
 
-
+function saveResource(req, res) {
+    return res.status(400).json("To be implemented.");
+}
 
 function saveScan(req, res) {
     var response = res;
@@ -757,5 +759,6 @@ module.exports = {
     getToDo: getToDo,
     triggerOcrProcessing: triggerOcrProcessing,
     get: get,
-    remove: remove
+    remove: remove,
+    saveResource: saveResource
 };
