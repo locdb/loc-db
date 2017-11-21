@@ -102,9 +102,11 @@ describe('controllers', function() {
         describe('PUT /bibliographicEntries/{id}', function () {
 
             it('should return a single updated bibliographic entry', function (done) {
-
+                this.timeout(10000000);
                 var update = `{
-                        "identifiers":[],
+                        "identifiers":[
+                            {"scheme":"DOI", "literalValue": "Test"}
+                        ],
                         "bibliographicEntryText": "TEST ENTRY 1 -- UPDATED",
                         "ocrData": {
                             "coordinates": "714 317 2238 356",
@@ -125,7 +127,10 @@ describe('controllers', function() {
                     .expect(200)
                     .end(function (err, res) {
                         console.log(res.body);
-                        update._id = id;
+                        res.body.should.have.property("identifiers");
+                        res.body.identifiers.should.have.lengthOf(1);
+                        update._id = res.body._id;
+                        update.identifiers[0]._id = res.body.identifiers[0]._id;
                         res.body.should.deepEqual(update);
                         should.not.exist(err);
                         done();

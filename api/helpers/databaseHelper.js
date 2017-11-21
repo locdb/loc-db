@@ -119,7 +119,7 @@ DatabaseHelper.prototype.saveDependentPrintResource = function(scan, firstPage, 
             }, function (err, child) {
                 // the parent resource already exists, the sub resource already exists, apparently, the user is just adding another scan page
                 if(child){
-                    self.saveScan(scan, textualPdf, function(err,result){
+                    self.saveScan(scan, textualPdf, function(err,scan){
                         if(err){
                             errorlog.error(err);
                             return callback(err, null);
@@ -127,7 +127,7 @@ DatabaseHelper.prototype.saveDependentPrintResource = function(scan, firstPage, 
                         for(var embodiment of child.embodiedAs){
                             if(embodiment.type == enums.embodimentType.print && embodiment.firstPage == firstPage
                             && embodiment.lastPage == lastPage){
-                                embodiment.scans.push(result);
+                                embodiment.scans.push(scan);
                                 break;
                             }
                         }

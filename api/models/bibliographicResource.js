@@ -7,75 +7,74 @@ const enums = require('./../schema/enum.json');
 const mongoosastic = require('mongoosastic');
 const config = require('./../../config/config');
 
+
+const identifiersSchema = new Schema({
+    literalValue: String,
+    scheme: String
+});
+
+const beSchema = new Schema({
+    identifiers: [identifiersSchema],
+    bibliographicEntryText: String,
+    references: String,
+    scanId: String,
+    status: {type: String, enum: [enums.status.ocrProcessed, enums.status.valid, enums.status.external]},
+    ocrData:{
+        coordinates: String,
+        authors: [String], // maybe use contributors thingy later
+        title: String,
+        date: String,
+        marker: String,
+        comments: String,
+        journal: String,
+        volume: String
+    }
+});
+
+const scanSchema = new Schema({
+    scanName: String,
+    xmlName: String,
+    textualPdf: Boolean,
+    status: {type: String, enum: [enums.status.notOcrProcessed, enums.status.ocrProcessing, enums.status.ocrProcessed, enums.status.valid]},
+});
+
+const resourceEmbodimentSchema = new Schema({ // Resource Embodiment
+    identifiers: [identifiersSchema],
+    type: {type: String}, // digital or print
+    format: String, // IANA media type
+    firstPage: Number,
+    lastPage: Number,
+    url: String,
+    scans:[scanSchema]
+});
+
+const agentRoleSchema = new Schema({
+    identifiers: [identifiersSchema],
+    roleType: String,
+    heldBy:{
+        identifiers: [identifiersSchema],
+        nameString: String,
+        givenName: String,
+        familyName: String
+    },
+    next: String // This is not necessary for now, as we are using an array
+});
+
 const brSchema = new Schema({
-    identifiers: [{
-        literalValue: String,
-        scheme: String
-    }],
+    identifiers: [identifiersSchema],
     type: {type: String},
     title: String,
     subtitle: String,
     edition: String,
     number: String, // e.g. number of an article in journal
-    contributors: [{
-        identifiers: [{
-            literalValue: String,
-            scheme: String
-        }],
-        roleType: String,
-        heldBy:{
-            identifiers: [{
-                literalValue: String,
-                scheme: String
-            }],
-            nameString: String,
-            givenName: String,
-            familyName: String
-        },
-        next: String // This is not necessary for now, as we are using an array
-    }],
+    contributors: [agentRoleSchema],
     publicationYear: String,
     cites: [String], // reference entries
     partOf: String, // link to other br
     containerTitle: String,
     status: {type: String, enum: [enums.status.external, enums.status.valid]},
-    parts: [{
-        identifiers: [{
-            literalValue: String,
-            scheme: String
-        }],
-        bibliographicEntryText: String,
-        references: String,
-        scanId: String,
-        status: {type: String, enum: [enums.status.ocrProcessed, enums.status.valid, enums.status.external]},
-        ocrData:{
-            coordinates: String,
-            authors: [String], // maybe use contributors thingy later
-            title: String,
-            date: String,
-            marker: String,
-            comments: String,
-            journal: String,
-            volume: String
-        }
-    }], // links to other brs
-    embodiedAs: [{ // Resource Embodiment
-        identifiers: [{
-            literalValue: String,
-            scheme: String
-        }],
-        type: {type: String}, // digital or print
-        format: String, // IANA media type
-        firstPage: Number,
-        lastPage: Number,
-        url: String,
-        scans:[{
-            scanName: String,
-            xmlName: String,
-            textualPdf: Boolean,
-            status: {type: String, enum: [enums.status.notOcrProcessed, enums.status.ocrProcessing, enums.status.ocrProcessed, enums.status.valid]},
-        }]
-    }]
+    parts: [beSchema], // links to other brs
+    embodiedAs: [resourceEmbodimentSchema]
 });
 
 // we want to run a single elastic for the beginning. As the model name corresponds to the index name in elastic, we make
