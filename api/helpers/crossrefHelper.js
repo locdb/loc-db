@@ -10,6 +10,7 @@ const enums = require('./../schema/enum.json');
 const errorlog = require('./../util/logger.js').errorlog;
 const stringSimilarity = require('string-similarity');
 const removeDiacritics = require('diacritics').remove;
+const utf8 = require('utf8');
 
 var CrossrefHelper = function(){
 };
@@ -47,6 +48,7 @@ CrossrefHelper.prototype.query = function(query, callback){
 CrossrefHelper.prototype.queryChapterMetaData = function(containerTitle, firstPage, lastPage, callback){
     var self = this;
     // TODO: remove this, when they have fixed the issue
+    containerTitle = utf8.encode(containerTitle);
     containerTitle = removeDiacritics(containerTitle);
     crossref.works({"query.container-title": containerTitle, mailto:"anne@informatik.uni-mannheim.de"}, (err, objs, nextOpts, done) => {
         if (err) {
