@@ -9,6 +9,7 @@ const ResourceEmbodiment = require('./../schema/resourceEmbodiment.js');
 const enums = require('./../schema/enum.json');
 const errorlog = require('./../util/logger.js').errorlog;
 const stringSimilarity = require('string-similarity');
+const removeDiacritics = require('diacritics').remove;
 
 var CrossrefHelper = function(){
 };
@@ -21,7 +22,7 @@ var CrossrefHelper = function(){
 CrossrefHelper.prototype.query = function(query, callback){
     var self = this;
     // TODO: remove this, when they have fixed the issue
-    query = self.replaceSpecialCharacters(query);
+    query = removeDiacritics(query);
     crossref.works({query: query, mailto:"anne@informatik.uni-mannheim.de"}, (err, objs, nextOpts, done) => {
         if (err) {
             errorlog.error(err);
@@ -46,7 +47,7 @@ CrossrefHelper.prototype.query = function(query, callback){
 CrossrefHelper.prototype.queryChapterMetaData = function(containerTitle, firstPage, lastPage, callback){
     var self = this;
     // TODO: remove this, when they have fixed the issue
-    containerTitle = self.replaceSpecialCharacters(containerTitle);
+    containerTitle = removeDiacritics(containerTitle);
     crossref.works({"query.container-title": containerTitle, mailto:"anne@informatik.uni-mannheim.de"}, (err, objs, nextOpts, done) => {
         if (err) {
             errorlog.error(err);
@@ -100,7 +101,7 @@ CrossrefHelper.prototype.queryReferences = function(doi, query, callback){
         });
     }else if(query != null){
         // TODO: remove this, when they have fixed the issue
-        query = self.replaceSpecialCharacters(query);
+        query = removeDiacritics(query);
         crossref.works({query: query, filter:{"has-references" : true}, mailto: "anne@informatik.uni-mannheim.de"}, (err, objs, nextOpts, done) => {
             if (err) {
                 errorlog.error(err);
@@ -260,14 +261,6 @@ CrossrefHelper.prototype.parseObjects = function(objects, callback){
         res.push(bibliographicResource.toObject());
     }
     callback(null, res);
-};
-
-CrossrefHelper.prototype.replaceSpecialCharacters = function(str){
-    str = str.replace('ä','ae');
-    str = str.replace('ö','oe');
-    str = str.replace('ü','ue');
-    str = str.replace('ß','ss');
-    return str;
 };
 
 /**
