@@ -56,7 +56,7 @@ function saveResource(req, res) {
                     if(identifier.scheme !== enums.identifier.zdb_ppn || stringFile || binaryFile || firstPage || lastPage){
                         return response.status(400).json({"message": "In order to create a journal resource in the db, provide the zdb ppn."})
                     }else{
-                        swbHelper.query(identifier.literalValue, resourceType, function (err, resource) {
+                        return swbHelper.query(identifier.literalValue, resourceType, function (err, resource) {
                             if(err){
                                 errorlog.error(err);
                                 return response.status(500).json(err);
@@ -65,7 +65,7 @@ function saveResource(req, res) {
                             // we are done
                             // TODO: Or do we have to do anything else now?
                             resource.identifiers.push(identifier);
-                            mongoBr.save(resource, function(err, resource){
+                            mongoBr.create(resource, function(err, resource){
                                 if(err){
                                     errorlog.log(err);
                                     return response.status(500).json(err);

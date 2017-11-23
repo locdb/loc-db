@@ -509,5 +509,25 @@ describe.only('controllers', function () {
                     });
             });
         });
+
+        describe('POST /saveResource - Resource Type: Journal', function () {
+            this.timeout(1000000);
+            it('should create a journal in the db', function (done) {
+                agent
+                    .post('/saveResource')
+                    .type('form')
+                    .field('identifierScheme', 'ZDB_PPN')
+                    .field('identifierLiteralValue', '012893803')
+                    .field('resourceType', resourceType.journal)
+                    .set('Accept', 'application/json')
+                    .expect('Content-Type', /json/)
+                    .expect(200)
+                    .end(function (err, res) {
+                        should.not.exist(err);
+                        res.body.should.have.property("title", "Bibliothek der Soziologie und Politik");
+                        done();
+                    });
+            });
+        });
     });
 });
