@@ -117,7 +117,7 @@ Marc21Helper.prototype.extractData = function(records, callback){
                         "scheme": enums.identifier.lccn});
                 }
             }
-        }else if(field._tag == "024"){
+        }/*else if(field._tag == "024"){
             for(var subfield of field._subfields){
                 if(subfield._code == "a"){
                     var re = /10.\d{4,9}\/[-._;()\/:(a-z)(A-Z)\d]+$/;
@@ -126,6 +126,13 @@ Marc21Helper.prototype.extractData = function(records, callback){
                             "scheme": enums.identifier.doi});
                     }
                 }
+            }*/
+        else if (field._tag === "024" && field._indicator1 && field._indicator1 === "7") {
+            if (field.subfields.length >= 2 && field.subfields[0]._code === "2" && field.subfields[0]._data.toLowerCase() === "doi") {
+                cleanedObject.identifiers.push({
+                    "literalValue": field.subfields[1]._data,
+                    "scheme": enums.identifier.doi
+                });
             }
         }else if(field._tag == "856"){
             for(var subfield of field._subfields){

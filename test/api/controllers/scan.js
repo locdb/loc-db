@@ -567,6 +567,8 @@ describe.only('controllers', function () {
                         res.body.identifiers[0].should.have.property("literalValue", "2002-227367");
                         res.body.identifiers[1].should.have.property("scheme", enums.identifier.zdb_id);
                         res.body.identifiers[1].should.have.property("literalValue", "2026606-6");
+                        res.body.identifiers[3].should.have.property("scheme", enums.identifier.doi);
+                        res.body.identifiers[3].should.have.property("literalValue", "10.1111/(ISSN)1741-3729");
                         res.body.should.have.property("type", enums.resourceType.journal);
                         done();
                     });
