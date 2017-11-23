@@ -78,18 +78,18 @@ Marc21Helper.prototype.extractData = function(records, callback){
 
     for(var field of dataFields) {
         //Titles
-        if (field._tag == "245") {
+        if (field._tag === "245") {
             for (var subfield of field._subfields) {
-                if (subfield._code == "a") {
+                if (subfield._code === "a") {
                     cleanedObject.title = subfield._data;
-                } else if (subfield._code == "b") {
+                } else if (subfield._code === "b") {
                     cleanedObject.subtitle = subfield._data;
                 }
             }
             // Identifiers
-        } else if (field._tag == "020") {
+        } else if (field._tag === "020") {
             for (var subfield of field._subfields) {
-                if (subfield._code == "a") {
+                if (subfield._code === "a") {
                     cleanedObject.identifiers.push({
                         "literalValue": subfield._data,
                         "scheme": enums.identifier.isbn
@@ -105,14 +105,14 @@ Marc21Helper.prototype.extractData = function(records, callback){
             }
         }else if(field._tag == "022"){
             for(var subfield of field._subfields){
-                if(subfield._code == "a"){
+                if(subfield._code === "a"){
                     cleanedObject.identifiers.push({"literalValue": subfield._data,
                         "scheme": enums.identifier.issn});
                 }
             }
-        }else if(field._tag == "010"){
+        }else if(field._tag === "010"){
             for(var subfield of field._subfields){
-                if(subfield._code == "a"){
+                if(subfield._code === "a"){
                     cleanedObject.identifiers.push({"literalValue": subfield._data,
                         "scheme": enums.identifier.lccn});
                 }
@@ -134,42 +134,42 @@ Marc21Helper.prototype.extractData = function(records, callback){
                     "scheme": enums.identifier.doi
                 });
             }
-        }else if(field._tag == "856"){
+        }else if(field._tag === "856"){
             for(var subfield of field._subfields){
-                if(subfield._code == "u"){
+                if(subfield._code === "u"){
                     cleanedObject.identifiers.push({"literalValue": subfield._data,
                         "scheme": enums.identifier.uri});
                 }
             }
         }
         //Genre/Form
-        else if(field._tag == "655"){
+        else if(field._tag === "655"){
             for(var subfield of field._subfields){
-                if(subfield._code == "a"){
+                if(subfield._code === "a"){
                     cleanedObject.type = subfield._data;
                 }
             }
             // Edition
-        }else if(field._tag == "250"){
+        }else if(field._tag === "250"){
             for(var subfield of field._subfields){
-                if(subfield._code == "a"){
+                if(subfield._code === "a"){
                     cleanedObject.edition = subfield._data;
                 }
             }
             // Number
-        }else if(field._tag == "773"){
+        }else if(field._tag === "773"){
             for(var subfield of field._subfields){
-                if(subfield._code == "g"){
+                if(subfield._code === "g"){
                     cleanedObject.number = subfield._data;
-                }else if(subfield._code == "x"){
+                }else if(subfield._code === "x"){
                     cleanedObject.identifiers.push({"literalValue": subfield._data,
                         "scheme": enums.identifier.issn});
                 }
             }
             // Contributors
-        }else if(field._tag == "100"){
+        }else if(field._tag === "100"){
             for(var subfield of field._subfields){
-                if(subfield._code == "a"){
+                if(subfield._code === "a"){
                     var contributor = {};
                     contributor.roleType = enums.roleType.author;
                     contributor.heldBy = {};
@@ -181,9 +181,9 @@ Marc21Helper.prototype.extractData = function(records, callback){
                     cleanedObject.contributors.push(contributor);
                 }
             }
-        }else if(field._tag == "110"){
+        }else if(field._tag === "110"){
             for(var subfield of field._subfields){
-                if(subfield._code == "a"){
+                if(subfield._code === "a"){
                     var contributor = {};
                     contributor.roleType = enums.roleType.corporate;
                     contributor.heldBy = {};
@@ -192,9 +192,9 @@ Marc21Helper.prototype.extractData = function(records, callback){
                     cleanedObject.contributors.push(contributor);
                 }
             }
-        }else if(field._tag == "111"){
+        }else if(field._tag === "111"){
             for(var subfield of field._subfields){
-                if(subfield._code == "a"){
+                if(subfield._code === "a"){
                     var contributor = {};
                     contributor.roleType = enums.roleType.congress;
                     contributor.heldBy = {};
@@ -203,9 +203,9 @@ Marc21Helper.prototype.extractData = function(records, callback){
                     cleanedObject.contributors.push(contributor);
                 }
             }
-        }else if(field._tag == "260"){
+        }else if(field._tag === "260"){
             for(var subfield of field._subfields){
-                if(subfield._code == "b"){
+                if(subfield._code === "b"){
                     var contributor = {};
                     contributor.roleType = enums.roleType.publisher;
                     contributor.heldBy = {};
@@ -214,9 +214,9 @@ Marc21Helper.prototype.extractData = function(records, callback){
                     cleanedObject.contributors.push(contributor);
                 }
             }
-        }else if(field._tag == "264"){
+        }else if(field._tag === "264"){
             for(var subfield of field._subfields){
-                if(subfield._code == "b"){
+                if(subfield._code === "b"){
                     var contributor = {};
                     contributor.roleType = enums.roleType.publisher;
                     contributor.heldBy = {};
@@ -230,27 +230,24 @@ Marc21Helper.prototype.extractData = function(records, callback){
 
     // publicationYear
     for(var field of controlFields){
-        if(field._tag == "008"){
+        if(field._tag === "008"){
             cleanedObject.publicationYear = field._data.substring(7,11);
         }
     }
 
-    //LEADER
-    if(leader._typeOfRecord && leader._typeOfRecord.toLowerCase() == "m"){
-        //TODO: Fix this mess --> adapt to new data model!
+/*    //LEADER
+    if(leader._typeOfRecord && leader._typeOfRecord.toLowerCase() === "m"){
         // cleanedObject.embodiedAs = "Digital";
     }else if(leader._typeOfRecord
-        && (leader._typeOfRecord.toLowerCase() == "a"
-        || leader._typeOfRecord.toLowerCase() == "c"
-        || leader._typeOfRecord.toLowerCase() == "e")){
+        && (leader._typeOfRecord.toLowerCase() === "a"
+        || leader._typeOfRecord.toLowerCase() === "c"
+        || leader._typeOfRecord.toLowerCase() === "e")){
         // cleanedObject.embodiedAs = "Print";
-    }else if(leader._bibliographicLevel && leader._bibliographicLevel.toLowerCase() == "a"){
-        //TODO: Fix this mess --> adapt to new data model!
+    }else if(leader._bibliographicLevel && leader._bibliographicLevel.toLowerCase() === "a"){
         //cleanedObject.type = "Monograph";
     }else if(leader._bibliographicLevel && leader._bibliographicLevel.toLowerCase() == "s"){
-        //TODO: Fix this mess --> adapt to new data model!
         //cleanedObject.type = "Serial";
-    }
+    }*/
     callback(null, cleanedObject);
 }
 
