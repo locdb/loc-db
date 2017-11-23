@@ -17,6 +17,7 @@
     "doi" : "DOI",
     "lccn": "LCCN",
     "gndId": "GND_ID",
+    "swbGndId": "SWB_GND_ID",
     "oclcId": "OCLC_ID",
     "uri": "URI"
   },

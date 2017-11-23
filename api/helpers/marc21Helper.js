@@ -222,21 +222,77 @@ Marc21Helper.prototype.extractData = function(records, callback){
                     cleanedObject.contributors.push(contributor);
                 }
             }
-        }else if(field._tag === "710"){
-            if(field.subfields[0]._code === "0" && field.subfields[0]._data.split("(DE-588)").length === 2){
-                var contributor = {};
-                contributor.roleType = enums.roleType.author;
-                contributor.heldBy = {};
-                contributor.heldBy.identifiers = [{scheme: enums.identifier.gndId, literalValue: field.subfields[0]._data.split("(DE-588)")[1]}];
-                for(var subfield of field._subfields) {
-                    if (subfield._code === "a") {
-                        contributor.heldBy.nameString = subfield._data;
-                        break;
+        }else if(field._tag === "700"){
+            var contributor = {};
+            contributor.roleType = enums.roleType.author;
+            contributor.heldBy = {};
+            contributor.heldBy.identifiers=[];
+            for(var subfield of field._subfields) {
+                if (subfield._code === "0" && (subfield._data.split("(DE-588)").length === 2 || subfield._data.split("(DE-576)").length === 2)) {
+                    if (subfield._data.split("(DE-588)").length === 2) {
+                        contributor.heldBy.identifiers.push({
+                            scheme: enums.identifier.gndId,
+                            literalValue: subfield._data.split("(DE-588)")[1]
+                        });
+                    } else if (subfield._data.split("(DE-576)").length === 2) {
+                        contributor.heldBy.identifiers.push({
+                            scheme: enums.identifier.swbGndId,
+                            literalValue: subfield._data.split("(DE-576)")[1]
+                        });
                     }
+                }else if (subfield._code === "a") {
+                    var nameArray = subfield._data.split(',');
+                    contributor.heldBy.givenName = nameArray[1] ? nameArray[1].trim() : "";
+                    contributor.heldBy.familyName = nameArray[1] ? nameArray[0].trim() : "";
                 }
-                cleanedObject.contributors.push(contributor);
             }
-
+            cleanedObject.contributors.push(contributor);
+        }else if(field._tag === "710"){
+            var contributor = {};
+            contributor.roleType = enums.roleType.corporate;
+            contributor.heldBy = {};
+            contributor.heldBy.identifiers=[];
+            for(var subfield of field._subfields) {
+                if (subfield._code === "0" && (subfield._data.split("(DE-588)").length === 2 || subfield._data.split("(DE-576)").length === 2)) {
+                    if (subfield._data.split("(DE-588)").length === 2) {
+                        contributor.heldBy.identifiers.push({
+                            scheme: enums.identifier.gndId,
+                            literalValue: subfield._data.split("(DE-588)")[1]
+                        });
+                    } else if (subfield._data.split("(DE-576)").length === 2) {
+                        contributor.heldBy.identifiers.push({
+                            scheme: enums.identifier.swbGndId,
+                            literalValue: subfield._data.split("(DE-576)")[1]
+                        });
+                    }
+                }else if (subfield._code === "a") {
+                    contributor.heldBy.nameString = subfield._data;
+                }
+            }
+            cleanedObject.contributors.push(contributor);
+        }else if(field._tag === "711"){
+            var contributor = {};
+            contributor.roleType = enums.roleType.congress;
+            contributor.heldBy = {};
+            contributor.heldBy.identifiers=[];
+            for(var subfield of field._subfields) {
+                if (subfield._code === "0" && (subfield._data.split("(DE-588)").length === 2 || subfield._data.split("(DE-576)").length === 2)) {
+                    if (subfield._data.split("(DE-588)").length === 2) {
+                        contributor.heldBy.identifiers.push({
+                            scheme: enums.identifier.gndId,
+                            literalValue: subfield._data.split("(DE-588)")[1]
+                        });
+                    } else if (subfield._data.split("(DE-576)").length === 2) {
+                        contributor.heldBy.identifiers.push({
+                            scheme: enums.identifier.swbGndId,
+                            literalValue: subfield._data.split("(DE-576)")[1]
+                        });
+                    }
+                }else if (subfield._code === "a") {
+                    contributor.heldBy.nameString = subfield._data;
+                }
+            }
+            cleanedObject.contributors.push(contributor);
         }
     }
 
