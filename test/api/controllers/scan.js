@@ -549,7 +549,7 @@ describe.only('controllers', function () {
             });
         });
 
-        describe.only('POST /saveResource - Resource Type: Journal', function () {
+        describe('POST /saveResource - Resource Type: Journal', function () {
             this.timeout(1000000);
             it('should take care to extract the right fields from ZDB Marc21', function (done) {
                 agent

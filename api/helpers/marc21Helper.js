@@ -91,14 +91,14 @@ Marc21Helper.prototype.extractData = function(records, callback){
             for(var subfield of field._subfields){
                 if(subfield._code == "a"){
                     cleanedObject.identifiers.push({"literalValue": subfield._data,
-                        "scheme": "ISBN"});
+                        "scheme": enums.identifier.isbn});
                 }
             }
         }else if(field._tag == "022"){
             for(var subfield of field._subfields){
                 if(subfield._code == "a"){
                     cleanedObject.identifiers.push({"literalValue": subfield._data,
-                        "scheme": "ISSN"});
+                        "scheme": enums.identifier.issn});
                 }
             }
         }else if(field._tag == "010"){
@@ -114,7 +114,7 @@ Marc21Helper.prototype.extractData = function(records, callback){
                     var re = /10.\d{4,9}\/[-._;()\/:(a-z)(A-Z)\d]+$/;
                     if(re.test(subfield._data)){
                         cleanedObject.identifiers.push({"literalValue": subfield._data,
-                            "scheme": "DOI"});
+                            "scheme": enums.identifier.doi});
                     }
                 }
             }
@@ -122,7 +122,7 @@ Marc21Helper.prototype.extractData = function(records, callback){
             for(var subfield of field._subfields){
                 if(subfield._code == "u"){
                     cleanedObject.identifiers.push({"literalValue": subfield._data,
-                        "scheme": "URI"});
+                        "scheme": enums.identifier.uri});
                 }
             }
         }

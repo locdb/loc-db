@@ -14,7 +14,8 @@
     "zdb_ppn" : "ZDB_PPN",
     "ppn": "PPN",
     "doi" : "DOI",
-    "lccn": "LCCN"
+    "lccn": "LCCN",
+    "uri": "URI"
   },
   "roleType": {
     "author": "AUTHOR",
