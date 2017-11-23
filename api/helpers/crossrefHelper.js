@@ -48,7 +48,7 @@ CrossrefHelper.prototype.query = function(query, callback){
 CrossrefHelper.prototype.queryChapterMetaData = function(containerTitle, firstPage, lastPage, callback){
     var self = this;
     // TODO: remove this, when they have fixed the issue
-    containerTitle = utf8.encode(containerTitle);
+    //containerTitle = utf8.encode(containerTitle);
     containerTitle = removeDiacritics(containerTitle);
     crossref.works({"query.container-title": containerTitle, mailto:"anne@informatik.uni-mannheim.de"}, (err, objs, nextOpts, done) => {
         if (err) {
@@ -141,20 +141,15 @@ CrossrefHelper.prototype.queryByDOI = function(doi, callback){
             errorlog.error(err);
             return callback(err, null);
         }
-        // check whether they really contain the 'reference' property
         var candidates = [];
         candidates.push(obj);
-        var containerTitle = obj['container-title'] ? obj['container-title'] [0] : obj['container-title'];
         self.parseObjects(candidates, function(err, res){
             if (err) {
                 errorlog.error(err);
                 return callback(err, null);
             }
-            if (res.length >0){
-                var result = []
-                result[0] = res[0];
-                result[1] = containerTitle;
-                return callback(null, result);
+            if (res.length > 0){
+                return callback(null, res);
             }
             return callback(null, null);
         });
@@ -162,17 +157,13 @@ CrossrefHelper.prototype.queryByDOI = function(doi, callback){
 };
 
 
-/**
- * Parses an array of Crossref objects and returns an array of BRs
- * @param objects
- * @param callback
- */
 CrossrefHelper.prototype.parseObjects = function(objects, callback){
     var res = [];
     for(var obj of objects){
 
-        // Identifiers
+        // everything related to the object itself
         var identifiers = [];
+
         if(obj.DOI){
             var identifier = new Identifier({scheme: enums.identifier.doi, literalValue: obj.DOI});
             identifiers.push(identifier.toObject());
@@ -181,12 +172,7 @@ CrossrefHelper.prototype.parseObjects = function(objects, callback){
             var identifier = new Identifier({scheme: enums.externalSources.crossref, literalValue: obj.URL});
             identifiers.push(identifier.toObject());
         }
-        if(obj.ISSN){
-            for(var issn of obj.ISSN){
-                var identifier = new Identifier({scheme: enums.identifier.issn, literalValue: issn});
-                identifiers.push(identifier.toObject())
-            }
-        }
+
         // Contributors
         var contributors = [];
         if(obj.author){
@@ -199,15 +185,88 @@ CrossrefHelper.prototype.parseObjects = function(objects, callback){
             var agentRole = new AgentRole({roleType: enums.roleType.publisher, heldBy: {nameString: obj.publisher}});
             contributors.push(agentRole.toObject());
         }
-        // Title
-        var title = "";
-        if(obj.title && obj.title[0]) {
-            title = obj.title[0];
-        }
-        // Subtitle
-        var subtitle = ""
-        if(obj.subtitle && obj.subtitle[0]) {
-            subtitle = obj.subtitle[0];
+
+        var title = obj.title && obj.title[0] ? obj.title[0] : "";
+        var subtitle = obj.subtitle && obj.subtitle[0] ? obj.subtitle[0] : "";
+        var firstPage = obj.page && obj.page.split('-').length == 2  ? obj.page.split('-')[0] : obj.page;
+        var lastPage = obj.page && obj.page.split('-').length == 2 ? obj.page.split('-')[1] : "";
+        var embodiedAs = [new ResourceEmbodiment({firstPage: firstPage, lastPage:lastPage})];
+        var containerTitle = obj['container-title'] && obj['container-title'][0] ? obj['container-title'][0] : "";
+
+        var type="";
+        switch(obj.type){
+            case 'journal-article':
+                type = enums.resourceType.journalArticle;
+                break;
+            case 'journal-issue':
+                type = enums.resourceType.journalIssue;
+                break;
+            case 'journal-volume':
+                type = enums.resourceType.journalVolume;
+                break;
+            case 'journal':
+                type = enums.resourceType.journal;
+                break;
+            case 'book':
+                type = enums.resourceType.book;
+                break;
+            case 'book-set':
+                type = enums.resourceType.bookSet;
+                break;
+            case 'book-chapter':
+                type = enums.resourceType.bookChapter;
+                break;
+            case 'book-part':
+                type = enums.resourceType.bookPart;
+                break;
+            case 'book-series':
+                type = enums.resourceType.bookSeries;
+                break;
+            case 'book-section':
+                type = enums.resourceType.bookSection;
+                break;
+            case 'book-track':
+                type = enums.resourceType.bookTrack;
+                break;
+            case 'edited-book':
+                type = enums.resourceType.editedBook;
+                break;
+            case 'component':
+                type = enums.resourceType.component;
+                break;
+            case 'dataset':
+                type = enums.resourceType.dataset;
+                break;
+            case 'dissertation':
+                type = enums.resourceType.dissertation;
+                break;
+            case 'monograph':
+                type = enums.resourceType.monograph;
+                break;
+            case 'proceedings':
+                type = enums.resourceType.proceedings;
+                break;
+            case 'proceedings-article':
+                type = enums.resourceType.proceedingsArticle;
+                break;
+            case 'reference-book':
+                type = enums.resourceType.referenceBook;
+                break;
+            case 'reference-entry':
+                type = enums.resourceType.referenceEntry;
+                break;
+            case 'report-series':
+                type = enums.resourceType.reportSeries;
+                break;
+            case 'report':
+                type = enums.resourceType.report;
+                break;
+            case 'standard-series':
+                type = enums.resourceType.standardSeries;
+                break;
+            case 'standard':
+                type = enums.resourceType.standard;
+                break;
         }
 
         // Reference list
@@ -242,12 +301,9 @@ CrossrefHelper.prototype.parseObjects = function(objects, callback){
             }
 
         }
-        var firstPage = obj.page && obj.page.split('-').length == 2  ? obj.page.split('-')[0] : obj.page ;
-        var lastPage = obj.page && obj.page.split('-').length == 2 ? obj.page.split('-')[1] : "" ;
-        var embodiedAs = [new ResourceEmbodiment({firstPage: firstPage, lastPage:lastPage})];
-        var containerTitle = obj['container-title'] && obj['container-title'][0] ? obj['container-title'][0] : "";
 
-        // TODO: Parse type etc?
+
+
         var bibliographicResource = new BibliographicResource({
             title: title,
             subtitle: subtitle,
@@ -256,11 +312,51 @@ CrossrefHelper.prototype.parseObjects = function(objects, callback){
             status: enums.status.external,
             parts: bes,
             embodiedAs: embodiedAs,
-            containerTitle: containerTitle
+            containerTitle: containerTitle,
+            type: type
         });
 
-
         res.push(bibliographicResource.toObject());
+
+        if(bibliographicResource.type === enums.resourceType.journalArticle){
+            // here we have to extract the information about the journal, the issue and the volume
+            var journalIdentifiers = [];
+            if(obj.ISSN){
+                for(var issn of obj.ISSN){
+                    var identifier = new Identifier({scheme: enums.identifier.issn, literalValue: issn});
+                    journalIdentifiers.push(identifier.toObject())
+                }
+            }
+            var journalContributors = [];
+
+            if(obj.publisher){
+                var agentRole = new AgentRole({roleType: enums.roleType.publisher, heldBy: {nameString: obj.publisher}});
+                journalContributors.push(agentRole.toObject());
+            }
+
+            var journal = new BibliographicResource({
+                identfifiers: journalIdentifiers,
+                contributors: journalContributors,
+                title: containerTitle,
+                type: enums.resourceType.journal
+            });
+
+            var issue = new BibliographicResource({
+                contributors: journalContributors,
+                number: obj.issue ? obj.issue : "",
+                type: enums.resourceType.journalIssue
+            });
+
+            var volume = new BibliographicResource({
+                contributors: journalContributors,
+                number: obj.volume ? obj.volume : "",
+                type: enums.resourceType.journalVolume
+            });
+
+            res.push(issue);
+            res.push(volume);
+            res.push(journal);
+        }
     }
     callback(null, res);
 };

@@ -7,11 +7,13 @@ const mongoBr = require('./../models/bibliographicResource.js');
 const mongoose = require('mongoose');
 const enums = require('./../schema/enum.json');
 const errorlog = require('./../util/logger').errorlog;
+const accesslog = require('./../util/logger').accesslog;
 const ocrHelper = require('./ocrHelper').createOcrHelper();
 const swbHelper = require('./swbHelper').createSwbHelper();
 const crossrefHelper = require('./crossrefHelper').createCrossrefHelper();
 const async = require('async');
 const Scan = require('./../schema/scan');
+const ResourceEmbodiment = require('./../schema/resourceEmbodiment');
 
 var DatabaseHelper = function(){
 };
@@ -347,6 +349,266 @@ DatabaseHelper.prototype.saveScan = function(scan, textualPdf, callback){
 
         // return scan object to the caller
         callback(null, scan);
+    });
+}
+
+// TODO: CREATE TEST FOR THIS
+DatabaseHelper.prototype.saveStringScan = function(scan, callback){
+    // get unique id from mongo which we use as filename
+    var scanId = mongoose.Types.ObjectId().toString();
+
+    ocrHelper.saveStringFile(scanId, scan, function (err, scanName) {
+        // if there is an error, log it and return
+        if (err) {
+            errorlog.error(err);
+            return callback(err, null)
+        }
+        // if not, create a scan object
+        var scan = new Scan({_id: scanId, scanName: scanName, status: enums.status.notOcrProcessed, textualPdf: false});
+
+        // return scan object to the caller
+        callback(null, scan);
+    });
+}
+
+
+// TODO: CREATE TEST FOR THIS
+DatabaseHelper.prototype.saveScanInResourceEmbodiment = function(resource, scan, embodimentType, callback){
+    // check whether embodiment of type embodimentType already exists in resource
+    for(var embodiment of resource.embodiedAs){
+        if(embodiment.type === embodimentType){
+            // a matching embodiment was found; save scan and return resource
+            embodiment.scans.push(scan);
+            return callback(null, resource);
+        }
+    }
+    // a matching embodiment type was not found; create a new one and return the resource
+    var embodiment = new ResourceEmbodiment({type: embodimentType, scans: [scan]});
+    resource.embodiedAs.push(embodiment);
+    return callback(null, resource);
+}
+
+// TODO: CREATE TEST FOR THIS
+DatabaseHelper.prototype.curateJournalHierarchy = function(resources, callback){
+    var journal;
+    var volume;
+    var issue;
+    var article;
+    // We expect as input four resources: A journal, a volume, an issue and the article
+    // Now we need to check what we already have in the db and what needs to be created
+    // The service should return the saved mongoose resources
+    for(var resource of resources) {
+        if (resource.type === enums.resourceType.journal) {
+            journal = resource;
+        }else if (resource.type === enums.resourceType.journalVolume) {
+            volume = resource;
+        }else if (resource.type === enums.resourceType.journalIssue) {
+            issue = resource;
+        }else if (resource.type === enums.resourceType.journalArticle) {
+            article = resource;
+        }
+    }
+    if(journal && volume && issue && article){
+        // check if journal already exists, via issn
+        // therefore, collect the issns available
+        var issns= [];
+        for(var identifier of journal.identifiers){
+            if(identifier.scheme === enums.identifier.issn){
+                issns.push(identifier.literalValue);
+            }
+        }
+        // now query with them
+        mongoBr.findOne({
+            "identifiers.scheme": enums.identifier.issn,
+            "identifiers.literalValue": {$in: issns},
+            "resourceType": enums.resourceType.journal
+        }, function (err, mongoJournal) {
+            // if no resource was found, create everything
+            if(err){
+                errorlog.error(err);
+                return callback(err, null);
+            }
+            if(!mongoJournal){
+                // no journal was found; so we assume that it needs to be created and that all the others (volume, issue, article)
+                // are missing too
+                mongoBr.save(journal, function(err, journal){
+                    volume.partOf = journal._id;
+                    mongoBr.save(volume, function(err, volume){
+                        issue.partOf = volume._id;
+                        mongoBr.save(issue, function(err, issue){
+                            article.partOf = issue._id;
+                            mongoBr.save(article, function(err, article){
+                                return callback(null, [journal, volume, issue, article]);
+                            })
+                        });
+                    });
+                });
+            }else{
+                // if a resource was found, go on searching with part of and the id and volume number
+                // thats the volume, if the volume was found,
+                // search with part of and id of the volume
+                mongoBr.find({
+                    "partOf": mongoJournal._id,
+                    "number": volume.number,
+                }, function (err, mongoVolume) {
+                    if (!mongoVolume) {
+                        // the volume is missing; so we create volume, issue and article
+                        volume.partOf = mongoJournal._id;
+                        mongoBr.save(volume, function (err, volume) {
+                            issue.partOf = volume._id;
+                            mongoBr.save(issue, function (err, issue) {
+                                article.partOf = issue._id;
+                                mongoBr.save(article, function (err, article) {
+                                    return callback(null, [mongoJournal, volume, issue, article]);
+                                })
+                            });
+                        });
+                    } else {
+                        // the volume is there, so, let's check for the issue
+                        // search with part of and id of the volume
+                        mongoBr.find({
+                            "partOf": mongoVolume._id,
+                            "number": issue.number
+                        }, function (err, mongoIssue) {
+                            if (!mongoIssue) {
+                                // the issue is missing; so we create issue and article
+                                issue.partOf = mongoVolume._id;
+                                mongoBr.save(issue, function (err, issue) {
+                                    article.partOf = issue._id;
+                                    mongoBr.save(article, function (err, article) {
+                                        return callback(null, [mongoJournal, volume, issue, article]);
+                                    })
+                                });
+                            }else{
+                                // the issue is there, so we check for the article
+                                // we use the doi and partOf for doing this
+                                var dois= [];
+                                for(var identifier of article.identifiers){
+                                    if(identifier.scheme === enums.identifier.doi){
+                                        dois.push(identifier.literalValue);
+                                    }
+                                }
+                                mongoBr.find({
+                                    "partOf": mongoIssue._id,
+                                    "identifiers.scheme": enums.identifier.doi,
+                                    "identifiers.literalValue": {$in: dois}
+                                }, function (err, mongoArticle) {
+                                    if (!mongoArticle) {
+                                        // the issue is missing; so we create issue and article
+                                        article.partOf = mongoIssue._id;
+                                        mongoBr.save(article, function (err, article) {
+                                            return callback(null, [mongoJournal, mongoVolume, mongoIssue, article]);
+                                        });
+                                    }else{
+                                        // just return everything; everything seems to be there
+                                        return callback(null, [mongoJournal, mongoVolume, mongoIssue, mongoArticle]);
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
+            }
+
+        });
+    }else{
+        // We got an incomplete hierarchy. What can we do?
+        return callback("Something is wrong", null);
+    }
+}
+
+DatabaseHelper.prototype.saveReferencesPageForResource = function(resource, binaryFile, textualPdf, stringFile, embodimentType, callback){
+    var self = this;
+    if(binaryFile && textualPdf){
+        //2a. A binary file is given; We also need to have the information if it's a textual pdf; Save it
+        self.saveScan(binaryFile, textualPdf, function(err, scan){
+            if(err){
+                errorlog.error(err);
+                return callback(err,null);
+            }
+            self.saveScanInResourceEmbodiment(resource, scan, embodimentType, function(err, resource){
+                // 3. We saved the file and we modified the br accordingly; Now we need to save it in mongo
+                resource.save(function(err, resource){
+                    if(err){
+                        errorlog.error(err);
+                        return callback(err,null);
+                    }
+                    return callback(null,[resource, scan]);
+                });
+            });
+        });
+    }else if(stringFile) {
+        //2b. A string file is given; Save it
+        self.saveStringScan(stringFile, function (err, scan) {
+            if (err) {
+                errorlog.error(err);
+                return callback(err, null);
+            }
+            self.saveScanInResourceEmbodiment(resource, scan, embodimentType, function (err, resource) {
+                // 3. We saved the file and we modified the br accordingly; Now we need to save it in mongo
+                resource.save(function (err, resource) {
+                    if (err) {
+                        errorlog.error(err);
+                        return callback(err, null)
+                    }
+                    return callback(null, [resource, scan]);
+                });
+            });
+        });
+    }
+}
+
+
+// TODO: CREATE TEST FOR THIS
+DatabaseHelper.prototype.resourceExists = function (identifier, resourceType, firstPage, lastPage, callback) {
+    var self = this;
+
+    mongoBr.find({
+        "identifiers.scheme": identifier.scheme,
+        "identifiers.literalValue": identifier.literalValue,
+        "resourceType": resourceType
+    }, function (err, resources) {
+       if(err){
+           errorlog.error(err);
+           return callback(err, null);
+       }else if(resources.length === 0){
+           accesslog.log("Resource with given identifier and resourceType does not exist.",
+               {
+                   identifier: identifier,
+                   resourceType: resourceType
+               });
+           return callback(null, null);
+       } else if(firstPage && lastPage){
+           for(var resource of resources){
+               for(var embodiment of resource.embodiedAs){
+                   if(embodiment.firstPage === firstPage && embodiment.lastPage === lastPage){
+                       accesslog.log("Resource with given identifier, resourceType, firstPage and lastPage does exist.",
+                           {
+                               identifier: identifier,
+                               resourceType: resourceType,
+                               firstPage: firstPage,
+                               lastPage: lastPage
+                           });
+                        return callback(null, resource);
+                   }
+               }
+           }
+           accesslog.log("Resource with given identifier, resourceType, firstPage and lastPage does not exist.",
+               {
+                   identifier: identifier,
+                   resourceType: resourceType,
+                   firstPage: firstPage,
+                   lastPage: lastPage
+               });
+           return callback(null, null);
+       }else{
+           accesslog.log("Resource with given identifier and resourceType does exist.",
+               {
+                   identifier: identifier,
+                   resourceType: resourceType
+               });
+           return callback(null, resources[0]);
+       }
     });
 }
 

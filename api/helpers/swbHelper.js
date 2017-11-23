@@ -12,7 +12,7 @@ var SwbHelper = function(){
 
 
 SwbHelper.prototype.query = function(ppn, resourceType, callback){
-    if(resourceType === enums.resourceType.journal){
+    if(resourceType === enums.resourceType.journal || resourceType === enums.resourceType.journalArticle){
         var url = config.URLS.ZDB + '?version=1.1&operation=searchRetrieve&query=idn%3D'
                 + ppn
                 + '&recordSchema=MARC21-xml&maximumRecords=1';

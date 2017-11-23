@@ -17,6 +17,7 @@ describe.only('controllers', function () {
         var idPdf = "";
 
         before(function (done) {
+            this.timeout(5000);
             setup.dropDB(function(err){
                 setup.loadBibliographicResources(function(err,res){
                     setup.login(agent, function(err, res){
