@@ -117,22 +117,19 @@ Marc21Helper.prototype.extractData = function(records, callback){
                         "scheme": enums.identifier.lccn});
                 }
             }
-        }/*else if(field._tag == "024"){
-            for(var subfield of field._subfields){
-                if(subfield._code == "a"){
-                    var re = /10.\d{4,9}\/[-._;()\/:(a-z)(A-Z)\d]+$/;
-                    if(re.test(subfield._data)){
-                        cleanedObject.identifiers.push({"literalValue": subfield._data,
-                            "scheme": enums.identifier.doi});
-                    }
-                }
-            }*/
-        else if (field._tag === "024" && field._indicator1 && field._indicator1 === "7") {
+        }else if (field._tag === "024" && field._indicator1 && field._indicator1 === "7") {
             if (field.subfields.length >= 2 && field.subfields[0]._code === "2" && field.subfields[0]._data.toLowerCase() === "doi") {
                 cleanedObject.identifiers.push({
                     "literalValue": field.subfields[1]._data,
                     "scheme": enums.identifier.doi
                 });
+            }
+        }else if (field._tag === "035") {
+            for(var subfield of field._subfields){
+                if(subfield._code === "a" && subfield._data.split("(OCoLC)").length === 2){
+                    cleanedObject.identifiers.push({"literalValue": subfield._data.split("(OCoLC)")[1],
+                        "scheme": enums.identifier.oclcId});
+                }
             }
         }else if(field._tag === "856"){
             for(var subfield of field._subfields){
@@ -204,6 +201,17 @@ Marc21Helper.prototype.extractData = function(records, callback){
                 }
             }
         }else if(field._tag === "260"){
+            for(var subfield of field._subfields){
+                if(subfield._code === "b"){
+                    var contributor = {};
+                    contributor.roleType = enums.roleType.publisher;
+                    contributor.heldBy = {};
+                    contributor.heldBy.identifiers = [];
+                    contributor.heldBy.nameString = subfield._data;
+                    cleanedObject.contributors.push(contributor);
+                }
+            }
+        }else if(field._tag === "264"){
             for(var subfield of field._subfields){
                 if(subfield._code === "b"){
                     var contributor = {};

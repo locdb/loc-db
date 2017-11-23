@@ -16,6 +16,8 @@
     "ppn": "PPN",
     "doi" : "DOI",
     "lccn": "LCCN",
+    "gndId": "GND_ID",
+    "oclcId": "OCLC_ID",
     "uri": "URI"
   },
   "roleType": {

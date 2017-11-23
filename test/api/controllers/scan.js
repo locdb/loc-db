@@ -569,6 +569,10 @@ describe.only('controllers', function () {
                         res.body.identifiers[1].should.have.property("literalValue", "2026606-6");
                         res.body.identifiers[3].should.have.property("scheme", enums.identifier.doi);
                         res.body.identifiers[3].should.have.property("literalValue", "10.1111/(ISSN)1741-3729");
+                        res.body.identifiers[4].should.have.property("scheme", enums.identifier.oclcId);
+                        res.body.identifiers[4].should.have.property("literalValue", "51205572");
+                        res.body.identifiers[5].should.have.property("scheme", enums.identifier.oclcId);
+                        res.body.identifiers[5].should.have.property("literalValue", "645307699");
                         res.body.should.have.property("type", enums.resourceType.journal);
                         done();
                     });
