@@ -13,7 +13,8 @@
     "olc_ppn" : "OLC_PPN",
     "zdb_ppn" : "ZDB_PPN",
     "ppn": "PPN",
-    "doi" : "DOI"
+    "doi" : "DOI",
+    "lccn": "LCCN"
   },
   "roleType": {
     "author": "AUTHOR",

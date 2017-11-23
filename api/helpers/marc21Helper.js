@@ -101,6 +101,13 @@ Marc21Helper.prototype.extractData = function(records, callback){
                         "scheme": "ISSN"});
                 }
             }
+        }else if(field._tag == "010"){
+            for(var subfield of field._subfields){
+                if(subfield._code == "a"){
+                    cleanedObject.identifiers.push({"literalValue": subfield._data,
+                        "scheme": enums.identifier.lccn});
+                }
+            }
         }else if(field._tag == "024"){
             for(var subfield of field._subfields){
                 if(subfield._code == "a"){
@@ -109,10 +116,6 @@ Marc21Helper.prototype.extractData = function(records, callback){
                         cleanedObject.identifiers.push({"literalValue": subfield._data,
                             "scheme": "DOI"});
                     }
-/*                    else{
-                        cleanedObject.identifiers.push({"literalValue": subfield._data,
-                            "scheme": "TBA"});
-                    }*/
                 }
             }
         }else if(field._tag == "856"){

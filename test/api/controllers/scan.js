@@ -548,5 +548,26 @@ describe.only('controllers', function () {
                     });
             });
         });
+
+        describe.only('POST /saveResource - Resource Type: Journal', function () {
+            this.timeout(1000000);
+            it('should take care to extract the right fields from ZDB Marc21', function (done) {
+                agent
+                    .post('/saveResource')
+                    .type('form')
+                    .field('identifierScheme', "ZDB_PPN")
+                    .field('identifierLiteralValue', '020877307')
+                    .field('resourceType', resourceType.journal)
+                    .set('Accept', 'application/json')
+                    .expect('Content-Type', /json/)
+                    .expect(200)
+                    .end(function (err, res) {
+                        should.not.exist(err);
+                        res.body.identifiers[0].should.have.property("scheme", "LCCN");
+                        res.body.identifiers[0].should.have.property("literalValue", "2002-227367");
+                        done();
+                    });
+            });
+        });
     });
 });
