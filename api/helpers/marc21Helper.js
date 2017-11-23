@@ -222,17 +222,21 @@ Marc21Helper.prototype.extractData = function(records, callback){
                     cleanedObject.contributors.push(contributor);
                 }
             }
-        }else if(field._tag === "264"){
-            for(var subfield of field._subfields){
-                if(subfield._code === "b"){
-                    var contributor = {};
-                    contributor.roleType = enums.roleType.publisher;
-                    contributor.heldBy = {};
-                    contributor.heldBy.identifiers = [];
-                    contributor.heldBy.nameString = subfield._data;
-                    cleanedObject.contributors.push(contributor);
+        }else if(field._tag === "710"){
+            if(field.subfields[0]._code === "0" && field.subfields[0]._data.split("(DE-588)").length === 2){
+                var contributor = {};
+                contributor.roleType = enums.roleType.author;
+                contributor.heldBy = {};
+                contributor.heldBy.identifiers = [{scheme: enums.identifier.gndId, literalValue: field.subfields[0]._data.split("(DE-588)")[1]}];
+                for(var subfield of field._subfields) {
+                    if (subfield._code === "a") {
+                        contributor.heldBy.nameString = subfield._data;
+                        break;
+                    }
                 }
+                cleanedObject.contributors.push(contributor);
             }
+
         }
     }
 

@@ -573,6 +573,8 @@ describe.only('controllers', function () {
                         res.body.identifiers[4].should.have.property("literalValue", "51205572");
                         res.body.identifiers[5].should.have.property("scheme", enums.identifier.oclcId);
                         res.body.identifiers[5].should.have.property("literalValue", "645307699");
+                        res.body.contributors[2].heldBy.identifiers[0].should.have.property("scheme", enums.identifier.gndId);
+                        res.body.contributors[2].heldBy.identifiers[0].should.have.property("literalValue", "26045-9");
                         res.body.should.have.property("type", enums.resourceType.journal);
                         done();
                     });
