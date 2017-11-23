@@ -566,7 +566,7 @@ DatabaseHelper.prototype.resourceExists = function (identifier, resourceType, fi
     mongoBr.find({
         "identifiers.scheme": identifier.scheme,
         "identifiers.literalValue": identifier.literalValue,
-        "resourceType": resourceType
+        "type": resourceType
     }, function (err, resources) {
        if(err){
            errorlog.error(err);

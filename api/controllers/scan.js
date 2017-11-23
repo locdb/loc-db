@@ -39,7 +39,7 @@ function saveResource(req, res) {
             // 1a. resource already exists
             // 2. now we have to append the string file or textual pdf if given
             if(!binaryFile && !stringFile){
-                return response.status(400).json({"message":"The resource already exists. Please provide a reference page."});
+                return response.status(400).json({"message":"The resource already exists."});
             }
             databaseHelper.saveReferencesPageForResource(resource, binaryFile, textualPdf,stringFile,embodimentType, function(err, result){
                 if(err){
@@ -65,6 +65,7 @@ function saveResource(req, res) {
                             // we are done
                             // TODO: Or do we have to do anything else now?
                             resource.identifiers.push(identifier);
+                            resource.type = resourceType;
                             mongoBr.create(resource, function(err, resource){
                                 if(err){
                                     errorlog.log(err);

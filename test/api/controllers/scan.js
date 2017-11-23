@@ -529,5 +529,24 @@ describe.only('controllers', function () {
                     });
             });
         });
+
+        describe('POST /saveResource - Resource Type: Journal', function () {
+            this.timeout(1000000);
+            it('should return 400, as the journal already exists', function (done) {
+                agent
+                    .post('/saveResource')
+                    .type('form')
+                    .field('identifierScheme', 'ZDB_PPN')
+                    .field('identifierLiteralValue', '012893803')
+                    .field('resourceType', resourceType.journal)
+                    .set('Accept', 'application/json')
+                    .expect('Content-Type', /json/)
+                    .expect(400)
+                    .end(function (err, res) {
+                        should.not.exist(err);
+                        done();
+                    });
+            });
+        });
     });
 });
