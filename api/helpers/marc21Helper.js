@@ -76,23 +76,32 @@ Marc21Helper.prototype.extractData = function(records, callback){
     cleanedObject.identifiers = [];
     cleanedObject.contributors = [];
 
-    for(var field of dataFields){
+    for(var field of dataFields) {
         //Titles
-        if(field._tag == "245"){
-            for(var subfield of field._subfields){
-                if(subfield._code == "a"){
+        if (field._tag == "245") {
+            for (var subfield of field._subfields) {
+                if (subfield._code == "a") {
                     cleanedObject.title = subfield._data;
-                }else if(subfield._code == "b"){
+                } else if (subfield._code == "b") {
                     cleanedObject.subtitle = subfield._data;
                 }
             }
             // Identifiers
-        }else if(field._tag == "020"){
-            for(var subfield of field._subfields){
-                if(subfield._code == "a"){
-                    cleanedObject.identifiers.push({"literalValue": subfield._data,
-                        "scheme": enums.identifier.isbn});
+        } else if (field._tag == "020") {
+            for (var subfield of field._subfields) {
+                if (subfield._code == "a") {
+                    cleanedObject.identifiers.push({
+                        "literalValue": subfield._data,
+                        "scheme": enums.identifier.isbn
+                    });
                 }
+            }
+        } else if (field._tag === "016" && field._indicator1 && field._indicator1 === "7") {
+            if (field.subfields.length >= 2 && field.subfields[0]._code === "2" && field.subfields[0]._data === "DE-600") {
+                cleanedObject.identifiers.push({
+                    "literalValue": field.subfields[1]._data,
+                    "scheme": enums.identifier.zdb_id
+                });
             }
         }else if(field._tag == "022"){
             for(var subfield of field._subfields){

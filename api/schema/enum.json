@@ -12,6 +12,7 @@
     "swb_ppn" : "SWB_PPN",
     "olc_ppn" : "OLC_PPN",
     "zdb_ppn" : "ZDB_PPN",
+    "zdb_id" : "ZDB_ID",
     "ppn": "PPN",
     "doi" : "DOI",
     "lccn": "LCCN",

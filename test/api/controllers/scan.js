@@ -3,7 +3,7 @@ const request = require('supertest');
 const server = require('../../../app');
 const setup = require('./../setup.js').createSetup();
 const status = require('./../../../api/schema/enum.json').status;
-const resourceType = require('./../../../api/schema/enum.json').resourceType;
+const enums = require('./../../../api/schema/enum.json');
 const fs = require('fs');
 const config = require('./../../../config/config.js');
 const mongoBr = require('./../../../api/models/bibliographicResource');
@@ -45,7 +45,7 @@ describe.only('controllers', function () {
                     .field('firstPage', '51')
                     .field('lastPage', '95')
                     .field('textualPdf', false)
-                    .field('resourceType', resourceType.bookChapter)
+                    .field('resourceType', enums.resourceType.bookChapter)
                     .attach('scan', './test/api/data/ocr_data/02_input.png')
                     .set('Accept', 'application/json')
                     .expect('Content-Type', /json/)
@@ -82,7 +82,7 @@ describe.only('controllers', function () {
                     .field('firstPage', '33')
                     .field('lastPage', '41')
                     .field('textualPdf', true)
-                    .field('resourceType', resourceType.bookChapter)
+                    .field('resourceType', enums.resourceType.bookChapter)
                     .attach('scan', './test/api/data/ocr_data/references.pdf')
                     .set('Accept', 'application/json')
                     .expect('Content-Type', /json/)
@@ -123,7 +123,7 @@ describe.only('controllers', function () {
                     .field('firstPage', '14')
                     .field('lastPage', '16')
                     .field('textualPdf', false)
-                    .field('resourceType', resourceType.bookChapter)
+                    .field('resourceType', enums.resourceType.bookChapter)
                     .attach('scan', './test/api/data/ocr_data/references.pdf')
                     .set('Accept', 'application/json')
                     .expect('Content-Type', /json/)
@@ -145,7 +145,7 @@ describe.only('controllers', function () {
                     .field('firstPage', '14')
                     .field('lastPage', '16')
                     .field('textualPdf', false)
-                    .field('resourceType', resourceType.bookChapter)
+                    .field('resourceType', enums.resourceType.bookChapter)
                     .attach('scan', './test/api/data/ocr_data/references.pdf')
                     .set('Accept', 'application/json')
                     .expect('Content-Type', /json/)
@@ -172,7 +172,7 @@ describe.only('controllers', function () {
                     .field('firstPage', '2')
                     .field('lastPage', '3')
                     .field('textualPdf', false)
-                    .field('resourceType', resourceType.journal)
+                    .field('resourceType', enums.resourceType.journal)
                     .attach('scan', './test/api/data/ocr_data/02_input.png')
                     .set('Accept', 'application/json')
                     .expect('Content-Type', /json/)
@@ -207,7 +207,7 @@ describe.only('controllers', function () {
                     .field('ppn', '023724153')
                     .field('firstPage', '4')
                     .field('lastPage', '10')
-                    .field('resourceType', resourceType.journal)
+                    .field('resourceType', enums.resourceType.journal)
                     .field('textualPdf', false)
                     .attach('scan', './test/api/data/ocr_data/02_input.png')
                     .set('Accept', 'application/json')
@@ -249,7 +249,7 @@ describe.only('controllers', function () {
                     .field('ppn', '004000951')
                     .field('firstPage', '-1')
                     .field('lastPage', '-1')
-                    .field('resourceType', resourceType.monograph)
+                    .field('resourceType', enums.resourceType.monograph)
                     .field('textualPdf', false)
                     .attach('scan', './test/api/data/ocr_data/02_input.png')
                     .set('Accept', 'application/json')
@@ -518,7 +518,7 @@ describe.only('controllers', function () {
                     .type('form')
                     .field('identifierScheme', 'ZDB_PPN')
                     .field('identifierLiteralValue', '012893803')
-                    .field('resourceType', resourceType.journal)
+                    .field('resourceType', enums.resourceType.journal)
                     .set('Accept', 'application/json')
                     .expect('Content-Type', /json/)
                     .expect(200)
@@ -538,7 +538,7 @@ describe.only('controllers', function () {
                     .type('form')
                     .field('identifierScheme', 'ZDB_PPN')
                     .field('identifierLiteralValue', '012893803')
-                    .field('resourceType', resourceType.journal)
+                    .field('resourceType', enums.resourceType.journal)
                     .set('Accept', 'application/json')
                     .expect('Content-Type', /json/)
                     .expect(400)
@@ -557,14 +557,17 @@ describe.only('controllers', function () {
                     .type('form')
                     .field('identifierScheme', "ZDB_PPN")
                     .field('identifierLiteralValue', '020877307')
-                    .field('resourceType', resourceType.journal)
+                    .field('resourceType', enums.resourceType.journal)
                     .set('Accept', 'application/json')
                     .expect('Content-Type', /json/)
                     .expect(200)
                     .end(function (err, res) {
                         should.not.exist(err);
-                        res.body.identifiers[0].should.have.property("scheme", "LCCN");
+                        res.body.identifiers[0].should.have.property("scheme", enums.identifier.lccn);
                         res.body.identifiers[0].should.have.property("literalValue", "2002-227367");
+                        res.body.identifiers[1].should.have.property("scheme", enums.identifier.zdb_id);
+                        res.body.identifiers[1].should.have.property("literalValue", "2026606-6");
+                        res.body.should.have.property("type", enums.resourceType.journal);
                         done();
                     });
             });
