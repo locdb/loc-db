@@ -13,6 +13,8 @@ tags:
     description: Services related to scans.
   - name: BibliographicEntry
     description: Services related to bibliographic entries.
+  - name: Utils
+    description: Services that are not directly related to the application.
 schemes:
   #- http
   - https
@@ -811,7 +813,30 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
-  
+
+  /log:
+    x-swagger-router-controller: utils
+    post:
+      tags: [Utils]
+      description: Logs a json object.
+      operationId: log
+      parameters:
+        - name: logObject
+          in: body
+          description: The object to log.
+          required: false
+          schema:
+            $ref: "#/definitions/LogRequest"
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
   /swagger:
     x-swagger-pipe: swagger_raw
 
@@ -1141,3 +1166,8 @@ definitions:
     properties:
       message:
         type: string
+
+  LogRequest:
+    properties:
+      logObject:
+        type: object

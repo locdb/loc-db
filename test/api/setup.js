@@ -103,6 +103,7 @@ Setup.prototype.dropDB = function(callback){
 
 };
 
+
 Setup.prototype.login = function(agent,callback){
     var dummy = {
         username: "dummy",
@@ -134,10 +135,19 @@ Setup.prototype.login = function(agent,callback){
                 });
         }
     });
-
-
 };
 
+
+Setup.prototype.logout = function(agent,callback){
+    agent
+        .get('/logout')
+        .end(function (err, res) {
+            if(err){
+                return callback(err, null);
+            }
+            return callback(null, agent);
+        });
+};
 
 function createSetup(){
     return new Setup();
