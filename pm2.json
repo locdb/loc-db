@@ -43,7 +43,7 @@
       "ref"  : "remotes/origin/dev",
       "repo" : "git@github.com:locdb/loc-db.git",
       "path" : "~/locdb-dev",
-      "post-deploy" : "npm install && pm2 startOrRestart pm2.json --env development",
+      "post-deploy" : "npm install && pm2 startOrRestart pm2.json --env development --output /dev/null --error /dev/null",
       "env"  : {
         "NODE_ENV": "development"
       }
