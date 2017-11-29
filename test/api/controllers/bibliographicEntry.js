@@ -396,7 +396,7 @@ describe('controllers', function() {
                         });
                 });
 
-            it('should return 35 external suggestion for a bibliographic entry', function (done) {
+            it('should return 9 external suggestion for a bibliographic entry', function (done) {
                 this.timeout(100000);
                 var query = "Direkte Demokratie";
 
@@ -417,6 +417,26 @@ describe('controllers', function() {
                         res.body[0].identifiers.should.be.Array;
                         res.body[0].identifiers.should.have.lengthOf(2);
                         res.body[6].identifiers[0].should.not.have.property("scheme", "URL_GOOGLE_SCHOLAR");
+                        done();
+                    });
+            });
+
+            it('issue 192: searching by doi', function (done) {
+                this.timeout(100000);
+                var query = "10.1007/s00148-005-0056-5";
+
+                agent
+                    .get('/getExternalSuggestionsByQueryString')
+                    .set('Accept', 'application/json')
+                    .query({ query: query })
+                    .expect('Content-Type', /json/)
+                    .expect(200)
+                    .end(function (err, res) {
+                        should.not.exist(err);
+                        res.body.should.be.Array;
+                        //res.body.should.have.lengthOf(2);
+                        res.body.should.have.lengthOf(1);
+                        res.body[0].should.have.property("status", status.external);
                         done();
                     });
             });

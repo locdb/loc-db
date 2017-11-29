@@ -326,7 +326,7 @@ function getExternalSuggestionsByQueryString(req, res) {
             for(var sourceResults of res){
                 if (sourceResults.length > 0) {
                     for (var br of sourceResults) {
-                        if (Object.keys(br).length !== 0 && stringSimilarity.compareTwoStrings(br.title + br.subtitle + br.contributors, query) > threshold) {
+                        if (Object.keys(br).length !== 0 && stringSimilarity.compareTwoStrings(br.title + br.subtitle + br.contributors, query) >= threshold) {
                             result.push(br);
                         }
                     }
