@@ -36,10 +36,9 @@ describe('helpers', function() {
                     result.should.have.property("contributors");
                     result.should.have.property("identifiers");
                     result.contributors.should.be.Array();
-                    result.contributors.should.have.length(1);
+                    result.contributors.should.have.length(2);
                     result.contributors[0].should.have.property("roleType", enums.roleType.publisher)
                     result.identifiers.should.be.Array();
-                    result.contributors.should.have.length(1)
                     done();
                 });
             });

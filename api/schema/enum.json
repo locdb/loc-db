@@ -9,8 +9,17 @@
   "identifier": {
     "isbn": "ISBN",
     "issn": "ISSN",
-    "ppn" : "PPN",
-    "doi" : "DOI"
+    "swb_ppn" : "SWB_PPN",
+    "olc_ppn" : "OLC_PPN",
+    "zdb_ppn" : "ZDB_PPN",
+    "zdb_id" : "ZDB_ID",
+    "ppn": "PPN",
+    "doi" : "DOI",
+    "lccn": "LCCN",
+    "gndId": "GND_ID",
+    "swbGndId": "SWB_GND_ID",
+    "oclcId": "OCLC_ID",
+    "uri": "URI"
   },
   "roleType": {
     "author": "AUTHOR",
