@@ -390,7 +390,7 @@ describe('controllers', function() {
                             res.body[0].should.have.property("status", status.external);
                             res.body[0].should.have.property("identifiers");
                             res.body[0].identifiers.should.be.Array;
-                            res.body[0].identifiers.should.have.lengthOf(6);
+                            res.body[0].identifiers.should.have.lengthOf(7);
                             res.body[0].identifiers[5].should.have.property("scheme", "URL_SWB");
                             done();
                         });
