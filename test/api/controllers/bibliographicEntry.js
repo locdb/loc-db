@@ -361,7 +361,7 @@ describe('controllers', function() {
                         res.body[1].should.have.property("containerTitle");
                         res.body[0].should.have.property("identifiers");
                         res.body[0].identifiers.should.be.Array;
-                        res.body[0].identifiers.should.have.lengthOf(3);
+                        res.body[0].identifiers.should.have.lengthOf(4);
                         res.body[0].identifiers[0].should.not.have.property("scheme", "URL_GOOGLE_SCHOLAR");
                         done();
                     });
@@ -390,8 +390,8 @@ describe('controllers', function() {
                             res.body[0].should.have.property("status", status.external);
                             res.body[0].should.have.property("identifiers");
                             res.body[0].identifiers.should.be.Array;
-                            res.body[0].identifiers.should.have.lengthOf(7);
-                            res.body[0].identifiers[6].should.have.property("scheme", "URL_SWB");
+                            res.body[0].identifiers.should.have.lengthOf(8);
+                            res.body[0].identifiers[7].should.have.property("scheme", "URL_SWB");
                             done();
                         });
                 });

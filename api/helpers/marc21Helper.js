@@ -308,9 +308,21 @@ Marc21Helper.prototype.extractData = function(records, callback){
         }
     }
 
-    // publicationYear
+
     for(var field of controlFields){
-        if(field._tag === "008"){
+        if(field._tag === "001"){
+            // ppn
+            for (var f of controlFields){
+                if(f._tag === "003" && f._data === "DE-576"){
+                    cleanedObject.identifiers.push({"literalValue": field._data,
+                        "scheme": enums.identifier.swb_ppn});
+                }else if(f._tag === "003" && f._data === "DE-101"){
+                    cleanedObject.identifiers.push({"literalValue": field._data,
+                        "scheme": enums.identifier.zdb_ppn});
+                }
+            }
+        }else if(field._tag === "008"){
+            // publicationYear
             cleanedObject.publicationYear = field._data.substring(7,11);
         }
     }

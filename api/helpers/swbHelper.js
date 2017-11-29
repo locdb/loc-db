@@ -128,11 +128,16 @@ SwbHelper.prototype.queryByQueryString = function(query, callback){
             for(var res of result){
                 var br = new BibliographicResource(res);
                 br = br.toObject();
-                // TODO: Maybe add ppn here?
+                var ppn = "";
+                for(var identifier of br.identifiers){
+                    if(identifier.scheme === enums.identifier.swb_ppn){
+                        ppn = identifier.literalValue;
+                    }
+                }
                 if(br.identifiers){
-                    br.identifiers.push({scheme: enums.externalSources.swb, literalValue: ""});
+                    br.identifiers.push({scheme: enums.externalSources.swb, literalValue: "http://swb.bsz-bw.de/DB=2.1/PPNSET?PPN=" + ppn});
                 }else{
-                    br.identifiers = [{scheme: enums.externalSources.swb, literalValue: ""}];
+                    br.identifiers = [{scheme: enums.externalSources.swb, literalValue: "http://swb.bsz-bw.de/DB=2.1/PPNSET?PPN=" + ppn}];
                 }
                 br.status = enums.status.external;
                 brs.push(br);
