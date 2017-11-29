@@ -19,7 +19,7 @@ describe('helpers', function() {
         
         describe('parseFile', function(){
             it('should return a parsed bibliographic resource', function(done) {
-                aPlusPlusHelper.parseFile("./test/api/data/aPlusPlus.xml", function(result){
+                aPlusPlusHelper.parseFile("./test/api/data/aPlusPlus/aPlusPlus.xml", function(result){
                     //console.log(result.parts);
                     result.should.be.ok();
 //                    result.should.have.property("title", "Der soziologische Blick :");
@@ -41,7 +41,7 @@ describe('helpers', function() {
         describe('parseFiles', function(){
             it('should return a parsed bibliographic resource', function(done) {
                 this.timeout(10000);
-                aPlusPlusHelper.parseFiles("C:/Users/anlausch/Downloads/springer-oa/out/biomedicine/2038-0305", function(result){
+                aPlusPlusHelper.parseFiles("./test/api/data/aPlusPlus", function(result){
                     console.log("FERTIG: " + result.length);
                     
                     done();
