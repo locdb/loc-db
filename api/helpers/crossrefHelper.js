@@ -247,7 +247,16 @@ CrossrefHelper.prototype.parseObjects = function(objects, callback){
         var embodiedAs = [new ResourceEmbodiment({firstPage: firstPage, lastPage:lastPage})];
         var containerTitle = obj['container-title'] && obj['container-title'][0] ? obj['container-title'][0] : "";
 
-        // TODO: Parse type etc?
+        var publicationYear;
+        if(obj['issued'] && obj['issued']['date-parts'] && obj['issued']['date-parts'][0] && obj['issued']['date-parts'][0][0]){
+            publicationYear = obj['issued']['date-parts'][0][0];
+        }else if (obj['published-print'] && obj['published-print']['date-parts'] && obj['published-print']['date-parts'][0] && obj['published-print']['date-parts'][0][0]){
+            publicationYear = obj['published-print']['date-parts'][0][0];
+        }else if(obj['published-online'] && obj['published-online']['date-parts'] && obj['published-online']['date-parts'][0] && obj['published-online']['date-parts'][0][0]){
+            publicationYear = obj['published-online']['date-parts'][0][0];
+        }
+
+        // TODO: Parse type
         var bibliographicResource = new BibliographicResource({
             title: title,
             subtitle: subtitle,
@@ -256,7 +265,8 @@ CrossrefHelper.prototype.parseObjects = function(objects, callback){
             status: enums.status.external,
             parts: bes,
             embodiedAs: embodiedAs,
-            containerTitle: containerTitle
+            containerTitle: containerTitle,
+            publicationYear: publicationYear
         });
 
 

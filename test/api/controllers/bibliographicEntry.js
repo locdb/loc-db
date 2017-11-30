@@ -358,6 +358,7 @@ describe('controllers', function() {
                         res.body.should.have.lengthOf(5);
                         //res.body[0].should.have.property("title", "Direkte Demokratie in der Schweiz: Entwicklungen, Debatten und Wirkungen");
                         res.body[0].should.have.property("status", status.external);
+                        res.body[0].should.have.property("publicationYear", "2006");
                         res.body[1].should.have.property("containerTitle");
                         res.body[0].should.have.property("identifiers");
                         res.body[0].identifiers.should.be.Array;
