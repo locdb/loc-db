@@ -2,7 +2,7 @@
  * Created by anlausch on 11/27/2017.
  */
 'use strict';
-const evaluationlog = require('./../util/logger.js').evaluationlog;
+const logger = require('./../util/logger.js');
 
 
 
@@ -15,7 +15,7 @@ function log(req, res){
         (req.connection.socket ? req.connection.socket.remoteAddress : null);
     logObject.ip = ip;
     logObject.user = req.user ? {username: req.user.username, userid: req.user._id.toString()} : "";
-    evaluationlog.evaluation(logObject);
+    logger.info(logObject);
     return response.json({message: "Logging suceeded."});
 }
 

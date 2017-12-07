@@ -7,7 +7,7 @@ const AgentRole = require('./../schema/agentRole.js');
 const BibliographicEntry = require('./../schema/bibliographicEntry.js');
 const ResourceEmbodiment = require('./../schema/resourceEmbodiment.js');
 const enums = require('./../schema/enum.json');
-const errorlog = require('./../util/logger.js').errorlog;
+const logger = require('./../util/logger.js');
 const stringSimilarity = require('string-similarity');
 const removeDiacritics = require('diacritics').remove;
 const utf8 = require('utf8');
@@ -26,12 +26,12 @@ CrossrefHelper.prototype.query = function(query, callback){
     query = removeDiacritics(query);
     crossref.works({query: query, mailto:"anne@informatik.uni-mannheim.de"}, (err, objs, nextOpts, done) => {
         if (err) {
-            errorlog.error(err);
+            logger.error(err);
             return callback(err, null);
         }
         self.parseObjects(objs, function(err, res){
             if (err) {
-                errorlog.error(err);
+                logger.error(err);
                 return callback(err, null);
             }
             return callback(null, res);
@@ -52,20 +52,20 @@ CrossrefHelper.prototype.queryChapterMetaData = function(containerTitle, firstPa
     containerTitle = removeDiacritics(containerTitle);
     crossref.works({"query.container-title": containerTitle, mailto:"anne@informatik.uni-mannheim.de"}, (err, objs, nextOpts, done) => {
         if (err) {
-            errorlog.error(err);
+            logger.error(err);
             return callback(err, null);
         }
         var candidates = [];
         for(var obj of objs){
             if(stringSimilarity.compareTwoStrings(obj['container-title'][0], containerTitle) > 0.95
                 && (obj['page'] == firstPage + "-" + lastPage || obj['page'] == firstPage + "--" + lastPage)){
-                console.log("Match on pages and title, similarity = " + stringSimilarity.compareTwoStrings(obj['container-title'][0], containerTitle));
+                logger.info("Match on pages and title, similarity = " + stringSimilarity.compareTwoStrings(obj['container-title'][0], containerTitle));
                 candidates.push(obj);
             }
         }
         self.parseObjects(candidates, function(err, res){
             if (err) {
-                errorlog.error(err);
+                logger.error(err);
                 return callback(err, null);
             }
             return callback(null, res);
@@ -85,7 +85,7 @@ CrossrefHelper.prototype.queryReferences = function(doi, query, callback){
     if(doi != null){
         crossref.work(doi,(err, obj, nextOpts, done) => {
             if (err) {
-                errorlog.error(err);
+                logger.error(err);
                 return callback(err, null);
             }
             // check whether they really contain the 'reference' property
@@ -95,7 +95,7 @@ CrossrefHelper.prototype.queryReferences = function(doi, query, callback){
             }
             self.parseObjects(candidates, function(err, res){
                 if (err) {
-                    errorlog.error(err);
+                    logger.error(err);
                     return callback(err, null);
                 }
                 return callback(null, res);
@@ -106,7 +106,7 @@ CrossrefHelper.prototype.queryReferences = function(doi, query, callback){
         query = removeDiacritics(query);
         crossref.works({query: query, filter:{"has-references" : true}, mailto: "anne@informatik.uni-mannheim.de"}, (err, objs, nextOpts, done) => {
             if (err) {
-                errorlog.error(err);
+                logger.error(err);
                 return callback(err, null);
             }
             // check whether they really contain the 'reference' property
@@ -118,7 +118,7 @@ CrossrefHelper.prototype.queryReferences = function(doi, query, callback){
             }
             self.parseObjects(candidates, function(err, res){
                 if (err) {
-                    errorlog.error(err);
+                    logger.error(err);
                     return callback(err, null);
                 }
                 return callback(null, res);
@@ -138,7 +138,7 @@ CrossrefHelper.prototype.queryByDOI = function(doi, callback){
     var self = this;
     crossref.work(doi, (err, obj, nextOpts, done) => {
         if (err) {
-            errorlog.error(err);
+            logger.error(err);
             return callback(err, null);
         }
         // check whether they really contain the 'reference' property
@@ -147,7 +147,7 @@ CrossrefHelper.prototype.queryByDOI = function(doi, callback){
         var containerTitle = obj['container-title'] ? obj['container-title'] [0] : obj['container-title'];
         self.parseObjects(candidates, function(err, res){
             if (err) {
-                errorlog.error(err);
+                logger.error(err);
                 return callback(err, null);
             }
             if (res.length >0){

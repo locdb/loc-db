@@ -7,8 +7,7 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const User = require('./../models/user.js');
 const bcrypt = require('bcrypt');
-const errorlog = require('./logger').errorlog;
-const accesslog = require('./logger').accesslog;
+const logger = require('./logger');
 
 passport.serializeUser(function(user, done) {
     done(null, user._id);
@@ -34,24 +33,24 @@ passport.use(new LocalStrategy({
             function(err, user) {
                 // In case of any error, return using the done method
                 if (err){
-                    errorlog.error('Error while looking up user:', err);
+                    logger.error('Error while looking up user:', err);
                     return done(err);
                 }
                 // Username does not exist, log error & redirect back
                 if (!user){
-                    errorlog.error('User not found:', {username: username, password: password});
+                    logger.error('User not found:', {username: username, password: password});
                     return done(null, false);
                 }
                 // User exists but wrong password, log the error
                 if (!isValidPassword(user, password)){
-                    errorlog.error('Invalid Password:', {username: username, password: password});
+                    logger.error('Invalid Password:', {username: username, password: password});
                     return done(null, false);
                 }
                 // User and password both match, return user from
                 // done method which will be treated like success
                 req.login(user, function(error) {
                     if (error) return next(error);
-                    accesslog.log("Request Login supossedly successful.");
+                    logger.info("Request Login supossedly successful.");
                     return done(null, user);
                 });
 

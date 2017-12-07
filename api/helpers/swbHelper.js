@@ -4,7 +4,7 @@ const config = require('./../../config/config.js');
 const marc21Helper = require('./../helpers/marc21Helper.js').createMarc21Helper();
 const enums = require('./../schema/enum.json');
 const BibliographicResource = require('./../schema/bibliographicResource');
-const errorlog = require('./../util/logger').errorlog;
+const logger = require('./../util/logger');
 
 
 var SwbHelper = function(){
@@ -29,7 +29,7 @@ SwbHelper.prototype.query = function(ppn, resourceType, callback){
     }, function(err, res, body) {
           marc21Helper.parseBibliographicResource(body ,function(err, result){
               if(err){
-                  errorlog.error(err);
+                  logger.error(err);
                   return callback(err, null);
               }
               return callback(null, result);
@@ -46,7 +46,7 @@ SwbHelper.prototype.queryOLC = function(ppn, callback){
     }, function(err, res, body) {
         marc21Helper.parseBibliographicResource(body ,function(err, result){
             if(err){
-                errorlog.error(err);
+                logger.error(err);
                 return callback(err, null);
             }
             return callback(null, result);
@@ -72,13 +72,13 @@ SwbHelper.prototype.queryByTitle = function(title, callback){
         method: 'GET',
     }, function(err, res, body) {
         if(err){
-            errorlog.log(err);
+            logger.log(err);
             return callback(err, null);
         }
 
         marc21Helper.parseBibliographicResources(body ,function(err, result){
             if(err){
-                errorlog.error(err);
+                logger.error(err);
                 return callback(err, null);
             }
             var brs = [];
@@ -115,13 +115,13 @@ SwbHelper.prototype.queryByQueryString = function(query, callback){
         method: 'GET',
     }, function(err, res, body) {
         if(err){
-            errorlog.log(err);
+            logger.log(err);
             return callback(err, null);
         }
 
         return marc21Helper.parseBibliographicResources(body ,function(err, result){
             if(err){
-                errorlog.error(err);
+                logger.error(err);
                 return callback(err, null);
             }
             var brs = [];

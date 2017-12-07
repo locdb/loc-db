@@ -6,7 +6,7 @@
 const mongoBr = require('./../models/bibliographicResource.js');
 const mongoose = require('mongoose');
 const enums = require('./../schema/enum.json');
-const errorlog = require('./../util/logger').errorlog;
+const logger = require('./../util/logger');
 const ocrHelper = require('./ocrHelper').createOcrHelper();
 const swbHelper = require('./swbHelper').createSwbHelper();
 const crossrefHelper = require('./crossrefHelper').createCrossrefHelper();
@@ -31,7 +31,7 @@ DatabaseHelper.prototype.saveIndependentPrintResource = function(scan, ppn, reso
     }, function (err, br) {
         // if there is an error, log it and return
         if(err){
-            errorlog.error(err);
+            logger.error(err);
             return callback(err, null);
         }
         // if the br is filled, then there is already a resource for the given identifier and it is another scan page
@@ -62,7 +62,7 @@ DatabaseHelper.prototype.saveIndependentPrintResource = function(scan, ppn, reso
             // we have to retrieve all the metadata and we have to save the file
             self.saveScanAndRetrieveMetadata(scan, ppn, resourceType, textualPdf, function (err, result) {
                 if (err) {
-                    errorlog.log(err);
+                    logger.log(err);
                     return callback(err, null);
                 }
                 var scan = result[0];
@@ -107,7 +107,7 @@ DatabaseHelper.prototype.saveDependentPrintResource = function(scan, firstPage, 
     }, function (err, parent) {
         // if there is an error, log it and return
         if(err){
-            errorlog.error(err);
+            logger.error(err);
             return callback(err, null);
         }
         // if the parent is filled, then there is already a container resource for the given ppn
@@ -121,7 +121,7 @@ DatabaseHelper.prototype.saveDependentPrintResource = function(scan, firstPage, 
                 if(child){
                     self.saveScan(scan, textualPdf, function(err,scan){
                         if(err){
-                            errorlog.error(err);
+                            logger.error(err);
                             return callback(err, null);
                         }
                         for(var embodiment of child.embodiedAs){
@@ -134,7 +134,7 @@ DatabaseHelper.prototype.saveDependentPrintResource = function(scan, firstPage, 
                         // We have to save the child in both cases
                         child.save(function (err, result) {
                             if(err){
-                                errorlog.error(err);
+                                logger.error(err);
                                 callback(err, null);
                             }
                             var res = []
@@ -151,14 +151,14 @@ DatabaseHelper.prototype.saveDependentPrintResource = function(scan, firstPage, 
                     // the child resource does not exist yet, but the parent does
                     self.saveScan(scan, textualPdf, function(err,result){
                         if(err){
-                            errorlog.error(err);
+                            logger.error(err);
                             return callback(err, null);
                         }
                         var scan = result;
                         // TODO: Test this properly!
                         crossrefHelper.queryChapterMetaData(parent.title ,firstPage, lastPage, function(err, res){
                             if(err){
-                                errorlog.error(err);
+                                logger.error(err);
                                 return callback(err, null);
                             }
                             if(res[0]) {
@@ -184,7 +184,7 @@ DatabaseHelper.prototype.saveDependentPrintResource = function(scan, firstPage, 
                             // We have to save the child in both cases
                             child.save(function (err, result) {
                                 if(err){
-                                    errorlog.error(err);
+                                    logger.error(err);
                                     callback(err, null);
                                 }
                                 var res = []
@@ -206,7 +206,7 @@ DatabaseHelper.prototype.saveDependentPrintResource = function(scan, firstPage, 
             // we have to retrieve all the metadata and we have to save the file
             self.saveScanAndRetrieveMetadata(scan, ppn, resourceType, textualPdf, function (err, result) {
                 if (err) {
-                    errorlog.log(err);
+                    logger.log(err);
                     return callback(err, null);
                 }
                 var scan = result[0];
@@ -215,7 +215,7 @@ DatabaseHelper.prototype.saveDependentPrintResource = function(scan, firstPage, 
                 // TODO: Test this properly!
                 crossrefHelper.queryChapterMetaData(parent.title, firstPage, lastPage, function (err, res) {
                     if (err) {
-                        errorlog.error(err);
+                        logger.error(err);
                         return callback(err, null);
                     }
                     if (res[0]) {
@@ -244,7 +244,7 @@ DatabaseHelper.prototype.saveDependentPrintResource = function(scan, firstPage, 
                             function (callback) {
                                 parent.save(function (err, result) {
                                     if (err) {
-                                        errorlog.error(err);
+                                        logger.error(err);
                                         callback(err, null);
                                     }
                                     callback(null, result);
@@ -253,7 +253,7 @@ DatabaseHelper.prototype.saveDependentPrintResource = function(scan, firstPage, 
                             function (callback) {
                                 child.save(function (err, result) {
                                     if (err) {
-                                        errorlog.error(err);
+                                        logger.error(err);
                                         callback(err, null);
                                     }
                                     callback(null, result);
@@ -261,7 +261,7 @@ DatabaseHelper.prototype.saveDependentPrintResource = function(scan, firstPage, 
                             }],
                         function (err, result) {
                             if (err) {
-                                errorlog.error(err);
+                                logger.error(err);
                                 return callback(err, null);
                             }
                             self.findScanByScanName(result[1], scan.scanName, function(err, scan){
@@ -289,7 +289,7 @@ DatabaseHelper.prototype.saveScanAndRetrieveMetadata = function(scan, ppn, resou
         function(callback){
             self.saveScan(scan, textualPdf, function(err, scan){
                 if(err){
-                    errorlog.error(err);
+                    logger.error(err);
                     return callback(err, null)
                 }
                 callback(null, scan);
@@ -299,7 +299,7 @@ DatabaseHelper.prototype.saveScanAndRetrieveMetadata = function(scan, ppn, resou
         function(callback){
             swbHelper.query(ppn, resourceType, function (err, result) {
                 if(err){
-                    errorlog.error(err);
+                    logger.error(err);
                     return callback(err, null)
                 }
                 callback(null, result);
@@ -307,11 +307,11 @@ DatabaseHelper.prototype.saveScanAndRetrieveMetadata = function(scan, ppn, resou
         }
     ], function(err, results){
         if (err) {
-            errorlog.error(err);
+            logger.error(err);
             return callback(err, null);
         }
         if(!results[1].identifiers){
-            errorlog.error("Something went wrong with retrieving data from the union catalog.");
+            logger.error("Something went wrong with retrieving data from the union catalog.");
             return callback(new Error("Something went wrong with retrieving data from the union catalog."), null);
         }
         results[1].identifiers.push({scheme: enums.identifier.ppn, literalValue: ppn});
@@ -339,7 +339,7 @@ DatabaseHelper.prototype.saveScan = function(scan, textualPdf, callback){
     ocrHelper.saveBinaryFile(scanId, scan.buffer, function (err, scanName) {
         // if there is an error, log it and return
         if (err) {
-            errorlog.error(err);
+            logger.error(err);
             return callback(err, null)
         }
         // if not, create a scan object

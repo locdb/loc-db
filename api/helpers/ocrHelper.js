@@ -4,8 +4,7 @@ const fs = require('fs');
 const xml2js = require('xml2js');
 const BibliographicEntry = require('./../schema/bibliographicEntry.js');
 const request = require('request');
-const errorlog = require('./../util/logger.js').errorlog;
-const accesslog = require('./../util/logger.js').accesslog;
+const logger = require('./../util/logger.js');
 const fileType = require('file-type');
 
 
@@ -18,15 +17,15 @@ OcrHelper.prototype.saveBinaryFile = function(fileName, fileBuffer, callback){
     var fileName = fileName + '.' + fileExtension;
 
     if (!fs.existsSync(config.PATHS.UPLOAD)){
-        accesslog.log("Create dir", {name: config.PATHS.UPLOAD});
+        logger.info("Create dir", {name: config.PATHS.UPLOAD});
         fs.mkdir(config.PATHS.UPLOAD, function(err, res){
             if(err){
-                errorlog.error(err);
+                logger.error(err);
                 return callback(err, null);
             }
             fs.writeFile(config.PATHS.UPLOAD + fileName, fileBuffer, 'binary', function(err){
                 if(err){
-                    errorlog.error(err);
+                    logger.error(err);
                     return callback(err, null);
                 }
                 return callback(null, fileName);
@@ -35,7 +34,7 @@ OcrHelper.prototype.saveBinaryFile = function(fileName, fileBuffer, callback){
     }else{
         fs.writeFile(config.PATHS.UPLOAD + fileName, fileBuffer, 'binary', function(err){
             if(err){
-                errorlog.error(err);
+                logger.error(err);
                 return callback(err, null);
             }
             return callback(null, fileName);
@@ -46,7 +45,7 @@ OcrHelper.prototype.saveBinaryFile = function(fileName, fileBuffer, callback){
 OcrHelper.prototype.saveStringFile = function(fileName, fileString, callback){
     fs.writeFile(config.PATHS.UPLOAD + fileName, fileString, 'utf-8', function(err){
         if(err){
-            errorlog.error(err);
+            logger.error(err);
             return callback(err, null)
         }
         callback(null,null);
@@ -81,7 +80,7 @@ OcrHelper.prototype.parseXMLBuffer = function(fileName, fileBuffer, callback){
 OcrHelper.prototype.parseXMLString = function(xmlString, fileName, callback){
     xml2js.parseString(xmlString, function(err, ocrResult){
         if(err){
-            errorlog.error(err);
+            logger.error(err);
             return callback(err, null)
         }
 
@@ -146,14 +145,14 @@ OcrHelper.prototype.parseXMLString = function(xmlString, fileName, callback){
     };*!/
     request.post({url: config.URLS.OCR, formData: form, timeout:1000000000}, function(err, res, body) {
         if (err) {
-            errorlog.error(err);
+            logger.error(err);
             return callback(err, null);
         }else if (res.statusCode!= 200){
-            errorlog.error("Request to OCR component failed.");
+            logger.error("Request to OCR component failed.");
             return callback("Request to OCR component failed.", null);
         }
         console.log(body);
-        accesslog.log("Request to OCR component successful.", {body: body});
+        logger.info("Request to OCR component successful.", {body: body});
         callback(null, body);
      });
 };*/
@@ -188,14 +187,14 @@ OcrHelper.prototype.ocr_fileupload = function(fileName, textualPdf, callback){
 
     request.post({url: config.URLS.OCR_FILEUPLOAD, formData: form, timeout:1000000000}, function(err, res, body) {
         if (err) {
-            errorlog.error(err);
+            logger.error(err);
             return callback(err, null);
         }else if (res.statusCode!= 200){
-            errorlog.error("Request to OCR component failed.");
+            logger.error("Request to OCR component failed.");
             return callback("Request to OCR component failed.", null);
         }
         console.log(body);
-        accesslog.log("Request to OCR component successful.", {body: body});
+        logger.info("Request to OCR component successful.", {body: body});
         callback(null, body);
     });
 };
@@ -212,13 +211,13 @@ OcrHelper.prototype.getImageForPDF = function(fileName, callback){
 
         request.post({url: config.URLS.OCR_IMAGEVIEW, formData: form, timeout:1000000, encoding: null}, function(err, res, body) {
             if (err) {
-                errorlog.error(err);
+                logger.error(err);
                 return callback(err, null);
             }else if (res.statusCode!= 200) {
-                errorlog.error("Request to OCR component failed.");
+                logger.error("Request to OCR component failed.");
                 return callback("Request to OCR component failed.", null);
             }
-            accesslog.log("Request to OCR component successful.");
+            logger.info("Request to OCR component successful.");
             return callback(null, body);
         });
     }else{

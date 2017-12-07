@@ -1,8 +1,7 @@
 'use strict';
 
 const scholar = require('google-scholar');
-const errorlog = require('./../util/logger.js').errorlog;
-const accesslog = require('./../util/logger.js').accesslog;
+const logger = require('./../util/logger.js');
 const BibliographicResource = require('./../schema/bibliographicResource.js');
 const enums = require('./../schema/enum.json');
 const Identifier = require('./../schema/identifier.js');
@@ -33,7 +32,7 @@ GoogleScholarHelper.prototype.query = function(query, callback){
             var br = new BibliographicResource({title: res.title, contributors: contributors, identifiers: [{scheme: enums.externalSources.gScholar, literalValue: res.url}], status: enums.status.external});
             brs.push(br.toObject());
         }
-        console.log(brs);
+        logger.info(brs);
         callback(null, brs);
     });
     

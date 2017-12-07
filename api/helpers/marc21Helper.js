@@ -3,6 +3,7 @@
 const marc4js = require('marc4js');
 const enums = require('./../schema/enum.json');
 const async = require('async');
+const logger = require('./../util/logger');
 
 var Marc21Helper = function(){
 }
@@ -18,7 +19,7 @@ Marc21Helper.prototype.parseBibliographicResource = function(xmlString, callback
     marc4js.parse(xmlString, {format: 'marcxml'}, function(err, records) {
         self.extractData(records,function(err, result){
             if(err){
-                errorlog.error(err);
+                logger.error(err);
                 return callback(err, null);
             }
             return callback(null, result);
@@ -46,7 +47,7 @@ Marc21Helper.prototype.parseBibliographicResources = function(xmlString, callbac
         }
         async.map(splittedRecords, self.extractData, function(err, results){
             if(err){
-                errorlog.log(err);
+                logger.log(err);
                 return callback(err, null);
             }
             return callback(null,results);

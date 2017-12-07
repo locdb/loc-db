@@ -6,8 +6,7 @@ const Scan = require('./../schema/scan.js');
 const enums = require('./../schema/enum.json');
 const async = require('async');
 const mongoBr = require('./../models/bibliographicResource.js');
-const errorlog = require('./../util/logger.js').errorlog;
-const accesslog = require('./../util/logger.js').accesslog;
+const logger = require('./../util/logger.js');
 const config = require('./../../config/config.js');
 const mongoose = require('mongoose');
 const fs = require('fs');
@@ -29,7 +28,7 @@ function saveScan(req, res) {
     if(resourceType == enums.resourceType.monograph){
         databaseHelper.saveIndependentPrintResource(scan, ppn, resourceType, textualPdf, function(err,res){
             if(err){
-                errorlog.error(err);
+                logger.error(err);
                 return response.status(400).json(err);
             }
             return response.json(res);
@@ -38,7 +37,7 @@ function saveScan(req, res) {
         || resourceType == enums.resourceType.bookChapter || resourceType == enums.resourceType.proceedingsArticle) {
         databaseHelper.saveDependentPrintResource(scan, firstPage, lastPage, ppn, resourceType, textualPdf, function (err, res) {
             if(err){
-                errorlog.error(err);
+                logger.error(err);
                 return response.status(400).json(err);
             }
             return response.json(res);
@@ -54,14 +53,14 @@ function saveScanForElectronicJournal(req, res) {
     //var id = req.swagger.params.id.value;
     // check if id is valid
 /*    if (!mongoose.Types.ObjectId.isValid(id)) {
-        errorlog.error("Invalid value for parameter id.", {id: id});
+        logger.error("Invalid value for parameter id.", {id: id});
         return response.status(400).json({"message": "Invalid parameter."});
     }*/
     var doi = req.swagger.params.doi.value;
     var ppn = req.swagger.params.ppn.value;
 
     if(doi && !ppn){
-        accesslog.log("Doi was given.");
+        logger.info("Doi was given.");
         mongoBr.findOne({
             //'_id': id
             "identifiers.scheme": enums.identifier.doi,
@@ -69,11 +68,11 @@ function saveScanForElectronicJournal(req, res) {
         }, function (err, child) {
             // if there is an error, log it and return
             if (err) {
-                errorlog.error(err);
+                logger.error(err);
                 return response.status(500).json(err);
             }
             if(!child){
-                errorlog.error("No br could be found for parameter doi.", {'doi': doi});
+                logger.error("No br could be found for parameter doi.", {'doi': doi});
                 return response.status(400).json(err);
             }
             // we only have to save the file and add it to the child and we have to change the status of the child
@@ -93,7 +92,7 @@ function saveScanForElectronicJournal(req, res) {
                 }
                 return child.save(function (err, result) {
                     if(err){
-                        errorlog.log(err);
+                        logger.log(err);
                         return response.status(500).json(err);
                     }
                     databaseHelper.findScanByScanName(result, scan.scanName, function(err, scan){
@@ -104,7 +103,7 @@ function saveScanForElectronicJournal(req, res) {
             });
         });
     }else if (ppn && !doi){
-        accesslog.log("PPN was given.");
+        logger.info("PPN was given.");
         mongoBr.findOne({
             //'_id': id
             "identifiers.scheme": enums.identifier.ppn,
@@ -112,11 +111,11 @@ function saveScanForElectronicJournal(req, res) {
         }, function (err, child) {
             // if there is an error, log it and return
             if (err) {
-                errorlog.error(err);
+                logger.error(err);
                 return response.status(500).json(err);
             }
             if(!child){
-                errorlog.error("No br could be found for parameter ppn.", {'doi': ppn});
+                logger.error("No br could be found for parameter ppn.", {'doi': ppn});
                 return response.status(400).json(err);
             }
             // we only have to save the file and add it to the child and we have to change the status of the child
@@ -136,7 +135,7 @@ function saveScanForElectronicJournal(req, res) {
                 }
                 return child.save(function (err, result) {
                     if(err){
-                        errorlog.log(err);
+                        logger.log(err);
                         return response.status(500).json(err);
                     }
                     databaseHelper.findScanByScanName(result, scan.scanName, function(err, scan){
@@ -157,13 +156,13 @@ function getToDo(req, res) {
     var response = res;
     var status = req.swagger.params.status.value;
     if ((status !== enums.status.notOcrProcessed) && (status !== enums.status.ocrProcessed) && (status !== enums.status.external)) {
-        errorlog.error(err);
+        logger.error(err);
         return response.status(400).json({"message": "Invalid parameter."});
     }
     if(status == enums.status.ocrProcessed) {
         mongoBr.find({'embodiedAs.scans.status': status}, function (err, children) {
             if (err) {
-                errorlog.error(err);
+                logger.error(err);
                 return response.status(500).json({"message": "DB query failed."});
             }
             var resultArray = [];
@@ -248,7 +247,7 @@ function getToDo(req, res) {
                 if (parent.children) {
                     mongoBr.findOne({'_id': parent._id}, function (err, br) {
                         if (err) {
-                            errorlog.error(err);
+                            logger.error(err);
                             return callback(err, null)
                         }
                         if (!br) {
@@ -269,7 +268,7 @@ function getToDo(req, res) {
                 }
             }, function (err, res) {
                 if (err) {
-                    errorlog.error(err);
+                    logger.error(err);
                     return response.status(500).json({"message": "DB query failed."});
                 }
                 response.json(res);
@@ -279,7 +278,7 @@ function getToDo(req, res) {
     }else if (status == enums.status.notOcrProcessed){
         mongoBr.find({ $or: [ {'embodiedAs.scans.status': enums.status.notOcrProcessed}, {'embodiedAs.scans.status': enums.status.ocrProcessing}] }, function (err, children) {
             if (err) {
-                errorlog.error(err);
+                logger.error(err);
                 return response.status(500).json({"message": "DB query failed."});
             }
             var resultArray = [];
@@ -364,7 +363,7 @@ function getToDo(req, res) {
                 if (parent.children) {
                     mongoBr.findOne({'_id': parent._id}, function (err, br) {
                         if (err) {
-                            errorlog.error(err);
+                            logger.error(err);
                             return callback(err, null)
                         }
                         if (!br) {
@@ -385,7 +384,7 @@ function getToDo(req, res) {
                 }
             }, function (err, res) {
                 if (err) {
-                    errorlog.error(err);
+                    logger.error(err);
                     return response.status(500).json({"message": "DB query failed."});
                 }
                 response.json(res);
@@ -396,11 +395,11 @@ function getToDo(req, res) {
         // this case applies only to electronic journals at the moment and only if there is no scan uploaded yet
         mongoBr.find({'status': status}, function (err, children) {
             if (err) {
-                errorlog.error(err);
+                logger.error(err);
                 return response.status(500).json({"message": "DB query failed."});
             }
             if (err) {
-                errorlog.error(err);
+                logger.error(err);
                 return response.status(500).json({"message": "DB query failed."});
             }
             var resultArray = [];
@@ -461,7 +460,7 @@ function getToDo(req, res) {
                 if (parent.children) {
                     mongoBr.findOne({'_id': parent._id}, function (err, br) {
                         if (err) {
-                            errorlog.error(err);
+                            logger.error(err);
                             return callback(err, null)
                         }
                         if (!br) {
@@ -483,7 +482,7 @@ function getToDo(req, res) {
                 }
             }, function (err, res) {
                 if (err) {
-                    errorlog.error(err);
+                    logger.error(err);
                     return response.status(500).json({"message": "DB query failed."});
                 }
                 response.json(res);
@@ -499,17 +498,17 @@ function get(req, res) {
 
     // check if id is valid
     if (!mongoose.Types.ObjectId.isValid(id)) {
-        errorlog.error("Invalid value for parameter id.", {id: id});
+        logger.error("Invalid value for parameter id.", {id: id});
         return response.status(400).json({"message": "Invalid parameter."});
     }
 
     // retrieve corresponding entry from the db
     mongoBr.findOne({'embodiedAs.scans._id': id}, function (err, br) {
         if (err) {
-            errorlog.error(err);
+            logger.error(err);
             return response.status(500).json({"message": "DB query failed."});
         } else if (!br) {
-            errorlog.error("No entry found for parameter id.", {id: id});
+            logger.error("No entry found for parameter id.", {id: id});
             return response.status(400).json({"message": "No entry found."});
         }
         for (var embodiment of br.embodiedAs) {
@@ -518,7 +517,7 @@ function get(req, res) {
                     // send file
                     var filePath = config.PATHS.UPLOAD + scan.scanName;
                     return response.sendFile(path.resolve(filePath), function (err) {
-                        if (err) return errorlog.error(err);
+                        if (err) return logger.error(err);
                     });
                 }
             }
@@ -533,17 +532,17 @@ function remove(req, res) {
 
     // check if id is valid
     if (!mongoose.Types.ObjectId.isValid(id)) {
-        errorlog.error("Invalid value for parameter id.", {id: id});
+        logger.error("Invalid value for parameter id.", {id: id});
         return response.status(400).json({"message": "Invalid parameter."});
     }
 
     // retrieve corresponding entry from the db
     mongoBr.findOne({'embodiedAs.scans._id': id}, function (err, br) {
         if (err) {
-            errorlog.error(err);
+            logger.error(err);
             return response.status(500).json({"message": "DB query failed."});
         } else if (!br) {
-            errorlog.error("No entry found for parameter id.", {id: id});
+            logger.error("No entry found for parameter id.", {id: id});
             return response.status(400).json({"message": "No entry found."});
         }
         for (var embodiment of br.embodiedAs) {
@@ -558,7 +557,7 @@ function remove(req, res) {
                     br.embodiedAs[embodimentIndex] = embodiment;
                     return br.save(function(err, res){
                         if (err) {
-                            errorlog.error(err);
+                            logger.error(err);
                             return response.status(500).json({"message": "DB query failed."});
                         }
                         return response.status(200).json({"message": "Delete succeeded"})
@@ -576,7 +575,7 @@ function triggerOcrProcessing(req, res) {
 
     // check if id is valid
     if (!mongoose.Types.ObjectId.isValid(id)) {
-        errorlog.error("Invalid value for parameter id.", {id: id});
+        logger.error("Invalid value for parameter id.", {id: id});
         return response.status(400).json({"message": "Invalid parameter."});
     }
 
@@ -591,10 +590,10 @@ function triggerOcrProcessing(req, res) {
     }, function (err, br) {
         // do error handling
         if (err) {
-            errorlog.error(err);
+            logger.error(err);
             return response.status(500).json({"message": "DB query failed."});
         } else if (!br) {
-            errorlog.error("No entry found for parameter id.", {id: id});
+            logger.error("No entry found for parameter id.", {id: id});
             return response.status(400).json({"message": "No entry found."});
         }
         for (var embodiment of br.embodiedAs) {
@@ -610,8 +609,8 @@ function triggerOcrProcessing(req, res) {
                     br.save(function(err,res){
                         ocrHelper.ocr_fileupload(scan.scanName, scan.textualPdf, function (err, result) {
                             if (err) {
-                                errorlog.error(err);
-                                accesslog.log("We try to set back the status of the scan");
+                                logger.error(err);
+                                logger.info("We try to set back the status of the scan");
                                 return mongoBr.findOne({
                                     'embodiedAs.scans': {
                                         '$elemMatch': {
@@ -640,7 +639,7 @@ function triggerOcrProcessing(req, res) {
                                 function (callback) {
                                     ocrHelper.parseXMLString(result, scan.scanName, function (err, bes) {
                                         if (err) {
-                                            errorlog.error(err);
+                                            logger.error(err);
                                             return response.status(500).json({"message": "XML parsing failed."});
                                         }
 
@@ -660,7 +659,7 @@ function triggerOcrProcessing(req, res) {
                                         br.save().then(function (br) {
                                             callback(null, br);
                                         }, function (err) {
-                                            errorlog.error(err);
+                                            logger.error(err);
                                             callback(err, null)
                                         });
 
@@ -670,7 +669,7 @@ function triggerOcrProcessing(req, res) {
 
                                     ocrHelper.saveStringFile(name, result, function (err, res) {
                                         if (err) {
-                                            errorlog.error(err);
+                                            logger.error(err);
                                             return callback(err, null);
                                         }
                                         callback(null, name);
@@ -679,7 +678,7 @@ function triggerOcrProcessing(req, res) {
                                 function (callback) {
                                     ocrHelper.getImageForPDF(scan.scanName, function (err, res) {
                                         if (err) {
-                                            errorlog.error(err);
+                                            logger.error(err);
                                             return callback(err, null);
                                         }
                                         callback(null, res);
@@ -687,13 +686,13 @@ function triggerOcrProcessing(req, res) {
                                 }
                             ], function (err, results) {
                                 if (err) {
-                                    errorlog.error(err);
+                                    logger.error(err);
                                     return response.status(500).json({"message": "An error occured."});
                                 }
                                 if(results[2]){
                                     ocrHelper.saveBinaryFile(scan._id.toString(), results[2], function(err, res){
                                         if (err) {
-                                            errorlog.error(err);
+                                            logger.error(err);
                                             return response.status(500).json({"message": "An error occured."});
                                         }
 
@@ -706,7 +705,7 @@ function triggerOcrProcessing(req, res) {
                                         }, function (err, br) {
                                             // do error handling
                                             if (err) {
-                                                errorlog.error(err);
+                                                logger.error(err);
                                                 return response.status(500).json({"message": "DB query failed."});
                                             }
                                             for (var embodiment of br.embodiedAs) {
@@ -722,7 +721,7 @@ function triggerOcrProcessing(req, res) {
                                                         br.save().then(function (br) {
                                                             return response.json(br);
                                                         }, function (err) {
-                                                            errorlog.error(err);
+                                                            logger.error(err);
                                                             return response.status(500).json(err);
                                                         });
                                                     }
@@ -738,7 +737,7 @@ function triggerOcrProcessing(req, res) {
                                     results[0].save().then(function (br) {
                                         return response.json(br);
                                     }, function (err) {
-                                        errorlog.error(err);
+                                        logger.error(err);
                                         return response.status(500).json(err);
                                     });
                                 }

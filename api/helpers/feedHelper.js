@@ -4,7 +4,7 @@
 'use strict';
 const request = require('request');
 const Feedparser = require('feedparser');
-const errorlog = require('./../util/logger.js').errorlog;
+const logger = require('./../util/logger.js');
 const async = require('async');
 const FeedEntry = require('./../schema/feedEntry');
 
@@ -16,7 +16,7 @@ FeedHelper.prototype.fetchMultiple = function(feeds, callback){
     var self = this;
     async.map(feeds, self.fetchSingle, function(err, results) {
         if(err){
-            errorlog.log(err);
+            logger.log(err);
             return callback(err, null);
         }
         else{
@@ -36,7 +36,7 @@ FeedHelper.prototype.fetchSingle = function(feed, callback){
 
     // Define our handlers
     req.on('error', function(err, callback){
-        errorlog.error(err);
+        logger.error(err);
         return callback(null, err);
     });
 
@@ -46,7 +46,7 @@ FeedHelper.prototype.fetchSingle = function(feed, callback){
     });
 
     feedparser.on('error', function(err, callback){
-        errorlog.error(err);
+        logger.error(err);
         return callback(null, err);
     });
     feedparser.on('end', function(){
@@ -64,7 +64,7 @@ FeedHelper.prototype.fetchSingle = function(feed, callback){
 };
 
 /*FeedHelper.prototype.handleErrors = function(err, callback){
-   errorlog.error(err);
+   logger.error(err);
    return callback(null, err);
 };*/
 

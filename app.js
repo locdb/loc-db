@@ -6,8 +6,7 @@ const yaml = require('js-yaml');
 const fs = require('fs');
 const app = require('express')();
 const mongoose = require('mongoose');
-const errorlog = require('./api/util/logger.js').errorlog;
-const accesslog = require('./api/util/logger.js').accesslog;
+const logger = require('./api/util/logger.js');
 const cors = require('cors');
 
 
@@ -18,7 +17,7 @@ var db = mongoose.connection;
 
 db.on('error', console.error);
 db.once('open', function() {
-    accesslog.info("DB successfully opened.")
+    logger.info("DB successfully opened.")
 });
 
 // Configuring Passport
@@ -35,7 +34,7 @@ if(process.argv.indexOf("test" >0)){
     config = Object.assign(config, require("./test/api/config.js"));
 }
 
-accesslog.info("Running config:", {config : JSON.stringify(config)});
+logger.info("Running config:", {config : JSON.stringify(config)});
 
 var uri = "mongodb://" + config.DB.HOST + ":" + config.DB.PORT + "/" + config.DB.SCHEMA;
 
