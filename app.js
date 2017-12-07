@@ -8,6 +8,7 @@ const app = require('express')();
 const mongoose = require('mongoose');
 const logger = require('./api/util/logger.js');
 const cors = require('cors');
+const morgan = require('morgan');
 
 
 
@@ -68,6 +69,20 @@ SwaggerExpress.create({appRoot: __dirname, securityHandlers: {
     app.use(passport.initialize());
     app.use(passport.session());
     app.use(cors({origin: "http://localhost:4200", credentials: true}));
+
+    // enable http logging
+    app.use(morgan('dev', {
+        skip: function (req, res) {
+            return res.statusCode < 400
+        }, stream: process.stderr
+    }));
+
+    app.use(morgan('dev', {
+        skip: function (req, res) {
+            return res.statusCode >= 400
+        }, stream: process.stdout
+    }));
+
     swaggerExpress.register(app);
     app.listen(config.PORT);
 });
