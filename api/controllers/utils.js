@@ -13,6 +13,7 @@ function log(req, res){
         req.connection.remoteAddress ||
         req.socket.remoteAddress ||
         (req.connection.socket ? req.connection.socket.remoteAddress : null);
+    logObject.status="EVALUATION";
     logObject.ip = ip;
     logObject.user = req.user ? {username: req.user.username, userid: req.user._id.toString()} : "";
     logger.info(logObject);
