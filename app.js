@@ -73,13 +73,25 @@ SwaggerExpress.create({appRoot: __dirname, securityHandlers: {
     app.use(cors({origin: "http://localhost:4200", credentials: true}));
 
     // enable http logging
-    app.use(morgan('dev',{
+    morgan.token('username', function (req, res) {
+        return req.user ? req.user.username : "";
+    });
+
+    morgan.token('userid', function (req, res) {
+        return req.user ? req.user._id : "";
+    });
+
+    morgan.token('body', function (req, res) {
+        return req.body ? JSON.stringify(req.body) : "";
+    });
+
+    app.use(morgan(':method :url :status :response-time ms - :res[content-length] - :username :userid - :body',{
         skip: function (req, res) {
             return res.statusCode < 400
         }, stream: logger.streamError
     }));
 
-    app.use(morgan('dev',{
+    app.use(morgan(':method :url :status :response-time ms - :res[content-length] - :username :userid - :body',{
         skip: function (req, res) {
             return res.statusCode >= 400
         }, stream: logger.streamInfo
