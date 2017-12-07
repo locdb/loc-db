@@ -13,7 +13,7 @@ const morgan = require('morgan');
 
 
 module.exports = app; // for testing
-
+mongoose.set('debug', true);
 var db = mongoose.connection;
 
 db.on('error', console.error);
