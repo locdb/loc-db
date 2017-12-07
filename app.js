@@ -74,13 +74,13 @@ SwaggerExpress.create({appRoot: __dirname, securityHandlers: {
     app.use(morgan('combined', {
         skip: function (req, res) {
             return res.statusCode < 400
-        }, stream: logger.streamInfo
+        }, stream: logger.streamError
     }));
 
     app.use(morgan('combined', {
         skip: function (req, res) {
             return res.statusCode >= 400
-        }, stream: logger.streamError
+        }, stream: logger.streamInfo
     }));
 
     swaggerExpress.register(app);
