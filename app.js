@@ -13,7 +13,9 @@ const morgan = require('morgan');
 
 
 module.exports = app; // for testing
-mongoose.set('debug', true);
+mongoose.set('debug', function (collectionName, method, query, doc){
+    logger.info("MONGOOSE", collectionName + "." + method + "(" + JSON.stringify(query) + ")");
+});
 var db = mongoose.connection;
 
 db.on('error', console.error);
