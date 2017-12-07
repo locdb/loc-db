@@ -13,9 +13,9 @@ function log(req, res){
         req.connection.remoteAddress ||
         req.socket.remoteAddress ||
         (req.connection.socket ? req.connection.socket.remoteAddress : null);
-    logObject.status="EVALUATION";
-    logObject.ip = ip;
-    logObject.user = req.user ? {username: req.user.username, userid: req.user._id.toString()} : "";
+    logObject._status = "EVALUATION";
+    logObject._ip = ip;
+    logObject._user = req.user ? {username: req.user.username, userid: req.user._id.toString()} : "USER_UNKNOWN";
     logger.info(logObject);
     return response.json({message: "Logging suceeded."});
 }
