@@ -108,13 +108,17 @@ function fetchFeeds(req, res){
     var response = res;
     var user = req.user;
     // get list of urls
-    feedHelper.fetchMultiple(user.feeds, function(err, res){
-        if(err){
-            logger.error(err);
-            return response.status(500).json({"message": "Something went wrong with fetching the feeds."});
-        }
-        return response.json(res);
-    });
+    if(user){
+        return feedHelper.fetchMultiple(user.feeds, function(err, res){
+            if(err){
+                logger.error(err);
+                return response.status(500).json({"message": "Something went wrong with fetching the feeds."});
+            }
+            return response.json(res);
+        });
+    }else{
+        return response.status(400).json({"message": "User needs to be logged in for fetching feeds."});
+    }
 }
 
 
