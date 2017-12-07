@@ -889,7 +889,6 @@ definitions:
   
   Identifier:
     required:
-      - literalValue
       - scheme
     properties:
       literalValue:
