@@ -14,3 +14,14 @@ const logger = new winston.Logger({
 });
 
 module.exports = logger;
+
+module.exports.streamInfo = {
+    write: function(message, encoding){
+        logger.info(message);
+    }
+};
+module.exports.streamError = {
+    write: function(message, encoding){
+        logger.error(message);
+    }
+};

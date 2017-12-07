@@ -71,16 +71,16 @@ SwaggerExpress.create({appRoot: __dirname, securityHandlers: {
     app.use(cors({origin: "http://localhost:4200", credentials: true}));
 
     // enable http logging
-    app.use(morgan('dev', {
+    app.use(morgan('combined', {
         skip: function (req, res) {
             return res.statusCode < 400
-        }, stream: process.stderr
+        }, stream: logger.streamInfo
     }));
 
-    app.use(morgan('dev', {
+    app.use(morgan('combined', {
         skip: function (req, res) {
             return res.statusCode >= 400
-        }, stream: process.stdout
+        }, stream: logger.streamError
     }));
 
     swaggerExpress.register(app);
