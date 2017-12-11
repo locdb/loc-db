@@ -121,7 +121,6 @@ function remove(req, res) {
             return res.status(400).json({"message": "No bibliographic entry found for id."});
         }
 
-
         for (var be of br.parts) {
             if (be._id.toString() === id) {
                 var index = br.parts.indexOf(be);
@@ -130,7 +129,7 @@ function remove(req, res) {
                     return response.json(result);
                 }, function (err) {
                     logger.error(err);
-                    return response.status(500).send(err);
+                    return response.status(500).json(err);
                 });
             }
         }
