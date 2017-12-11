@@ -95,8 +95,18 @@ function get(req, res){
 
 function deleteAll(req, res){
     var response = res;
-    br.remove({}, function(err, res){
-        err ? response.status(400).json({"message":'Delete operation failed.'}) : response.status(200).send({"message":'Delete operation succeeded.'});
+    return br.remove({}, function(err, res){
+        if(err){
+            logger.error(err);
+            return response.status(500).json({"message":'Delete operation failed.'});
+        }
+        return br.esTruncate(function(err){
+            if(err){
+                logger.error(err);
+                return response.status(500).json({"message":'Delete operation failed.'});
+            }
+            return response.status(200).send({"message":'Delete operation succeeded.'});
+        });
     });
 }
 
