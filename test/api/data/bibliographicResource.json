@@ -9,5 +9,129 @@
     "cites": [],
     "contributors": [],
     "identifiers": []
+  },
+  {
+    "_id": "5a2947087bdcfd4759582633",
+    "publicationYear": "1993",
+    "containerTitle": "Revue française de Sociologie",
+    "number": "34",
+    "status": "EXTERNAL",
+    "__v": 0,
+    "embodiedAs": [],
+    "parts": [],
+    "cites": [],
+    "contributors": [
+      {
+        "roleType": "AUTHOR",
+        "_id": "5a2947087bdcfd4759582634",
+        "heldBy": {
+          "nameString": "Duru-Bellat, M.",
+          "givenName": "",
+          "familyName": "",
+          "identifiers": []
+        },
+        "identifiers": []
+      }
+    ],
+    "identifiers": [
+      {
+        "literalValue": "10.2307/3322050",
+        "scheme": "DOI",
+        "_id": "5a1d0e82a2b9423e05265b71"
+      }
+    ]
+  },
+  {
+    "_id": "5a294938bc0d3f4a326761c6",
+    "title": "Privat-staatliche Regelungsstrukturen im frühen Industrie- und Sozialstaat /",
+    "publicationYear": "2016",
+    "type": "MONOGRAPH",
+    "__v": 0,
+    "embodiedAs": [
+      {
+        "type": "PRINT",
+        "_id": "5a294938bc0d3f4a326761c7",
+        "scans": [
+          {
+            "scanName": "5a294938bc0d3f4a326761c8.png",
+            "textualPdf": false,
+            "status": "OCR_PROCESSED",
+            "_id": "5a294938bc0d3f4a326761c8"
+          }
+        ],
+        "identifiers": []
+      }
+    ],
+    "parts": [],
+    "cites": [],
+    "contributors": [
+      {
+        "roleType": "AUTHOR",
+        "_id": "5a294938bc0d3f4a326761ca",
+        "heldBy": {
+          "nameString": "Collin, Peter",
+          "givenName": "Peter",
+          "familyName": "Collin",
+          "identifiers": []
+        },
+        "identifiers": []
+      },
+      {
+        "roleType": "PUBLISHER",
+        "_id": "5a294938bc0d3f4a326761c9",
+        "heldBy": {
+          "nameString": "De Gruyter Oldenbourg, ",
+          "identifiers": []
+        },
+        "identifiers": []
+      }
+    ],
+    "identifiers": [
+      {
+        "literalValue": "958009108",
+        "scheme": "OCLC_ID",
+        "_id": "5a294938bc0d3f4a326761d3"
+      },
+      {
+        "literalValue": "9783110379709",
+        "scheme": "ISBN",
+        "_id": "5a294938bc0d3f4a326761d2"
+      },
+      {
+        "literalValue": "9783110396690",
+        "scheme": "ISBN",
+        "_id": "5a294938bc0d3f4a326761d1"
+      },
+      {
+        "literalValue": "10.1515/9783110379709",
+        "scheme": "DOI",
+        "_id": "5a294938bc0d3f4a326761d0"
+      },
+      {
+        "literalValue": "http://dx.doi.org/10.1515/9783110379709",
+        "scheme": "URI",
+        "_id": "5a294938bc0d3f4a326761cf"
+      },
+      {
+        "literalValue": "http://www.degruyter.com/viewbooktoc/product/434086",
+        "scheme": "URI",
+        "_id": "5a294938bc0d3f4a326761ce"
+      },
+      {
+        "literalValue": "https://doi.org/10.1515/9783110379709",
+        "scheme": "URI",
+        "_id": "5a294938bc0d3f4a326761cd"
+      },
+      {
+        "literalValue": "475963199",
+        "scheme": "SWB_PPN",
+        "_id": "5a294938bc0d3f4a326761cc"
+      },
+      {
+        "scheme": "PPN",
+        "literalValue": "475963199",
+        "_id": "5a294938bc0d3f4a326761cb"
+      }
+    ]
   }
 ]

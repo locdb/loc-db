@@ -11,6 +11,7 @@ describe('controllers', function() {
 
   describe('bibliographicResource', function() {
       var id = "";
+      var idToDelete = "";
       before(function(done) {
           setup.loadBibliographicResources(function(err,res){
               setup.login(agent, function(err, res){
@@ -28,7 +29,7 @@ describe('controllers', function() {
       
       
       describe('GET /bibliographicResources', function(){
-          it('should return a list of bibliographic Resources of length 1', function(done){
+          it('should return a list of bibliographic Resources of length 3', function(done){
               agent
                   .get('/bibliographicResources')
                   .set('Accept', 'application/json')
@@ -37,7 +38,7 @@ describe('controllers', function() {
                   .end(function(err, res){
                       should.not.exist(err);
                       res.body.should.be.an.Array();
-                      res.body.should.have.length(1);
+                      res.body.should.have.length(3);
                       done();
                   });
           });
@@ -46,7 +47,7 @@ describe('controllers', function() {
       
       describe.skip('GET /createBibliographicResourceByPPN', function() {
           
-          it('should return a new bibliographic resouce', function(done) {
+          it('should return a new bibliographic resource', function(done) {
             agent
               .get('/createBibliographicResourceByPPN')
               .query({ ppn: '400433052', resourceType: enums.resourceType.collection})
@@ -78,6 +79,35 @@ describe('controllers', function() {
       });
       
       describe('GET /bibliographicResources', function(){
+          it('should return a list of bibliographic Resources of length 3', function(done){
+              agent
+                  .get('/bibliographicResources')
+                  .set('Accept', 'application/json')
+                  .expect('Content-Type', /json/)
+                  .expect(200)
+                  .end(function(err, res){
+                      should.not.exist(err);
+                      res.body.should.be.an.Array();
+                      res.body.should.have.length(3);
+                      idToDelete = res.body[0]._id;
+                      done();
+                  });
+          });
+      });
+
+      describe('DELETE /bibliographicResources/<id>', function(){
+          it('should return response code 200 and delete a single resource', function(done){
+              agent
+                  .delete('/bibliographicResources/' + idToDelete)
+                  .set('Accept', 'application/json')
+                  .expect('Content-Type', /json/)
+                  .expect(200)
+                  .end(function(err, res){
+                      should.not.exist(err);
+                      done();
+                  });
+          });
+
           it('should return a list of bibliographic Resources of length 2', function(done){
               agent
                   .get('/bibliographicResources')
@@ -87,12 +117,12 @@ describe('controllers', function() {
                   .end(function(err, res){
                       should.not.exist(err);
                       res.body.should.be.an.Array();
-                      res.body.should.have.length(1);
+                      res.body.should.have.length(2);
                       done();
                   });
           });
       });
-      
+
       describe('DELETE /bibliographicResources', function(){
           it('should return response code 200', function(done){
               agent
@@ -105,9 +135,7 @@ describe('controllers', function() {
                       done();
                   });
           });
-      });
-      
-      describe('GET /bibliographicResources', function(){
+
           it('should return a list of bibliographic resources of length 0', function(done){
               agent
                   .get('/bibliographicResources')

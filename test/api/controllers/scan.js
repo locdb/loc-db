@@ -314,7 +314,7 @@ describe('controllers', function () {
                     });
             });
 
-            it('should retrieve an empty todo list for the status "OCR_PROCESSED"', function (done) {
+            it('should retrieve a 1 todo list for the status "OCR_PROCESSED"', function (done) {
                 agent
                     .get('/getToDo')
                     .query({status: "OCR_PROCESSED"})
@@ -325,7 +325,7 @@ describe('controllers', function () {
                         console.log(res.body);
                         should.not.exist(err);
                         res.body.should.be.Array;
-                        res.body.should.have.lengthOf(0);
+                        res.body.should.have.lengthOf(1);
                         done();
                     });
             });
@@ -449,7 +449,7 @@ describe('controllers', function () {
         });
 
         describe('GET /getToDo', function () {
-            it('should retrieve an todo list for the status "OCR_PROCESSED" of size 1', function (done) {
+            it('should retrieve an todo list for the status "OCR_PROCESSED" of size 2', function (done) {
                 agent
                     .get('/getToDo')
                     .query({status: "OCR_PROCESSED"})
@@ -460,7 +460,7 @@ describe('controllers', function () {
                         console.log(res.body);
                         should.not.exist(err);
                         res.body.should.be.Array;
-                        res.body.should.have.lengthOf(1);
+                        res.body.should.have.lengthOf(2);
                         done();
                     });
             });

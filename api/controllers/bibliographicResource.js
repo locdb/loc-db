@@ -114,9 +114,32 @@ function deleteAll(req, res){
 function deleteSingle(req, res){
     var id = req.swagger.params.id.value.trim();
     var response = res;
-    br.remove({_id: id},function(err,res){
-        err ? response.status(400).json({"message":'Delete operation failed.'}) : response.status(200).send({"message":'Delete operation succeeded.'});
-    }); 
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        logger.error("Invalid value for parameter id.", {
+            id: id
+        });
+        return response.status(400).json({"message": "Invalid parameter id."});
+    }
+
+    // we should first have a handle to the instance itself, because then elastic will update the removal automatically
+    br.findOne({_id: id}, function(err, doc){
+        if(err){
+            logger.error(err);
+            return response.status(500).json(err);
+        }
+        if(!doc){
+            logger.error("Document could not be found. ", {_id: id});
+            return response.status(400).json({"message" : "Document could not be found."});
+        }
+        return doc.remove(function(err){
+            if(err){
+                logger.error(err);
+                return response.status(500).json(err);
+            }
+            return response.status(200).send({"message":'Delete operation succeeded.'});
+        });
+    });
 }
 
 

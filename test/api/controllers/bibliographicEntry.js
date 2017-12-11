@@ -167,7 +167,7 @@ describe('controllers', function() {
 
         describe('POST /getInternalSuggestions', function () {
 
-            it('should return 0 internal suggestions for a bibliographic entry', function (done) {
+            it('should return 1 internal suggestions for a bibliographic entry', function (done) {
 
 
                 var searchObject = `{
@@ -190,7 +190,7 @@ describe('controllers', function() {
                     .expect('Content-Type', /json/)
                     .expect(200)
                     .end(function (err, res) {
-                        res.body.should.have.lengthOf(0);
+                        res.body.should.have.lengthOf(1);
                         should.not.exist(err);
                         done();
                     });
