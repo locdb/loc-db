@@ -9,7 +9,7 @@ var agent = request.agent(server);
 
 describe('controllers', function() {
 
-  describe.only('bibliographicResource', function() {
+  describe('bibliographicResource', function() {
       var id = "";
       var idToDelete = "";
       before(function(done) {
