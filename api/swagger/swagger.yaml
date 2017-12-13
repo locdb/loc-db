@@ -848,25 +848,345 @@ definitions:
     properties:
       _id:
         type: string
-      identifiers:
+      journal_identifiers:
+        type: array
+        items:
+          $ref: "#/definitions/Identifier"
+      journalVolume_identifiers:
+        type: array
+        items:
+          $ref: "#/definitions/Identifier"
+      journalIssue_identifiers:
+        type: array
+        items:
+          $ref: "#/definitions/Identifier"
+      journalArticle_identifiers:
+        type: array
+        items:
+          $ref: "#/definitions/Identifier"
+      monograph_identifiers:
+        type: array
+        items:
+          $ref: "#/definitions/Identifier"
+      editedBook_identifiers:
+        type: array
+        items:
+          $ref: "#/definitions/Identifier"
+      bookSeries_identifiers:
+        type: array
+        items:
+          $ref: "#/definitions/Identifier"
+      bookSet_identifiers:
+        type: array
+        items:
+          $ref: "#/definitions/Identifier"
+      bookChapter_identifiers:
+        type: array
+        items:
+          $ref: "#/definitions/Identifier"
+      bookSection_identifiers:
+        type: array
+        items:
+          $ref: "#/definitions/Identifier"
+      bookPart_identifiers:
+        type: array
+        items:
+          $ref: "#/definitions/Identifier"
+      bookTrack_identifiers:
+        type: array
+        items:
+          $ref: "#/definitions/Identifier"
+      component_identifiers:
+        type: array
+        items:
+          $ref: "#/definitions/Identifier"
+      dissertation_identifiers:
+        type: array
+        items:
+          $ref: "#/definitions/Identifier"
+      proceedingsArticle_identifiers:
+        type: array
+        items:
+          $ref: "#/definitions/Identifier"
+      proceedings_identifiers:
+        type: array
+        items:
+          $ref: "#/definitions/Identifier"
+      dataset_identifiers:
+        type: array
+        items:
+          $ref: "#/definitions/Identifier"
+      report_identifiers:
+        type: array
+        items:
+          $ref: "#/definitions/Identifier"
+      reportSeries_identifiers:
+        type: array
+        items:
+          $ref: "#/definitions/Identifier"
+      book_identifiers:
+        type: array
+        items:
+          $ref: "#/definitions/Identifier"
+      referenceBook_identifiers:
+        type: array
+        items:
+          $ref: "#/definitions/Identifier"
+      standard_identifiers:
+        type: array
+        items:
+          $ref: "#/definitions/Identifier"
+      standardSeries_identifiers:
         type: array
         items:
           $ref: "#/definitions/Identifier"
       type:
         type: string
-      title:
+      journal_title:
         type: string
-      subtitle:
+      journalVolume_title:
         type: string
-      edition:
+      journalIssue_title:
         type: string
-      number:
+      journalArticle_title:
+        type: string
+      monograph_title:
+        type: string
+      editedBook_title:
+        type: string
+      bookSeries_title:
+        type: string
+      bookSet_title:
+        type: string
+      bookChapter_title:
+        type: string
+      bookSection_title:
+        type: string
+      bookPart_title:
+        type: string
+      bookTrack_title:
+        type: string
+      component_title:
+        type: string
+      report_title:
+        type: string
+      proceedingsArticle_title:
+        type: string
+      proceedings_title:
+        type: string
+      dataset_title:
+        type: string
+      reportSeries_title:
+        type: string
+      book_title:
+        type: string
+      referenceBook_title:
+        type: string
+      referenceEntry_title:
+        type: string
+      standard_title:
+        type: string
+      standardSeries_title:
+        type: string
+      editedBook_subtitle:
+        type: string
+      report_subtitle:
+        type: string
+      dissertation_subtitle:
+        type: string
+      proceedingsArticle_subtitle:
+        type: string
+      standard_subtitle:
+        type: string
+      standardSeries_subtitle:
+        type: string
+      journal_subtitle:
+        type: string
+      journalArticle_subtitle:
+        type: string
+      bookSeries_subtitle:
+        type: string
+      monograph_subtitle:
+        type: string
+      bookSet_subtitle:
+        type: string
+      bookPart_subtitle:
+        type: string
+      bookChapter_subtitle:
+        type: string
+      bookSection_subtitle:
+        type: string
+      bookTrack_subtitle:
+        type: string
+      component_subtitle:
+        type: string
+      proceedings_subtitle:
+        type: string
+      deataset_subtitle:
+        type: string
+      reportSeries_subtitle:
+        type: string
+      book_subtitle:
+        type: string
+      referenceBook_subtitle:
+        type: string
+      monograph_edition:
+        type: string
+      editedBook_edition:
+        type: string
+      dissertation_edition:
+        type: string
+      proceedings_edition:
+        type: string
+      report_edition:
+        type: string
+      book_edition:
+        type: string
+      referenceBook_edition:
+        type: string
+      standard_edition:
+        type: string
+      journalVolume_number:
+        type: string
+      journalIssue_number:
+        type: string
+      bookPart_number:
+        type: string
+      monograph_number:
+        type: string
+      editedBook_number:
+        type: string
+      component_number:
+        type: string
+      bookSet_number:
+        type: string
+      bookChapter_number:
+        type: string
+      bookSection_number:
+        type: string
+      bookTrack_number:
+        type: string
+      proceedings_number:
+        type: string
+      report_number:
+        type: string
+      book_number:
+        type: string
+      standard_number:
+        type: string
+      referenceBook_number:
+        type: string
+      referenceEntry_number:
         type: string
       contributors:
         type: array
         items:
           $ref: "#/definitions/AgentRole"
-      publicationYear:
+      journal_contributors:
+        type: array
+        items:
+          $ref: "#/definitions/AgentRole"
+      report_contributors:
+        type: array
+        items:
+          $ref: "#/definitions/AgentRole"
+      journalVolume_contributors:
+        type: array
+        items:
+          $ref: "#/definitions/AgentRole"
+      journalIssue_contributors:
+        type: array
+        items:
+          $ref: "#/definitions/AgentRole"
+      journalArticle_contributors:
+        type: array
+        items:
+          $ref: "#/definitions/AgentRole"
+      monograph_contributors:
+        type: array
+        items:
+          $ref: "#/definitions/AgentRole"
+      editedBook_contributors:
+        type: array
+        items:
+          $ref: "#/definitions/AgentRole"
+      bookSeries_contributors:
+        type: array
+        items:
+          $ref: "#/definitions/AgentRole"
+      proceedingsArticle_contributors:
+        type: array
+        items:
+          $ref: "#/definitions/AgentRole"
+      bookSet_contributors:
+        type: array
+        items:
+          $ref: "#/definitions/AgentRole"
+      bookChapter_contributors:
+        type: array
+        items:
+          $ref: "#/definitions/AgentRole"
+      dataset_contributors:
+        type: array
+        items:
+          $ref: "#/definitions/AgentRole"
+      bookTrack_contributors:
+        type: array
+        items:
+          $ref: "#/definitions/AgentRole"
+      component_contributors:
+        type: array
+        items:
+          $ref: "#/definitions/AgentRole"
+      dissertation_contributors:
+        type: array
+        items:
+          $ref: "#/definitions/AgentRole"
+      proceedings_contributors:
+        type: array
+        items:
+          $ref: "#/definitions/AgentRole"
+      repotrSeries_contributors:
+        type: array
+        items:
+          $ref: "#/definitions/AgentRole"
+      book_contributors:
+        type: array
+        items:
+          $ref: "#/definitions/AgentRole"
+      referenceBook_contributors:
+        type: array
+        items:
+          $ref: "#/definitions/AgentRole"
+      standard_contributors:
+        type: array
+        items:
+          $ref: "#/definitions/AgentRole"
+      standardSeries_contributors:
+        type: array
+        items:
+          $ref: "#/definitions/AgentRole"
+      journalArticle_publicationYear:
+        type: string
+      monograph_publicationYear:
+        type: string
+      report_publicationYear:
+        type: string
+      editedBook_publicationYear:
+        type: string
+      dissertation_publicationYear:
+        type: string
+      proceedingsArticle_publicationYear:
+        type: string
+      dataset_publicationYear:
+        type: string
+      proceedings_publicationYear:
+        type: string
+      book_publicationYear:
+        type: string
+      referenceBook_publicationYear:
+        type: string
+      standard_publicationYear:
         type: string
       status:
         type: string
@@ -876,17 +1196,99 @@ definitions:
           $ref: "#/definitions/BibliographicEntry"
       partOf:
         type: string
-      containerTitle:
-        type: string
       cites:
         type: array
         items:
           type: string
-      embodiedAs:
+      monograph_embodiedAs:
         type: array
         items:
           $ref: "#/definitions/ResourceEmbodiment"
-  
+      editedBook_embodiedAs:
+          type: array
+          items:
+            $ref: "#/definitions/ResourceEmbodiment"
+      bookSeries_embodiedAs:
+        type: array
+        items:
+          $ref: "#/definitions/ResourceEmbodiment"
+      bookSet_embodiedAs:
+        type: array
+        items:
+          $ref: "#/definitions/ResourceEmbodiment"
+      bookPart_embodiedAs:
+        type: array
+        items:
+          $ref: "#/definitions/ResourceEmbodiment"
+      bookTrack_embodiedAs:
+          type: array
+          items:
+            $ref: "#/definitions/ResourceEmbodiment"
+      component_embodiedAs:
+        type: array
+        items:
+          $ref: "#/definitions/ResourceEmbodiment"
+      dissertation_embodiedAs:
+        type: array
+        items:
+          $ref: "#/definitions/ResourceEmbodiment"
+      proceedingsArticle_embodiedAs:
+        type: array
+        items:
+          $ref: "#/definitions/ResourceEmbodiment"
+      proceedings_embodiedAs:
+          type: array
+          items:
+            $ref: "#/definitions/ResourceEmbodiment"
+      journal_embodiedAs:
+        type: array
+        items:
+          $ref: "#/definitions/ResourceEmbodiment"
+      journalVolume_embodiedAs:
+        type: array
+        items:
+          $ref: "#/definitions/ResourceEmbodiment"
+      journalIssue_embodiedAs:
+        type: array
+        items:
+          $ref: "#/definitions/ResourceEmbodiment"
+      journalArticle_embodiedAs:
+          type: array
+          items:
+            $ref: "#/definitions/ResourceEmbodiment"
+      dataset_embodiedAs:
+        type: array
+        items:
+          $ref: "#/definitions/ResourceEmbodiment"
+      report_embodiedAs:
+        type: array
+        items:
+          $ref: "#/definitions/ResourceEmbodiment"
+      reportSeries_embodiedAs:
+        type: array
+        items:
+          $ref: "#/definitions/ResourceEmbodiment"
+      book_embodiedAs:
+        type: array
+        items:
+          $ref: "#/definitions/ResourceEmbodiment"
+      referenceBook_embodiedAs:
+        type: array
+        items:
+          $ref: "#/definitions/ResourceEmbodiment"
+      referenceEntry_embodiedAs:
+          type: array
+          items:
+            $ref: "#/definitions/ResourceEmbodiment"
+      standard_embodiedAs:
+        type: array
+        items:
+          $ref: "#/definitions/ResourceEmbodiment"
+      standardSeries_embodiedAs:
+        type: array
+        items:
+          $ref: "#/definitions/ResourceEmbodiment"
+
   Identifier:
     required:
       - scheme
