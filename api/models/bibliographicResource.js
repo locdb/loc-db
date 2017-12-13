@@ -213,7 +213,7 @@ const brSchema = new Schema({
     referenceBook_embodiesAs: [resourceEmbodimentSchema],
     referenceEntry_embodiesAs: [resourceEmbodimentSchema],
     standard_embodiesAs: [resourceEmbodimentSchema],
-    standard_series:[resourceEmbodimentSchema]
+    standardSeries_embodiedAs:[resourceEmbodimentSchema]
 });
 
 // we want to run a single elastic for the beginning. As the model name corresponds to the index name in elastic, we make
