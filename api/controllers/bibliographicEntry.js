@@ -183,57 +183,6 @@ function getInternalSuggestionsByQueryString(req, res) {
     }
 }
 
-function getExternalSuggestions(req, res) {
-    var response = res;
-    var searchObject = req.swagger.params.bibliographicEntry.value;
-    var title = searchObject.ocrData.title;
-
-    async.parallel([
-            function (callback) {
-                swbHelper.queryByTitle(title, function (err, res) {
-                    if (err) {
-                        return callback(err, null);
-                    }
-                    return callback(null, res);
-                });
-            },
-            function (callback) {
-                googleScholarHelper.query(title, function (err, res) {
-                    if (err) {
-                        return callback(err, null);
-                    }
-                    return callback(null, res);
-                });
-            },
-            function (callback) {
-                crossrefHelper.query(title, function (err, res) {
-                    if (err) {
-                        return callback(err, null);
-                    }
-                    return callback(null, res);
-                });
-            }
-        ],
-        function (err, res) {
-            if (err) {
-                logger.error(err);
-                return response.status(500).json(err);
-            }
-            var result = [];
-            for(var sourceResults of res){
-                if (sourceResults.length > 0) {
-                    for (var br of sourceResults) {
-                        if (Object.keys(br).length !== 0) { //&& natural.LevenshteinDistance(be.title, title) <= 10) {
-                            result.push(br);
-                        }
-                    }
-                }
-            }
-            return response.json(result);
-        }
-    );
-}
-
 
 function getExternalSuggestionsByQueryString(req, res) {
     var response = res;
@@ -410,7 +359,6 @@ module.exports = {
     getToDoBibliographicEntries: getToDoBibliographicEntries,
     update: update,
     remove: remove,
-    getExternalSuggestions: getExternalSuggestions,
     addTargetBibliographicResource: addTargetBibliographicResource,
     removeTargetBibliographicResource : removeTargetBibliographicResource,
     getInternalSuggestionsByQueryString : getInternalSuggestionsByQueryString,

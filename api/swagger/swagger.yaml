@@ -734,31 +734,6 @@ paths:
           schema:
             $ref: "#/definitions/ErrorResponse"
 
-  /getExternalSuggestions:
-    x-swagger-router-controller: bibliographicEntry
-    post:
-      tags: [BibliographicEntry]
-      description: Retrieves external br suggestions for a given (probably messy) be.
-      operationId: getExternalSuggestions
-      parameters:
-        - name: bibliographicEntry
-          in: body
-          description: The be for which the suggestions shall be retrieved
-          required: true
-          schema:
-            $ref: "#/definitions/BibliographicEntry"
-      responses:
-        "200":
-          description: Success
-          schema:
-            type: array
-            items:
-              $ref: "#/definitions/BibliographicResource"
-        default:
-          description: Error
-          schema:
-            $ref: "#/definitions/ErrorResponse"
-
   /getExternalSuggestionsByQueryString:
     x-swagger-router-controller: bibliographicEntry
     get:
@@ -1314,17 +1289,6 @@ definitions:
         type: array
         items:
           $ref: "#/definitions/ToDoParts"
-
-#  Scan:
-#    required:
-#      - scanName
-#    properties:
-#      scanName:
-#        type: string
-#      xmlName:
-#        type: string
-#      status:
-#        type: string
 
   BibliographicEntry:
     properties:
