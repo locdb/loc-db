@@ -165,68 +165,6 @@ describe('controllers', function() {
             });
         });
 
-        describe('POST /getInternalSuggestions', function () {
-
-            it('should return 1 internal suggestions for a bibliographic entry', function (done) {
-
-
-                var searchObject = `{
-                        "bibliographicEntryText": "TEST ENTRY 1 -- UPDATED",
-                        "ocrData": {
-                            "coordinates": "714 317 2238 356",
-                            "title": "2Zur Ausgestaltung des Mehrheitsprinzips in der unmittelbaren Demokratie. In: Bayerische Verwaltungsbl&ttcr S. 33--43, 74-79. TmFENBACH, Paul: Sinn oder Unsinn von Abstimmungsquoren. Im Internet:",
-                            "date": "2000",
-                            "marker": "THUM, 2000",
-                            "authors": [ "Cornelius THUM" ]
-                        },
-                        "scanId": "58cb91fa5452691cd86bc941",
-                        "status": "VALID"
-                        }`;
-                var searchObject = JSON.parse(searchObject);
-                agent
-                    .post('/getInternalSuggestions')
-                    .set('Accept', 'application/json')
-                    .send(searchObject)
-                    .expect('Content-Type', /json/)
-                    .expect(200)
-                    .end(function (err, res) {
-                        res.body.should.have.lengthOf(1);
-                        should.not.exist(err);
-                        done();
-                    });
-            });
-
-            it('should return 1 internal suggestions for a bibliographic entry', function (done) {
-
-                var searchObject = `{
-                        "bibliographicEntryText": "The Semantic Web - ISWC 2015",
-                        "ocrData":{
-                            "coordinates": "714 317 2238 356",
-                            "title": "The Semantic Web - ISWC 2015",
-                            "date": "2000",
-                            "marker": "THUM, 2000",
-                            "authors": []
-                        },
-                        "scanId": "58cb91fa5452691cd86bc941",
-                        "status": ""
-                        }`;
-                var searchObject = JSON.parse(searchObject);
-                console.log("Suggestions called");
-                agent
-                    .post('/getInternalSuggestions')
-                    .set('Accept', 'application/json')
-                    .send(searchObject)
-                    .expect('Content-Type', /json/)
-                    .expect(200)
-                    .end(function (err, res) {
-                        console.log(res.body);
-                        res.body.should.have.lengthOf(1);
-                        should.not.exist(err);
-                        done();
-                    });
-            });
-        });
-
         describe('GET /getInternalSuggestionsByQueryString', function () {
 
             it('should return 0 internal suggestions for a bibliographic entry', function (done) {

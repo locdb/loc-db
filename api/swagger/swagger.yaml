@@ -705,32 +705,6 @@ paths:
           schema:
             $ref: "#/definitions/ErrorResponse"
 
-  /getInternalSuggestions:
-    x-swagger-router-controller: bibliographicEntry
-    post:
-      tags: [BibliographicEntry]
-      description: Retrieves internal br suggestions for a given (probably messy) be.
-      operationId: getInternalSuggestions
-      parameters:
-        - name: bibliographicEntry
-          in: body
-          description: The be for which the suggestions shall be retrieved
-          required: true
-          schema:
-            $ref: "#/definitions/BibliographicEntry"
-      responses:
-        "200":
-          description: Success
-          schema:
-            type: array
-            items:
-              $ref: "#/definitions/BibliographicResource"
-        default:
-          description: Error
-          schema:
-            $ref: "#/definitions/ErrorResponse"
-
-
   /getInternalSuggestionsByQueryString:
     x-swagger-router-controller: bibliographicEntry
     get:

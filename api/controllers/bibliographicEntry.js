@@ -137,51 +137,6 @@ function remove(req, res) {
 }
 
 
-function getInternalSuggestions(req, res) {
-    var response = res;
-    var title = req.swagger.params.bibliographicEntry.value.ocrData.title.replace(/:/g, ' ');
-    var authors = req.swagger.params.bibliographicEntry.value.ocrData.authors
-    authors = authors.join(' ').replace(/:/g, ' ');
-    var bibliographicEntryText = req.swagger.params.bibliographicEntry.value.bibliographicEntryText.replace(/:/g, ' ')
-
-    // the search function offers an interface to elastic
-    try {
-        mongoBr.search({
-            multi_match: {
-                query: title + " " + authors + " " + bibliographicEntryText,
-                fields: [
-                    "title",
-                    "subtitle",
-                    "contributors.heldBy.nameString",
-                    "contributors.heldBy.givenName",
-                    "contributors.heldBy.familyName"
-                ]
-            }
-        }, {hydrate: true}, function (err, brs) {
-            var result = [];
-            if (err) {
-                logger.error(err);
-                return res.status(500).json(err);
-            }
-            if (brs.hits && brs.hits.hits) {
-                for (var i in brs.hits.hits) {
-                    var br = brs.hits.hits[i];
-                    // return only the top 5 result
-                    // but only if they do not only exist in elastic but also in mongo
-                    if (br && result.length <= 5) {
-                        result.push(br.toObject());
-                    }
-                }
-            }
-            return response.status(200).json(result);
-        });
-    }catch (err) {
-        logger.error(err);
-        return response.json("Something went wrong with the internal suggestions");
-    }
-}
-
-
 function getInternalSuggestionsByQueryString(req, res) {
     var response = res;
     var query = decodeURI(decodeURI(query));
@@ -455,7 +410,6 @@ module.exports = {
     getToDoBibliographicEntries: getToDoBibliographicEntries,
     update: update,
     remove: remove,
-    getInternalSuggestions: getInternalSuggestions,
     getExternalSuggestions: getExternalSuggestions,
     addTargetBibliographicResource: addTargetBibliographicResource,
     removeTargetBibliographicResource : removeTargetBibliographicResource,
