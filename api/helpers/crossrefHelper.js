@@ -170,6 +170,7 @@ CrossrefHelper.prototype.queryByDOI = function(doi, callback){
 CrossrefHelper.prototype.parseObjects = function(objects, callback){
     var res = [];
     for(var obj of objects){
+        var type = obj.type;
 
         // Identifiers
         var identifiers = [];
@@ -274,6 +275,66 @@ CrossrefHelper.prototype.parseObjects = function(objects, callback){
     }
     callback(null, res);
 };
+
+
+/**
+ * Given a crossref type, it returns the matching internal enum
+ * @param type
+ * @returns type
+ */
+CrossrefHelper.prototype.getType = function(type){
+    switch(type){
+        case 'journal-article':
+            return enums.resourceType.journalArticle;
+        case 'journal':
+            return enums.resourceType.journal;
+        case 'journal-issue':
+            return enums.resourceType.journalIssue;
+        case 'journal-volume':
+            return enums.resourceType.journalVolume;
+        case 'book':
+            return enums.resourceType.book;
+        case 'book-chapter':
+            return enums.resourceType.bookChapter;
+        case 'book-part':
+            return enums.resourceType.bookPart;
+        case 'book-section':
+            return enums.resourceType.bookSection;
+        case 'book-series':
+            return enums.resourceType.bookSeries;
+        case 'book-set':
+            return enums.resourceType.bookSet;
+        case 'book-track':
+            return enums.resourceType.bookTrack;
+        case 'edited-book':
+            return enums.resourceType.editedBook;
+        case 'component':
+            return enums.resourceType.component;
+        case 'dataset':
+            return enums.resourceType.dataset;
+        case 'dissertation':
+            return enums.resourceType.dissertation;
+        case 'proceedings':
+            return enums.resourceType.proceedings;
+        case 'proceedings-article':
+            return enums.resourceType.proceedingsArticle;
+        case 'monograph':
+            return enums.resourceType.monograph;
+        case 'reference-book':
+            return enums.resourceType.referenceBook;
+        case 'reference-entry':
+            return enums.resourceType.referenceEntry;
+        case 'report':
+            return enums.resourceType.report;
+        case 'report-series':
+            return enums.resourceType.reportSeries;
+        case 'standard':
+            return enums.resourceType.standard;
+        case 'standard-series':
+            return enums.resourceType.standardSeries;
+    }
+};
+
 
 /**
  * Factory function
