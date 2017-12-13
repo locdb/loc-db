@@ -881,6 +881,10 @@ definitions:
         type: array
         items:
           $ref: "#/definitions/Identifier"
+      referenceEntry_identifiers:
+        type: array
+        items:
+          $ref: "#/definitions/Identifier"
       standard_identifiers:
         type: array
         items:
@@ -978,6 +982,8 @@ definitions:
       book_subtitle:
         type: string
       referenceBook_subtitle:
+        type: string
+      referenceEntry_subtitle:
         type: string
       monograph_edition:
         type: string
@@ -1104,6 +1110,10 @@ definitions:
         items:
           $ref: "#/definitions/AgentRole"
       referenceBook_contributors:
+        type: array
+        items:
+          $ref: "#/definitions/AgentRole"
+      referenceEntry_contributors:
         type: array
         items:
           $ref: "#/definitions/AgentRole"
