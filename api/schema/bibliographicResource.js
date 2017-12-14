@@ -176,6 +176,11 @@ var bibliographicResource = new SchemaObject({
                 _.camelize(type.split("_")[0].toLowerCase()+ "-" + type.split("_")[1].toLowerCase()) + "_" :
                 type.split("_")[0].toLowerCase() + "_";
         },
+        /**
+         * Setter and getter for all properties with dynamically computed properties
+         * @param type
+         * @param value (only for setters)
+         */
         setTitleForType: function (type, value) {
             var prefix = this.getPropertyPrefixForType(type);
             this[prefix + 'title'] = value;
@@ -183,6 +188,74 @@ var bibliographicResource = new SchemaObject({
         getTitleForType: function(type){
             var prefix = this.getPropertyPrefixForType(type);
             return this[prefix + 'title'];
+        },
+        setSubtitleForType: function (type, value) {
+            var prefix = this.getPropertyPrefixForType(type);
+            this[prefix + 'subtitle'] = value;
+        },
+        getSubtitleForType: function(type){
+            var prefix = this.getPropertyPrefixForType(type);
+            return this[prefix + 'subtitle'];
+        },
+        setEditionForType: function (type, value) {
+            var prefix = this.getPropertyPrefixForType(type);
+            this[prefix + 'edition'] = value;
+        },
+        getEditionForType: function(type){
+            var prefix = this.getPropertyPrefixForType(type);
+            return this[prefix + 'edition'];
+        },
+        setNumberForType: function (type, value) {
+            var prefix = this.getPropertyPrefixForType(type);
+            this[prefix + 'number'] = value;
+        },
+        getNumberForType: function(type){
+            var prefix = this.getPropertyPrefixForType(type);
+            return this[prefix + 'number'];
+        },
+        setPublicationYearForType: function (type, value) {
+            var prefix = this.getPropertyPrefixForType(type);
+            this[prefix + 'publicationYear'] = value;
+        },
+        getPublicationYearForType: function(type){
+            var prefix = this.getPropertyPrefixForType(type);
+            return this[prefix + 'publicationYear'];
+        },
+        setIdentifiersForType: function (type, value) {
+            var prefix = this.getPropertyPrefixForType(type);
+            this[prefix + 'identifiers'] = value;
+        },
+        pushIdentifierForType: function (type, value) {
+            var prefix = this.getPropertyPrefixForType(type);
+            this[prefix + 'identifiers'].push(value);
+        },
+        getIdentifiersForType: function(type){
+            var prefix = this.getPropertyPrefixForType(type);
+            return this[prefix + 'identifiers'];
+        },
+        setContributorsForType: function (type, value) {
+            var prefix = this.getPropertyPrefixForType(type);
+            this[prefix + 'contributors'] = value;
+        },
+        pushContributorForType: function (type, value) {
+            var prefix = this.getPropertyPrefixForType(type);
+            this[prefix + 'contributors'].push(value);
+        },
+        getContributorsForType: function(type){
+            var prefix = this.getPropertyPrefixForType(type);
+            return this[prefix + 'contributors'];
+        },
+        setResourceEmbodimentsForType: function (type, value) {
+            var prefix = this.getPropertyPrefixForType(type);
+            this[prefix + 'embodiedAs'] = value;
+        },
+        pushResourceEmbodimentForType: function (type, value) {
+            var prefix = this.getPropertyPrefixForType(type);
+            this[prefix + 'embodiedAs'].push(value);
+        },
+        getResourceEmbodimentsForType: function(type){
+            var prefix = this.getPropertyPrefixForType(type);
+            return this[prefix + 'embodiedAs'];
         }
     }
 });
