@@ -5,6 +5,7 @@ const Identifier = require('./identifier.js');
 const AgentRole = require('./agentRole');
 const status = require('./enum.json').status;
 const ResourceEmbodiment = require('./resourceEmbodiment');
+const _ = require('underscore.string');
 
 var bibliographicResource = new SchemaObject({
     journal_identifiers: [{type: Identifier}],
@@ -162,7 +163,20 @@ var bibliographicResource = new SchemaObject({
     referenceBook_embodiesAs: [{type: ResourceEmbodiment}],
     referenceEntry_embodiesAs: [{type: ResourceEmbodiment}],
     standard_embodiesAs: [{type: ResourceEmbodiment}],
-    standardSeries_embodiedAs:[{type: ResourceEmbodiment}]
+    standardSeries_embodiedAs: [{type: ResourceEmbodiment}]
+}, {
+    methods: {
+        /**
+         * Returns the property prefix for a given type
+         * @param type
+         * @returns {string}
+         */
+        getPropertyPrefixForType: function (type) {
+            return type.split("_").length > 1 ?
+                _.camelize(type.split("_")[0].toLowerCase()+ "-" + type.split("_")[1].toLowerCase()) + "_" :
+                type.split("_")[0].toLowerCase() + "_";
+        }
+    }
 });
 
 module.exports = bibliographicResource;
