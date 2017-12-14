@@ -361,12 +361,13 @@ function getToDo(req, res) {
             async.map(resultArray, function (parent, callback) {
                 // check first whether it is really a parent
                 if (parent.children) {
-                    if(!parent._id || parent._id == ""){
+                    if(!parent._id || parent._id == "" || parent._id == " "){
                         logger.error(parent);
                     }
                     mongoBr.findOne({'_id': parent._id}, function (err, br) {
                         if (err) {
                             logger.error(err);
+                            logger.error(parent);
                             return callback(err, null)
                         }
                         if (!br) {
