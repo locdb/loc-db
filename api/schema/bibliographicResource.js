@@ -175,6 +175,14 @@ var bibliographicResource = new SchemaObject({
             return type.split("_").length > 1 ?
                 _.camelize(type.split("_")[0].toLowerCase()+ "-" + type.split("_")[1].toLowerCase()) + "_" :
                 type.split("_")[0].toLowerCase() + "_";
+        },
+        setTitleForType: function (type, value) {
+            var prefix = this.getPropertyPrefixForType(type);
+            this[prefix + 'title'] = value;
+        },
+        getTitleForType: function(type){
+            var prefix = this.getPropertyPrefixForType(type);
+            return this[prefix + 'title'];
         }
     }
 });
