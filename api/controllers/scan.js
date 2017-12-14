@@ -398,10 +398,6 @@ function getToDo(req, res) {
                 logger.error(err);
                 return response.status(500).json({"message": "DB query failed."});
             }
-            if (err) {
-                logger.error(err);
-                return response.status(500).json({"message": "DB query failed."});
-            }
             var resultArray = [];
             var resultObject;
             for (var child of children) {
@@ -483,7 +479,7 @@ function getToDo(req, res) {
             }, function (err, res) {
                 if (err) {
                     logger.error(err);
-                    return response.status(500).json({"message": "DB query failed."});
+                    return response.status(500).json({"message": "Mapping failed."});
                 }
                 response.json(res);
             });
