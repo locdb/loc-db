@@ -3,7 +3,7 @@ const BibliographicResource = require('./../../../api/schema/bibliographicResour
 const enums = require('./../../../api/schema/enum.json');
 
 describe('schema', function() {
-    describe.only('bibliographicResource', function () {
+    describe('bibliographicResource', function () {
 
         describe('getPropertyPrefixForType', function () {
             it('should return the prefix journal_ for type JOURNAL', function (done) {

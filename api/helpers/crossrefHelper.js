@@ -337,6 +337,47 @@ CrossrefHelper.prototype.getType = function(type){
 
 
 /**
+ * Extracts the references from a given crossref object
+ * @param obj
+ */
+CrossrefHelper.prototype.parseReferences = function(obj, callback){
+    // Reference list
+    if(obj.reference){
+        var bes = [];
+        for(var reference of obj.reference){
+            var referenceTitle = reference['article-title'] ? reference['article-title'] : "";
+            var referenceAuthor = reference.author ? reference.author : "";
+            var referenceYear = reference.year ? reference.year : "";
+            var referenceJournal = reference['journal-title'] ? reference['journal-title'] : "";
+            var referenceVolume = reference.volume ? reference.volume : "";
+            var referenceComments = reference['first-page']? "First page: " + reference['first-page'] : "";
+
+
+            if(referenceTitle === ""){
+                referenceTitle = reference['volume-title'] ? reference['volume-title'] : "";
+            }
+
+            var bibliographicEntry = new BibliographicEntry({
+                identifiers:[new Identifier({scheme: enums.identifier.doi, literalValue: reference.DOI})],
+                bibliographicEntryText: reference.unstructured,
+                ocrData:{
+                    title: referenceTitle,
+                    date: referenceYear,
+                    authors: [referenceAuthor],
+                    journal: referenceJournal,
+                    volume: referenceVolume,
+                    comments: referenceComments
+                },
+                status: enums.status.external});
+
+            bes.push(bibliographicEntry);
+        }
+    }
+    return callback(null, bes);
+};
+
+
+/**
  * Factory function
  *
  * @returns {CrossrefHelper}
