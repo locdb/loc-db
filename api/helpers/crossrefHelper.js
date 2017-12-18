@@ -167,10 +167,12 @@ CrossrefHelper.prototype.queryByDOI = function(doi, callback){
  * @param objects
  * @param callback
  */
+/*
 CrossrefHelper.prototype.parseObjects = function(objects, callback){
     var res = [];
     for(var obj of objects){
-        var type = obj.type;
+        var type = this.getType(obj.type);
+
 
         // Identifiers
         var identifiers = [];
@@ -274,6 +276,138 @@ CrossrefHelper.prototype.parseObjects = function(objects, callback){
         res.push(bibliographicResource.toObject());
     }
     callback(null, res);
+};
+*/
+
+CrossrefHelper.prototype.parseObjects = function(objects, callback){
+    var res = [];
+    for(var obj of objects){
+        if(obj['container-title'].length > 0){
+            return this.parseDependentResource(obj, function (err, result) {
+
+            });
+        }else{
+            return this.parseIndependentResource(obj, function(err,result){
+                res.push(result);
+            });
+        }
+    }
+    callback(null, res);
+};
+
+
+CrossrefHelper.prototype.parseIndependentResource = function(obj, callback){
+    var resource = new BibliographicResource({type: this.getType(obj.type)});
+
+    // Identifiers
+    if(obj.DOI){
+        resource.pushIdentifierForType(resource.type, new Identifier({scheme: enums.identifier.doi, literalValue: obj.DOI}));
+    }
+    if(obj.URL){
+        resource.pushIdentifierForType(resource.type, new Identifier({scheme: enums.externalSources.crossref, literalValue: obj.URL}));
+    }
+    if(obj.ISBN){
+        resource.pushIdentifierForType(resource.type, new Identifier({scheme: enums.identifier.isbn, literalValue: obj.ISBN}));
+    }
+
+    // Contributors
+    if(obj.author){
+        for(var author of obj.author){
+            resource.pushContributorForType(resource.type, new AgentRole({roleType: enums.roleType.author, heldBy: {givenName: author.given, familyName: author.family}}));
+        }
+    }
+    if(obj.publisher){
+        resource.pushContributorForType(resource.type, new AgentRole({roleType: enums.roleType.publisher, heldBy: {nameString: obj.publisher}}));
+    }
+
+    // Numbers/ Edition
+    if(obj.edition_number){
+        resource.setEditionForType(resource.type, obj.edition_number);
+    }
+
+    // Titles
+    resource.setTitleForType(resource.type, (obj.title && obj.title[0] ? obj.title[0] : ""));
+    resource.setSubtitleForType(resource.type, obj.subtitle && obj.subtitle[0] ? obj.subtitle[0] : "");
+
+    // Embodiment
+    var firstPage = obj.page && obj.page.split('-').length == 2  ? obj.page.split('-')[0] : obj.page ;
+    var lastPage = obj.page && obj.page.split('-').length == 2 ? obj.page.split('-')[1] : "" ;
+    resource.pushResourceEmbodimentForType(resource.type, new ResourceEmbodiment({firstPage: firstPage, lastPage:lastPage}));
+
+    // Publication Year
+    if(obj['issued'] && obj['issued']['date-parts'] && obj['issued']['date-parts'][0] && obj['issued']['date-parts'][0][0]){
+        resource.setPublicationYearForType(resource.type, obj['issued']['date-parts'][0][0]);
+    }else if (obj['published-print'] && obj['published-print']['date-parts'] && obj['published-print']['date-parts'][0] && obj['published-print']['date-parts'][0][0]){
+        resource.setPublicationYearForType(resource.type, obj['published-print']['date-parts'][0][0]);
+    }else if(obj['published-online'] && obj['published-online']['date-parts'] && obj['published-online']['date-parts'][0] && obj['published-online']['date-parts'][0][0]){
+        resource.setPublicationYearForType(resource.type, obj['published-online']['date-parts'][0][0]);
+    }
+    this.parseReferences(obj, function(err, bes){
+        resource.parts = bes;
+        return callback(null, [resource]);
+    });
+};
+
+CrossrefHelper.prototype.parseDependentResource = function(obj, callback){
+    var level0_prefix = this.getPropertyPrefixForType(enums.resourceType.journalArticle);
+    var level1_prefix = this.getPropertyPrefixForType(enums.resourceType.journal);
+    var child = new BibliographicResource({});
+    var parent = new BibliographicResource({});
+    child.type = enums.resourceType.journalArticle;
+    parent.type = enums.resourceType.journalIssue;
+/*
+    // Identifiers
+    if(obj.DOI){
+        child.journalArticle_identifiers.push(new Identifier({scheme: enums.identifier.doi, literalValue: obj.DOI}));
+    }
+    if(obj.URL){
+        child.journalArticle_identifiers.push(new Identifier({scheme: enums.externalSources.crossref, literalValue: obj.URL}));
+    }
+    if(obj.ISSN){
+        for(var issn of obj.ISSN){
+            parent.journal_identifiers.push(new Identifier({scheme: enums.identifier.issn, literalValue: issn}));
+        }
+    }
+
+    // Contributors
+    if(obj.author){
+        for(var author of obj.author){
+            child.journalArticle_contributors.push(new AgentRole({roleType: enums.roleType.author, heldBy: {givenName: author.given, familyName: author.family}}));
+        }
+    }
+    if(obj.publisher){
+        child.journalArticle_contributors.push(new AgentRole({roleType: enums.roleType.publisher, heldBy: {nameString: obj.publisher}}));
+        parent.journal_contributors.push(new AgentRole({roleType: enums.roleType.publisher, heldBy: {nameString: obj.publisher}}));
+        parent.journalVolume_contributors.push(new AgentRole({roleType: enums.roleType.publisher, heldBy: {nameString: obj.publisher}}));
+        parent.journalIssue_contributors.push(new AgentRole({roleType: enums.roleType.publisher, heldBy: {nameString: obj.publisher}}));
+    }
+
+    // Numbers
+    parent.journalIssue_number = obj.issue ? obj.issue : "";
+    parent.journalVolume_number = obj.volume ? obj.volume : "";
+
+    // Titles
+    child.journalArticle_title = obj.title && obj.title[0] ? obj.title[0] : "";
+    child.journalArticle_subtitle = obj.subtitle && obj.subtitle[0] ? obj.subtitle[0] : "";
+    parent.journal_title = obj['container-title'] && obj['container-title'][0] ? obj['container-title'][0] : "";
+
+    // Embodiment
+    var firstPage = obj.page && obj.page.split('-').length == 2  ? obj.page.split('-')[0] : obj.page ;
+    var lastPage = obj.page && obj.page.split('-').length == 2 ? obj.page.split('-')[1] : "" ;
+    child.journalArticle_embodiesAs = [new ResourceEmbodiment({firstPage: firstPage, lastPage:lastPage})];
+
+    // Publication Year
+    if(obj['issued'] && obj['issued']['date-parts'] && obj['issued']['date-parts'][0] && obj['issued']['date-parts'][0][0]){
+        child.journalArticle_publicationYear = obj['issued']['date-parts'][0][0];
+    }else if (obj['published-print'] && obj['published-print']['date-parts'] && obj['published-print']['date-parts'][0] && obj['published-print']['date-parts'][0][0]){
+        child.journalArticle_publicationYear = obj['published-print']['date-parts'][0][0];
+    }else if(obj['published-online'] && obj['published-online']['date-parts'] && obj['published-online']['date-parts'][0] && obj['published-online']['date-parts'][0][0]){
+        child.journalArticle_publicationYear = obj['published-online']['date-parts'][0][0];
+    }*/
+    this.parseReferences(obj, function(err, bes){
+        child.parts = bes;
+        return callback(null, [parent, child]);
+    });
 };
 
 
