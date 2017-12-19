@@ -1,143 +1,128 @@
-[{
-    "status": "ok",
-    "message-type": "work",
-    "message-version": "1.0.0",
-    "message": {
+[
+  {
     "indexed": {
-        "date-parts": [
-            [
-                2017,
-                10,
-                26
-            ]
-        ],
-            "date-time": "2017-10-26T14:44:39Z",
-            "timestamp": 1509029079818
+      "date-parts": [
+        [
+          2017,
+          10,
+          26
+        ]
+      ],
+      "date-time": "2017-10-26T14:44:39Z",
+      "timestamp": 1509029079818
     },
     "publisher-location": "Washington, DC",
-        "reference-count": 0,
-        "publisher": "American Chemical Society",
-        "content-domain": {
-        "domain": [
-
-        ],
-            "crossmark-restriction": false
+    "reference-count": 0,
+    "publisher": "American Chemical Society",
+    "content-domain": {
+      "domain": [],
+      "crossmark-restriction": false
     },
-    "short-container-title": [
-
-    ],
-        "published-print": {
-        "date-parts": [
-            [
-                2001,
-                7,
-                30
-            ]
+    "short-container-title": [],
+    "published-print": {
+      "date-parts": [
+        [
+          2001,
+          7,
+          30
         ]
+      ]
     },
     "DOI": "10.1021/bk-2001-0791.ch020",
-        "type": "book-chapter",
-        "created": {
-        "date-parts": [
-            [
-                2009,
-                7,
-                24
-            ]
-        ],
-            "date-time": "2009-07-24T01:02:46Z",
-            "timestamp": 1248397366000
+    "type": "book-chapter",
+    "created": {
+      "date-parts": [
+        [
+          2009,
+          7,
+          24
+        ]
+      ],
+      "date-time": "2009-07-24T01:02:46Z",
+      "timestamp": 1248397366000
     },
     "page": "348-364",
-        "source": "Crossref",
-        "is-referenced-by-count": 29,
-        "title": [
-        "Illicit Drugs in Municipal Sewage"
+    "source": "Crossref",
+    "is-referenced-by-count": 29,
+    "title": [
+      "Illicit Drugs in Municipal Sewage"
     ],
-        "prefix": "10.1021",
-        "author": [
-        {
-            "given": "Christian G.",
-            "family": "Daughton",
-            "affiliation": [
-
-            ]
-        }
+    "prefix": "10.1021",
+    "author": [
+      {
+        "given": "Christian G.",
+        "family": "Daughton",
+        "affiliation": []
+      }
     ],
-        "member": "316",
-        "published-online": {
-        "date-parts": [
-            [
-                2009,
-                7,
-                23
-            ]
+    "member": "316",
+    "published-online": {
+      "date-parts": [
+        [
+          2009,
+          7,
+          23
         ]
+      ]
     },
     "container-title": [
-        "ACS Symposium Series",
-        "Pharmaceuticals and Care Products in the Environment"
+      "ACS Symposium Series",
+      "Pharmaceuticals and Care Products in the Environment"
     ],
-        "original-title": [
-
+    "original-title": [],
+    "link": [
+      {
+        "URL": "http://pubs.acs.org/doi/pdf/10.1021/bk-2001-0791.ch020",
+        "content-type": "unspecified",
+        "content-version": "vor",
+        "intended-application": "similarity-checking"
+      }
     ],
-        "link": [
-        {
-            "URL": "http://pubs.acs.org/doi/pdf/10.1021/bk-2001-0791.ch020",
-            "content-type": "unspecified",
-            "content-version": "vor",
-            "intended-application": "similarity-checking"
-        }
-    ],
-        "deposited": {
-        "date-parts": [
-            [
-                2016,
-                9,
-                9
-            ]
-        ],
-            "date-time": "2016-09-09T21:31:23Z",
-            "timestamp": 1473456683000
-    },
-    "score": 1.0,
-        "subtitle": [
-        "Proposed New Nonintrusive Tool to Heighten Public Awareness of Societal Use of Illicit-Abused Drugs and Their Potential for Ecological Consequences"
-    ],
-        "short-title": [
-
-    ],
-        "issued": {
-        "date-parts": [
-            [
-                2001,
-                7,
-                30
-            ]
+    "deposited": {
+      "date-parts": [
+        [
+          2016,
+          9,
+          9
         ]
+      ],
+      "date-time": "2016-09-09T21:31:23Z",
+      "timestamp": 1473456683000
+    },
+    "score": 1,
+    "subtitle": [
+      "Proposed New Nonintrusive Tool to Heighten Public Awareness of Societal Use of Illicit-Abused Drugs and Their Potential for Ecological Consequences"
+    ],
+    "short-title": [],
+    "issued": {
+      "date-parts": [
+        [
+          2001,
+          7,
+          30
+        ]
+      ]
     },
     "ISBN": [
-        "0841237395",
-        "0841218676"
+      "0841237395",
+      "0841218676"
     ],
-        "references-count": 0,
-        "alternative-id": [
-        "10.1021/bk-2001-0791.ch020",
-        "10.1021/symposium",
-        "10.1021/bk-2001-0791"
+    "references-count": 0,
+    "alternative-id": [
+      "10.1021/bk-2001-0791.ch020",
+      "10.1021/symposium",
+      "10.1021/bk-2001-0791"
     ],
-        "URL": "http://dx.doi.org/10.1021/bk-2001-0791.ch020",
-        "relation": {
-
-    },
+    "URL": "http://dx.doi.org/10.1021/bk-2001-0791.ch020",
+    "relation": {},
     "ISSN": [
-        "1947-5918"
+      "1947-5918"
     ],
-        "issn-type": [
-        {
-            "value": "1947-5918",
-            "type": "electronic"
-        }
+    "issn-type": [
+      {
+        "value": "1947-5918",
+        "type": "electronic"
+      }
     ]
-}
-}]
+  }
+]
