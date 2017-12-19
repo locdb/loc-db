@@ -2,6 +2,7 @@ const should = require('should');
 const setup = require('./../setup.js').createSetup();
 const crossrefHelper = require('./../../../api/helpers/crossrefHelper.js').createCrossrefHelper();
 const enums = require('./../../../api/schema/enum.json');
+const independentResource = require('./../data/crossrefIndependenResource.json');
 
 describe('helpers', function() {
     describe('crossrefHelper', function() {
@@ -125,6 +126,23 @@ describe('helpers', function() {
                     result[0].identifiers.should.be.Array();
                     result[0].identifiers[1].should.have.property("scheme", enums.externalSources.crossref);
                     result[0].should.have.property("title", "Arms Control: Lessons Learned and the Future");
+                    done();
+                });
+            });
+        });
+
+        describe.only('parseIndependentResource', function(){
+
+            it('should return a parsed resource', function(done) {
+/*                const crossref = require('crossref');
+                crossref.works({
+                    filter: {"isbn": "9781780648903"},
+                    mailto: "anne@informatik.uni-mannheim.de"
+                }, (err, objs, nextOpts, done) => {
+                    return objs
+                });*/
+                crossrefHelper.parseObjects(independentResource, function(err, res){
+                    res.should.be.Array().and.have.lengthOf(1);
                     done();
                 });
             });

@@ -282,12 +282,12 @@ CrossrefHelper.prototype.parseObjects = function(objects, callback){
 CrossrefHelper.prototype.parseObjects = function(objects, callback){
     var res = [];
     for(var obj of objects){
-        if(obj['container-title'].length > 0){
-            return this.parseDependentResource(obj, function (err, result) {
+        if(obj['container-title'] && obj['container-title'].length > 0){
+            this.parseDependentResource(obj, function (err, result) {
 
             });
         }else{
-            return this.parseIndependentResource(obj, function(err,result){
+            this.parseIndependentResource(obj, function(err,result){
                 res.push(result);
             });
         }
@@ -307,13 +307,20 @@ CrossrefHelper.prototype.parseIndependentResource = function(obj, callback){
         resource.pushIdentifierForType(resource.type, new Identifier({scheme: enums.externalSources.crossref, literalValue: obj.URL}));
     }
     if(obj.ISBN){
-        resource.pushIdentifierForType(resource.type, new Identifier({scheme: enums.identifier.isbn, literalValue: obj.ISBN}));
+        for(var isbn of obj.ISBN){
+            resource.pushIdentifierForType(resource.type, new Identifier({scheme: enums.identifier.isbn, literalValue: isbn}));
+        }
     }
 
     // Contributors
     if(obj.author){
         for(var author of obj.author){
             resource.pushContributorForType(resource.type, new AgentRole({roleType: enums.roleType.author, heldBy: {givenName: author.given, familyName: author.family}}));
+        }
+    }
+    if(obj.editor){
+        for(var editor of obj.editor){
+            resource.pushContributorForType(resource.type, new AgentRole({roleType: enums.roleType.editor, heldBy: {givenName: editor.given, familyName: editor.family}}));
         }
     }
     if(obj.publisher){
@@ -330,9 +337,11 @@ CrossrefHelper.prototype.parseIndependentResource = function(obj, callback){
     resource.setSubtitleForType(resource.type, obj.subtitle && obj.subtitle[0] ? obj.subtitle[0] : "");
 
     // Embodiment
-    var firstPage = obj.page && obj.page.split('-').length == 2  ? obj.page.split('-')[0] : obj.page ;
-    var lastPage = obj.page && obj.page.split('-').length == 2 ? obj.page.split('-')[1] : "" ;
-    resource.pushResourceEmbodimentForType(resource.type, new ResourceEmbodiment({firstPage: firstPage, lastPage:lastPage}));
+    if(obj.page){
+        var firstPage = obj.page && obj.page.split('-').length == 2  ? obj.page.split('-')[0] : obj.page ;
+        var lastPage = obj.page && obj.page.split('-').length == 2 ? obj.page.split('-')[1] : "" ;
+        resource.pushResourceEmbodimentForType(resource.type, new ResourceEmbodiment({firstPage: firstPage, lastPage:lastPage}));
+    }
 
     // Publication Year
     if(obj['issued'] && obj['issued']['date-parts'] && obj['issued']['date-parts'][0] && obj['issued']['date-parts'][0][0]){
@@ -349,8 +358,6 @@ CrossrefHelper.prototype.parseIndependentResource = function(obj, callback){
 };
 
 CrossrefHelper.prototype.parseDependentResource = function(obj, callback){
-    var level0_prefix = this.getPropertyPrefixForType(enums.resourceType.journalArticle);
-    var level1_prefix = this.getPropertyPrefixForType(enums.resourceType.journal);
     var child = new BibliographicResource({});
     var parent = new BibliographicResource({});
     child.type = enums.resourceType.journalArticle;

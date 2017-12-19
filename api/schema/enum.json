@@ -23,6 +23,7 @@
   },
   "roleType": {
     "author": "AUTHOR",
+    "editor": "EDITOR",
     "publisher": "PUBLISHER",
     "congress": "CONGRESS",
     "corporate": "CORPORATE"
