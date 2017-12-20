@@ -133,9 +133,123 @@ describe('helpers', function() {
         });
 
         describe('parseIndependentResource', function(){
-            it('should return a parsed resource', function(done) {
+            var resource = {
+                "book_identifiers": [
+                    {
+                        "literalValue": "10.1079/9781780648903.0000",
+                        "scheme": "DOI"
+                    },
+                    {
+                        "literalValue": "http://dx.doi.org/10.1079/9781780648903.0000",
+                        "scheme": "URL_CROSSREF"
+                    },
+                    {
+                        "literalValue": "9781780648903",
+                        "scheme": "ISBN"
+                    }
+                ],
+                "type": "BOOK",
+                "book_title": "Climate change and cotton production in modern farming systems",
+                "book_subtitle": "",
+                "book_contributors": [
+                    {
+                        "roleType": "EDITOR",
+                        "heldBy": {
+                            "givenName": "M. P.",
+                            "familyName": "Bange"
+                        }
+                    },
+                    {
+                        "roleType": "EDITOR",
+                        "heldBy": {
+                            "givenName": "J. T.",
+                            "familyName": "Baker"
+                        }
+                    },
+                    {
+                        "roleType": "EDITOR",
+                        "heldBy": {
+                            "givenName": "P. J.",
+                            "familyName": "Bauer"
+                        }
+                    },
+                    {
+                        "roleType": "EDITOR",
+                        "heldBy": {
+                            "givenName": "K. J.",
+                            "familyName": "Broughton"
+                        }
+                    },
+                    {
+                        "roleType": "EDITOR",
+                        "heldBy": {
+                            "givenName": "G. A.",
+                            "familyName": "Constable"
+                        }
+                    },
+                    {
+                        "roleType": "EDITOR",
+                        "heldBy": {
+                            "givenName": "Q.",
+                            "familyName": "Luo"
+                        }
+                    },
+                    {
+                        "roleType": "EDITOR",
+                        "heldBy": {
+                            "givenName": "D. M.",
+                            "familyName": "Oosterhuis"
+                        }
+                    },
+                    {
+                        "roleType": "EDITOR",
+                        "heldBy": {
+                            "givenName": "Y.",
+                            "familyName": "Osanai"
+                        }
+                    },
+                    {
+                        "roleType": "EDITOR",
+                        "heldBy": {
+                            "givenName": "P.",
+                            "familyName": "Payton"
+                        }
+                    },
+                    {
+                        "roleType": "EDITOR",
+                        "heldBy": {
+                            "givenName": "D. T.",
+                            "familyName": "Tissue"
+                        }
+                    },
+                    {
+                        "roleType": "EDITOR",
+                        "heldBy": {
+                            "givenName": "K. R.",
+                            "familyName": "Reddy"
+                        }
+                    },
+                    {
+                        "roleType": "EDITOR",
+                        "heldBy": {
+                            "givenName": "B. K.",
+                            "familyName": "Singh"
+                        }
+                    },
+                    {
+                        "roleType": "PUBLISHER",
+                        "heldBy": {
+                            "nameString": "CABI"
+                        }
+                    }
+                ],
+                "book_publicationYear": "2016"
+            };
+
+            it.only('should return a parsed resource of type BOOK', function(done) {
                 crossrefHelper.parseObjects(independentResource, function(err, res){
                     res.should.be.Array().and.have.lengthOf(1);
+                    res[0][0].toObject().should.deepEqual(resource);
                     done();
                 });
             });
