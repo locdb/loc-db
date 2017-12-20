@@ -4,6 +4,7 @@ const crossrefHelper = require('./../../../api/helpers/crossrefHelper.js').creat
 const enums = require('./../../../api/schema/enum.json');
 const independentResource = require('./../data/crossrefIndependenResource.json');
 const dependentResource = require('./../data/crossrefDependenResource.json');
+const monograph = require('./../data/crossref/monograph.json');
 
 describe('helpers', function() {
     describe('crossrefHelper', function() {
@@ -133,121 +134,167 @@ describe('helpers', function() {
         });
 
         describe('parseIndependentResource', function(){
-            var resource = {
-                "book_identifiers": [
-                    {
-                        "literalValue": "10.1079/9781780648903.0000",
-                        "scheme": "DOI"
-                    },
-                    {
-                        "literalValue": "http://dx.doi.org/10.1079/9781780648903.0000",
-                        "scheme": "URL_CROSSREF"
-                    },
-                    {
-                        "literalValue": "9781780648903",
-                        "scheme": "ISBN"
-                    }
-                ],
-                "type": "BOOK",
-                "book_title": "Climate change and cotton production in modern farming systems",
-                "book_subtitle": "",
-                "book_contributors": [
-                    {
-                        "roleType": "EDITOR",
-                        "heldBy": {
-                            "givenName": "M. P.",
-                            "familyName": "Bange"
-                        }
-                    },
-                    {
-                        "roleType": "EDITOR",
-                        "heldBy": {
-                            "givenName": "J. T.",
-                            "familyName": "Baker"
-                        }
-                    },
-                    {
-                        "roleType": "EDITOR",
-                        "heldBy": {
-                            "givenName": "P. J.",
-                            "familyName": "Bauer"
-                        }
-                    },
-                    {
-                        "roleType": "EDITOR",
-                        "heldBy": {
-                            "givenName": "K. J.",
-                            "familyName": "Broughton"
-                        }
-                    },
-                    {
-                        "roleType": "EDITOR",
-                        "heldBy": {
-                            "givenName": "G. A.",
-                            "familyName": "Constable"
-                        }
-                    },
-                    {
-                        "roleType": "EDITOR",
-                        "heldBy": {
-                            "givenName": "Q.",
-                            "familyName": "Luo"
-                        }
-                    },
-                    {
-                        "roleType": "EDITOR",
-                        "heldBy": {
-                            "givenName": "D. M.",
-                            "familyName": "Oosterhuis"
-                        }
-                    },
-                    {
-                        "roleType": "EDITOR",
-                        "heldBy": {
-                            "givenName": "Y.",
-                            "familyName": "Osanai"
-                        }
-                    },
-                    {
-                        "roleType": "EDITOR",
-                        "heldBy": {
-                            "givenName": "P.",
-                            "familyName": "Payton"
-                        }
-                    },
-                    {
-                        "roleType": "EDITOR",
-                        "heldBy": {
-                            "givenName": "D. T.",
-                            "familyName": "Tissue"
-                        }
-                    },
-                    {
-                        "roleType": "EDITOR",
-                        "heldBy": {
-                            "givenName": "K. R.",
-                            "familyName": "Reddy"
-                        }
-                    },
-                    {
-                        "roleType": "EDITOR",
-                        "heldBy": {
-                            "givenName": "B. K.",
-                            "familyName": "Singh"
-                        }
-                    },
-                    {
-                        "roleType": "PUBLISHER",
-                        "heldBy": {
-                            "nameString": "CABI"
-                        }
-                    }
-                ],
-                "book_publicationYear": "2016"
-            };
 
-            it.only('should return a parsed resource of type BOOK', function(done) {
+
+            it('should return a parsed resource of type BOOK (http://api.crossref.org/works/10.17104/9783406697630)', function(done) {
+
+                var resource = {
+                    "book_identifiers": [
+                        {
+                            "literalValue": "10.1079/9781780648903.0000",
+                            "scheme": "DOI"
+                        },
+                        {
+                            "literalValue": "http://dx.doi.org/10.1079/9781780648903.0000",
+                            "scheme": "URL_CROSSREF"
+                        },
+                        {
+                            "literalValue": "9781780648903",
+                            "scheme": "ISBN"
+                        }
+                    ],
+                    "type": "BOOK",
+                    "book_title": "Climate change and cotton production in modern farming systems",
+                    "book_subtitle": "",
+                    "book_contributors": [
+                        {
+                            "roleType": "EDITOR",
+                            "heldBy": {
+                                "givenName": "M. P.",
+                                "familyName": "Bange"
+                            }
+                        },
+                        {
+                            "roleType": "EDITOR",
+                            "heldBy": {
+                                "givenName": "J. T.",
+                                "familyName": "Baker"
+                            }
+                        },
+                        {
+                            "roleType": "EDITOR",
+                            "heldBy": {
+                                "givenName": "P. J.",
+                                "familyName": "Bauer"
+                            }
+                        },
+                        {
+                            "roleType": "EDITOR",
+                            "heldBy": {
+                                "givenName": "K. J.",
+                                "familyName": "Broughton"
+                            }
+                        },
+                        {
+                            "roleType": "EDITOR",
+                            "heldBy": {
+                                "givenName": "G. A.",
+                                "familyName": "Constable"
+                            }
+                        },
+                        {
+                            "roleType": "EDITOR",
+                            "heldBy": {
+                                "givenName": "Q.",
+                                "familyName": "Luo"
+                            }
+                        },
+                        {
+                            "roleType": "EDITOR",
+                            "heldBy": {
+                                "givenName": "D. M.",
+                                "familyName": "Oosterhuis"
+                            }
+                        },
+                        {
+                            "roleType": "EDITOR",
+                            "heldBy": {
+                                "givenName": "Y.",
+                                "familyName": "Osanai"
+                            }
+                        },
+                        {
+                            "roleType": "EDITOR",
+                            "heldBy": {
+                                "givenName": "P.",
+                                "familyName": "Payton"
+                            }
+                        },
+                        {
+                            "roleType": "EDITOR",
+                            "heldBy": {
+                                "givenName": "D. T.",
+                                "familyName": "Tissue"
+                            }
+                        },
+                        {
+                            "roleType": "EDITOR",
+                            "heldBy": {
+                                "givenName": "K. R.",
+                                "familyName": "Reddy"
+                            }
+                        },
+                        {
+                            "roleType": "EDITOR",
+                            "heldBy": {
+                                "givenName": "B. K.",
+                                "familyName": "Singh"
+                            }
+                        },
+                        {
+                            "roleType": "PUBLISHER",
+                            "heldBy": {
+                                "nameString": "CABI"
+                            }
+                        }
+                    ],
+                    "book_publicationYear": "2016"
+                };
+
                 crossrefHelper.parseObjects(independentResource, function(err, res){
+                    res.should.be.Array().and.have.lengthOf(1);
+                    res[0][0].toObject().should.deepEqual(resource);
+                    done();
+                });
+            });
+
+            it.only('should return a parsed resource of type MONOGRAPH (http://api.crossref.org/works/10.17104/9783406697630)', function(done) {
+                //require('crossref').work('10.17104/9783406697630', function(err,res){
+                //    console.log(res);
+                //});
+                var resource = {
+                    "monograph_identifiers": [
+                        {
+                            "literalValue": "10.17104/9783406697630",
+                            "scheme": "DOI"
+                        },
+                        {
+                            "literalValue": "http://dx.doi.org/10.17104/9783406697630",
+                            "scheme": "URL_CROSSREF"
+                        }
+                    ],
+                    "type": "MONOGRAPH",
+                    "monograph_title": "Das Buch der Leiden",
+                    "monograph_subtitle": "",
+                    "monograph_contributors": [
+                        {
+                            "roleType": "AUTHOR",
+                            "heldBy": {
+                                "givenName": "Farīd od-Dīn",
+                                "familyName": "Attār"
+                            }
+                        },
+                        {
+                            "roleType": "PUBLISHER",
+                            "heldBy": {
+                                "nameString": "Verlag C.H.BECK oHG"
+                            }
+                        }
+                    ],
+                    "monograph_publicationYear": "2017"
+                };
+
+                crossrefHelper.parseObjects(monograph, function(err, res){
                     res.should.be.Array().and.have.lengthOf(1);
                     res[0][0].toObject().should.deepEqual(resource);
                     done();
