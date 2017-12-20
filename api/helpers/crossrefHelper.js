@@ -145,16 +145,13 @@ CrossrefHelper.prototype.queryByDOI = function(doi, callback){
         // check whether they really contain the 'reference' property
         var candidates = [];
         candidates.push(obj);
-        var containerTitle = obj['container-title'] ? obj['container-title'] [0] : obj['container-title'];
         self.parseObjects(candidates, function(err, res){
             if (err) {
                 logger.error(err);
                 return callback(err, null);
             }
             if (res.length >0){
-                var result = []
-                result[0] = res[0];
-                result[1] = containerTitle;
+                var result = res[0];
                 return callback(null, result);
             }
             return callback(null, null);
@@ -163,122 +160,6 @@ CrossrefHelper.prototype.queryByDOI = function(doi, callback){
 };
 
 
-/**
- * Parses an array of Crossref objects and returns an array of BRs
- * @param objects
- * @param callback
- */
-/*
-CrossrefHelper.prototype.parseObjects = function(objects, callback){
-    var res = [];
-    for(var obj of objects){
-        var type = this.getType(obj.type);
-
-
-        // Identifiers
-        var identifiers = [];
-        if(obj.DOI){
-            var identifier = new Identifier({scheme: enums.identifier.doi, literalValue: obj.DOI});
-            identifiers.push(identifier.toObject());
-        }
-        if(obj.URL){
-            var identifier = new Identifier({scheme: enums.externalSources.crossref, literalValue: obj.URL});
-            identifiers.push(identifier.toObject());
-        }
-        if(obj.ISSN){
-            for(var issn of obj.ISSN){
-                var identifier = new Identifier({scheme: enums.identifier.issn, literalValue: issn});
-                identifiers.push(identifier.toObject())
-            }
-        }
-        // Contributors
-        var contributors = [];
-        if(obj.author){
-            for(var author of obj.author){
-                var agentRole = new AgentRole({roleType: enums.roleType.author, heldBy: {nameString: (author.family + " " + author.given), givenName: author.given, familyName: author.family}});
-                contributors.push(agentRole.toObject());
-            }
-        }
-        if(obj.publisher){
-            var agentRole = new AgentRole({roleType: enums.roleType.publisher, heldBy: {nameString: obj.publisher}});
-            contributors.push(agentRole.toObject());
-        }
-        // Title
-        var title = "";
-        if(obj.title && obj.title[0]) {
-            title = obj.title[0];
-        }
-        // Subtitle
-        var subtitle = ""
-        if(obj.subtitle && obj.subtitle[0]) {
-            subtitle = obj.subtitle[0];
-        }
-
-        // Reference list
-        if(obj.reference){
-            var bes = [];
-            for(var reference of obj.reference){
-                var referenceTitle = reference['article-title'] ? reference['article-title'] : "";
-                var referenceAuthor = reference.author ? reference.author : "";
-                var referenceYear = reference.year ? reference.year : "";
-                var referenceJournal = reference['journal-title'] ? reference['journal-title'] : "";
-                var referenceVolume = reference.volume ? reference.volume : "";
-                var referenceComments = reference['first-page']? "First page: " + reference['first-page'] : "";
-
-
-                if(referenceTitle === ""){
-                    referenceTitle = reference['volume-title'] ? reference['volume-title'] : "";
-                }
-
-                var bibliographicEntry = new BibliographicEntry({
-                    identifiers:[new Identifier({scheme: enums.identifier.doi, literalValue: reference.DOI})],
-                    bibliographicEntryText: reference.unstructured,
-                    ocrData:{
-                        title: referenceTitle,
-                        date: referenceYear,
-                        authors: [referenceAuthor],
-                        journal: referenceJournal,
-                        volume: referenceVolume,
-                        comments: referenceComments
-                    },
-                    status: enums.status.external});
-                bes.push(bibliographicEntry);
-            }
-
-        }
-        var firstPage = obj.page && obj.page.split('-').length == 2  ? obj.page.split('-')[0] : obj.page ;
-        var lastPage = obj.page && obj.page.split('-').length == 2 ? obj.page.split('-')[1] : "" ;
-        var embodiedAs = [new ResourceEmbodiment({firstPage: firstPage, lastPage:lastPage})];
-        var containerTitle = obj['container-title'] && obj['container-title'][0] ? obj['container-title'][0] : "";
-
-        var publicationYear;
-        if(obj['issued'] && obj['issued']['date-parts'] && obj['issued']['date-parts'][0] && obj['issued']['date-parts'][0][0]){
-            publicationYear = obj['issued']['date-parts'][0][0];
-        }else if (obj['published-print'] && obj['published-print']['date-parts'] && obj['published-print']['date-parts'][0] && obj['published-print']['date-parts'][0][0]){
-            publicationYear = obj['published-print']['date-parts'][0][0];
-        }else if(obj['published-online'] && obj['published-online']['date-parts'] && obj['published-online']['date-parts'][0] && obj['published-online']['date-parts'][0][0]){
-            publicationYear = obj['published-online']['date-parts'][0][0];
-        }
-
-        // TODO: Parse type
-        var bibliographicResource = new BibliographicResource({
-            title: title,
-            subtitle: subtitle,
-            contributors: contributors,
-            identifiers: identifiers,
-            status: enums.status.external,
-            parts: bes,
-            embodiedAs: embodiedAs,
-            containerTitle: containerTitle,
-            publicationYear: publicationYear
-        });
-
-
-        res.push(bibliographicResource.toObject());
-    }
-    callback(null, res);
-};
-*/
 
 CrossrefHelper.prototype.parseObjects = function(objects, callback){
     var self = this;

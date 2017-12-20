@@ -30,41 +30,19 @@ describe('helpers', function() {
                     result.should.be.ok();
                     result.should.be.Array();
                     result.should.have.lengthOf(20);
-                    result[0].should.have.property("embodiedAs").which.is.Array();
-                    result[0].embodiedAs[0].should.have.property("firstPage");
-                    result[1].should.have.property("identifiers");
-                    result[0].should.have.property("title", "The Association between Social Capital and Juvenile Crime");
-                    result[1].identifiers.should.be.Array();
-                    result[1].identifiers.should.have.lengthOf(3);
-                    result[1].identifiers[1].should.have.property("scheme", enums.externalSources.crossref);
+                    result[0][0].should.have.property("journalArticle_embodiedAs").which.is.Array();
+                    result[0][0].journalArticle_embodiedAs[0].should.have.property("firstPage");
+                    result[1][1].should.have.property("journal_identifiers");
+                    result[0][0].should.have.property("journalArticle_title", "The Association between Social Capital and Juvenile Crime");
+                    result[1][1].journal_identifiers.should.be.Array();
+                    result[1][0].journalArticle_identifiers.should.have.lengthOf(2);
+                    result[1][0].journalArticle_identifiers[1].should.have.property("scheme", enums.externalSources.crossref);
                     done();
                 });
             });
         });
 
         describe('queryReferences', function(){
-            it.skip('should return result for a given query', function(done) {
-                this.timeout(1000000000);
-                crossrefHelper.queryReferences(null, "", function(err, result){
-                    console.log(result);
-                    should.not.exists(err);
-                    result.should.be.ok();
-                    result.should.be.Array();
-                    result.should.have.lengthOf(5);
-                    result[0].should.have.property("identifiers");
-                    result[0].identifiers.should.be.Array();
-                    result[0].identifiers.should.have.lengthOf(4);
-                    result[0].identifiers[1].should.have.property("scheme", enums.externalSources.crossref);
-                    result[0].should.have.property("parts");
-                    result[0].parts.should.be.Array;
-                    result[0].parts.should.have.lengthOf(58);
-                    result[0].parts[0].should.have.property("identifiers");
-                    result[0].parts[0].identifiers.should.be.Array;
-                    result[0].parts[0].identifiers.should.have.lengthOf(1);
-                    result[0].parts[0].identifiers[0].should.have.property("scheme", enums.identifier.doi);
-                    done();
-                });
-            });
 
             it('should return result for a given doi', function(done) {
                 this.timeout(1000000000);
@@ -74,17 +52,17 @@ describe('helpers', function() {
                     result.should.be.ok();
                     result.should.be.Array();
                     result.should.have.lengthOf(1);
-                    result[0].should.have.property("identifiers");
-                    result[0].identifiers.should.be.Array();
-                    result[0].identifiers.should.have.lengthOf(4);
-                    result[0].identifiers[1].should.have.property("scheme", enums.externalSources.crossref);
-                    result[0].should.have.property("parts");
-                    result[0].parts.should.be.Array;
-                    result[0].parts.should.have.lengthOf(25);
-                    result[0].parts[0].should.have.property("identifiers");
-                    result[0].parts[0].identifiers.should.be.Array;
-                    result[0].parts[0].identifiers.should.have.lengthOf(1);
-                    result[0].parts[0].identifiers[0].should.have.property("scheme", enums.identifier.doi);
+                    result[0][0].should.have.property("journalArticle_identifiers");
+                    result[0][0].journalArticle_identifiers.should.be.Array();
+                    result[0][0].journalArticle_identifiers.should.have.lengthOf(2);
+                    result[0][0].journalArticle_identifiers[1].should.have.property("scheme", enums.externalSources.crossref);
+                    result[0][0].should.have.property("parts");
+                    result[0][0].parts.should.be.Array;
+                    result[0][0].parts.should.have.lengthOf(25);
+                    result[0][0].parts[0].should.have.property("identifiers");
+                    result[0][0].parts[0].identifiers.should.be.Array;
+                    result[0][0].parts[0].identifiers.should.have.lengthOf(1);
+                    result[0][0].parts[0].identifiers[0].should.have.property("scheme", enums.identifier.doi);
                     done();
                 });
             });
@@ -99,10 +77,10 @@ describe('helpers', function() {
                     should.not.exists(err);
                     result.should.be.ok();
                     result.should.be.Array();
-                    result[0].should.have.property("identifiers");
-                    result[0].identifiers.should.be.Array();
-                    result[0].identifiers.should.have.lengthOf(4);
-                    result[0].identifiers[1].should.have.property("scheme", enums.externalSources.crossref);
+                    result[0].should.have.property("journalArticle_identifiers");
+                    result[0].journalArticle_identifiers.should.be.Array();
+                    result[0].journalArticle_identifiers.should.have.lengthOf(2);
+                    result[0].journalArticle_identifiers[1].should.have.property("scheme", enums.externalSources.crossref);
                     result[0].should.have.property("parts");
                     result[0].parts.should.be.Array;
                     result[0].parts.should.have.lengthOf(25);
@@ -125,10 +103,10 @@ describe('helpers', function() {
                     result.should.be.ok();
                     result.should.be.Array();
                     result.should.have.lengthOf(1);
-                    result[0].should.have.property("identifiers");
-                    result[0].identifiers.should.be.Array();
-                    result[0].identifiers[1].should.have.property("scheme", enums.externalSources.crossref);
-                    result[0].should.have.property("title", "Arms Control: Lessons Learned and the Future");
+                    result[0][0].should.have.property("bookChapter_identifiers");
+                    result[0][0].bookChapter_identifiers.should.be.Array();
+                    result[0][0].bookChapter_identifiers[1].should.have.property("scheme", enums.externalSources.crossref);
+                    result[0][0].should.have.property("bookChapter_title", "Arms Control: Lessons Learned and the Future");
                     done();
                 });
             });
