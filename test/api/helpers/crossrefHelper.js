@@ -144,8 +144,76 @@ describe('helpers', function() {
         describe('parseDependentResource', function(){
 
             it('should return a parsed child resource and parent resource', function(done) {
+                var child = {
+                    "bookChapter_identifiers": [
+                        {
+                            "literalValue": "10.1021/bk-2001-0791.ch020",
+                            "scheme": "DOI"
+                        },
+                        {
+                            "literalValue": "http://dx.doi.org/10.1021/bk-2001-0791.ch020",
+                            "scheme": "URL_CROSSREF"
+                        }
+                    ],
+                    "type": "BOOK_CHAPTER",
+                    "bookChapter_title": "Illicit Drugs in Municipal Sewage",
+                    "bookChapter_subtitle": "Proposed New Nonintrusive Tool to Heighten Public Awareness of Societal Use of Illicit-Abused Drugs and Their Potential for Ecological Consequences",
+                    "bookChapter_contributors": [
+                        {
+                            "roleType": "AUTHOR",
+                            "heldBy": {
+                                "givenName": "Christian G.",
+                                "familyName": "Daughton"
+                            }
+                        },
+                        {
+                            "roleType": "PUBLISHER",
+                            "heldBy": {
+                                "nameString": "American Chemical Society"
+                            }
+                        }
+                    ],
+                    "bookChapter_embodiedAs": [
+                        {
+                            "firstPage": 348,
+                            "lastPage": 364
+                        }
+                    ]
+                };
+
+                var parent = {
+                    "editedBook_identifiers": [
+                        {
+                            "literalValue": "0841237395",
+                            "scheme": "ISBN"
+                        },
+                        {
+                            "literalValue": "0841218676",
+                            "scheme": "ISBN"
+                        }
+                    ],
+                    "bookSeries_identifiers": [
+                        {
+                            "literalValue": "1947-5918",
+                            "scheme": "ISSN"
+                        }
+                    ],
+                    "type": "EDITED_BOOK",
+                    "editedBook_title": "ACS Symposium Series",
+                    "editedBook_contributors": [
+                        {
+                            "roleType": "PUBLISHER",
+                            "heldBy": {
+                                "nameString": "American Chemical Society"
+                            }
+                        }
+                    ]
+                };
+
                 crossrefHelper.parseObjects(dependentResource, function(err, res){
-                    res.should.be.Array().and.have.lengthOf(2);
+                    res.should.be.Array().and.have.lengthOf(1);
+                    res[0][0].toObject().should.deepEqual(child);
+                    res[0][1].toObject().should.deepEqual(parent);
                     done();
                 });
             });
