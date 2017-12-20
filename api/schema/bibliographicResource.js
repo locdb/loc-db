@@ -4,6 +4,7 @@ const BibliographicEntry = require('./bibliographicEntry.js');
 const Identifier = require('./identifier.js');
 const AgentRole = require('./agentRole');
 const status = require('./enum.json').status;
+const resourceType = require('./enum.json').resourceType;
 const ResourceEmbodiment = require('./resourceEmbodiment');
 const _ = require('underscore.string');
 
@@ -176,7 +177,41 @@ var bibliographicResource = new SchemaObject({
                 _.camelize(type.split("_")[0].toLowerCase()+ "-" + type.split("_")[1].toLowerCase()) + "_" :
                 type.split("_")[0].toLowerCase() + "_";
         },
+        getLevelsPrefixForType: function(type){
+
+        },
         /**
+         * Given a resource type, this function returns all possible parent resource types. The position 0 indicates our preferred type.
+         * @param type {string}
+         * @returns {*}
+         */
+        getContainerTypeForType: function(type){
+            switch(type){
+                case resourceType.monograph || resourceType.editedBook || resourceType.book || resourceType.referenceBook:
+                    return [resourceType.bookSet, resourceType.bookSeries];
+                case resourceType.bookSet:
+                    return [resourceType.bookSeries]
+                case resourceType.bookChapter || resourceType.bookSection || resourceType.bookPart || resourceType.bookTrack || resourceType.component:
+                    return [resourceType.editedBook, resourceType.book, resourceType.monograph]
+                case resourceType.proceedingsArticle:
+                    return [resourceType.proceedings]
+                case resourceType.journalArticle:
+                    return [resourceType.journalIssue, resourceType.journalVolume, resourceType.journal]
+                case resourceType.journalIssue:
+                    return [resourceType.journalVolume, resourceType.journal]
+                case resourceType.journalVolume:
+                    return [resourceType.journal]
+                case resourceType.report:
+                    return [resourceType.reportSeries]
+                case resourceType.referenceEntry:
+                    return [resourceType.referenceBook]
+                case resourceType.standard:
+                    return [resourceType.standardSeries]
+                default:
+                    return []
+            }
+        },
+         /**
          * Setter and getter for all properties with dynamically computed properties
          * @param type
          * @param value (only for setters)
