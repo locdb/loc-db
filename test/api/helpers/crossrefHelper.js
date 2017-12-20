@@ -2,7 +2,7 @@ const should = require('should');
 const setup = require('./../setup.js').createSetup();
 const crossrefHelper = require('./../../../api/helpers/crossrefHelper.js').createCrossrefHelper();
 const enums = require('./../../../api/schema/enum.json');
-const independentResource = require('./../data/crossrefIndependenResource.json');
+const book = require('./../data/crossref/book.json');
 const dependentResource = require('./../data/crossrefDependenResource.json');
 const monograph = require('./../data/crossref/monograph.json');
 
@@ -136,7 +136,7 @@ describe('helpers', function() {
         describe('parseIndependentResource', function(){
 
 
-            it('should return a parsed resource of type BOOK (http://api.crossref.org/works/10.17104/9783406697630)', function(done) {
+            it.only('should return a parsed resource of type BOOK (http://api.crossref.org/works/10.17104/9783406697630)', function(done) {
 
                 var resource = {
                     "book_identifiers": [
@@ -251,14 +251,15 @@ describe('helpers', function() {
                     "book_publicationYear": "2016"
                 };
 
-                crossrefHelper.parseObjects(independentResource, function(err, res){
+                crossrefHelper.parseObjects(book, function(err, res){
                     res.should.be.Array().and.have.lengthOf(1);
+                    res[0].should.be.Array().and.have.lengthOf(1);
                     res[0][0].toObject().should.deepEqual(resource);
                     done();
                 });
             });
 
-            it.only('should return a parsed resource of type MONOGRAPH (http://api.crossref.org/works/10.17104/9783406697630)', function(done) {
+            it('should return a parsed resource of type MONOGRAPH (http://api.crossref.org/works/10.17104/9783406697630)', function(done) {
                 //require('crossref').work('10.17104/9783406697630', function(err,res){
                 //    console.log(res);
                 //});
@@ -296,6 +297,7 @@ describe('helpers', function() {
 
                 crossrefHelper.parseObjects(monograph, function(err, res){
                     res.should.be.Array().and.have.lengthOf(1);
+                    res[0].should.be.Array().and.have.lengthOf(1);
                     res[0][0].toObject().should.deepEqual(resource);
                     done();
                 });
