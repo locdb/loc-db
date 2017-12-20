@@ -3,7 +3,7 @@ const setup = require('./../setup.js').createSetup();
 const crossrefHelper = require('./../../../api/helpers/crossrefHelper.js').createCrossrefHelper();
 const enums = require('./../../../api/schema/enum.json');
 const book = require('./../data/crossref/book.json');
-const dependentResource = require('./../data/crossrefDependenResource.json');
+const bookChapter = require('./../data/crossref/bookChapter.json');
 const monograph = require('./../data/crossref/monograph.json');
 
 describe('helpers', function() {
@@ -304,7 +304,7 @@ describe('helpers', function() {
             });
         });
 
-        describe('parseDependentResource', function(){
+        describe.only('parseDependentResource', function(){
 
             it('should return a parsed child resource and parent resource', function(done) {
                 var child = {
@@ -373,7 +373,7 @@ describe('helpers', function() {
                     ]
                 };
 
-                crossrefHelper.parseObjects(dependentResource, function(err, res){
+                crossrefHelper.parseObjects(bookChapter, function(err, res){
                     res.should.be.Array().and.have.lengthOf(1);
                     res[0][0].toObject().should.deepEqual(child);
                     res[0][1].toObject().should.deepEqual(parent);
