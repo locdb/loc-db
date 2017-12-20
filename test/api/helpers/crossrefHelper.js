@@ -8,7 +8,7 @@ const monograph = require('./../data/crossref/monograph.json');
 const journalArticle = require('./../data/crossref/journalArticle.json');
 
 describe('helpers', function() {
-    describe('crossrefHelper', function() {
+    describe.only('crossrefHelper', function() {
         before(function(done) {
             setup.dropDB(function(err){
                 done();
@@ -134,7 +134,7 @@ describe('helpers', function() {
             });
         });
 
-        describe.only('parseIndependentResource', function(){
+        describe('parseIndependentResource', function(){
 
 
             it('should return a parsed resource of type BOOK (http://api.crossref.org/works/10.17104/9783406697630)', function(done) {
@@ -261,10 +261,7 @@ describe('helpers', function() {
             });
 
             it('should return a parsed resource of type MONOGRAPH (http://api.crossref.org/works/10.17104/9783406697630)', function(done) {
-/*                require('crossref').work('10.1039/A703436I', function(err,res){
 
-                    console.log(res);
-                });*/
                 var resource = {
                     "monograph_identifiers": [
                         {
@@ -306,7 +303,7 @@ describe('helpers', function() {
             });
         });
 
-        describe.only('parseDependentResource', function(){
+        describe('parseDependentResource', function(){
 
             it('should return a parsed child resource and parent resource for type BOOK_CHAPTER', function(done) {
                 var child = {
@@ -441,7 +438,7 @@ describe('helpers', function() {
                         }
                     ],
                     "type": "JOURNAL_ISSUE",
-                    "journalIssue_title": "Journal of the Chemical Society, Faraday Transactions",
+                    "journal_title": "Journal of the Chemical Society, Faraday Transactions",
                     "journalVolume_number": "93",
                     "journalIssue_number": "21",
                     "journalIssue_contributors": [

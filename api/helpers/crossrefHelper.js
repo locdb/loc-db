@@ -381,7 +381,7 @@ CrossrefHelper.prototype.parseDependentResource = function(obj, callback){
         var parent = new BibliographicResource({type: parentType});
 
         // set the general parent properties
-        if(child.resourceType === enums.resourceType.journalArticle){
+        if(child.type === enums.resourceType.journalArticle){
             parent.setTitleForType(enums.resourceType.journal, obj['container-title'][0]);
         }else{
             parent.setTitleForType(parentType, obj['container-title'][0]);
