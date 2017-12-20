@@ -5,6 +5,7 @@ const enums = require('./../../../api/schema/enum.json');
 const book = require('./../data/crossref/book.json');
 const bookChapter = require('./../data/crossref/bookChapter.json');
 const monograph = require('./../data/crossref/monograph.json');
+const journalArticle = require('./../data/crossref/journalArticle.json');
 
 describe('helpers', function() {
     describe('crossrefHelper', function() {
@@ -136,7 +137,7 @@ describe('helpers', function() {
         describe('parseIndependentResource', function(){
 
 
-            it.only('should return a parsed resource of type BOOK (http://api.crossref.org/works/10.17104/9783406697630)', function(done) {
+            it('should return a parsed resource of type BOOK (http://api.crossref.org/works/10.17104/9783406697630)', function(done) {
 
                 var resource = {
                     "book_identifiers": [
@@ -260,9 +261,10 @@ describe('helpers', function() {
             });
 
             it('should return a parsed resource of type MONOGRAPH (http://api.crossref.org/works/10.17104/9783406697630)', function(done) {
-                //require('crossref').work('10.17104/9783406697630', function(err,res){
-                //    console.log(res);
-                //});
+/*                require('crossref').work('10.1039/A703436I', function(err,res){
+
+                    console.log(res);
+                });*/
                 var resource = {
                     "monograph_identifiers": [
                         {
@@ -304,9 +306,9 @@ describe('helpers', function() {
             });
         });
 
-        describe.only('parseDependentResource', function(){
+        describe('parseDependentResource', function(){
 
-            it('should return a parsed child resource and parent resource', function(done) {
+            it('should return a parsed child resource and parent resource for type BOOK_CHAPTER', function(done) {
                 var child = {
                     "bookChapter_identifiers": [
                         {
@@ -374,6 +376,85 @@ describe('helpers', function() {
                 };
 
                 crossrefHelper.parseObjects(bookChapter, function(err, res){
+                    res.should.be.Array().and.have.lengthOf(1);
+                    res[0][0].toObject().should.deepEqual(child);
+                    res[0][1].toObject().should.deepEqual(parent);
+                    done();
+                });
+            });
+
+            it.only('should return a parsed child resource and parent resource for type JOURNAL_ARTICLE (// https://api.crossref.org/works/10.1039/A703436I)', function(done) {
+                var child = {
+                    "journalArticle_identifiers": [
+                        {
+                            "literalValue": "10.1039/a703436i",
+                            "scheme": "DOI"
+                        },
+                        {
+                            "literalValue": "http://dx.doi.org/10.1039/a703436i",
+                            "scheme": "URL_CROSSREF"
+                        }
+                    ],
+                    "type": "JOURNAL_ARTICLE",
+                    "journalArticle_title": "Conformational properties of short poly(oxyethylene) chains in water studied by IR spectroscopy",
+                    "journalArticle_subtitle": "",
+                    "journalArticle_contributors": [
+                        {
+                            "roleType": "AUTHOR",
+                            "heldBy": {
+                                "givenName": "Roksana",
+                                "familyName": "Begum"
+                            }
+                        },
+                        {
+                            "roleType": "AUTHOR",
+                            "heldBy": {
+                                "givenName": "and",
+                                "familyName": "Hiroatsu Matsuura"
+                            }
+                        },
+                        {
+                            "roleType": "PUBLISHER",
+                            "heldBy": {
+                                "nameString": "Royal Society of Chemistry (RSC)"
+                            }
+                        }
+                    ],
+                    "journalArticle_publicationYear": "1997",
+                    "journalArticle_embodiedAs": [
+                        {
+                            "firstPage": 3839,
+                            "lastPage": 3848
+                        }
+                    ]
+                };
+
+                var parent = {
+                    "journal_identifiers": [
+                        {
+                            "literalValue": "0956-5000",
+                            "scheme": "ISSN"
+                        },
+                        {
+                            "literalValue": "1364-5455",
+                            "scheme": "ISSN"
+                        }
+                    ],
+                    "type": "JOURNAL_ISSUE",
+                    "journalIssue_title": "Journal of the Chemical Society, Faraday Transactions",
+                    "journalVolume_number": "93",
+                    "journalIssue_number": "21",
+                    "journalIssue_contributors": [
+                        {
+                            "roleType": "PUBLISHER",
+                            "heldBy": {
+                                "nameString": "Royal Society of Chemistry (RSC)"
+                            }
+                        }
+                    ]
+                };
+
+                crossrefHelper.parseObjects(journalArticle, function(err, res){
                     res.should.be.Array().and.have.lengthOf(1);
                     res[0][0].toObject().should.deepEqual(child);
                     res[0][1].toObject().should.deepEqual(parent);
