@@ -134,7 +134,7 @@ describe('helpers', function() {
             });
         });
 
-        describe('parseIndependentResource', function(){
+        describe.only('parseIndependentResource', function(){
 
 
             it('should return a parsed resource of type BOOK (http://api.crossref.org/works/10.17104/9783406697630)', function(done) {
@@ -306,7 +306,7 @@ describe('helpers', function() {
             });
         });
 
-        describe('parseDependentResource', function(){
+        describe.only('parseDependentResource', function(){
 
             it('should return a parsed child resource and parent resource for type BOOK_CHAPTER', function(done) {
                 var child = {
@@ -383,7 +383,7 @@ describe('helpers', function() {
                 });
             });
 
-            it.only('should return a parsed child resource and parent resource for type JOURNAL_ARTICLE (// https://api.crossref.org/works/10.1039/A703436I)', function(done) {
+            it('should return a parsed child resource and parent resource for type JOURNAL_ARTICLE (// https://api.crossref.org/works/10.1039/A703436I)', function(done) {
                 var child = {
                     "journalArticle_identifiers": [
                         {

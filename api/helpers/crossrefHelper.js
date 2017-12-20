@@ -362,8 +362,14 @@ CrossrefHelper.prototype.parseIndependentResource = function(obj, callback){
     });
 };
 
-CrossrefHelper.prototype.getCrossrefParentType = function (child) {
-    return child.getContainerTypeForType(child.type).length > 0 ? child.getContainerTypeForType(child.type)[0] : "";
+CrossrefHelper.prototype.getCrossrefParentType = function (child, obj) {
+    if(child.type === enums.resourceType.journalArticle && !obj.issue && !obj.volume){
+        return enums.resourceType.journal;
+    }else if (child.type === enums.resourceType.journalArticle && !obj.issue){
+        return enums.resourceType.journalVolume;
+    }else{
+        return child.getContainerTypeForType(child.type).length > 0 ? child.getContainerTypeForType(child.type)[0] : "";
+    }
 }
 
 CrossrefHelper.prototype.parseDependentResource = function(obj, callback){
@@ -371,7 +377,7 @@ CrossrefHelper.prototype.parseDependentResource = function(obj, callback){
 
     return this.parseIndependentResource(obj, function(err, res){
         var child = res[0];
-        var parentType = self.getCrossrefParentType(child);
+        var parentType = self.getCrossrefParentType(child, obj);
         var parent = new BibliographicResource({type: parentType});
 
         // set the general parent properties
