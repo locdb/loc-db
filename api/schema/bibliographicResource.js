@@ -177,7 +177,7 @@ var bibliographicResource = new SchemaObject({
                 _.camelize(type.split("_")[0].toLowerCase()+ "-" + type.split("_")[1].toLowerCase()) + "_" :
                 type.split("_")[0].toLowerCase() + "_";
         },
-        getLevelsPrefixForType: function(type){
+        getPropertyPrefixForPreferredParent: function(type){
 
         },
         /**

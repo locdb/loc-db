@@ -3,6 +3,7 @@ const setup = require('./../setup.js').createSetup();
 const crossrefHelper = require('./../../../api/helpers/crossrefHelper.js').createCrossrefHelper();
 const enums = require('./../../../api/schema/enum.json');
 const independentResource = require('./../data/crossrefIndependenResource.json');
+const dependentResource = require('./../data/crossrefDependenResource.json');
 
 describe('helpers', function() {
     describe('crossrefHelper', function() {
@@ -131,18 +132,20 @@ describe('helpers', function() {
             });
         });
 
-        describe.only('parseIndependentResource', function(){
-
+        describe('parseIndependentResource', function(){
             it('should return a parsed resource', function(done) {
-/*                const crossref = require('crossref');
-                crossref.works({
-                    filter: {"isbn": "9781780648903"},
-                    mailto: "anne@informatik.uni-mannheim.de"
-                }, (err, objs, nextOpts, done) => {
-                    return objs
-                });*/
                 crossrefHelper.parseObjects(independentResource, function(err, res){
                     res.should.be.Array().and.have.lengthOf(1);
+                    done();
+                });
+            });
+        });
+
+        describe('parseDependentResource', function(){
+
+            it('should return a parsed child resource and parent resource', function(done) {
+                crossrefHelper.parseObjects(dependentResource, function(err, res){
+                    res.should.be.Array().and.have.lengthOf(2);
                     done();
                 });
             });
