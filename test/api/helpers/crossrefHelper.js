@@ -8,7 +8,7 @@ const monograph = require('./../data/crossref/monograph.json');
 const journalArticle = require('./../data/crossref/journalArticle.json');
 
 describe('helpers', function() {
-    describe.only('crossrefHelper', function() {
+    describe('crossrefHelper', function() {
         before(function(done) {
             setup.dropDB(function(err){
                 done();

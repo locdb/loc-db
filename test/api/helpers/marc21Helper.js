@@ -4,16 +4,16 @@ const marc21Helper = require('./../../../api/helpers/marc21Helper.js').createMar
 const fs = require('fs')
 const enums = require('./../../../api/schema/enum.json')
 
-describe('helpers', function() {
-    var marc21XML;
+describe.only('helpers', function() {
+    var editedBook;
     describe('marc21Helper', function() {
         before(function(done) {
             setup.dropDB(function(err){
-                fs.readFile('./test/api/data/marc21SWB.xml',"utf-8", function read(err, data) {
+                fs.readFile('./test/api/data/marc21/editedBook.xml',"utf-8", function read(err, data) {
                     if (err) {
                         throw err;
                     }
-                    marc21XML = data;
+                    editedBook = data;
                     done();
                 });
             });
@@ -26,8 +26,8 @@ describe('helpers', function() {
         });
         
         describe('parseBibliographicResource', function(){
-            it('should return a parsed bibliographic resource', function(done) {
-                marc21Helper.parseBibliographicResource(marc21XML, function(err, result){
+            it('should return a parsed bibliographic resource of type edited book', function(done) {
+                marc21Helper.parseBibliographicResource(editedBook, function(err, result){
                     should.not.exist(err);
                     result.should.be.ok();
                     result.should.have.property("title", "Der soziologische Blick :");

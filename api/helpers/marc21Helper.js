@@ -4,6 +4,9 @@ const marc4js = require('marc4js');
 const enums = require('./../schema/enum.json');
 const async = require('async');
 const logger = require('./../util/logger');
+const BibliographicResource = require('./../schema/bibliographicResource');
+const Identifier = require('./../schema/identifier');
+const AgentRole = require('./../schema/agentRole');
 
 var Marc21Helper = function(){
 }
@@ -65,57 +68,97 @@ Marc21Helper.prototype.parseBibliographicResources = function(xmlString, callbac
 Marc21Helper.prototype.extractData = function(records, callback){
     // apparently, when having multiple resources in the xml, marc4js parses it such that every second
     // entry in the array really belongs to a bibliographic resource
-    if(typeof records[1] == "undefined"){
+    if(typeof records[1] == "undefined") {
         return callback(null, []);
     }
 
+    //if(source == enums.externalSources.zdb || ){
+        return this.extractIndependentResource(records, function (err, result){
+            if(err){
+                logger.error(err);
+                return callback(err, null);
+            }
+            return callback(null, result);
+        });
+    //}
+}
+
+Marc21Helper.prototype.guessResourceType = function (records) {
     var dataFields = records[1]._dataFields;
     var controlFields = records[1]._controlFields;
     var leader = records[1]._leader;
 
-    var cleanedObject = {};
-    cleanedObject.identifiers = [];
-    cleanedObject.contributors = [];
+    // if 773 is given, we have a dependent resource
+        // journalArticle
+        // book
+    // if 773 is not given, we have an independent resource
+        // journal
+        // monograph
+        // edited book
+        // bookSeries
+    for(var field of dataFields) {
+
+    }
+
+}
+
+Marc21Helper.prototype.extractIndependentResource = function(records, callback){
+    // apparently, when having multiple resources in the xml, marc4js parses it such that every second
+    // entry in the array really belongs to a bibliographic resource
+    if(typeof records[1] == "undefined"){
+        return callback(null, []);
+    }
+
+    var resource = new BibliographicResource();
+    //if(source === enums.externalSources.zdb){
+    resource.type = enums.resourceType.journal;
+    //}
+
+    var dataFields = records[1]._dataFields;
+    var controlFields = records[1]._controlFields;
+    var leader = records[1]._leader;
 
     for(var field of dataFields) {
         //Titles
         if (field._tag === "245") {
             for (var subfield of field._subfields) {
                 if (subfield._code === "a") {
-                    cleanedObject.title = subfield._data;
+                    resource.setTitleForType(resource.type, subfield._data);
                 } else if (subfield._code === "b") {
-                    cleanedObject.subtitle = subfield._data;
+                    resource.setSubtitleForType(resource.type, subfield._data);
                 }
             }
             // Identifiers
         } else if (field._tag === "020") {
             for (var subfield of field._subfields) {
                 if (subfield._code === "a") {
-                    cleanedObject.identifiers.push({
-                        "literalValue": subfield._data,
-                        "scheme": enums.identifier.isbn
-                    });
+                    resource.pushIdentifierForType(resource.type, new Identifier({
+                        literalValue: subfield._data,
+                        scheme: enums.identifier.isbn
+                    }));
                 }
             }
         } else if (field._tag === "016" && field._indicator1 && field._indicator1 === "7") {
             if (field.subfields.length >= 2 && field.subfields[0]._code === "2" && field.subfields[0]._data === "DE-600") {
-                cleanedObject.identifiers.push({
-                    "literalValue": field.subfields[1]._data,
-                    "scheme": enums.identifier.zdb_id
-                });
+                resource.pushIdentifierForType(resource.type, new Identifier({
+                    literalValue: field.subfields[1]._data,
+                    scheme: enums.identifier.zdb_id
+                }));
             }
-        }else if(field._tag == "022"){
+        }else if(field._tag === "022"){
             for(var subfield of field._subfields){
                 if(subfield._code === "a"){
-                    cleanedObject.identifiers.push({"literalValue": subfield._data,
-                        "scheme": enums.identifier.issn});
+                    resource.pushIdentifierForType(resource.type, new Identifier({
+                        literalValue: subfield._data,
+                        scheme: enums.identifier.issn}));
                 }
             }
         }else if(field._tag === "010"){
             for(var subfield of field._subfields){
                 if(subfield._code === "a"){
-                    cleanedObject.identifiers.push({"literalValue": subfield._data,
-                        "scheme": enums.identifier.lccn});
+                    resource.pushIdentifierForType(resource.type, new Identifier({
+                        literalValue: subfield._data,
+                        scheme: enums.identifier.lccn}));
                 }
             }
         }else if (field._tag === "024" && field._indicator1 && field._indicator1 === "7") {
@@ -123,123 +166,131 @@ Marc21Helper.prototype.extractData = function(records, callback){
                 if(subfield._code === "2" && subfield._data.toLowerCase() === "doi"){
                     for(var subf of field._subfields) {
                         if(subf._code === "a"){
-                            cleanedObject.identifiers.push({
-                                "literalValue": subf._data,
-                                "scheme": enums.identifier.doi
-                            });
+                            resource.pushIdentifierForType(resource.type, new Identifier({
+                                literalValue: subf._data,
+                                scheme: enums.identifier.doi
+                            }));
                         }
                     }
                 }
             }
-/*            if (field.subfields.length >= 2 && field.subfields[0]._code === "2" && field.subfields[0]._data.toLowerCase() === "doi") {
-                cleanedObject.identifiers.push({
-                    "literalValue": field.subfields[1]._data,
-                    "scheme": enums.identifier.doi
-                });
-            }*/
         }else if (field._tag === "035") {
             for(var subfield of field._subfields){
                 if(subfield._code === "a" && subfield._data.split("(OCoLC)").length === 2){
-                    cleanedObject.identifiers.push({"literalValue": subfield._data.split("(OCoLC)")[1],
-                        "scheme": enums.identifier.oclcId});
+                    resource.pushIdentifierForType(resource.type, new Identifier({
+                        literalValue: subfield._data.split("(OCoLC)")[1],
+                        scheme: enums.identifier.oclcId}));
                 }
             }
         }else if(field._tag === "856"){
             for(var subfield of field._subfields){
                 if(subfield._code === "u"){
-                    cleanedObject.identifiers.push({"literalValue": subfield._data,
-                        "scheme": enums.identifier.uri});
+                    resource.pushIdentifierForType(resource.type, new Identifier({
+                        literalValue: subfield._data,
+                        scheme: enums.identifier.uri}));
                 }
             }
         }
         //Genre/Form
-        else if(field._tag === "655"){
+/*        else if(field._tag === "655"){
             for(var subfield of field._subfields){
                 if(subfield._code === "a"){
                     cleanedObject.type = subfield._data;
                 }
             }
             // Edition
-        }else if(field._tag === "250"){
+        }*/
+        else if(field._tag === "250"){
             for(var subfield of field._subfields){
                 if(subfield._code === "a"){
-                    cleanedObject.edition = subfield._data;
+                    resource.setEditionForType(resource.type, subfield._data);
                 }
             }
-            // Number
+            // Number && ISSN
         }else if(field._tag === "773"){
             for(var subfield of field._subfields){
                 if(subfield._code === "g"){
-                    cleanedObject.number = subfield._data;
+                    resource.setNumberForType(resource.type, subfield._data);
                 }else if(subfield._code === "x"){
-                    cleanedObject.identifiers.push({"literalValue": subfield._data,
-                        "scheme": enums.identifier.issn});
+                    resource.pushIdentifierForType(new Identifier({
+                        literalValue: subfield._data,
+                        scheme: enums.identifier.issn}));
                 }
             }
             // Contributors
         }else if(field._tag === "100"){
             for(var subfield of field._subfields){
                 if(subfield._code === "a"){
-                    var contributor = {};
-                    contributor.roleType = enums.roleType.author;
-                    contributor.heldBy = {};
-                    contributor.heldBy.identifiers = [];
-                    contributor.heldBy.nameString = subfield._data;
                     var nameArray = subfield._data.split(',');
-                    contributor.heldBy.givenName =  nameArray[1] ? nameArray[1].trim() : "";
-                    contributor.heldBy.familyName =  nameArray[1] ? nameArray[0].trim() : "";
-                    cleanedObject.contributors.push(contributor);
+                    var contributor = new AgentRole({
+                        roleType: enums.roleType.author,
+                        heldBy:{
+                            givenName: nameArray[1] ? nameArray[1].trim() : "",
+                            familyName: nameArray[1] ? nameArray[0].trim() : ""
+                        }
+                    });
+
+                    resource.pushContributorForType(resource.type, contributor);
                 }
             }
         }else if(field._tag === "110"){
             for(var subfield of field._subfields){
                 if(subfield._code === "a"){
-                    var contributor = {};
-                    contributor.roleType = enums.roleType.corporate;
-                    contributor.heldBy = {};
-                    contributor.heldBy.identifiers = [];
-                    contributor.heldBy.nameString = subfield._data;
-                    cleanedObject.contributors.push(contributor);
+
+                    var contributor = new AgentRole({
+                        roleType : enums.roleType.corporate,
+                        heldBy : {
+                            nameString: subfield._data
+                        }
+                    });
+
+                    resource.pushContributorForType(resource.type, contributor);
                 }
             }
         }else if(field._tag === "111"){
             for(var subfield of field._subfields){
                 if(subfield._code === "a"){
-                    var contributor = {};
-                    contributor.roleType = enums.roleType.congress;
-                    contributor.heldBy = {};
-                    contributor.heldBy.identifiers = [];
-                    contributor.heldBy.nameString = subfield._data;
-                    cleanedObject.contributors.push(contributor);
+                    var contributor = new AgentRole({
+                        roleType: enums.roleType.congress,
+                        heldBy: {
+                            nameString: subfield._data
+                        }
+                    });
+
+                    resource.pushContributorForType(resource.type, contributor);
                 }
             }
         }else if(field._tag === "260"){
             for(var subfield of field._subfields){
                 if(subfield._code === "b"){
-                    var contributor = {};
-                    contributor.roleType = enums.roleType.publisher;
-                    contributor.heldBy = {};
-                    contributor.heldBy.identifiers = [];
-                    contributor.heldBy.nameString = subfield._data;
-                    cleanedObject.contributors.push(contributor);
+                    var contributor = new AgentRole({
+                        roleType: enums.roleType.publisher,
+                        heldBy: {
+                            nameString: subfield._data
+                        }
+                    });
+
+                    resource.pushContributorForType(resource.type, contributor);
                 }
             }
         }else if(field._tag === "264"){
             for(var subfield of field._subfields){
                 if(subfield._code === "b"){
-                    var contributor = {};
-                    contributor.roleType = enums.roleType.publisher;
-                    contributor.heldBy = {};
-                    contributor.heldBy.identifiers = [];
-                    contributor.heldBy.nameString = subfield._data;
-                    cleanedObject.contributors.push(contributor);
+                    var contributor = new AgentRole({
+                        roleType: enums.roleType.publisher,
+                        heldBy: {
+                            nameString: subfield._data
+                        }
+                    });
+
+                    resource.pushContributorForType(resource.type, contributor);
                 }
             }
         }else if(field._tag === "700"){
-            var contributor = {};
-            contributor.roleType = enums.roleType.author;
-            contributor.heldBy = {};
-            contributor.heldBy.identifiers=[];
+            var contributor = new AgentRole({
+                roleType : enums.roleType.author
+            });
+
             for(var subfield of field._subfields) {
                 if (subfield._code === "0" && (subfield._data.split("(DE-588)").length === 2 || subfield._data.split("(DE-576)").length === 2)) {
                     if (subfield._data.split("(DE-588)").length === 2) {
@@ -259,12 +310,12 @@ Marc21Helper.prototype.extractData = function(records, callback){
                     contributor.heldBy.familyName = nameArray[1] ? nameArray[0].trim() : "";
                 }
             }
-            cleanedObject.contributors.push(contributor);
+            resource.pushContributorForType(resource.type, contributor);
         }else if(field._tag === "710"){
-            var contributor = {};
-            contributor.roleType = enums.roleType.corporate;
-            contributor.heldBy = {};
-            contributor.heldBy.identifiers=[];
+            var contributor = new AgentRole({
+                roleType: enums.roleType.corporate
+            });
+
             for(var subfield of field._subfields) {
                 if (subfield._code === "0" && (subfield._data.split("(DE-588)").length === 2 || subfield._data.split("(DE-576)").length === 2)) {
                     if (subfield._data.split("(DE-588)").length === 2) {
@@ -282,12 +333,12 @@ Marc21Helper.prototype.extractData = function(records, callback){
                     contributor.heldBy.nameString = subfield._data;
                 }
             }
-            cleanedObject.contributors.push(contributor);
+            resource.pushContributorForType(resource.type, contributor);
         }else if(field._tag === "711"){
-            var contributor = {};
-            contributor.roleType = enums.roleType.congress;
-            contributor.heldBy = {};
-            contributor.heldBy.identifiers=[];
+            var contributor = new AgentRole({
+                roleType: enums.roleType.congress
+            });
+
             for(var subfield of field._subfields) {
                 if (subfield._code === "0" && (subfield._data.split("(DE-588)").length === 2 || subfield._data.split("(DE-576)").length === 2)) {
                     if (subfield._data.split("(DE-588)").length === 2) {
@@ -305,7 +356,7 @@ Marc21Helper.prototype.extractData = function(records, callback){
                     contributor.heldBy.nameString = subfield._data;
                 }
             }
-            cleanedObject.contributors.push(contributor);
+            resource.pushContributorForType(resource.type, contributor);
         }
     }
 
@@ -315,16 +366,18 @@ Marc21Helper.prototype.extractData = function(records, callback){
             // ppn
             for (var f of controlFields){
                 if(f._tag === "003" && f._data === "DE-576"){
-                    cleanedObject.identifiers.push({"literalValue": field._data,
-                        "scheme": enums.identifier.swb_ppn});
+                    resource.pushIdentifierForType(resource.type, new Identifier({
+                        literalValue: field._data,
+                        scheme: enums.identifier.swb_ppn}));
                 }else if(f._tag === "003" && f._data === "DE-101"){
-                    cleanedObject.identifiers.push({"literalValue": field._data,
-                        "scheme": enums.identifier.zdb_ppn});
+                    resource.pushIdentifierForType(resource.type, new Identifier({
+                        literalValue: field._data,
+                        scheme: enums.identifier.zdb_ppn}));
                 }
             }
         }else if(field._tag === "008"){
             // publicationYear
-            cleanedObject.publicationYear = field._data.substring(7,11);
+            resource.setPublicationYearForType(resource.type, field._data.substring(7,11));
         }
     }
 
@@ -341,7 +394,7 @@ Marc21Helper.prototype.extractData = function(records, callback){
      }else if(leader._bibliographicLevel && leader._bibliographicLevel.toLowerCase() == "s"){
      //cleanedObject.type = "Serial";
      }*/
-    callback(null, cleanedObject);
+     callback(null, [resource]);
 }
 
 /**
