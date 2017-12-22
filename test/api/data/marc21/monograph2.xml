@@ -7,1036 +7,1175 @@
                             xmlns:xcql="http://www.loc.gov/zing/cql/xcql/">
     <srw:version>1.1</srw:version>
     <srw:numberOfRecords>1</srw:numberOfRecords>
-    <srw:resultSetId>SID4e4438a9-0S14725</srw:resultSetId>
+    <srw:resultSetId>SID4e4438a9-0S14902</srw:resultSetId>
     <srw:records>
 
 
 
         <srw:record>
-            <srw:recordSchema>pica</srw:recordSchema>
-            <srw:recordPacking>json</srw:recordPacking>
+            <srw:recordSchema>marc21</srw:recordSchema>
+            <srw:recordPacking>xml</srw:recordPacking>
             <srw:recordData>
                 <record>
-                    <datafield tag="001@"><subfield code="0">1-9,11-12,14-16,18,20-21,31,38,43,60,63,83,99,121,470</subfield></datafield>
-                    <datafield tag="001A"><subfield code="0">KNUB:18-09-86</subfield></datafield>
-                    <datafield tag="001B"><subfield code="0">BSZ:28-04-14</subfield>
-                        <subfield code="t">17:38:59.000</subfield></datafield>
-                    <datafield tag="001D"><subfield code="0">9999:14-12-05</subfield></datafield>
-                    <datafield tag="001U"><subfield code="0">utf8</subfield></datafield>
-                    <datafield tag="001X"><subfield code="0">0</subfield></datafield>
-                    <datafield tag="002@"><subfield code="0">Aau</subfield></datafield>
-                    <datafield tag="002C"><subfield code="a">Text</subfield>
-                        <subfield code="b">txt</subfield></datafield>
-                    <datafield tag="002D"><subfield code="a">ohne Hilfsmittel zu benutzen</subfield>
-                        <subfield code="b">n</subfield></datafield>
-                    <datafield tag="002E"><subfield code="a">Band</subfield>
-                        <subfield code="b">nc</subfield></datafield>
-                    <datafield tag="003@"><subfield code="0">012160954</subfield></datafield>
-                    <datafield tag="004A"><subfield code="0">3-446-14204-5</subfield></datafield>
-                    <datafield tag="006G"><subfield code="0">850992184</subfield></datafield>
-                    <datafield tag="006L"><subfield code="2">FIV</subfield>
-                        <subfield code="0">00291213</subfield></datafield>
-                    <datafield tag="006U"><subfield code="0">85,A50,0342</subfield></datafield>
-                    <datafield tag="006X"><subfield code="2">OCLC</subfield>
-                        <subfield code="0">13323518</subfield></datafield>
-                    <datafield tag="007G"><subfield code="2">DNB</subfield>
-                        <subfield code="0">850992184</subfield></datafield>
-                    <datafield tag="009P"><subfield code="m">DE-576;DE-16</subfield>
+                    <leader>     cam a22        4500</leader>
+                    <controlfield tag="001">012160954</controlfield>
+                    <controlfield tag="003">DE-576</controlfield>
+                    <controlfield tag="005">20140428173859.0</controlfield>
+                    <controlfield tag="007">tu</controlfield>
+                    <controlfield tag="008">860918s1985    xx             00 0 ger c</controlfield>
+                    <datafield tag="015" ind1=" " ind2=" "><subfield code="a">85,A50,0342</subfield>
+                        <subfield code="2">dnb</subfield></datafield>
+                    <datafield tag="035" ind1=" " ind2=" "><subfield code="a">(OCoLC)13323518</subfield></datafield>
+                    <datafield tag="016" ind1="7" ind2=" "><subfield code="a">850992184</subfield>
+                        <subfield code="2">DE-101</subfield></datafield>
+                    <datafield tag="020" ind1=" " ind2=" "><subfield code="a">3446142045</subfield>
+                        <subfield code="9">3-446-14204-5</subfield></datafield>
+                    <datafield tag="035" ind1=" " ind2=" "><subfield code="a">(DE-599)DNB850992184</subfield></datafield>
+                    <datafield tag="035" ind1=" " ind2=" "><subfield code="a">(DE-615)00291213</subfield></datafield>
+                    <datafield tag="040" ind1=" " ind2=" "><subfield code="a">DE-576</subfield>
+                        <subfield code="b">ger</subfield>
+                        <subfield code="c">DE-576</subfield>
+                        <subfield code="e">rakwb</subfield></datafield>
+                    <datafield tag="041" ind1=" " ind2=" "><subfield code="a">ger</subfield></datafield>
+                    <datafield tag="082" ind1="0" ind2=" "><subfield code="a">809/.93355</subfield></datafield>
+                    <datafield tag="082" ind1="0" ind2=" "><subfield code="a">0903</subfield></datafield>
+                    <datafield tag="082" ind1="0" ind2=" "><subfield code="a">0904</subfield></datafield>
+                    <datafield tag="082" ind1="0" ind2=" "><subfield code="a">944</subfield></datafield>
+                    <datafield tag="082" ind1="0" ind2=" "><subfield code="a">306.09</subfield></datafield>
+                    <datafield tag="084" ind1=" " ind2=" "><subfield code="a">SK01</subfield>
+                        <subfield code="2">FIV</subfield></datafield>
+                    <datafield tag="084" ind1=" " ind2=" "><subfield code="a">ZGF650</subfield>
+                        <subfield code="2">DFI</subfield></datafield>
+                    <datafield tag="084" ind1=" " ind2=" "><subfield code="a">RA04.06</subfield>
+                        <subfield code="2">FIV</subfield></datafield>
+                    <datafield tag="084" ind1=" " ind2=" "><subfield code="a">RA05.01</subfield>
+                        <subfield code="2">FIV</subfield></datafield>
+                    <datafield tag="084" ind1=" " ind2=" "><subfield code="a">RA04.02</subfield>
+                        <subfield code="2">FIV</subfield></datafield>
+                    <datafield tag="084" ind1=" " ind2=" "><subfield code="a">MS 8010</subfield>
+                        <subfield code="2">rvk</subfield></datafield>
+                    <datafield tag="084" ind1=" " ind2=" "><subfield code="a">CC 3900</subfield>
+                        <subfield code="2">rvk</subfield></datafield>
+                    <datafield tag="084" ind1=" " ind2=" "><subfield code="a">MQ 2200</subfield>
+                        <subfield code="2">rvk</subfield></datafield>
+                    <datafield tag="084" ind1=" " ind2=" "><subfield code="a">EC 2460</subfield>
+                        <subfield code="2">rvk</subfield></datafield>
+                    <datafield tag="084" ind1=" " ind2=" "><subfield code="a">MS 1810</subfield>
+                        <subfield code="2">rvk</subfield></datafield>
+                    <datafield tag="084" ind1=" " ind2=" "><subfield code="a">6,24</subfield>
+                        <subfield code="2">ssgn</subfield></datafield>
+                    <datafield tag="100" ind1="1" ind2=" "><subfield code="a">Lepenies, Wolf</subfield>
+                        <subfield code="d">1941-</subfield>
+                        <subfield code="0">(DE-588)115705074</subfield>
+                        <subfield code="0">(DE-576)16196267X</subfield></datafield>
+                    <datafield tag="245" ind1="1" ind2="4"><subfield code="a">Die drei Kulturen :</subfield>
+                        <subfield code="b">Soziologie zwischen Literatur und  Wissenschaft /</subfield>
+                        <subfield code="c">Wolf Lepenies</subfield></datafield>
+                    <datafield tag="260" ind1=" " ind2=" "><subfield code="a">München ;</subfield>
+                        <subfield code="a">Wien [u.a.] :</subfield>
+                        <subfield code="b">Hanser,</subfield>
+                        <subfield code="c">1985</subfield></datafield>
+                    <datafield tag="300" ind1=" " ind2=" "><subfield code="a">562 S.</subfield></datafield>
+                    <datafield tag="336" ind1=" " ind2=" "><subfield code="a">Text</subfield>
+                        <subfield code="b">txt</subfield>
+                        <subfield code="2">rdacontent</subfield></datafield>
+                    <datafield tag="337" ind1=" " ind2=" "><subfield code="a">ohne Hilfsmittel zu benutzen</subfield>
+                        <subfield code="b">n</subfield>
+                        <subfield code="2">rdamedia</subfield></datafield>
+                    <datafield tag="338" ind1=" " ind2=" "><subfield code="a">Band</subfield>
+                        <subfield code="b">nc</subfield>
+                        <subfield code="2">rdacarrier</subfield></datafield>
+                    <datafield tag="500" ind1=" " ind2=" "><subfield code="a">Literaturverz. S. 435 - 444; 461 - 475; 505 - 527.</subfield></datafield>
+                    <datafield tag="591" ind1=" " ind2=" "><subfield code="a">720 ff. bvb; 580 ff. bvb ; IMD-Felder und 1131 maschinell ergänzt</subfield></datafield>
+                    <datafield tag="650" ind1=" " ind2="0"><subfield code="a">Sociology</subfield></datafield>
+                    <datafield tag="650" ind1=" " ind2="4"><subfield code="a">Frankreich</subfield>
+                        <subfield code="x">Deutschland</subfield>
+                        <subfield code="x">Vereinigtes Königreich</subfield>
+                        <subfield code="x">Internationaler Vergleich/Ländervergleich</subfield>
+                        <subfield code="x">Soziologie</subfield>
+                        <subfield code="x">Wissenschaften</subfield>
+                        <subfield code="x">Literatur</subfield></datafield>
+                    <datafield tag="650" ind1=" " ind2="4"><subfield code="a">Comte, Auguste</subfield>
+                        <subfield code="x">Durkheim, Emile</subfield>
+                        <subfield code="x">Péguy, Charles</subfield>
+                        <subfield code="x">Kultureinfluss</subfield>
+                        <subfield code="x">Intellektueller Dialog</subfield></datafield>
+                    <datafield tag="689" ind1="0" ind2="0"><subfield code="D">s</subfield>
+                        <subfield code="0">(DE-588)4077624-4</subfield>
+                        <subfield code="0">(DE-576)209205849</subfield>
+                        <subfield code="2">gnd</subfield>
+                        <subfield code="a">Soziologie</subfield></datafield>
+                    <datafield tag="689" ind1="0" ind2="1"><subfield code="A">f</subfield>
+                        <subfield code="2">gnd</subfield>
+                        <subfield code="a">Aufsatzsammlung</subfield></datafield>
+                    <datafield tag="689" ind1="0" ind2=" "><subfield code="5">DE-576</subfield></datafield>
+                    <datafield tag="689" ind1="1" ind2="0"><subfield code="D">s</subfield>
+                        <subfield code="0">(DE-588)4167885-0</subfield>
+                        <subfield code="0">(DE-576)209911816</subfield>
+                        <subfield code="2">gnd</subfield>
+                        <subfield code="a">Literatursoziologie</subfield></datafield>
+                    <datafield tag="689" ind1="1" ind2="1"><subfield code="A">z</subfield>
+                        <subfield code="2">gnd</subfield>
+                        <subfield code="a">Geschichte</subfield></datafield>
+                    <datafield tag="689" ind1="1" ind2=" "><subfield code="5">DE-576</subfield></datafield>
+                    <datafield tag="689" ind1="2" ind2="0"><subfield code="D">s</subfield>
+                        <subfield code="0">(DE-588)4077624-4</subfield>
+                        <subfield code="0">(DE-576)209205849</subfield>
+                        <subfield code="2">gnd</subfield>
+                        <subfield code="a">Soziologie</subfield></datafield>
+                    <datafield tag="689" ind1="2" ind2="1"><subfield code="D">s</subfield>
+                        <subfield code="0">(DE-588)4035964-5</subfield>
+                        <subfield code="0">(DE-576)209015608</subfield>
+                        <subfield code="2">gnd</subfield>
+                        <subfield code="a">Literatur</subfield></datafield>
+                    <datafield tag="689" ind1="2" ind2="2"><subfield code="A">z</subfield>
+                        <subfield code="2">gnd</subfield>
+                        <subfield code="a">Geschichte</subfield></datafield>
+                    <datafield tag="689" ind1="2" ind2=" "><subfield code="5">DE-576</subfield></datafield>
+                    <datafield tag="689" ind1="3" ind2="0"><subfield code="D">s</subfield>
+                        <subfield code="0">(DE-588)4041421-8</subfield>
+                        <subfield code="0">(DE-576)209044837</subfield>
+                        <subfield code="2">gnd</subfield>
+                        <subfield code="a">Naturwissenschaften</subfield></datafield>
+                    <datafield tag="689" ind1="3" ind2="1"><subfield code="D">s</subfield>
+                        <subfield code="0">(DE-588)4035964-5</subfield>
+                        <subfield code="0">(DE-576)209015608</subfield>
+                        <subfield code="2">gnd</subfield>
+                        <subfield code="a">Literatur</subfield></datafield>
+                    <datafield tag="689" ind1="3" ind2="2"><subfield code="D">s</subfield>
+                        <subfield code="0">(DE-588)4077628-1</subfield>
+                        <subfield code="0">(DE-576)209205865</subfield>
+                        <subfield code="2">gnd</subfield>
+                        <subfield code="a">Soziologische Theorie</subfield></datafield>
+                    <datafield tag="689" ind1="3" ind2="3"><subfield code="A">z</subfield>
+                        <subfield code="2">gnd</subfield>
+                        <subfield code="a">Geschichte 1850-1940</subfield></datafield>
+                    <datafield tag="689" ind1="3" ind2=" "><subfield code="5">DE-576</subfield></datafield>
+                    <datafield tag="689" ind1="4" ind2="0"><subfield code="D">s</subfield>
+                        <subfield code="0">(DE-588)4055916-6</subfield>
+                        <subfield code="0">(DE-576)209115904</subfield>
+                        <subfield code="2">gnd</subfield>
+                        <subfield code="a">Sozialwissenschaften</subfield></datafield>
+                    <datafield tag="689" ind1="4" ind2="1"><subfield code="D">s</subfield>
+                        <subfield code="0">(DE-588)4041421-8</subfield>
+                        <subfield code="0">(DE-576)209044837</subfield>
+                        <subfield code="2">gnd</subfield>
+                        <subfield code="a">Naturwissenschaften</subfield></datafield>
+                    <datafield tag="689" ind1="4" ind2="2"><subfield code="D">s</subfield>
+                        <subfield code="0">(DE-588)4035964-5</subfield>
+                        <subfield code="0">(DE-576)209015608</subfield>
+                        <subfield code="2">gnd</subfield>
+                        <subfield code="a">Literatur</subfield></datafield>
+                    <datafield tag="689" ind1="4" ind2=" "><subfield code="5">DE-576</subfield></datafield>
+                    <datafield tag="689" ind1="5" ind2="0"><subfield code="D">s</subfield>
+                        <subfield code="0">(DE-588)4077624-4</subfield>
+                        <subfield code="0">(DE-576)209205849</subfield>
+                        <subfield code="2">gnd</subfield>
+                        <subfield code="a">Soziologie</subfield></datafield>
+                    <datafield tag="689" ind1="5" ind2="1"><subfield code="D">s</subfield>
+                        <subfield code="0">(DE-588)4117665-0</subfield>
+                        <subfield code="0">(DE-576)209511842</subfield>
+                        <subfield code="2">gnd</subfield>
+                        <subfield code="a">Wissenschaftstheorie</subfield></datafield>
+                    <datafield tag="689" ind1="5" ind2="2"><subfield code="A">z</subfield>
+                        <subfield code="2">gnd</subfield>
+                        <subfield code="a">Geschichte</subfield></datafield>
+                    <datafield tag="689" ind1="5" ind2=" "><subfield code="5">DE-576</subfield></datafield>
+                    <datafield tag="689" ind1="6" ind2="0"><subfield code="D">p</subfield>
+                        <subfield code="0">(DE-588)118577166</subfield>
+                        <subfield code="0">(DE-576)319027511</subfield>
+                        <subfield code="2">gnd</subfield>
+                        <subfield code="a">Mann, Thomas</subfield>
+                        <subfield code="d">1875-1955</subfield></datafield>
+                    <datafield tag="689" ind1="6" ind2=" "><subfield code="5">DE-576</subfield></datafield>
+                    <datafield tag="689" ind1="7" ind2="0"><subfield code="D">p</subfield>
+                        <subfield code="0">(DE-588)118629743</subfield>
+                        <subfield code="0">(DE-576)209155736</subfield>
+                        <subfield code="2">gnd</subfield>
+                        <subfield code="a">Weber, Max</subfield>
+                        <subfield code="d">1864-1920</subfield></datafield>
+                    <datafield tag="689" ind1="7" ind2=" "><subfield code="5">DE-576</subfield></datafield>
+                    <datafield tag="655" ind1=" " ind2="7"><subfield code="a">Aufsatzsammlung</subfield>
+                        <subfield code="0">(DE-588)4143413-4</subfield>
+                        <subfield code="0">(DE-576)209726091</subfield>
+                        <subfield code="2">gnd-content</subfield></datafield>
+                    <datafield tag="856" ind1="4" ind2="2"><subfield code="m">DE-576;DE-16</subfield>
                         <subfield code="q">application/pdf</subfield>
                         <subfield code="u">http://swbplus.bsz-bw.de/bsz012160954inh.htm</subfield>
                         <subfield code="v">20090925080043</subfield>
                         <subfield code="3">Inhaltsverzeichnis</subfield></datafield>
-                    <datafield tag="010@"><subfield code="a">ger</subfield></datafield>
-                    <datafield tag="011@"><subfield code="a">1985</subfield></datafield>
-                    <datafield tag="013D"><subfield code="9">209726091</subfield>
-                        <subfield code="8">Aufsatzsammlung</subfield></datafield>
-                    <datafield tag="013G"><subfield code="a">druck</subfield></datafield>
-                    <datafield tag="016B"><subfield code="a">imda</subfield></datafield>
-                    <datafield tag="021A"><subfield code="a">Die @drei Kulturen</subfield>
-                        <subfield code="d">Soziologie zwischen Literatur und  Wissenschaft</subfield>
-                        <subfield code="h">Wolf Lepenies</subfield></datafield>
-                    <datafield tag="028A"><subfield code="9">16196267X</subfield>
-                        <subfield code="8">Lepenies, Wolf *1941-* [PNDNR:115705074] [GNDNR:115705074]</subfield></datafield>
-                    <datafield tag="033A"><subfield code="p">München</subfield>
-                        <subfield code="p">Wien [u.a.]</subfield>
-                        <subfield code="n">Hanser</subfield></datafield>
-                    <datafield tag="034D"><subfield code="a">562 S.</subfield></datafield>
-                    <datafield tag="037A"><subfield code="a">Literaturverz. S. 435 - 444; 461 - 475; 505 - 527</subfield></datafield>
-                    <datafield tag="044A"><subfield code="S">s</subfield>
-                        <subfield code="a">Sociology</subfield></datafield>
-                    <datafield tag="044K"><subfield code="9">209205849</subfield>
-                        <subfield code="8">|s|Soziologie</subfield></datafield>
-                    <datafield tag="044K"><subfield code="f">Aufsatzsammlung</subfield></datafield>
-                    <datafield tag="044K" occurrence="01"><subfield code="9">209911816</subfield>
-                        <subfield code="8">|s|Literatursoziologie</subfield></datafield>
-                    <datafield tag="044K" occurrence="01"><subfield code="z">Geschichte</subfield></datafield>
-                    <datafield tag="044K" occurrence="02"><subfield code="9">209205849</subfield>
-                        <subfield code="8">|s|Soziologie</subfield></datafield>
-                    <datafield tag="044K" occurrence="02"><subfield code="9">209015608</subfield>
-                        <subfield code="8">|s|Literatur</subfield></datafield>
-                    <datafield tag="044K" occurrence="02"><subfield code="z">Geschichte</subfield></datafield>
-                    <datafield tag="044K" occurrence="03"><subfield code="9">209044837</subfield>
-                        <subfield code="8">|s|Naturwissenschaften</subfield></datafield>
-                    <datafield tag="044K" occurrence="03"><subfield code="9">209015608</subfield>
-                        <subfield code="8">|s|Literatur</subfield></datafield>
-                    <datafield tag="044K" occurrence="03"><subfield code="9">209205865</subfield>
-                        <subfield code="8">|s|Soziologische Theorie</subfield></datafield>
-                    <datafield tag="044K" occurrence="03"><subfield code="z">Geschichte 1850-1940</subfield></datafield>
-                    <datafield tag="044K" occurrence="04"><subfield code="9">209115904</subfield>
-                        <subfield code="8">|s|Sozialwissenschaften</subfield></datafield>
-                    <datafield tag="044K" occurrence="04"><subfield code="9">209044837</subfield>
-                        <subfield code="8">|s|Naturwissenschaften</subfield></datafield>
-                    <datafield tag="044K" occurrence="04"><subfield code="9">209015608</subfield>
-                        <subfield code="8">|s|Literatur</subfield></datafield>
-                    <datafield tag="044K" occurrence="05"><subfield code="9">209205849</subfield>
-                        <subfield code="8">|s|Soziologie</subfield></datafield>
-                    <datafield tag="044K" occurrence="05"><subfield code="9">209511842</subfield>
-                        <subfield code="8">|s|Wissenschaftstheorie</subfield></datafield>
-                    <datafield tag="044K" occurrence="05"><subfield code="z">Geschichte</subfield></datafield>
-                    <datafield tag="044K" occurrence="06"><subfield code="9">319027511</subfield>
-                        <subfield code="8">|p| Mann, Thomas *1875-1955*</subfield></datafield>
-                    <datafield tag="044K" occurrence="07"><subfield code="9">209155736</subfield>
-                        <subfield code="8">|p| Weber, Max *1864-1920*</subfield></datafield>
-                    <datafield tag="044N"><subfield code="S">s</subfield>
-                        <subfield code="a">Frankreich</subfield>
-                        <subfield code="a">Deutschland</subfield>
-                        <subfield code="a">Vereinigtes Königreich</subfield>
-                        <subfield code="a">Internationaler Vergleich/Ländervergleich</subfield>
-                        <subfield code="a">Soziologie</subfield>
-                        <subfield code="a">Wissenschaften</subfield>
-                        <subfield code="a">Literatur</subfield></datafield>
-                    <datafield tag="044N"><subfield code="S">s</subfield>
-                        <subfield code="a">Comte, Auguste</subfield>
-                        <subfield code="a">Durkheim, Emile</subfield>
-                        <subfield code="a">Péguy, Charles</subfield>
-                        <subfield code="a">Kultureinfluss</subfield>
-                        <subfield code="a">Intellektueller Dialog</subfield></datafield>
-                    <datafield tag="045F"><subfield code="a">809/.93355</subfield></datafield>
-                    <datafield tag="045F"><subfield code="a">0903</subfield></datafield>
-                    <datafield tag="045F"><subfield code="a">0904</subfield></datafield>
-                    <datafield tag="045F"><subfield code="a">944</subfield></datafield>
-                    <datafield tag="045F"><subfield code="a">306.09</subfield></datafield>
-                    <datafield tag="045N"><subfield code="a">SK01</subfield>
-                        <subfield code="b">Wissenschaftsgebiete</subfield>
-                        <subfield code="2">FIV</subfield></datafield>
-                    <datafield tag="045N"><subfield code="a">ZGF650</subfield>
-                        <subfield code="b">Geschichte: Kultur</subfield>
-                        <subfield code="2">DFI</subfield></datafield>
-                    <datafield tag="045N"><subfield code="a">RA04.06</subfield>
-                        <subfield code="b">Frankreich</subfield>
-                        <subfield code="2">FIV</subfield></datafield>
-                    <datafield tag="045N"><subfield code="a">RA05.01</subfield>
-                        <subfield code="b">Deutschland</subfield>
-                        <subfield code="2">FIV</subfield></datafield>
-                    <datafield tag="045N"><subfield code="a">RA04.02</subfield>
-                        <subfield code="b">Vereinigtes Königreich</subfield>
-                        <subfield code="2">FIV</subfield></datafield>
-                    <datafield tag="045R"><subfield code="9">201422956</subfield>
-                        <subfield code="8">MS 8010 =Soziologie/Spezielle Soziologien/Kunstsoziologie/Literatur</subfield></datafield>
-                    <datafield tag="045R"><subfield code="9">200638831</subfield>
-                        <subfield code="8">CC 3900 =Philosophie/Systematische Philosophie/Spezielle Wissenschaftstheorie/Zur Theorie der Sozialwissenschaften</subfield></datafield>
-                    <datafield tag="045R"><subfield code="9">201427400</subfield>
-                        <subfield code="8">MQ 2200 =Soziologie/Einführung und Geschichte/Geschichte der Soziologie/Gesamtdarstellungen zur Geschichte der Soziologie</subfield></datafield>
-                    <datafield tag="045R"><subfield code="9">200749226</subfield>
-                        <subfield code="8">EC 2460 =Allgemeine und vergleichende Sprach- und Literaturwissenschaft. Indogermanistik. Außereuropäische Sprachen und Literaturen/Allgemeine und vergleichende Literaturwissenschaft./Beziehungen der Literatur zu anderen Gebieten/Beziehungen der Literatur zu Gesellschaft und Wirtschaft</subfield></datafield>
-                    <datafield tag="045R"><subfield code="9">200817884</subfield>
-                        <subfield code="8">MS 1810 =Soziologie/Spezielle Soziologien/Stadtsoziologie/Wohnwesen, Nachbarschaft, Slums, Vororte</subfield></datafield>
-                    <datafield tag="045V"><subfield code="a">6,24</subfield></datafield>
-                    <datafield tag="047A"><subfield code="a">720 ff. bvb; 580 ff. bvb ; IMD-Felder und 1131 maschinell ergänzt</subfield></datafield>
-                    <datafield tag="101@"><subfield code="a">1</subfield>
-                        <subfield code="c">BSZ</subfield>
-                        <subfield code="d">Tübingen, -21- Universitätsbibliothek Tübingen</subfield></datafield>
-                    <datafield tag="208@" occurrence="01"><subfield code="a">30-03-93</subfield>
-                        <subfield code="b">l01</subfield></datafield>
-                    <datafield tag="201A" occurrence="01"><subfield code="0">30-03-93</subfield></datafield>
-                    <datafield tag="201B" occurrence="01"><subfield code="0">06-05-00</subfield>
-                        <subfield code="t">00:00:00.000</subfield></datafield>
-                    <datafield tag="201D" occurrence="01"><subfield code="0">TUUB:30-03-93</subfield></datafield>
-                    <datafield tag="201U" occurrence="01"><subfield code="0">utf8</subfield></datafield>
-                    <datafield tag="203@" occurrence="01"><subfield code="0">467471495</subfield></datafield>
-                    <datafield tag="209A" occurrence="01"><subfield code="B">21</subfield>
-                        <subfield code="a">25 A 14670</subfield>
-                        <subfield code="x">00</subfield></datafield>
-                    <datafield tag="209B" occurrence="01"><subfield code="a">comp;konv</subfield>
-                        <subfield code="x">02</subfield></datafield>
-                    <datafield tag="101@"><subfield code="a">2</subfield>
-                        <subfield code="c">BSZ</subfield>
-                        <subfield code="d">Tübingen, -21/XXX- Institute der Universität Tübingen</subfield></datafield>
-                    <datafield tag="208@" occurrence="01"><subfield code="a">06-09-96</subfield>
-                        <subfield code="b">l01</subfield></datafield>
-                    <datafield tag="201A" occurrence="01"><subfield code="0">06-09-96</subfield></datafield>
-                    <datafield tag="201B" occurrence="01"><subfield code="0">25-02-02</subfield>
-                        <subfield code="t">00:00:00.000</subfield></datafield>
-                    <datafield tag="201D" occurrence="01"><subfield code="0">TUUBNP:06-09-96</subfield></datafield>
-                    <datafield tag="201U" occurrence="01"><subfield code="0">utf8</subfield></datafield>
-                    <datafield tag="203@" occurrence="01"><subfield code="0">467471509</subfield></datafield>
-                    <datafield tag="209A" occurrence="01"><subfield code="B">21/108</subfield>
-                        <subfield code="a">HN 100.088</subfield>
-                        <subfield code="d">p</subfield>
-                        <subfield code="j">l</subfield>
-                        <subfield code="x">00</subfield></datafield>
-                    <datafield tag="209C" occurrence="01"><subfield code="a">4938/85</subfield></datafield>
-                    <datafield tag="245Z" occurrence="01"><subfield code="9">229163335</subfield>
-                        <subfield code="8">HN 100 </subfield></datafield>
-                    <datafield tag="208@" occurrence="12"><subfield code="a">14-03-96</subfield>
-                        <subfield code="b">l01</subfield></datafield>
-                    <datafield tag="201A" occurrence="12"><subfield code="0">14-03-96</subfield></datafield>
-                    <datafield tag="201B" occurrence="12"><subfield code="0">08-05-10</subfield>
-                        <subfield code="t">07:49:10.000</subfield></datafield>
-                    <datafield tag="201D" occurrence="12"><subfield code="0">TUUBRC:14-03-96</subfield></datafield>
-                    <datafield tag="201U" occurrence="12"><subfield code="0">utf8</subfield></datafield>
-                    <datafield tag="203@" occurrence="12"><subfield code="0">467471517</subfield></datafield>
-                    <datafield tag="209A" occurrence="12"><subfield code="B">21/24</subfield>
-                        <subfield code="a">C,VId,141</subfield>
-                        <subfield code="d">p</subfield>
-                        <subfield code="x">00</subfield></datafield>
-                    <datafield tag="209C" occurrence="12"><subfield code="a">86/170</subfield></datafield>
-                    <datafield tag="244Z" occurrence="12"><subfield code="S">s</subfield>
-                        <subfield code="a">Soziologie</subfield>
-                        <subfield code="x">00</subfield></datafield>
-                    <datafield tag="245Z" occurrence="12"><subfield code="a">C,VId,</subfield></datafield>
-                    <datafield tag="208@" occurrence="24"><subfield code="a">23-03-05</subfield>
-                        <subfield code="b">l01</subfield></datafield>
-                    <datafield tag="201A" occurrence="24"><subfield code="0">23-03-05</subfield></datafield>
-                    <datafield tag="201B" occurrence="24"><subfield code="0">07-04-10</subfield>
-                        <subfield code="t">07:10:07.000</subfield></datafield>
-                    <datafield tag="201D" occurrence="24"><subfield code="0">TUUBSI:23-03-05</subfield></datafield>
-                    <datafield tag="201U" occurrence="24"><subfield code="0">utf8</subfield></datafield>
-                    <datafield tag="203@" occurrence="24"><subfield code="0">467471533</subfield></datafield>
-                    <datafield tag="209A" occurrence="24"><subfield code="B">21/85</subfield>
-                        <subfield code="a">2.000.1985</subfield>
-                        <subfield code="d">p</subfield>
-                        <subfield code="x">00</subfield></datafield>
-                    <datafield tag="209B" occurrence="24"><subfield code="a">k085</subfield>
-                        <subfield code="x">02</subfield></datafield>
-                    <datafield tag="209C" occurrence="24"><subfield code="a">85-790</subfield></datafield>
-                    <datafield tag="244Z" occurrence="24"><subfield code="S">s</subfield>
-                        <subfield code="9">241084598</subfield>
-                        <subfield code="8">|s|Literaturgeschichte</subfield>
-                        <subfield code="x">00</subfield></datafield>
-                    <datafield tag="244Z" occurrence="24"><subfield code="S">s</subfield>
-                        <subfield code="9">241079764</subfield>
-                        <subfield code="8">|s|Soziologie / Geschichte</subfield>
-                        <subfield code="x">01</subfield></datafield>
-                    <datafield tag="244Z" occurrence="24"><subfield code="S">s</subfield>
-                        <subfield code="9">24108458X</subfield>
-                        <subfield code="8">|s|Wissenschaftsgeschichte</subfield>
-                        <subfield code="x">02</subfield></datafield>
-                    <datafield tag="208@" occurrence="35"><subfield code="a">27-11-06</subfield>
-                        <subfield code="b">l01</subfield></datafield>
-                    <datafield tag="201A" occurrence="35"><subfield code="0">27-11-06</subfield></datafield>
-                    <datafield tag="201B" occurrence="35"><subfield code="0">27-11-06</subfield>
-                        <subfield code="t">11:39:09.000</subfield></datafield>
-                    <datafield tag="201D" occurrence="35"><subfield code="0">TUUBSK:27-11-06</subfield></datafield>
-                    <datafield tag="201U" occurrence="35"><subfield code="0">utf8</subfield></datafield>
-                    <datafield tag="203@" occurrence="35"><subfield code="0">521529336</subfield></datafield>
-                    <datafield tag="209A" occurrence="35"><subfield code="B">21/52</subfield>
-                        <subfield code="a">Af 780</subfield>
-                        <subfield code="d">p</subfield>
-                        <subfield code="x">00</subfield></datafield>
-                    <datafield tag="209B" occurrence="35"><subfield code="a">k052;kneu</subfield>
-                        <subfield code="x">02</subfield></datafield>
-                    <datafield tag="209C" occurrence="35"><subfield code="a">86/10</subfield></datafield>
-                    <datafield tag="101@"><subfield code="a">3</subfield>
-                        <subfield code="c">BSZ</subfield>
-                        <subfield code="d">Freiburg, -25- Universitätsbibliothek Freiburg</subfield></datafield>
-                    <datafield tag="208@" occurrence="01"><subfield code="a">06-10-93</subfield>
-                        <subfield code="b">l01</subfield></datafield>
-                    <datafield tag="201A" occurrence="01"><subfield code="0">06-10-93</subfield></datafield>
-                    <datafield tag="201B" occurrence="01"><subfield code="0">23-04-03</subfield>
-                        <subfield code="t">00:00:00.000</subfield></datafield>
-                    <datafield tag="201D" occurrence="01"><subfield code="0">FRUB:06-10-93</subfield></datafield>
-                    <datafield tag="201U" occurrence="01"><subfield code="0">utf8</subfield></datafield>
-                    <datafield tag="203@" occurrence="01"><subfield code="0">467471541</subfield></datafield>
-                    <datafield tag="209A" occurrence="01"><subfield code="B">25</subfield>
-                        <subfield code="a">SW 85/1646</subfield>
-                        <subfield code="h">SW  85/01646</subfield>
-                        <subfield code="x">00</subfield></datafield>
-                    <datafield tag="209B" occurrence="01"><subfield code="a">reko</subfield>
-                        <subfield code="x">02</subfield></datafield>
-                    <datafield tag="209B" occurrence="01"><subfield code="a">z0</subfield>
-                        <subfield code="x">03</subfield></datafield>
-                    <datafield tag="247B" occurrence="01"><subfield code="a">yz</subfield></datafield>
-                    <datafield tag="101@"><subfield code="a">4</subfield>
-                        <subfield code="c">BSZ</subfield>
-                        <subfield code="d">Freiburg, -25/XXX- Institute der Universität Freiburg</subfield></datafield>
-                    <datafield tag="208@" occurrence="01"><subfield code="a">25-03-04</subfield>
-                        <subfield code="b">l01</subfield></datafield>
-                    <datafield tag="201A" occurrence="01"><subfield code="0">25-03-04</subfield></datafield>
-                    <datafield tag="201B" occurrence="01"><subfield code="0">30-09-16</subfield>
-                        <subfield code="t">08:14:15.000</subfield></datafield>
-                    <datafield tag="201D" occurrence="01"><subfield code="0">FR030B:25-03-04</subfield></datafield>
-                    <datafield tag="201U" occurrence="01"><subfield code="0">utf8</subfield></datafield>
-                    <datafield tag="203@" occurrence="01"><subfield code="0">46747155X</subfield></datafield>
-                    <datafield tag="209A" occurrence="01"><subfield code="B">25/30b</subfield>
-                        <subfield code="a">Frei 30b:   As  13/64</subfield>
-                        <subfield code="d">p</subfield>
-                        <subfield code="x">00</subfield></datafield>
-                    <datafield tag="209B" occurrence="01"><subfield code="a">sk</subfield>
-                        <subfield code="x">03</subfield></datafield>
-                    <datafield tag="247B" occurrence="01"><subfield code="a">1986-k-71</subfield></datafield>
-                    <datafield tag="208@" occurrence="12"><subfield code="a">26-05-94</subfield>
-                        <subfield code="b">l01</subfield></datafield>
-                    <datafield tag="201A" occurrence="12"><subfield code="0">26-05-94</subfield></datafield>
-                    <datafield tag="201B" occurrence="12"><subfield code="0">02-02-05</subfield>
-                        <subfield code="t">00:00:00.000</subfield></datafield>
-                    <datafield tag="201D" occurrence="12"><subfield code="0">FR092:26-05-94</subfield></datafield>
-                    <datafield tag="201U" occurrence="12"><subfield code="0">utf8</subfield></datafield>
-                    <datafield tag="203@" occurrence="12"><subfield code="0">467471568</subfield></datafield>
-                    <datafield tag="209A" occurrence="12"><subfield code="B">25/92</subfield>
-                        <subfield code="a">Frei 92: F V 279</subfield>
-                        <subfield code="d">p</subfield>
-                        <subfield code="x">00</subfield></datafield>
-                    <datafield tag="209B" occurrence="12"><subfield code="a">reko</subfield>
-                        <subfield code="x">02</subfield></datafield>
-                    <datafield tag="209B" occurrence="12"><subfield code="a">z0</subfield>
-                        <subfield code="x">03</subfield></datafield>
-                    <datafield tag="247B" occurrence="12"><subfield code="a">296/85 h</subfield></datafield>
-                    <datafield tag="101@"><subfield code="a">5</subfield>
-                        <subfield code="c">BSZ</subfield>
-                        <subfield code="d">Saarland, -291/XXX- Saarländische Bibliotheken</subfield></datafield>
-                    <datafield tag="208@" occurrence="01"><subfield code="a">21-11-98</subfield>
-                        <subfield code="b">l01</subfield></datafield>
-                    <datafield tag="201A" occurrence="01"><subfield code="0">21-11-98</subfield></datafield>
-                    <datafield tag="201B" occurrence="01"><subfield code="0">27-11-10</subfield>
-                        <subfield code="t">12:18:19.000</subfield></datafield>
-                    <datafield tag="201D" occurrence="01"><subfield code="0">SBUB:21-11-98</subfield></datafield>
-                    <datafield tag="201U" occurrence="01"><subfield code="0">utf8</subfield></datafield>
-                    <datafield tag="203@" occurrence="01"><subfield code="0">467471576</subfield></datafield>
-                    <datafield tag="206X" occurrence="01"><subfield code="0">201913</subfield></datafield>
-                    <datafield tag="206X" occurrence="01"><subfield code="0">003070247</subfield></datafield>
-                    <datafield tag="206X" occurrence="01"><subfield code="0">87a030304</subfield></datafield>
-                    <datafield tag="209A" occurrence="01"><subfield code="B">291</subfield>
-                        <subfield code="a">88-1159</subfield>
-                        <subfield code="x">00</subfield></datafield>
-                    <datafield tag="209B" occurrence="01"><subfield code="a">KONV</subfield>
-                        <subfield code="x">02</subfield></datafield>
-                    <datafield tag="245X" occurrence="01"><subfield code="9">233804285</subfield>
-                        <subfield code="8">kult B 12</subfield></datafield>
-                    <datafield tag="245X" occurrence="01"><subfield code="9">234291699</subfield>
-                        <subfield code="8">kult B 16 - Literatur</subfield></datafield>
-                    <datafield tag="245X" occurrence="01"><subfield code="9">234291702</subfield>
-                        <subfield code="8">kult B 16 - Naturwissenschaft</subfield></datafield>
-                    <datafield tag="245X" occurrence="01"><subfield code="9">234291710</subfield>
-                        <subfield code="8">kult B 16 - Soziologie</subfield></datafield>
-                    <datafield tag="245X" occurrence="01"><subfield code="9">234291729</subfield>
-                        <subfield code="8">sprach A 4116</subfield></datafield>
-                    <datafield tag="245X" occurrence="01"><subfield code="9">234291737</subfield>
-                        <subfield code="8">soz B 56 - Deutschland</subfield></datafield>
-                    <datafield tag="247B" occurrence="01"><subfield code="a">zakh</subfield></datafield>
-                    <datafield tag="101@"><subfield code="a">6</subfield>
-                        <subfield code="c">BSZ</subfield>
-                        <subfield code="d">Dresden, -14- Sächsische Landesbibliothek - Staats- und Universitätsbibliothek (SLUB)</subfield></datafield>
-                    <datafield tag="208@" occurrence="01"><subfield code="a">03-06-93</subfield>
-                        <subfield code="b">l01</subfield></datafield>
-                    <datafield tag="201A" occurrence="01"><subfield code="0">03-06-93</subfield></datafield>
-                    <datafield tag="201B" occurrence="01"><subfield code="0">03-02-09</subfield>
-                        <subfield code="t">22:06:52.000</subfield></datafield>
-                    <datafield tag="201D" occurrence="01"><subfield code="0">DDSU:03-06-93</subfield></datafield>
-                    <datafield tag="201U" occurrence="01"><subfield code="0">utf8</subfield></datafield>
-                    <datafield tag="203@" occurrence="01"><subfield code="0">467471592</subfield></datafield>
-                    <datafield tag="209A" occurrence="01"><subfield code="B">14</subfield>
-                        <subfield code="a">93 8 17153</subfield>
-                        <subfield code="x">00</subfield></datafield>
-                    <datafield tag="209B" occurrence="01"><subfield code="a">ddub</subfield>
-                        <subfield code="x">02</subfield></datafield>
-                    <datafield tag="209B" occurrence="01"><subfield code="a">z0</subfield>
-                        <subfield code="x">03</subfield></datafield>
-                    <datafield tag="247C" occurrence="01"><subfield code="a">LSTO: 02</subfield></datafield>
-                    <datafield tag="208@" occurrence="02"><subfield code="a">10-05-00</subfield>
-                        <subfield code="b">l02</subfield></datafield>
-                    <datafield tag="201A" occurrence="02"><subfield code="0">10-05-00</subfield></datafield>
-                    <datafield tag="201B" occurrence="02"><subfield code="0">10-05-00</subfield>
-                        <subfield code="t">00:00:00.000</subfield></datafield>
-                    <datafield tag="201D" occurrence="02"><subfield code="0">DDSU:10-05-00</subfield></datafield>
-                    <datafield tag="201U" occurrence="02"><subfield code="0">utf8</subfield></datafield>
-                    <datafield tag="203@" occurrence="02"><subfield code="0">467471606</subfield></datafield>
-                    <datafield tag="209A" occurrence="02"><subfield code="B">14</subfield>
-                        <subfield code="x">00</subfield></datafield>
-                    <datafield tag="209B" occurrence="02"><subfield code="a">ddlb;ABET</subfield>
-                        <subfield code="x">02</subfield></datafield>
-                    <datafield tag="101@"><subfield code="a">7</subfield>
-                        <subfield code="c">BSZ</subfield>
-                        <subfield code="d">Konstanz, -352- Universität Konstanz, Kommunikations-, Informations-, Medienzentrum (KIM)</subfield></datafield>
-                    <datafield tag="208@" occurrence="01"><subfield code="a">18-09-86</subfield>
-                        <subfield code="b">l01</subfield></datafield>
-                    <datafield tag="201A" occurrence="01"><subfield code="0">18-09-86</subfield></datafield>
-                    <datafield tag="201B" occurrence="01"><subfield code="0">14-01-14</subfield>
-                        <subfield code="t">14:59:31.000</subfield></datafield>
-                    <datafield tag="201D" occurrence="01"><subfield code="0">KNUB:18-09-86</subfield></datafield>
-                    <datafield tag="201U" occurrence="01"><subfield code="0">utf8</subfield></datafield>
-                    <datafield tag="203@" occurrence="01"><subfield code="0">467471614</subfield></datafield>
-                    <datafield tag="209A" occurrence="01"><subfield code="B">352</subfield>
-                        <subfield code="x">00</subfield></datafield>
-                    <datafield tag="101@"><subfield code="a">8</subfield>
-                        <subfield code="c">BSZ</subfield>
-                        <subfield code="d">Stuttgart, -24- Württembergische Landesbibliothek</subfield></datafield>
-                    <datafield tag="208@" occurrence="01"><subfield code="a">13-05-02</subfield>
-                        <subfield code="b">l01</subfield></datafield>
-                    <datafield tag="201A" occurrence="01"><subfield code="0">13-05-02</subfield></datafield>
-                    <datafield tag="201B" occurrence="01"><subfield code="0">25-04-03</subfield>
-                        <subfield code="t">00:00:00.000</subfield></datafield>
-                    <datafield tag="201D" occurrence="01"><subfield code="0">S1LB:13-05-02</subfield></datafield>
-                    <datafield tag="201U" occurrence="01"><subfield code="0">utf8</subfield></datafield>
-                    <datafield tag="203@" occurrence="01"><subfield code="0">467471630</subfield></datafield>
-                    <datafield tag="209A" occurrence="01"><subfield code="B">24</subfield>
-                        <subfield code="a">35/15345</subfield>
-                        <subfield code="h">35/0015345</subfield>
-                        <subfield code="x">00</subfield></datafield>
-                    <datafield tag="209B" occurrence="01"><subfield code="a">0030</subfield>
-                        <subfield code="x">02</subfield></datafield>
-                    <datafield tag="247C" occurrence="01"><subfield code="a">na</subfield></datafield>
-                    <datafield tag="101@"><subfield code="a">9</subfield>
-                        <subfield code="c">BSZ</subfield>
-                        <subfield code="d">Mannheim, -180- Universität Mannheim, Universitätsbibliothek</subfield></datafield>
-                    <datafield tag="208@" occurrence="02"><subfield code="a">12-03-16</subfield>
-                        <subfield code="b">l01</subfield></datafield>
-                    <datafield tag="201A" occurrence="02"><subfield code="0">12-03-16</subfield></datafield>
-                    <datafield tag="201B" occurrence="02"><subfield code="0">12-03-16</subfield>
-                        <subfield code="t">06:32:13.000</subfield></datafield>
-                    <datafield tag="201D" occurrence="02"><subfield code="0">MAUB:12-03-16</subfield></datafield>
-                    <datafield tag="201U" occurrence="02"><subfield code="0">utf8</subfield></datafield>
-                    <datafield tag="203@" occurrence="02"><subfield code="0">885221788</subfield></datafield>
-                    <datafield tag="206X" occurrence="02"><subfield code="0">22146707360002561</subfield></datafield>
-                    <datafield tag="209A" occurrence="02"><subfield code="B">180</subfield>
-                        <subfield code="a">400 MS 8010 L595</subfield>
-                        <subfield code="f">400</subfield>
-                        <subfield code="j">n</subfield>
-                        <subfield code="x">00</subfield></datafield>
-                    <datafield tag="209B" occurrence="02"><subfield code="a">alma</subfield>
-                        <subfield code="x">02</subfield></datafield>
-                    <datafield tag="208@" occurrence="04"><subfield code="a">02-03-16</subfield>
-                        <subfield code="b">l03</subfield></datafield>
-                    <datafield tag="201A" occurrence="04"><subfield code="0">02-03-16</subfield></datafield>
-                    <datafield tag="201B" occurrence="04"><subfield code="0">02-02-17</subfield>
-                        <subfield code="t">05:55:41.000</subfield></datafield>
-                    <datafield tag="201D" occurrence="04"><subfield code="0">MAUB:02-03-16</subfield></datafield>
-                    <datafield tag="201U" occurrence="04"><subfield code="0">utf8</subfield></datafield>
-                    <datafield tag="203@" occurrence="04"><subfield code="0">887414281</subfield></datafield>
-                    <datafield tag="206X" occurrence="04"><subfield code="0">22146707390002561</subfield></datafield>
-                    <datafield tag="209A" occurrence="04"><subfield code="B">180</subfield>
-                        <subfield code="a">500 CC 3900 L595</subfield>
-                        <subfield code="f">500</subfield>
-                        <subfield code="j">n</subfield>
-                        <subfield code="x">00</subfield></datafield>
-                    <datafield tag="209B" occurrence="04"><subfield code="a">alma</subfield>
-                        <subfield code="x">02</subfield></datafield>
-                    <datafield tag="208@" occurrence="05"><subfield code="a">01-04-16</subfield>
-                        <subfield code="b">l04</subfield></datafield>
-                    <datafield tag="201A" occurrence="05"><subfield code="0">01-04-16</subfield></datafield>
-                    <datafield tag="201B" occurrence="05"><subfield code="0">01-09-17</subfield>
-                        <subfield code="t">06:03:09.000</subfield></datafield>
-                    <datafield tag="201D" occurrence="05"><subfield code="0">MAUB:01-04-16</subfield></datafield>
-                    <datafield tag="201U" occurrence="05"><subfield code="0">utf8</subfield></datafield>
-                    <datafield tag="203@" occurrence="05"><subfield code="0">908524935</subfield></datafield>
-                    <datafield tag="206X" occurrence="05"><subfield code="0">22171179320002561</subfield></datafield>
-                    <datafield tag="209A" occurrence="05"><subfield code="B">180</subfield>
-                        <subfield code="a"> AL 8095 </subfield>
-                        <subfield code="f">MAG01</subfield>
-                        <subfield code="j">l</subfield>
-                        <subfield code="x">00</subfield></datafield>
-                    <datafield tag="209B" occurrence="05"><subfield code="a">alma</subfield>
-                        <subfield code="x">02</subfield></datafield>
-                    <datafield tag="101@"><subfield code="a">11</subfield>
-                        <subfield code="c">BSZ</subfield>
-                        <subfield code="d">Heidelberg, -16- Universitätsbibliothek Heidelberg</subfield></datafield>
-                    <datafield tag="208@" occurrence="01"><subfield code="a">15-09-97</subfield>
-                        <subfield code="b">l01</subfield></datafield>
-                    <datafield tag="201A" occurrence="01"><subfield code="0">15-09-97</subfield></datafield>
-                    <datafield tag="201B" occurrence="01"><subfield code="0">07-06-08</subfield>
-                        <subfield code="t">03:11:14.000</subfield></datafield>
-                    <datafield tag="201D" occurrence="01"><subfield code="0">HDUB:15-09-97</subfield></datafield>
-                    <datafield tag="201U" occurrence="01"><subfield code="0">utf8</subfield></datafield>
-                    <datafield tag="203@" occurrence="01"><subfield code="0">46747169X</subfield></datafield>
-                    <datafield tag="209A" occurrence="01"><subfield code="B">16</subfield>
-                        <subfield code="a">85 A 10592</subfield>
-                        <subfield code="x">00</subfield></datafield>
-                    <datafield tag="209B" occurrence="01"><subfield code="a">hdka</subfield>
-                        <subfield code="x">02</subfield></datafield>
-                    <datafield tag="208@" occurrence="02"><subfield code="a">15-09-97</subfield>
-                        <subfield code="b">e01</subfield></datafield>
-                    <datafield tag="201A" occurrence="02"><subfield code="0">15-09-97</subfield></datafield>
-                    <datafield tag="201B" occurrence="02"><subfield code="0">15-09-97</subfield>
-                        <subfield code="t">00:00:00.000</subfield></datafield>
-                    <datafield tag="201D" occurrence="02"><subfield code="0">HDUB:15-09-97</subfield></datafield>
-                    <datafield tag="201U" occurrence="02"><subfield code="0">utf8</subfield></datafield>
-                    <datafield tag="203@" occurrence="02"><subfield code="0">467471703</subfield></datafield>
-                    <datafield tag="209A" occurrence="02"><subfield code="B">16</subfield>
-                        <subfield code="x">00</subfield></datafield>
-                    <datafield tag="209P" occurrence="02"><subfield code="a">034452871</subfield></datafield>
-                    <datafield tag="101@"><subfield code="a">12</subfield>
-                        <subfield code="c">BSZ</subfield>
-                        <subfield code="d">Heidelberg, -16/XXX- Institute der Universität Heidelberg</subfield></datafield>
-                    <datafield tag="208@" occurrence="01"><subfield code="a">13-12-99</subfield>
-                        <subfield code="b">l01</subfield></datafield>
-                    <datafield tag="201A" occurrence="01"><subfield code="0">13-12-99</subfield></datafield>
-                    <datafield tag="201B" occurrence="01"><subfield code="0">11-04-14</subfield>
-                        <subfield code="t">09:51:19.000</subfield></datafield>
-                    <datafield tag="201D" occurrence="01"><subfield code="0">HDBSWS:13-12-99</subfield></datafield>
-                    <datafield tag="201U" occurrence="01"><subfield code="0">utf8</subfield></datafield>
-                    <datafield tag="203@" occurrence="01"><subfield code="0">467471711</subfield></datafield>
-                    <datafield tag="209A" occurrence="01"><subfield code="B">16/160</subfield>
-                        <subfield code="a">WS/CC 3900 L595</subfield>
-                        <subfield code="i">09.01.2010</subfield>
-                        <subfield code="x">00</subfield></datafield>
-                    <datafield tag="208@" occurrence="02"><subfield code="a">13-12-99</subfield>
-                        <subfield code="b">e01</subfield></datafield>
-                    <datafield tag="201A" occurrence="02"><subfield code="0">13-12-99</subfield></datafield>
-                    <datafield tag="201B" occurrence="02"><subfield code="0">09-03-09</subfield>
-                        <subfield code="t">02:28:48.000</subfield></datafield>
-                    <datafield tag="201D" occurrence="02"><subfield code="0">HDBSWS:13-12-99</subfield></datafield>
-                    <datafield tag="201U" occurrence="02"><subfield code="0">utf8</subfield></datafield>
-                    <datafield tag="203@" occurrence="02"><subfield code="0">46747172X</subfield></datafield>
-                    <datafield tag="209A" occurrence="02"><subfield code="B">16/160</subfield>
-                        <subfield code="x">00</subfield></datafield>
-                    <datafield tag="209C" occurrence="02"><subfield code="a">144616</subfield></datafield>
-                    <datafield tag="209P" occurrence="02"><subfield code="a">571786169</subfield></datafield>
-                    <datafield tag="208@" occurrence="13"><subfield code="a">27-09-89</subfield>
-                        <subfield code="b">l01</subfield></datafield>
-                    <datafield tag="201A" occurrence="13"><subfield code="0">27-09-89</subfield></datafield>
-                    <datafield tag="201B" occurrence="13"><subfield code="0">27-10-11</subfield>
-                        <subfield code="t">21:42:39.000</subfield></datafield>
-                    <datafield tag="201D" occurrence="13"><subfield code="0">HDBSSA:27-09-89</subfield></datafield>
-                    <datafield tag="201U" occurrence="13"><subfield code="0">utf8</subfield></datafield>
-                    <datafield tag="203@" occurrence="13"><subfield code="0">467471738</subfield></datafield>
-                    <datafield tag="209A" occurrence="13"><subfield code="B">16/77</subfield>
-                        <subfield code="a">eth 86/697</subfield>
-                        <subfield code="x">00</subfield></datafield>
-                    <datafield tag="245Z" occurrence="13"><subfield code="a">SAI 422 soz 1985</subfield></datafield>
-                    <datafield tag="245Z" occurrence="13"><subfield code="a">SAI 422 lit 1985</subfield></datafield>
-                    <datafield tag="245Z" occurrence="13"><subfield code="a">SAI 424 soz 1985</subfield></datafield>
-                    <datafield tag="245Z" occurrence="13"><subfield code="a">SAI 424 lit 1985</subfield></datafield>
-                    <datafield tag="245Z" occurrence="13"><subfield code="a">SAI 431 soz 1985</subfield></datafield>
-                    <datafield tag="245Z" occurrence="13"><subfield code="a">SAI 431 lit 1985</subfield></datafield>
-                    <datafield tag="208@" occurrence="14"><subfield code="a">27-09-89</subfield>
-                        <subfield code="b">e01</subfield></datafield>
-                    <datafield tag="201A" occurrence="14"><subfield code="0">27-09-89</subfield></datafield>
-                    <datafield tag="201B" occurrence="14"><subfield code="0">27-09-89</subfield>
-                        <subfield code="t">00:00:00.000</subfield></datafield>
-                    <datafield tag="201D" occurrence="14"><subfield code="0">HDBSSA:27-09-89</subfield></datafield>
-                    <datafield tag="201U" occurrence="14"><subfield code="0">utf8</subfield></datafield>
-                    <datafield tag="203@" occurrence="14"><subfield code="0">467471746</subfield></datafield>
-                    <datafield tag="209A" occurrence="14"><subfield code="B">16/77</subfield>
-                        <subfield code="x">00</subfield></datafield>
-                    <datafield tag="209C" occurrence="14"><subfield code="a">86/697</subfield></datafield>
-                    <datafield tag="209P" occurrence="14"><subfield code="a">450077849</subfield></datafield>
-                    <datafield tag="208@" occurrence="37"><subfield code="a">06-12-05</subfield>
-                        <subfield code="b">l01</subfield></datafield>
-                    <datafield tag="201A" occurrence="37"><subfield code="0">06-12-05</subfield></datafield>
-                    <datafield tag="201B" occurrence="37"><subfield code="0">06-12-05</subfield>
-                        <subfield code="t">00:00:00.000</subfield></datafield>
-                    <datafield tag="201D" occurrence="37"><subfield code="0">HDBSSU:06-12-05</subfield></datafield>
-                    <datafield tag="201U" occurrence="37"><subfield code="0">utf8</subfield></datafield>
-                    <datafield tag="203@" occurrence="37"><subfield code="0">467471770</subfield></datafield>
-                    <datafield tag="209A" occurrence="37"><subfield code="B">16/123</subfield>
-                        <subfield code="x">00</subfield></datafield>
-                    <datafield tag="208@" occurrence="38"><subfield code="a">06-12-05</subfield>
-                        <subfield code="b">e01</subfield></datafield>
-                    <datafield tag="201A" occurrence="38"><subfield code="0">06-12-05</subfield></datafield>
-                    <datafield tag="201B" occurrence="38"><subfield code="0">06-12-05</subfield>
-                        <subfield code="t">00:00:00.000</subfield></datafield>
-                    <datafield tag="201D" occurrence="38"><subfield code="0">HDBSSU:06-12-05</subfield></datafield>
-                    <datafield tag="201U" occurrence="38"><subfield code="0">utf8</subfield></datafield>
-                    <datafield tag="203@" occurrence="38"><subfield code="0">467471789</subfield></datafield>
-                    <datafield tag="209A" occurrence="38"><subfield code="B">16/123</subfield>
-                        <subfield code="x">00</subfield></datafield>
-                    <datafield tag="209C" occurrence="38"><subfield code="a">85/344</subfield></datafield>
-                    <datafield tag="209P" occurrence="38"><subfield code="a">583114987</subfield></datafield>
-                    <datafield tag="208@" occurrence="49"><subfield code="a">23-01-06</subfield>
-                        <subfield code="b">l01</subfield></datafield>
-                    <datafield tag="201A" occurrence="49"><subfield code="0">23-01-06</subfield></datafield>
-                    <datafield tag="201B" occurrence="49"><subfield code="0">03-06-08</subfield>
-                        <subfield code="t">01:54:21.000</subfield></datafield>
-                    <datafield tag="201D" occurrence="49"><subfield code="0">HDBSPI:23-01-06</subfield></datafield>
-                    <datafield tag="201U" occurrence="49"><subfield code="0">utf8</subfield></datafield>
-                    <datafield tag="203@" occurrence="49"><subfield code="0">501407863</subfield></datafield>
-                    <datafield tag="209A" occurrence="49"><subfield code="B">16/12</subfield>
-                        <subfield code="a">170 Lep 2</subfield>
-                        <subfield code="d">p</subfield>
-                        <subfield code="x">00</subfield></datafield>
-                    <datafield tag="209B" occurrence="49"><subfield code="a">reko</subfield>
-                        <subfield code="x">02</subfield></datafield>
-                    <datafield tag="208@" occurrence="50"><subfield code="a">23-01-06</subfield>
-                        <subfield code="b">e01</subfield></datafield>
-                    <datafield tag="201A" occurrence="50"><subfield code="0">23-01-06</subfield></datafield>
-                    <datafield tag="201B" occurrence="50"><subfield code="0">23-01-06</subfield>
-                        <subfield code="t">20:42:24.000</subfield></datafield>
-                    <datafield tag="201D" occurrence="50"><subfield code="0">HDBSPI:23-01-06</subfield></datafield>
-                    <datafield tag="201U" occurrence="50"><subfield code="0">utf8</subfield></datafield>
-                    <datafield tag="203@" occurrence="50"><subfield code="0">501407871</subfield></datafield>
-                    <datafield tag="209A" occurrence="50"><subfield code="B">16/12</subfield>
-                        <subfield code="x">00</subfield></datafield>
-                    <datafield tag="209C" occurrence="50"><subfield code="a">20004</subfield></datafield>
-                    <datafield tag="209P" occurrence="50"><subfield code="a">613738620</subfield></datafield>
-                    <datafield tag="208@" occurrence="61"><subfield code="a">13-09-07</subfield>
-                        <subfield code="b">l01</subfield></datafield>
-                    <datafield tag="201A" occurrence="61"><subfield code="0">13-09-07</subfield></datafield>
-                    <datafield tag="201B" occurrence="61"><subfield code="0">13-09-07</subfield>
-                        <subfield code="t">12:57:50.000</subfield></datafield>
-                    <datafield tag="201D" occurrence="61"><subfield code="0">HDBSDE:13-09-07</subfield></datafield>
-                    <datafield tag="201U" occurrence="61"><subfield code="0">utf8</subfield></datafield>
-                    <datafield tag="203@" occurrence="61"><subfield code="0">549831819</subfield></datafield>
-                    <datafield tag="209A" occurrence="61"><subfield code="B">16/29</subfield>
-                        <subfield code="a">Soz 4 LEP 112/2</subfield>
-                        <subfield code="d">p</subfield>
-                        <subfield code="x">00</subfield></datafield>
-                    <datafield tag="209B" occurrence="61"><subfield code="a">reko</subfield>
-                        <subfield code="x">02</subfield></datafield>
-                    <datafield tag="209C" occurrence="61"><subfield code="a">1986/B 39</subfield></datafield>
-                    <datafield tag="209P" occurrence="61"><subfield code="a">602516328</subfield></datafield>
-                    <datafield tag="101@"><subfield code="a">14</subfield>
-                        <subfield code="c">BSZ</subfield>
-                        <subfield code="d">Karlsruhe, -90- Karlsruher Institut für Technologie (KIT) - KIT-Bibliothek</subfield></datafield>
-                    <datafield tag="208@" occurrence="01"><subfield code="a">01-09-93</subfield>
-                        <subfield code="b">l01</subfield></datafield>
-                    <datafield tag="201A" occurrence="01"><subfield code="0">01-09-93</subfield></datafield>
-                    <datafield tag="201B" occurrence="01"><subfield code="0">27-03-07</subfield>
-                        <subfield code="t">15:54:54.000</subfield></datafield>
-                    <datafield tag="201D" occurrence="01"><subfield code="0">KAUB:01-09-93</subfield></datafield>
-                    <datafield tag="201U" occurrence="01"><subfield code="0">utf8</subfield></datafield>
-                    <datafield tag="203@" occurrence="01"><subfield code="0">467471797</subfield></datafield>
-                    <datafield tag="206X" occurrence="01"><subfield code="0">86k020704</subfield></datafield>
-                    <datafield tag="209A" occurrence="01"><subfield code="B">90</subfield>
-                        <subfield code="a">86 A 633</subfield>
-                        <subfield code="x">00</subfield></datafield>
-                    <datafield tag="209B" occurrence="01"><subfield code="a">z0</subfield>
-                        <subfield code="x">03</subfield></datafield>
-                    <datafield tag="245Z" occurrence="01"><subfield code="9">218771924</subfield>
-                        <subfield code="8">Fq 1 : 5.2 </subfield></datafield>
-                    <datafield tag="208@" occurrence="02"><subfield code="a">12-03-10</subfield>
-                        <subfield code="b">l01</subfield></datafield>
-                    <datafield tag="201A" occurrence="02"><subfield code="0">12-03-10</subfield></datafield>
-                    <datafield tag="201B" occurrence="02"><subfield code="0">27-04-10</subfield>
-                        <subfield code="t">12:32:32.000</subfield></datafield>
-                    <datafield tag="201D" occurrence="02"><subfield code="0">KAIT:12-03-10</subfield></datafield>
-                    <datafield tag="201U" occurrence="02"><subfield code="0">utf8</subfield></datafield>
-                    <datafield tag="203@" occurrence="02"><subfield code="0">633491896</subfield></datafield>
-                    <datafield tag="206X" occurrence="02"><subfield code="0">0000084951</subfield></datafield>
-                    <datafield tag="209A" occurrence="02"><subfield code="B">Ka 85</subfield>
-                        <subfield code="a">R Lep 7</subfield>
-                        <subfield code="d">n</subfield>
-                        <subfield code="x">00</subfield></datafield>
-                    <datafield tag="209B" occurrence="02"><subfield code="a">fzka</subfield>
-                        <subfield code="x">04</subfield></datafield>
-                    <datafield tag="244Z" occurrence="02"><subfield code="S">s</subfield>
-                        <subfield code="a">Literaturwissenschaft, Belletristik</subfield>
-                        <subfield code="x">00</subfield></datafield>
-                    <datafield tag="244Z" occurrence="02"><subfield code="S">s</subfield>
-                        <subfield code="a">Sozialwissenschaften, Soziologie</subfield>
-                        <subfield code="x">00</subfield></datafield>
-                    <datafield tag="208@" occurrence="13"><subfield code="a">09-01-12</subfield>
-                        <subfield code="b">l01</subfield></datafield>
-                    <datafield tag="201A" occurrence="13"><subfield code="0">09-01-12</subfield></datafield>
-                    <datafield tag="201B" occurrence="13"><subfield code="0">09-01-12</subfield>
-                        <subfield code="t">10:10:38.000</subfield></datafield>
-                    <datafield tag="201D" occurrence="13"><subfield code="0">KAU066:09-01-12</subfield></datafield>
-                    <datafield tag="201U" occurrence="13"><subfield code="0">utf8</subfield></datafield>
-                    <datafield tag="203@" occurrence="13"><subfield code="0">700059423</subfield></datafield>
-                    <datafield tag="209A" occurrence="13"><subfield code="B">90/66</subfield>
-                        <subfield code="d">p</subfield>
-                        <subfield code="x">00</subfield></datafield>
-                    <datafield tag="244Z" occurrence="13"><subfield code="S">s</subfield>
-                        <subfield code="a">Soziologie</subfield>
-                        <subfield code="x">00</subfield></datafield>
-                    <datafield tag="208@" occurrence="14"><subfield code="a">09-01-12</subfield>
-                        <subfield code="b">e01</subfield></datafield>
-                    <datafield tag="201A" occurrence="14"><subfield code="0">09-01-12</subfield></datafield>
-                    <datafield tag="201B" occurrence="14"><subfield code="0">09-01-12</subfield>
-                        <subfield code="t">10:11:15.000</subfield></datafield>
-                    <datafield tag="201D" occurrence="14"><subfield code="0">KAU066:09-01-12</subfield></datafield>
-                    <datafield tag="201U" occurrence="14"><subfield code="0">utf8</subfield></datafield>
-                    <datafield tag="203@" occurrence="14"><subfield code="0">70005958X</subfield></datafield>
-                    <datafield tag="209A" occurrence="14"><subfield code="B">90/66</subfield>
-                        <subfield code="a">WS Regal 1,1,2:26</subfield>
-                        <subfield code="x">00</subfield></datafield>
-                    <datafield tag="209C" occurrence="14"><subfield code="a">WS 70</subfield></datafield>
-                    <datafield tag="247B" occurrence="14"><subfield code="a">Bibliothek Sewing</subfield></datafield>
-                    <datafield tag="247C" occurrence="14"><subfield code="a">Beilagen s. Ordner</subfield></datafield>
-                    <datafield tag="101@"><subfield code="a">15</subfield>
-                        <subfield code="c">BSZ</subfield>
-                        <subfield code="d">Stuttgart, -93- Universitätsbibliothek Stuttgart</subfield></datafield>
-                    <datafield tag="208@" occurrence="01"><subfield code="a">08-06-94</subfield>
-                        <subfield code="b">l01</subfield></datafield>
-                    <datafield tag="201A" occurrence="01"><subfield code="0">08-06-94</subfield></datafield>
-                    <datafield tag="201B" occurrence="01"><subfield code="0">08-07-10</subfield>
-                        <subfield code="t">17:28:58.000</subfield></datafield>
-                    <datafield tag="201D" occurrence="01"><subfield code="0">S1UB:08-06-94</subfield></datafield>
-                    <datafield tag="201U" occurrence="01"><subfield code="0">utf8</subfield></datafield>
-                    <datafield tag="203@" occurrence="01"><subfield code="0">467471835</subfield></datafield>
-                    <datafield tag="209A" occurrence="01"><subfield code="B">93</subfield>
-                        <subfield code="a">3J 8411</subfield>
-                        <subfield code="h">3J          8411</subfield>
-                        <subfield code="x">00</subfield></datafield>
-                    <datafield tag="209B" occurrence="01"><subfield code="a">kosu</subfield>
-                        <subfield code="x">02</subfield></datafield>
-                    <datafield tag="209B" occurrence="01"><subfield code="a">z0</subfield>
-                        <subfield code="x">03</subfield></datafield>
-                    <datafield tag="220D" occurrence="01"><subfield code="a">1986.1862</subfield>
-                        <subfield code="x">0</subfield></datafield>
-                    <datafield tag="101@"><subfield code="a">16</subfield>
-                        <subfield code="c">BSZ</subfield>
-                        <subfield code="d">Stuttgart, -93/XXX- Universität, Institute</subfield></datafield>
-                    <datafield tag="208@" occurrence="01"><subfield code="a">06-05-96</subfield>
-                        <subfield code="b">l01</subfield></datafield>
-                    <datafield tag="201A" occurrence="01"><subfield code="0">06-05-96</subfield></datafield>
-                    <datafield tag="201B" occurrence="01"><subfield code="0">08-01-02</subfield>
-                        <subfield code="t">00:00:00.000</subfield></datafield>
-                    <datafield tag="201D" occurrence="01"><subfield code="0">S1U094:06-05-96</subfield></datafield>
-                    <datafield tag="201U" occurrence="01"><subfield code="0">utf8</subfield></datafield>
-                    <datafield tag="203@" occurrence="01"><subfield code="0">467471843</subfield></datafield>
-                    <datafield tag="209A" occurrence="01"><subfield code="B">93/94</subfield>
-                        <subfield code="a">U8--LEP26</subfield>
-                        <subfield code="d">p</subfield>
-                        <subfield code="x">00</subfield></datafield>
-                    <datafield tag="209B" occurrence="01"><subfield code="a">xx</subfield>
-                        <subfield code="x">03</subfield></datafield>
-                    <datafield tag="247C" occurrence="01"><subfield code="a">(6928) G / ba / KORR</subfield></datafield>
-                    <datafield tag="101@"><subfield code="a">18</subfield>
-                        <subfield code="c">BSZ</subfield>
-                        <subfield code="d">Karlsruhe, -31- Badische Landesbibliothek</subfield></datafield>
-                    <datafield tag="208@" occurrence="01"><subfield code="a">26-08-94</subfield>
-                        <subfield code="b">l01</subfield></datafield>
-                    <datafield tag="201A" occurrence="01"><subfield code="0">26-08-94</subfield></datafield>
-                    <datafield tag="201B" occurrence="01"><subfield code="0">21-11-11</subfield>
-                        <subfield code="t">09:10:26.000</subfield></datafield>
-                    <datafield tag="201D" occurrence="01"><subfield code="0">KALB:26-08-94</subfield></datafield>
-                    <datafield tag="201U" occurrence="01"><subfield code="0">utf8</subfield></datafield>
-                    <datafield tag="203@" occurrence="01"><subfield code="0">467471851</subfield></datafield>
-                    <datafield tag="209A" occurrence="01"><subfield code="B">31</subfield>
-                        <subfield code="a">87 A 25</subfield>
-                        <subfield code="x">00</subfield></datafield>
-                    <datafield tag="209B" occurrence="01"><subfield code="a">z0</subfield>
-                        <subfield code="x">03</subfield></datafield>
-                    <datafield tag="245X" occurrence="01"><subfield code="9">231695780</subfield>
-                        <subfield code="8">Fd3a</subfield></datafield>
-                    <datafield tag="245X" occurrence="01"><subfield code="9">231770952</subfield>
-                        <subfield code="8">Sz2k</subfield></datafield>
-                    <datafield tag="247C" occurrence="01"><subfield code="a">26.08.94/ha</subfield></datafield>
-                    <datafield tag="101@"><subfield code="a">20</subfield>
-                        <subfield code="c">BSZ</subfield>
-                        <subfield code="d">Chemnitz, -Ch 1- Universitätsbibliothek Chemnitz</subfield></datafield>
-                    <datafield tag="208@" occurrence="01"><subfield code="a">24-08-94</subfield>
-                        <subfield code="b">l01</subfield></datafield>
-                    <datafield tag="201A" occurrence="01"><subfield code="0">24-08-94</subfield></datafield>
-                    <datafield tag="201B" occurrence="01"><subfield code="0">01-12-99</subfield>
-                        <subfield code="t">00:00:00.000</subfield></datafield>
-                    <datafield tag="201D" occurrence="01"><subfield code="0">C1UB:24-08-94</subfield></datafield>
-                    <datafield tag="201U" occurrence="01"><subfield code="0">utf8</subfield></datafield>
-                    <datafield tag="203@" occurrence="01"><subfield code="0">46747186X</subfield></datafield>
-                    <datafield tag="209A" occurrence="01"><subfield code="B">Ch 1</subfield>
-                        <subfield code="a">MQ 2700 lep</subfield>
-                        <subfield code="x">00</subfield></datafield>
-                    <datafield tag="244Z" occurrence="01"><subfield code="S">s</subfield>
-                        <subfield code="9">235826936</subfield>
-                        <subfield code="8">|s|Soziologie</subfield>
-                        <subfield code="x">00</subfield></datafield>
-                    <datafield tag="244Z" occurrence="01"><subfield code="S">s</subfield>
-                        <subfield code="9">23617648X</subfield>
-                        <subfield code="8">|s|Literatursoziologie</subfield>
-                        <subfield code="x">01</subfield></datafield>
-                    <datafield tag="244Z" occurrence="01"><subfield code="S">s</subfield>
-                        <subfield code="9">235837261</subfield>
-                        <subfield code="8">|s|Wissenschaftstheorie</subfield>
-                        <subfield code="x">02</subfield></datafield>
-                    <datafield tag="244Z" occurrence="01"><subfield code="S">s</subfield>
-                        <subfield code="9">235889571</subfield>
-                        <subfield code="8">|s|Naturwissenschaften</subfield>
-                        <subfield code="x">03</subfield></datafield>
-                    <datafield tag="244Z" occurrence="01"><subfield code="S">s</subfield>
-                        <subfield code="9">235893048</subfield>
-                        <subfield code="8">|s|Soziologische Theorie</subfield>
-                        <subfield code="x">04</subfield></datafield>
-                    <datafield tag="245Z" occurrence="01"><subfield code="9">222672250</subfield>
-                        <subfield code="8">MQ 2200 </subfield></datafield>
-                    <datafield tag="245Z" occurrence="01"><subfield code="9">221791930</subfield>
-                        <subfield code="8">MQ 2700 </subfield></datafield>
-                    <datafield tag="101@"><subfield code="a">21</subfield>
-                        <subfield code="c">BSZ</subfield>
-                        <subfield code="d">Ulm, -289- Kommunikations- u. Informationszentrum Universität Ulm (kiz)</subfield></datafield>
-                    <datafield tag="208@" occurrence="01"><subfield code="a">16-03-95</subfield>
-                        <subfield code="b">l01</subfield></datafield>
-                    <datafield tag="201A" occurrence="01"><subfield code="0">16-03-95</subfield></datafield>
-                    <datafield tag="201B" occurrence="01"><subfield code="0">25-02-08</subfield>
-                        <subfield code="t">11:10:31.000</subfield></datafield>
-                    <datafield tag="201D" occurrence="01"><subfield code="0">ULUB:16-03-95</subfield></datafield>
-                    <datafield tag="201U" occurrence="01"><subfield code="0">utf8</subfield></datafield>
-                    <datafield tag="203@" occurrence="01"><subfield code="0">467471878</subfield></datafield>
-                    <datafield tag="209A" occurrence="01"><subfield code="B">289</subfield>
-                        <subfield code="a">HM 24/1985 Lb</subfield>
-                        <subfield code="f">P</subfield>
-                        <subfield code="x">00</subfield></datafield>
-                    <datafield tag="244Z" occurrence="01"><subfield code="S">s</subfield>
-                        <subfield code="9">235747564</subfield>
-                        <subfield code="8">|s|Sociology</subfield>
-                        <subfield code="x">00</subfield></datafield>
-                    <datafield tag="101@"><subfield code="a">31</subfield>
-                        <subfield code="c">BSZ</subfield>
-                        <subfield code="d">Ludwigsburg, -Lg 1- Pädagogische Hochschule Ludwigsburg</subfield></datafield>
-                    <datafield tag="208@" occurrence="01"><subfield code="a">26-05-98</subfield>
-                        <subfield code="b">l01</subfield></datafield>
-                    <datafield tag="201A" occurrence="01"><subfield code="0">26-05-98</subfield></datafield>
-                    <datafield tag="201B" occurrence="01"><subfield code="0">26-05-98</subfield>
-                        <subfield code="t">00:00:00.000</subfield></datafield>
-                    <datafield tag="201D" occurrence="01"><subfield code="0">S2LGPH:26-05-98</subfield></datafield>
-                    <datafield tag="201U" occurrence="01"><subfield code="0">utf8</subfield></datafield>
-                    <datafield tag="203@" occurrence="01"><subfield code="0">467471886</subfield></datafield>
-                    <datafield tag="209A" occurrence="01"><subfield code="B">Lg 1</subfield>
-                        <subfield code="a">Soz 2c Lep</subfield>
-                        <subfield code="x">00</subfield></datafield>
-                    <datafield tag="245Z" occurrence="01"><subfield code="9">226732177</subfield>
-                        <subfield code="8">Soz 2c Lep </subfield></datafield>
-                    <datafield tag="245Z" occurrence="01"><subfield code="9">226732185</subfield>
-                        <subfield code="8">Soz 2g Lep </subfield></datafield>
-                    <datafield tag="208@" occurrence="03"><subfield code="a">27-10-00</subfield>
-                        <subfield code="b">l02</subfield></datafield>
-                    <datafield tag="201A" occurrence="03"><subfield code="0">27-10-00</subfield></datafield>
-                    <datafield tag="201B" occurrence="03"><subfield code="0">19-03-09</subfield>
-                        <subfield code="t">07:03:42.000</subfield></datafield>
-                    <datafield tag="201D" occurrence="03"><subfield code="0">S2LGPH:27-10-00</subfield></datafield>
-                    <datafield tag="201U" occurrence="03"><subfield code="0">utf8</subfield></datafield>
-                    <datafield tag="203@" occurrence="03"><subfield code="0">467471940</subfield></datafield>
-                    <datafield tag="209A" occurrence="03"><subfield code="B">Lg 1</subfield>
-                        <subfield code="a">301.12 Lep</subfield>
-                        <subfield code="x">00</subfield></datafield>
-                    <datafield tag="209A" occurrence="03"><subfield code="a">102860</subfield>
-                        <subfield code="x">01</subfield></datafield>
-                    <datafield tag="209B" occurrence="03"><subfield code="a">s1pz</subfield>
-                        <subfield code="x">02</subfield></datafield>
-                    <datafield tag="209B" occurrence="03"><subfield code="a">z0</subfield>
-                        <subfield code="x">03</subfield></datafield>
-                    <datafield tag="245Z" occurrence="03"><subfield code="a">301.12</subfield></datafield>
-                    <datafield tag="247C" occurrence="03"><subfield code="a">zm a</subfield></datafield>
-                    <datafield tag="101@"><subfield code="a">38</subfield>
-                        <subfield code="c">BSZ</subfield>
-                        <subfield code="d">Schwäbisch Gmünd, -752- Pädagogische Hochschule Schwäbisch Gmünd</subfield></datafield>
-                    <datafield tag="208@" occurrence="01"><subfield code="a">20-03-08</subfield>
-                        <subfield code="b">l01</subfield></datafield>
-                    <datafield tag="201A" occurrence="01"><subfield code="0">20-03-08</subfield></datafield>
-                    <datafield tag="201B" occurrence="01"><subfield code="0">20-03-08</subfield>
-                        <subfield code="t">16:31:45.000</subfield></datafield>
-                    <datafield tag="201D" occurrence="01"><subfield code="0">S2SGPH:20-03-08</subfield></datafield>
-                    <datafield tag="201U" occurrence="01"><subfield code="0">utf8</subfield></datafield>
-                    <datafield tag="203@" occurrence="01"><subfield code="0">56630628X</subfield></datafield>
-                    <datafield tag="209A" occurrence="01"><subfield code="B">752</subfield>
-                        <subfield code="a">A d/ Lepe 45</subfield>
-                        <subfield code="x">00</subfield></datafield>
-                    <datafield tag="245X" occurrence="01"><subfield code="9">23369997X</subfield>
-                        <subfield code="8">Deutschland</subfield></datafield>
-                    <datafield tag="245X" occurrence="01"><subfield code="9">233755012</subfield>
-                        <subfield code="8">England</subfield></datafield>
-                    <datafield tag="245X" occurrence="01"><subfield code="9">233690549</subfield>
-                        <subfield code="8">Frankreich</subfield></datafield>
-                    <datafield tag="245Z" occurrence="01"><subfield code="9">225405822</subfield>
-                        <subfield code="8">A d </subfield></datafield>
-                    <datafield tag="245Z" occurrence="01"><subfield code="9">225251647</subfield>
-                        <subfield code="8">E kn </subfield></datafield>
-                    <datafield tag="245Z" occurrence="01"><subfield code="9">22533741X</subfield>
-                        <subfield code="8">P bk </subfield></datafield>
-                    <datafield tag="245Z" occurrence="01"><subfield code="9">225385813</subfield>
-                        <subfield code="8">P dk </subfield></datafield>
-                    <datafield tag="245Z" occurrence="01"><subfield code="9">229556167</subfield>
-                        <subfield code="8">G ar 1 </subfield></datafield>
-                    <datafield tag="245Z" occurrence="01"><subfield code="9">226238032</subfield>
-                        <subfield code="8">G ao </subfield></datafield>
-                    <datafield tag="247C" occurrence="01"><subfield code="a">23 cm 2008/ 12-y-14</subfield></datafield>
-                    <datafield tag="101@"><subfield code="a">43</subfield>
-                        <subfield code="c">BSZ</subfield>
-                        <subfield code="d">Marbach, -Mar 1- Deutsches Literaturarchiv Marbach</subfield></datafield>
-                    <datafield tag="208@" occurrence="01"><subfield code="a">11-12-09</subfield>
-                        <subfield code="b">l01</subfield></datafield>
-                    <datafield tag="201A" occurrence="01"><subfield code="0">11-12-09</subfield></datafield>
-                    <datafield tag="201B" occurrence="01"><subfield code="0">13-01-10</subfield>
-                        <subfield code="t">21:40:43.000</subfield></datafield>
-                    <datafield tag="201D" occurrence="01"><subfield code="0">S2MADL:11-12-09</subfield></datafield>
-                    <datafield tag="201U" occurrence="01"><subfield code="0">utf8</subfield></datafield>
-                    <datafield tag="203@" occurrence="01"><subfield code="0">619216921</subfield></datafield>
-                    <datafield tag="206X" occurrence="01"><subfield code="0">392469</subfield></datafield>
-                    <datafield tag="209A" occurrence="01"><subfield code="B">Mar 1</subfield>
-                        <subfield code="a">C3</subfield>
-                        <subfield code="d">l</subfield>
-                        <subfield code="x">00</subfield></datafield>
-                    <datafield tag="209C" occurrence="01"><subfield code="a">86.354</subfield></datafield>
-                    <datafield tag="101@"><subfield code="a">60</subfield>
-                        <subfield code="c">BSZ</subfield>
-                        <subfield code="d">Ludwigsburg, -Lg 3- Deutsch-Französisches Institut Ludwigsburg</subfield></datafield>
-                    <datafield tag="208@" occurrence="01"><subfield code="a">25-10-02</subfield>
-                        <subfield code="b">l01</subfield></datafield>
-                    <datafield tag="201A" occurrence="01"><subfield code="0">25-10-02</subfield></datafield>
-                    <datafield tag="201B" occurrence="01"><subfield code="0">25-10-02</subfield>
-                        <subfield code="t">00:00:00.000</subfield></datafield>
-                    <datafield tag="201D" occurrence="01"><subfield code="0">S2LBDF:25-10-02</subfield></datafield>
-                    <datafield tag="201U" occurrence="01"><subfield code="0">utf8</subfield></datafield>
-                    <datafield tag="203@" occurrence="01"><subfield code="0">467471908</subfield></datafield>
-                    <datafield tag="206X" occurrence="01"><subfield code="0">R085000</subfield></datafield>
-                    <datafield tag="209A" occurrence="01"><subfield code="B">Lg 3</subfield>
-                        <subfield code="a">VM 110.LEP</subfield>
-                        <subfield code="d">p</subfield>
-                        <subfield code="x">00</subfield></datafield>
-                    <datafield tag="209B" occurrence="01"><subfield code="a">KONV</subfield>
-                        <subfield code="x">02</subfield></datafield>
-                    <datafield tag="244Z" occurrence="01"><subfield code="S">s</subfield>
-                        <subfield code="9">239903471</subfield>
-                        <subfield code="8">|s|Wissenschaftsgebiete</subfield>
-                        <subfield code="x">00</subfield></datafield>
-                    <datafield tag="244Z" occurrence="01"><subfield code="S">s</subfield>
-                        <subfield code="9">239902971</subfield>
-                        <subfield code="8">|s|Frankreich</subfield>
-                        <subfield code="x">01</subfield></datafield>
-                    <datafield tag="244Z" occurrence="01"><subfield code="S">s</subfield>
-                        <subfield code="9">239903307</subfield>
-                        <subfield code="8">|s|Deutschland</subfield>
-                        <subfield code="x">02</subfield></datafield>
-                    <datafield tag="244Z" occurrence="01"><subfield code="S">s</subfield>
-                        <subfield code="9">239903358</subfield>
-                        <subfield code="8">|s|Vereinigtes Königreich</subfield>
-                        <subfield code="x">03</subfield></datafield>
-                    <datafield tag="245Z" occurrence="01"><subfield code="9">23004977X</subfield>
-                        <subfield code="8">SK01 </subfield></datafield>
-                    <datafield tag="245Z" occurrence="01"><subfield code="9">230049273</subfield>
-                        <subfield code="8">RA04.06 </subfield></datafield>
-                    <datafield tag="245Z" occurrence="01"><subfield code="9">230049605</subfield>
-                        <subfield code="8">RA05.01 </subfield></datafield>
-                    <datafield tag="245Z" occurrence="01"><subfield code="9">230049656</subfield>
-                        <subfield code="8">RA04.02 </subfield></datafield>
-                    <datafield tag="208@" occurrence="02"><subfield code="a">25-10-02</subfield>
-                        <subfield code="b">e01</subfield></datafield>
-                    <datafield tag="201A" occurrence="02"><subfield code="0">25-10-02</subfield></datafield>
-                    <datafield tag="201B" occurrence="02"><subfield code="0">25-10-02</subfield>
-                        <subfield code="t">00:00:00.000</subfield></datafield>
-                    <datafield tag="201D" occurrence="02"><subfield code="0">S2LBDF:25-10-02</subfield></datafield>
-                    <datafield tag="201U" occurrence="02"><subfield code="0">utf8</subfield></datafield>
-                    <datafield tag="203@" occurrence="02"><subfield code="0">467471916</subfield></datafield>
-                    <datafield tag="209A" occurrence="02"><subfield code="B">Lg 3</subfield>
-                        <subfield code="a">VM 110.LEP</subfield>
-                        <subfield code="x">00</subfield></datafield>
-                    <datafield tag="209C" occurrence="02"><subfield code="a">DFI 86/0231</subfield></datafield>
-                    <datafield tag="208@" occurrence="03"><subfield code="a">28-11-11</subfield>
-                        <subfield code="b">l01</subfield></datafield>
-                    <datafield tag="201A" occurrence="03"><subfield code="0">03-07-13</subfield></datafield>
-                    <datafield tag="201B" occurrence="03"><subfield code="0">03-07-13</subfield>
-                        <subfield code="t">08:49:52.000</subfield></datafield>
-                    <datafield tag="201D" occurrence="03"><subfield code="0">S2LBDF:28-11-11</subfield></datafield>
-                    <datafield tag="201U" occurrence="03"><subfield code="0">utf8</subfield></datafield>
-                    <datafield tag="203@" occurrence="03"><subfield code="0">752864696</subfield></datafield>
-                    <datafield tag="206X" occurrence="03"><subfield code="0">00291213</subfield></datafield>
-                    <datafield tag="206X" occurrence="03"><subfield code="0">R85000</subfield></datafield>
-                    <datafield tag="209A" occurrence="03"><subfield code="B">Lg 3</subfield>
-                        <subfield code="a">VM 110.LEP</subfield>
-                        <subfield code="x">00</subfield></datafield>
-                    <datafield tag="209B" occurrence="03"><subfield code="a">RFIV</subfield>
-                        <subfield code="x">02</subfield></datafield>
-                    <datafield tag="244Z" occurrence="03"><subfield code="S">s</subfield>
-                        <subfield code="a">Frankreich; Deutschland; Vereinigtes Königreich; Internationaler Vergleich/Ländervergleich; Soziologie; Wissenschaften; Literatur</subfield>
-                        <subfield code="x">00</subfield></datafield>
-                    <datafield tag="244Z" occurrence="03"><subfield code="S">s</subfield>
-                        <subfield code="a">Comte, Auguste; Durkheim, Emile; Péguy, Charles; Kultureinfluss; Intellektueller Dialog</subfield>
-                        <subfield code="x">01</subfield></datafield>
-                    <datafield tag="245Z" occurrence="03"><subfield code="a">SK01 Wissenschaftsgebiete</subfield></datafield>
-                    <datafield tag="245Z" occurrence="03"><subfield code="a">RA04.06 Frankreich</subfield></datafield>
-                    <datafield tag="245Z" occurrence="03"><subfield code="a">RA05.01 Deutschland</subfield></datafield>
-                    <datafield tag="245Z" occurrence="03"><subfield code="a">RA04.02 Vereinigtes Königreich</subfield></datafield>
-                    <datafield tag="101@"><subfield code="a">63</subfield>
-                        <subfield code="c">BSZ</subfield>
-                        <subfield code="d">Pforzheim, -951- Hochschulbibliothek Pforzheim, Bereichsbibliothek Wirtschaft + Technik</subfield></datafield>
-                    <datafield tag="208@" occurrence="01"><subfield code="a">05-08-04</subfield>
-                        <subfield code="b">l01</subfield></datafield>
-                    <datafield tag="201A" occurrence="01"><subfield code="0">09-08-00</subfield></datafield>
-                    <datafield tag="201B" occurrence="01"><subfield code="0">21-03-16</subfield>
-                        <subfield code="t">14:11:15.000</subfield></datafield>
-                    <datafield tag="201D" occurrence="01"><subfield code="0">KAPFFW:09-08-00</subfield></datafield>
-                    <datafield tag="201U" occurrence="01"><subfield code="0">utf8</subfield></datafield>
-                    <datafield tag="203@" occurrence="01"><subfield code="0">467471924</subfield></datafield>
-                    <datafield tag="209A" occurrence="01"><subfield code="B">951</subfield>
-                        <subfield code="a">24690</subfield>
-                        <subfield code="j">l</subfield>
-                        <subfield code="x">00</subfield></datafield>
-                    <datafield tag="209B" occurrence="01"><subfield code="a">adis</subfield>
-                        <subfield code="x">02</subfield></datafield>
-                    <datafield tag="208@" occurrence="02"><subfield code="a">09-08-00</subfield>
-                        <subfield code="b">e01</subfield></datafield>
-                    <datafield tag="201A" occurrence="02"><subfield code="0">09-08-00</subfield></datafield>
-                    <datafield tag="201B" occurrence="02"><subfield code="0">09-08-00</subfield>
-                        <subfield code="t">00:00:00.000</subfield></datafield>
-                    <datafield tag="201D" occurrence="02"><subfield code="0">KAPFFW:09-08-00</subfield></datafield>
-                    <datafield tag="201U" occurrence="02"><subfield code="0">utf8</subfield></datafield>
-                    <datafield tag="203@" occurrence="02"><subfield code="0">467471932</subfield></datafield>
-                    <datafield tag="209A" occurrence="02"><subfield code="B">951</subfield>
-                        <subfield code="a">24690</subfield>
-                        <subfield code="f">BIB</subfield>
-                        <subfield code="x">00</subfield></datafield>
-                    <datafield tag="209P" occurrence="02"><subfield code="a">00463264</subfield></datafield>
-                    <datafield tag="101@"><subfield code="a">83</subfield>
-                        <subfield code="c">BSZ</subfield>
-                        <subfield code="d">Rottenburg, -Rot 2- Diözesanbibliothek der Diözese Rottenburg-Stuttgart</subfield></datafield>
-                    <datafield tag="208@" occurrence="01"><subfield code="a">16-02-05</subfield>
-                        <subfield code="b">l01</subfield></datafield>
-                    <datafield tag="201A" occurrence="01"><subfield code="0">16-02-05</subfield></datafield>
-                    <datafield tag="201B" occurrence="01"><subfield code="0">16-02-05</subfield>
-                        <subfield code="t">00:00:00.000</subfield></datafield>
-                    <datafield tag="201D" occurrence="01"><subfield code="0">TURODB:16-02-05</subfield></datafield>
-                    <datafield tag="201U" occurrence="01"><subfield code="0">utf8</subfield></datafield>
-                    <datafield tag="203@" occurrence="01"><subfield code="0">467471967</subfield></datafield>
-                    <datafield tag="209A" occurrence="01"><subfield code="B">Rot 2</subfield>
-                        <subfield code="a">16 A 425</subfield>
-                        <subfield code="x">00</subfield></datafield>
-                    <datafield tag="101@"><subfield code="a">99</subfield>
-                        <subfield code="c">BSZ</subfield>
-                        <subfield code="d">Kehl, -Kh 1- Hochschule für öffentliche Verwaltung Kehl</subfield></datafield>
-                    <datafield tag="208@" occurrence="01"><subfield code="a">07-06-90</subfield>
-                        <subfield code="b">l01</subfield></datafield>
-                    <datafield tag="201A" occurrence="01"><subfield code="0">07-06-90</subfield></datafield>
-                    <datafield tag="201B" occurrence="01"><subfield code="0">05-08-94</subfield>
-                        <subfield code="t">00:00:00.000</subfield></datafield>
-                    <datafield tag="201D" occurrence="01"><subfield code="0">FRKEFH:07-06-90</subfield></datafield>
-                    <datafield tag="201U" occurrence="01"><subfield code="0">utf8</subfield></datafield>
-                    <datafield tag="203@" occurrence="01"><subfield code="0">467471991</subfield></datafield>
-                    <datafield tag="209A" occurrence="01"><subfield code="B">Kh 1</subfield>
-                        <subfield code="x">00</subfield></datafield>
-                    <datafield tag="101@"><subfield code="a">121</subfield>
-                        <subfield code="c">BSZ</subfield>
-                        <subfield code="d">Heidelberg, -He 79- Universität Heidelberg, Forschungsstätte der Evangelischen Studiengemeinschaft</subfield></datafield>
-                    <datafield tag="208@" occurrence="01"><subfield code="a">02-12-08</subfield>
-                        <subfield code="b">l01</subfield></datafield>
-                    <datafield tag="201A" occurrence="01"><subfield code="0">02-12-08</subfield></datafield>
-                    <datafield tag="201B" occurrence="01"><subfield code="0">02-12-08</subfield>
-                        <subfield code="t">12:17:53.000</subfield></datafield>
-                    <datafield tag="201D" occurrence="01"><subfield code="0">HDBSES:02-12-08</subfield></datafield>
-                    <datafield tag="201U" occurrence="01"><subfield code="0">utf8</subfield></datafield>
-                    <datafield tag="203@" occurrence="01"><subfield code="0">586629629</subfield></datafield>
-                    <datafield tag="209A" occurrence="01"><subfield code="B">He 79</subfield>
-                        <subfield code="a">535 Lepe/3K</subfield>
-                        <subfield code="d">p</subfield>
-                        <subfield code="x">00</subfield></datafield>
-                    <datafield tag="209C" occurrence="01"><subfield code="a">22507vS</subfield></datafield>
-                    <datafield tag="209P" occurrence="01"><subfield code="a">629014571</subfield></datafield>
-                    <datafield tag="101@"><subfield code="a">470</subfield>
-                        <subfield code="c">BSZ</subfield>
-                        <subfield code="d">Deutschland, -615- Fachinformationsverbund Internationale Beziehungen und Länderkunde</subfield></datafield>
-                    <datafield tag="208@" occurrence="01"><subfield code="a">28-11-11</subfield>
-                        <subfield code="b">l01</subfield></datafield>
-                    <datafield tag="201A" occurrence="01"><subfield code="0">11-07-13</subfield></datafield>
-                    <datafield tag="201B" occurrence="01"><subfield code="0">11-07-13</subfield>
-                        <subfield code="t">00:27:52.000</subfield></datafield>
-                    <datafield tag="201D" occurrence="01"><subfield code="0">FIVIBL:28-11-11</subfield></datafield>
-                    <datafield tag="201U" occurrence="01"><subfield code="0">utf8</subfield></datafield>
-                    <datafield tag="203@" occurrence="01"><subfield code="0">760462577</subfield></datafield>
-                    <datafield tag="206X" occurrence="01"><subfield code="0">00291213</subfield></datafield>
-                    <datafield tag="206X" occurrence="01"><subfield code="0">R85000</subfield></datafield>
-                    <datafield tag="209A" occurrence="01"><subfield code="B">615</subfield>
-                        <subfield code="d">p</subfield>
-                        <subfield code="x">00</subfield></datafield>
-                    <datafield tag="209B" occurrence="01"><subfield code="a">RFIV</subfield>
-                        <subfield code="x">02</subfield></datafield>
-                    <datafield tag="244Z" occurrence="01"><subfield code="S">s</subfield>
-                        <subfield code="a">Frankreich; Deutschland; Vereinigtes Königreich; Internationaler Vergleich/Ländervergleich; Soziologie; Wissenschaften; Literatur</subfield>
-                        <subfield code="x">00</subfield></datafield>
-                    <datafield tag="244Z" occurrence="01"><subfield code="S">s</subfield>
-                        <subfield code="a">Comte, Auguste; Durkheim, Emile; Péguy, Charles; Kultureinfluss; Intellektueller Dialog</subfield>
-                        <subfield code="x">01</subfield></datafield>
-                    <datafield tag="245Z" occurrence="01"><subfield code="a">SK01 Wissenschaftsgebiete</subfield></datafield>
-                    <datafield tag="245Z" occurrence="01"><subfield code="a">RA04.06 Frankreich</subfield></datafield>
-                    <datafield tag="245Z" occurrence="01"><subfield code="a">RA05.01 Deutschland</subfield></datafield>
-                    <datafield tag="245Z" occurrence="01"><subfield code="a">RA04.02 Vereinigtes Königreich</subfield></datafield></record></srw:recordData><srw:recordPosition>1</srw:recordPosition></srw:record>
+                    <datafield tag="935" ind1=" " ind2=" "><subfield code="a">imda</subfield></datafield>
+                    <datafield tag="935" ind1=" " ind2=" "><subfield code="b">druck</subfield></datafield>
+                    <datafield tag="936" ind1="r" ind2="v"><subfield code="a">MS 8010</subfield>
+                        <subfield code="b">Literatur</subfield>
+                        <subfield code="k">Soziologie</subfield>
+                        <subfield code="k">Spezielle Soziologien</subfield>
+                        <subfield code="k">Kunstsoziologie</subfield>
+                        <subfield code="k">Literatur</subfield>
+                        <subfield code="0">201422956</subfield></datafield>
+                    <datafield tag="936" ind1="r" ind2="v"><subfield code="a">CC 3900</subfield>
+                        <subfield code="b">Zur Theorie der Sozialwissenschaften</subfield>
+                        <subfield code="k">Philosophie</subfield>
+                        <subfield code="k">Systematische Philosophie</subfield>
+                        <subfield code="k">Spezielle Wissenschaftstheorie</subfield>
+                        <subfield code="k">Zur Theorie der Sozialwissenschaften</subfield>
+                        <subfield code="0">200638831</subfield></datafield>
+                    <datafield tag="936" ind1="r" ind2="v"><subfield code="a">MQ 2200</subfield>
+                        <subfield code="b">Gesamtdarstellungen zur Geschichte der Soziologie</subfield>
+                        <subfield code="k">Soziologie</subfield>
+                        <subfield code="k">Einführung und Geschichte</subfield>
+                        <subfield code="k">Geschichte der Soziologie</subfield>
+                        <subfield code="k">Gesamtdarstellungen zur Geschichte der Soziologie</subfield>
+                        <subfield code="0">201427400</subfield></datafield>
+                    <datafield tag="936" ind1="r" ind2="v"><subfield code="a">EC 2460</subfield>
+                        <subfield code="b">Beziehungen der Literatur zu Gesellschaft und Wirtschaft</subfield>
+                        <subfield code="k">Allgemeine und vergleichende Sprach- und Literaturwissenschaft. Indogermanistik. Außereuropäische Sprachen und Literaturen</subfield>
+                        <subfield code="k">Allgemeine und vergleichende Literaturwissenschaft.</subfield>
+                        <subfield code="k">Beziehungen der Literatur zu anderen Gebieten</subfield>
+                        <subfield code="k">Beziehungen der Literatur zu Gesellschaft und Wirtschaft</subfield>
+                        <subfield code="0">200749226</subfield></datafield>
+                    <datafield tag="936" ind1="r" ind2="v"><subfield code="a">MS 1810</subfield>
+                        <subfield code="b">Wohnwesen, Nachbarschaft, Slums, Vororte</subfield>
+                        <subfield code="k">Soziologie</subfield>
+                        <subfield code="k">Spezielle Soziologien</subfield>
+                        <subfield code="k">Stadtsoziologie</subfield>
+                        <subfield code="k">Wohnwesen, Nachbarschaft, Slums, Vororte</subfield>
+                        <subfield code="0">200817884</subfield></datafield>
+                    <leader>000  xxxxxcx  a22     zn 4500</leader>
+                    <leader>001 467471495</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20000506000000</leader>
+                    <leader>008  930330||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        DE-21</leader>
+                    <leader>852 1
+                        25 A 14670
+                        00</leader>
+                    <leader>935
+                        comp
+                        konv</leader>
+                    <leader>000  xxxxxcx  a22     zn 4500</leader>
+                    <leader>001 467471509</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20020225000000</leader>
+                    <leader>008  960906||||||||||||||||ger|||||||</leader>
+                    <leader>541
+                        4938/85</leader>
+                    <leader>852
+                        DE-21-108</leader>
+                    <leader>852 1
+                        HN 100.088
+                        p
+                        00</leader>
+                    <leader>936ln
+                        229163335
+                        HN 100</leader>
+                    <leader>000  xxxxxcx  a22     zn 4500</leader>
+                    <leader>001 467471517</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20100508074910</leader>
+                    <leader>008  960314||||||||||||||||ger|||||||</leader>
+                    <leader>541
+                        86/170</leader>
+                    <leader>689
+                        s
+                        Soziologie</leader>
+                    <leader>852
+                        DE-21-24</leader>
+                    <leader>852 1
+                        C,VId,141
+                        p
+                        00</leader>
+                    <leader>936ln
+                        C,VId,</leader>
+                    <leader>000  xxxxxcx  a22     zn 4500</leader>
+                    <leader>001 467471533</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20100407071007</leader>
+                    <leader>008  050323||||||||||||||||ger|||||||</leader>
+                    <leader>541
+                        85-790</leader>
+                    <leader>689
+                        s
+                        241084598
+                        Literaturgeschichte</leader>
+                    <leader>689
+                        s
+                        241079764
+                        Soziologie / Geschichte</leader>
+                    <leader>689
+                        s
+                        24108458X
+                        Wissenschaftsgeschichte</leader>
+                    <leader>852
+                        DE-21-85</leader>
+                    <leader>852 1
+                        2.000.1985
+                        p
+                        00</leader>
+                    <leader>935
+                        k085</leader>
+                    <leader>000  xxxxxnx  a22     zn 4500</leader>
+                    <leader>001 521529336</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20061127113909</leader>
+                    <leader>008  061127||||||||||||||||ger|||||||</leader>
+                    <leader>541
+                        86/10</leader>
+                    <leader>852
+                        DE-21-52</leader>
+                    <leader>852 1
+                        Af 780
+                        p
+                        00</leader>
+                    <leader>935
+                        k052
+                        kneu</leader>
+                    <leader>000  xxxxxcx  a22     zn 4500</leader>
+                    <leader>001 467471541</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20030423000000</leader>
+                    <leader>008  931006||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        DE-25</leader>
+                    <leader>852 1
+                        SW 85/1646
+                        00</leader>
+                    <leader>85281
+                        SW  85/01646
+                        00</leader>
+                    <leader>86630
+                        yz</leader>
+                    <leader>935
+                        reko</leader>
+                    <leader>935
+                        z0</leader>
+                    <leader>000  xxxxxcx  a22     zn 4500</leader>
+                    <leader>001 46747155X</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20160930081415</leader>
+                    <leader>008  040325||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        DE-25-30b</leader>
+                    <leader>852 1
+                        Frei 30b:   As  13/64
+                        p
+                        00</leader>
+                    <leader>86630
+                        1986-k-71</leader>
+                    <leader>935
+                        sk</leader>
+                    <leader>000  xxxxxcx  a22     zn 4500</leader>
+                    <leader>001 467471568</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20050202000000</leader>
+                    <leader>008  940526||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        DE-25-92</leader>
+                    <leader>852 1
+                        Frei 92: F V 279
+                        p
+                        00</leader>
+                    <leader>86630
+                        296/85 h</leader>
+                    <leader>935
+                        reko</leader>
+                    <leader>935
+                        z0</leader>
+                    <leader>000  xxxxxcx  a22     zn 4500</leader>
+                    <leader>001 467471576</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20101127121819</leader>
+                    <leader>008  981121||||||||||||||||ger|||||||</leader>
+                    <leader>035
+                        (DE-291)201913</leader>
+                    <leader>035
+                        (DE-291)003070247</leader>
+                    <leader>035
+                        (DE-291)87a030304</leader>
+                    <leader>852
+                        DE-291</leader>
+                    <leader>852 1
+                        88-1159
+                        00</leader>
+                    <leader>86630
+                        zakh</leader>
+                    <leader>935
+                        KONV</leader>
+                    <leader>936le
+                        233804285</leader>
+                    <leader>936le
+                        234291699</leader>
+                    <leader>936le
+                        234291702</leader>
+                    <leader>936le
+                        234291710</leader>
+                    <leader>936le
+                        234291729</leader>
+                    <leader>936le
+                        234291737</leader>
+                    <leader>000  xxxxxcx  a22     zn 4500</leader>
+                    <leader>001 467471592</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20090203220652</leader>
+                    <leader>008  930603||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        LSTO: 02</leader>
+                    <leader>852
+                        DE-14</leader>
+                    <leader>852 1
+                        93 8 17153
+                        00</leader>
+                    <leader>935
+                        ddub</leader>
+                    <leader>935
+                        z0</leader>
+                    <leader>000  xxxxxnx  a22     zn 4500</leader>
+                    <leader>001 467471606</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20000510000000</leader>
+                    <leader>008  000510||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        DE-14</leader>
+                    <leader>852 1
+                        00</leader>
+                    <leader>935
+                        ddlb
+                        ABET</leader>
+                    <leader>000  xxxxxcx  a22     zn 4500</leader>
+                    <leader>001 467471614</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20140114145931</leader>
+                    <leader>008  860918||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        DE-352</leader>
+                    <leader>852 1
+                        00</leader>
+                    <leader>000  xxxxxcx  a22     zn 4500</leader>
+                    <leader>001 467471630</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20030425000000</leader>
+                    <leader>008  020513||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        na</leader>
+                    <leader>852
+                        DE-24</leader>
+                    <leader>852 1
+                        35/15345
+                        00</leader>
+                    <leader>85281
+                        35/0015345
+                        00</leader>
+                    <leader>935
+                        0030</leader>
+                    <leader>000  xxxxxnx  a22     zn 4500</leader>
+                    <leader>001 885221788</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20160312063213</leader>
+                    <leader>008  160312||||||||||||||||ger|||||||</leader>
+                    <leader>035
+                        (DE-180)22146707360002561</leader>
+                    <leader>852
+                        DE-180</leader>
+                    <leader>852 1
+                        400 MS 8010 L595
+                        00</leader>
+                    <leader>852 2
+                        400
+                        00</leader>
+                    <leader>935
+                        alma</leader>
+                    <leader>000  xxxxxcx  a22     zn 4500</leader>
+                    <leader>001 887414281</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20170202055541</leader>
+                    <leader>008  160302||||||||||||||||ger|||||||</leader>
+                    <leader>035
+                        (DE-180)22146707390002561</leader>
+                    <leader>852
+                        DE-180</leader>
+                    <leader>852 1
+                        500 CC 3900 L595
+                        00</leader>
+                    <leader>852 2
+                        500
+                        00</leader>
+                    <leader>935
+                        alma</leader>
+                    <leader>000  xxxxxcx  a22     zn 4500</leader>
+                    <leader>001 908524935</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20170901060309</leader>
+                    <leader>008  160401||||||||||||||||ger|||||||</leader>
+                    <leader>035
+                        (DE-180)22171179320002561</leader>
+                    <leader>852
+                        DE-180</leader>
+                    <leader>852 1
+                        AL 8095
+                        00</leader>
+                    <leader>852 2
+                        MAG01
+                        00</leader>
+                    <leader>935
+                        alma</leader>
+                    <leader>000  xxxxxcx  a22     zn 4500</leader>
+                    <leader>001 46747169X</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20080607031114</leader>
+                    <leader>008  970915||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        DE-16</leader>
+                    <leader>852 1
+                        85 A 10592
+                        00</leader>
+                    <leader>935
+                        hdka</leader>
+                    <leader>000  xxxxxnu  a22     zn 4500</leader>
+                    <leader>001 467471703</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  19970915000000</leader>
+                    <leader>008  970915||||||||||||||||ger|||||||</leader>
+                    <leader>014
+                        46747169X
+                        DE-576</leader>
+                    <leader>852
+                        034452871</leader>
+                    <leader>852
+                        DE-16</leader>
+                    <leader>852 1
+                        00</leader>
+                    <leader>000  xxxxxcx  a22     zn 4500</leader>
+                    <leader>001 467471711</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20140411095119</leader>
+                    <leader>008  991213||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        DE-16-160</leader>
+                    <leader>852 1
+                        WS/CC 3900 L595
+                        09.01.2010
+                        00</leader>
+                    <leader>000  xxxxxcu  a22     zn 4500</leader>
+                    <leader>001 46747172X</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20090309022848</leader>
+                    <leader>008  991213||||||||||||||||ger|||||||</leader>
+                    <leader>014
+                        467471711
+                        DE-576</leader>
+                    <leader>541
+                        144616</leader>
+                    <leader>852
+                        571786169</leader>
+                    <leader>852
+                        DE-16-160</leader>
+                    <leader>852 1
+                        00</leader>
+                    <leader>000  xxxxxcx  a22     zn 4500</leader>
+                    <leader>001 467471738</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20111027214239</leader>
+                    <leader>008  890927||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        DE-16-77</leader>
+                    <leader>852 1
+                        eth 86/697
+                        00</leader>
+                    <leader>936ln
+                        SAI 422 soz 1985</leader>
+                    <leader>936ln
+                        SAI 422 lit 1985</leader>
+                    <leader>936ln
+                        SAI 424 soz 1985</leader>
+                    <leader>936ln
+                        SAI 424 lit 1985</leader>
+                    <leader>936ln
+                        SAI 431 soz 1985</leader>
+                    <leader>936ln
+                        SAI 431 lit 1985</leader>
+                    <leader>000  xxxxxnu  a22     zn 4500</leader>
+                    <leader>001 467471746</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  19890927000000</leader>
+                    <leader>008  890927||||||||||||||||ger|||||||</leader>
+                    <leader>014
+                        467471738
+                        DE-576</leader>
+                    <leader>541
+                        86/697</leader>
+                    <leader>852
+                        450077849</leader>
+                    <leader>852
+                        DE-16-77</leader>
+                    <leader>852 1
+                        00</leader>
+                    <leader>000  xxxxxnx  a22     zn 4500</leader>
+                    <leader>001 467471770</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20051206000000</leader>
+                    <leader>008  051206||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        DE-16-123</leader>
+                    <leader>852 1
+                        00</leader>
+                    <leader>000  xxxxxnu  a22     zn 4500</leader>
+                    <leader>001 467471789</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20051206000000</leader>
+                    <leader>008  051206||||||||||||||||ger|||||||</leader>
+                    <leader>014
+                        467471770
+                        DE-576</leader>
+                    <leader>541
+                        85/344</leader>
+                    <leader>852
+                        583114987</leader>
+                    <leader>852
+                        DE-16-123</leader>
+                    <leader>852 1
+                        00</leader>
+                    <leader>000  xxxxxcx  a22     zn 4500</leader>
+                    <leader>001 501407863</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20080603015421</leader>
+                    <leader>008  060123||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        DE-16-12</leader>
+                    <leader>852 1
+                        170 Lep 2
+                        p
+                        00</leader>
+                    <leader>935
+                        reko</leader>
+                    <leader>000  xxxxxnu  a22     zn 4500</leader>
+                    <leader>001 501407871</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20060123204224</leader>
+                    <leader>008  060123||||||||||||||||ger|||||||</leader>
+                    <leader>014
+                        501407863
+                        DE-576</leader>
+                    <leader>541
+                        20004</leader>
+                    <leader>852
+                        613738620</leader>
+                    <leader>852
+                        DE-16-12</leader>
+                    <leader>852 1
+                        00</leader>
+                    <leader>000  xxxxxnx  a22     zn 4500</leader>
+                    <leader>001 549831819</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20070913125750</leader>
+                    <leader>008  070913||||||||||||||||ger|||||||</leader>
+                    <leader>541
+                        1986/B 39</leader>
+                    <leader>852
+                        602516328</leader>
+                    <leader>852
+                        DE-16-29</leader>
+                    <leader>852 1
+                        Soz 4 LEP 112/2
+                        p
+                        00</leader>
+                    <leader>935
+                        reko</leader>
+                    <leader>000  xxxxxcx  a22     zn 4500</leader>
+                    <leader>001 467471797</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20070327155454</leader>
+                    <leader>008  930901||||||||||||||||ger|||||||</leader>
+                    <leader>035
+                        (DE-90)86k020704</leader>
+                    <leader>852
+                        DE-90</leader>
+                    <leader>852 1
+                        86 A 633
+                        00</leader>
+                    <leader>935
+                        z0</leader>
+                    <leader>936ln
+                        218771924
+                        Fq 1 : 5.2</leader>
+                    <leader>000  xxxxxcx  a22     zn 4500</leader>
+                    <leader>001 633491896</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20100427123232</leader>
+                    <leader>008  100312||||||||||||||||ger|||||||</leader>
+                    <leader>035
+                        (DE-Ka85)0000084951</leader>
+                    <leader>689
+                        s
+                        Literaturwissenschaft, Belletristik</leader>
+                    <leader>689
+                        s
+                        Sozialwissenschaften, Soziologie</leader>
+                    <leader>852
+                        DE-Ka85</leader>
+                    <leader>852 1
+                        R Lep 7
+                        n
+                        00</leader>
+                    <leader>938
+                        fzka</leader>
+                    <leader>000  xxxxxnx  a22     zn 4500</leader>
+                    <leader>001 700059423</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20120109101038</leader>
+                    <leader>008  120109||||||||||||||||ger|||||||</leader>
+                    <leader>689
+                        s
+                        Soziologie</leader>
+                    <leader>852
+                        DE-90-66</leader>
+                    <leader>852 1
+                        p
+                        00</leader>
+                    <leader>000  xxxxxnu  a22     zn 4500</leader>
+                    <leader>001 70005958X</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20120109101115</leader>
+                    <leader>008  120109||||||||||||||||ger|||||||</leader>
+                    <leader>014
+                        700059423
+                        DE-576</leader>
+                    <leader>541
+                        WS 70</leader>
+                    <leader>852
+                        Beilagen s. Ordner</leader>
+                    <leader>852
+                        DE-90-66</leader>
+                    <leader>852 1
+                        WS Regal 1,1,2:26
+                        00</leader>
+                    <leader>86630
+                        Bibliothek Sewing</leader>
+                    <leader>000  xxxxxcx  a22     zn 4500</leader>
+                    <leader>001 467471835</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20100708172858</leader>
+                    <leader>008  940608||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        DE-93</leader>
+                    <leader>852 1
+                        3J 8411
+                        00</leader>
+                    <leader>85281
+                        3J          8411
+                        00</leader>
+                    <leader>935
+                        kosu</leader>
+                    <leader>935
+                        z0</leader>
+                    <leader>938
+                        1986.1862
+                        0</leader>
+                    <leader>000  xxxxxcx  a22     zn 4500</leader>
+                    <leader>001 467471843</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20020108000000</leader>
+                    <leader>008  960506||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        (6928) G / ba / KORR</leader>
+                    <leader>852
+                        DE-93-94</leader>
+                    <leader>852 1
+                        U8--LEP26
+                        p
+                        00</leader>
+                    <leader>935
+                        xx</leader>
+                    <leader>000  xxxxxcx  a22     zn 4500</leader>
+                    <leader>001 467471851</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20111121091026</leader>
+                    <leader>008  940826||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        26.08.94/ha</leader>
+                    <leader>852
+                        DE-31</leader>
+                    <leader>852 1
+                        87 A 25
+                        00</leader>
+                    <leader>935
+                        z0</leader>
+                    <leader>936le
+                        231695780</leader>
+                    <leader>936le
+                        231770952</leader>
+                    <leader>000  xxxxxcx  a22     zn 4500</leader>
+                    <leader>001 46747186X</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  19991201000000</leader>
+                    <leader>008  940824||||||||||||||||ger|||||||</leader>
+                    <leader>689
+                        s
+                        235826936
+                        Soziologie</leader>
+                    <leader>689
+                        s
+                        23617648X
+                        Literatursoziologie</leader>
+                    <leader>689
+                        s
+                        235837261
+                        Wissenschaftstheorie</leader>
+                    <leader>689
+                        s
+                        235889571
+                        Naturwissenschaften</leader>
+                    <leader>689
+                        s
+                        235893048
+                        Soziologische Theorie</leader>
+                    <leader>852
+                        DE-Ch1</leader>
+                    <leader>852 1
+                        MQ 2700 lep
+                        00</leader>
+                    <leader>936ln
+                        222672250
+                        MQ 2200</leader>
+                    <leader>936ln
+                        221791930
+                        MQ 2700</leader>
+                    <leader>000  xxxxxcx  a22     zn 4500</leader>
+                    <leader>001 467471878</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20080225111031</leader>
+                    <leader>008  950316||||||||||||||||ger|||||||</leader>
+                    <leader>689
+                        s
+                        235747564
+                        Sociology</leader>
+                    <leader>852
+                        DE-289</leader>
+                    <leader>852 1
+                        HM 24/1985 Lb
+                        00</leader>
+                    <leader>852 2
+                        P
+                        00</leader>
+                    <leader>000  xxxxxnx  a22     zn 4500</leader>
+                    <leader>001 467471886</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  19980526000000</leader>
+                    <leader>008  980526||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        DE-Lg1</leader>
+                    <leader>852 1
+                        Soz 2c Lep
+                        00</leader>
+                    <leader>936ln
+                        226732177
+                        Soz 2c Lep</leader>
+                    <leader>936ln
+                        226732185
+                        Soz 2g Lep</leader>
+                    <leader>000  xxxxxcx  a22     zn 4500</leader>
+                    <leader>001 467471940</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20090319070342</leader>
+                    <leader>008  001027||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        zm a</leader>
+                    <leader>852
+                        DE-Lg1</leader>
+                    <leader>852 1
+                        301.12 Lep
+                        00</leader>
+                    <leader>852 1
+                        102860
+                        01</leader>
+                    <leader>935
+                        s1pz</leader>
+                    <leader>935
+                        z0</leader>
+                    <leader>936ln
+                        301.12</leader>
+                    <leader>000  xxxxxnx  a22     zn 4500</leader>
+                    <leader>001 56630628X</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20080320163145</leader>
+                    <leader>008  080320||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        23 cm 2008/ 12-y-14</leader>
+                    <leader>852
+                        DE-752</leader>
+                    <leader>852 1
+                        A d/ Lepe 45
+                        00</leader>
+                    <leader>936le
+                        23369997X</leader>
+                    <leader>936le
+                        233755012</leader>
+                    <leader>936le
+                        233690549</leader>
+                    <leader>936ln
+                        225405822
+                        A d</leader>
+                    <leader>936ln
+                        225251647
+                        E kn</leader>
+                    <leader>936ln
+                        22533741X
+                        P bk</leader>
+                    <leader>936ln
+                        225385813
+                        P dk</leader>
+                    <leader>936ln
+                        229556167
+                        G ar 1</leader>
+                    <leader>936ln
+                        226238032
+                        G ao</leader>
+                    <leader>000  xxxxxcx  a22     zn 4500</leader>
+                    <leader>001 619216921</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20100113214043</leader>
+                    <leader>008  091211||||||||||||||||ger|||||||</leader>
+                    <leader>035
+                        (DE-Mar1)392469</leader>
+                    <leader>541
+                        86.354</leader>
+                    <leader>852
+                        DE-Mar1</leader>
+                    <leader>852 1
+                        C3
+                        l
+                        00</leader>
+                    <leader>000  xxxxxnx  a22     zn 4500</leader>
+                    <leader>001 467471908</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20021025000000</leader>
+                    <leader>008  021025||||||||||||||||ger|||||||</leader>
+                    <leader>035
+                        (DE-Lg3)R085000</leader>
+                    <leader>689
+                        s
+                        239903471
+                        Wissenschaftsgebiete</leader>
+                    <leader>689
+                        s
+                        239902971
+                        Frankreich</leader>
+                    <leader>689
+                        s
+                        239903307
+                        Deutschland</leader>
+                    <leader>689
+                        s
+                        239903358
+                        Vereinigtes Königreich</leader>
+                    <leader>852
+                        DE-Lg3</leader>
+                    <leader>852 1
+                        VM 110.LEP
+                        p
+                        00</leader>
+                    <leader>935
+                        KONV</leader>
+                    <leader>936ln
+                        23004977X
+                        SK01</leader>
+                    <leader>936ln
+                        230049273
+                        RA04.06</leader>
+                    <leader>936ln
+                        230049605
+                        RA05.01</leader>
+                    <leader>936ln
+                        230049656
+                        RA04.02</leader>
+                    <leader>000  xxxxxnu  a22     zn 4500</leader>
+                    <leader>001 467471916</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20021025000000</leader>
+                    <leader>008  021025||||||||||||||||ger|||||||</leader>
+                    <leader>014
+                        467471908
+                        DE-576</leader>
+                    <leader>541
+                        DFI 86/0231</leader>
+                    <leader>852
+                        DE-Lg3</leader>
+                    <leader>852 1
+                        VM 110.LEP
+                        00</leader>
+                    <leader>000  xxxxxnx  a22     zn 4500</leader>
+                    <leader>001 752864696</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20130703084952</leader>
+                    <leader>008  130703||||||||||||||||ger|||||||</leader>
+                    <leader>035
+                        (DE-Lg3)00291213</leader>
+                    <leader>035
+                        (DE-Lg3)R85000</leader>
+                    <leader>689
+                        s
+                        Frankreich; Deutschland; Vereinigtes Königreich; Internationaler Vergleich/Ländervergleich; Soziologie; Wissenschaften; Literatur</leader>
+                    <leader>689
+                        s
+                        Comte, Auguste; Durkheim, Emile; Péguy, Charles; Kultureinfluss; Intellektueller Dialog</leader>
+                    <leader>852
+                        DE-Lg3</leader>
+                    <leader>852 1
+                        VM 110.LEP
+                        00</leader>
+                    <leader>935
+                        RFIV</leader>
+                    <leader>936ln
+                        SK01 Wissenschaftsgebiete</leader>
+                    <leader>936ln
+                        RA04.06 Frankreich</leader>
+                    <leader>936ln
+                        RA05.01 Deutschland</leader>
+                    <leader>936ln
+                        RA04.02 Vereinigtes Königreich</leader>
+                    <leader>000  xxxxxcx  a22     zn 4500</leader>
+                    <leader>001 467471924</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20160321141115</leader>
+                    <leader>008  000809||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        DE-951</leader>
+                    <leader>852 1
+                        24690
+                        00</leader>
+                    <leader>935
+                        adis</leader>
+                    <leader>000  xxxxxnu  a22     zn 4500</leader>
+                    <leader>001 467471932</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20000809000000</leader>
+                    <leader>008  000809||||||||||||||||ger|||||||</leader>
+                    <leader>014
+                        467471924
+                        DE-576</leader>
+                    <leader>852
+                        00463264</leader>
+                    <leader>852
+                        DE-951</leader>
+                    <leader>852 1
+                        24690
+                        00</leader>
+                    <leader>852 2
+                        BIB
+                        00</leader>
+                    <leader>000  xxxxxnx  a22     zn 4500</leader>
+                    <leader>001 467471967</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20050216000000</leader>
+                    <leader>008  050216||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        DE-Rot2</leader>
+                    <leader>852 1
+                        16 A 425
+                        00</leader>
+                    <leader>000  xxxxxcx  a22     zn 4500</leader>
+                    <leader>001 467471991</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  19940805000000</leader>
+                    <leader>008  900607||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        DE-Kh1</leader>
+                    <leader>852 1
+                        00</leader>
+                    <leader>000  xxxxxnx  a22     zn 4500</leader>
+                    <leader>001 586629629</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20081202121753</leader>
+                    <leader>008  081202||||||||||||||||ger|||||||</leader>
+                    <leader>541
+                        22507vS</leader>
+                    <leader>852
+                        629014571</leader>
+                    <leader>852
+                        DE-He79</leader>
+                    <leader>852 1
+                        535 Lepe/3K
+                        p
+                        00</leader>
+                    <leader>000  xxxxxnx  a22     zn 4500</leader>
+                    <leader>001 760462577</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20130711002752</leader>
+                    <leader>008  130711||||||||||||||||ger|||||||</leader>
+                    <leader>035
+                        (DE-615)00291213</leader>
+                    <leader>035
+                        (DE-615)R85000</leader>
+                    <leader>689
+                        s
+                        Frankreich; Deutschland; Vereinigtes Königreich; Internationaler Vergleich/Ländervergleich; Soziologie; Wissenschaften; Literatur</leader>
+                    <leader>689
+                        s
+                        Comte, Auguste; Durkheim, Emile; Péguy, Charles; Kultureinfluss; Intellektueller Dialog</leader>
+                    <leader>852
+                        DE-615</leader>
+                    <leader>852 1
+                        p
+                        00</leader>
+                    <leader>935
+                        RFIV</leader>
+                    <leader>936ln
+                        SK01 Wissenschaftsgebiete</leader>
+                    <leader>936ln
+                        RA04.06 Frankreich</leader>
+                    <leader>936ln
+                        RA05.01 Deutschland</leader>
+                    <leader>936ln
+                        RA04.02 Vereinigtes Königreich</leader></record></srw:recordData><srw:recordPosition>1</srw:recordPosition></srw:record>
     </srw:records>
     <srw:echoedSearchRetrieveRequest>
         <srw:version>1.1</srw:version>
@@ -1044,15 +1183,15 @@
         <srw:xQuery><xcql:searchClause><xcql:index>pica.ppn</xcql:index><xcql:relation><xcql:value>=</xcql:value></xcql:relation><xcql:term>012160954</xcql:term></xcql:searchClause></srw:xQuery>
         <startRecord>1</startRecord>
         <maximumRecords>5</maximumRecords>
-        <srw:recordPacking>json</srw:recordPacking>
-        <srw:recordSchema>pica</srw:recordSchema>
+        <srw:recordPacking>xml</srw:recordPacking>
+        <srw:recordSchema>marc21</srw:recordSchema>
 
         <srw:stylesheet>http://swb.bsz-bw.de/sru/?xsl=searchRetrieveResponse</srw:stylesheet>
     </srw:echoedSearchRetrieveRequest>
     <diag:diagnostics>
-        <diag:uri>info:srw/diagnostic/1/66</diag:uri>
-        <diag:details>bibtex</diag:details>
-        <diag:message>Unknown schema for retrieval</diag:message>
+        <diag:uri>info:srw/diagnostic/1/0</diag:uri>
+
+
     </diag:diagnostics>
     <srw:extraResponseData>
         <rob:authenticationToken xmlns:rob="info:srw/extension/2/auth-1.0">U998,Pbszgast,I17,B0728+,SY,NRecherche-DB,D2.1,E4e4438a9-0,A,H,R193.197.31.15,FY</rob:authenticationToken>

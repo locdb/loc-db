@@ -7,174 +7,184 @@
                             xmlns:xcql="http://www.loc.gov/zing/cql/xcql/">
     <srw:version>1.1</srw:version>
     <srw:numberOfRecords>1</srw:numberOfRecords>
-    <srw:resultSetId>SID4e4438a9-0S14723</srw:resultSetId>
+    <srw:resultSetId>SID4e4438a9-0S14904</srw:resultSetId>
     <srw:records>
 
 
 
         <srw:record>
-            <srw:recordSchema>pica</srw:recordSchema>
-            <srw:recordPacking>json</srw:recordPacking>
+            <srw:recordSchema>marc21</srw:recordSchema>
+            <srw:recordPacking>xml</srw:recordPacking>
             <srw:recordData>
                 <record>
-                    <datafield tag="001@"><subfield code="0">60,470</subfield></datafield>
-                    <datafield tag="001A"><subfield code="0">S2LBDF:20-02-09</subfield></datafield>
-                    <datafield tag="001B"><subfield code="0">BSZ:28-04-14</subfield>
-                        <subfield code="t">17:29:11.000</subfield></datafield>
-                    <datafield tag="001D"><subfield code="0">S2LBDF:20-02-09</subfield></datafield>
-                    <datafield tag="001U"><subfield code="0">utf8</subfield></datafield>
-                    <datafield tag="001X"><subfield code="0">0</subfield></datafield>
-                    <datafield tag="002@"><subfield code="0">Aan</subfield></datafield>
-                    <datafield tag="002C"><subfield code="a">Text</subfield>
-                        <subfield code="b">txt</subfield></datafield>
-                    <datafield tag="002D"><subfield code="a">ohne Hilfsmittel zu benutzen</subfield>
-                        <subfield code="b">n</subfield></datafield>
-                    <datafield tag="002E"><subfield code="a">Band</subfield>
-                        <subfield code="b">nc</subfield></datafield>
-                    <datafield tag="003@"><subfield code="0">30333049X</subfield></datafield>
-                    <datafield tag="004A"><subfield code="0">978-2-296-05522-3</subfield></datafield>
-                    <datafield tag="006L"><subfield code="2">FIV</subfield>
-                        <subfield code="0">00389957</subfield></datafield>
-                    <datafield tag="007G"><subfield code="2">BSZ</subfield>
-                        <subfield code="0">30333049X</subfield></datafield>
-                    <datafield tag="010@"><subfield code="a">fre</subfield></datafield>
-                    <datafield tag="011@"><subfield code="a">2008</subfield></datafield>
-                    <datafield tag="013G"><subfield code="a">druck</subfield></datafield>
-                    <datafield tag="016B"><subfield code="a">imda</subfield></datafield>
-                    <datafield tag="021A"><subfield code="a">Automobilités et altermobilités</subfield>
-                        <subfield code="d">quels changements ?</subfield>
-                        <subfield code="h">sous la dir. de Fabrice Clochard ... Préface de Dominique Desjeux</subfield></datafield>
-                    <datafield tag="028C"><subfield code="9">303353783</subfield>
-                        <subfield code="8">Clochard, Fabrice [PNDNR:138295018] [GNDNR:138295018]</subfield>
-                        <subfield code="B">Hrsg.</subfield></datafield>
-                    <datafield tag="028C"><subfield code="9">303353791</subfield>
-                        <subfield code="8">Rocci, Anaïs</subfield>
-                        <subfield code="B">Hrsg.</subfield></datafield>
-                    <datafield tag="028C"><subfield code="9">303353805</subfield>
-                        <subfield code="8">Vincent, Stéphanie</subfield>
-                        <subfield code="B">Hrsg.</subfield></datafield>
-                    <datafield tag="033A"><subfield code="p">Paris</subfield>
-                        <subfield code="n">L'Harmattan</subfield></datafield>
-                    <datafield tag="034D"><subfield code="a">286 S.</subfield></datafield>
-                    <datafield tag="034M"><subfield code="a">Lit.Hinw.</subfield></datafield>
-                    <datafield tag="036G"><subfield code="a">Dossiers sciences humaines et sociales</subfield></datafield>
-                    <datafield tag="044N"><subfield code="S">s</subfield>
-                        <subfield code="a">Frankreich</subfield>
-                        <subfield code="a">Global</subfield>
-                        <subfield code="a">Verkehr</subfield>
-                        <subfield code="a">Transportmittel/Verkehrsmittel</subfield>
-                        <subfield code="a">Personenkraftwagen</subfield>
-                        <subfield code="a">Zusammenhang</subfield>
-                        <subfield code="a">Klimawandel</subfield>
-                        <subfield code="a">Umweltschädigung</subfield>
-                        <subfield code="a">Alternative</subfield>
-                        <subfield code="a">Dauerhafte Entwicklung</subfield></datafield>
-                    <datafield tag="044N"><subfield code="S">s</subfield>
-                        <subfield code="a">Mobilität</subfield>
-                        <subfield code="a">Treibhauseffekt</subfield>
-                        <subfield code="a">Folgen von Umweltschäden</subfield>
-                        <subfield code="a">Treibhausgase</subfield>
-                        <subfield code="a">Private Haushalte</subfield>
-                        <subfield code="a">Nahverkehrsmittel</subfield>
-                        <subfield code="a">Erneuerbare Energiequellen</subfield>
-                        <subfield code="a">Entwicklungsperspektive und -tendenz</subfield></datafield>
-                    <datafield tag="045F"><subfield code="a">380</subfield></datafield>
-                    <datafield tag="045F"><subfield code="a">0905</subfield></datafield>
-                    <datafield tag="045F"><subfield code="a">0904</subfield></datafield>
-                    <datafield tag="045F"><subfield code="a">944</subfield></datafield>
-                    <datafield tag="045N"><subfield code="a">SH08.01</subfield>
-                        <subfield code="b">Verkehr/Transport/Tourismus</subfield>
+                    <leader>     cam a22     2  4500</leader>
+                    <controlfield tag="001">30333049X</controlfield>
+                    <controlfield tag="003">DE-576</controlfield>
+                    <controlfield tag="005">20140428172911.0</controlfield>
+                    <controlfield tag="007">tu</controlfield>
+                    <controlfield tag="008">090220s2008    xx             00 0 fre c</controlfield>
+                    <datafield tag="020" ind1=" " ind2=" "><subfield code="a">9782296055223</subfield>
+                        <subfield code="9">978-2-296-05522-3</subfield></datafield>
+                    <datafield tag="035" ind1=" " ind2=" "><subfield code="a">(DE-599)BSZ30333049X</subfield></datafield>
+                    <datafield tag="035" ind1=" " ind2=" "><subfield code="a">(DE-615)00389957</subfield></datafield>
+                    <datafield tag="040" ind1=" " ind2=" "><subfield code="a">DE-576</subfield>
+                        <subfield code="b">ger</subfield>
+                        <subfield code="c">DE-576</subfield>
+                        <subfield code="e">rakwb</subfield></datafield>
+                    <datafield tag="041" ind1=" " ind2=" "><subfield code="a">fre</subfield></datafield>
+                    <datafield tag="082" ind1="0" ind2=" "><subfield code="a">380</subfield></datafield>
+                    <datafield tag="082" ind1="0" ind2=" "><subfield code="a">0905</subfield></datafield>
+                    <datafield tag="082" ind1="0" ind2=" "><subfield code="a">0904</subfield></datafield>
+                    <datafield tag="082" ind1="0" ind2=" "><subfield code="a">944</subfield></datafield>
+                    <datafield tag="084" ind1=" " ind2=" "><subfield code="a">SH08.01</subfield>
                         <subfield code="2">FIV</subfield></datafield>
-                    <datafield tag="045N"><subfield code="a">ZGF480</subfield>
-                        <subfield code="b">Verkehr</subfield>
+                    <datafield tag="084" ind1=" " ind2=" "><subfield code="a">ZGF480</subfield>
                         <subfield code="2">DFI</subfield></datafield>
-                    <datafield tag="045N"><subfield code="a">RA04.06</subfield>
-                        <subfield code="b">Frankreich</subfield>
+                    <datafield tag="084" ind1=" " ind2=" "><subfield code="a">RA04.06</subfield>
                         <subfield code="2">FIV</subfield></datafield>
-                    <datafield tag="045N"><subfield code="a">RQ</subfield>
-                        <subfield code="b">Weltweit</subfield>
+                    <datafield tag="084" ind1=" " ind2=" "><subfield code="a">RQ</subfield>
                         <subfield code="2">FIV</subfield></datafield>
-                    <datafield tag="047A"><subfield code="a">IMD-Felder und 1131 maschinell ergänzt</subfield></datafield>
-                    <datafield tag="101@"><subfield code="a">60</subfield>
-                        <subfield code="c">BSZ</subfield>
-                        <subfield code="d">Ludwigsburg, -Lg 3- Deutsch-Französisches Institut Ludwigsburg</subfield></datafield>
-                    <datafield tag="208@" occurrence="01"><subfield code="a">11-02-09</subfield>
-                        <subfield code="b">l01</subfield></datafield>
-                    <datafield tag="201A" occurrence="01"><subfield code="0">11-02-09</subfield></datafield>
-                    <datafield tag="201B" occurrence="01"><subfield code="0">20-02-09</subfield>
-                        <subfield code="t">09:19:16.000</subfield></datafield>
-                    <datafield tag="201D" occurrence="01"><subfield code="0">S2LBDF:11-02-09</subfield></datafield>
-                    <datafield tag="201U" occurrence="01"><subfield code="0">utf8</subfield></datafield>
-                    <datafield tag="203@" occurrence="01"><subfield code="0">593110137</subfield></datafield>
-                    <datafield tag="206X" occurrence="01"><subfield code="0">D856085</subfield></datafield>
-                    <datafield tag="209A" occurrence="01"><subfield code="B">Lg 3</subfield>
-                        <subfield code="a">VT 760.AUT</subfield>
-                        <subfield code="d">p</subfield>
-                        <subfield code="x">00</subfield></datafield>
-                    <datafield tag="209C" occurrence="01"><subfield code="a">DFI 08/0935</subfield></datafield>
-                    <datafield tag="244Z" occurrence="01"><subfield code="S">s</subfield>
-                        <subfield code="a">Verkehr/Transport/Tourismus</subfield>
-                        <subfield code="x">00</subfield></datafield>
-                    <datafield tag="244Z" occurrence="01"><subfield code="S">s</subfield>
-                        <subfield code="a">Frankreich</subfield>
-                        <subfield code="x">00</subfield></datafield>
-                    <datafield tag="244Z" occurrence="01"><subfield code="S">s</subfield>
-                        <subfield code="a">Weltweit</subfield>
-                        <subfield code="x">00</subfield></datafield>
-                    <datafield tag="245Z" occurrence="01"><subfield code="a">SH08.01</subfield></datafield>
-                    <datafield tag="245Z" occurrence="01"><subfield code="a">RA04.06</subfield></datafield>
-                    <datafield tag="245Z" occurrence="01"><subfield code="a">RQ</subfield></datafield>
-                    <datafield tag="208@" occurrence="02"><subfield code="a">29-11-11</subfield>
-                        <subfield code="b">l01</subfield></datafield>
-                    <datafield tag="201A" occurrence="02"><subfield code="0">03-07-13</subfield></datafield>
-                    <datafield tag="201B" occurrence="02"><subfield code="0">03-07-13</subfield>
-                        <subfield code="t">09:24:04.000</subfield></datafield>
-                    <datafield tag="201D" occurrence="02"><subfield code="0">S2LBDF:29-11-11</subfield></datafield>
-                    <datafield tag="201U" occurrence="02"><subfield code="0">utf8</subfield></datafield>
-                    <datafield tag="203@" occurrence="02"><subfield code="0">752957031</subfield></datafield>
-                    <datafield tag="206X" occurrence="02"><subfield code="0">00389957</subfield></datafield>
-                    <datafield tag="206X" occurrence="02"><subfield code="0">D856085</subfield></datafield>
-                    <datafield tag="209A" occurrence="02"><subfield code="B">Lg 3</subfield>
-                        <subfield code="a">VT 760.AUT</subfield>
-                        <subfield code="x">00</subfield></datafield>
-                    <datafield tag="209B" occurrence="02"><subfield code="a">DFIV</subfield>
-                        <subfield code="x">02</subfield></datafield>
-                    <datafield tag="244Z" occurrence="02"><subfield code="S">s</subfield>
-                        <subfield code="a">Frankreich; Global; Verkehr; Transportmittel/Verkehrsmittel; Personenkraftwagen; Zusammenhang; Klimawandel; Umweltschädigung; Alternative; Dauerhafte Entwicklung</subfield>
-                        <subfield code="x">00</subfield></datafield>
-                    <datafield tag="244Z" occurrence="02"><subfield code="S">s</subfield>
-                        <subfield code="a">Mobilität; Treibhauseffekt; Folgen von Umweltschäden; Treibhausgase; Private Haushalte; Nahverkehrsmittel; Erneuerbare Energiequellen; Entwicklungsperspektive und -tendenz</subfield>
-                        <subfield code="x">01</subfield></datafield>
-                    <datafield tag="245Z" occurrence="02"><subfield code="a">SH08.01 Verkehr/Transport/Tourismus</subfield></datafield>
-                    <datafield tag="245Z" occurrence="02"><subfield code="a">RA04.06 Frankreich</subfield></datafield>
-                    <datafield tag="245Z" occurrence="02"><subfield code="a">RQ Weltweit</subfield></datafield>
-                    <datafield tag="101@"><subfield code="a">470</subfield>
-                        <subfield code="c">BSZ</subfield>
-                        <subfield code="d">Deutschland, -615- Fachinformationsverbund Internationale Beziehungen und Länderkunde</subfield></datafield>
-                    <datafield tag="208@" occurrence="01"><subfield code="a">29-11-11</subfield>
-                        <subfield code="b">l01</subfield></datafield>
-                    <datafield tag="201A" occurrence="01"><subfield code="0">11-07-13</subfield></datafield>
-                    <datafield tag="201B" occurrence="01"><subfield code="0">11-07-13</subfield>
-                        <subfield code="t">02:07:38.000</subfield></datafield>
-                    <datafield tag="201D" occurrence="01"><subfield code="0">FIVIBL:29-11-11</subfield></datafield>
-                    <datafield tag="201U" occurrence="01"><subfield code="0">utf8</subfield></datafield>
-                    <datafield tag="203@" occurrence="01"><subfield code="0">760820732</subfield></datafield>
-                    <datafield tag="206X" occurrence="01"><subfield code="0">00389957</subfield></datafield>
-                    <datafield tag="206X" occurrence="01"><subfield code="0">D856085</subfield></datafield>
-                    <datafield tag="209A" occurrence="01"><subfield code="B">615</subfield>
-                        <subfield code="d">p</subfield>
-                        <subfield code="x">00</subfield></datafield>
-                    <datafield tag="209B" occurrence="01"><subfield code="a">DFIV</subfield>
-                        <subfield code="x">02</subfield></datafield>
-                    <datafield tag="244Z" occurrence="01"><subfield code="S">s</subfield>
-                        <subfield code="a">Frankreich; Global; Verkehr; Transportmittel/Verkehrsmittel; Personenkraftwagen; Zusammenhang; Klimawandel; Umweltschädigung; Alternative; Dauerhafte Entwicklung</subfield>
-                        <subfield code="x">00</subfield></datafield>
-                    <datafield tag="244Z" occurrence="01"><subfield code="S">s</subfield>
-                        <subfield code="a">Mobilität; Treibhauseffekt; Folgen von Umweltschäden; Treibhausgase; Private Haushalte; Nahverkehrsmittel; Erneuerbare Energiequellen; Entwicklungsperspektive und -tendenz</subfield>
-                        <subfield code="x">01</subfield></datafield>
-                    <datafield tag="245Z" occurrence="01"><subfield code="a">SH08.01 Verkehr/Transport/Tourismus</subfield></datafield>
-                    <datafield tag="245Z" occurrence="01"><subfield code="a">RA04.06 Frankreich</subfield></datafield>
-                    <datafield tag="245Z" occurrence="01"><subfield code="a">RQ Weltweit</subfield></datafield></record></srw:recordData><srw:recordPosition>1</srw:recordPosition></srw:record>
+                    <datafield tag="245" ind1="1" ind2="0"><subfield code="a">Automobilités et altermobilités :</subfield>
+                        <subfield code="b">quels changements ? /</subfield>
+                        <subfield code="c">sous la dir. de Fabrice Clochard ... Préface de Dominique Desjeux</subfield></datafield>
+                    <datafield tag="260" ind1=" " ind2=" "><subfield code="a">Paris :</subfield>
+                        <subfield code="b">L'Harmattan,</subfield>
+                        <subfield code="c">2008</subfield></datafield>
+                    <datafield tag="300" ind1=" " ind2=" "><subfield code="a">286 S. :</subfield>
+                        <subfield code="b">Lit.Hinw.</subfield></datafield>
+                    <datafield tag="336" ind1=" " ind2=" "><subfield code="a">Text</subfield>
+                        <subfield code="b">txt</subfield>
+                        <subfield code="2">rdacontent</subfield></datafield>
+                    <datafield tag="337" ind1=" " ind2=" "><subfield code="a">ohne Hilfsmittel zu benutzen</subfield>
+                        <subfield code="b">n</subfield>
+                        <subfield code="2">rdamedia</subfield></datafield>
+                    <datafield tag="338" ind1=" " ind2=" "><subfield code="a">Band</subfield>
+                        <subfield code="b">nc</subfield>
+                        <subfield code="2">rdacarrier</subfield></datafield>
+                    <datafield tag="490" ind1="0" ind2=" "><subfield code="a">Dossiers sciences humaines et sociales</subfield></datafield>
+                    <datafield tag="591" ind1=" " ind2=" "><subfield code="a">IMD-Felder und 1131 maschinell ergänzt</subfield></datafield>
+                    <datafield tag="650" ind1=" " ind2="4"><subfield code="a">Frankreich</subfield>
+                        <subfield code="x">Global</subfield>
+                        <subfield code="x">Verkehr</subfield>
+                        <subfield code="x">Transportmittel/Verkehrsmittel</subfield>
+                        <subfield code="x">Personenkraftwagen</subfield>
+                        <subfield code="x">Zusammenhang</subfield>
+                        <subfield code="x">Klimawandel</subfield>
+                        <subfield code="x">Umweltschädigung</subfield>
+                        <subfield code="x">Alternative</subfield>
+                        <subfield code="x">Dauerhafte Entwicklung</subfield></datafield>
+                    <datafield tag="650" ind1=" " ind2="4"><subfield code="a">Mobilität</subfield>
+                        <subfield code="x">Treibhauseffekt</subfield>
+                        <subfield code="x">Folgen von Umweltschäden</subfield>
+                        <subfield code="x">Treibhausgase</subfield>
+                        <subfield code="x">Private Haushalte</subfield>
+                        <subfield code="x">Nahverkehrsmittel</subfield>
+                        <subfield code="x">Erneuerbare Energiequellen</subfield>
+                        <subfield code="x">Entwicklungsperspektive und -tendenz</subfield></datafield>
+                    <datafield tag="700" ind1="1" ind2=" "><subfield code="a">Clochard, Fabrice</subfield>
+                        <subfield code="e">Hrsg.</subfield>
+                        <subfield code="0">(DE-588)138295018</subfield>
+                        <subfield code="0">(DE-576)303353783</subfield>
+                        <subfield code="4">edt</subfield></datafield>
+                    <datafield tag="700" ind1="1" ind2=" "><subfield code="a">Rocci, Anaïs</subfield>
+                        <subfield code="e">Hrsg.</subfield>
+                        <subfield code="0">(DE-576)303353791</subfield>
+                        <subfield code="4">edt</subfield></datafield>
+                    <datafield tag="700" ind1="1" ind2=" "><subfield code="a">Vincent, Stéphanie</subfield>
+                        <subfield code="e">Hrsg.</subfield>
+                        <subfield code="0">(DE-576)303353805</subfield>
+                        <subfield code="4">edt</subfield></datafield>
+                    <datafield tag="935" ind1=" " ind2=" "><subfield code="a">imda</subfield></datafield>
+                    <datafield tag="935" ind1=" " ind2=" "><subfield code="b">druck</subfield></datafield>
+                    <leader>000  xxxxxcx  a22     zn 4500</leader>
+                    <leader>001 593110137</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  30333049X</leader>
+                    <leader>005  20090220091916</leader>
+                    <leader>008  090211||||||||||||||||ger|||||||</leader>
+                    <leader>035
+                        (DE-Lg3)D856085</leader>
+                    <leader>541
+                        DFI 08/0935</leader>
+                    <leader>689
+                        s
+                        Verkehr/Transport/Tourismus</leader>
+                    <leader>689
+                        s
+                        Frankreich</leader>
+                    <leader>689
+                        s
+                        Weltweit</leader>
+                    <leader>852
+                        DE-Lg3</leader>
+                    <leader>852 1
+                        VT 760.AUT
+                        p
+                        00</leader>
+                    <leader>936ln
+                        SH08.01</leader>
+                    <leader>936ln
+                        RA04.06</leader>
+                    <leader>936ln
+                        RQ</leader>
+                    <leader>000  xxxxxnx  a22     zn 4500</leader>
+                    <leader>001 752957031</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  30333049X</leader>
+                    <leader>005  20130703092404</leader>
+                    <leader>008  130703||||||||||||||||ger|||||||</leader>
+                    <leader>035
+                        (DE-Lg3)00389957</leader>
+                    <leader>035
+                        (DE-Lg3)D856085</leader>
+                    <leader>689
+                        s
+                        Frankreich; Global; Verkehr; Transportmittel/Verkehrsmittel; Personenkraftwagen; Zusammenhang; Klimawandel; Umweltschädigung; Alternative; Dauerhafte Entwicklung</leader>
+                    <leader>689
+                        s
+                        Mobilität; Treibhauseffekt; Folgen von Umweltschäden; Treibhausgase; Private Haushalte; Nahverkehrsmittel; Erneuerbare Energiequellen; Entwicklungsperspektive und -tendenz</leader>
+                    <leader>852
+                        DE-Lg3</leader>
+                    <leader>852 1
+                        VT 760.AUT
+                        00</leader>
+                    <leader>935
+                        DFIV</leader>
+                    <leader>936ln
+                        SH08.01 Verkehr/Transport/Tourismus</leader>
+                    <leader>936ln
+                        RA04.06 Frankreich</leader>
+                    <leader>936ln
+                        RQ Weltweit</leader>
+                    <leader>000  xxxxxnx  a22     zn 4500</leader>
+                    <leader>001 760820732</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  30333049X</leader>
+                    <leader>005  20130711020738</leader>
+                    <leader>008  130711||||||||||||||||ger|||||||</leader>
+                    <leader>035
+                        (DE-615)00389957</leader>
+                    <leader>035
+                        (DE-615)D856085</leader>
+                    <leader>689
+                        s
+                        Frankreich; Global; Verkehr; Transportmittel/Verkehrsmittel; Personenkraftwagen; Zusammenhang; Klimawandel; Umweltschädigung; Alternative; Dauerhafte Entwicklung</leader>
+                    <leader>689
+                        s
+                        Mobilität; Treibhauseffekt; Folgen von Umweltschäden; Treibhausgase; Private Haushalte; Nahverkehrsmittel; Erneuerbare Energiequellen; Entwicklungsperspektive und -tendenz</leader>
+                    <leader>852
+                        DE-615</leader>
+                    <leader>852 1
+                        p
+                        00</leader>
+                    <leader>935
+                        DFIV</leader>
+                    <leader>936ln
+                        SH08.01 Verkehr/Transport/Tourismus</leader>
+                    <leader>936ln
+                        RA04.06 Frankreich</leader>
+                    <leader>936ln
+                        RQ Weltweit</leader></record></srw:recordData><srw:recordPosition>1</srw:recordPosition></srw:record>
     </srw:records>
     <srw:echoedSearchRetrieveRequest>
         <srw:version>1.1</srw:version>
@@ -182,15 +192,15 @@
         <srw:xQuery><xcql:searchClause><xcql:index>pica.ppn</xcql:index><xcql:relation><xcql:value>=</xcql:value></xcql:relation><xcql:term>30333049X</xcql:term></xcql:searchClause></srw:xQuery>
         <startRecord>1</startRecord>
         <maximumRecords>5</maximumRecords>
-        <srw:recordPacking>json</srw:recordPacking>
-        <srw:recordSchema>pica</srw:recordSchema>
+        <srw:recordPacking>xml</srw:recordPacking>
+        <srw:recordSchema>marc21</srw:recordSchema>
 
         <srw:stylesheet>http://swb.bsz-bw.de/sru/?xsl=searchRetrieveResponse</srw:stylesheet>
     </srw:echoedSearchRetrieveRequest>
     <diag:diagnostics>
-        <diag:uri>info:srw/diagnostic/1/66</diag:uri>
-        <diag:details>bibtex</diag:details>
-        <diag:message>Unknown schema for retrieval</diag:message>
+        <diag:uri>info:srw/diagnostic/1/0</diag:uri>
+
+
     </diag:diagnostics>
     <srw:extraResponseData>
         <rob:authenticationToken xmlns:rob="info:srw/extension/2/auth-1.0">U998,Pbszgast,I17,B0728+,SY,NRecherche-DB,D2.1,E4e4438a9-0,A,H,R193.197.31.15,FY</rob:authenticationToken>
