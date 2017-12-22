@@ -1,0 +1,312 @@
+
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="http://swb.bsz-bw.de/sru/?xsl=searchRetrieveResponse" ?>
+<srw:searchRetrieveResponse xmlns:srw="http://www.loc.gov/zing/srw/"
+                            xmlns:dc="http://purl.org/dc/elements/1.1/"
+                            xmlns:diag="http://www.loc.gov/zing/srw/diagnostic/"
+                            xmlns:xcql="http://www.loc.gov/zing/cql/xcql/">
+    <srw:version>1.1</srw:version>
+    <srw:numberOfRecords>1</srw:numberOfRecords>
+    <srw:resultSetId>SID4e4438a9-0S14716</srw:resultSetId>
+    <srw:records>
+        <srw:record>
+            <srw:recordSchema>marc21</srw:recordSchema>
+            <srw:recordPacking>xml</srw:recordPacking>
+            <srw:recordData>
+                <record>
+                    <leader>     caa a22        4500</leader>
+                    <controlfield tag="001">324259670</controlfield>
+                    <controlfield tag="003">DE-576</controlfield>
+                    <controlfield tag="005">20140527155049.0</controlfield>
+                    <controlfield tag="007">tu</controlfield>
+                    <controlfield tag="008">100614s2010    xx             00 0 eng c</controlfield>
+                    <datafield tag="035" ind1=" " ind2=" "><subfield code="a">(DE-599)BSZ324259670</subfield></datafield>
+                    <datafield tag="035" ind1=" " ind2=" "><subfield code="a">(Swets)152143323</subfield></datafield>
+                    <datafield tag="035" ind1=" " ind2=" "><subfield code="a">(DE-615)00350148</subfield></datafield>
+                    <datafield tag="040" ind1=" " ind2=" "><subfield code="a">DE-576</subfield>
+                        <subfield code="b">ger</subfield>
+                        <subfield code="c">DE-576</subfield>
+                        <subfield code="e">rakwb</subfield></datafield>
+                    <datafield tag="041" ind1=" " ind2=" "><subfield code="a">eng</subfield></datafield>
+                    <datafield tag="084" ind1=" " ind2=" "><subfield code="a">SC06</subfield>
+                        <subfield code="2">FIV</subfield></datafield>
+                    <datafield tag="084" ind1=" " ind2=" "><subfield code="a">SC03</subfield>
+                        <subfield code="2">FIV</subfield></datafield>
+                    <datafield tag="084" ind1=" " ind2=" "><subfield code="a">RA04.02</subfield>
+                        <subfield code="2">FIV</subfield></datafield>
+                    <datafield tag="084" ind1=" " ind2=" "><subfield code="a">SC06</subfield>
+                        <subfield code="2">FIV</subfield></datafield>
+                    <datafield tag="084" ind1=" " ind2=" "><subfield code="a">SC03</subfield>
+                        <subfield code="2">FIV</subfield></datafield>
+                    <datafield tag="100" ind1="1" ind2=" "><subfield code="a">Walker, William</subfield>
+                        <subfield code="d">1946-</subfield>
+                        <subfield code="0">(DE-588)11536658X</subfield>
+                        <subfield code="0">(DE-576)289839092</subfield></datafield>
+                    <datafield tag="245" ind1="1" ind2="4"><subfield code="a">The UK, threshold status and responsible nuclear sovereignty /</subfield>
+                        <subfield code="c">William Walker</subfield></datafield>
+                    <datafield tag="260" ind1=" " ind2=" "><subfield code="c">2010</subfield></datafield>
+                    <datafield tag="336" ind1=" " ind2=" "><subfield code="a">Text</subfield>
+                        <subfield code="b">txt</subfield>
+                        <subfield code="2">rdacontent</subfield></datafield>
+                    <datafield tag="337" ind1=" " ind2=" "><subfield code="a">ohne Hilfsmittel zu benutzen</subfield>
+                        <subfield code="b">n</subfield>
+                        <subfield code="2">rdamedia</subfield></datafield>
+                    <datafield tag="338" ind1=" " ind2=" "><subfield code="a">Band</subfield>
+                        <subfield code="b">nc</subfield>
+                        <subfield code="2">rdacarrier</subfield></datafield>
+                    <datafield tag="591" ind1=" " ind2=" "><subfield code="a">IMD-Felder und 1131 maschinell ergänzt</subfield></datafield>
+                    <datafield tag="650" ind1=" " ind2="4"><subfield code="a">Vereinigtes Königreich</subfield>
+                        <subfield code="x">Nuklearwaffen</subfield>
+                        <subfield code="x">Waffenbesitz (Rüstungskontrolle)</subfield>
+                        <subfield code="x">Nukleares Schwellenland</subfield>
+                        <subfield code="x">Verantwortung</subfield>
+                        <subfield code="x">Souveränität</subfield>
+                        <subfield code="x">Nukleare Abrüstung</subfield>
+                        <subfield code="x">Militärische Faktoren</subfield>
+                        <subfield code="x">Wirtschaftliche Faktoren</subfield>
+                        <subfield code="x">Treaty on the Non-Proliferation of Nuclear Weapons (1968-07-01)</subfield>
+                        <subfield code="x">Transatlantische Beziehungen</subfield>
+                        <subfield code="x">Haltung von Akteuren zu Einzelfragen</subfield>
+                        <subfield code="x">Labour Party (United Kingdom)</subfield></datafield>
+                    <datafield tag="650" ind1=" " ind2="4"><subfield code="a">United Kingdom</subfield>
+                        <subfield code="x">Nuclear weapons</subfield>
+                        <subfield code="x">Possession of weapons (arms control)</subfield>
+                        <subfield code="x">Nuclear threshold states</subfield>
+                        <subfield code="x">Responsibility</subfield>
+                        <subfield code="x">Sovereignty</subfield>
+                        <subfield code="x">Nuclear disarmament</subfield>
+                        <subfield code="x">Military factors</subfield>
+                        <subfield code="x">Economic factors</subfield>
+                        <subfield code="x">Transatlantic relations</subfield>
+                        <subfield code="x">Position of actors on specific issues</subfield></datafield>
+                    <datafield tag="650" ind1=" " ind2="4"><subfield code="a">Vereinigte Staaten</subfield>
+                        <subfield code="x">Vereinigte Staaten von Amerika</subfield>
+                        <subfield code="x">North Atlantic Treaty Organization</subfield>
+                        <subfield code="x">Comprehensive Nuclear Test Ban Treaty (1996-09-24)</subfield>
+                        <subfield code="x">Vertrag über das umfassende Verbot von Nuklearversuchen</subfield>
+                        <subfield code="x">Fissile Material Cut-off Treaty</subfield>
+                        <subfield code="x">Vertrag über ein Verbot der Produktion von spaltbarem Material für Waffenzwecke</subfield></datafield>
+                    <datafield tag="650" ind1=" " ind2="4"><subfield code="a">United States</subfield>
+                        <subfield code="x">United States of America</subfield>
+                        <subfield code="x">Comprehensive Nuclear-Test-Ban Treaty</subfield>
+                        <subfield code="x">Comprehensive Test Ban Treaty (1996-09-24)</subfield>
+                        <subfield code="x">FMCT</subfield></datafield>
+                    <datafield tag="773" ind1="0" ind2="8"><subfield code="i">In</subfield>
+                        <subfield code="a">International affairs</subfield>
+                        <subfield code="d">2010</subfield>
+                        <subfield code="g">86(2010), 2, S. 447-464</subfield>
+                        <subfield code="w">(DE-576)014390272</subfield>
+                        <subfield code="w">(DE-600)215-x</subfield>
+                        <subfield code="x">0020-5850</subfield></datafield>
+                    <datafield tag="935" ind1=" " ind2=" "><subfield code="a">imda</subfield></datafield>
+                    <datafield tag="935" ind1=" " ind2=" "><subfield code="b">druck</subfield></datafield>
+                    <datafield tag="936" ind1="u" ind2="w"><subfield code="d">86</subfield>
+                        <subfield code="j">2010</subfield>
+                        <subfield code="e">2</subfield>
+                        <subfield code="h">447-464</subfield></datafield>
+                    <leader>000  xxxxxnx  a22     zn 4500</leader>
+                    <leader>001 638461006</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  324259670</leader>
+                    <leader>005  20100614122815</leader>
+                    <leader>008  100614||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        DE-B208</leader>
+                    <leader>852 1
+                        p
+                        00</leader>
+                    <leader>000  xxxxxcx  a22     zn 4500</leader>
+                    <leader>001 640613047</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  324259670</leader>
+                    <leader>005  20150303142957</leader>
+                    <leader>008  100701||||||||||||||||ger|||||||</leader>
+                    <leader>035
+                        (DE-212)D896823</leader>
+                    <leader>035
+                        (DE-212)00350148</leader>
+                    <leader>852
+                        DE-212</leader>
+                    <leader>852 1
+                        Z - GB 387
+                        00</leader>
+                    <leader>000  xxxxxnx  a22     zn 4500</leader>
+                    <leader>001 639775209</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  324259670</leader>
+                    <leader>005  20100629230107</leader>
+                    <leader>008  100629||||||||||||||||ger|||||||</leader>
+                    <leader>035
+                        (DE-Lg3)D896823</leader>
+                    <leader>689
+                        s
+                        Wehrpotential</leader>
+                    <leader>689
+                        s
+                        Rüstungskontrolle/Abrüstung</leader>
+                    <leader>689
+                        s
+                        Vereinigtes Königreich</leader>
+                    <leader>852
+                        DE-Lg3</leader>
+                    <leader>852 1
+                        RV 00060
+                        p
+                        00</leader>
+                    <leader>936ln
+                        SC06</leader>
+                    <leader>936ln
+                        SC03</leader>
+                    <leader>936ln
+                        RA04.02</leader>
+                    <leader>000  xxxxxnx  a22     zn 4500</leader>
+                    <leader>001 801117380</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  324259670</leader>
+                    <leader>005  20140528081440</leader>
+                    <leader>008  140528||||||||||||||||ger|||||||</leader>
+                    <leader>035
+                        (DE-Lg3)00350148</leader>
+                    <leader>035
+                        (DE-Lg3)D896823</leader>
+                    <leader>689
+                        s
+                        Vereinigtes Königreich; Nuklearwaffen; Waffenbesitz (Rüstungskontrolle); Nukleares Schwellenland; Verantwortung; Souveränität; Nukleare Abrüstung; Militärische Faktoren; Wirtschaftliche Faktoren; Treaty on the Non-Proliferation of Nuclear Weapons (1968-07-01); Transatlantische Beziehungen; Haltung von Akteuren zu Einzelfragen; Labour Party (United Kingdom)</leader>
+                    <leader>689
+                        s
+                        United Kingdom; Nuclear weapons; Possession of weapons (arms control); Nuclear threshold states; Responsibility; Sovereignty; Nuclear disarmament; Military factors; Economic factors; Transatlantic relations; Position of actors on specific issues</leader>
+                    <leader>689
+                        s
+                        Vereinigte Staaten; Vereinigte Staaten von Amerika; North Atlantic Treaty Organization; Comprehensive Nuclear Test Ban Treaty (1996-09-24); Vertrag über das umfassende Verbot von Nuklearversuchen; Fissile Material Cut-off Treaty; Vertrag über ein Verbot der Produktion von spaltbarem Material für Waffenzwecke</leader>
+                    <leader>689
+                        s
+                        United States; United States of America; Comprehensive Nuclear-Test-Ban Treaty; Comprehensive Test Ban Treaty (1996-09-24); FMCT</leader>
+                    <leader>852
+                        DE-Lg3</leader>
+                    <leader>852 1
+                        00</leader>
+                    <leader>935
+                        DFIV</leader>
+                    <leader>936ln
+                        SC06 Wehrpotential</leader>
+                    <leader>936ln
+                        SC03 Rüstungskontrolle/Abrüstung</leader>
+                    <leader>936ln
+                        RA04.02 Vereinigtes Königreich</leader>
+                    <leader>936ln
+                        SC06 Military capacity</leader>
+                    <leader>936ln
+                        SC03 Arms control/Disarmament</leader>
+                    <leader>000  xxxxxnx  a22     zn 4500</leader>
+                    <leader>001 799660574</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  324259670</leader>
+                    <leader>005  20140527155049</leader>
+                    <leader>008  140527||||||||||||||||ger|||||||</leader>
+                    <leader>035
+                        (DE-615)00350148</leader>
+                    <leader>035
+                        (DE-615)D896823</leader>
+                    <leader>689
+                        s
+                        Vereinigtes Königreich; Nuklearwaffen; Waffenbesitz (Rüstungskontrolle); Nukleares Schwellenland; Verantwortung; Souveränität; Nukleare Abrüstung; Militärische Faktoren; Wirtschaftliche Faktoren; Treaty on the Non-Proliferation of Nuclear Weapons (1968-07-01); Transatlantische Beziehungen; Haltung von Akteuren zu Einzelfragen; Labour Party (United Kingdom)</leader>
+                    <leader>689
+                        s
+                        United Kingdom; Nuclear weapons; Possession of weapons (arms control); Nuclear threshold states; Responsibility; Sovereignty; Nuclear disarmament; Military factors; Economic factors; Transatlantic relations; Position of actors on specific issues</leader>
+                    <leader>689
+                        s
+                        Vereinigte Staaten; Vereinigte Staaten von Amerika; North Atlantic Treaty Organization; Comprehensive Nuclear Test Ban Treaty (1996-09-24); Vertrag über das umfassende Verbot von Nuklearversuchen; Fissile Material Cut-off Treaty; Vertrag über ein Verbot der Produktion von spaltbarem Material für Waffenzwecke</leader>
+                    <leader>689
+                        s
+                        United States; United States of America; Comprehensive Nuclear-Test-Ban Treaty; Comprehensive Test Ban Treaty (1996-09-24); FMCT</leader>
+                    <leader>852
+                        DE-615</leader>
+                    <leader>852 1
+                        p
+                        00</leader>
+                    <leader>935
+                        DFIV</leader>
+                    <leader>936ln
+                        SC06 Wehrpotential</leader>
+                    <leader>936ln
+                        SC03 Rüstungskontrolle/Abrüstung</leader>
+                    <leader>936ln
+                        RA04.02 Vereinigtes Königreich</leader>
+                    <leader>936ln
+                        SC06 Military capacity</leader>
+                    <leader>936ln
+                        SC03 Arms control/Disarmament</leader>
+                    <leader>000  xxxxxnx  a22     zn 4500</leader>
+                    <leader>001 799660582</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  324259670</leader>
+                    <leader>005  20140527155049</leader>
+                    <leader>008  140527||||||||||||||||ger|||||||</leader>
+                    <leader>035
+                        (DE-F131)00350148</leader>
+                    <leader>035
+                        (DE-F131)D896823</leader>
+                    <leader>852
+                        DE-F131</leader>
+                    <leader>852 1
+                        l
+                        00</leader>
+                    <leader>935
+                        DFIV</leader>
+                    <leader>000  xxxxxnx  a22     zn 4500</leader>
+                    <leader>001 799660590</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  324259670</leader>
+                    <leader>005  20140527155049</leader>
+                    <leader>008  140527||||||||||||||||ger|||||||</leader>
+                    <leader>035
+                        (DE-F197)00350148</leader>
+                    <leader>035
+                        (DE-F197)D896823</leader>
+                    <leader>852
+                        DE-F197</leader>
+                    <leader>852 1
+                        00</leader>
+                    <leader>935
+                        DFIV</leader></record></srw:recordData><srw:recordPosition>1</srw:recordPosition></srw:record>
+    </srw:records>
+    <srw:echoedSearchRetrieveRequest>
+        <srw:version>1.1</srw:version>
+        <srw:query>pica.ppn+%3D+324259670</srw:query>
+        <srw:xQuery><xcql:searchClause><xcql:index>pica.ppn</xcql:index><xcql:relation><xcql:value>=</xcql:value></xcql:relation><xcql:term>324259670</xcql:term></xcql:searchClause></srw:xQuery>
+        <startRecord>1</startRecord>
+        <maximumRecords>5</maximumRecords>
+        <srw:recordPacking>xml</srw:recordPacking>
+        <srw:recordSchema>marc21</srw:recordSchema>
+
+        <srw:stylesheet>http://swb.bsz-bw.de/sru/?xsl=searchRetrieveResponse</srw:stylesheet>
+    </srw:echoedSearchRetrieveRequest>
+    <diag:diagnostics>
+        <diag:uri>info:srw/diagnostic/1/0</diag:uri>
+
+
+    </diag:diagnostics>
+    <srw:extraResponseData>
+        <rob:authenticationToken xmlns:rob="info:srw/extension/2/auth-1.0">U998,Pbszgast,I17,B0728+,SY,NRecherche-DB,D2.1,E4e4438a9-0,A,H,R193.197.31.15,FY</rob:authenticationToken>
+        <mg:resultGrouping xmlns:mg="info:srw/extension/5/metadata-grouping-v1.0">
+
+            <mg:grouping key="9008" description="Sysflag"></mg:grouping>
+
+            <mg:grouping key="9001" description="Materialart"></mg:grouping>
+
+            <mg:grouping key="9000" description="Erscheinungsjahr"></mg:grouping>
+
+            <mg:grouping key="9030" description="LibID-ADI"></mg:grouping>
+
+            <mg:grouping key="9005" description="jetzt AUI"></mg:grouping>
+
+            <mg:grouping key="9002" description="Region"></mg:grouping>
+
+            <mg:grouping key="9004" description="Sprache"></mg:grouping>
+
+            <mg:grouping key="9015" description="Erschliessungsmaterial"></mg:grouping>
+
+
+        </mg:resultGrouping>
+    </srw:extraResponseData>
+</srw:searchRetrieveResponse>

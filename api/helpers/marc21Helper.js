@@ -503,6 +503,8 @@ Marc21Helper.prototype.extractDependentResource = function(records, type, callba
                         }));
                     } else if (subfield._code === "t") {
                         parent.setTitleForType(parent.type, subfield._data);
+                    } else if (subfield._code === "a") {
+                        parent.setTitleForType(parent.type, subfield._data);
                     } else if (subfield._code === "b") {
                         parent.setEditionForType(parent.type, subfield._data);
                     }
