@@ -208,13 +208,16 @@ Marc21Helper.prototype.guessResourceType = function (records) {
         return enums.resourceType.journal;
     } else if (resourceIsReport) {
         return enums.resourceType.report;
-    } else if (parentHasISSN && isDependent && !hasISBN && hasDOI) {
+    } else if (parentHasISSN && isDependent && !hasISBN) {
         return enums.resourceType.journalArticle;
     } else if (hasISBN && hasEditor) {
         return enums.resourceType.editedBook;
     } else if (hasISBN) {
         return enums.resourceType.monograph;
-    }else{
+    } else if(hasISSN){
+        return enums.resourceType.journal;
+    }
+    else{
         return enums.resourceType.book;
     }
 }
@@ -379,9 +382,16 @@ Marc21Helper.prototype.extractIndependentResource = function(records, type, call
                 }
             }
         } else if (field._tag === "700") {
-            var contributor = new AgentRole({
-                roleType: enums.roleType.author
-            });
+            var contributor = new AgentRole();
+            for(var subfield of field._subfields){
+                if(subfield._code === '4' && subfield._data === "edt"){
+                    contributor.roleType = enums.roleType.editor;
+                }else if(subfield._code === 'e' && subfield._data === "aut"){
+                    contributor.roleType = enums.roleType.author;
+                }else{
+                    contributor.roleType = enums.roleType.author;
+                }
+            }
 
             for (var subfield of field._subfields) {
                 if (subfield._code === "0" && (subfield._data.split("(DE-588)").length === 2 || subfield._data.split("(DE-576)").length === 2)) {
@@ -479,20 +489,25 @@ Marc21Helper.prototype.extractIndependentResource = function(records, type, call
 
 
 Marc21Helper.prototype.extractDependentResource = function(records, type, callback){
-    var resource = new BibliographicResource({type: type});
 
     this.extractIndependentResource(records, type, function(err, res){
         var child =res[0];
         var parentType = child.getContainerTypeForType(child.type);
-        var parent = BibliographicResource({type: parentType});
-
+        var parent = new BibliographicResource({type: parentType[0]});
+        var dataFields = records[1]._dataFields;
         for (var field of dataFields) {
             if (field._tag === "773") {
                 for (var subfield of field._subfields) {
                     if (subfield._code === "g") {
                         parent.setNumberForType(parent.type, subfield._data);
                     } else if (subfield._code === "x") {
-                        parent.pushIdentifierForType(parent.type, new Identifier({
+                        var type;
+                        if(child.type === enums.resourceType.journalArticle || child.type === enums.resourceType.journalIssue || child.type === enums.resourceType.journalVolume){
+                            type = enums.resourceType.journal;
+                        }else{
+                            type = parent.type;
+                        }
+                        parent.pushIdentifierForType(type, new Identifier({
                             literalValue: subfield._data,
                             scheme: enums.identifier.issn
                         }));
@@ -502,8 +517,21 @@ Marc21Helper.prototype.extractDependentResource = function(records, type, callba
                             scheme: enums.identifier.isbn
                         }));
                     } else if (subfield._code === "t") {
-                        parent.setTitleForType(parent.type, subfield._data);
+                        var type;
+                        if(child.type === enums.resourceType.journalArticle || child.type === enums.resourceType.journalIssue || child.type === enums.resourceType.journalVolume){
+                            type = enums.resourceType.journal;
+                        }else{
+                            type = parent.type;
+                        }
+                        parent.setTitleForType(type, subfield._data);
                     } else if (subfield._code === "a") {
+                        var type;
+                        if(child.type === enums.resourceType.journalArticle || child.type === enums.resourceType.journalIssue || child.type === enums.resourceType.journalVolume){
+                            type = enums.resourceType.journal;
+                        }else{
+                            type = parent.type;
+                        }
+                        parent.setTitleForType(type, subfield._data);
                         parent.setTitleForType(parent.type, subfield._data);
                     } else if (subfield._code === "b") {
                         parent.setEditionForType(parent.type, subfield._data);
@@ -538,7 +566,7 @@ Marc21Helper.prototype.extractDependentResource = function(records, type, callba
                 }
             }
         }
-        return callback(null, [resource, parent]);
+        return callback(null, [child, parent]);
     });
 }
 
