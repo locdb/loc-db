@@ -1,0 +1,649 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="http://swb.bsz-bw.de/sru/?xsl=searchRetrieveResponse" ?>
+<srw:searchRetrieveResponse xmlns:srw="http://www.loc.gov/zing/srw/"
+                            xmlns:dc="http://purl.org/dc/elements/1.1/"
+                            xmlns:diag="http://www.loc.gov/zing/srw/diagnostic/"
+                            xmlns:xcql="http://www.loc.gov/zing/cql/xcql/">
+    <srw:version>1.1</srw:version>
+    <srw:numberOfRecords>1</srw:numberOfRecords>
+    <srw:resultSetId>SID4e4438a9-0S14086</srw:resultSetId>
+    <srw:records>
+
+
+
+        <srw:record>
+            <srw:recordSchema>marc21</srw:recordSchema>
+            <srw:recordPacking>xml</srw:recordPacking>
+            <srw:recordData>
+                <record>
+                    <leader>     cam a22        4500</leader>
+                    <controlfield tag="001">026591766</controlfield>
+                    <controlfield tag="003">DE-576</controlfield>
+                    <controlfield tag="005">20171110162629.0</controlfield>
+                    <controlfield tag="007">tu</controlfield>
+                    <controlfield tag="008">911205s1991    xx             00 0 eng c</controlfield>
+                    <datafield tag="035" ind1=" " ind2=" "><subfield code="a">(OCoLC)25746724</subfield></datafield>
+                    <datafield tag="016" ind1="7" ind2=" "><subfield code="a">b9190010</subfield>
+                        <subfield code="2">UK</subfield></datafield>
+                    <datafield tag="020" ind1=" " ind2=" "><subfield code="a">0803985894</subfield>
+                        <subfield code="9">0-8039-8589-4</subfield></datafield>
+                    <datafield tag="020" ind1=" " ind2=" "><subfield code="a">0803985908</subfield>
+                        <subfield code="9">0-8039-8590-8</subfield></datafield>
+                    <datafield tag="035" ind1=" " ind2=" "><subfield code="a">(DE-599)BSZ026591766</subfield></datafield>
+                    <datafield tag="035" ind1=" " ind2=" "><subfield code="a">(DE-615)00840664</subfield></datafield>
+                    <datafield tag="040" ind1=" " ind2=" "><subfield code="a">DE-576</subfield>
+                        <subfield code="b">ger</subfield>
+                        <subfield code="c">DE-576</subfield>
+                        <subfield code="e">rakwb</subfield></datafield>
+                    <datafield tag="041" ind1=" " ind2=" "><subfield code="a">eng</subfield></datafield>
+                    <datafield tag="082" ind1="0" ind2=" "><subfield code="a">302.35</subfield></datafield>
+                    <datafield tag="082" ind1="0" ind2=" "><subfield code="a">302.5</subfield></datafield>
+                    <datafield tag="084" ind1=" " ind2=" "><subfield code="a">SK02</subfield>
+                        <subfield code="2">FIV</subfield></datafield>
+                    <datafield tag="084" ind1=" " ind2=" "><subfield code="a">SG01</subfield>
+                        <subfield code="2">FIV</subfield></datafield>
+                    <datafield tag="084" ind1=" " ind2=" "><subfield code="a">RS</subfield>
+                        <subfield code="2">FIV</subfield></datafield>
+                    <datafield tag="084" ind1=" " ind2=" "><subfield code="a">QC 010</subfield>
+                        <subfield code="2">rvk</subfield></datafield>
+                    <datafield tag="084" ind1=" " ind2=" "><subfield code="a">QD 030</subfield>
+                        <subfield code="2">rvk</subfield></datafield>
+                    <datafield tag="084" ind1=" " ind2=" "><subfield code="a">QC 130</subfield>
+                        <subfield code="2">rvk</subfield></datafield>
+                    <datafield tag="084" ind1=" " ind2=" "><subfield code="a">MS 5650</subfield>
+                        <subfield code="2">rvk</subfield></datafield>
+                    <datafield tag="245" ind1="1" ind2="0"><subfield code="a">Markets, hierarchies and networks :</subfield>
+                        <subfield code="b">the coordination of social life /</subfield>
+                        <subfield code="c">ed. by Grahame Thompson ...</subfield></datafield>
+                    <datafield tag="250" ind1=" " ind2=" "><subfield code="a">1. publ.</subfield></datafield>
+                    <datafield tag="260" ind1=" " ind2=" "><subfield code="a">London [u.a.] :</subfield>
+                        <subfield code="b">Sage,</subfield>
+                        <subfield code="c">1991</subfield></datafield>
+                    <datafield tag="300" ind1=" " ind2=" "><subfield code="a">IV, 306 S. :</subfield>
+                        <subfield code="b">graph. Darst.</subfield></datafield>
+                    <datafield tag="336" ind1=" " ind2=" "><subfield code="a">Text</subfield>
+                        <subfield code="b">txt</subfield>
+                        <subfield code="2">rdacontent</subfield></datafield>
+                    <datafield tag="337" ind1=" " ind2=" "><subfield code="a">ohne Hilfsmittel zu benutzen</subfield>
+                        <subfield code="b">n</subfield>
+                        <subfield code="2">rdamedia</subfield></datafield>
+                    <datafield tag="338" ind1=" " ind2=" "><subfield code="a">Band</subfield>
+                        <subfield code="b">nc</subfield>
+                        <subfield code="2">rdacarrier</subfield></datafield>
+                    <datafield tag="591" ind1=" " ind2=" "><subfield code="a">720 ff. bvb; 580 ff. bvb ; 720 ff. (DDC): GBV/LOC ; 5090: L1UB/sred ; 5090: DDSU/sred ; IMD-Felder und 1131 maschinell ergänzt</subfield></datafield>
+                    <datafield tag="650" ind1=" " ind2="4"><subfield code="a">Global</subfield>
+                        <subfield code="x">Markt</subfield>
+                        <subfield code="x">Hierarchie</subfield>
+                        <subfield code="x">Netzwerk (institutionell/sozial)</subfield>
+                        <subfield code="x">Theorie</subfield>
+                        <subfield code="x">Soziale Beziehungen</subfield>
+                        <subfield code="x">Persönliche Beziehungen/Kontakte</subfield></datafield>
+                    <datafield tag="650" ind1=" " ind2="4"><subfield code="a">Europa</subfield>
+                        <subfield code="x">Bürokratie</subfield>
+                        <subfield code="x">Kapitalismus</subfield>
+                        <subfield code="x">Industriepolitik</subfield>
+                        <subfield code="x">Wirtschaftsplanung</subfield>
+                        <subfield code="x">Management (funktional)</subfield>
+                        <subfield code="x">Politischer Entscheidungsprozess</subfield>
+                        <subfield code="x">Frauenarbeit</subfield>
+                        <subfield code="x">Pakistan</subfield>
+                        <subfield code="x">Familie</subfield></datafield>
+                    <datafield tag="689" ind1="0" ind2="0"><subfield code="D">s</subfield>
+                        <subfield code="0">(DE-588)4071788-4</subfield>
+                        <subfield code="0">(DE-576)209184914</subfield>
+                        <subfield code="2">gnd</subfield>
+                        <subfield code="a">Gesellschaftsleben</subfield></datafield>
+                    <datafield tag="689" ind1="0" ind2="1"><subfield code="D">s</subfield>
+                        <subfield code="0">(DE-588)4032393-6</subfield>
+                        <subfield code="0">(DE-576)208996664</subfield>
+                        <subfield code="2">gnd</subfield>
+                        <subfield code="a">Koordination</subfield></datafield>
+                    <datafield tag="689" ind1="0" ind2="2"><subfield code="D">s</subfield>
+                        <subfield code="0">(DE-588)4037621-7</subfield>
+                        <subfield code="0">(DE-576)20902559X</subfield>
+                        <subfield code="2">gnd</subfield>
+                        <subfield code="a">Markt</subfield></datafield>
+                    <datafield tag="689" ind1="0" ind2=" "><subfield code="5">DE-576</subfield></datafield>
+                    <datafield tag="689" ind1="1" ind2="0"><subfield code="D">s</subfield>
+                        <subfield code="0">(DE-588)4071788-4</subfield>
+                        <subfield code="0">(DE-576)209184914</subfield>
+                        <subfield code="2">gnd</subfield>
+                        <subfield code="a">Gesellschaftsleben</subfield></datafield>
+                    <datafield tag="689" ind1="1" ind2="1"><subfield code="D">s</subfield>
+                        <subfield code="0">(DE-588)4032393-6</subfield>
+                        <subfield code="0">(DE-576)208996664</subfield>
+                        <subfield code="2">gnd</subfield>
+                        <subfield code="a">Koordination</subfield></datafield>
+                    <datafield tag="689" ind1="1" ind2="2"><subfield code="D">s</subfield>
+                        <subfield code="0">(DE-588)4024842-2</subfield>
+                        <subfield code="0">(DE-576)208957758</subfield>
+                        <subfield code="2">gnd</subfield>
+                        <subfield code="a">Hierarchie</subfield></datafield>
+                    <datafield tag="689" ind1="1" ind2=" "><subfield code="5">DE-576</subfield></datafield>
+                    <datafield tag="689" ind1="2" ind2="0"><subfield code="D">s</subfield>
+                        <subfield code="0">(DE-588)4071788-4</subfield>
+                        <subfield code="0">(DE-576)209184914</subfield>
+                        <subfield code="2">gnd</subfield>
+                        <subfield code="a">Gesellschaftsleben</subfield></datafield>
+                    <datafield tag="689" ind1="2" ind2="1"><subfield code="D">s</subfield>
+                        <subfield code="0">(DE-588)4032393-6</subfield>
+                        <subfield code="0">(DE-576)208996664</subfield>
+                        <subfield code="2">gnd</subfield>
+                        <subfield code="a">Koordination</subfield></datafield>
+                    <datafield tag="689" ind1="2" ind2="2"><subfield code="D">s</subfield>
+                        <subfield code="0">(DE-588)4055762-5</subfield>
+                        <subfield code="0">(DE-576)209115289</subfield>
+                        <subfield code="2">gnd</subfield>
+                        <subfield code="a">Soziales Netzwerk</subfield></datafield>
+                    <datafield tag="689" ind1="2" ind2=" "><subfield code="5">DE-576</subfield></datafield>
+                    <datafield tag="689" ind1="3" ind2="0"><subfield code="D">s</subfield>
+                        <subfield code="0">(DE-588)4077624-4</subfield>
+                        <subfield code="0">(DE-576)209205849</subfield>
+                        <subfield code="2">gnd</subfield>
+                        <subfield code="a">Soziologie</subfield></datafield>
+                    <datafield tag="689" ind1="3" ind2="1"><subfield code="A">f</subfield>
+                        <subfield code="2">gnd</subfield>
+                        <subfield code="a">Aufsatzsammlung</subfield></datafield>
+                    <datafield tag="689" ind1="3" ind2=" "><subfield code="5">DE-576</subfield></datafield>
+                    <datafield tag="689" ind1="4" ind2="0"><subfield code="D">s</subfield>
+                        <subfield code="0">(DE-588)4037621-7</subfield>
+                        <subfield code="0">(DE-576)20902559X</subfield>
+                        <subfield code="2">gnd</subfield>
+                        <subfield code="a">Markt</subfield></datafield>
+                    <datafield tag="689" ind1="4" ind2="1"><subfield code="D">s</subfield>
+                        <subfield code="0">(DE-588)4059787-8</subfield>
+                        <subfield code="0">(DE-576)209132256</subfield>
+                        <subfield code="2">gnd</subfield>
+                        <subfield code="a">Theorie</subfield></datafield>
+                    <datafield tag="689" ind1="4" ind2="2"><subfield code="A">f</subfield>
+                        <subfield code="2">gnd</subfield>
+                        <subfield code="a">Aufsatzsammlung</subfield></datafield>
+                    <datafield tag="689" ind1="4" ind2=" "><subfield code="5">DE-576</subfield></datafield>
+                    <datafield tag="655" ind1=" " ind2="7"><subfield code="a">Aufsatzsammlung</subfield>
+                        <subfield code="0">(DE-588)4143413-4</subfield>
+                        <subfield code="0">(DE-576)209726091</subfield>
+                        <subfield code="2">gnd-content</subfield></datafield>
+                    <datafield tag="700" ind1="1" ind2=" "><subfield code="a">Thompson, Grahame</subfield>
+                        <subfield code="d">1945-</subfield>
+                        <subfield code="e">Hrsg.</subfield>
+                        <subfield code="0">(DE-588)121367258</subfield>
+                        <subfield code="0">(DE-576)164193758</subfield>
+                        <subfield code="4">edt</subfield></datafield>
+                    <datafield tag="856" ind1="4" ind2="2"><subfield code="u">http://digitool.hbz-nrw.de:1801/webclient/DeliveryManager?pid=1061498&#38;custom%5Fatt%5F2=simple%5Fviewer</subfield>
+                        <subfield code="y">Markets, hierarchies and networks</subfield>
+                        <subfield code="3">Inhaltsverzeichnis</subfield></datafield>
+                    <datafield tag="935" ind1=" " ind2=" "><subfield code="a">imda</subfield></datafield>
+                    <datafield tag="935" ind1=" " ind2=" "><subfield code="b">druck</subfield></datafield>
+                    <datafield tag="936" ind1="r" ind2="v"><subfield code="a">QC 010</subfield>
+                        <subfield code="b">Mensch und Wirtschaft. Wirtschaftliches Verhalten. Motivation. Wirtschaftsethik</subfield>
+                        <subfield code="k">Wirtschaftswissenschaften</subfield>
+                        <subfield code="k">Wirtschaftstheorie, einschließlich Geldtheorie</subfield>
+                        <subfield code="k">Mensch und Wirtschaft. Wirtschaftliches Verhalten. Motivation. Wirtschaftsethik</subfield>
+                        <subfield code="0">201174472</subfield></datafield>
+                    <datafield tag="936" ind1="r" ind2="v"><subfield code="a">QD 030</subfield>
+                        <subfield code="b">Träger der Wirtschaftspolitik. Koordinationsprobleme</subfield>
+                        <subfield code="k">Wirtschaftswissenschaften</subfield>
+                        <subfield code="k">Allgemeine Wirtschaftspolitik. Wirtschaftssysteme</subfield>
+                        <subfield code="k">Allgemeine Wirtschaftspolitik</subfield>
+                        <subfield code="k">Träger der Wirtschaftspolitik. Koordinationsprobleme</subfield>
+                        <subfield code="0">201483661</subfield></datafield>
+                    <datafield tag="936" ind1="r" ind2="v"><subfield code="a">QC 130</subfield>
+                        <subfield code="b">Allgemeines</subfield>
+                        <subfield code="k">Wirtschaftswissenschaften</subfield>
+                        <subfield code="k">Wirtschaftstheorie, einschließlich Geldtheorie</subfield>
+                        <subfield code="k">Wert-, Preis- und Allokationstheorie</subfield>
+                        <subfield code="k">Preis und Märkte. Unternehmenstheorie. Theorie des Industriezweiges (Branche oder Teilaggregat). Institutionenökonomie</subfield>
+                        <subfield code="k">Allgemeines</subfield>
+                        <subfield code="0">201483645</subfield></datafield>
+                    <datafield tag="936" ind1="r" ind2="v"><subfield code="a">MS 5650</subfield>
+                        <subfield code="b">Theoretische Ansätze und allgemeine Abhandlungen (Betriebe und Gesellschaften)</subfield>
+                        <subfield code="k">Soziologie</subfield>
+                        <subfield code="k">Spezielle Soziologien</subfield>
+                        <subfield code="k">Soziologie der Organisationen</subfield>
+                        <subfield code="k">Theoretische Ansätze und allgemeine Abhandlungen (Betriebe und Gesellschaften)</subfield>
+                        <subfield code="0">20107110X</subfield></datafield>
+                    <leader>000  xxxxxcx  a22     zn 4500</leader>
+                    <leader>001 176652531</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  026591766</leader>
+                    <leader>005  20100407054545</leader>
+                    <leader>008  041208||||||||||||||||ger|||||||</leader>
+                    <leader>541
+                        93-799</leader>
+                    <leader>689
+                        s
+                        240645626
+                        Planung - Planungstheorie</leader>
+                    <leader>689
+                        s
+                        240629841
+                        politische Planung</leader>
+                    <leader>689
+                        s
+                        240669290
+                        EU - Integration</leader>
+                    <leader>852
+                        DE-21-58</leader>
+                    <leader>852 1
+                        D IX 435
+                        p
+                        00</leader>
+                    <leader>935
+                        k058</leader>
+                    <leader>000  xxxxxcx  a22     zn 4500</leader>
+                    <leader>001 176652558</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  026591766</leader>
+                    <leader>005  20100407072455</leader>
+                    <leader>008  050323||||||||||||||||ger|||||||</leader>
+                    <leader>541
+                        04-12</leader>
+                    <leader>689
+                        s
+                        24108265X
+                        Organisation</leader>
+                    <leader>852
+                        DE-21-85</leader>
+                    <leader>852 1
+                        2.460.1991
+                        p
+                        00</leader>
+                    <leader>935
+                        k085</leader>
+                    <leader>000  xxxxxcx  a22     zn 4500</leader>
+                    <leader>001 176652574</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  026591766</leader>
+                    <leader>005  20100407153952</leader>
+                    <leader>008  050922||||||||||||||||ger|||||||</leader>
+                    <leader>541
+                        21123</leader>
+                    <leader>852
+                        DE-21-53</leader>
+                    <leader>852 1
+                        V 22 Tho I 1
+                        p
+                        00</leader>
+                    <leader>935
+                        k053</leader>
+                    <leader>000  xxxxxcx  a22     zn 4500</leader>
+                    <leader>001 176652361</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  026591766</leader>
+                    <leader>005  20021213000000</leader>
+                    <leader>008  920424||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        me-5,a</leader>
+                    <leader>852
+                        DE-25</leader>
+                    <leader>852 1
+                        SW 92/844
+                        00</leader>
+                    <leader>85281
+                        SW  92/00844
+                        00</leader>
+                    <leader>935
+                        an</leader>
+                    <leader>000  xxxxxcx  a22     zn 4500</leader>
+                    <leader>001 176652345</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  026591766</leader>
+                    <leader>005  20090207024952</leader>
+                    <leader>008  930505||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        LSTO: 02,99</leader>
+                    <leader>852
+                        DE-14</leader>
+                    <leader>852 1
+                        93 8 10132
+                        00</leader>
+                    <leader>935
+                        ddub
+                        stub</leader>
+                    <leader>000  xxxxxcx  a22     zn 4500</leader>
+                    <leader>001 176652353</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  026591766</leader>
+                    <leader>005  20090207024952</leader>
+                    <leader>008  960705||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        LSTO-K: 04</leader>
+                    <leader>852
+                        DE-14</leader>
+                    <leader>852 1
+                        00</leader>
+                    <leader>935
+                        ddub</leader>
+                    <leader>000  xxxxxcx  a22     zn 4500</leader>
+                    <leader>001 176652434</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  026591766</leader>
+                    <leader>005  20110323053328</leader>
+                    <leader>008  911205||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        DE-352</leader>
+                    <leader>852 1
+                        soz 399:k/m17
+                        00</leader>
+                    <leader>000  xxxxxcx  a22     zn 4500</leader>
+                    <leader>001 886892341</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  026591766</leader>
+                    <leader>005  20160118160449</leader>
+                    <leader>008  160107||||||||||||||||ger|||||||</leader>
+                    <leader>035
+                        (DE-180)22132642250002561</leader>
+                    <leader>852
+                        DE-180</leader>
+                    <leader>852 1
+                        7400 Ma 345 mhn
+                        00</leader>
+                    <leader>852 2
+                        400
+                        00</leader>
+                    <leader>935
+                        alma</leader>
+                    <leader>000  xxxxxnx  a22     zn 4500</leader>
+                    <leader>001 910752087</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  026591766</leader>
+                    <leader>005  20160403211421</leader>
+                    <leader>008  160403||||||||||||||||ger|||||||</leader>
+                    <leader>035
+                        (DE-180)22173640310002561</leader>
+                    <leader>852
+                        DE-180</leader>
+                    <leader>852 1
+                        92 A 8253
+                        00</leader>
+                    <leader>852 2
+                        MAG07
+                        00</leader>
+                    <leader>935
+                        alma</leader>
+                    <leader>000  xxxxxcx  a22     zn 4500</leader>
+                    <leader>001 176652442</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  026591766</leader>
+                    <leader>005  20081205133428</leader>
+                    <leader>008  940131||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        DE-15</leader>
+                    <leader>852 1
+                        00</leader>
+                    <leader>000  xxxxxcx  a22     zn 4500</leader>
+                    <leader>001 17665237X</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  026591766</leader>
+                    <leader>005  20020130000000</leader>
+                    <leader>008  920331||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        DE-16-35</leader>
+                    <leader>852 1
+                        Na 140
+                        00</leader>
+                    <leader>000  xxxxxnu  a22     zn 4500</leader>
+                    <leader>001 176652388</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  026591766</leader>
+                    <leader>005  19920331000000</leader>
+                    <leader>008  920331||||||||||||||||ger|||||||</leader>
+                    <leader>014
+                        17665237X
+                        DE-576</leader>
+                    <leader>541
+                        E 92:214</leader>
+                    <leader>852
+                        596018480</leader>
+                    <leader>852
+                        DE-16-35</leader>
+                    <leader>852 1
+                        00</leader>
+                    <leader>000  xxxxxcx  a22     zn 4500</leader>
+                    <leader>001 176652396</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  026591766</leader>
+                    <leader>005  20140411104434</leader>
+                    <leader>008  930114||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        DE-16-160</leader>
+                    <leader>852 1
+                        WS/MS 5650 T471
+                        20.06.2006
+                        00</leader>
+                    <leader>935
+                        reko</leader>
+                    <leader>000  xxxxxcu  a22     zn 4500</leader>
+                    <leader>001 17665240X</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  026591766</leader>
+                    <leader>005  20090309062801</leader>
+                    <leader>008  930114||||||||||||||||ger|||||||</leader>
+                    <leader>014
+                        176652396
+                        DE-576</leader>
+                    <leader>541
+                        51114</leader>
+                    <leader>852
+                        623020647</leader>
+                    <leader>852
+                        DE-16-160</leader>
+                    <leader>852 1
+                        00</leader>
+                    <leader>000  xxxxxcx  a22     zn 4500</leader>
+                    <leader>001 176652418</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  026591766</leader>
+                    <leader>005  20140411104434</leader>
+                    <leader>008  920605||||||||||||||||ger|||||||</leader>
+                    <leader>689
+                        s
+                        Markt</leader>
+                    <leader>689
+                        s
+                        Bürokratie</leader>
+                    <leader>689
+                        s
+                        Netzwerkanalyse</leader>
+                    <leader>689
+                        s
+                        Hierarchie</leader>
+                    <leader>689
+                        s
+                        Organisat.</leader>
+                    <leader>852
+                        DE-16-160</leader>
+                    <leader>852 1
+                        WS/MS 5650 T471+2
+                        12.10.2007
+                        00</leader>
+                    <leader>000  xxxxxcu  a22     zn 4500</leader>
+                    <leader>001 176652426</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  026591766</leader>
+                    <leader>005  20090309062801</leader>
+                    <leader>008  920605||||||||||||||||ger|||||||</leader>
+                    <leader>014
+                        176652418
+                        DE-576</leader>
+                    <leader>541
+                        53420</leader>
+                    <leader>852
+                        300034357</leader>
+                    <leader>852
+                        DE-16-160</leader>
+                    <leader>852 1
+                        00</leader>
+                    <leader>000  xxxxxnx  a22     zn 4500</leader>
+                    <leader>001 510238475</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  026591766</leader>
+                    <leader>005  20060614174252</leader>
+                    <leader>008  060614||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        DE-90-147</leader>
+                    <leader>852 1
+                        p
+                        00</leader>
+                    <leader>000  xxxxxnu  a22     zn 4500</leader>
+                    <leader>001 510238483</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  026591766</leader>
+                    <leader>005  20060614174313</leader>
+                    <leader>008  060614||||||||||||||||ger|||||||</leader>
+                    <leader>014
+                        510238475
+                        DE-576</leader>
+                    <leader>541
+                        REG 92/89</leader>
+                    <leader>852
+                        DE-90-147</leader>
+                    <leader>852 1
+                        05.1/138
+                        00</leader>
+                    <leader>000  xxxxxcx  a22     zn 4500</leader>
+                    <leader>001 176652485</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  026591766</leader>
+                    <leader>005  20030328000000</leader>
+                    <leader>008  950922||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        DE-100</leader>
+                    <leader>852 1
+                        p
+                        00</leader>
+                    <leader>936ln
+                        225102714
+                        2420</leader>
+                    <leader>936ln
+                        225104156
+                        7134</leader>
+                    <leader>000  xxxxxcu  a22     zn 4500</leader>
+                    <leader>001 176652493</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  026591766</leader>
+                    <leader>005  19980711000000</leader>
+                    <leader>008  950922||||||||||||||||ger|||||||</leader>
+                    <leader>014
+                        176652485
+                        DE-576</leader>
+                    <leader>541
+                        95/10459</leader>
+                    <leader>852
+                        DE-100</leader>
+                    <leader>852 1
+                        2420/29
+                        Präsenzbestand
+                        00</leader>
+                    <leader>000  xxxxxcx  a22     zn 4500</leader>
+                    <leader>001 176652507</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  026591766</leader>
+                    <leader>005  20020706000000</leader>
+                    <leader>008  960419||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        DE-Sp3</leader>
+                    <leader>852 1
+                        p
+                        00</leader>
+                    <leader>935
+                        z0</leader>
+                    <leader>000  xxxxxnu  a22     zn 4500</leader>
+                    <leader>001 176652515</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  026591766</leader>
+                    <leader>005  19960419000000</leader>
+                    <leader>008  960419||||||||||||||||ger|||||||</leader>
+                    <leader>014
+                        176652507
+                        DE-576</leader>
+                    <leader>541
+                        92.5470</leader>
+                    <leader>852
+                        DE-Sp3</leader>
+                    <leader>852 1
+                        C V 6495
+                        00</leader>
+                    <leader>000  xxxxxnx  a22     zn 4500</leader>
+                    <leader>001 939701189</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  026591766</leader>
+                    <leader>005  20160929105818</leader>
+                    <leader>008  160929||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        DE-1141</leader>
+                    <leader>852 1
+                        QD 030 T471
+                        00</leader>
+                    <leader>935
+                        adis</leader>
+                    <leader>000  xxxxxnx  a22     zn 4500</leader>
+                    <leader>001 763227536</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  026591766</leader>
+                    <leader>005  20130711143128</leader>
+                    <leader>008  130711||||||||||||||||ger|||||||</leader>
+                    <leader>035
+                        (DE-615)00840664</leader>
+                    <leader>035
+                        (DE-615)D362026</leader>
+                    <leader>689
+                        s
+                        Global; Markt; Hierarchie; Netzwerk (institutionell/sozial); Theorie; Soziale Beziehungen; Persönliche Beziehungen/Kontakte</leader>
+                    <leader>689
+                        s
+                        Europa; Bürokratie; Kapitalismus; Industriepolitik; Wirtschaftsplanung; Management (funktional); Politischer Entscheidungsprozess; Frauenarbeit; Pakistan; Familie</leader>
+                    <leader>852
+                        DE-615</leader>
+                    <leader>852 1
+                        p
+                        00</leader>
+                    <leader>935
+                        DFIV</leader>
+                    <leader>936ln
+                        SK02 Theorie/Methodik</leader>
+                    <leader>936ln
+                        SG01 Gesellschaftsordnung/Gesellschaftspolitik</leader>
+                    <leader>936ln
+                        RS Ohne direkten Regionalbezug</leader></record></srw:recordData><srw:recordPosition>1</srw:recordPosition></srw:record>
+    </srw:records>
+    <srw:echoedSearchRetrieveRequest>
+        <srw:version>1.1</srw:version>
+        <srw:query>pica.ppn+%3D+026591766</srw:query>
+        <srw:xQuery><xcql:searchClause><xcql:index>pica.ppn</xcql:index><xcql:relation><xcql:value>=</xcql:value></xcql:relation><xcql:term>026591766</xcql:term></xcql:searchClause></srw:xQuery>
+        <startRecord>1</startRecord>
+        <maximumRecords>5</maximumRecords>
+        <srw:recordPacking>xml</srw:recordPacking>
+        <srw:recordSchema>marc21</srw:recordSchema>
+
+        <srw:stylesheet>http://swb.bsz-bw.de/sru/?xsl=searchRetrieveResponse</srw:stylesheet>
+    </srw:echoedSearchRetrieveRequest>
+    <diag:diagnostics>
+        <diag:uri>info:srw/diagnostic/1/0</diag:uri>
+
+
+    </diag:diagnostics>
+    <srw:extraResponseData>
+        <rob:authenticationToken xmlns:rob="info:srw/extension/2/auth-1.0">U998,Pbszgast,I17,B0728+,SY,NRecherche-DB,D2.1,E4e4438a9-0,A,H,R193.197.31.15,FY</rob:authenticationToken>
+        <mg:resultGrouping xmlns:mg="info:srw/extension/5/metadata-grouping-v1.0">
+
+            <mg:grouping key="9008" description="Sysflag"></mg:grouping>
+
+            <mg:grouping key="9001" description="Materialart"></mg:grouping>
+
+            <mg:grouping key="9000" description="Erscheinungsjahr"></mg:grouping>
+
+            <mg:grouping key="9030" description="LibID-ADI"></mg:grouping>
+
+            <mg:grouping key="9005" description="jetzt AUI"></mg:grouping>
+
+            <mg:grouping key="9002" description="Region"></mg:grouping>
+
+            <mg:grouping key="9004" description="Sprache"></mg:grouping>
+
+            <mg:grouping key="9015" description="Erschliessungsmaterial"></mg:grouping>
+
+
+        </mg:resultGrouping>
+    </srw:extraResponseData>
+</srw:searchRetrieveResponse>

@@ -9,7 +9,7 @@ describe.only('helpers', function() {
     describe('marc21Helper', function() {
         before(function(done) {
             setup.dropDB(function(err){
-                fs.readFile('./test/api/data/marc21/editedBook.xml',"utf-8", function read(err, data) {
+                fs.readFile('./test/api/data/marc21/editedBook2.xml',"utf-8", function read(err, data) {
                     if (err) {
                         throw err;
                     }
