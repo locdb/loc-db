@@ -42,7 +42,7 @@ describe('helpers', function() {
             });
         });
 
-        describe('queryReferences', function(){
+/*        describe('queryReferences', function(){
 
             it('should return result for a given doi', function(done) {
                 this.timeout(1000000000);
@@ -66,7 +66,7 @@ describe('helpers', function() {
                     done();
                 });
             });
-        });
+        });*/
 
         describe('queryByDOI', function(){
 

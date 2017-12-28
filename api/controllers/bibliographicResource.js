@@ -178,7 +178,7 @@ function createByPPN(req, res){
 }
 
 
-function getCrossrefReferences(req, res){
+/*function getCrossrefReferences(req, res){
     var br = req.swagger.params.bibliographicResource.value;
     var response = res;
     // first check whether it has a doi, because then it is way easier to retrieve the data
@@ -202,7 +202,7 @@ function getCrossrefReferences(req, res){
         }
         response.json(res);
     });
-}
+}*/
 
 
 function getPublisherUrl(req, res){
@@ -543,7 +543,7 @@ module.exports = {
         createByPPN: createByPPN,
         save: save,
         update: update,
-        getCrossrefReferences: getCrossrefReferences,
+        //getCrossrefReferences: getCrossrefReferences,
         getPublisherUrl: getPublisherUrl,
         saveElectronicJournal: saveElectronicJournal
 };

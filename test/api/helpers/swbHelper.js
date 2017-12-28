@@ -9,7 +9,7 @@ const swbHelper = require('./../../../api/helpers/swbHelper').createSwbHelper();
 const enums = require('./../../../api/schema/enum.json');
 
 describe('helpers', function() {
-    describe.only('swbHelper', function() {
+    describe('swbHelper', function() {
         before(function(done) {
             setup.dropDB(function(err){
                 done();

@@ -274,34 +274,34 @@ paths:
 
 
 
-  /getCrossrefReferences:
-    x-swagger-router-controller: bibliographicResource
-    post:
-      tags: [BibliographicResource]
-      description: |
-        Returns the br including a list of bibliographic entries retrieved via Crossref. If there is a doi
-        given in the br, the search will be performed based on the identifier and at max one br will be returned.
-        Is no doi given, the search will be fuzzy based on a combination of several br fields (title, subtitle, author,..).
-        The br returned is not the one in our mongo. You only get Crossref data. A working doi example in the domain of sociology is "10.1007/s11617-006-0056-1".
-      operationId: getCrossrefReferences
-      parameters:
-        - name: bibliographicResource
-          in: body
-          description: A bibliographic resource for which the Crossref references should be retrieved
-          required: true
-          schema:
-            $ref: "#/definitions/BibliographicResource"
-      responses:
-        "200":
-          description: Success
-          schema:
-            type: array
-            items:
-              $ref: "#/definitions/BibliographicResource"
-        default:
-          description: Error
-          schema:
-            $ref: "#/definitions/ErrorResponse"
+#  /getCrossrefReferences:
+#    x-swagger-router-controller: bibliographicResource
+#    post:
+#      tags: [BibliographicResource]
+#      description: |
+#        Returns the br including a list of bibliographic entries retrieved via Crossref. If there is a doi
+#        given in the br, the search will be performed based on the identifier and at max one br will be returned.
+#        Is no doi given, the search will be fuzzy based on a combination of several br fields (title, subtitle, author,..).
+#        The br returned is not the one in our mongo. You only get Crossref data. A working doi example in the domain of sociology is "10.1007/s11617-006-0056-1".
+#      operationId: getCrossrefReferences
+#      parameters:
+#        - name: bibliographicResource
+#          in: body
+#          description: A bibliographic resource for which the Crossref references should be retrieved
+#          required: true
+#          schema:
+#            $ref: "#/definitions/BibliographicResource"
+#      responses:
+#        "200":
+#          description: Success
+#          schema:
+#            type: array
+#            items:
+#              $ref: "#/definitions/BibliographicResource"
+#        default:
+#          description: Error
+#          schema:
+#            $ref: "#/definitions/ErrorResponse"
 
 
   /bibliographicEntries/{id}:

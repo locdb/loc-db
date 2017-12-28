@@ -276,7 +276,7 @@ describe('controllers', function() {
       });
 
 
-      describe('POST /getCrossrefReferences', function(){
+/*      describe('POST /getCrossrefReferences', function(){
           this.timeout(1000000000);
 
           it('should retrieve crossref references by doi', function(done){
@@ -333,7 +333,7 @@ describe('controllers', function() {
                       done();
                   });
           });
-      });
+      });*/
 
 
       describe('GET /getPublisherUrl', function(){

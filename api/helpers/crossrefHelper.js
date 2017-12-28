@@ -77,15 +77,15 @@ CrossrefHelper.prototype.queryChapterMetaData = function(containerTitle, firstPa
             return callback(null, res);
         });
     });
-};
+}
 
 
-/**
+/*/!**
  * Retrieves references from Crossref given a DOI or a query string and returns an array of BRs
  * @param doi
  * @param query
  * @param callback
- */
+ *!/
 CrossrefHelper.prototype.queryReferences = function(doi, query, callback){
     var self = this;
     if(doi != null){
@@ -130,9 +130,9 @@ CrossrefHelper.prototype.queryReferences = function(doi, query, callback){
                 return callback(null, res);
             });
         });
-    }
+    }*/
 
-};
+//};
 
 
 /**
