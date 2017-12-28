@@ -336,7 +336,7 @@ describe('controllers', function() {
       });*/
 
 
-      describe('GET /getPublisherUrl', function(){
+/*      describe('GET /getPublisherUrl', function(){
           this.timeout(1000000000);
 
           it('should retrieve the publisher url', function(done){
@@ -359,7 +359,7 @@ describe('controllers', function() {
                       done();
                   });
           });
-      });
+      });*/
 
 
       describe('GET /saveElectronicJournal', function(){

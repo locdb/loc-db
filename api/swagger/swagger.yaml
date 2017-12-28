@@ -212,36 +212,36 @@ paths:
           schema:
             $ref: "#/definitions/ErrorResponse"
 
-  /getPublisherUrl:
-    x-swagger-router-controller: bibliographicResource
-    get:
-      tags: [BibliographicResource]
-      description: |
-        Given a unique identifier of a bibliographic resource from a union catalog, such as for example an SWB-PICA-Prod-Nr. (PPN), as well as the type of the resource,
-        this service retrieves the URL to the publisher website if available.
-        This services is intended for use in the workflow for electronic resources.
-        TODO: Shall we extend that service such that the BR is also written into the db and the whole br is returned?
-      operationId: getPublisherUrl
-      parameters:
-        - name: ppn
-          in: query
-          description: The identifier of the bibliographic resource in the union catalog for which the publisher URL shall be retrieved
-          required: true
-          type: string
-        - name: resourceType
-          in: query
-          description: The type of the bibliographic resource
-          required: true
-          type: string
-      responses:
-        "200":
-          description: Success
-          schema:
-            $ref: "#/definitions/Identifier"
-        default:
-          description: Error
-          schema:
-            $ref: "#/definitions/ErrorResponse"
+#  /getPublisherUrl:
+#    x-swagger-router-controller: bibliographicResource
+#    get:
+#      tags: [BibliographicResource]
+#      description: |
+#        Given a unique identifier of a bibliographic resource from a union catalog, such as for example an SWB-PICA-Prod-Nr. (PPN), as well as the type of the resource,
+#        this service retrieves the URL to the publisher website if available.
+#        This services is intended for use in the workflow for electronic resources.
+#        TODO: Shall we extend that service such that the BR is also written into the db and the whole br is returned?
+#      operationId: getPublisherUrl
+#      parameters:
+#        - name: ppn
+#          in: query
+#          description: The identifier of the bibliographic resource in the union catalog for which the publisher URL shall be retrieved
+#          required: true
+#          type: string
+#        - name: resourceType
+#          in: query
+#          description: The type of the bibliographic resource
+#          required: true
+#          type: string
+#      responses:
+#        "200":
+#          description: Success
+#          schema:
+#            $ref: "#/definitions/Identifier"
+#        default:
+#          description: Error
+#          schema:
+#            $ref: "#/definitions/ErrorResponse"
 
 
   /saveElectronicJournal:

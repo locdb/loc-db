@@ -205,7 +205,7 @@ function createByPPN(req, res){
 }*/
 
 
-function getPublisherUrl(req, res){
+/*function getPublisherUrl(req, res){
     var ppn = req.swagger.params.ppn.value;
     var resourceType = req.swagger.params.resourceType.value;
     var response = res;
@@ -224,7 +224,7 @@ function getPublisherUrl(req, res){
             return response.status(200).json({message: "No URI found."});
         }
     });
-}
+}*/
 
 
 function saveElectronicJournal(req, res) {
@@ -544,6 +544,6 @@ module.exports = {
         save: save,
         update: update,
         //getCrossrefReferences: getCrossrefReferences,
-        getPublisherUrl: getPublisherUrl,
+        //getPublisherUrl: getPublisherUrl,
         saveElectronicJournal: saveElectronicJournal
 };
