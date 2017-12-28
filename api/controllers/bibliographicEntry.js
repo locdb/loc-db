@@ -2,7 +2,7 @@
 const mongoBr = require('./../models/bibliographicResource.js');
 const logger = require('./../util/logger.js');
 const enums = require('./../schema/enum.json');
-const bibliographicResource = require('./../schema/bibliographicResource');
+const BibliographicResource = require('./../schema/bibliographicResource');
 const mongoose = require('mongoose');
 const extend = require('extend');
 const async = require('async');
@@ -145,19 +145,23 @@ function getInternalSuggestionsByQueryString(req, res) {
     if(!threshold){
         threshold = 1.0;
     }
-
+    // get the property names to search in
+    var helper = new BibliographicResource();
+    var types = helper.getAllTypes();
+    var searchProperties = helper.getPropertyForTypes("title",types);
+    searchProperties.push.apply(searchProperties, helper.getPropertyForTypes("subtitle", types));
+    var contributors = helper.getPropertyForTypes("contributors", types);
+    for(var contributor of contributors){
+        searchProperties.push(contributor + '.heldBy.nameString');
+        searchProperties.push(contributor + '.heldBy.familyName');
+        searchProperties.push(contributor + '.heldBy.givenName');
+    }
     // the search function offers an interface to elastic
     try{
         mongoBr.search({
             multi_match: {
                 query: query,
-                fields: [
-                    "title",
-                    "subtitle",
-                    "contributors.heldBy.nameString",
-                    "contributors.heldBy.givenName",
-                    "contributors.heldBy.familyName"
-                ]
+                fields: searchProperties
             }
         }, {hydrate: true, hydrateWithESResults: true}, function (err, brs) {
             var result = [];
