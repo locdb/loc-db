@@ -35,6 +35,11 @@ CrossrefHelper.prototype.query = function(query, callback){
                 logger.error(err);
                 return callback(err, null);
             }
+            for(var parentChild of res){
+                for(var br of parentChild){
+                    br.status = enums.status.external;
+                }
+            }
             return callback(null, res);
         });
     });
@@ -259,6 +264,9 @@ CrossrefHelper.prototype.parseDependentResource = function(obj, callback){
     return this.parseIndependentResource(obj, function(err, res){
         var child = res[0];
         var parentType = self.getCrossrefParentType(child, obj);
+        if(parentType === ""){
+            return callback(null,[child]);
+        }
         var parent = new BibliographicResource({type: parentType});
 
         // set the general parent properties

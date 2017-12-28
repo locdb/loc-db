@@ -223,13 +223,12 @@ describe('controllers', function() {
                         //res.body.should.have.lengthOf(1);
                         res.body.should.have.lengthOf(5);
                         //res.body[0].should.have.property("title", "Direkte Demokratie in der Schweiz: Entwicklungen, Debatten und Wirkungen");
-                        res.body[0].should.have.property("status", status.external);
-                        res.body[0].should.have.property("publicationYear", "2006");
-                        res.body[1].should.have.property("containerTitle");
-                        res.body[0].should.have.property("identifiers");
-                        res.body[0].identifiers.should.be.Array;
-                        res.body[0].identifiers.should.have.lengthOf(4);
-                        res.body[0].identifiers[0].should.not.have.property("scheme", "URL_GOOGLE_SCHOLAR");
+                        res.body[0][0].should.have.property("status", status.external);
+                        res.body[0][0].should.have.property("journalArticle_publicationYear", "2006");
+                        res.body[0][1].should.have.property("journal_title");
+                        res.body[0][0].should.have.property("journalArticle_identifiers");
+                        res.body[0][0].journalArticle_identifiers.should.be.Array;
+                        res.body[0][0].journalArticle_identifiers.should.have.lengthOf(3);
                         done();
                     });
             });
@@ -254,16 +253,16 @@ describe('controllers', function() {
                             //res.body.should.have.lengthOf(1);
                             res.body.should.have.lengthOf(3);
                             //res.body[0].should.have.property("title", "Direkte Demokratie in der Schweiz: Entwicklungen, Debatten und Wirkungen");
-                            res.body[0].should.have.property("status", status.external);
-                            res.body[0].should.have.property("identifiers");
-                            res.body[0].identifiers.should.be.Array;
-                            res.body[0].identifiers.should.have.lengthOf(8);
-                            res.body[0].identifiers[7].should.have.property("scheme", "URL_SWB");
+                            res.body[0][0].should.have.property("status", status.external);
+                            res.body[0][0].should.have.property("monograph_identifiers");
+                            res.body[0][0].monograph_identifiers.should.be.Array;
+                            res.body[0][0].monograph_identifiers.should.have.lengthOf(8);
+                            res.body[0][0].monograph_identifiers[7].should.have.property("scheme", "URL_SWB");
                             done();
                         });
                 });
 
-            it('should return 9 external suggestion for a bibliographic entry', function (done) {
+            it('should return 17 external suggestion for a bibliographic entry', function (done) {
                 this.timeout(100000);
                 var query = "Direkte Demokratie";
 
@@ -277,18 +276,17 @@ describe('controllers', function() {
                         should.not.exist(err);
                         res.body.should.be.Array;
                         //res.body.should.have.lengthOf(2);
-                        res.body.should.have.lengthOf(9);
-                        res.body[0].should.have.property("status", status.external);
+                        res.body.should.have.lengthOf(17);
+                        res.body[0][0].should.have.property("status", status.external);
                         //res.body[0].should.have.property("title", "Direkte Demokratie und Umweltpolitik in der Schweiz");
-                        res.body[0].should.have.property("identifiers");
-                        res.body[0].identifiers.should.be.Array;
-                        res.body[0].identifiers.should.have.lengthOf(2);
-                        res.body[6].identifiers[0].should.not.have.property("scheme", "URL_GOOGLE_SCHOLAR");
+                        res.body[0][0].should.have.property("bookChapter_identifiers");
+                        res.body[0][0].bookChapter_identifiers.should.be.Array;
+                        res.body[0][0].bookChapter_identifiers.should.have.lengthOf(2);
                         done();
                     });
             });
 
-            it('issue 192: searching by doi', function (done) {
+            it.skip('issue 192: searching by doi', function (done) {
                 this.timeout(100000);
                 var query = "10.1007/s00148-005-0056-5";
 

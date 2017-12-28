@@ -48,16 +48,20 @@ Marc21Helper.prototype.parseBibliographicResources = function(xmlString, callbac
             temp = records.slice(i,i+chunk);
             splittedRecords.push(temp);
         }
-        async.map(splittedRecords, self.extractData(records, null, function(err,result){
-            callback(null, result);
-        }), function(err, results){
-            if(err){
-                logger.log(err);
-                return callback(err, null);
+        async.map(splittedRecords,
+            function(rec, callback) {
+                self.extractData(rec, null, function (err, result) {
+                    callback(null, result);
+                });
+            },
+            function (err, results) {
+                if (err) {
+                    logger.log(err);
+                    return callback(err, null);
+                }
+                return callback(null, results);
             }
-            return callback(null,results);
-        });
-
+        );
     });
 }
 

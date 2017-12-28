@@ -231,9 +231,12 @@ function getExternalSuggestionsByQueryString(req, res) {
             var result = [];
             for(var sourceResults of res){
                 if (sourceResults.length > 0) {
-                    for (var br of sourceResults) {
-                        if (Object.keys(br).length !== 0 && stringSimilarity.compareTwoStrings(br.title + br.subtitle + br.contributors, query) >= threshold) {
-                            result.push(br);
+                    for (var parentChild of sourceResults) {
+                        for(var br of parentChild){
+                            if (Object.keys(br).length !== 0 && stringSimilarity.compareTwoStrings(br.getTitleForType(br.type) + br.getSubtitleForType(br.type) + br.getContributorsForType(br.type), query) >= threshold) {
+                                result.push(parentChild);
+                                break;
+                            }
                         }
                     }
                 }

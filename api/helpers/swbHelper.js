@@ -124,25 +124,20 @@ SwbHelper.prototype.queryByQueryString = function(query, callback){
                 logger.error(err);
                 return callback(err, null);
             }
-            var brs = [];
-            for(var res of result){
-                var br = new BibliographicResource(res);
-                br = br.toObject();
-                var ppn = "";
-                for(var identifier of br.identifiers){
-                    if(identifier.scheme === enums.identifier.swb_ppn){
-                        ppn = identifier.literalValue;
+            for(var parentChild of result){
+                for(var br of parentChild){
+                    var type = br.type;
+                    var ppn = "";
+                    for(var identifier of br.getIdentifiersForType(type)){
+                        br.status = enums.status.external;
+                        if(identifier.scheme === enums.identifier.swb_ppn){
+                            ppn = identifier.literalValue;
+                            br.pushIdentifierForType(type, {scheme: enums.externalSources.swb, literalValue: "http://swb.bsz-bw.de/DB=2.1/PPNSET?PPN=" + ppn});
+                        }
                     }
                 }
-                if(br.identifiers){
-                    br.identifiers.push({scheme: enums.externalSources.swb, literalValue: "http://swb.bsz-bw.de/DB=2.1/PPNSET?PPN=" + ppn});
-                }else{
-                    br.identifiers = [{scheme: enums.externalSources.swb, literalValue: "http://swb.bsz-bw.de/DB=2.1/PPNSET?PPN=" + ppn}];
-                }
-                br.status = enums.status.external;
-                brs.push(br);
             }
-            return callback(null, brs);
+            return callback(null, result);
         });
     });
 };

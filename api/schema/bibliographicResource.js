@@ -226,6 +226,8 @@ var bibliographicResource = new SchemaObject({
                     return [resourceType.referenceBook]
                 case resourceType.standard:
                     return [resourceType.standardSeries]
+                case resourceType.dataset:
+                    return [resourceType.dataset]
                 default:
                     return []
             }
