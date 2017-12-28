@@ -5,7 +5,7 @@ const fs = require('fs')
 const enums = require('./../../../api/schema/enum.json');
 const async = require('async');
 
-describe.only('helpers', function() {
+describe('helpers', function() {
     var editedBook;
     var editedBook2;
     var editedBook3;

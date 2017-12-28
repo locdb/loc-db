@@ -104,5 +104,26 @@ describe('schema', function() {
                 done();
             });
         });
+
+        describe('getAllTypes', function () {
+            it('should get all types', function (done) {
+                var bibliographicResource = new BibliographicResource({});
+                var types = bibliographicResource.getAllTypes();
+                types.should.be.Array();
+                types.should.have.lengthOf(24);
+                done();
+            });
+        });
+
+        describe('getPropertyForTypes', function () {
+            it('should get all titles', function (done) {
+                var bibliographicResource = new BibliographicResource({});
+                var types = bibliographicResource.getAllTypes();
+                var titles = bibliographicResource.getPropertyForTypes('title',types);
+                titles.should.be.Array();
+                titles.should.have.lengthOf(24);
+                done();
+            });
+        });
     });
 });

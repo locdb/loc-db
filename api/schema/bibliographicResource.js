@@ -167,6 +167,25 @@ var bibliographicResource = new SchemaObject({
     standardSeries_embodiedAs: [{type: ResourceEmbodiment}]
 }, {
     methods: {
+        getAllTypes: function(){
+            var types = [];
+            for (var type in resourceType) {
+                types.push(resourceType[type]);
+            }
+            return types;
+        },
+        getPropertyForTypes:function(propertyName, types){
+            var titles = [];
+            for (var type of types) {
+                var prefix = this.getPropertyPrefixForType(type);
+                for (var property in this) {
+                    if (property.includes(prefix + propertyName)){
+                        titles.push(property);
+                    }
+                }
+            }
+            return titles;
+        },
         /**
          * Returns the property prefix for a given type
          * @param type
