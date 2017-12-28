@@ -243,6 +243,72 @@ paths:
 #          schema:
 #            $ref: "#/definitions/ErrorResponse"
 
+  /saveResource:
+    x-swagger-router-controller: scan
+    post:
+      tags: [Scan]
+      description: Saves a bibliographic Resource given it's identifier and resourceType as well as additional information
+      operationId: saveResource
+      parameters:
+        - name: identifierScheme
+          in: formData
+          description: The scheme of the identifier of the resource
+          required: true
+          type: string
+          enum: [SWB_PPN, ZDB_PPN, DOI, OLC_PPN]
+        - name: identifierLiteralValue
+          in: formData
+          description: The literal value of the identifier of the resource
+          required: true
+          type: string
+        - name: firstPage
+          in: formData
+          description: The number of the first page of the resource (for journal articles, book chapters etc).
+          required: false
+          type: number
+        - name: lastPage
+          in: formData
+          description: The number of the last page of the resource.
+          required: false
+          type: number
+        - name: textualPdf
+          in: formData
+          description: Whether the references file (if given) is a PDF with textual content
+          required: false
+          type: boolean
+        - name: binaryFile
+          in: formData
+          description: The reference page (binary file)
+          required: false
+          type: file
+        - name: stringFile
+          in: formData
+          description: The reference page (string), e.g. the html code of an online reference page
+          required: false
+          type: string
+        - name: embodimentType
+          in: formData
+          description: The embodiment type (PRINT or DIGITAL) of the resource
+          required: false
+          type: string
+          enum: [PRINT, DIGITAL]
+        - name: resourceType
+          in: formData
+          description: The type of the resource.
+          required: true
+          type: string
+          enum: [BOOK, BOOK_CHAPTER, BOOK_PART, BOOK_SECTION, BOOK_SERIES, BOOK_SET,
+           BOOK_TRACK, COMPONENT, DATASET, DISSERTATION, EDITED_BOOK, JOURNAL_ARTICLE, JOURNAL_ISSUE, JOURNAL_VOLUME,
+            MONOGRAPH, JOURNAL, PROCEEDINGS_ARTICLE, PROCEEDINGS, REFERENCE_BOOK, REFERENCE_ENTRY, REPORT_SERIES, REPORT, STANDARD_SERIES, STANDARD]
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/BibliographicResource"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
 
   /saveElectronicJournal:
     x-swagger-router-controller: bibliographicResource

@@ -508,5 +508,25 @@ describe('controllers', function () {
                     });
             });
         });
+
+
+        describe.only('POST /saveResource - Resource Type: JOURNAL_ARTICLE', function () {
+            this.timeout(1000000);
+            it('should create a journal in the db', function (done) {
+                agent
+                    .post('/saveResource')
+                    .type('form')
+                    .field('identifierScheme', 'DOI')
+                    .field('identifierLiteralValue', '10.2307/2141399')
+                    .field('resourceType', resourceType.journalArticle)
+                    .set('Accept', 'application/json')
+                    .expect('Content-Type', /json/)
+                    .expect(200)
+                    .end(function (err, res) {
+                        should.not.exist(err);
+                        done();
+                    });
+            });
+        });
     });
 });
