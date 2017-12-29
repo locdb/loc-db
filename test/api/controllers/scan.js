@@ -510,7 +510,44 @@ describe('controllers', function () {
         });
 
 
-        describe.only('POST /saveResource - Resource Type: JOURNAL_ARTICLE', function () {
+        describe.only('POST /saveResource - Resource Type: BOOK', function () {
+            this.timeout(1000000);
+            it('should create a journal in the db', function (done) {
+                agent
+                    .post('/saveResource')
+                    .type('form')
+                    .field('identifierScheme', 'ZDB_PPN')
+                    .field('identifierLiteralValue', '011157860')
+                    .field('resourceType', resourceType.journal)
+                    .set('Accept', 'application/json')
+                    .expect('Content-Type', /json/)
+                    .expect(200)
+                    .end(function (err, res) {
+                        should.not.exist(err);
+                        res.body[0].should.have.property("journal_title", "Kölner Zeitschrift für Soziologie und Sozialpsychologie");
+                        done();
+                    });
+            });
+
+
+            it('should not create the journal again in the db', function (done) {
+                agent
+                    .post('/saveResource')
+                    .type('form')
+                    .field('identifierScheme', 'ZDB_PPN')
+                    .field('identifierLiteralValue', '011157860')
+                    .field('resourceType', resourceType.journal)
+                    .set('Accept', 'application/json')
+                    .expect('Content-Type', /json/)
+                    .expect(400)
+                    .end(function (err, res) {
+                        should.not.exist(err);
+                        done();
+                    });
+            });
+        });
+
+        describe('POST /saveResource - Resource Type: JOURNAL_ARTICLE', function () {
             this.timeout(1000000);
             it('should create a journal in the db', function (done) {
                 agent

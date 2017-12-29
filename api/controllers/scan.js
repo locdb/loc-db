@@ -12,6 +12,7 @@ const mongoose = require('mongoose');
 const fs = require('fs');
 const path = require('path');
 const databaseHelper = require('./../helpers/databaseHelper.js').createDatabaseHelper();
+const crossrefHelper = require('./../helpers/crossrefHelper').createCrossrefHelper();
 
 
 
@@ -166,11 +167,11 @@ function saveResource(req, res) {
     var textualPdf = req.swagger.params.textualPdf.value;
     var stringFile = req.swagger.params.stringFile.value;
     var embodimentType = req.swagger.params.embodimentType.value;
-    return response.status(200).json("TBI");
+
     // 1. Check whether resource already exists given it's identifier, resourceType and maybe first or lastPage
-/*    databaseHelper.resourceExists(identifier, resourceType, firstPage, lastPage, function(err, resource){
+    databaseHelper.resourceExists(identifier, resourceType, firstPage, lastPage, function(err, resource){
         if(err){
-            errorlog.error(err);
+            logger.error(err);
             return response.status(500).json(err);
         }else if(resource){
             // 1a. resource already exists
@@ -178,9 +179,9 @@ function saveResource(req, res) {
             if(!binaryFile && !stringFile){
                 return response.status(400).json({"message":"The resource already exists."});
             }
-            databaseHelper.saveReferencesPageForResource(resource, binaryFile, textualPdf,stringFile,embodimentType, function(err, result){
+            databaseHelper.saveReferencesPageForResource(resource[0], binaryFile, textualPdf,stringFile,embodimentType, function(err, result){
                 if(err){
-                    errorlog.error(err);
+                    logger.error(err);
                     return response.status(500).json(err);
                 }
                 return response.json(result);
@@ -195,17 +196,15 @@ function saveResource(req, res) {
                     }else{
                         return swbHelper.query(identifier.literalValue, resourceType, function (err, resource) {
                             if(err){
-                                errorlog.error(err);
+                                logger.error(err);
                                 return response.status(500).json(err);
                             }
                             // we retrieved the metadata; As it should not be possible to append a scan directly to a journal,
                             // we are done
-                            // TODO: Or do we have to do anything else now?
-                            resource.identifiers.push(identifier);
-                            resource.type = resourceType;
+                            //resource.type = resourceType;
                             mongoBr.create(resource, function(err, resource){
                                 if(err){
-                                    errorlog.log(err);
+                                    logger.error(err);
                                     return response.status(500).json(err);
                                 }
                                 return response.status(200).json(resource);
@@ -213,9 +212,9 @@ function saveResource(req, res) {
                         });
                     }
                 case enums.resourceType.journalVolume:
-                    return response.status(400).json("Not implemented yet.");
+                    return response.status(400).json("Not implemented.");
                 case enums.resourceType.journalIssue:
-                    return response.status(400).json("Not implemented yet.");
+                    return response.status(400).json("Not implemented.");
                 case enums.resourceType.journalArticle:
                     if(identifier.scheme !== enums.identifier.olc_ppn || identifier.scheme !== enums.identifier.doi){
                         return response.status(400).json({"message": "Not the appropriate input data for creating a journal article."})
@@ -224,9 +223,10 @@ function saveResource(req, res) {
                             case enums.identifier.doi:
                                 // go to crossref and create article
                                 crossrefHelper.queryByDOI(identifier.literalValue, function(err, resources){
-                                    // wenn das journal nicht existiert, kann auch das issue und das volume und der article nicht existieren
+                                    // wenn das issue nicht existiert, kann auch der article nicht existieren
                                     // hier muss hierarschich vorgegangen werden
-                                    databaseHelper.curateJournalHierarchy(resources, function(err, resources){
+                                    // TODO: This function is not implemented
+                                    databaseHelper.curateHierarchy(resources, function(err, resources){
                                         // jetzt müssen wir gucken, ob man noch einen Scan speichern muss oder nicht
                                         if(!binaryFile && !stringFile){
                                             return response.json(resources);
@@ -247,16 +247,43 @@ function saveResource(req, res) {
                                 });
                             case enums.identifier.olc_ppn:
                                 // go to olc and create article
-                                return response.status(400).json({"message": "To be implemented."});
+                                return response.status(400).json({"message": "Identifier type not implemented."});
                         }
                     }
-                case enums.resourceType.book:
-                    return response.status(400).json({"message": "Resource type book is not specific enough."});
-                default:
+                case enums.resourceType.bookChapter:
                     return response.status(400).json({"message": "Resource type not implemented yet."});
+                case enums.resourceType.monograph:
+                    return swbHelper.query(identifier.literalValue, resourceType, function (err, resource) {
+                        if(err){
+                            logger.error(err);
+                            return response.status(500).json(err);
+                        }
+                        // we retrieved the metadata;
+                        // now we have to check, whether we have to append something
+                        if(binaryFile || stringFile){
+                            return databaseHelper.saveReferencesPageForResource(resource[0], binaryFile, textualPdf,stringFile,embodimentType, function(err, result){
+                                if(err){
+                                    logger.error(err);
+                                    return response.status(500).json(err);
+                                }
+                                return response.json(result);
+                            });
+                        }else{
+                            //resource.type = resourceType;
+                            return mongoBr.create(resource[0], function(err, resource){
+                                if(err){
+                                    logger.error(err);
+                                    return response.status(500).json(err);
+                                }
+                                return response.status(200).json(resource);
+                            });
+                        }
+                    });
+                default:
+                    return response.status(400).json({"message": "Resource type not implemented."});
             }
         }
-    });*/
+    });
 }
 
 

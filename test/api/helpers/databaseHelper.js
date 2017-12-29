@@ -310,7 +310,7 @@ describe('helpers', function() {
             });
         });
 
-        describe.only('resourceExists', function() {
+        describe('resourceExists', function() {
             it('should check that the resource does not exist', function (done) {
                 var identifier = {
                     scheme : 'DOI',

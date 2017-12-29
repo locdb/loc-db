@@ -45,7 +45,7 @@ OcrHelper.prototype.saveBinaryFile = function(fileName, fileBuffer, callback){
 OcrHelper.prototype.saveStringFile = function(fileName, fileString, callback){
     fs.writeFile(config.PATHS.UPLOAD + fileName, fileString, 'utf-8', function(err){
         if(err){
-            logger.error(err);
+            errorlog.error(err);
             return callback(err, null)
         }
         callback(null,null);

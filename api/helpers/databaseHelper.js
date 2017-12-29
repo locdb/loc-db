@@ -13,6 +13,7 @@ const swbHelper = require('./swbHelper').createSwbHelper();
 const crossrefHelper = require('./crossrefHelper').createCrossrefHelper();
 const async = require('async');
 const Scan = require('./../schema/scan');
+const ResourceEmbodiment = require('./../schema/resourceEmbodiment');
 
 var DatabaseHelper = function(){
 };
@@ -340,7 +341,7 @@ DatabaseHelper.prototype.saveScan = function(scan, textualPdf, callback){
     ocrHelper.saveBinaryFile(scanId, scan.buffer, function (err, scanName) {
         // if there is an error, log it and return
         if (err) {
-            logger.error(err);
+            errorlog.error(err);
             return callback(err, null)
         }
         // if not, create a scan object
@@ -433,6 +434,85 @@ DatabaseHelper.prototype.resourceExists = function (identifier, resourceType, fi
         }
     );
 }
+
+
+DatabaseHelper.prototype.saveReferencesPageForResource = function(resource, binaryFile, textualPdf, stringFile, embodimentType, callback){
+    var self = this;
+    if(binaryFile && textualPdf){
+        //2a. A binary file is given; We also need to have the information if it's a textual pdf; Save it
+        self.saveScan(binaryFile, textualPdf, function(err, scan){
+            if(err){
+                logger.error(err);
+                return callback(err,null);
+            }
+            self.saveScanInResourceEmbodiment(resource, scan, embodimentType, function(err, resource){
+                // 3. We saved the file and we modified the br accordingly; Now we need to save it in mongo
+                var resource = new mongoBr(resource);
+                resource.save(function(err, resource){
+                    if(err){
+                        logger.error(err);
+                        return callback(err,null);
+                    }
+                    return callback(null,[resource, scan]);
+                });
+            });
+        });
+    }else if(stringFile) {
+        //2b. A string file is given; Save it
+        self.saveStringScan(stringFile, function (err, scan) {
+            if (err) {
+                logger.error(err);
+                return callback(err, null);
+            }
+            self.saveScanInResourceEmbodiment(resource, scan, embodimentType, function (err, resource) {
+                // 3. We saved the file and we modified the br accordingly; Now we need to save it in mongo
+                resource.save(function (err, resource) {
+                    if (err) {
+                        logger.error(err);
+                        return callback(err, null)
+                    }
+                    return callback(null, [resource, scan]);
+                });
+            });
+        });
+    }
+};
+
+
+DatabaseHelper.prototype.saveStringScan = function(scan, callback){
+    // get unique id from mongo which we use as filename
+    var scanId = mongoose.Types.ObjectId().toString();
+
+    ocrHelper.saveStringFile(scanId, scan, function (err, scanName) {
+        // if there is an error, log it and return
+        if (err) {
+            logger.error(err);
+            return callback(err, null)
+        }
+        // if not, create a scan object
+        var scan = new Scan({_id: scanId, scanName: scanName, status: enums.status.notOcrProcessed, textualPdf: false});
+
+        // return scan object to the caller
+        return callback(null, scan);
+    });
+};
+
+
+DatabaseHelper.prototype.saveScanInResourceEmbodiment = function(resource, scan, embodimentType, callback){
+    // check whether embodiment of type embodimentType already exists in resource
+    var resource = new BibliographicResource(resource);
+    for(var embodiment of resource.getResourceEmbodimentsForType(resource.type)){
+        if(embodiment.type === embodimentType){
+            // a matching embodiment was found; save scan and return resource
+            embodiment.scans.push(scan);
+            return callback(null, resource);
+        }
+    }
+    // a matching embodiment type was not found; create a new one and return the resource
+    var embodiment = new ResourceEmbodiment({type: embodimentType, scans: [scan]});
+    resource.pushResourceEmbodimentForType(embodiment);
+    return callback(null, resource);
+};
 
 
 
