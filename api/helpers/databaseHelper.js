@@ -4,6 +4,7 @@
 
 'use strict';
 const mongoBr = require('./../models/bibliographicResource.js');
+const BibliographicResource = require('./../schema/bibliographicResource.js');
 const mongoose = require('mongoose');
 const enums = require('./../schema/enum.json');
 const logger = require('./../util/logger');
@@ -206,7 +207,7 @@ DatabaseHelper.prototype.saveDependentPrintResource = function(scan, firstPage, 
             // we have to retrieve all the metadata and we have to save the file
             self.saveScanAndRetrieveMetadata(scan, ppn, resourceType, textualPdf, function (err, result) {
                 if (err) {
-                    logger.log(err);
+                    logger.error(err);
                     return callback(err, null);
                 }
                 var scan = result[0];
@@ -349,6 +350,90 @@ DatabaseHelper.prototype.saveScan = function(scan, textualPdf, callback){
         callback(null, scan);
     });
 }
+
+
+DatabaseHelper.prototype.resourceExists = function (identifier, resourceType, firstPage, lastPage, callback) {
+    var self = this;
+
+    // TODO: We have to make 100% sure, that we find the match. Therefore, it would be better to search just in all identifier properties
+    if(resourceType === enums.resourceType.bookChapter && identifier.scheme === enums.identifier.swb_ppn){
+        resourceType = enums.resourceType.editedBook;
+    }
+    var propertyPrefix = new BibliographicResource().getPropertyPrefixForType(resourceType);
+    // check whether a resource with the given identifier and type is in the db
+    mongoBr.where(propertyPrefix.concat("identifiers.scheme"), identifier.scheme)
+        .where(propertyPrefix.concat("identifiers.literalValue"), identifier.literalValue)
+        .where("type", resourceType)
+        .exec(function (err, resources) {
+            if(err){
+                logger.error(err);
+                return callback(err, null);
+            }else if(resources.length === 0){
+                // nothing like this can be found; therefore, we can be sure that there is nothing to consider
+                logger.log("Resource with given identifier and resourceType does not exist.",
+                    {
+                        identifier: identifier,
+                        resourceType: resourceType
+                    });
+                return callback(null, null);
+            } else if(firstPage && lastPage){
+                // something could be found and firstPage and lastPage are given; therefore, the identifier relates to the parent; we have to retrieve the children and check their page numbers (dependent resource)
+                async.map(resources, function(parent, callback){
+                    // retrieve children of this thing
+                    mongoBr.where('partOf', parent._id)
+                        .exec(function (err, children) {
+                            if(err){
+                                logger.error(err);
+                                callback(err, null);
+                            }else if(children.length === 0) {
+                                callback(null, null);
+                            }else {
+                                for(var child of children){
+                                    var child = new BibliographicResource(child);
+                                    for(var embodiment of child.getResourceEmbodimentsForType(child.type)){
+                                        if(embodiment.firstPage === firstPage && embodiment.lastPage === lastPage){
+                                            return callback(null, [child, parent]);
+                                        }
+                                    }
+                                }
+                                callback(null, null);
+                            }
+                        });
+                }, function(err, matches){
+                    for(var match of matches){
+                        if(match !== null){
+                            logger.log("Resource with given identifier and resourceType, firstPage, lastPage does exist.",
+                                {
+                                    identifier: identifier,
+                                    resourceType: resourceType,
+                                    firstPage: firstPage,
+                                    lastPage: lastPage
+                                });
+                            return callback(null, match);
+                        }
+                    }
+                    logger.log("Resource with given identifier and resourceType, firstPage, lastPage does not exist.",
+                        {
+                            identifier: identifier,
+                            resourceType: resourceType,
+                            firstPage: firstPage,
+                            lastPage: lastPage
+                        });
+                    return callback(null, null);
+                });
+            }else{
+                // first page and last page are not given; therefore, the identifier relates directly to the resource; we have a match (independent resource)!
+                logger.log("Resource with given identifier and resourceType does exist.",
+                    {
+                        identifier: identifier,
+                        resourceType: resourceType
+                    });
+                return callback(null, resources);
+            }
+        }
+    );
+}
+
 
 
 /**

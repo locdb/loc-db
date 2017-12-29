@@ -5,6 +5,7 @@ const br = require('./../../api/models/bibliographicResource.js');
 const user = require('./../../api/models/user.js');
 const signup = require('./../../api/controllers/user.js').findOrCreateUser;
 const dataBibliographicResource = require('./data/bibliographicResource');
+const dataBookChapter = require('./data/bookChapter.json');
 const dataBibliographicEntry = require('./data/bibliographicEntry');
 const dataToDo = require('./data/todo.json');
 const nock = require('nock');
@@ -29,6 +30,24 @@ Setup.prototype.loadBibliographicResources = function(cb){
             console.log("Data loaded");
             return cb(err, results);
         });
+
+};
+
+Setup.prototype.loadBookChapter = function(cb){
+    async.each(dataBookChapter, function(bibliographicResource, callback){
+        var bibliographicResource = new br(bibliographicResource);
+        bibliographicResource.save(function(err, res){
+            if(err) console.log(err);
+            bibliographicResource.on('es-indexed', function(err, res){
+                if (err) console.log(err);
+                console.log('es-indexed');
+                callback(err,bibliographicResource);
+            });
+        });
+    }, function(err, results) {
+        console.log("Data loaded");
+        return cb(err, results);
+    });
 
 };
 

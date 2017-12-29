@@ -9,6 +9,7 @@ const ResourceEmbodiment = require('./resourceEmbodiment');
 const _ = require('underscore.string');
 
 var bibliographicResource = new SchemaObject({
+    _id: 'any',
     journal_identifiers: [{type: Identifier}],
     journalVolume_identifiers: [{type: Identifier}],
     journalIssue_identifiers: [{type: Identifier}],

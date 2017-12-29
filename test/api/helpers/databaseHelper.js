@@ -18,14 +18,16 @@ describe('helpers', function() {
         before(function(done) {
             this.timeout(3000);
             setup.dropDB(function(err){
-                fs.readFile('./test/api/data/ocr_data/02_input.png', function(err,res){
-                    if(err){
-                        done(err);
-                    }
-                    else{
-                        scan = res;
-                        done();
-                    }
+                setup.loadBibliographicResources(function(err,res){
+                    fs.readFile('./test/api/data/ocr_data/02_input.png', function(err,res){
+                        if(err){
+                            done(err);
+                        }
+                        else{
+                            scan = res;
+                            done();
+                        }
+                    });
                 });
             });
         });
@@ -306,19 +308,70 @@ describe('helpers', function() {
                     });
                 });
             });
+        });
+
+        describe.only('resourceExists', function() {
+            it('should check that the resource does not exist', function (done) {
+                var identifier = {
+                    scheme : 'DOI',
+                    literalValue: '10.2307/2141399'
+                };
+                var resourceType = enums.resourceType.journalArticle;
+                var firstPage = null;
+                var lastPage = null;
+                databaseHelper.resourceExists(identifier,resourceType,firstPage, lastPage, function (err, result) {
+                    should.not.exists(err);
+                    should.not.exists(result);
+                    done();
+                });
+            });
 
 
-            describe.only('resourceExists', function() {
-                it('should check that the resource does not exist', function (done) {
+            it('should check that the resource does exist', function (done) {
+                var identifier = {
+                    scheme : 'DOI',
+                    literalValue: '10.1515/9783110379709'
+                };
+                var resourceType = enums.resourceType.monograph;
+                var firstPage = null;
+                var lastPage = null;
+                databaseHelper.resourceExists(identifier,resourceType,firstPage, lastPage, function (err, result) {
+                    should.not.exists(err);
+                    should.exists(result);
+                    result.should.have.lengthOf(1);
+                    done();
+                });
+            });
+
+            it('should check that the resource does not exist', function (done) {
+                var identifier = {
+                    scheme : 'SWB_PPN',
+                    literalValue: '48525302X'
+                };
+                var resourceType = enums.resourceType.bookChapter;
+                var firstPage = 94;
+                var lastPage = 95;
+                databaseHelper.resourceExists(identifier,resourceType,firstPage, lastPage, function (err, result) {
+                    should.not.exists(err);
+                    should.not.exists(result);
+                    done();
+                });
+            });
+
+            it('should check that the resource does exist', function (done) {
+                setup.loadBookChapter(function(err, res){
                     var identifier = {
-                        scheme : 'DOI',
-                        literalValue: ''
+                        scheme : 'SWB_PPN',
+                        literalValue: '48525302X'
                     };
-                    var resourceType = enums.resourceType.journalArticle;
-                    var firstPage = null;
-                    var lastPage = null;
+                    var resourceType = enums.resourceType.bookChapter;
+                    var firstPage = 94;
+                    var lastPage = 95;
                     databaseHelper.resourceExists(identifier,resourceType,firstPage, lastPage, function (err, result) {
                         should.not.exists(err);
+                        should.exists(result);
+                        result.should.have.lengthOf(2);
+                        done();
                     });
                 });
             });
