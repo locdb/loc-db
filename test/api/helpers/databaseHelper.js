@@ -306,6 +306,22 @@ describe('helpers', function() {
                     });
                 });
             });
+
+
+            describe.only('resourceExists', function() {
+                it('should check that the resource does not exist', function (done) {
+                    var identifier = {
+                        scheme : 'DOI',
+                        literalValue: ''
+                    };
+                    var resourceType = enums.resourceType.journalArticle;
+                    var firstPage = null;
+                    var lastPage = null;
+                    databaseHelper.resourceExists(identifier,resourceType,firstPage, lastPage, function (err, result) {
+                        should.not.exists(err);
+                    });
+                });
+            });
         });
     });
 });
