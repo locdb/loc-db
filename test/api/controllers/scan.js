@@ -625,11 +625,128 @@ describe('controllers', function () {
                     .expect(200)
                     .end(function (err, res) {
                         res.body.should.be.Array();
-                        res.body.should.have.lengthOf(2);
+                        res.body.should.have.lengthOf(3);
                         res.body[0].should.have.property("type", resourceType.journalArticle);
                         res.body[0].should.have.property("partOf", parentId);
                         res.body[0].should.have.property("_id", articleId);
-                        res.body[1].should.have.property("status", status.notOcrProcessed);
+                        res.body[2].should.have.property("status", status.notOcrProcessed);
+                        done();
+                    });
+            });
+        });
+
+
+        describe('POST /saveResource - Resource Type: BOOK_CHAPTER', function () {
+            this.timeout(1000000);
+            it.only('should save a scan in the file system and create two br (parent and child) in the db', function (done) {
+                agent
+                    .post('/saveResource')
+                    .type('form')
+                    .field('identifierScheme', 'SWB_PPN')
+                    .field('identifierLiteralValue', '012678775')
+                    .field('firstPage', '51')
+                    .field('lastPage', '95')
+                    .field('textualPdf', false)
+                    .field('resourceType', resourceType.bookChapter)
+                    .attach('binaryFile', './test/api/data/ocr_data/02_input.png')
+                    .set('Accept', 'application/json')
+                    .expect('Content-Type', /json/)
+                    .expect(200)
+                    .end(function (err, res) {
+                        should.not.exist(err);
+                        res.body.should.be.Array().and.have.lengthOf(3);
+                        res.body[0].should.have.property("bookChapter_title", "Arms Control: Lessons Learned and the Future");
+                        res.body[0].should.have.property("bookChapter_embodiedAs");
+                        res.body[0].bookChapter_embodiedAs.should.be.Array;
+                        res.body[0].bookChapter_embodiedAs.should.have.lengthOf(1);
+                        res.body[1].should.have.property("editedBook_title", "Modelling and analysis in arms control :");
+                        res.body[0].bookChapter_embodiedAs[0].should.have.property("scans");
+                        res.body[0].bookChapter_embodiedAs[0].scans.should.be.Array;
+                        res.body[0].bookChapter_embodiedAs[0].scans.should.have.lengthOf(1);
+                        res.body[0].bookChapter_embodiedAs[0].scans[0].should.have.property("status", status.notOcrProcessed);
+                        res.body[0].bookChapter_embodiedAs[0].scans[0].should.have.property("textualPdf", false);
+                        res.body[2].should.deepEqual(res.body[0].bookChapter_embodiedAs[0].scans[0]);
+                        res.body[0].should.have.property("partOf");
+                        res.body[1]._id.should.be.exactly(res.body[0].partOf);
+                        should(fs.existsSync(config.PATHS.UPLOAD)).equal(true);
+                        should(fs.existsSync(config.PATHS.UPLOAD + res.body[0].bookChapter_embodiedAs[0].scans[0].scanName)).equal(true);
+                        done();
+                    });
+            });
+
+            it.only('should should add a new part to an already existing br: pdf', function (done) {
+                agent
+                    .post('/saveResource')
+                    .type('form')
+                    .field('identifierScheme', 'SWB_PPN')
+                    .field('identifierLiteralValue', '012678775')
+                    .field('firstPage', '33')
+                    .field('lastPage', '41')
+                    .field('textualPdf', true)
+                    .field('resourceType', resourceType.bookChapter)
+                    .attach('binaryFile', './test/api/data/ocr_data/references.pdf')
+                    .set('Accept', 'application/json')
+                    .expect('Content-Type', /json/)
+                    .expect(200)
+                    .end(function (err, res) {
+                        should.not.exist(err);
+                        res.body[1].should.have.property("editedBook_title", "Modelling and analysis in arms control :");
+                        res.body[0].should.have.property("bookChapter_embodiedAs");
+                        res.body[0].bookChapter_embodiedAs.should.be.Array;
+                        res.body[0].bookChapter_embodiedAs.should.have.lengthOf(1);
+                        res.body[1].should.have.property("editedBook_embodiedAs");
+                        res.body[0].should.have.property("bookChapter_title", "Arms Control and Strategic Military Stability");
+                        res.body[0].bookChapter_embodiedAs[0].should.have.property("scans");
+                        res.body[0].bookChapter_embodiedAs[0].scans.should.be.Array;
+                        res.body[0].bookChapter_embodiedAs[0].scans.should.have.lengthOf(1);
+                        res.body[0].bookChapter_embodiedAs[0].scans[0].should.have.property("textualPdf", true);
+                        res.body[0].bookChapter_embodiedAs[0].scans[0].should.have.property("status", status.notOcrProcessed);
+                        res.body[2].should.deepEqual(res.body[0].bookChapter_embodiedAs[0].scans[0]);
+                        res.body[0].should.have.property("partOf");
+                        res.body[1]._id.should.be.exactly(res.body[0].partOf);
+                        should(fs.existsSync(config.PATHS.UPLOAD)).equal(true);
+                        should(fs.existsSync(config.PATHS.UPLOAD + res.body[0].bookChapter_embodiedAs[0].scans[0].scanName)).equal(true);
+                        //idPdf = res.body[1].embodiedAs[0].scans[0]._id;
+                        done();
+                    });
+            });
+
+            it.only('should append another file to the resource', function (done) {
+                agent
+                    .post('/saveResource')
+                    .type('form')
+                    .field('identifierScheme', 'SWB_PPN')
+                    .field('identifierLiteralValue', '012678775')
+                    .field('firstPage', '33')
+                    .field('lastPage', '41')
+                    .field('textualPdf', false)
+                    .field('resourceType', resourceType.bookChapter)
+                    .attach('binaryFile', './test/api/data/ocr_data/references.pdf')
+                    .set('Accept', 'application/json')
+                    .expect('Content-Type', /json/)
+                    .expect(200)
+                    .end(function (err, res) {
+                        should.not.exist(err);
+                        res.body.should.be.Array().and.have.lengthOf(3);
+                        res.body[0].bookChapter_embodiedAs[0].scans.should.have.lengthOf(2);
+                        done();
+                    });
+            });
+
+            it.only('should return 400', function (done) {
+                agent
+                    .post('/saveResource')
+                    .type('form')
+                    .field('identifierScheme', 'SWB_PPN')
+                    .field('identifierLiteralValue', '012678775')
+                    .field('firstPage', '33')
+                    .field('lastPage', '41')
+                    .field('resourceType', resourceType.bookChapter)
+                    .set('Accept', 'application/json')
+                    .expect('Content-Type', /json/)
+                    .expect(400)
+                    .end(function (err, res) {
+                        should.not.exist(err);
                         done();
                     });
             });

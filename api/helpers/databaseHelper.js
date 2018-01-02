@@ -489,7 +489,7 @@ DatabaseHelper.prototype.createResourceIfNotExists = function(br, callback){
             .exec(function (err, docs) {
                 if (docs.length !== 0){
                     logger.log('Br exists: ', docs[0]._id);
-                    return callback(new Error("Br already exists."), docs[0]);
+                    return callback(null, docs[0]);
                 }else{
                     br = new mongoBr(br);
                     br.save(function(err, res){
@@ -504,13 +504,16 @@ DatabaseHelper.prototype.createResourceIfNotExists = function(br, callback){
 };
 
 DatabaseHelper.prototype.convertSchemaResourceToMongoose = function(schemaResource, callback){
-    mongoBr.findById(schemaResource._id, function(err, br){
+    var id = schemaResource._id;
+    if(typeof id !== "string"){
+        id = id.toString();
+    }
+    return mongoBr.findById(schemaResource._id, function(err, br){
         if(err){
             logger.error(err);
             return callback(err, null);
         }
         for(var property in schemaResource.toObject()){
-            console.log(property);
             br[property] = schemaResource.toObject()[property];
         }
         return callback(null, br);
@@ -596,7 +599,7 @@ DatabaseHelper.prototype.saveScanInResourceEmbodiment = function(resource, scan,
     // check whether embodiment of type embodimentType already exists in resource
     var resource = new BibliographicResource(resource);
     for(var embodiment of resource.getResourceEmbodimentsForType(resource.type)){
-        if(embodiment.type === embodimentType){
+        if(embodiment.type === embodimentType || embodimentType == undefined){
             // a matching embodiment was found; save scan and return resource
             embodiment.scans.push(scan);
             return callback(null, resource);

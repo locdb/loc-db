@@ -74,7 +74,7 @@ CrossrefHelper.prototype.queryChapterMetaData = function(containerTitle, firstPa
                 logger.error(err);
                 return callback(err, null);
             }
-            return callback(null, res);
+            return callback(null, res[0]);
         });
     });
 }
