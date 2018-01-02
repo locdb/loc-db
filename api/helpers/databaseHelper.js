@@ -360,12 +360,51 @@ DatabaseHelper.prototype.resourceExists = function (identifier, resourceType, fi
     if(resourceType === enums.resourceType.bookChapter && identifier.scheme === enums.identifier.swb_ppn){
         resourceType = enums.resourceType.editedBook;
     }
-    var propertyPrefix = new BibliographicResource().getPropertyPrefixForType(resourceType);
+    //var propertyPrefix = new BibliographicResource().getPropertyPrefixForType(resourceType);
     // check whether a resource with the given identifier and type is in the db
-    mongoBr.where(propertyPrefix.concat("identifiers.scheme"), identifier.scheme)
-        .where(propertyPrefix.concat("identifiers.literalValue"), identifier.literalValue)
-        .where("type", resourceType)
-        .exec(function (err, resources) {
+
+    //mongoBr.where(propertyPrefix.concat("identifiers.scheme"), identifier.scheme)
+    //    .where(propertyPrefix.concat("identifiers.literalValue"), identifier.literalValue)
+        //.where("type", resourceType)
+    mongoBr.find().or([
+        {$and: [
+            {"monograph_identifiers.scheme": identifier.scheme},
+            {"monograph_identifiers.literalValue": identifier.literalValue},
+            {"type": enums.resourceType.monograph}
+            ]
+        },
+        {$and: [
+            {"book_identifiers.scheme": identifier.scheme},
+            {"book_identifiers.literalValue": identifier.literalValue},
+            {"type": enums.resourceType.book}
+        ]
+        },
+        {$and: [
+            {"journal_identifiers.scheme": identifier.scheme},
+            {"journal_identifiers.literalValue": identifier.literalValue},
+            {"type": enums.resourceType.journal}
+        ]
+        },
+        {$and: [
+            {"journalArticle_identifiers.scheme": identifier.scheme},
+            {"journalArticle_identifiers.literalValue": identifier.literalValue},
+            {"type": enums.resourceType.journalArticle}
+        ]
+        },
+        {$and: [
+            {"bookChapter_identifiers.scheme": identifier.scheme},
+            {"bookChapter_identifiers.literalValue": identifier.literalValue},
+            {"type": enums.resourceType.bookChapter}
+        ]
+        },
+        {$and: [
+            {"editedBook_identifiers.scheme": identifier.scheme},
+            {"editedBook_identifiers.literalValue": identifier.literalValue},
+            {"type": enums.resourceType.editedBook}
+        ]
+        }
+
+        ]).exec(function (err, resources) {
             if(err){
                 logger.error(err);
                 return callback(err, null);
@@ -607,7 +646,7 @@ DatabaseHelper.prototype.saveScanInResourceEmbodiment = function(resource, scan,
     }
     // a matching embodiment type was not found; create a new one and return the resource
     var embodiment = new ResourceEmbodiment({type: embodimentType, scans: [scan]});
-    resource.pushResourceEmbodimentForType(embodiment);
+    resource.pushResourceEmbodimentForType(resource.type, embodiment);
     return callback(null, resource);
 };
 

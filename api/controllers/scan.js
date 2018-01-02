@@ -326,36 +326,36 @@ function saveResource(req, res) {
                                     });
                                 });
                             });
-                        case enums.resourceType.monograph:
-                            return swbHelper.query(identifier.literalValue, resourceType, function (err, resource) {
-                                if (err) {
-                                    logger.error(err);
-                                    return response.status(500).json(err);
-                                }
-                                // we retrieved the metadata;
-                                // now we have to check, whether we have to append something
-                                if (binaryFile || stringFile) {
-                                    return databaseHelper.saveReferencesPageForResource(resource[0], binaryFile, textualPdf, stringFile, embodimentType, function (err, result) {
-                                        if (err) {
-                                            logger.error(err);
-                                            return response.status(500).json(err);
-                                        }
-                                        return response.json(result);
-                                    });
-                                } else {
-                                    //resource.type = resourceType;
-                                    return mongoBr.create(resource[0], function (err, resource) {
-                                        if (err) {
-                                            logger.error(err);
-                                            return response.status(500).json(err);
-                                        }
-                                        return response.status(200).json(resource);
-                                    });
-                                }
-                            });
-                        default:
-                            return response.status(400).json({"message": "Resource type not implemented."});
                     }
+                case enums.resourceType.monograph:
+                    return swbHelper.query(identifier.literalValue, resourceType, function (err, resource) {
+                        if (err) {
+                            logger.error(err);
+                            return response.status(500).json(err);
+                        }
+                        // we retrieved the metadata;
+                        // now we have to check, whether we have to append something
+                        return mongoBr.create(resource[0], function (err, resource) {
+                            if (err) {
+                                logger.error(err);
+                                return response.status(500).json(err);
+                            }
+                            if (binaryFile || stringFile) {
+                                return databaseHelper.saveReferencesPageForResource(resource, binaryFile, textualPdf, stringFile, embodimentType, function (err, result) {
+                                    if (err) {
+                                        logger.error(err);
+                                        return response.status(500).json(err);
+                                    }
+                                    return response.json(result);
+                                });
+                            } else {
+                                return response.status(200).json(resource);
+                            }
+                        });
+
+                    });
+                default:
+                    return response.status(400).json({"message": "Resource type not implemented."});
             }
         }
     });

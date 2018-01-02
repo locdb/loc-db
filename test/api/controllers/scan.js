@@ -510,7 +510,7 @@ describe('controllers', function () {
         });
 
 
-        describe('POST /saveResource - Resource Type: JOURNAL', function () {
+        describe.only('POST /saveResource - Resource Type: JOURNAL', function () {
             this.timeout(1000000);
             it('should create a journal in the db', function (done) {
                 agent
@@ -636,9 +636,9 @@ describe('controllers', function () {
         });
 
 
-        describe('POST /saveResource - Resource Type: BOOK_CHAPTER', function () {
+        describe.only('POST /saveResource - Resource Type: BOOK_CHAPTER', function () {
             this.timeout(1000000);
-            it.only('should save a scan in the file system and create two br (parent and child) in the db', function (done) {
+            it('should save a scan in the file system and create two br (parent and child) in the db', function (done) {
                 agent
                     .post('/saveResource')
                     .type('form')
@@ -674,7 +674,7 @@ describe('controllers', function () {
                     });
             });
 
-            it.only('should should add a new part to an already existing br: pdf', function (done) {
+            it('should should add a new part to an already existing br: pdf', function (done) {
                 agent
                     .post('/saveResource')
                     .type('form')
@@ -711,7 +711,7 @@ describe('controllers', function () {
                     });
             });
 
-            it.only('should append another file to the resource', function (done) {
+            it('should append another file to the resource', function (done) {
                 agent
                     .post('/saveResource')
                     .type('form')
@@ -733,7 +733,7 @@ describe('controllers', function () {
                     });
             });
 
-            it.only('should return 400', function (done) {
+            it('should return 400', function (done) {
                 agent
                     .post('/saveResource')
                     .type('form')
@@ -742,6 +742,75 @@ describe('controllers', function () {
                     .field('firstPage', '33')
                     .field('lastPage', '41')
                     .field('resourceType', resourceType.bookChapter)
+                    .set('Accept', 'application/json')
+                    .expect('Content-Type', /json/)
+                    .expect(400)
+                    .end(function (err, res) {
+                        should.not.exist(err);
+                        done();
+                    });
+            });
+        });
+
+
+        describe.only('POST /saveResource - Resource Type: MONOGRAPH', function () {
+
+            it('should save a scan in the file system and create a single br in the db', function (done) {
+                agent
+                    .post('/saveResource')
+                    .type('form')
+                    .field('identifierScheme','SWB_PPN')
+                    .field('identifierLiteralValue', '004000951')
+                    .field('resourceType', resourceType.monograph)
+                    .field('textualPdf', false)
+                    .attach('binaryFile', './test/api/data/ocr_data/02_input.png')
+                    .set('Accept', 'application/json')
+                    .expect('Content-Type', /json/)
+                    .expect(200)
+                    .end(function (err, res) {
+                        should.not.exist(err);
+                        res.body.should.be.Array;
+                        res.body[0].should.have.property("book_embodiedAs");
+                        res.body[0].book_embodiedAs.should.be.Array;
+                        res.body[0].book_embodiedAs.should.have.lengthOf(1);
+                        res.body[0].book_embodiedAs[0].should.have.property("scans");
+                        res.body[0].book_embodiedAs[0].scans.should.be.Array;
+                        res.body[0].book_embodiedAs[0].scans.should.have.lengthOf(1);
+                        res.body[0].book_embodiedAs[0].scans[0].should.have.property("scanName");
+                        res.body[0].book_embodiedAs[0].scans[0].should.have.property("status", status.notOcrProcessed);
+                        res.body[1].should.deepEqual(res.body[0].book_embodiedAs[0].scans[0]);
+                        res.body[0].should.have.property("book_title", "Handbuch der empirischen Sozialforschung /");
+                        res.body[0].should.have.property("book_publicationYear", "19uu");
+                        var scanPath = config.PATHS.UPLOAD + res.body[0].book_embodiedAs[0].scans[0].scanName;
+                        fs.exists(scanPath, function(result){
+                            result.should.equal(true);
+                            mongoBr.findOne({_id: res.body[0]._id}, function(err, br){
+                                br.should.be.ok;
+                                br.should.have.property("book_embodiedAs");
+                                br.book_embodiedAs.should.be.Array;
+                                br.book_embodiedAs.should.have.lengthOf(1);
+                                br.book_embodiedAs[0].should.have.property("scans");
+                                br.book_embodiedAs[0].scans.should.be.Array;
+                                br.book_embodiedAs[0].scans.should.have.lengthOf(1);
+                                br.book_embodiedAs[0].scans[0].should.have.property("scanName");
+                                br.book_embodiedAs[0].scans[0].should.have.property("status", status.notOcrProcessed);
+                                br.should.have.property("book_title", "Handbuch der empirischen Sozialforschung /");
+                                br.should.have.property("book_publicationYear", "19uu");
+                                done();
+                            });
+                        });
+                    });
+            });
+
+
+
+            it('should return 400', function (done) {
+                agent
+                    .post('/saveResource')
+                    .type('form')
+                    .field('identifierScheme','SWB_PPN')
+                    .field('identifierLiteralValue', '004000951')
+                    .field('resourceType', resourceType.monograph)
                     .set('Accept', 'application/json')
                     .expect('Content-Type', /json/)
                     .expect(400)
