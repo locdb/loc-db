@@ -8,7 +8,8 @@
     "parts": [],
     "cites": [],
     "editedBook_contributors": [],
-    "editedBook_identifiers": []
+    "editedBook_identifiers": [],
+    "type": "EDITED_BOOK"
   },
   {
     "_id": "5a2947087bdcfd4759582633",
@@ -20,6 +21,7 @@
     "book_embodiedAs": [],
     "parts": [],
     "cites": [],
+    "type": "BOOK",
     "book_contributors": [
       {
         "roleType": "AUTHOR",

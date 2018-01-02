@@ -179,7 +179,7 @@ function saveResource(req, res) {
             if(!binaryFile && !stringFile){
                 return response.status(400).json({"message":"The resource already exists."});
             }
-            databaseHelper.saveReferencesPageForResource(resource[0], binaryFile, textualPdf,stringFile,embodimentType, function(err, result){
+            return databaseHelper.saveReferencesPageForResource(resource[0], binaryFile, textualPdf,stringFile,embodimentType, function(err, result){
                 if(err){
                     logger.error(err);
                     return response.status(500).json(err);
@@ -216,16 +216,15 @@ function saveResource(req, res) {
                 case enums.resourceType.journalIssue:
                     return response.status(400).json("Not implemented.");
                 case enums.resourceType.journalArticle:
-                    if(identifier.scheme !== enums.identifier.olc_ppn || identifier.scheme !== enums.identifier.doi){
+                    if(identifier.scheme !== enums.identifier.olc_ppn && identifier.scheme !== enums.identifier.doi){
                         return response.status(400).json({"message": "Not the appropriate input data for creating a journal article."})
                     }else {
                         switch (identifier.scheme){
                             case enums.identifier.doi:
                                 // go to crossref and create article
-                                crossrefHelper.queryByDOI(identifier.literalValue, function(err, resources){
+                                return crossrefHelper.queryByDOI(identifier.literalValue, function(err, resources){
                                     // wenn das issue nicht existiert, kann auch der article nicht existieren
                                     // hier muss hierarschich vorgegangen werden
-                                    // TODO: This function is not implemented
                                     databaseHelper.curateHierarchy(resources, function(err, resources){
                                         // jetzt müssen wir gucken, ob man noch einen Scan speichern muss oder nicht
                                         if(!binaryFile && !stringFile){
@@ -884,7 +883,8 @@ function triggerOcrProcessing(req, res) {
             }
         }
     });
-}
+};
+
 
 module.exports = {
     saveScan: saveScan,

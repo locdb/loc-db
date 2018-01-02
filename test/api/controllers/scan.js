@@ -510,7 +510,7 @@ describe('controllers', function () {
         });
 
 
-        describe.only('POST /saveResource - Resource Type: BOOK', function () {
+        describe('POST /saveResource - Resource Type: JOURNAL', function () {
             this.timeout(1000000);
             it('should create a journal in the db', function (done) {
                 agent
@@ -524,7 +524,7 @@ describe('controllers', function () {
                     .expect(200)
                     .end(function (err, res) {
                         should.not.exist(err);
-                        res.body[0].should.have.property("journal_title", "Kölner Zeitschrift für Soziologie und Sozialpsychologie");
+                        res.body[0].should.have.property("journal_title", "Kölner Zeitschrift für Soziologie und Sozialpsychologie");
                         done();
                     });
             });
@@ -547,9 +547,11 @@ describe('controllers', function () {
             });
         });
 
-        describe('POST /saveResource - Resource Type: JOURNAL_ARTICLE', function () {
-            this.timeout(1000000);
-            it('should create a journal in the db', function (done) {
+        describe.only('POST /saveResource - Resource Type: JOURNAL_ARTICLE', function () {
+            var parentId= "";
+            var articleId = "";
+            it('should create a journal article in the db', function (done) {
+                this.timeout(1000000);
                 agent
                     .post('/saveResource')
                     .type('form')
@@ -561,6 +563,73 @@ describe('controllers', function () {
                     .expect(200)
                     .end(function (err, res) {
                         should.not.exist(err);
+                        res.body.should.be.Array();
+                        res.body.should.have.lengthOf(2);
+                        res.body[0].should.have.property("type", resourceType.journalArticle);
+                        res.body[1].should.have.property("_id", res.body[0].partOf);
+                        parentId = res.body[0].partOf;
+                        articleId = res.body[0]._id;
+                        res.body[1].should.have.property("type", resourceType.journalIssue);
+                        done();
+                    });
+            });
+
+            it('should not create the same journal article in the db', function (done) {
+                agent
+                    .post('/saveResource')
+                    .type('form')
+                    .field('identifierScheme', 'DOI')
+                    .field('identifierLiteralValue', '10.2307/2141399')
+                    .field('resourceType', resourceType.journalArticle)
+                    .set('Accept', 'application/json')
+                    .expect('Content-Type', /json/)
+                    .expect(400)
+                    .end(function (err, res) {
+                        should.not.exist(err);
+                        done();
+                    });
+            });
+
+            it('should append another journal article to the same issue', function (done) {
+                agent
+                    .post('/saveResource')
+                    .type('form')
+                    .field('identifierScheme', 'DOI')
+                    .field('identifierLiteralValue', '10.2307/2141393')
+                    .field('resourceType', resourceType.journalArticle)
+                    .set('Accept', 'application/json')
+                    .expect('Content-Type', /json/)
+                    .expect(200)
+                    .end(function (err, res) {
+                        res.body.should.be.Array();
+                        res.body.should.have.lengthOf(2);
+                        res.body[0].should.have.property("type", resourceType.journalArticle);
+                        res.body[1].should.have.property("_id", res.body[0].partOf);
+                        res.body[1].should.have.property("_id", parentId);
+                        res.body[1].should.have.property("type", resourceType.journalIssue);
+                        done();
+                    });
+            });
+
+            it('should append a scan to the article we created in the beginning', function (done) {
+                agent
+                    .post('/saveResource')
+                    .type('form')
+                    .field('identifierScheme', 'DOI')
+                    .field('identifierLiteralValue', '10.2307/2141399')
+                    .field('resourceType', resourceType.journalArticle)
+                    .field('textualPdf', false)
+                    .attach('binaryFile', './test/api/data/ocr_data/02_input.png')
+                    .set('Accept', 'application/json')
+                    .expect('Content-Type', /json/)
+                    .expect(200)
+                    .end(function (err, res) {
+                        res.body.should.be.Array();
+                        res.body.should.have.lengthOf(2);
+                        res.body[0].should.have.property("type", resourceType.journalArticle);
+                        res.body[0].should.have.property("partOf", parentId);
+                        res.body[0].should.have.property("_id", articleId);
+                        res.body[1].should.have.property("status", status.notOcrProcessed);
                         done();
                     });
             });

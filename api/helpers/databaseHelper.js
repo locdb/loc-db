@@ -433,12 +433,93 @@ DatabaseHelper.prototype.resourceExists = function (identifier, resourceType, fi
             }
         }
     );
-}
+};
 
+DatabaseHelper.prototype.transformIdentifiers = function(identifiers){
+    var literalValues = [];
+    for(var identifier of identifiers){
+        literalValues.push(identifier.literalValue);
+    }
+    return literalValues;
+};
+
+
+DatabaseHelper.prototype.createResourceIfNotExists = function(br, callback){
+    // I should check the identifiers --> some preferred ones, such as DOI, ISSN, SWB_PPN, OLC_PPN,
+    // but also some additional properties depending on the resource type, .. propaply for journals/ journal Issues, I should chekc all number properties
+
+    var self = this;
+    var identifiers = self.transformIdentifiers(br.getIdentifiersForType(br.type));
+    var title = br.getTitleForType(br.type);
+    var number = br.getNumberForType(br.type);
+    var edition = br.getEditionForType(br.type);
+    var propertyPrefix = br.getPropertyPrefixForType(br.type);
+
+    if(br.type === enums.resourceType.journalIssue){
+        var volumeNumber = br.getNumberForType(enums.resourceType.journalVolume);
+        var journalTitle = br.getTitleForType(enums.resourceType.journal);
+        var journalIdentifiers = self.transformIdentifiers(br.getIdentifiersForType(enums.resourceType.journal));
+
+        mongoBr//.where(propertyPrefix.concat("title"), title)
+            .where(propertyPrefix.concat("number"), number)
+            //.where(propertyPrefix.concat("edition"), edition)
+            //.all(propertyPrefix.concat("identifiers.literalValue"), identifiers)
+            .where("journalVolume_number", volumeNumber)
+            .where("journal_title", journalTitle)
+            .all("journal_identifiers.literalValue", journalIdentifiers)
+            .exec(function (err, docs) {
+                if (docs && docs.length !== 0){
+                    logger.log('Br exists: ', docs[0]._id);
+                    return callback(null, docs[0]);
+                }else{
+                    br = new mongoBr(br);
+                    br.save(function(err, res){
+                        if(err){
+                            logger.log(err);
+                        }
+                        return callback(null, res);
+                    });
+                }
+            });
+    }else{
+        mongoBr.where(propertyPrefix.concat("title"), title)
+            .where(propertyPrefix.concat("number"), number)
+            .where(propertyPrefix.concat("edition"), edition)
+            .all(propertyPrefix.concat("identifiers.literalValue"), identifiers)
+            .exec(function (err, docs) {
+                if (docs.length !== 0){
+                    logger.log('Br exists: ', docs[0]._id);
+                    return callback(new Error("Br already exists."), docs[0]);
+                }else{
+                    br = new mongoBr(br);
+                    br.save(function(err, res){
+                        if(err){
+                            logger.log(err);
+                        }
+                        return callback(null, res);
+                    });
+                }
+            });
+    }
+};
+
+DatabaseHelper.prototype.convertSchemaResourceToMongoose = function(schemaResource, callback){
+    mongoBr.findById(schemaResource._id, function(err, br){
+        if(err){
+            logger.error(err);
+            return callback(err, null);
+        }
+        for(var property in schemaResource.toObject()){
+            console.log(property);
+            br[property] = schemaResource.toObject()[property];
+        }
+        return callback(null, br);
+    });
+};
 
 DatabaseHelper.prototype.saveReferencesPageForResource = function(resource, binaryFile, textualPdf, stringFile, embodimentType, callback){
     var self = this;
-    if(binaryFile && textualPdf){
+    if(binaryFile && textualPdf !== undefined){
         //2a. A binary file is given; We also need to have the information if it's a textual pdf; Save it
         self.saveScan(binaryFile, textualPdf, function(err, scan){
             if(err){
@@ -447,13 +528,18 @@ DatabaseHelper.prototype.saveReferencesPageForResource = function(resource, bina
             }
             self.saveScanInResourceEmbodiment(resource, scan, embodimentType, function(err, resource){
                 // 3. We saved the file and we modified the br accordingly; Now we need to save it in mongo
-                var resource = new mongoBr(resource);
-                resource.save(function(err, resource){
-                    if(err){
+                self.convertSchemaResourceToMongoose(resource, function(err, resource){
+                    if (err) {
                         logger.error(err);
-                        return callback(err,null);
+                        return callback(err, null)
                     }
-                    return callback(null,[resource, scan]);
+                    resource.save(function(err, resource){
+                        if(err){
+                            logger.error(err);
+                            return callback(err,null);
+                        }
+                        return callback(null,[resource, scan]);
+                    });
                 });
             });
         });
@@ -466,15 +552,23 @@ DatabaseHelper.prototype.saveReferencesPageForResource = function(resource, bina
             }
             self.saveScanInResourceEmbodiment(resource, scan, embodimentType, function (err, resource) {
                 // 3. We saved the file and we modified the br accordingly; Now we need to save it in mongo
-                resource.save(function (err, resource) {
+                self.convertSchemaResourceToMongoose(resource, function(err, resource) {
                     if (err) {
                         logger.error(err);
                         return callback(err, null)
                     }
-                    return callback(null, [resource, scan]);
+                    resource.save(function (err, resource) {
+                        if (err) {
+                            logger.error(err);
+                            return callback(err, null)
+                        }
+                        return callback(null, [resource, scan]);
+                    });
                 });
             });
         });
+    }else{
+        return callback(new Error("Information missing.", null));
     }
 };
 
@@ -514,6 +608,36 @@ DatabaseHelper.prototype.saveScanInResourceEmbodiment = function(resource, scan,
     return callback(null, resource);
 };
 
+
+DatabaseHelper.prototype.curateHierarchy = function(resources, callback){
+    var parent = resources[1];
+    var child = resources[0];
+    var self = this;
+    // create the parent if it does not exist
+    self.createResourceIfNotExists(parent, function (err, parent) {
+        if(err){
+            logger.error(err);
+            return callback(err, null);
+        }
+        if(parent === null){
+           logger.error("Something went wrong with retrieving the parent");
+           return callback(err, null);
+        }
+        // res should be the mongo instance of the parent
+        // set the child partOf accordingly
+        child.partOf = parent._id.toString();
+        // can the child already exist? No, otherwise we wouldn't have checked correctly in the very beginning
+        // save the child
+        child = new mongoBr(child);
+        child.save(function(err, child){
+            if(err){
+                logger.error(err);
+                return callback(err, null);
+            }
+            return callback(err, [child, parent]);
+        });
+    });
+};
 
 
 /**
