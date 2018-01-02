@@ -95,18 +95,18 @@ describe('helpers', function() {
 
         describe('queryChapterMetaData', function(){
 
-            it('should return result for a given doi', function(done) {
+            it('should return result given title and pages', function(done) {
                 this.timeout(1000000000);
                 crossrefHelper.queryChapterMetaData("Modelling and analysis in arms control", 51,95, function(err, result){
                     console.log(result);
                     should.not.exists(err);
                     result.should.be.ok();
                     result.should.be.Array();
-                    result.should.have.lengthOf(1);
-                    result[0][0].should.have.property("bookChapter_identifiers");
-                    result[0][0].bookChapter_identifiers.should.be.Array();
-                    result[0][0].bookChapter_identifiers[1].should.have.property("scheme", enums.externalSources.crossref);
-                    result[0][0].should.have.property("bookChapter_title", "Arms Control: Lessons Learned and the Future");
+                    result.should.have.lengthOf(2);
+                    result[0].should.have.property("bookChapter_identifiers");
+                    result[0].bookChapter_identifiers.should.be.Array();
+                    result[0].bookChapter_identifiers[1].should.have.property("scheme", enums.externalSources.crossref);
+                    result[0].should.have.property("bookChapter_title", "Arms Control: Lessons Learned and the Future");
                     done();
                 });
             });

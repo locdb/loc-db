@@ -527,64 +527,6 @@ describe('controllers', function() {
           });
       });
 
-      describe('GET /saveScanForElectronicJournal', function() {
-          it('should append a scan to an article', function (done) {
-              var ppn = "1994632569";
-              agent
-                  .post('/saveScanForElectronicJournal')
-                  .type('form')
-                  .field('ppn', ppn)
-                  .field('textualPdf', false)
-                  .attach('scan', './test/api/data/ocr_data/02_input.png')
-                  .set('Accept', 'application/json')
-                  .expect('Content-Type', /json/)
-                  .expect(200)
-                  .end(function (err, res) {
-                      should.not.exist(err);
-                      res.body.should.be.Array;
-                      res.body[0].should.have.property("partOf");
-                      res.body[0].should.have.property("status", enums.status.valid);
-                      res.body[0].should.have.property("partOf");
-                      res.body[0].should.have.property("embodiedAs");
-                      res.body[0].embodiedAs.should.have.lengthOf(1);
-                      res.body[0].embodiedAs[0].should.have.property("scans");
-                      res.body[0].embodiedAs[0].scans.should.have.lengthOf(1);
-                      res.body[0].embodiedAs[0].scans[0].should.have.property("status", enums.status.notOcrProcessed);
-                      res.body[0].embodiedAs[0].scans[0].should.have.property("textualPdf", false);
-                      res.body[1].should.deepEqual(res.body[0].embodiedAs[0].scans[0]);
-                      done();
-                  });
-          });
-
-          it('should append a scan to an article by doi', function (done) {
-              var doi = "10.1007/s11617-006-0056-1";
-              agent
-                  .post('/saveScanForElectronicJournal')
-                  .type('form')
-                  .field('doi', doi)
-                  .field('textualPdf', true)
-                  .attach('scan', './test/api/data/ocr_data/references.pdf')
-                  .set('Accept', 'application/json')
-                  .expect('Content-Type', /json/)
-                  .expect(200)
-                  .end(function (err, res) {
-                      should.not.exist(err);
-                      res.body.should.be.Array;
-                      res.body[0].should.have.property("partOf");
-                      res.body[0].should.have.property("status", enums.status.valid);
-                      res.body[0].should.have.property("partOf");
-                      res.body[0].should.have.property("embodiedAs");
-                      res.body[0].embodiedAs.should.have.lengthOf(1);
-                      res.body[0].embodiedAs[0].should.have.property("scans");
-                      res.body[0].embodiedAs[0].scans.should.have.lengthOf(1);
-                      res.body[0].embodiedAs[0].scans[0].should.have.property("status", enums.status.notOcrProcessed);
-                      res.body[0].embodiedAs[0].scans[0].should.have.property("textualPdf", true);
-                      res.body[1].should.deepEqual(res.body[0].embodiedAs[0].scans[0]);
-                      done();
-                  });
-          });
-      });
-
       describe('POST /bibliographicResources', function() {
           it('should not save a br in the db', function (done) {
               var br = {

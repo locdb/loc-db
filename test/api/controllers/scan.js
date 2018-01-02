@@ -33,262 +33,317 @@ describe('controllers', function () {
             });
         });
 
-
-        describe('POST /saveScan - Resource Type: Collection', function () {
+        describe('POST /saveResource - Resource Type: JOURNAL', function () {
             this.timeout(1000000);
-            it('should save a scan in the file system and create two br (parent and child) in the db', function (done) {
+            it('should create a journal in the db', function (done) {
                 agent
-                    .post('/saveScan')
+                    .post('/saveResource')
                     .type('form')
-                    .field('ppn', '012678775')
-                    .field('firstPage', '51')
-                    .field('lastPage', '95')
-                    .field('textualPdf', false)
-                    .field('resourceType', resourceType.bookChapter)
-                    .attach('scan', './test/api/data/ocr_data/02_input.png')
+                    .field('identifierScheme', 'ZDB_PPN')
+                    .field('identifierLiteralValue', '011157860')
+                    .field('resourceType', resourceType.journal)
                     .set('Accept', 'application/json')
                     .expect('Content-Type', /json/)
                     .expect(200)
                     .end(function (err, res) {
                         should.not.exist(err);
-                        res.body[0].should.have.property("title", "Modelling and analysis in arms control :");
-                        res.body[0].should.have.property("embodiedAs");
-                        res.body[0].embodiedAs.should.be.Array;
-                        res.body[0].embodiedAs.should.have.lengthOf(0);
-                        res.body[1].should.have.property("embodiedAs");
-                        res.body[1].should.have.property("title", "Arms Control: Lessons Learned and the Future");
-                        res.body[1].embodiedAs.should.be.Array;
-                        res.body[1].embodiedAs.should.have.lengthOf(1);
-                        res.body[1].embodiedAs[0].should.have.property("scans");
-                        res.body[1].embodiedAs[0].scans.should.be.Array;
-                        res.body[1].embodiedAs[0].scans.should.have.lengthOf(1);
-                        res.body[1].embodiedAs[0].scans[0].should.have.property("status", status.notOcrProcessed);
-                        res.body[1].embodiedAs[0].scans[0].should.have.property("textualPdf", false);
-                        res.body[2].should.deepEqual(res.body[1].embodiedAs[0].scans[0]);
-                        res.body[1].should.have.property("partOf");
-                        res.body[0]._id.should.be.exactly(res.body[1].partOf);
+                        res.body[0].should.have.property("journal_title", "Kölner Zeitschrift für Soziologie und Sozialpsychologie");
+                        done();
+                    });
+            });
+
+
+            it('should not create the journal again in the db', function (done) {
+                agent
+                    .post('/saveResource')
+                    .type('form')
+                    .field('identifierScheme', 'ZDB_PPN')
+                    .field('identifierLiteralValue', '011157860')
+                    .field('resourceType', resourceType.journal)
+                    .set('Accept', 'application/json')
+                    .expect('Content-Type', /json/)
+                    .expect(400)
+                    .end(function (err, res) {
+                        should.not.exist(err);
+                        done();
+                    });
+            });
+        });
+
+        describe('POST /saveResource - Resource Type: JOURNAL_ARTICLE', function () {
+            var parentId= "";
+            var articleId = "";
+            it('should create a journal article in the db', function (done) {
+                this.timeout(1000000);
+                agent
+                    .post('/saveResource')
+                    .type('form')
+                    .field('identifierScheme', 'DOI')
+                    .field('identifierLiteralValue', '10.2307/2141399')
+                    .field('resourceType', resourceType.journalArticle)
+                    .set('Accept', 'application/json')
+                    .expect('Content-Type', /json/)
+                    .expect(200)
+                    .end(function (err, res) {
+                        should.not.exist(err);
+                        res.body.should.be.Array();
+                        res.body.should.have.lengthOf(2);
+                        res.body[0].should.have.property("type", resourceType.journalArticle);
+                        res.body[1].should.have.property("_id", res.body[0].partOf);
+                        parentId = res.body[0].partOf;
+                        articleId = res.body[0]._id;
+                        res.body[1].should.have.property("type", resourceType.journalIssue);
+                        done();
+                    });
+            });
+
+            it('should not create the same journal article in the db', function (done) {
+                agent
+                    .post('/saveResource')
+                    .type('form')
+                    .field('identifierScheme', 'DOI')
+                    .field('identifierLiteralValue', '10.2307/2141399')
+                    .field('resourceType', resourceType.journalArticle)
+                    .set('Accept', 'application/json')
+                    .expect('Content-Type', /json/)
+                    .expect(400)
+                    .end(function (err, res) {
+                        should.not.exist(err);
+                        done();
+                    });
+            });
+
+            it('should append another journal article to the same issue', function (done) {
+                agent
+                    .post('/saveResource')
+                    .type('form')
+                    .field('identifierScheme', 'DOI')
+                    .field('identifierLiteralValue', '10.2307/2141393')
+                    .field('resourceType', resourceType.journalArticle)
+                    .set('Accept', 'application/json')
+                    .expect('Content-Type', /json/)
+                    .expect(200)
+                    .end(function (err, res) {
+                        res.body.should.be.Array();
+                        res.body.should.have.lengthOf(2);
+                        res.body[0].should.have.property("type", resourceType.journalArticle);
+                        res.body[1].should.have.property("_id", res.body[0].partOf);
+                        res.body[1].should.have.property("_id", parentId);
+                        res.body[1].should.have.property("type", resourceType.journalIssue);
+                        done();
+                    });
+            });
+
+            it('should append a scan to the article we created in the beginning', function (done) {
+                agent
+                    .post('/saveResource')
+                    .type('form')
+                    .field('identifierScheme', 'DOI')
+                    .field('identifierLiteralValue', '10.2307/2141399')
+                    .field('resourceType', resourceType.journalArticle)
+                    .field('textualPdf', false)
+                    .attach('binaryFile', './test/api/data/ocr_data/02_input.png')
+                    .set('Accept', 'application/json')
+                    .expect('Content-Type', /json/)
+                    .expect(200)
+                    .end(function (err, res) {
+                        res.body.should.be.Array();
+                        res.body.should.have.lengthOf(3);
+                        res.body[0].should.have.property("type", resourceType.journalArticle);
+                        res.body[0].should.have.property("partOf", parentId);
+                        res.body[0].should.have.property("_id", articleId);
+                        res.body[2].should.have.property("status", status.notOcrProcessed);
+                        done();
+                    });
+            });
+        });
+
+
+        describe('POST /saveResource - Resource Type: BOOK_CHAPTER', function () {
+            this.timeout(1000000);
+            it('should save a scan in the file system and create two br (parent and child) in the db', function (done) {
+                agent
+                    .post('/saveResource')
+                    .type('form')
+                    .field('identifierScheme', 'SWB_PPN')
+                    .field('identifierLiteralValue', '012678775')
+                    .field('firstPage', '51')
+                    .field('lastPage', '95')
+                    .field('textualPdf', false)
+                    .field('resourceType', resourceType.bookChapter)
+                    .attach('binaryFile', './test/api/data/ocr_data/02_input.png')
+                    .set('Accept', 'application/json')
+                    .expect('Content-Type', /json/)
+                    .expect(200)
+                    .end(function (err, res) {
+                        should.not.exist(err);
+                        res.body.should.be.Array().and.have.lengthOf(3);
+                        res.body[0].should.have.property("bookChapter_title", "Arms Control: Lessons Learned and the Future");
+                        res.body[0].should.have.property("bookChapter_embodiedAs");
+                        res.body[0].bookChapter_embodiedAs.should.be.Array;
+                        res.body[0].bookChapter_embodiedAs.should.have.lengthOf(1);
+                        res.body[1].should.have.property("editedBook_title", "Modelling and analysis in arms control :");
+                        res.body[0].bookChapter_embodiedAs[0].should.have.property("scans");
+                        res.body[0].bookChapter_embodiedAs[0].scans.should.be.Array;
+                        res.body[0].bookChapter_embodiedAs[0].scans.should.have.lengthOf(1);
+                        res.body[0].bookChapter_embodiedAs[0].scans[0].should.have.property("status", status.notOcrProcessed);
+                        res.body[0].bookChapter_embodiedAs[0].scans[0].should.have.property("textualPdf", false);
+                        res.body[2].should.deepEqual(res.body[0].bookChapter_embodiedAs[0].scans[0]);
+                        res.body[0].should.have.property("partOf");
+                        res.body[1]._id.should.be.exactly(res.body[0].partOf);
                         should(fs.existsSync(config.PATHS.UPLOAD)).equal(true);
-                        should(fs.existsSync(config.PATHS.UPLOAD + res.body[1].embodiedAs[0].scans[0].scanName)).equal(true);
+                        should(fs.existsSync(config.PATHS.UPLOAD + res.body[0].bookChapter_embodiedAs[0].scans[0].scanName)).equal(true);
                         done();
                     });
             });
 
             it('should should add a new part to an already existing br: pdf', function (done) {
                 agent
-                    .post('/saveScan')
+                    .post('/saveResource')
                     .type('form')
-                    .field('ppn', '012678775')
+                    .field('identifierScheme', 'SWB_PPN')
+                    .field('identifierLiteralValue', '012678775')
                     .field('firstPage', '33')
                     .field('lastPage', '41')
                     .field('textualPdf', true)
                     .field('resourceType', resourceType.bookChapter)
-                    .attach('scan', './test/api/data/ocr_data/references.pdf')
+                    .attach('binaryFile', './test/api/data/ocr_data/references.pdf')
                     .set('Accept', 'application/json')
                     .expect('Content-Type', /json/)
                     .expect(200)
                     .end(function (err, res) {
                         should.not.exist(err);
-                        console.log(res.body)
-                        should.not.exist(err);
-                        res.body[0].should.have.property("title", "Modelling and analysis in arms control :");
-                        res.body[0].should.have.property("embodiedAs");
-                        res.body[0].embodiedAs.should.be.Array;
-                        res.body[0].embodiedAs.should.have.lengthOf(0);
-                        res.body[1].should.have.property("embodiedAs");
-                        res.body[1].should.have.property("title", "Arms Control and Strategic Military Stability");
-                        res.body[1].embodiedAs.should.be.Array;
-                        res.body[1].embodiedAs.should.have.lengthOf(1);
-                        res.body[1].embodiedAs[0].should.have.property("scans");
-                        res.body[1].embodiedAs[0].scans.should.be.Array;
-                        res.body[1].embodiedAs[0].scans.should.have.lengthOf(1);
-                        res.body[1].embodiedAs[0].scans[0].should.have.property("textualPdf", true);
-                        res.body[1].embodiedAs[0].scans[0].should.have.property("status", status.notOcrProcessed);
-                        res.body[2].should.deepEqual(res.body[1].embodiedAs[0].scans[0]);
-                        res.body[1].should.have.property("partOf");
-                        res.body[0]._id.should.be.exactly(res.body[1].partOf);
+                        res.body[1].should.have.property("editedBook_title", "Modelling and analysis in arms control :");
+                        res.body[0].should.have.property("bookChapter_embodiedAs");
+                        res.body[0].bookChapter_embodiedAs.should.be.Array;
+                        res.body[0].bookChapter_embodiedAs.should.have.lengthOf(1);
+                        res.body[1].should.have.property("editedBook_embodiedAs");
+                        res.body[0].should.have.property("bookChapter_title", "Arms Control and Strategic Military Stability");
+                        res.body[0].bookChapter_embodiedAs[0].should.have.property("scans");
+                        res.body[0].bookChapter_embodiedAs[0].scans.should.be.Array;
+                        res.body[0].bookChapter_embodiedAs[0].scans.should.have.lengthOf(1);
+                        res.body[0].bookChapter_embodiedAs[0].scans[0].should.have.property("textualPdf", true);
+                        res.body[0].bookChapter_embodiedAs[0].scans[0].should.have.property("status", status.notOcrProcessed);
+                        res.body[2].should.deepEqual(res.body[0].bookChapter_embodiedAs[0].scans[0]);
+                        res.body[0].should.have.property("partOf");
+                        res.body[1]._id.should.be.exactly(res.body[0].partOf);
                         should(fs.existsSync(config.PATHS.UPLOAD)).equal(true);
-                        should(fs.existsSync(config.PATHS.UPLOAD + res.body[1].embodiedAs[0].scans[0].scanName)).equal(true);
-                        idPdf = res.body[1].embodiedAs[0].scans[0]._id;
+                        should(fs.existsSync(config.PATHS.UPLOAD + res.body[0].bookChapter_embodiedAs[0].scans[0].scanName)).equal(true);
+                        //idPdf = res.body[1].embodiedAs[0].scans[0]._id;
                         done();
                     });
             });
 
-
-            it('Should return a scan at the third position', function (done) {
+            it('should append another file to the resource', function (done) {
                 agent
-                    .post('/saveScan')
+                    .post('/saveResource')
                     .type('form')
-                    .field('ppn', '48525302X')
-                    .field('firstPage', '14')
-                    .field('lastPage', '16')
+                    .field('identifierScheme', 'SWB_PPN')
+                    .field('identifierLiteralValue', '012678775')
+                    .field('firstPage', '33')
+                    .field('lastPage', '41')
                     .field('textualPdf', false)
                     .field('resourceType', resourceType.bookChapter)
-                    .attach('scan', './test/api/data/ocr_data/references.pdf')
+                    .attach('binaryFile', './test/api/data/ocr_data/references.pdf')
                     .set('Accept', 'application/json')
                     .expect('Content-Type', /json/)
                     .expect(200)
                     .end(function (err, res) {
                         should.not.exist(err);
-                        console.log(res.body)
-                        should.not.exist(err);
-                        res.body[2].should.be.ok;
+                        res.body.should.be.Array().and.have.lengthOf(3);
+                        res.body[0].bookChapter_embodiedAs[0].scans.should.have.lengthOf(2);
                         done();
                     });
             });
 
-            it('Should return a scan at the third position 2', function (done) {
+            it('should return 400', function (done) {
                 agent
-                    .post('/saveScan')
+                    .post('/saveResource')
                     .type('form')
-                    .field('ppn', '48525302X')
-                    .field('firstPage', '14')
-                    .field('lastPage', '16')
-                    .field('textualPdf', false)
+                    .field('identifierScheme', 'SWB_PPN')
+                    .field('identifierLiteralValue', '012678775')
+                    .field('firstPage', '33')
+                    .field('lastPage', '41')
                     .field('resourceType', resourceType.bookChapter)
-                    .attach('scan', './test/api/data/ocr_data/references.pdf')
                     .set('Accept', 'application/json')
                     .expect('Content-Type', /json/)
-                    .expect(200)
+                    .expect(400)
                     .end(function (err, res) {
                         should.not.exist(err);
-                        console.log(res.body)
-                        should.not.exist(err);
-                        res.body[2].should.be.ok;
                         done();
                     });
             });
         });
 
 
-        describe('POST /saveScan - Resource Type: Journal', function () {
-
-            it('should save a scan in the file system and create two br (parent and child) in the db', function (done) {
-                this.timeout(1000000);
-                agent
-                    .post('/saveScan')
-                    .type('form')
-                    .field('ppn', '023724153')
-                    .field('firstPage', '2')
-                    .field('lastPage', '3')
-                    .field('textualPdf', false)
-                    .field('resourceType', resourceType.journal)
-                    .attach('scan', './test/api/data/ocr_data/02_input.png')
-                    .set('Accept', 'application/json')
-                    .expect('Content-Type', /json/)
-                    .expect(200)
-                    .end(function (err, res) {
-                        should.not.exist(err);
-                        res.body[0].should.have.property("title", "Arbeitspapiere Fachgebiet Soziologie");
-                        res.body[0].should.have.property("embodiedAs");
-                        res.body[0].embodiedAs.should.be.Array;
-                        res.body[0].embodiedAs.should.have.lengthOf(0);
-                        res.body[1].should.have.property("embodiedAs");
-                        res.body[1].embodiedAs.should.be.Array;
-                        res.body[1].embodiedAs.should.have.lengthOf(1);
-                        res.body[1].embodiedAs[0].should.have.property("scans");
-                        res.body[1].embodiedAs[0].scans.should.be.Array;
-                        res.body[1].embodiedAs[0].scans.should.have.lengthOf(1);
-                        res.body[1].embodiedAs[0].scans[0].should.have.property("textualPdf", false);
-                        res.body[1].embodiedAs[0].scans[0].should.have.property("status", status.notOcrProcessed);
-                        res.body[2].should.deepEqual(res.body[1].embodiedAs[0].scans[0]);
-                        res.body[1].should.have.property("partOf");
-                        res.body[0]._id.should.be.exactly(res.body[1].partOf);
-                        should(fs.existsSync(config.PATHS.UPLOAD)).equal(true);
-                        should(fs.existsSync(config.PATHS.UPLOAD + res.body[1].embodiedAs[0].scans[0].scanName)).equal(true);
-                        done();
-                    });
-            });
-
-            it('should should add a new part to an already existing br', function (done) {
-                agent
-                    .post('/saveScan')
-                    .type('form')
-                    .field('ppn', '023724153')
-                    .field('firstPage', '4')
-                    .field('lastPage', '10')
-                    .field('resourceType', resourceType.journal)
-                    .field('textualPdf', false)
-                    .attach('scan', './test/api/data/ocr_data/02_input.png')
-                    .set('Accept', 'application/json')
-                    .expect('Content-Type', /json/)
-                    .expect(200)
-                    .end(function (err, res) {
-                        should.not.exist(err);
-                        console.log(res.body)
-                        should.not.exist(err);
-                        res.body[0].should.have.property("title", "Arbeitspapiere Fachgebiet Soziologie");
-                        res.body[0].should.have.property("embodiedAs");
-                        res.body[0].embodiedAs.should.be.Array;
-                        res.body[0].embodiedAs.should.have.lengthOf(0);
-                        res.body[1].should.have.property("embodiedAs");
-                        res.body[1].embodiedAs.should.be.Array;
-                        res.body[1].embodiedAs.should.have.lengthOf(1);
-                        res.body[1].embodiedAs[0].should.have.property("scans");
-                        res.body[1].embodiedAs[0].scans.should.be.Array;
-                        res.body[1].embodiedAs[0].scans.should.have.lengthOf(1);
-                        res.body[1].embodiedAs[0].scans[0].should.have.property("textualPdf", false);
-                        res.body[1].embodiedAs[0].scans[0].should.have.property("status", status.notOcrProcessed);
-                        res.body[2].should.deepEqual(res.body[1].embodiedAs[0].scans[0]);
-                        res.body[1].should.have.property("partOf");
-                        res.body[0]._id.should.be.exactly(res.body[1].partOf);
-                        should(fs.existsSync(config.PATHS.UPLOAD)).equal(true);
-                        should(fs.existsSync(config.PATHS.UPLOAD + res.body[1].embodiedAs[0].scans[0].scanName)).equal(true);
-                        done();
-                    });
-            });
-        });
-
-
-        describe('POST /saveScan - Resource Type: Monograph', function () {
+        describe('POST /saveResource - Resource Type: MONOGRAPH', function () {
 
             it('should save a scan in the file system and create a single br in the db', function (done) {
                 agent
-                    .post('/saveScan')
+                    .post('/saveResource')
                     .type('form')
-                    .field('ppn', '004000951')
-                    .field('firstPage', '-1')
-                    .field('lastPage', '-1')
+                    .field('identifierScheme','SWB_PPN')
+                    .field('identifierLiteralValue', '004000951')
                     .field('resourceType', resourceType.monograph)
                     .field('textualPdf', false)
-                    .attach('scan', './test/api/data/ocr_data/02_input.png')
+                    .attach('binaryFile', './test/api/data/ocr_data/02_input.png')
                     .set('Accept', 'application/json')
                     .expect('Content-Type', /json/)
                     .expect(200)
                     .end(function (err, res) {
                         should.not.exist(err);
                         res.body.should.be.Array;
-                        res.body[0].should.have.property("embodiedAs");
-                        res.body[0].embodiedAs.should.be.Array;
-                        res.body[0].embodiedAs.should.have.lengthOf(1);
-                        res.body[0].embodiedAs[0].should.have.property("scans");
-                        res.body[0].embodiedAs[0].scans.should.be.Array;
-                        res.body[0].embodiedAs[0].scans.should.have.lengthOf(1);
-                        res.body[0].embodiedAs[0].scans[0].should.have.property("scanName");
-                        res.body[0].embodiedAs[0].scans[0].should.have.property("status", status.notOcrProcessed);
-                        res.body[1].should.deepEqual(res.body[0].embodiedAs[0].scans[0]);
-                        res.body[0].should.have.property("title", "Handbuch der empirischen Sozialforschung /");
-                        res.body[0].should.have.property("publicationYear", "19uu");
-                        var scanPath = config.PATHS.UPLOAD + res.body[0].embodiedAs[0].scans[0].scanName;
+                        res.body[0].should.have.property("book_embodiedAs");
+                        res.body[0].book_embodiedAs.should.be.Array;
+                        res.body[0].book_embodiedAs.should.have.lengthOf(1);
+                        res.body[0].book_embodiedAs[0].should.have.property("scans");
+                        res.body[0].book_embodiedAs[0].scans.should.be.Array;
+                        res.body[0].book_embodiedAs[0].scans.should.have.lengthOf(1);
+                        res.body[0].book_embodiedAs[0].scans[0].should.have.property("scanName");
+                        res.body[0].book_embodiedAs[0].scans[0].should.have.property("status", status.notOcrProcessed);
+                        res.body[1].should.deepEqual(res.body[0].book_embodiedAs[0].scans[0]);
+                        res.body[0].should.have.property("book_title", "Handbuch der empirischen Sozialforschung /");
+                        res.body[0].should.have.property("book_publicationYear", "19uu");
+                        var scanPath = config.PATHS.UPLOAD + res.body[0].book_embodiedAs[0].scans[0].scanName;
                         fs.exists(scanPath, function(result){
                             result.should.equal(true);
                             mongoBr.findOne({_id: res.body[0]._id}, function(err, br){
                                 br.should.be.ok;
-                                br.should.have.property("embodiedAs");
-                                br.embodiedAs.should.be.Array;
-                                br.embodiedAs.should.have.lengthOf(1);
-                                br.embodiedAs[0].should.have.property("scans");
-                                br.embodiedAs[0].scans.should.be.Array;
-                                br.embodiedAs[0].scans.should.have.lengthOf(1);
-                                br.embodiedAs[0].scans[0].should.have.property("scanName");
-                                br.embodiedAs[0].scans[0].should.have.property("status", status.notOcrProcessed);
-                                br.should.have.property("title", "Handbuch der empirischen Sozialforschung /");
-                                br.should.have.property("publicationYear", "19uu");
+                                br.should.have.property("book_embodiedAs");
+                                br.book_embodiedAs.should.be.Array;
+                                br.book_embodiedAs.should.have.lengthOf(1);
+                                br.book_embodiedAs[0].should.have.property("scans");
+                                br.book_embodiedAs[0].scans.should.be.Array;
+                                br.book_embodiedAs[0].scans.should.have.lengthOf(1);
+                                br.book_embodiedAs[0].scans[0].should.have.property("scanName");
+                                br.book_embodiedAs[0].scans[0].should.have.property("status", status.notOcrProcessed);
+                                br.should.have.property("book_title", "Handbuch der empirischen Sozialforschung /");
+                                br.should.have.property("book_publicationYear", "19uu");
                                 done();
                             });
                         });
                     });
             });
+
+
+
+            it('should return 400', function (done) {
+                agent
+                    .post('/saveResource')
+                    .type('form')
+                    .field('identifierScheme','SWB_PPN')
+                    .field('identifierLiteralValue', '004000951')
+                    .field('resourceType', resourceType.monograph)
+                    .set('Accept', 'application/json')
+                    .expect('Content-Type', /json/)
+                    .expect(400)
+                    .end(function (err, res) {
+                        should.not.exist(err);
+                        done();
+                    });
+            });
         });
+
 
         describe('GET /getToDo', function () {
 
@@ -510,315 +565,5 @@ describe('controllers', function () {
         });
 
 
-        describe.only('POST /saveResource - Resource Type: JOURNAL', function () {
-            this.timeout(1000000);
-            it('should create a journal in the db', function (done) {
-                agent
-                    .post('/saveResource')
-                    .type('form')
-                    .field('identifierScheme', 'ZDB_PPN')
-                    .field('identifierLiteralValue', '011157860')
-                    .field('resourceType', resourceType.journal)
-                    .set('Accept', 'application/json')
-                    .expect('Content-Type', /json/)
-                    .expect(200)
-                    .end(function (err, res) {
-                        should.not.exist(err);
-                        res.body[0].should.have.property("journal_title", "Kölner Zeitschrift für Soziologie und Sozialpsychologie");
-                        done();
-                    });
-            });
-
-
-            it('should not create the journal again in the db', function (done) {
-                agent
-                    .post('/saveResource')
-                    .type('form')
-                    .field('identifierScheme', 'ZDB_PPN')
-                    .field('identifierLiteralValue', '011157860')
-                    .field('resourceType', resourceType.journal)
-                    .set('Accept', 'application/json')
-                    .expect('Content-Type', /json/)
-                    .expect(400)
-                    .end(function (err, res) {
-                        should.not.exist(err);
-                        done();
-                    });
-            });
-        });
-
-        describe.only('POST /saveResource - Resource Type: JOURNAL_ARTICLE', function () {
-            var parentId= "";
-            var articleId = "";
-            it('should create a journal article in the db', function (done) {
-                this.timeout(1000000);
-                agent
-                    .post('/saveResource')
-                    .type('form')
-                    .field('identifierScheme', 'DOI')
-                    .field('identifierLiteralValue', '10.2307/2141399')
-                    .field('resourceType', resourceType.journalArticle)
-                    .set('Accept', 'application/json')
-                    .expect('Content-Type', /json/)
-                    .expect(200)
-                    .end(function (err, res) {
-                        should.not.exist(err);
-                        res.body.should.be.Array();
-                        res.body.should.have.lengthOf(2);
-                        res.body[0].should.have.property("type", resourceType.journalArticle);
-                        res.body[1].should.have.property("_id", res.body[0].partOf);
-                        parentId = res.body[0].partOf;
-                        articleId = res.body[0]._id;
-                        res.body[1].should.have.property("type", resourceType.journalIssue);
-                        done();
-                    });
-            });
-
-            it('should not create the same journal article in the db', function (done) {
-                agent
-                    .post('/saveResource')
-                    .type('form')
-                    .field('identifierScheme', 'DOI')
-                    .field('identifierLiteralValue', '10.2307/2141399')
-                    .field('resourceType', resourceType.journalArticle)
-                    .set('Accept', 'application/json')
-                    .expect('Content-Type', /json/)
-                    .expect(400)
-                    .end(function (err, res) {
-                        should.not.exist(err);
-                        done();
-                    });
-            });
-
-            it('should append another journal article to the same issue', function (done) {
-                agent
-                    .post('/saveResource')
-                    .type('form')
-                    .field('identifierScheme', 'DOI')
-                    .field('identifierLiteralValue', '10.2307/2141393')
-                    .field('resourceType', resourceType.journalArticle)
-                    .set('Accept', 'application/json')
-                    .expect('Content-Type', /json/)
-                    .expect(200)
-                    .end(function (err, res) {
-                        res.body.should.be.Array();
-                        res.body.should.have.lengthOf(2);
-                        res.body[0].should.have.property("type", resourceType.journalArticle);
-                        res.body[1].should.have.property("_id", res.body[0].partOf);
-                        res.body[1].should.have.property("_id", parentId);
-                        res.body[1].should.have.property("type", resourceType.journalIssue);
-                        done();
-                    });
-            });
-
-            it('should append a scan to the article we created in the beginning', function (done) {
-                agent
-                    .post('/saveResource')
-                    .type('form')
-                    .field('identifierScheme', 'DOI')
-                    .field('identifierLiteralValue', '10.2307/2141399')
-                    .field('resourceType', resourceType.journalArticle)
-                    .field('textualPdf', false)
-                    .attach('binaryFile', './test/api/data/ocr_data/02_input.png')
-                    .set('Accept', 'application/json')
-                    .expect('Content-Type', /json/)
-                    .expect(200)
-                    .end(function (err, res) {
-                        res.body.should.be.Array();
-                        res.body.should.have.lengthOf(3);
-                        res.body[0].should.have.property("type", resourceType.journalArticle);
-                        res.body[0].should.have.property("partOf", parentId);
-                        res.body[0].should.have.property("_id", articleId);
-                        res.body[2].should.have.property("status", status.notOcrProcessed);
-                        done();
-                    });
-            });
-        });
-
-
-        describe.only('POST /saveResource - Resource Type: BOOK_CHAPTER', function () {
-            this.timeout(1000000);
-            it('should save a scan in the file system and create two br (parent and child) in the db', function (done) {
-                agent
-                    .post('/saveResource')
-                    .type('form')
-                    .field('identifierScheme', 'SWB_PPN')
-                    .field('identifierLiteralValue', '012678775')
-                    .field('firstPage', '51')
-                    .field('lastPage', '95')
-                    .field('textualPdf', false)
-                    .field('resourceType', resourceType.bookChapter)
-                    .attach('binaryFile', './test/api/data/ocr_data/02_input.png')
-                    .set('Accept', 'application/json')
-                    .expect('Content-Type', /json/)
-                    .expect(200)
-                    .end(function (err, res) {
-                        should.not.exist(err);
-                        res.body.should.be.Array().and.have.lengthOf(3);
-                        res.body[0].should.have.property("bookChapter_title", "Arms Control: Lessons Learned and the Future");
-                        res.body[0].should.have.property("bookChapter_embodiedAs");
-                        res.body[0].bookChapter_embodiedAs.should.be.Array;
-                        res.body[0].bookChapter_embodiedAs.should.have.lengthOf(1);
-                        res.body[1].should.have.property("editedBook_title", "Modelling and analysis in arms control :");
-                        res.body[0].bookChapter_embodiedAs[0].should.have.property("scans");
-                        res.body[0].bookChapter_embodiedAs[0].scans.should.be.Array;
-                        res.body[0].bookChapter_embodiedAs[0].scans.should.have.lengthOf(1);
-                        res.body[0].bookChapter_embodiedAs[0].scans[0].should.have.property("status", status.notOcrProcessed);
-                        res.body[0].bookChapter_embodiedAs[0].scans[0].should.have.property("textualPdf", false);
-                        res.body[2].should.deepEqual(res.body[0].bookChapter_embodiedAs[0].scans[0]);
-                        res.body[0].should.have.property("partOf");
-                        res.body[1]._id.should.be.exactly(res.body[0].partOf);
-                        should(fs.existsSync(config.PATHS.UPLOAD)).equal(true);
-                        should(fs.existsSync(config.PATHS.UPLOAD + res.body[0].bookChapter_embodiedAs[0].scans[0].scanName)).equal(true);
-                        done();
-                    });
-            });
-
-            it('should should add a new part to an already existing br: pdf', function (done) {
-                agent
-                    .post('/saveResource')
-                    .type('form')
-                    .field('identifierScheme', 'SWB_PPN')
-                    .field('identifierLiteralValue', '012678775')
-                    .field('firstPage', '33')
-                    .field('lastPage', '41')
-                    .field('textualPdf', true)
-                    .field('resourceType', resourceType.bookChapter)
-                    .attach('binaryFile', './test/api/data/ocr_data/references.pdf')
-                    .set('Accept', 'application/json')
-                    .expect('Content-Type', /json/)
-                    .expect(200)
-                    .end(function (err, res) {
-                        should.not.exist(err);
-                        res.body[1].should.have.property("editedBook_title", "Modelling and analysis in arms control :");
-                        res.body[0].should.have.property("bookChapter_embodiedAs");
-                        res.body[0].bookChapter_embodiedAs.should.be.Array;
-                        res.body[0].bookChapter_embodiedAs.should.have.lengthOf(1);
-                        res.body[1].should.have.property("editedBook_embodiedAs");
-                        res.body[0].should.have.property("bookChapter_title", "Arms Control and Strategic Military Stability");
-                        res.body[0].bookChapter_embodiedAs[0].should.have.property("scans");
-                        res.body[0].bookChapter_embodiedAs[0].scans.should.be.Array;
-                        res.body[0].bookChapter_embodiedAs[0].scans.should.have.lengthOf(1);
-                        res.body[0].bookChapter_embodiedAs[0].scans[0].should.have.property("textualPdf", true);
-                        res.body[0].bookChapter_embodiedAs[0].scans[0].should.have.property("status", status.notOcrProcessed);
-                        res.body[2].should.deepEqual(res.body[0].bookChapter_embodiedAs[0].scans[0]);
-                        res.body[0].should.have.property("partOf");
-                        res.body[1]._id.should.be.exactly(res.body[0].partOf);
-                        should(fs.existsSync(config.PATHS.UPLOAD)).equal(true);
-                        should(fs.existsSync(config.PATHS.UPLOAD + res.body[0].bookChapter_embodiedAs[0].scans[0].scanName)).equal(true);
-                        //idPdf = res.body[1].embodiedAs[0].scans[0]._id;
-                        done();
-                    });
-            });
-
-            it('should append another file to the resource', function (done) {
-                agent
-                    .post('/saveResource')
-                    .type('form')
-                    .field('identifierScheme', 'SWB_PPN')
-                    .field('identifierLiteralValue', '012678775')
-                    .field('firstPage', '33')
-                    .field('lastPage', '41')
-                    .field('textualPdf', false)
-                    .field('resourceType', resourceType.bookChapter)
-                    .attach('binaryFile', './test/api/data/ocr_data/references.pdf')
-                    .set('Accept', 'application/json')
-                    .expect('Content-Type', /json/)
-                    .expect(200)
-                    .end(function (err, res) {
-                        should.not.exist(err);
-                        res.body.should.be.Array().and.have.lengthOf(3);
-                        res.body[0].bookChapter_embodiedAs[0].scans.should.have.lengthOf(2);
-                        done();
-                    });
-            });
-
-            it('should return 400', function (done) {
-                agent
-                    .post('/saveResource')
-                    .type('form')
-                    .field('identifierScheme', 'SWB_PPN')
-                    .field('identifierLiteralValue', '012678775')
-                    .field('firstPage', '33')
-                    .field('lastPage', '41')
-                    .field('resourceType', resourceType.bookChapter)
-                    .set('Accept', 'application/json')
-                    .expect('Content-Type', /json/)
-                    .expect(400)
-                    .end(function (err, res) {
-                        should.not.exist(err);
-                        done();
-                    });
-            });
-        });
-
-
-        describe.only('POST /saveResource - Resource Type: MONOGRAPH', function () {
-
-            it('should save a scan in the file system and create a single br in the db', function (done) {
-                agent
-                    .post('/saveResource')
-                    .type('form')
-                    .field('identifierScheme','SWB_PPN')
-                    .field('identifierLiteralValue', '004000951')
-                    .field('resourceType', resourceType.monograph)
-                    .field('textualPdf', false)
-                    .attach('binaryFile', './test/api/data/ocr_data/02_input.png')
-                    .set('Accept', 'application/json')
-                    .expect('Content-Type', /json/)
-                    .expect(200)
-                    .end(function (err, res) {
-                        should.not.exist(err);
-                        res.body.should.be.Array;
-                        res.body[0].should.have.property("book_embodiedAs");
-                        res.body[0].book_embodiedAs.should.be.Array;
-                        res.body[0].book_embodiedAs.should.have.lengthOf(1);
-                        res.body[0].book_embodiedAs[0].should.have.property("scans");
-                        res.body[0].book_embodiedAs[0].scans.should.be.Array;
-                        res.body[0].book_embodiedAs[0].scans.should.have.lengthOf(1);
-                        res.body[0].book_embodiedAs[0].scans[0].should.have.property("scanName");
-                        res.body[0].book_embodiedAs[0].scans[0].should.have.property("status", status.notOcrProcessed);
-                        res.body[1].should.deepEqual(res.body[0].book_embodiedAs[0].scans[0]);
-                        res.body[0].should.have.property("book_title", "Handbuch der empirischen Sozialforschung /");
-                        res.body[0].should.have.property("book_publicationYear", "19uu");
-                        var scanPath = config.PATHS.UPLOAD + res.body[0].book_embodiedAs[0].scans[0].scanName;
-                        fs.exists(scanPath, function(result){
-                            result.should.equal(true);
-                            mongoBr.findOne({_id: res.body[0]._id}, function(err, br){
-                                br.should.be.ok;
-                                br.should.have.property("book_embodiedAs");
-                                br.book_embodiedAs.should.be.Array;
-                                br.book_embodiedAs.should.have.lengthOf(1);
-                                br.book_embodiedAs[0].should.have.property("scans");
-                                br.book_embodiedAs[0].scans.should.be.Array;
-                                br.book_embodiedAs[0].scans.should.have.lengthOf(1);
-                                br.book_embodiedAs[0].scans[0].should.have.property("scanName");
-                                br.book_embodiedAs[0].scans[0].should.have.property("status", status.notOcrProcessed);
-                                br.should.have.property("book_title", "Handbuch der empirischen Sozialforschung /");
-                                br.should.have.property("book_publicationYear", "19uu");
-                                done();
-                            });
-                        });
-                    });
-            });
-
-
-
-            it('should return 400', function (done) {
-                agent
-                    .post('/saveResource')
-                    .type('form')
-                    .field('identifierScheme','SWB_PPN')
-                    .field('identifierLiteralValue', '004000951')
-                    .field('resourceType', resourceType.monograph)
-                    .set('Accept', 'application/json')
-                    .expect('Content-Type', /json/)
-                    .expect(400)
-                    .end(function (err, res) {
-                        should.not.exist(err);
-                        done();
-                    });
-            });
-        });
     });
 });
