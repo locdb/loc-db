@@ -219,10 +219,6 @@ function saveResource(req, res) {
                             });
                         });
                     }
-                case enums.resourceType.journalVolume:
-                    return response.status(400).json("Not implemented.");
-                case enums.resourceType.journalIssue:
-                    return response.status(400).json("Not implemented.");
                 case enums.resourceType.journalArticle:
                     if (identifier.scheme !== enums.identifier.olc_ppn && identifier.scheme !== enums.identifier.doi) {
                         return response.status(400).json({"message": "Not the appropriate input data for creating a journal article."})
@@ -327,7 +323,7 @@ function saveResource(req, res) {
                                 });
                             });
                     }
-                case enums.resourceType.monograph:
+                case enums.resourceType.monograph || enums.resourceType.book:
                     return swbHelper.query(identifier.literalValue, resourceType, function (err, resource) {
                         if (err) {
                             logger.error(err);
