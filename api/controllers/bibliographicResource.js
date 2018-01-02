@@ -178,55 +178,7 @@ function createByPPN(req, res){
 }
 
 
-/*function getCrossrefReferences(req, res){
-    var br = req.swagger.params.bibliographicResource.value;
-    var response = res;
-    // first check whether it has a doi, because then it is way easier to retrieve the data
-    var doi = null;
-    var query = null;
-    for(var identifier of br.identifiers){
-        if(identifier.scheme == enums.identifier.doi){
-            doi = identifier.literalValue;
-            break;
-        }
-    }
-    // if there is no doi given, we prepare a query string
-    if(!doi){
-        // TODO: Improve query?
-        query = br.title + " " + br.subtitle;
-    }
-    crossrefHelper.queryReferences(doi, query, function(err,res){
-        if(err){
-            logger.error(err);
-            return response.status(500).json(err);
-        }
-        response.json(res);
-    });
-}*/
-
-
-/*function getPublisherUrl(req, res){
-    var ppn = req.swagger.params.ppn.value;
-    var resourceType = req.swagger.params.resourceType.value;
-    var response = res;
-
-    swbHelper.query(ppn, resourceType, function(err, result) {
-        if (err) {
-            logger.error(err);
-            return response.status(500).json(err);
-        }else{
-            for (var identifier of result.identifiers){
-                // TODO: Shall we save the resource? Shall we return the whole resource?
-                if(identifier.scheme === "URI"){
-                    return response.status(200).json(identifier);
-                }
-            }
-            return response.status(200).json({message: "No URI found."});
-        }
-    });
-}*/
-
-
+// TODO: DELETE THIS! We just want to have it to check for the logic
 function saveElectronicJournal(req, res) {
     var doi = req.swagger.params.doi.value;
     var ppn = req.swagger.params.ppn.value;

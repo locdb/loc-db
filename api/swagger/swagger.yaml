@@ -212,37 +212,6 @@ paths:
           schema:
             $ref: "#/definitions/ErrorResponse"
 
-#  /getPublisherUrl:
-#    x-swagger-router-controller: bibliographicResource
-#    get:
-#      tags: [BibliographicResource]
-#      description: |
-#        Given a unique identifier of a bibliographic resource from a union catalog, such as for example an SWB-PICA-Prod-Nr. (PPN), as well as the type of the resource,
-#        this service retrieves the URL to the publisher website if available.
-#        This services is intended for use in the workflow for electronic resources.
-#        TODO: Shall we extend that service such that the BR is also written into the db and the whole br is returned?
-#      operationId: getPublisherUrl
-#      parameters:
-#        - name: ppn
-#          in: query
-#          description: The identifier of the bibliographic resource in the union catalog for which the publisher URL shall be retrieved
-#          required: true
-#          type: string
-#        - name: resourceType
-#          in: query
-#          description: The type of the bibliographic resource
-#          required: true
-#          type: string
-#      responses:
-#        "200":
-#          description: Success
-#          schema:
-#            $ref: "#/definitions/Identifier"
-#        default:
-#          description: Error
-#          schema:
-#            $ref: "#/definitions/ErrorResponse"
-
   /saveResource:
     x-swagger-router-controller: scan
     post:
@@ -309,66 +278,6 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
-
-  /saveElectronicJournal:
-    x-swagger-router-controller: bibliographicResource
-    get:
-      tags: [BibliographicResource]
-      description: |
-        Given an article doi this service retrieves meta data from Crossref and save a new bibliographic resource in our db.
-      operationId: saveElectronicJournal
-      parameters:
-        - name: doi
-          in: query
-          description: The doi of the article for which the meta data shall be retrieved.
-          required: false
-          type: string
-        - name: ppn
-          in: query
-          description: The PPN of the article for retrieval via OLCSSG
-          required: false
-          type: string
-      responses:
-        "200":
-          description: Success
-          schema:
-            $ref: "#/definitions/Identifier"
-        default:
-          description: Error
-          schema:
-            $ref: "#/definitions/ErrorResponse"
-
-
-
-#  /getCrossrefReferences:
-#    x-swagger-router-controller: bibliographicResource
-#    post:
-#      tags: [BibliographicResource]
-#      description: |
-#        Returns the br including a list of bibliographic entries retrieved via Crossref. If there is a doi
-#        given in the br, the search will be performed based on the identifier and at max one br will be returned.
-#        Is no doi given, the search will be fuzzy based on a combination of several br fields (title, subtitle, author,..).
-#        The br returned is not the one in our mongo. You only get Crossref data. A working doi example in the domain of sociology is "10.1007/s11617-006-0056-1".
-#      operationId: getCrossrefReferences
-#      parameters:
-#        - name: bibliographicResource
-#          in: body
-#          description: A bibliographic resource for which the Crossref references should be retrieved
-#          required: true
-#          schema:
-#            $ref: "#/definitions/BibliographicResource"
-#      responses:
-#        "200":
-#          description: Success
-#          schema:
-#            type: array
-#            items:
-#              $ref: "#/definitions/BibliographicResource"
-#        default:
-#          description: Error
-#          schema:
-#            $ref: "#/definitions/ErrorResponse"
-
 
   /bibliographicEntries/{id}:
     x-swagger-router-controller: bibliographicEntry
