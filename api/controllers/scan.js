@@ -228,238 +228,59 @@ function getToDo(req, res) {
         logger.error(err);
         return response.status(400).json({"message": "Invalid parameter."});
     }
+
     if(status == enums.status.ocrProcessed) {
-        mongoBr.find({'embodiedAs.scans.status': status}, function (err, children) {
-            if (err) {
+        databaseHelper.createSimpleEqualsConditions('embodiedAs', enums.status.ocrProcessed, '.scans.status', function(err,conditions){
+            if(err){
                 logger.error(err);
-                return response.status(500).json({"message": "DB query failed."});
+                return response.status(500).json({"message": "Something weird happened."});
             }
-            var resultArray = [];
-            var resultObject;
-            for (var child of children) {
-                // check here whether it is really a child
-                if (child.partOf) {
-                    // this applies to dependent resources
-                    var alreadyIn = false;
-                    if (resultArray.length !== 0) {
-                        for (var i of resultArray) {
-                            if (i._id == child.partOf) {
-                                alreadyIn = true;
-                                resultObject = i;
-                                break;
-                            } else {
-                                resultObject = {};
-                                resultObject._id = child.partOf;
-                                resultObject.children = [];
-                            }
-                        }
-                    } else {
-                        resultObject = {};
-                        resultObject._id = child.partOf;
-                        resultObject.children = [];
-                    }
-                    var resultChild = {};
-                    resultChild._id = child._id;
-                    //resultChild.status = child.status;
-                    var scans = [];
-                    for (var embodiment of child.embodiedAs) {
-                        for (var scan of embodiment.scans) {
-                            if (scan.status === status) {
-                                scans.push({
-                                    "_id": scan._id.toString(),
-                                    "status": scan.status,
-                                    "firstPage": embodiment.firstPage,
-                                    "lastPage": embodiment.lastPage
-                                });
-                            }
-                        }
-                    }
-
-                    resultChild.scans = scans;
-                    // TODO: We want to show more information to the user
-                    resultChild.title = child.title;
-                    resultChild.subtitle = child.subtitle;
-                    resultChild.type = child.subtitle;
-                    resultChild.publicationYear = child.publicationYear;
-                    resultChild.edition = child.edition;
-                    resultChild.number = child.number;
-                    resultChild.contributors = child.contributors;
-                    resultChild.identifiers = child.identifiers;
-
-                    if (!resultObject.children) {
-                        resultObject.children = [];
-                    }
-                    resultObject.children.push(resultChild);
-                    if (!alreadyIn) {
-                        resultArray.push(resultObject);
-                    }
-                } else {
-                    // This applies to independent resources
-                    var scans = [];
-                    var resultObject = child;
-                    for (var embodiment of child.embodiedAs) {
-                        for (var scan of embodiment.scans) {
-                            if (scan.status === status) {
-                                scans.push({"_id": scan._id.toString(), "status": scan.status});
-                            }
-                        }
-                    }
-                    resultObject = resultObject.toObject();
-                    delete resultObject.embodiedAs;
-                    resultObject.scans = scans;
-                    resultArray.push(resultObject);
-                }
-            }
-            // add additional information for displaying it to the user
-            async.map(resultArray, function (parent, callback) {
-                // check first whether it is really a parent
-                if (parent.children) {
-                    mongoBr.findOne({'_id': parent._id}, function (err, br) {
-                        if (err) {
-                            logger.error(err);
-                            return callback(err, null)
-                        }
-                        if (!br) {
-                            return callback(null, parent);
-                        }
-                        parent.identifiers = br.identifiers ? br.identifiers : [];
-                        parent.title = br.title ? br.title : "";
-                        parent.subtitle = br.subtitle ? br.subtitle : "";
-                        parent.publicationYear = br.publicationYear ? br.publicationYear : -1;
-                        parent.contributors = br.contributors ? br.contributors : [];
-                        parent.type = br.type ? br.type : "";
-                        parent.edition = br.edition ? br.edition : "";
-                        parent.number = br.number ? br.number : -1;
-                        callback(null, parent);
-                    });
-                } else {
-                    callback(null, parent);
-                }
-            }, function (err, res) {
+            return mongoBr.find({'$or': conditions}, function (err, children) {
                 if (err) {
                     logger.error(err);
                     return response.status(500).json({"message": "DB query failed."});
                 }
-                response.json(res);
-            });
+                return mapChildrenAndParents(children, function(err, result){
+                    if (err) {
+                        logger.error(err);
+                        return response.status(500).json({"message": "Mapping failed."});
+                    }
+                    return response.json(result);
+                });
 
+            });
         });
     }else if (status == enums.status.notOcrProcessed){
-        mongoBr.find({ $or: [ {'embodiedAs.scans.status': enums.status.notOcrProcessed}, {'embodiedAs.scans.status': enums.status.ocrProcessing}] }, function (err, children) {
+        databaseHelper.createSimpleEqualsConditions('embodiedAs', enums.status.notOcrProcessed, '.scans.status', function(err,conditions_1){
             if (err) {
                 logger.error(err);
-                return response.status(500).json({"message": "DB query failed."});
+                return response.status(500).json({"message": "Something weird happened."});
             }
-            var resultArray = [];
-            var resultObject;
-            for (var child of children) {
-                // check here whether it is really a child
-                if (child.partOf) {
-                    // this applies to dependent resources
-                    var alreadyIn = false;
-                    if (resultArray.length !== 0) {
-                        for (var i of resultArray) {
-                            if (i._id == child.partOf) {
-                                alreadyIn = true;
-                                resultObject = i;
-                                break;
-                            } else {
-                                resultObject = {};
-                                resultObject._id = child.partOf;
-                                resultObject.children = [];
-                            }
-                        }
-                    } else {
-                        resultObject = {};
-                        resultObject._id = child.partOf;
-                        resultObject.children = [];
-                    }
-                    var resultChild = {};
-                    resultChild._id = child._id;
-                    //resultChild.status = child.status;
-                    var scans = [];
-                    for (var embodiment of child.embodiedAs) {
-                        for (var scan of embodiment.scans) {
-                            if (scan.status === status) {
-                                scans.push({
-                                    "_id": scan._id.toString(),
-                                    "status": scan.status,
-                                    "firstPage": embodiment.firstPage,
-                                    "lastPage": embodiment.lastPage
-                                });
-                            }
-                        }
-                    }
-
-                    resultChild.scans = scans;
-                    // TODO: We want to show more information to the user
-                    resultChild.title = child.title;
-                    resultChild.subtitle = child.subtitle;
-                    resultChild.type = child.subtitle;
-                    resultChild.publicationYear = child.publicationYear;
-                    resultChild.edition = child.edition;
-                    resultChild.number = child.number;
-                    resultChild.contributors = child.contributors;
-                    resultChild.identifiers = child.identifiers;
-
-                    if (!resultObject.children) {
-                        resultObject.children = [];
-                    }
-                    resultObject.children.push(resultChild);
-                    if (!alreadyIn) {
-                        resultArray.push(resultObject);
-                    }
-                } else {
-                    // This applies to independent resources
-                    var scans = [];
-                    var resultObject = child;
-                    for (var embodiment of child.embodiedAs) {
-                        for (var scan of embodiment.scans) {
-                            if (scan.status === status) {
-                                scans.push({"_id": scan._id.toString(), "status": scan.status});
-                            }
-                        }
-                    }
-                    resultObject = resultObject.toObject();
-                    delete resultObject.embodiedAs;
-                    resultObject.scans = scans;
-                    resultArray.push(resultObject);
-                }
-            }
-            // add additional information for displaying it to the user
-            async.map(resultArray, function (parent, callback) {
-                // check first whether it is really a parent
-                if (parent.children) {
-                    mongoBr.findOne({'_id': parent._id}, function (err, br) {
-                        if (err) {
-                            logger.error(err);
-                            return callback(err, null)
-                        }
-                        if (!br) {
-                            return callback(null, parent);
-                        }
-                        parent.identifiers = br.identifiers ? br.identifiers : [];
-                        parent.title = br.title ? br.title : "";
-                        parent.subtitle = br.subtitle ? br.subtitle : "";
-                        parent.publicationYear = br.publicationYear ? br.publicationYear : -1;
-                        parent.contributors = br.contributors ? br.contributors : [];
-                        parent.type = br.type ? br.type : "";
-                        parent.edition = br.edition ? br.edition : "";
-                        parent.number = br.number ? br.number : -1;
-                        callback(null, parent);
-                    });
-                } else {
-                    callback(null, parent);
-                }
-            }, function (err, res) {
+            databaseHelper.createSimpleEqualsConditions('embodiedAs', enums.status.ocrProcessing, '.scans.status', function(err,conditions_2){
                 if (err) {
                     logger.error(err);
-                    return response.status(500).json({"message": "DB query failed."});
+                    return response.status(500).json({"message": "Something weird happened."});
                 }
-                response.json(res);
-            });
+                conditions_1 = {'$or': conditions_1};
+                conditions_2 = {'$or': conditions_2};
 
+                mongoBr.find({'$or': [conditions_1, conditions_2]}, function (err, children) {
+                    if (err) {
+                        logger.error(err);
+                        return response.status(500).json({"message": "DB query failed."});
+                    }
+                    return mapChildrenAndParents(children, function(err, result){
+                        if (err) {
+                            logger.error(err);
+                            return response.status(500).json({"message": "Mapping failed."});
+                        }
+                        return response.json(result);
+                    });
+
+                });
+            });
         });
+
     }else if (status == enums.status.external){
         // this case applies only to electronic journals at the moment and only if there is no scan uploaded yet
         mongoBr.find({'status': status}, function (err, children) {
@@ -467,94 +288,12 @@ function getToDo(req, res) {
                 logger.error(err);
                 return response.status(500).json({"message": "DB query failed."});
             }
-            if (err) {
-                logger.error(err);
-                return response.status(500).json({"message": "DB query failed."});
-            }
-            var resultArray = [];
-            var resultObject;
-            for (var child of children) {
-                // check here whether it is really a child
-                if (child.partOf || child.containerTitle) {
-                    // this applies to dependent resources
-                    var alreadyIn = false;
-                    if (resultArray.length !== 0) {
-                        for (var i of resultArray) {
-                            if (i._id == child.partOf) {
-                                alreadyIn = true;
-                                resultObject = i;
-                                break;
-                            } else {
-                                resultObject = {};
-                                resultObject._id = child.partOf;
-                                resultObject.children = [];
-                            }
-                        }
-                    } else {
-                        resultObject = {};
-                        resultObject._id = child.partOf;
-                        resultObject.children = [];
-                    }
-                    var resultChild = {};
-                    resultChild._id = child._id;
-                    // TODO: We want to show more information to the user
-                    resultChild.title = child.title;
-                    resultChild.subtitle = child.subtitle;
-                    resultChild.type = child.type;
-                    resultChild.publicationYear = child.publicationYear;
-                    resultChild.edition = child.edition;
-                    resultChild.number = child.number;
-                    resultChild.contributors = child.contributors;
-                    resultChild.identifiers = child.identifiers;
-                    resultChild.parts = child.parts;
-/*                    var scans = [];
-                    // this is the difference now: Before we needed to add the scans, but now, we only add a dummy.
-                    scans.push({
-                        "_id": "No scan available."
-                    });*/
-
-                    //resultChild.scans = scans;
-                    if (!resultObject.children) {
-                        resultObject.children = [];
-                    }
-                    resultObject.children.push(resultChild);
-                    if (!alreadyIn) {
-                        resultArray.push(resultObject);
-                    }
-                }
-            }
-            // add additional information for displaying it to the user
-            async.map(resultArray, function (parent, callback) {
-                // check first whether it is really a parent
-                if (parent.children) {
-                    mongoBr.findOne({'_id': parent._id}, function (err, br) {
-                        if (err) {
-                            logger.error(err);
-                            return callback(err, null)
-                        }
-                        if (!br) {
-                            return callback(null, parent);
-                        }
-                        parent.identifiers = br.identifiers ? br.identifiers : [];
-                        parent.title = br.title ? br.title : "";
-                        parent.subtitle = br.subtitle ? br.subtitle : "";
-                        parent.publicationYear = br.publicationYear ? br.publicationYear : -1;
-                        parent.contributors = br.contributors ? br.contributors : [];
-                        parent.type = br.type ? br.type : "";
-                        parent.edition = br.edition ? br.edition : "";
-                        parent.number = br.number ? br.number : "-1";
-                        parent.parts = br.parts ? br.parts : [];
-                        callback(null, parent);
-                    });
-                } else {
-                    callback(null, parent);
-                }
-            }, function (err, res) {
+            return mapChildrenAndParents(children, function(err, result){
                 if (err) {
                     logger.error(err);
-                    return response.status(500).json({"message": "DB query failed."});
+                    return response.status(500).json({"message": "Mapping failed."});
                 }
-                response.json(res);
+                return response.json(result);
             });
         });
     }
@@ -816,6 +555,73 @@ function triggerOcrProcessing(req, res) {
                 }
             }
         }
+    });
+};
+
+
+function mapChildrenAndParents(children, callback){
+    var resultArray = [];
+    var resultObject;
+    for (var child of children) {
+        // check here whether it is really a child
+        if (child.partOf) {
+            // this applies to dependent resources
+            var alreadyIn = false;
+            if (resultArray.length !== 0) {
+                for (var i of resultArray) {
+                    if (i._id == child.partOf) {
+                        alreadyIn = true;
+                        resultObject = i;
+                        break;
+                    } else {
+                        resultObject = {};
+                        resultObject._id = child.partOf;
+                        resultObject.children = [];
+                    }
+                }
+            } else {
+                resultObject = {};
+                resultObject._id = child.partOf;
+                resultObject.children = [];
+            }
+            var resultChild = child.toObject();
+
+            if (!resultObject.children) {
+                resultObject.children = [];
+            }
+            resultObject.children.push(resultChild);
+            if (!alreadyIn) {
+                resultArray.push(resultObject);
+            }
+        } else {
+            // This applies to independent resources
+            var resultObject = child.toObject();
+            resultArray.push(child);
+        }
+    }
+    // add additional information for displaying it to the user
+    async.map(resultArray, function (parent, callback) {
+        // check first whether it is really a parent
+        if (parent.children) {
+            mongoBr.findOne({'_id': parent._id}, function (err, br) {
+                if (err) {
+                    logger.error(err);
+                    return callback(err, null)
+                }
+                if (!br) {
+                    return callback(null, parent);
+                }
+                // copy all properties
+                for(var k in br.toObject()){
+                    parent[k] = br.toObject()[k];
+                }
+                callback(null, parent);
+            });
+        } else {
+            callback(null, parent);
+        }
+    }, function (err, res) {
+        return callback(err, res);
     });
 };
 

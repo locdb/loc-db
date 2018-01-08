@@ -176,16 +176,16 @@ var bibliographicResource = new SchemaObject({
             return types;
         },
         getPropertyForTypes:function(propertyName, types){
-            var titles = [];
+            var properties = [];
             for (var type of types) {
                 var prefix = this.getPropertyPrefixForType(type);
                 for (var property in this) {
                     if (property.includes(prefix + propertyName)){
-                        titles.push(property);
+                        properties.push(property);
                     }
                 }
             }
-            return titles;
+            return properties;
         },
         /**
          * Returns the property prefix for a given type

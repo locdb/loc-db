@@ -377,6 +377,41 @@ DatabaseHelper.prototype.curateHierarchy = function(resources, callback){
     });
 };
 
+// TODO: This is not used so far
+DatabaseHelper.prototype.retrieveParent = function(child, callback){
+    if(child.partOf && child.partOf != ""){
+        mongoBr.findById(child.partOf, function(err, parent){
+            if(err){
+                logger.error(err);
+                return callback(err, null)
+            }
+            if(parent){
+                return callback(null, parent);
+            }else{
+                return callback(null, null);
+            }
+        });
+    }else{
+        return callback(null, null);
+    }
+};
+
+DatabaseHelper.prototype.createSimpleEqualsConditions = function(propertyStem, value, extension, callback){
+    var helper = new BibliographicResource();
+    var stemProperties = helper.getPropertyForTypes(propertyStem, helper.getAllTypes());
+    var conditions = [];
+    for(var stemProperty of stemProperties){
+        if(extension){
+            stemProperty = stemProperty + extension;
+        }
+
+        var condition = {};
+        condition[stemProperty] = value;
+        conditions.push(condition);
+    }
+    return callback(null, conditions);
+};
+
 
 /**
  * Factory function

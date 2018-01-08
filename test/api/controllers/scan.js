@@ -10,7 +10,7 @@ const mongoBr = require('./../../../api/models/bibliographicResource');
 
 var agent = request.agent(server);
 
-describe('controllers', function () {
+describe.only('controllers', function () {
 
     describe('scan', function () {
         var id = "58c01713ea3c8d32f0f80a75";
@@ -358,13 +358,10 @@ describe('controllers', function () {
                         console.log(res.body);
                         should.not.exist(err);
                         res.body.should.be.Array;
-                        res.body.should.have.lengthOf(4);
+                        res.body.should.have.lengthOf(3);
                         res.body[0].should.have.property("children");
-                        res.body[0].children.should.have.lengthOf(2);
-                        res.body[0].children[0].should.have.property("scans");
-                        res.body[0].children[0].scans.should.be.Array();
-                        res.body[0].children[0].scans.should.have.lengthOf(1);
-                        id = res.body[0].children[0].scans[0]._id;
+                        res.body[0].children.should.have.lengthOf(1);
+                        id = res.body[0].children[0].journalArticle_embodiedAs[0].scans[0]._id;
                         done();
                     });
             });
@@ -404,16 +401,14 @@ describe('controllers', function () {
                             console.log(res.body);
                             should.not.exist(err);
                             res.body.should.be.Array;
-                            res.body.should.have.lengthOf(5);
+                            res.body.should.have.lengthOf(4);
                             res.body[0].should.have.property("children");
                             res.body[1].should.have.property("children");
-                            res.body[3].should.not.have.property("children");
-                            res.body[0].children.should.be.Array();
-                            res.body[0].children.should.have.lengthOf(2);
+                            res.body[2].should.not.have.property("children");
                             res.body[1].children.should.be.Array();
-                            res.body[1].children.should.have.lengthOf(1);
-                            //res.body[3].children.should.be.Array();
-                            //res.body[3].children.should.have.lengthOf(2);
+                            res.body[1].children.should.have.lengthOf(2);
+                            res.body[0].children.should.be.Array();
+                            res.body[0].children.should.have.lengthOf(1);
                             done();
                         });
                 });
