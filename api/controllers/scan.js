@@ -311,27 +311,33 @@ function get(req, res) {
     }
 
     // retrieve corresponding entry from the db
-    mongoBr.findOne({'embodiedAs.scans._id': id}, function (err, br) {
+    return databaseHelper.createSimpleEqualsConditions('embodiedAs', id, '.scans._id', function(err,conditions) {
         if (err) {
             logger.error(err);
-            return response.status(500).json({"message": "DB query failed."});
-        } else if (!br) {
-            logger.error("No entry found for parameter id.", {id: id});
-            return response.status(400).json({"message": "No entry found."});
+            return response.status(500).json({"message": "Something weird happened."});
         }
-        for (var embodiment of br.embodiedAs) {
-            for (var scan of embodiment.scans) {
-                if (scan._id == id) {
-                    // send file
-                    var filePath = config.PATHS.UPLOAD + scan.scanName;
-                    return response.sendFile(path.resolve(filePath), function (err) {
-                        if (err) return logger.error(err);
-                    });
+        return mongoBr.findOne({'$or': conditions}, function (err, br) {
+            if (err) {
+                logger.error(err);
+                return response.status(500).json({"message": "DB query failed."});
+            } else if (!br) {
+                logger.error("No entry found for parameter id.", {id: id});
+                return response.status(400).json({"message": "No entry found."});
+            }
+            for (var embodiment of new BibliographicResource(br).getResourceEmbodimentsForType(br.type)) {
+                for (var scan of embodiment.scans) {
+                    if (scan._id.toString() === id) {
+                        // send file
+                        var filePath = config.PATHS.UPLOAD + scan.scanName;
+                        return response.sendFile(path.resolve(filePath), function (err) {
+                            if (err) return logger.error(err);
+                        });
+                    }
                 }
             }
-        }
+        });
     });
-}
+};
 
 
 function remove(req, res) {
