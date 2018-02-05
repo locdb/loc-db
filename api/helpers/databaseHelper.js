@@ -255,6 +255,58 @@ DatabaseHelper.prototype.convertSchemaResourceToMongoose = function(schemaResour
     });
 };
 
+
+DatabaseHelper.prototype.setScanStatus = function(id, status, callback){
+    var self = this;
+
+    // check if id is valid
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        logger.error("Invalid value for parameter id.", {id: id});
+        return callback(new Error("Invalid value for parameter id."), null);
+    }
+
+    return self.createSimpleEqualsConditions('embodiedAs', id, '.scans._id', function(err,conditions) {
+        if (err) {
+            logger.error(err);
+            return callback(new Error("Something weird happened."), null);
+        }
+        return mongoBr.findOne({'$or': conditions}, function (err, br) {
+            // do error handling
+            if (err) {
+                logger.error(err);
+                return callback(err, null);
+            } else if (!br) {
+                logger.error("No entry found for parameter id.", {id: id});
+                return callback(null, null);
+            }
+            var embodiments = new BibliographicResource(br).getResourceEmbodimentsForType(br.type);
+            for (var embodiment of embodiments) {
+                for (var scan of embodiment.scans) {
+                    if (scan._id == id) {
+                        // set the status such that we know that the scan is already in the queue
+                        scan.status = status;
+                        var embodimentIndex = embodiments.indexOf(embodiment);
+                        var scanIndex = embodiment.scans.indexOf(scan);
+                        embodiments[embodimentIndex].scans[scanIndex] = scan;
+                        var helperBr = new BibliographicResource(br);
+                        helperBr.setResourceEmbodimentsForType(br.type, embodiments);
+                        return self.convertSchemaResourceToMongoose(helperBr, function (err, br) {
+                            return br.save(function (err, res) {
+                                if (err) {
+                                    logger.error(err);
+                                    return callback(err, null);
+                                }
+                                return callback(null, [br,scan]);
+                            });
+                        });
+                    }
+                }
+            }
+        });
+    });
+};
+
+
 DatabaseHelper.prototype.saveReferencesPageForResource = function(resource, binaryFile, textualPdf, stringFile, embodimentType, callback){
     var self = this;
     if(binaryFile && textualPdf !== undefined){

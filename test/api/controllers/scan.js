@@ -362,11 +362,12 @@ describe.only('controllers', function () {
                         res.body[0].should.have.property("children");
                         res.body[0].children.should.have.lengthOf(1);
                         id = res.body[0].children[0].journalArticle_embodiedAs[0].scans[0]._id;
+                        idPdf = res.body[1].children[0].bookChapter_embodiedAs[0].scans[0]._id;
                         done();
                     });
             });
 
-            it('should retrieve a 1 todo list for the status "OCR_PROCESSED"', function (done) {
+            it('should retrieve a todo list for the status "OCR_PROCESSED"', function (done) {
                 agent
                     .get('/getToDo')
                     .query({status: "OCR_PROCESSED"})
@@ -442,20 +443,19 @@ describe.only('controllers', function () {
                     .expect('Content-Type', /json/)
                     .expect(200)
                     .end(function (err, res) {
-                        console.log(res.body);
                         should.not.exist(err);
                         res.body.should.not.be.Array;
                         res.body.should.have.property("_id");
-                        res.body.should.have.property("embodiedAs");
-                        res.body.embodiedAs.should.be.Array;
-                        res.body.embodiedAs.should.have.lengthOf(1);
-                        res.body.embodiedAs[0].should.have.property("scans");
+                        res.body.should.have.property("journalArticle_embodiedAs");
+                        res.body.journalArticle_embodiedAs.should.be.Array;
+                        res.body.journalArticle_embodiedAs.should.have.lengthOf(1);
+                        res.body.journalArticle_embodiedAs[0].should.have.property("scans");
                         res.body.should.have.property("partOf");
-                        res.body.embodiedAs[0].scans.should.be.Array;
-                        res.body.embodiedAs[0].scans.should.have.lengthOf(1);
+                        res.body.journalArticle_embodiedAs[0].scans.should.be.Array;
+                        res.body.journalArticle_embodiedAs[0].scans.should.have.lengthOf(1);
                         res.body.parts.should.be.Array;
                         res.body.parts.should.have.lengthOf(48);
-                        res.body.embodiedAs[0].scans[0].status.should.be.exactly(status.ocrProcessed);
+                        res.body.journalArticle_embodiedAs[0].scans[0].status.should.be.exactly(status.ocrProcessed);
                         res.body.parts[0].should.have.property("ocrData");
                         res.body.parts[0].ocrData.should.have.property("coordinates");
                         res.body.parts[0].should.have.property("bibliographicEntryText");
@@ -483,16 +483,16 @@ describe.only('controllers', function () {
                         should.not.exist(err);
                         res.body.should.not.be.Array;
                         res.body.should.have.property("_id");
-                        res.body.should.have.property("embodiedAs");
-                        res.body.embodiedAs.should.be.Array;
-                        res.body.embodiedAs.should.have.lengthOf(1);
-                        res.body.embodiedAs[0].should.have.property("scans");
+                        res.body.should.have.property("bookChapter_embodiedAs");
+                        res.body.bookChapter_embodiedAs.should.be.Array;
+                        res.body.bookChapter_embodiedAs.should.have.lengthOf(1);
+                        res.body.bookChapter_embodiedAs[0].should.have.property("scans");
                         res.body.should.have.property("partOf");
-                        res.body.embodiedAs[0].scans.should.be.Array;
-                        res.body.embodiedAs[0].scans.should.have.lengthOf(1);
+                        res.body.bookChapter_embodiedAs[0].scans.should.be.Array;
+                        res.body.bookChapter_embodiedAs[0].scans.should.have.lengthOf(1);
                         res.body.parts.should.be.Array;
-                        res.body.embodiedAs[0].scans[0].status.should.be.exactly(status.ocrProcessed);
-                        res.body.embodiedAs[0].scans[0].should.have.property("scanName", idPdf+".png");
+                        res.body.bookChapter_embodiedAs[0].scans[0].status.should.be.exactly(status.ocrProcessed);
+                        res.body.bookChapter_embodiedAs[0].scans[0].should.have.property("scanName", idPdf+".png");
                         done();
                     });
             });
@@ -510,7 +510,7 @@ describe.only('controllers', function () {
                         console.log(res.body);
                         should.not.exist(err);
                         res.body.should.be.Array;
-                        res.body.should.have.lengthOf(2);
+                        res.body.should.have.lengthOf(3);
                         done();
                     });
             });
