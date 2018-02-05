@@ -350,35 +350,48 @@ function remove(req, res) {
         return response.status(400).json({"message": "Invalid parameter."});
     }
 
-    // retrieve corresponding entry from the db
-    mongoBr.findOne({'embodiedAs.scans._id': id}, function (err, br) {
+    return databaseHelper.createSimpleEqualsConditions('embodiedAs', id, '.scans._id', function(err,conditions) {
         if (err) {
             logger.error(err);
-            return response.status(500).json({"message": "DB query failed."});
-        } else if (!br) {
-            logger.error("No entry found for parameter id.", {id: id});
-            return response.status(400).json({"message": "No entry found."});
+            return callback(new Error("Something weird happened."), null);
         }
-        for (var embodiment of br.embodiedAs) {
-            for (var scan of embodiment.scans) {
-                if (scan._id == id) {
-                    // remove scan
-                   var scanIndex =  embodiment.scans.indexOf(scan);
-                    if (scanIndex > -1) {
-                        embodiment.scans.splice(scanIndex, 1);
-                    }
-                    var embodimentIndex = br.embodiedAs.indexOf(embodiment);
-                    br.embodiedAs[embodimentIndex] = embodiment;
-                    return br.save(function(err, res){
-                        if (err) {
-                            logger.error(err);
-                            return response.status(500).json({"message": "DB query failed."});
+        return mongoBr.findOne({'$or': conditions}, function (err, br) {
+            // do error handling
+            if (err) {
+                logger.error(err);
+                return callback(err, null);
+            } else if (!br) {
+                logger.error("No entry found for parameter id.", {id: id});
+                return callback(null, null);
+            }
+            var helperBr = new BibliographicResource(br);
+            var embodiments = helperBr.getResourceEmbodimentsForType(br.type);
+            for (var embodiment of embodiments) {
+                for (var scan of embodiment.scans) {
+                    if (scan._id == id) {
+                        // remove scan
+                        var scanIndex = embodiment.scans.indexOf(scan);
+                        var embodimentIndex = embodiments.indexOf(embodiment);
+                        if (scanIndex > -1) {
+                            var scans = embodiment.toObject().scans;
+                            scans.splice(scanIndex, 1);
+                            embodiment.scans = scans;//embodiment.toObject().scans.splice(scanIndex, 1);
                         }
-                        return response.status(200).json({"message": "Delete succeeded"})
-                    });
+                        embodiments[embodimentIndex] = embodiment;
+                        helperBr.setResourceEmbodimentsForType(br.type, embodiments);
+                        databaseHelper.convertSchemaResourceToMongoose(helperBr, function(err, br){
+                            return br.save(function (err, br) {
+                                if (err) {
+                                    logger.error(err);
+                                    return response.status(500).json({"message": "DB query failed."});
+                                }
+                                return response.status(200).json({"message": "Delete succeeded"})
+                            });
+                        });
+                    }
                 }
             }
-        }
+        });
     });
 }
 
