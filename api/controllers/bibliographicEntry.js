@@ -139,7 +139,7 @@ function remove(req, res) {
 
 function getInternalSuggestionsByQueryString(req, res) {
     var response = res;
-    var query = decodeURI(decodeURI(query));
+    var query = req.swagger.params.query.value;//decodeURI(decodeURI(req.swagger.params.query.value));
     //var query = req.swagger.params.query.value;
     var threshold = req.swagger.params.threshold.value;
     if(!threshold){

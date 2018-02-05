@@ -185,13 +185,13 @@ describe('controllers', function() {
             });
 
             it('should return 1 internal suggestions for a bibliographic entry', function (done) {
-
+                this.timeout(3000);
 
                 var query = "The Semantic Web - ISWC 2015";
                 agent
                     .get('/getInternalSuggestionsByQueryString')
                     .query({ query: query })
-                    .query({ threshold: 0.5 })
+                    .query({ threshold: 0.4 })
                     .set('Accept', 'application/json')
                     .expect('Content-Type', /json/)
                     .expect(200)
