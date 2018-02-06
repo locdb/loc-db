@@ -34,3 +34,22 @@ or run the tests
 ```
 swagger project test
 ```
+
+In the deployment setting we use pm2 as production manager in order to manage different versions and environments on our server. Applications can be listed with
+```
+pm2 list
+```
+This command also prints the link to our keymetrics monitoring, where you can manage the apps with a GUI.
+Using the console, apps can be restarted with
+```
+pm2 restart <app_name>
+```
+Restart and start will keep the environment variables if you specify the app name correctly. Starting an app from scratch should be avoided. If you have to do so, make sure that you specify the concrete environment. In order to manage those, we use a specific json file, which is located in the root of our source code. 
+```
+pm2 start pm2.json --env development (/demo/production)
+```
+.. starts the app in the specified mode.
+Stopping an app can be done with
+```
+pm2 stop <app_name>
+```
