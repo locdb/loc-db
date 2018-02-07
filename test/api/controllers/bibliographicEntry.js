@@ -6,7 +6,7 @@ const status = require('./../../../api/schema/enum.json').status;
 
 var agent = request.agent(server);
 
-describe('controllers', function() {
+describe.only('controllers', function() {
 
     describe('bibliographicEntry', function () {
         var id = "";
@@ -431,6 +431,90 @@ describe('controllers', function() {
                         res.body.parts.should.be.Array;
                         res.body.parts.should.have.lengthOf(52);
                         res.body.parts.should.not.containDeep([{"_id": bibliographicEntryId}]);
+                        done();
+                    });
+            });
+        });
+
+        describe.only('POST /bibliographicEntries', function () {
+
+            it('should create a new bibliographic entry for a given br', function (done) {
+                var bibliographicResourceId = '592420955e7d7f3e54934304';
+                var bibliographicEntry = {
+                    bibliographicEntryText: "New entry that we want to create",
+                    status: "OCR_PROCESSED"
+                };
+                agent
+                    .post('/bibliographicEntries?bibliographicResourceId=' + bibliographicResourceId)
+                    .send(bibliographicEntry)
+                    .set('Accept', 'application/json')
+                    .expect(200)
+                    .end(function (err, res) {
+                        should.not.exist(err);
+                        res.body.should.be.Object;
+                        res.body.should.have.property("parts");
+                        res.body.parts.should.be.Array().and.have.lengthOf(1);
+                        res.body.parts[0].should.have.property("bibliographicEntryText", "New entry that we want to create");
+                        res.body.cites.should.be.Array().and.have.lengthOf(0);
+                        done();
+                    });
+            });
+
+            it('should not create a new bibliographic entry for a given br as it is referencing something that does not exist', function (done) {
+                var bibliographicResourceId = '592420955e7d7f3e54934304';
+                var bibliographicEntry = {
+                    bibliographicEntryText: "New entry that we want to create 2",
+                    status: "OCR_PROCESSED",
+                    references: '58cb92465452691cd86bc94b',
+                };
+                agent
+                    .post('/bibliographicEntries?bibliographicResourceId=' + bibliographicResourceId)
+                    .send(bibliographicEntry)
+                    .set('Accept', 'application/json')
+                    .expect(400)
+                    .end(function (err, res) {
+                        should.not.exist(err);
+                        done();
+                    });
+            });
+
+            it('should not create a new bibliographic entry for a given br as it is referencing the origin br', function (done) {
+                var bibliographicResourceId = '592420955e7d7f3e54934304';
+                var bibliographicEntry = {
+                    bibliographicEntryText: "New entry that we want to create 2",
+                    status: "OCR_PROCESSED",
+                    references: '592420955e7d7f3e54934304',
+                };
+                agent
+                    .post('/bibliographicEntries?bibliographicResourceId=' + bibliographicResourceId)
+                    .send(bibliographicEntry)
+                    .set('Accept', 'application/json')
+                    .expect(400)
+                    .end(function (err, res) {
+                        should.not.exist(err);
+                        done();
+                    });
+            });
+
+            it('should create a new bibliographic entry referencing a target br', function (done) {
+                var bibliographicResourceId = '592420955e7d7f3e54934304';
+                var bibliographicEntry = {
+                    bibliographicEntryText: "New entry that we want to create 2",
+                    status: "OCR_PROCESSED",
+                    references: "5a2947087bdcfd4759582633",
+                };
+                agent
+                    .post('/bibliographicEntries?bibliographicResourceId=' + bibliographicResourceId)
+                    .send(bibliographicEntry)
+                    .set('Accept', 'application/json')
+                    .expect(200)
+                    .end(function (err, res) {
+                        should.not.exist(err);
+                        res.body.should.be.Object;
+                        res.body.should.have.property("parts");
+                        res.body.parts.should.be.Array().and.have.lengthOf(2);
+                        res.body.parts[1].should.have.property("bibliographicEntryText", "New entry that we want to create 2");
+                        res.body.cites.should.be.Array().and.have.lengthOf(1);
                         done();
                     });
             });

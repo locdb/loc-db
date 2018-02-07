@@ -362,6 +362,81 @@ function removeTargetBibliographicResource(req, res) {
 
 }
 
+function create(req, res){
+    var bibliographicResourceId = req.swagger.params.bibliographicResourceId.value;
+    var bibliographicEntry = req.swagger.params.bibliographicEntry.value;
+    var response = res;
+
+    // first check whether we received valid mongo ids
+    if (!mongoose.Types.ObjectId.isValid(bibliographicResourceId)) {
+        logger.error("Invalid value for parameter id.", {
+            bibliographicResourceId: bibliographicResourceId
+        });
+        return response.status(400).json({"message": "Invalid parameter id."});
+    }
+
+    // load the source br which should contain the be
+    return mongoBr.findOne({'_id': bibliographicResourceId}, function (err, br) {
+        if (err) {
+            logger.error(err);
+            return response.status(500).json(err);
+        }
+        if(!br){
+            logger.error("No br found for parameter id.", {
+                bibliographicResourceId: bibliographicResourceId
+            });
+            return response.status(400).json({"message": "No resource found."});
+        }
+
+        // update the br
+        br.parts.push(bibliographicEntry);
+
+        // if the entry to be added also references another resource, we have to push this to the resource level too
+        if(bibliographicEntry.references && bibliographicEntry.references != ""){
+            // first check whether we received valid mongo ids
+            if (!mongoose.Types.ObjectId.isValid(bibliographicEntry.references) || bibliographicEntry.references == bibliographicResourceId ) {
+                logger.error("Invalid value for parameter references in be.", {
+                    bibliographicResourceId: bibliographicEntry.references
+                });
+                return response.status(400).json({"message": "Invalid parameter references."});
+            }
+            return mongoBr.findOne({'_id': bibliographicEntry.references}, function (err, target) {
+                if (err) {
+                    logger.error(err);
+                    return response.status(500).json(err);
+                }
+                if (!target) {
+                    logger.error("No target br found for parameter references.", {
+                        references: bibliographicEntry.references
+                    });
+                    return response.status(400).json({"message": "No target resource found."});
+                }
+
+                br.cites.push(bibliographicEntry.references);
+
+                // now everything is updated; therefore, we have to save the resource again
+                return br.save(function(err, br){
+                    if (err) {
+                        logger.error(err);
+                        return response.status(500).json(err);
+                    }
+                    return response.json(br);
+                });
+            });
+        }
+
+        // now everything is updated; therefore, we have to save the resource again
+        return br.save(function(err, br){
+            if (err) {
+                logger.error(err);
+                return response.status(500).json(err);
+            }
+            return response.json(br);
+        });
+    });
+
+}
+
 module.exports = {
     getToDoBibliographicEntries: getToDoBibliographicEntries,
     update: update,
@@ -369,5 +444,6 @@ module.exports = {
     addTargetBibliographicResource: addTargetBibliographicResource,
     removeTargetBibliographicResource : removeTargetBibliographicResource,
     getInternalSuggestionsByQueryString : getInternalSuggestionsByQueryString,
-    getExternalSuggestionsByQueryString : getExternalSuggestionsByQueryString
+    getExternalSuggestionsByQueryString : getExternalSuggestionsByQueryString,
+    create : create
 };

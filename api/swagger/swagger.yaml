@@ -279,6 +279,34 @@ paths:
           schema:
             $ref: "#/definitions/ErrorResponse"
 
+  /bibliographicEntries:
+    x-swagger-router-controller: bibliographicEntry
+    post:
+      tags: [BibliographicEntry]
+      description: creates a bibliographic entry for the given bibliographic resource
+      operationId: create
+      parameters:
+        - name: bibliographicResourceId
+          in: query
+          description: The _id of the bibliographic resource to which the new bibliographic entry should be appended
+          required: true
+          type: string
+        - name: bibliographicEntry
+          in: body
+          description: A bibliographic entry which should be saved
+          required: true
+          schema:
+            $ref: "#/definitions/BibliographicEntry"
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/BibliographicEntry"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
   /bibliographicEntries/{id}:
     x-swagger-router-controller: bibliographicEntry
     put:
