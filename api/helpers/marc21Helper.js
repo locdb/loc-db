@@ -75,7 +75,11 @@ Marc21Helper.prototype.extractData = function(records, type, callback){
     // apparently, when having multiple resources in the xml, marc4js parses it such that every second
     // entry in the array really belongs to a bibliographic resource
     if(typeof records[1] == "undefined") {
-        return callback(null, []);
+        if(typeof records[0] == "undefined"){
+            return callback(null, []);
+        }else{
+            records = [[], records[0]];
+        }
     }
     if(!type){
         type = this.guessResourceType(records);

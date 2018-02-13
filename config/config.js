@@ -16,6 +16,13 @@ var config = {
         PORT: (process.env.LOCDB_SEARCHINDEX_PORT || "9200"),
         PROTOCOL: (process.env.LOCDB_SEARCHINDEX_PROTOCOL || "http")
     },
+    GVI:{
+        HOST: 'gvi.bsz-bw.de',
+        PORT: 80,
+        CORE: 'GVI',
+        //ROOTPATH: 'solr/GVI',
+        //PROTOCOL: 'http'
+    },
     URLS: {
         SWB: "http://swb.bsz-bw.de/sru/DB=2.1/username=/password=/",
         ZDB: "http://services.dnb.de/sru/zdb",

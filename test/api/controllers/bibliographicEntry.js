@@ -6,7 +6,7 @@ const status = require('./../../../api/schema/enum.json').status;
 
 var agent = request.agent(server);
 
-describe.only('controllers', function() {
+describe('controllers', function() {
 
     describe('bibliographicEntry', function () {
         var id = "";
@@ -436,7 +436,7 @@ describe.only('controllers', function() {
             });
         });
 
-        describe.only('POST /bibliographicEntries', function () {
+        describe('POST /bibliographicEntries', function () {
 
             it('should create a new bibliographic entry for a given br', function (done) {
                 var bibliographicResourceId = '592420955e7d7f3e54934304';

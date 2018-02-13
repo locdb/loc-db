@@ -1,10 +1,11 @@
 'use strict';
-const request = require('ajax-request');
+const SolrClient = require('solr-client');
 const config = require('./../../config/config.js');
 const marc21Helper = require('./../helpers/marc21Helper.js').createMarc21Helper();
 const enums = require('./../schema/enum.json');
 const BibliographicResource = require('./../schema/bibliographicResource');
 const logger = require('./../util/logger');
+const async = require('async');
 
 var GVIHelper = function(){
 };
@@ -17,6 +18,96 @@ var GVIHelper = function(){
  * @param callback
  */
 GVIHelper.prototype.queryByQueryString = function(query, callback){
+    // Create client
+    var client = SolrClient.createClient({
+        host: config.GVI.HOST,
+        port: config.GVI.PORT,
+        core: config.GVI.CORE,
+    });
+
+    // Lucene query
+    // add start=0?
+    var q = client.createQuery()
+        .q({allfields: query})
+        .rows(5);
+
+    client.search(q,function(err,result){
+        if (err) {
+            logger.log(err);
+            return callback(err, null);
+        }
+        if (result.response) {
+            if (result.response.docs.length == 0) {
+                return callback(null, []);
+            } else {
+                var xmlDocs = [];
+                for (var doc of result.response.docs) {
+                    xmlDocs.push(doc.fullrecord);
+                }
+                async.map(xmlDocs,
+                    function(xmlDoc, callback){
+                        return marc21Helper.parseBibliographicResource(xmlDoc, function (err, result) {
+                            if (err) {
+                                logger.log(err);
+                                return callback(err, null);
+                            }
+                            return callback(null, result);
+                        });
+                    },
+                    function(err, results) {
+                        if (err) {
+                            logger.log(err);
+                            return callback(err, null);
+                        }
+                        return callback(null, results);
+                });
+            }
+        } else {
+            return callback(null, []);
+        }
+    });
+/*    var client = new SolrNode({
+        host: config.GVI.HOST,
+        port: config.GVI.PORT,
+        protocol: config.GVI.PROTOCOL,
+        core: config.GVI.CORE
+        //rootPath: config.GVI.ROOTPATH
+    });
+
+
+
+    // TODO: Do we want to have a structured query?
+    // From GVI solr schema.xml:
+    // <!-- Vereinfachte SuchFelder für minimalistische Anwendungen -->
+    // <!-- Alle Textfelder ohne Normdaten  fehlertolerant aufgearbeitet. -->
+    // <field name="allfields"               type="text_fuzzy" />
+    var q = client.query().q({allfields: query}).rows(5);
+
+    return client.search(q, function (err, result) {
+        if (err) {
+            logger.log(err);
+            return callback(err, null);
+        }
+        if (result.response) {
+            if (result.response.docs.length == 0) {
+                return callback(null, []);
+            } else {
+                var xmlDocs = [];
+                for (var doc of result.response.docs) {
+                    xmlDocs.push(doc.fullrecord);
+                }
+                return marc21Helper.extractData(xmlDocs, null, function (err, result) {
+                    if (err) {
+                        logger.log(err);
+                        return callback(err, null);
+                    }
+                    return callback(null, result);
+                });
+            }
+        } else {
+            return callback(null, []);
+        }
+    });*/
 /*    var url = config.URLS.SWB
         + '?query=pica.all%3D"'
         + query
