@@ -19,7 +19,7 @@
     "extend": "^3.0.0",
     "feedparser": "^2.2.1",
     "file-type": "^5.2.0",
-    "form-data": "^2.1.2",
+    "form-data": "2.3.1",
     "google-scholar": "^1.2.5",
     "isomorphic-fetch": "^2.2.1",
     "js-yaml": "^3.8.3",
