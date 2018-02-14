@@ -25,7 +25,7 @@
     "js-yaml": "^3.8.3",
     "marc4js": "0.0.8",
     "mongodb": "^2.2.13",
-    "mongoosastic": "^4.3.0",
+    "mongoosastic": "^4.4.1",
     "mongoose": "^4.7.2",
     "morgan": "^1.9.0",
     "natural": "^0.5.0",
