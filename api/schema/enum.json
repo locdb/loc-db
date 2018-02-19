@@ -63,6 +63,7 @@
     "crossref": "URL_CROSSREF",
     "swb": "URL_SWB",
     "zdb": "URL_ZDB",
-    "olcSsg": "URL_OLCSSG"
+    "olcSsg": "URL_OLCSSG",
+    "gvi": "ID_GVI"
   }
 }

@@ -6,6 +6,8 @@ const enums = require('./../schema/enum.json');
 const BibliographicResource = require('./../schema/bibliographicResource');
 const logger = require('./../util/logger');
 const async = require('async');
+const Identifier = require('./../schema/identifier');
+
 
 var GVIHelper = function(){
 };
@@ -41,8 +43,11 @@ GVIHelper.prototype.queryByQueryString = function(query, callback){
                 return callback(null, []);
             } else {
                 var xmlDocs = [];
+                var additionalInformation = [];
                 for (var doc of result.response.docs) {
                     xmlDocs.push(doc.fullrecord);
+                    additionalInformation.push(doc.id);
+
                 }
                 async.map(xmlDocs,
                     function(xmlDoc, callback){
@@ -58,6 +63,14 @@ GVIHelper.prototype.queryByQueryString = function(query, callback){
                         if (err) {
                             logger.log(err);
                             return callback(err, null);
+                        }
+                        for(var i=0; i < results.length; i++){
+                            for(var j=0; j < results[i].length; j++) {
+                                results[i][j].pushIdentifierForType(results[i][j].type, new Identifier({
+                                    literalValue: additionalInformation[i],
+                                    scheme: enums.externalSources.gvi
+                                }));
+                            }
                         }
                         return callback(null, results);
                 });
