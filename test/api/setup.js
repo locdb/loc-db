@@ -115,6 +115,20 @@ Setup.prototype.mockGVI = function(){
         .persist();
 };
 
+Setup.prototype.mockGVISuggestions = function(){
+    nock("http://gvi.bsz-bw.de")
+        .get('/solr/GVI/select')
+        .query(function(actualQueryObject){
+            if(actualQueryObject.q.indexOf("crime") !== -1 || actualQueryObject.q.indexOf("Campuses") !== -1 || actualQueryObject.q.indexOf("Demokratie") !== -1){
+                return true;
+            }else{
+                return false;
+            }
+        })
+        .replyWithFile(200, __dirname + '/data/gvi/querySuggestions.txt')
+        .persist();
+};
+
 
 Setup.prototype.dropDB = function(callback){
     br.remove({}, function(err) {

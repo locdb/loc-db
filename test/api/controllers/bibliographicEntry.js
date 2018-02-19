@@ -20,6 +20,7 @@ describe('controllers', function() {
                         if(err) return done(err);
                         setup.login(agent, function(err, result){
                             if(err) return done(err);
+                            setup.mockGVISuggestions();
                             setTimeout(function () {
                                 done();
                             }, 2000);
@@ -221,7 +222,7 @@ describe('controllers', function() {
                         should.not.exist(err);
                         res.body.should.be.Array;
                         //res.body.should.have.lengthOf(1);
-                        res.body.should.have.lengthOf(5);
+                        res.body.should.have.lengthOf(6);
                         //res.body[0].should.have.property("title", "Direkte Demokratie in der Schweiz: Entwicklungen, Debatten und Wirkungen");
                         res.body[0][0].should.have.property("status", status.external);
                         res.body[0][0].should.have.property("journalArticle_publicationYear", "2006");

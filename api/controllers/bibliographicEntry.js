@@ -9,6 +9,7 @@ const async = require('async');
 const googleScholarHelper = require('./../helpers/googleScholarHelper.js').createGoogleScholarHelper();
 const crossrefHelper = require('./../helpers/crossrefHelper.js').createCrossrefHelper();
 const swbHelper = require('./../helpers/swbHelper.js').createSwbHelper();
+const gviHelper = require('./../helpers/gviHelper.js').createGVIHelper();
 const stringSimilarity = require('string-similarity');
 
 
@@ -200,6 +201,14 @@ function getExternalSuggestionsByQueryString(req, res) {
     async.parallel([
             function (callback) {
                 swbHelper.queryByQueryString(query, function (err, res) {
+                    if (err) {
+                        return callback(err, null);
+                    }
+                    return callback(null, res);
+                });
+            },
+            function (callback) {
+                gviHelper.queryByQueryString(query, function (err, res) {
                     if (err) {
                         return callback(err, null);
                     }
