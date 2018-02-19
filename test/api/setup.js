@@ -110,7 +110,7 @@ Setup.prototype.mockOCRGetImage = function(){
 Setup.prototype.mockGVI = function(){
     nock("http://gvi.bsz-bw.de")
         .get('/solr/GVI/select')
-        .query({q: 'allfields:test', rows:5, wt:'json'})
+        .query({q: 'allfields:"test"', rows:5, wt:'json'})
         .replyWithFile(200, __dirname + '/data/gvi/queryTest.txt')
         .persist();
 };

@@ -27,6 +27,7 @@ GVIHelper.prototype.queryByQueryString = function(query, callback){
         core: config.GVI.CORE,
     });
 
+    query = '\"' + query + '\"';
     // Lucene query
     // add start=0?
     var q = client.createQuery()
