@@ -3,11 +3,11 @@
  */
 const should = require('should');
 const setup = require('./../setup.js').createSetup();
-const gviHelper = require('./../../../api/helpers/gviHelper.js').createGVIHelper();
+const solrHelper = require('./../../../api/helpers/solrHelper.js').createSolrHelper();
 const fs = require('fs');
 
 describe('helpers', function() {
-    describe('gviHelper', function() {
+    describe('solrHelper', function() {
         before(function (done) {
             setup.dropDB(function (err) {
                 setup.mockGVI();
@@ -24,7 +24,7 @@ describe('helpers', function() {
         describe('GVI queryByQueryString', function () {
             it('should return something', function (done) {
                 this.timeout(1000000000);
-                gviHelper.queryByQueryString("test", function (err, result) {
+                solrHelper.queryGVIByQueryString("test", function (err, result) {
                     result.should.be.Array().and.have.lengthOf(10);
                     result[0][0].should.have.property("type", "BOOK");
                     should.not.exists(err);

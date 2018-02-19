@@ -9,7 +9,7 @@ const async = require('async');
 const googleScholarHelper = require('./../helpers/googleScholarHelper.js').createGoogleScholarHelper();
 const crossrefHelper = require('./../helpers/crossrefHelper.js').createCrossrefHelper();
 const swbHelper = require('./../helpers/swbHelper.js').createSwbHelper();
-const gviHelper = require('./../helpers/gviHelper.js').createGVIHelper();
+const solrHelper = require('./../helpers/solrHelper.js').createSolrHelper();
 const stringSimilarity = require('string-similarity');
 
 
@@ -208,7 +208,7 @@ function getExternalSuggestionsByQueryString(req, res) {
                 });
             },
             function (callback) {
-                gviHelper.queryByQueryString(query, function (err, res) {
+                solrHelper.queryGVIByQueryString(query, function (err, res) {
                     if (err) {
                         return callback(err, null);
                     }

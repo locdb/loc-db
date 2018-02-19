@@ -3,13 +3,12 @@ const SolrClient = require('solr-client');
 const config = require('./../../config/config.js');
 const marc21Helper = require('./../helpers/marc21Helper.js').createMarc21Helper();
 const enums = require('./../schema/enum.json');
-const BibliographicResource = require('./../schema/bibliographicResource');
 const logger = require('./../util/logger');
 const async = require('async');
 const Identifier = require('./../schema/identifier');
 
 
-var GVIHelper = function(){
+var SolrHelper = function(){
 };
 
 
@@ -19,7 +18,7 @@ var GVIHelper = function(){
  * @param query
  * @param callback
  */
-GVIHelper.prototype.queryByQueryString = function(query, callback){
+SolrHelper.prototype.queryGVIByQueryString = function(query, callback){
     // Create client
     var client = SolrClient.createClient({
         host: config.GVI.HOST,
@@ -167,11 +166,11 @@ GVIHelper.prototype.queryByQueryString = function(query, callback){
  *
  * @returns {SwbHelper}
  */
-function createGVIHelper() {
-    return new GVIHelper();
+function createSolrHelper() {
+    return new SolrHelper();
 }
 
 
 module.exports = {
-    createGVIHelper : createGVIHelper
+    createSolrHelper : createSolrHelper
 };
