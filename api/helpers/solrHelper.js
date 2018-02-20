@@ -79,24 +79,32 @@ SolrHelper.prototype.queryGVIByQueryString = function(query, callback){
             return callback(null, []);
         }
     });
-/*    var client = new SolrNode({
-        host: config.GVI.HOST,
-        port: config.GVI.PORT,
-        protocol: config.GVI.PROTOCOL,
-        core: config.GVI.CORE
-        //rootPath: config.GVI.ROOTPATH
+};
+
+
+
+/**
+ * Retrieves the top 5 records from k10plus zentral for a given query
+ * @param query
+ * @param callback
+ */
+SolrHelper.prototype.queryK10plusByQueryString = function(query, callback){
+    // Create client
+    var client = SolrClient.createClient({
+        host: config.K10plus.HOST,
+        port: config.K10plus.PORT,
+        core: config.K10plus.CORE,
+        path: config.K10plus.PATH
     });
 
+    query = '\"' + query + '\"';
+    // Lucene query
+    // add start=0?
+    var q = client.createQuery()
+        .q({allfields: query})
+        .rows(5);
 
-
-    // TODO: Do we want to have a structured query?
-    // From GVI solr schema.xml:
-    // <!-- Vereinfachte SuchFelder für minimalistische Anwendungen -->
-    // <!-- Alle Textfelder ohne Normdaten  fehlertolerant aufgearbeitet. -->
-    // <field name="allfields"               type="text_fuzzy" />
-    var q = client.query().q({allfields: query}).rows(5);
-
-    return client.search(q, function (err, result) {
+    client.search(q,function(err,result){
         if (err) {
             logger.log(err);
             return callback(err, null);
@@ -106,60 +114,45 @@ SolrHelper.prototype.queryGVIByQueryString = function(query, callback){
                 return callback(null, []);
             } else {
                 var xmlDocs = [];
+                var additionalInformation = [];
                 for (var doc of result.response.docs) {
                     xmlDocs.push(doc.fullrecord);
+                    additionalInformation.push(doc.id);
+
                 }
-                return marc21Helper.extractData(xmlDocs, null, function (err, result) {
-                    if (err) {
-                        logger.log(err);
-                        return callback(err, null);
-                    }
-                    return callback(null, result);
-                });
+                return callback(null, xmlDocs);
+/*                async.map(xmlDocs,
+                    function(xmlDoc, callback){
+                        return marc21Helper.parseBibliographicResource(xmlDoc, function (err, result) {
+                            if (err) {
+                                logger.log(err);
+                                return callback(err, null);
+                            }
+                            return callback(null, result);
+                        });
+                    },
+                    function(err, results) {
+                        if (err) {
+                            logger.log(err);
+                            return callback(err, null);
+                        }
+                        for(var i=0; i < results.length; i++){
+                            for(var j=0; j < results[i].length; j++) {
+                                results[i][j].pushIdentifierForType(results[i][j].type, new Identifier({
+                                    literalValue: additionalInformation[i],
+                                    scheme: enums.externalSources.gvi
+                                }));
+                            }
+                        }
+                        return callback(null, results);
+                    });*/
             }
         } else {
             return callback(null, []);
         }
-    });*/
-/*    var url = config.URLS.SWB
-        + '?query=pica.all%3D"'
-        + query
-        + '"&version=1.1&operation=searchRetrieve&recordSchema=marc21'
-        + '&maximumRecords=5&recordPacking=xml';
-    request({
-        url: url,
-        method: 'GET',
-    }, function (err, res, body) {
-        if (err) {
-            logger.log(err);
-            return callback(err, null);
-        }
-
-        return marc21Helper.parseBibliographicResources(body, function (err, result) {
-            if (err) {
-                logger.error(err);
-                return callback(err, null);
-            }
-            for (var parentChild of result) {
-                for (var br of parentChild) {
-                    var type = br.type;
-                    var ppn = "";
-                    for (var identifier of br.getIdentifiersForType(type)) {
-                        br.status = enums.status.external;
-                        if (identifier.scheme === enums.identifier.swb_ppn) {
-                            ppn = identifier.literalValue;
-                            br.pushIdentifierForType(type, {
-                                scheme: enums.externalSources.swb,
-                                literalValue: "http://swb.bsz-bw.de/DB=2.1/PPNSET?PPN=" + ppn
-                            });
-                        }
-                    }
-                }
-            }
-            return callback(null, result);
-        });
-    });*/
+    });
 };
+
 
 /**
  * Factory function

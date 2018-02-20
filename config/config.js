@@ -23,6 +23,14 @@ var config = {
         //ROOTPATH: 'solr/GVI',
         //PROTOCOL: 'http'
     },
+    K10plus:{
+        HOST: 'findex.gbv.de',
+        PORT: 80,
+        CORE: '180',
+        PATH: 'index'
+        //ROOTPATH: 'solr/GVI',
+        //PROTOCOL: 'http'
+    },
     URLS: {
         SWB: "http://swb.bsz-bw.de/sru/DB=2.1/username=/password=/",
         ZDB: "http://services.dnb.de/sru/zdb",

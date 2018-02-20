@@ -11,6 +11,7 @@ describe('helpers', function() {
         before(function (done) {
             setup.dropDB(function (err) {
                 setup.mockGVI();
+                setup.mockK10Plus();
                 done();
             });
         });
@@ -25,6 +26,19 @@ describe('helpers', function() {
             it('should return something', function (done) {
                 this.timeout(1000000000);
                 solrHelper.queryGVIByQueryString("test", function (err, result) {
+                    result.should.be.Array().and.have.lengthOf(10);
+                    result[0][0].should.have.property("type", "BOOK");
+                    should.not.exists(err);
+                    done();
+                });
+            });
+        });
+
+
+        describe.only('K10Plus queryByQueryString', function () {
+            it('should return something', function (done) {
+                this.timeout(1000000000);
+                solrHelper.queryK10plusByQueryString("test", function (err, result) {
                     result.should.be.Array().and.have.lengthOf(10);
                     result[0][0].should.have.property("type", "BOOK");
                     should.not.exists(err);

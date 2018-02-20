@@ -702,6 +702,28 @@ paths:
           schema:
             $ref: "#/definitions/ErrorResponse"
 
+  /get:
+    x-swagger-router-controller: utils
+    post:
+      tags: [Utils]
+      description: Gets marc from k10+zentral (needed for debugging)
+      operationId: get
+      parameters:
+        - name: query
+          in: query
+          description: The query string
+          required: false
+          type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
   /swagger:
     x-swagger-pipe: swagger_raw
 

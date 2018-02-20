@@ -129,6 +129,14 @@ Setup.prototype.mockGVISuggestions = function(){
         .persist();
 };
 
+Setup.prototype.mockK10Plus = function(){
+    nock("http://findex.gbv.de")
+        .get('index/180/select')
+        .query({q: 'allfields:"test"', rows:5, wt:'json'})
+        .replyWithFile(200, __dirname + '/data/k10plus/queryTest2.txt')
+        .persist();
+};
+
 
 Setup.prototype.dropDB = function(callback){
     br.remove({}, function(err) {
