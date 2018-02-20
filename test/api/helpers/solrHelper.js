@@ -5,6 +5,7 @@ const should = require('should');
 const setup = require('./../setup.js').createSetup();
 const solrHelper = require('./../../../api/helpers/solrHelper.js').createSolrHelper();
 const fs = require('fs');
+const enums = require('./../../../api/schema/enum.json');
 
 describe('helpers', function() {
     describe('solrHelper', function() {
@@ -28,6 +29,7 @@ describe('helpers', function() {
                 solrHelper.queryGVIByQueryString("test", function (err, result) {
                     result.should.be.Array().and.have.lengthOf(10);
                     result[0][0].should.have.property("type", "BOOK");
+                    result[0][0].book_identifiers[0].should.have.property("scheme", enums.externalSources.gvi);
                     should.not.exists(err);
                     done();
                 });
@@ -35,12 +37,13 @@ describe('helpers', function() {
         });
 
 
-        describe.only('K10Plus queryByQueryString', function () {
+        describe('K10Plus queryByQueryString', function () {
             it('should return something', function (done) {
                 this.timeout(1000000000);
                 solrHelper.queryK10plusByQueryString("test", function (err, result) {
                     result.should.be.Array().and.have.lengthOf(10);
-                    result[0][0].should.have.property("type", "BOOK");
+                    result[0][0].should.have.property("type", "JOURNAL_ARTICLE");
+                    result[0][0].journalArticle_identifiers[2].should.have.property("scheme", enums.externalSources.k10plus);
                     should.not.exists(err);
                     done();
                 });

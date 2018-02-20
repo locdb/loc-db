@@ -150,7 +150,7 @@ describe('helpers', function() {
                     "editedBook_publicationYear": "1991"
                 };
 
-                marc21Helper.parseBibliographicResource(editedBook2, function(err, result){
+                marc21Helper.parseBibliographicResource(editedBook2, 'marcxml', function(err, result){
                     should.not.exist(err);
                     result.should.be.ok();
                     result.should.be.Array().and.have.lengthOf(1);
@@ -215,7 +215,7 @@ describe('helpers', function() {
                     "monograph_publicationYear": "2002"
                 };
 
-                marc21Helper.parseBibliographicResource(editedBook, function(err, result){
+                marc21Helper.parseBibliographicResource(editedBook, 'marcxml', function(err, result){
                     should.not.exist(err);
                     result.should.be.ok();
                     result.should.be.Array().and.have.lengthOf(1);
@@ -293,7 +293,7 @@ describe('helpers', function() {
                     "editedBook_publicationYear": "2008"
                 };
 
-                marc21Helper.parseBibliographicResource(editedBook3, function(err, result){
+                marc21Helper.parseBibliographicResource(editedBook3, 'marcxml', function(err, result){
                     should.not.exist(err);
                     result.should.be.ok();
                     result.should.be.Array().and.have.lengthOf(1);
@@ -377,7 +377,7 @@ describe('helpers', function() {
                     ]
                 };
 
-                marc21Helper.parseBibliographicResource(journal, function(err, result){
+                marc21Helper.parseBibliographicResource(journal, 'marcxml', function(err, result){
                     should.not.exist(err);
                     result.should.be.ok();
                     result.should.be.Array().and.have.lengthOf(1);
@@ -423,7 +423,7 @@ describe('helpers', function() {
                     "journalIssue_number": "86(2010), 2, S. 447-464"
                 };
 
-                marc21Helper.parseBibliographicResource(journalArticle, function(err, result){
+                marc21Helper.parseBibliographicResource(journalArticle, 'marcxml', function(err, result){
                     should.not.exist(err);
                     result.should.be.ok();
                     result.should.be.Array().and.have.lengthOf(2);
@@ -472,7 +472,7 @@ describe('helpers', function() {
                     "monograph_publicationYear": "2014"
                 };
 
-                marc21Helper.parseBibliographicResource(monograph, function(err, result){
+                marc21Helper.parseBibliographicResource(monograph, 'marcxml', function(err, result){
                     should.not.exist(err);
                     result.should.be.ok();
                     result.should.be.Array().and.have.lengthOf(1);
@@ -524,7 +524,7 @@ describe('helpers', function() {
                     "monograph_publicationYear": "1985"
                 };
 
-                marc21Helper.parseBibliographicResource(monograph2, function(err, result){
+                marc21Helper.parseBibliographicResource(monograph2, 'marcxml', function(err, result){
                     should.not.exist(err);
                     result.should.be.ok();
                     result.should.be.Array().and.have.lengthOf(1);

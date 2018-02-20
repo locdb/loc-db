@@ -27,7 +27,7 @@ SwbHelper.prototype.query = function(ppn, resourceType, callback){
         url: url,
         method: 'GET',
     }, function(err, res, body) {
-          marc21Helper.parseBibliographicResource(body ,function(err, result){
+          marc21Helper.parseBibliographicResource(body, 'marcxml', function(err, result){
               if(err){
                   logger.error(err);
                   return callback(err, null);
@@ -44,7 +44,7 @@ SwbHelper.prototype.queryOLC = function(ppn, callback){
         url: url,
         method: 'GET',
     }, function(err, res, body) {
-        marc21Helper.parseBibliographicResource(body ,function(err, result){
+        marc21Helper.parseBibliographicResource(body, 'marcxml', function(err, result){
             if(err){
                 logger.error(err);
                 return callback(err, null);
@@ -76,7 +76,7 @@ SwbHelper.prototype.queryByTitle = function(title, callback){
             return callback(err, null);
         }
 
-        marc21Helper.parseBibliographicResources(body ,function(err, result){
+        marc21Helper.parseBibliographicResources(body, function(err, result){
             if(err){
                 logger.error(err);
                 return callback(err, null);
@@ -119,7 +119,7 @@ SwbHelper.prototype.queryByQueryString = function(query, callback){
             return callback(err, null);
         }
 
-        return marc21Helper.parseBibliographicResources(body ,function(err, result){
+        return marc21Helper.parseBibliographicResources(body, function(err, result){
             if(err){
                 logger.error(err);
                 return callback(err, null);

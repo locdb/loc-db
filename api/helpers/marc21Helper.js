@@ -17,9 +17,9 @@ var Marc21Helper = function(){
  * @param xmlString
  * @param fnCallback
  */
-Marc21Helper.prototype.parseBibliographicResource = function(xmlString, callback){
+Marc21Helper.prototype.parseBibliographicResource = function(xmlString, format, callback){
     var self = this;
-    marc4js.parse(xmlString, {format: 'marcxml'}, function(err, records) {
+    marc4js.parse(xmlString, {format: format}, function(err, records) {
         self.extractData(records, null, function(err, result){
             if(err){
                 logger.error(err);

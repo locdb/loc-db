@@ -131,9 +131,9 @@ Setup.prototype.mockGVISuggestions = function(){
 
 Setup.prototype.mockK10Plus = function(){
     nock("http://findex.gbv.de")
-        .get('index/180/select')
+        .get('/index/180/select')
         .query({q: 'allfields:"test"', rows:5, wt:'json'})
-        .replyWithFile(200, __dirname + '/data/k10plus/queryTest2.txt')
+        .replyWithFile(200, __dirname + '/data/k10plus/queryTest.txt')
         .persist();
 };
 

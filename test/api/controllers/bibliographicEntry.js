@@ -12,7 +12,7 @@ describe('controllers', function() {
         var id = "";
 
         before(function (done) {
-            this.timeout(4000);
+            this.timeout(8000);
             setup.dropDB(function(){
                 setup.loadBibliographicEntry(function(err, result){
                     if(err) return done(err);

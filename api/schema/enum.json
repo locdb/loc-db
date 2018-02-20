@@ -64,6 +64,7 @@
     "swb": "URL_SWB",
     "zdb": "URL_ZDB",
     "olcSsg": "URL_OLCSSG",
-    "gvi": "ID_GVI"
+    "gvi": "ID_GVI",
+    "k10plus": "ID_K10PLUS"
   }
 }
