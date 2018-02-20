@@ -21,6 +21,7 @@ describe('controllers', function() {
                         setup.login(agent, function(err, result){
                             if(err) return done(err);
                             setup.mockGVISuggestions();
+                            setup.mockK10PlusSuggestions();
                             setTimeout(function () {
                                 done();
                             }, 2000);
@@ -207,7 +208,7 @@ describe('controllers', function() {
 
         describe('GET /getExternalSuggestionsByQueryString', function () {
 
-            it('should return 5 suggestion for a query string', function (done) {
+            it('should return 8 suggestion for a query string', function (done) {
                 this.timeout(1000000);
                 var query = "The association between social capital and juvenile crime: The role of individual and structural factors.";
 
@@ -222,7 +223,7 @@ describe('controllers', function() {
                         should.not.exist(err);
                         res.body.should.be.Array;
                         //res.body.should.have.lengthOf(1);
-                        res.body.should.have.lengthOf(6);
+                        res.body.should.have.lengthOf(8);
                         //res.body[0].should.have.property("title", "Direkte Demokratie in der Schweiz: Entwicklungen, Debatten und Wirkungen");
                         res.body[0][0].should.have.property("status", status.external);
                         res.body[0][0].should.have.property("journalArticle_publicationYear", "2006");

@@ -215,6 +215,14 @@ function getExternalSuggestionsByQueryString(req, res) {
                     return callback(null, res);
                 });
             },
+            function (callback) {
+                solrHelper.queryK10plusByQueryString(query, function (err, res) {
+                    if (err) {
+                        return callback(err, null);
+                    }
+                    return callback(null, res);
+                });
+            },
             /*function (callback) {
                 googleScholarHelper.query(query, function (err, res) {
                     if (err) {

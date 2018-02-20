@@ -137,6 +137,20 @@ Setup.prototype.mockK10Plus = function(){
         .persist();
 };
 
+Setup.prototype.mockK10PlusSuggestions = function(){
+    nock("http://findex.gbv.de")
+        .get('/index/180/select')
+        .query(function(actualQueryObject){
+            if(actualQueryObject.q.indexOf("crime") !== -1 || actualQueryObject.q.indexOf("Campuses") !== -1 || actualQueryObject.q.indexOf("Demokratie") !== -1){
+                return true;
+            }else{
+                return false;
+            }
+        })
+        .replyWithFile(200, __dirname + '/data/k10plus/querySuggestions.txt')
+        .persist();
+};
+
 
 Setup.prototype.dropDB = function(callback){
     br.remove({}, function(err) {
