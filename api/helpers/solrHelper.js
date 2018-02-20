@@ -104,52 +104,54 @@ SolrHelper.prototype.queryK10plusByQueryString = function(query, callback){
         .q({allfields: query})
         .rows(5);
 
-    client.search(q,function(err,result){
+    client.search(q,function(err,result) {
         if (err) {
             logger.log(err);
             return callback(err, null);
         }
-        if (result.response) {
-            if (result.response.docs.length == 0) {
-                return callback(null, []);
-            } else {
-                var xmlDocs = [];
-                var additionalInformation = [];
-                for (var doc of result.response.docs) {
-                    xmlDocs.push(doc.fullrecord);
-                    additionalInformation.push(doc.id);
+        return callback(null, result);
+        /* if (result.response) {
+         if (result.response.docs.length == 0) {
+         return callback(null, []);
+         } else {
+         var xmlDocs = [];
+         var additionalInformation = [];
+         for (var doc of result.response.docs) {
+         xmlDocs.push(doc.fullrecord);
+         additionalInformation.push(doc.id);
 
-                }
-                return callback(null, xmlDocs);
-/*                async.map(xmlDocs,
-                    function(xmlDoc, callback){
-                        return marc21Helper.parseBibliographicResource(xmlDoc, function (err, result) {
-                            if (err) {
-                                logger.log(err);
-                                return callback(err, null);
-                            }
-                            return callback(null, result);
-                        });
-                    },
-                    function(err, results) {
-                        if (err) {
-                            logger.log(err);
-                            return callback(err, null);
-                        }
-                        for(var i=0; i < results.length; i++){
-                            for(var j=0; j < results[i].length; j++) {
-                                results[i][j].pushIdentifierForType(results[i][j].type, new Identifier({
-                                    literalValue: additionalInformation[i],
-                                    scheme: enums.externalSources.gvi
-                                }));
-                            }
-                        }
-                        return callback(null, results);
-                    });*/
-            }
-        } else {
-            return callback(null, []);
-        }
+         }
+         return callback(null, xmlDocs);*/
+        /*                async.map(xmlDocs,
+         function(xmlDoc, callback){
+         return marc21Helper.parseBibliographicResource(xmlDoc, function (err, result) {
+         if (err) {
+         logger.log(err);
+         return callback(err, null);
+         }
+         return callback(null, result);
+         });
+         },
+         function(err, results) {
+         if (err) {
+         logger.log(err);
+         return callback(err, null);
+         }
+         for(var i=0; i < results.length; i++){
+         for(var j=0; j < results[i].length; j++) {
+         results[i][j].pushIdentifierForType(results[i][j].type, new Identifier({
+         literalValue: additionalInformation[i],
+         scheme: enums.externalSources.gvi
+         }));
+         }
+         }
+         return callback(null, results);
+         });*/
+        /*            }
+         } else {
+         return callback(null, []);
+         }
+         });*/
     });
 };
 
