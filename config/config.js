@@ -27,7 +27,7 @@ var config = {
         HOST: 'findex.gbv.de',
         PORT: 80,
         CORE: '180',
-        PATH: 'index'
+        PATH: '/index'
         //ROOTPATH: 'solr/GVI',
         //PROTOCOL: 'http'
     },
