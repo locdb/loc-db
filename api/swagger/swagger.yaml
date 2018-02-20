@@ -704,7 +704,7 @@ paths:
 
   /get:
     x-swagger-router-controller: utils
-    post:
+    get:
       tags: [Utils]
       description: Gets marc from k10+zentral (needed for debugging)
       operationId: get
