@@ -53,7 +53,7 @@ SolrHelper.prototype.queryGVIByQueryString = function(query, callback){
                     function(xmlDoc, callback){
                         return marc21Helper.parseBibliographicResource(xmlDoc, function (err, result) {
                             if (err) {
-                                logger.log(err);
+                                logger.error(err);
                                 return callback(err, null);
                             }
                             return callback(null, result);
@@ -61,7 +61,7 @@ SolrHelper.prototype.queryGVIByQueryString = function(query, callback){
                     },
                     function(err, results) {
                         if (err) {
-                            logger.log(err);
+                            logger.error(err);
                             return callback(err, null);
                         }
                         for(var i=0; i < results.length; i++){
@@ -98,6 +98,7 @@ SolrHelper.prototype.queryK10plusByQueryString = function(query, callback){
     });
 
     query = '\"' + query + '\"';
+    logger.log(query);
     // Lucene query
     // add start=0?
     var q = client.createQuery()
@@ -106,7 +107,7 @@ SolrHelper.prototype.queryK10plusByQueryString = function(query, callback){
 
     client.search(q,function(err,result) {
         if (err) {
-            logger.log(err);
+            logger.error(err);
             return callback(err, null);
         }
         return callback(null, result);

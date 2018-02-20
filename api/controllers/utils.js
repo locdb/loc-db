@@ -24,8 +24,10 @@ function get(req, res){
     var query = req.swagger.params.query.value;
     solrHelper.queryK10plusByQueryString(query, function(err,res){
         if(err){
+            logger.error(err);
             return response.json(err);
         }
+        logger.log(res);
         return response.json(res);
     });
 
