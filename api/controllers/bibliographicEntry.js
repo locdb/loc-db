@@ -258,6 +258,11 @@ function getExternalSuggestionsByQueryString(req, res) {
                     }
                 }
             }
+            for(var parentChild of result){
+                for(var br of parentChild){
+                    br.status = enums.status.external;
+                }
+            }
             return response.json(result);
         }
     );
