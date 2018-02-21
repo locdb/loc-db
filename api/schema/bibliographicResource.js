@@ -230,7 +230,8 @@ var bibliographicResource = new SchemaObject({
                 case resourceType.dataset:
                     return [resourceType.dataset]
                 default:
-                    return []
+                    // return as default just book
+                    return [resourceType.book]
             }
         },
          /**
