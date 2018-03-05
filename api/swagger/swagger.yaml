@@ -913,7 +913,7 @@ definitions:
         type: string
       proceedings_subtitle:
         type: string
-      deataset_subtitle:
+      dataset_subtitle:
         type: string
       reportSeries_subtitle:
         type: string
@@ -971,10 +971,6 @@ definitions:
         type: string
       referenceEntry_number:
         type: string
-      contributors:
-        type: array
-        items:
-          $ref: "#/definitions/AgentRole"
       journal_contributors:
         type: array
         items:
@@ -1039,7 +1035,7 @@ definitions:
         type: array
         items:
           $ref: "#/definitions/AgentRole"
-      repotrSeries_contributors:
+      reportSeries_contributors:
         type: array
         items:
           $ref: "#/definitions/AgentRole"
