@@ -22,7 +22,7 @@
     "form-data": "^2.1.2",
     "google-scholar": "^1.2.5",
     "isomorphic-fetch": "^2.2.1",
-    "js-yaml": "^3.8.3",
+    "js-yaml": "3.10.0",
     "marc4js": "0.0.8",
     "mongodb": "^2.2.13",
     "mongoosastic": "^4.3.0",
