@@ -154,23 +154,23 @@ describe('controllers', function() {
       describe('POST /bibliographicResources', function(){
 
           var data = new BibliographicResource({
-              identifiers: [{
+              book_identifiers: [{
                   literalValue: "978-3-86680-192-9",
                   scheme: enums.identifier.isbn
               }],
-              title: "Test Bibliographic Resource",
-              subtitle: "Testing is fun",
-              number: 2,
-              containerTitle: "This is the title of the parent resource.",
-              contributors: [{
+              book_title: "Test Bibliographic Resource",
+              book_subtitle: "Testing is fun",
+              book_number: 2,
+              book_contributors: [{
                   roleType: enums.roleType.author,
                   heldBy:{
                       givenName: "Anne",
                       familyName: "Lauscher"
                   },
               }],
-              publicationYear: "2017",
+              book_publicationYear: "2017",
               status: enums.status.valid,
+              type: enums.resourceType.book
           });
 
           it('should add a new bibliographicResource to the db', function(done){
@@ -208,14 +208,14 @@ describe('controllers', function() {
       describe('PUT /bibliographicResources/<id>', function(){
 
           var data = new BibliographicResource({
-              identifiers: [{
+              book_identifiers: [{
                   literalValue: "978-3-86680-192-9",
                   scheme: enums.identifier.isbn
               }],
-              title: "Title changed",
-              subtitle: "Testing is fun",
-              number: 2,
-              contributors: [{
+              book_title: "Title changed",
+              book_subtitle: "Testing is fun",
+              book_number: 2,
+              book_contributors: [{
                   roleType: enums.roleType.author,
                   heldBy:{
                       givenName: "Anne",
@@ -230,8 +230,9 @@ describe('controllers', function() {
                           familyName: "Eckert"
                       },
                   }],
-              publicationYear: 2017,
+              book_publicationYear: 2017,
               status: enums.status.valid,
+              type: enums.resourceType.book,
               parts: [{
                   bibliographicEntryText: "Test test test",
                   status: enums.status.ocrProcessed,
@@ -364,7 +365,7 @@ describe('controllers', function() {
       describe('POST /bibliographicResources', function() {
           it('should not save a br in the db', function (done) {
               var br = {
-                  "identifiers": [
+                  "book_identifiers": [
                       {
                           "scheme": "OCLC_ID",
                           "literalValue": "243773523"
@@ -386,10 +387,10 @@ describe('controllers', function() {
                           "literalValue": "http://swb.bsz-bw.de/DB=2.1/PPNSET?PPN=03890019X"
                       }
                   ],
-                  "title": "Minorities at risk :",
-                  "subtitle": "a global view of ethnopolitical conflicts /",
-                  "edition": "1. publ., 2. print.",
-                  "contributors": [
+                  "book_title": "Minorities at risk :",
+                  "book_subtitle": "a global view of ethnopolitical conflicts /",
+                  "book_edition": "1. publ., 2. print.",
+                  "book_contributors": [
                       {
                           "identifiers": [],
                           "roleType": "PUBLISHER",
@@ -424,11 +425,10 @@ describe('controllers', function() {
                           }
                       }
                   ],
-                  "publicationYear": "1993",
+                  "book_publicationYear": "1993",
                   "status": "EXTERNAL",
                   "type": "",
-                  "containerTitle": "",
-                  "number": ""
+                  "book_number": ""
               };
 
               agent

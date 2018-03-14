@@ -732,6 +732,8 @@ paths:
 definitions:
 
   BibliographicResource:
+    required:
+      - type
     properties:
       _id:
         type: string
