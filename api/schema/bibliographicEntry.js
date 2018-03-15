@@ -6,7 +6,6 @@ const Identifier = require('./identifier.js');
 
 //Create bibliographicEntry schema 
 var bibliographicEntry = new SchemaObject({
-    _id: String,
     identifiers: [{type: Identifier}],
     bibliographicEntryText: String, // the literal text if a bibliographic entry, i.e. "the reference"
     references: String, // the corpus identifier of the br the bibliographic entry references
