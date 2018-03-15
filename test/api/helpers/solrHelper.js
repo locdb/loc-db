@@ -29,7 +29,7 @@ describe('helpers', function() {
                 solrHelper.queryGVIByQueryString("test", function (err, result) {
                     result.should.be.Array().and.have.lengthOf(10);
                     result[0][0].should.have.property("type", "BOOK");
-                    result[0][0].book_identifiers[0].should.have.property("scheme", enums.externalSources.gvi);
+                    result[0][0].book_identifiers[0].should.have.property("scheme", enums.identifier.gviId);
                     should.not.exists(err);
                     done();
                 });
@@ -43,7 +43,7 @@ describe('helpers', function() {
                 solrHelper.queryK10plusByQueryString("test", function (err, result) {
                     result.should.be.Array().and.have.lengthOf(10);
                     result[0][0].should.have.property("type", "JOURNAL_ARTICLE");
-                    result[0][0].journalArticle_identifiers[2].should.have.property("scheme", enums.externalSources.k10plus);
+                    result[0][0].journalArticle_identifiers[2].should.have.property("scheme", enums.identifier.k10plusId);
                     should.not.exists(err);
                     done();
                 });

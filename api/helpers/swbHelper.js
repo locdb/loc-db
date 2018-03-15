@@ -87,9 +87,9 @@ SwbHelper.prototype.queryByTitle = function(title, callback){
                 br = br.toObject();
                 // TODO: Maybe add ppn here?
                 if(br.identifiers){
-                    br.identifiers.push({scheme: enums.externalSources.swb, literalValue: ""});
+                    br.identifiers.push({scheme: enums.identifier.swbUrl, literalValue: ""});
                 }else{
-                    br.identifiers = [{scheme: enums.externalSources.swb, literalValue: ""}];
+                    br.identifiers = [{scheme: enums.identifier.swbUrl, literalValue: ""}];
                 }
                 br.status = enums.status.external;
                 brs.push(br);
@@ -130,9 +130,9 @@ SwbHelper.prototype.queryByQueryString = function(query, callback){
                     var ppn = "";
                     for(var identifier of br.getIdentifiersForType(type)){
                         br.status = enums.status.external;
-                        if(identifier.scheme === enums.identifier.swb_ppn){
+                        if(identifier.scheme === enums.identifier.swbPpn){
                             ppn = identifier.literalValue;
-                            br.pushIdentifierForType(type, {scheme: enums.externalSources.swb, literalValue: "http://swb.bsz-bw.de/DB=2.1/PPNSET?PPN=" + ppn});
+                            br.pushIdentifierForType(type, {scheme: enums.identifier.swbUrl, literalValue: "http://swb.bsz-bw.de/DB=2.1/PPNSET?PPN=" + ppn});
                         }
                     }
                 }

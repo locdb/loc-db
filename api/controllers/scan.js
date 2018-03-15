@@ -61,7 +61,7 @@ function saveResource(req, res) {
             switch (resourceType) {
                 case enums.resourceType.journal:
                     // The resource is a journal, the ZDB ID should be given and basically nothing else
-                    if (identifier.scheme !== enums.identifier.zdb_ppn || stringFile || binaryFile || firstPage || lastPage) {
+                    if (identifier.scheme !== enums.identifier.zdbPpn || stringFile || binaryFile || firstPage || lastPage) {
                         return response.status(400).json({"message": "In order to create a journal resource in the db, provide the zdb ppn."})
                     } else {
                         return swbHelper.query(identifier.literalValue, resourceType, function (err, resource) {
@@ -82,7 +82,7 @@ function saveResource(req, res) {
                         });
                     }
                 case enums.resourceType.journalArticle:
-                    if (identifier.scheme !== enums.identifier.olc_ppn && identifier.scheme !== enums.identifier.doi) {
+                    if (identifier.scheme !== enums.identifier.olcPpn && identifier.scheme !== enums.identifier.doi) {
                         return response.status(400).json({"message": "Not the appropriate input data for creating a journal article."})
                     } else {
                         switch (identifier.scheme) {
@@ -111,7 +111,7 @@ function saveResource(req, res) {
 
                                     });
                                 });
-                            case enums.identifier.olc_ppn:
+                            case enums.identifier.olcPpn:
                                 // go to olc and create article
                                 return response.status(400).json({"message": "Identifier type not implemented."});
                         }
@@ -140,7 +140,7 @@ function saveResource(req, res) {
 
                                 });
                             });
-                        case enums.identifier.swb_ppn:
+                        case enums.identifier.swbPpn:
                             return swbHelper.query(identifier.literalValue, resourceType, function (err, resources) {
                                 if (err) {
                                     logger.error(err);

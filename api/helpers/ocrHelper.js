@@ -99,6 +99,7 @@ OcrHelper.prototype.parseXMLString = function(xmlString, fileName, callback){
                         var authors = [];
                         var coordinates = (citation.rawString && citation.rawString[0]  && citation.rawString[0]['$']) ? citation.rawString[0]['$'].coordinates : "";
 
+
                         if(citation.authors){
                             for(var a of citation.authors){
                                 var author = a.author ? a.author[0] : "";

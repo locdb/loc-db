@@ -68,7 +68,7 @@ SolrHelper.prototype.queryGVIByQueryString = function(query, callback){
                             for(var j=0; j < results[i].length; j++) {
                                 results[i][j].pushIdentifierForType(results[i][j].type, new Identifier({
                                     literalValue: additionalInformation[i],
-                                    scheme: enums.externalSources.gvi
+                                    scheme: enums.identifier.gviId
                                 }));
                             }
                         }
@@ -145,7 +145,7 @@ SolrHelper.prototype.queryK10plusByQueryString = function(query, callback){
                             for (var j = 0; j < results[i].length; j++) {
                                 results[i][j].pushIdentifierForType(results[i][j].type, new Identifier({
                                     literalValue: additionalInformation[i],
-                                    scheme: enums.externalSources.k10plus
+                                    scheme: enums.identifier.k10plusId
                                 }));
                             }
                         }

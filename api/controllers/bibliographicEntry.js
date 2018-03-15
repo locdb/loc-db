@@ -204,6 +204,11 @@ function getExternalSuggestionsByQueryString(req, res) {
                     if (err) {
                         return callback(err, null);
                     }
+/*                    for(var parentChild in res){
+                        for(var br in parentChild){
+                            br.source = enums.externalSources.swb;
+                        }
+                    }*/
                     return callback(null, res);
                 });
             },

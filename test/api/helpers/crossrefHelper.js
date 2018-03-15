@@ -36,7 +36,7 @@ describe('helpers', function() {
                     result[0][0].should.have.property("journalArticle_title", "The Association between Social Capital and Juvenile Crime");
                     result[1][1].journal_identifiers.should.be.Array();
                     result[1][0].journalArticle_identifiers.should.have.lengthOf(2);
-                    result[1][0].journalArticle_identifiers[1].should.have.property("scheme", enums.externalSources.crossref);
+                    result[1][0].journalArticle_identifiers[1].should.have.property("scheme", enums.identifier.crossrefUrl);
                     done();
                 });
             });
@@ -80,7 +80,7 @@ describe('helpers', function() {
                     result[0].should.have.property("journalArticle_identifiers");
                     result[0].journalArticle_identifiers.should.be.Array();
                     result[0].journalArticle_identifiers.should.have.lengthOf(2);
-                    result[0].journalArticle_identifiers[1].should.have.property("scheme", enums.externalSources.crossref);
+                    result[0].journalArticle_identifiers[1].should.have.property("scheme", enums.identifier.crossrefUrl);
                     result[0].should.have.property("parts");
                     result[0].parts.should.be.Array;
                     result[0].parts.should.have.lengthOf(25);
@@ -105,7 +105,7 @@ describe('helpers', function() {
                     result.should.have.lengthOf(2);
                     result[0].should.have.property("bookChapter_identifiers");
                     result[0].bookChapter_identifiers.should.be.Array();
-                    result[0].bookChapter_identifiers[1].should.have.property("scheme", enums.externalSources.crossref);
+                    result[0].bookChapter_identifiers[1].should.have.property("scheme", enums.identifier.crossrefUrl);
                     result[0].should.have.property("bookChapter_title", "Arms Control: Lessons Learned and the Future");
                     done();
                 });

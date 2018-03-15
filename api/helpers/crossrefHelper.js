@@ -192,7 +192,7 @@ CrossrefHelper.prototype.parseIndependentResource = function(obj, callback){
         resource.pushIdentifierForType(resource.type, new Identifier({scheme: enums.identifier.doi, literalValue: obj.DOI}));
     }
     if(obj.URL){
-        resource.pushIdentifierForType(resource.type, new Identifier({scheme: enums.externalSources.crossref, literalValue: obj.URL}));
+        resource.pushIdentifierForType(resource.type, new Identifier({scheme: enums.identifier.crossrefUrl, literalValue: obj.URL}));
     }
     if(obj.ISBN && resource.type !== enums.resourceType.bookChapter && !obj['container-title']){
         for(var isbn of obj.ISBN){

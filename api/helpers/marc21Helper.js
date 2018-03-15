@@ -261,7 +261,7 @@ Marc21Helper.prototype.extractIndependentResource = function(records, type, call
             if (field.subfields.length >= 2 && field.subfields[0]._code === "2" && field.subfields[0]._data === "DE-600") {
                 resource.pushIdentifierForType(resource.type, new Identifier({
                     literalValue: field.subfields[1]._data,
-                    scheme: enums.identifier.zdb_id
+                    scheme: enums.identifier.zdbId
                 }));
             }
         } else if (field._tag === "022") {
@@ -478,12 +478,12 @@ Marc21Helper.prototype.extractIndependentResource = function(records, type, call
                 if (f._tag === "003" && f._data === "DE-576") {
                     resource.pushIdentifierForType(resource.type, new Identifier({
                         literalValue: field._data,
-                        scheme: enums.identifier.swb_ppn
+                        scheme: enums.identifier.swbPpn
                     }));
                 } else if (f._tag === "003" && f._data === "DE-101") {
                     resource.pushIdentifierForType(resource.type, new Identifier({
                         literalValue: field._data,
-                        scheme: enums.identifier.zdb_ppn
+                        scheme: enums.identifier.zdbPpn
                     }));
                 }
             }

@@ -165,7 +165,8 @@ var bibliographicResource = new SchemaObject({
     referenceBook_embodiedAs: [{type: ResourceEmbodiment}],
     referenceEntry_embodiedAs: [{type: ResourceEmbodiment}],
     standard_embodiedAs: [{type: ResourceEmbodiment}],
-    standardSeries_embodiedAs: [{type: ResourceEmbodiment}]
+    standardSeries_embodiedAs: [{type: ResourceEmbodiment}],
+    source: String
 }, {
     methods: {
         getAllTypes: function(){

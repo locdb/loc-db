@@ -16,7 +16,7 @@ describe('helpers', function() {
             });
         });
         
-        describe('parseFile', function(){
+        describe.skip('parseFile', function(){
             it('should return result for a given query', function(done) {
                 this.timeout(1000000000);
                 googleScholarHelper.query("Test", function(err, res){

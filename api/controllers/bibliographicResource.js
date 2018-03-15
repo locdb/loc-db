@@ -304,7 +304,7 @@ function saveElectronicJournal(req, res) {
                     var resource = new br(result);
                     resource.type = enums.resourceType.journal;
                     resource.status = enums.status.external;
-                    resource.identifiers.push({'scheme': enums.identifier.ppn, 'literalValue': ppn});
+                    resource.identifiers.push({'scheme': enums.identifier.olcPpn, 'literalValue': ppn});
                     // we should try to find the parent resource in our system
                     // therefore we have to extract the issns if available
                     var issns = [];

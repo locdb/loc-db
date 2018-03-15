@@ -9,17 +9,23 @@
   "identifier": {
     "isbn": "ISBN",
     "issn": "ISSN",
-    "swb_ppn" : "SWB_PPN",
-    "olc_ppn" : "OLC_PPN",
-    "zdb_ppn" : "ZDB_PPN",
-    "zdb_id" : "ZDB_ID",
-    "ppn": "PPN",
+    "swbPpn" : "SWB_PPN",
+    "olcPpn" : "OLC_PPN",
+    "zdbPpn" : "ZDB_PPN",
+    "zdbId" : "ZDB_ID",
     "doi" : "DOI",
     "lccn": "LCCN",
     "gndId": "GND_ID",
     "swbGndId": "SWB_GND_ID",
     "oclcId": "OCLC_ID",
-    "uri": "URI"
+    "uri": "URI",
+    "gScholarUrl": "URL_GOOGLE_SCHOLAR",
+    "crossrefUrl": "URL_CROSSREF",
+    "swbUrl": "URL_SWB",
+    "zdbUrl": "URL_ZDB",
+    "olcSsgUrl": "URL_OLCSSG",
+    "gviId": "ID_GVI",
+    "k10plusId": "ID_K10PLUS"
   },
   "roleType": {
     "author": "AUTHOR",
@@ -57,14 +63,5 @@
   "embodimentType": {
     "digital": "DIGITAL",
     "print": "PRINT"
-  },
-  "externalSources": {
-    "gScholar": "URL_GOOGLE_SCHOLAR",
-    "crossref": "URL_CROSSREF",
-    "swb": "URL_SWB",
-    "zdb": "URL_ZDB",
-    "olcSsg": "URL_OLCSSG",
-    "gvi": "ID_GVI",
-    "k10plus": "ID_K10PLUS"
   }
 }

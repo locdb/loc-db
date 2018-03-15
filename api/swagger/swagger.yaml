@@ -1183,6 +1183,8 @@ definitions:
         type: array
         items:
           $ref: "#/definitions/ResourceEmbodiment"
+      source:
+        type: string
 
   Identifier:
     required:
