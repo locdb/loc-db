@@ -63,5 +63,14 @@
   "embodimentType": {
     "digital": "DIGITAL",
     "print": "PRINT"
+  },
+  "externalSources": {
+    "gScholar": "GOOGLE_SCHOLAR",
+    "crossref": "CROSSREF",
+    "swb": "SWB",
+    "zdb": "ZDB",
+    "olcSsg": "OLCSSG",
+    "gvi": "GVI",
+    "k10plus": "K10PLUS"
   }
 }

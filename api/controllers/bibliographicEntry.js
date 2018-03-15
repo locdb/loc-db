@@ -204,11 +204,11 @@ function getExternalSuggestionsByQueryString(req, res) {
                     if (err) {
                         return callback(err, null);
                     }
-/*                    for(var parentChild in res){
-                        for(var br in parentChild){
+                    for(var parentChild of res){
+                        for(var br of parentChild){
                             br.source = enums.externalSources.swb;
                         }
-                    }*/
+                    }
                     return callback(null, res);
                 });
             },
@@ -217,6 +217,11 @@ function getExternalSuggestionsByQueryString(req, res) {
                     if (err) {
                         return callback(err, null);
                     }
+                    for(var parentChild of res){
+                        for(var br of parentChild){
+                            br.source = enums.externalSources.gvi;
+                        }
+                    }
                     return callback(null, res);
                 });
             },
@@ -224,6 +229,11 @@ function getExternalSuggestionsByQueryString(req, res) {
                 solrHelper.queryK10plusByQueryString(query, function (err, res) {
                     if (err) {
                         return callback(err, null);
+                    }
+                    for(var parentChild of res){
+                        for(var br of parentChild){
+                            br.source = enums.externalSources.k10plus;
+                        }
                     }
                     return callback(null, res);
                 });
@@ -240,6 +250,11 @@ function getExternalSuggestionsByQueryString(req, res) {
                 crossrefHelper.query(query, function (err, res) {
                     if (err) {
                         return callback(err, null);
+                    }
+                    for(var parentChild of res){
+                        for(var br of parentChild){
+                            br.source = enums.externalSources.crossref;
+                        }
                     }
                     return callback(null, res);
                 });

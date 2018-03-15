@@ -3,6 +3,7 @@ const request = require('supertest');
 const server = require('../../../app');
 const setup = require('./../setup.js').createSetup();
 const status = require('./../../../api/schema/enum.json').status;
+const externalSources = require('./../../../api/schema/enum.json').externalSources;
 
 var agent = request.agent(server);
 
@@ -226,6 +227,7 @@ describe('controllers', function() {
                         res.body.should.have.lengthOf(8);
                         //res.body[0].should.have.property("title", "Direkte Demokratie in der Schweiz: Entwicklungen, Debatten und Wirkungen");
                         res.body[0][0].should.have.property("status", status.external);
+                        res.body[0][0].should.have.property("source", externalSources.swb);
                         res.body[0][0].should.have.property("journalArticle_publicationYear", "2006");
                         res.body[0][1].should.have.property("journal_title");
                         res.body[0][0].should.have.property("journalArticle_identifiers");
