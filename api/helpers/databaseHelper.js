@@ -465,6 +465,146 @@ DatabaseHelper.prototype.createSimpleEqualsConditions = function(propertyStem, v
 };
 
 
+DatabaseHelper.prototype.retrieveToDos = function(status, callback){
+    var self = this;
+    if(status == enums.status.ocrProcessed) {
+        self.createSimpleEqualsConditions('embodiedAs', enums.status.ocrProcessed, '.scans.status', function(err,conditions){
+            if(err){
+                logger.error(err);
+                return callback(err, null);
+            }
+            return mongoBr.find({'$or': conditions}, function (err, children) {
+                if (err) {
+                    logger.error(err);
+                    return callback(err, null);
+                }
+                return self.mapChildrenAndParents(children, function(err, result){
+                    if (err) {
+                        logger.error(err);
+                        return callback(err, null);
+                    }
+                    return callback(null, result);
+                });
+
+            });
+        });
+    }else if (status == enums.status.notOcrProcessed){
+        self.createSimpleEqualsConditions('embodiedAs', enums.status.notOcrProcessed, '.scans.status', function(err,conditions_1){
+            if (err) {
+                logger.error(err);
+                return callback(err, null);
+            }
+            self.createSimpleEqualsConditions('embodiedAs', enums.status.ocrProcessing, '.scans.status', function(err,conditions_2){
+                if (err) {
+                    logger.error(err);
+                    return callback(err, null);
+                }
+                conditions_1 = {'$or': conditions_1};
+                conditions_2 = {'$or': conditions_2};
+
+                mongoBr.find({'$or': [conditions_1, conditions_2]}, function (err, children) {
+                    if (err) {
+                        logger.error(err);
+                        return callback(err, null);
+                    }
+                    return self.mapChildrenAndParents(children, function(err, result){
+                        if (err) {
+                            logger.error(err);
+                            return callback(err, null);
+                        }
+                        return callback(null, result);
+                    });
+
+                });
+            });
+        });
+
+    }else if (status == enums.status.external){
+        // this case applies only to electronic journals at the moment and only if there is no scan uploaded yet
+        mongoBr.find({'status': status}, function (err, children) {
+            if (err) {
+                logger.error(err);
+                return callback(err, null);
+            }
+            return self.mapChildrenAndParents(children, function(err, result){
+                if (err) {
+                    logger.error(err);
+                    return callback(err, null);
+                }
+                return callback(null, result);
+            });
+        });
+    }
+};
+
+
+DatabaseHelper.prototype.mapChildrenAndParents = function(children, callback){
+    var resultArray = [];
+    var resultObject;
+    for (var child of children) {
+        // check here whether it is really a child
+        if (child.partOf) {
+            // this applies to dependent resources
+            var alreadyIn = false;
+            if (resultArray.length !== 0) {
+                for (var i of resultArray) {
+                    if (i._id == child.partOf) {
+                        alreadyIn = true;
+                        resultObject = i;
+                        break;
+                    } else {
+                        resultObject = {};
+                        resultObject._id = child.partOf;
+                        resultObject.children = [];
+                    }
+                }
+            } else {
+                resultObject = {};
+                resultObject._id = child.partOf;
+                resultObject.children = [];
+            }
+            var resultChild = child.toObject();
+
+            if (!resultObject.children) {
+                resultObject.children = [];
+            }
+            resultObject.children.push(resultChild);
+            if (!alreadyIn) {
+                resultArray.push(resultObject);
+            }
+        } else {
+            // This applies to independent resources
+            var resultObject = child.toObject();
+            resultArray.push(child);
+        }
+    }
+    // add additional information for displaying it to the user
+    async.map(resultArray, function (parent, callback) {
+        // check first whether it is really a parent
+        if (parent.children) {
+            mongoBr.findOne({'_id': parent._id}, function (err, br) {
+                if (err) {
+                    logger.error(err);
+                    return callback(err, null)
+                }
+                if (!br) {
+                    return callback(null, parent);
+                }
+                // copy all properties
+                for(var k in br.toObject()){
+                    parent[k] = br.toObject()[k];
+                }
+                callback(null, parent);
+            });
+        } else {
+            callback(null, parent);
+        }
+    }, function (err, res) {
+        return callback(err, res);
+    });
+};
+
+
 /**
  * Factory function
  *

@@ -488,13 +488,15 @@ paths:
       parameters:
         - name: status
           in: query
-          description: The status for which the ToDo-list shall be retrieved
+          description: The list of status for which the ToDo-list shall be retrieved
           required: true
-          type: string
-          enum:
-            - NOT_OCR_PROCESSED
-            - OCR_PROCESSED
-            - EXTERNAL
+          type: array
+          items:
+            type: string
+            enum:
+              - NOT_OCR_PROCESSED
+              - OCR_PROCESSED
+              - EXTERNAL
       responses:
         "200":
           description: Success

@@ -224,79 +224,23 @@ function saveResource(req, res) {
 function getToDo(req, res) {
     var response = res;
     var status = req.swagger.params.status.value;
-    if ((status !== enums.status.notOcrProcessed) && (status !== enums.status.ocrProcessed) && (status !== enums.status.external)) {
-        logger.error(err);
-        return response.status(400).json({"message": "Invalid parameter."});
-    }
-
-    if(status == enums.status.ocrProcessed) {
-        databaseHelper.createSimpleEqualsConditions('embodiedAs', enums.status.ocrProcessed, '.scans.status', function(err,conditions){
-            if(err){
-                logger.error(err);
-                return response.status(500).json({"message": "Something weird happened."});
-            }
-            return mongoBr.find({'$or': conditions}, function (err, children) {
-                if (err) {
-                    logger.error(err);
-                    return response.status(500).json({"message": "DB query failed."});
-                }
-                return mapChildrenAndParents(children, function(err, result){
-                    if (err) {
-                        logger.error(err);
-                        return response.status(500).json({"message": "Mapping failed."});
-                    }
-                    return response.json(result);
-                });
-
-            });
+    async.map(status, function(stat, callback){
+        databaseHelper.retrieveToDos(stat, function(err,res){
+           if(err){
+               logger.error(err);
+               return callback(err, null);
+           }
+           return callback(null, res);
         });
-    }else if (status == enums.status.notOcrProcessed){
-        databaseHelper.createSimpleEqualsConditions('embodiedAs', enums.status.notOcrProcessed, '.scans.status', function(err,conditions_1){
-            if (err) {
-                logger.error(err);
-                return response.status(500).json({"message": "Something weird happened."});
-            }
-            databaseHelper.createSimpleEqualsConditions('embodiedAs', enums.status.ocrProcessing, '.scans.status', function(err,conditions_2){
-                if (err) {
-                    logger.error(err);
-                    return response.status(500).json({"message": "Something weird happened."});
-                }
-                conditions_1 = {'$or': conditions_1};
-                conditions_2 = {'$or': conditions_2};
+    }, function(err, result){
+        if(err){
+            logger.error(err);
+            return response.status(500).json(err);
+        }
+        result = [].concat.apply([], result);
+        return response.json(result);
 
-                mongoBr.find({'$or': [conditions_1, conditions_2]}, function (err, children) {
-                    if (err) {
-                        logger.error(err);
-                        return response.status(500).json({"message": "DB query failed."});
-                    }
-                    return mapChildrenAndParents(children, function(err, result){
-                        if (err) {
-                            logger.error(err);
-                            return response.status(500).json({"message": "Mapping failed."});
-                        }
-                        return response.json(result);
-                    });
-
-                });
-            });
-        });
-
-    }else if (status == enums.status.external){
-        // this case applies only to electronic journals at the moment and only if there is no scan uploaded yet
-        mongoBr.find({'status': status}, function (err, children) {
-            if (err) {
-                logger.error(err);
-                return response.status(500).json({"message": "DB query failed."});
-            }
-            return mapChildrenAndParents(children, function(err, result){
-                if (err) {
-                    logger.error(err);
-                    return response.status(500).json({"message": "Mapping failed."});
-                }
-                return response.json(result);
-            });
-        });
-    }
+    });
 }
 
 
@@ -513,73 +457,6 @@ function triggerOcrProcessing(req, res) {
                 }
             });
         });
-    });
-};
-
-
-function mapChildrenAndParents(children, callback){
-    var resultArray = [];
-    var resultObject;
-    for (var child of children) {
-        // check here whether it is really a child
-        if (child.partOf) {
-            // this applies to dependent resources
-            var alreadyIn = false;
-            if (resultArray.length !== 0) {
-                for (var i of resultArray) {
-                    if (i._id == child.partOf) {
-                        alreadyIn = true;
-                        resultObject = i;
-                        break;
-                    } else {
-                        resultObject = {};
-                        resultObject._id = child.partOf;
-                        resultObject.children = [];
-                    }
-                }
-            } else {
-                resultObject = {};
-                resultObject._id = child.partOf;
-                resultObject.children = [];
-            }
-            var resultChild = child.toObject();
-
-            if (!resultObject.children) {
-                resultObject.children = [];
-            }
-            resultObject.children.push(resultChild);
-            if (!alreadyIn) {
-                resultArray.push(resultObject);
-            }
-        } else {
-            // This applies to independent resources
-            var resultObject = child.toObject();
-            resultArray.push(child);
-        }
-    }
-    // add additional information for displaying it to the user
-    async.map(resultArray, function (parent, callback) {
-        // check first whether it is really a parent
-        if (parent.children) {
-            mongoBr.findOne({'_id': parent._id}, function (err, br) {
-                if (err) {
-                    logger.error(err);
-                    return callback(err, null)
-                }
-                if (!br) {
-                    return callback(null, parent);
-                }
-                // copy all properties
-                for(var k in br.toObject()){
-                    parent[k] = br.toObject()[k];
-                }
-                callback(null, parent);
-            });
-        } else {
-            callback(null, parent);
-        }
-    }, function (err, res) {
-        return callback(err, res);
     });
 };
 

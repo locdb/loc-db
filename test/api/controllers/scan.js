@@ -10,7 +10,7 @@ const mongoBr = require('./../../../api/models/bibliographicResource');
 
 var agent = request.agent(server);
 
-describe('controllers', function () {
+describe.only('controllers', function () {
 
     describe('scan', function () {
         var id = "58c01713ea3c8d32f0f80a75";
@@ -350,7 +350,7 @@ describe('controllers', function () {
             it('should retrieve a todo list for the status "NOT_OCR_PROCESSED"', function (done) {
                 agent
                     .get('/getToDo')
-                    .query({status: "NOT_OCR_PROCESSED"})
+                    .query({status: ["NOT_OCR_PROCESSED"]})
                     .set('Accept', 'application/json')
                     .expect('Content-Type', /json/)
                     .expect(200)
@@ -370,7 +370,7 @@ describe('controllers', function () {
             it('should retrieve a todo list for the status "OCR_PROCESSED"', function (done) {
                 agent
                     .get('/getToDo')
-                    .query({status: "OCR_PROCESSED"})
+                    .query({status: ["OCR_PROCESSED"]})
                     .set('Accept', 'application/json')
                     .expect('Content-Type', /json/)
                     .expect(200)
@@ -394,7 +394,7 @@ describe('controllers', function () {
 
                     agent
                         .get('/getToDo')
-                        .query({status: "NOT_OCR_PROCESSED"})
+                        .query({status: ["NOT_OCR_PROCESSED"]})
                         .set('Accept', 'application/json')
                         .expect('Content-Type', /json/)
                         .expect(200)
@@ -502,7 +502,7 @@ describe('controllers', function () {
             it('should retrieve an todo list for the status "OCR_PROCESSED" of size 2', function (done) {
                 agent
                     .get('/getToDo')
-                    .query({status: "OCR_PROCESSED"})
+                    .query({status: ["OCR_PROCESSED"]})
                     .set('Accept', 'application/json')
                     .expect('Content-Type', /json/)
                     .expect(200)
