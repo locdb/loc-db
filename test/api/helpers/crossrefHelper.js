@@ -227,7 +227,7 @@ describe('helpers', function() {
                             }
                         }
                     ],
-                    "book_publicationYear": "2016"
+                    "book_publicationDate": new Date("2016")
                 };
 
                 crossrefHelper.parseObjects(book, function(err, res){
@@ -269,7 +269,7 @@ describe('helpers', function() {
                             }
                         }
                     ],
-                    "monograph_publicationYear": "2017"
+                    "monograph_publicationDate": new Date("2017")
                 };
 
                 crossrefHelper.parseObjects(monograph, function(err, res){
@@ -318,7 +318,8 @@ describe('helpers', function() {
                             "firstPage": 348,
                             "lastPage": 364
                         }
-                    ]
+                    ],
+                    bookChapter_publicationDate: new Date("2001")
                 };
 
                 var parent = {
@@ -395,7 +396,7 @@ describe('helpers', function() {
                             }
                         }
                     ],
-                    "journalArticle_publicationYear": "1997",
+                    "journalArticle_publicationDate": new Date("1997"),
                     "journalArticle_embodiedAs": [
                         {
                             "firstPage": 3839,

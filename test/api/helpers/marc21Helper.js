@@ -147,7 +147,7 @@ describe('helpers', function() {
                             }
                         }
                     ],
-                    "editedBook_publicationYear": "1991"
+                    "editedBook_publicationDate": new Date("1991")
                 };
 
                 marc21Helper.parseBibliographicResource(editedBook2, 'marcxml', function(err, result){
@@ -212,7 +212,7 @@ describe('helpers', function() {
                             }
                         }
                     ],
-                    "monograph_publicationYear": "2002"
+                    "monograph_publicationDate": new Date("2002")
                 };
 
                 marc21Helper.parseBibliographicResource(editedBook, 'marcxml', function(err, result){
@@ -290,7 +290,7 @@ describe('helpers', function() {
                             }
                         }
                     ],
-                    "editedBook_publicationYear": "2008"
+                    "editedBook_publicationDate": new Date("2008")
                 };
 
                 marc21Helper.parseBibliographicResource(editedBook3, 'marcxml', function(err, result){
@@ -374,7 +374,8 @@ describe('helpers', function() {
                                 "nameString": "Royal Institute of International Affairs"
                             }
                         }
-                    ]
+                    ],
+                    journal_publicationDate: new Date("1931")
                 };
 
                 marc21Helper.parseBibliographicResource(journal, 'marcxml', function(err, result){
@@ -407,7 +408,7 @@ describe('helpers', function() {
                             }
                         }
                     ],
-                    "journalArticle_publicationYear": "2010"
+                    "journalArticle_publicationDate": new Date("2010")
                 };
 
                 var parent = {
@@ -469,7 +470,7 @@ describe('helpers', function() {
                             }
                         }
                     ],
-                    "monograph_publicationYear": "2014"
+                    "monograph_publicationDate": new Date("2014")
                 };
 
                 marc21Helper.parseBibliographicResource(monograph, 'marcxml', function(err, result){
@@ -521,7 +522,7 @@ describe('helpers', function() {
                             }
                         }
                     ],
-                    "monograph_publicationYear": "1985"
+                    "monograph_publicationDate": new Date("1985")
                 };
 
                 marc21Helper.parseBibliographicResource(monograph2, 'marcxml', function(err, result){

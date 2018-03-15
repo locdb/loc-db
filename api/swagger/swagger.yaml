@@ -1063,28 +1063,78 @@ definitions:
         type: array
         items:
           $ref: "#/definitions/AgentRole"
-      journalArticle_publicationYear:
+      journalArticle_publicationDate:
         type: string
-      monograph_publicationYear:
+        format: date
+      journalIssue_publicationDate:
         type: string
-      report_publicationYear:
+        format: date
+      journalVolume_publicationDate:
         type: string
-      editedBook_publicationYear:
+        format: date
+      journal_publicationDate:
         type: string
-      dissertation_publicationYear:
+        format: date
+      monograph_publicationDate:
         type: string
-      proceedingsArticle_publicationYear:
+        format: date
+      report_publicationDate:
         type: string
-      dataset_publicationYear:
+        format: date
+      reportSeries_publicationDate:
         type: string
-      proceedings_publicationYear:
+        format: date
+      bookChapter_publicationDate:
         type: string
-      book_publicationYear:
+        format: date
+      bookSeries_publicationDate:
         type: string
-      referenceBook_publicationYear:
+        format: date
+      bookSet_publicationDate:
         type: string
-      standard_publicationYear:
+        format: date
+      editedBook_publicationDate:
         type: string
+        format: date
+      dissertation_publicationDate:
+        type: string
+        format: date
+      proceedingsArticle_publicationDate:
+        type: string
+        format: date
+      dataset_publicationDate:
+        type: string
+        format: date
+      proceedings_publicationDate:
+        type: string
+        format: date
+      book_publicationDate:
+        type: string
+        format: date
+      referenceBook_publicationDate:
+        type: string
+        format: date
+      referenceEntry_publicationDate:
+        type: string
+        format: date
+      standard_publicationDate:
+        type: string
+        format: date
+      standardSeries_publicationDate:
+        type: string
+        format: date
+      bookPart_publicationDate:
+        type: string
+        format: date
+      bookSection_publicationDate:
+        type: string
+        format: date
+      bookTrack_publicationDate:
+        type: string
+        format: date
+      component_publicationDate:
+        type: string
+        format: date
       status:
         type: string
       parts:
@@ -1609,28 +1659,78 @@ definitions:
         type: array
         items:
           $ref: "#/definitions/AgentRole"
-      journalArticle_publicationYear:
+      journalArticle_publicationDate:
         type: string
-      monograph_publicationYear:
+        format: date
+      journalIssue_publicationDate:
         type: string
-      report_publicationYear:
+        format: date
+      journalVolume_publicationDate:
         type: string
-      editedBook_publicationYear:
+        format: date
+      journal_publicationDate:
         type: string
-      dissertation_publicationYear:
+        format: date
+      monograph_publicationDate:
         type: string
-      proceedingsArticle_publicationYear:
+        format: date
+      report_publicationDate:
         type: string
-      dataset_publicationYear:
+        format: date
+      reportSeries_publicationDate:
         type: string
-      proceedings_publicationYear:
+        format: date
+      bookChapter_publicationDate:
         type: string
-      book_publicationYear:
+        format: date
+      bookSeries_publicationDate:
         type: string
-      referenceBook_publicationYear:
+        format: date
+      bookSet_publicationDate:
         type: string
-      standard_publicationYear:
+        format: date
+      editedBook_publicationDate:
         type: string
+        format: date
+      dissertation_publicationDate:
+        type: string
+        format: date
+      proceedingsArticle_publicationDate:
+        type: string
+        format: date
+      dataset_publicationDate:
+        type: string
+        format: date
+      proceedings_publicationDate:
+        type: string
+        format: date
+      book_publicationDate:
+        type: string
+        format: date
+      referenceBook_publicationDate:
+        type: string
+        format: date
+      referenceEntry_publicationDate:
+        type: string
+        format: date
+      standard_publicationDate:
+        type: string
+        format: date
+      standardSeries_publicationDate:
+        type: string
+        format: date
+      bookPart_publicationDate:
+        type: string
+        format: date
+      bookSection_publicationDate:
+        type: string
+        format: date
+      bookTrack_publicationDate:
+        type: string
+        format: date
+      component_publicationDate:
+        type: string
+        format: date
       status:
         type: string
       parts:

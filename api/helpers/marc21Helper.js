@@ -488,8 +488,8 @@ Marc21Helper.prototype.extractIndependentResource = function(records, type, call
                 }
             }
         } else if (field._tag === "008") {
-            // publicationYear
-            resource.setPublicationYearForType(resource.type, field._data.substring(7, 11));
+            // publicationDate
+            resource.setPublicationDateForType(resource.type, field._data.substring(7, 11));
         }
     }
     return callback(null, [resource]);

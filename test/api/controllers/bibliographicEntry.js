@@ -228,7 +228,7 @@ describe('controllers', function() {
                         //res.body[0].should.have.property("title", "Direkte Demokratie in der Schweiz: Entwicklungen, Debatten und Wirkungen");
                         res.body[0][0].should.have.property("status", status.external);
                         res.body[0][0].should.have.property("source", externalSources.swb);
-                        res.body[0][0].should.have.property("journalArticle_publicationYear", "2006");
+                        res.body[0][0].should.have.property("journalArticle_publicationDate", "2006-01-01T00:00:00.000Z");
                         res.body[0][1].should.have.property("journal_title");
                         res.body[0][0].should.have.property("journalArticle_identifiers");
                         res.body[0][0].journalArticle_identifiers.should.be.Array;

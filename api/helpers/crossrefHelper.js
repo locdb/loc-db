@@ -236,11 +236,11 @@ CrossrefHelper.prototype.parseIndependentResource = function(obj, callback){
 
     // Publication Year
     if(obj['issued'] && obj['issued']['date-parts'] && obj['issued']['date-parts'][0] && obj['issued']['date-parts'][0][0]){
-        resource.setPublicationYearForType(resource.type, obj['issued']['date-parts'][0][0]);
+        resource.setPublicationDateForType(resource.type, obj['issued']['date-parts'][0][0]);
     }else if (obj['published-print'] && obj['published-print']['date-parts'] && obj['published-print']['date-parts'][0] && obj['published-print']['date-parts'][0][0]){
-        resource.setPublicationYearForType(resource.type, obj['published-print']['date-parts'][0][0]);
+        resource.setPublicationDateForType(resource.type, obj['published-print']['date-parts'][0][0]);
     }else if(obj['published-online'] && obj['published-online']['date-parts'] && obj['published-online']['date-parts'][0] && obj['published-online']['date-parts'][0][0]){
-        resource.setPublicationYearForType(resource.type, obj['published-online']['date-parts'][0][0]);
+        resource.setPublicationDateForType(resource.type, obj['published-online']['date-parts'][0][0]);
     }
     this.parseReferences(obj, function(err, bes){
         resource.parts = bes;

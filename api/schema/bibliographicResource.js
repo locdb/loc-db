@@ -127,17 +127,30 @@ var bibliographicResource = new SchemaObject({
     referenceEntry_contributors: [{type: AgentRole}],
     standard_contributors: [{type: AgentRole}],
     standardSeries_contributors: [{type: AgentRole}],
-    journalArticle_publicationYear: String,
-    monograph_publicationYear: String,
-    report_publicationYear: String,
-    editedBook_publicationYear: String,
-    dissertation_publicationYear: String,
-    proceedingsArticle_publicationYear: String,
-    dataset_publicationYear: String,
-    proceedings_publicationYear: String,
-    book_publicationYear: String,
-    referenceBook_publicationYear: String,
-    standard_publicationYear: String,
+    journalArticle_publicationDate: Date,
+    journalIssue_publicationDate: Date,
+    journalVolume_publicationDate: Date,
+    journal_publicationDate: Date,
+    monograph_publicationDate: Date,
+    report_publicationDate: Date,
+    reportSeries_publicationDate: Date,
+    bookChapter_publicationDate: Date,
+    bookSeries_publicationDate: Date,
+    bookSet_publicationDate: Date,
+    editedBook_publicationDate: Date,
+    dissertation_publicationDate: Date,
+    proceedingsArticle_publicationDate: Date,
+    dataset_publicationDate: Date,
+    proceedings_publicationDate: Date,
+    book_publicationDate: Date,
+    referenceBook_publicationDate: Date,
+    referenceEntry_publicationDate: Date,
+    standard_publicationDate: Date,
+    standardSeries_publicationDate: Date,
+    bookPart_publicationDate: Date,
+    bookSection_publicationDate: Date,
+    bookTrack_publicationDate: Date,
+    component_publicationDate: Date,
     cites: [String], // reference entries
     partOf: String, // link to other br
     status: {type: String, enum: [status.external, status.valid]},
@@ -272,13 +285,16 @@ var bibliographicResource = new SchemaObject({
             var prefix = this.getPropertyPrefixForType(type);
             return this[prefix + 'number'];
         },
-        setPublicationYearForType: function (type, value) {
-            var prefix = this.getPropertyPrefixForType(type);
-            this[prefix + 'publicationYear'] = value;
+        setPublicationDateForType: function (type, value) {
+            if(value != null){
+                value = value.toString()
+                var prefix = this.getPropertyPrefixForType(type);
+                this[prefix + 'publicationDate'] = value;
+            }
         },
-        getPublicationYearForType: function(type){
+        getPublicationDateForType: function(type){
             var prefix = this.getPropertyPrefixForType(type);
-            return this[prefix + 'publicationYear'];
+            return this[prefix + 'publicationDate'];
         },
         setIdentifiersForType: function (type, value) {
             var prefix = this.getPropertyPrefixForType(type);
