@@ -152,7 +152,7 @@ function saveResource(req, res) {
                                         logger.error(err);
                                         return callback(err, null);
                                     }
-                                    if (res[0]) {
+                                    if (res && res[0]) {
                                         var child = new BibliographicResource(res[0]);
                                     } else {
                                         var child = new BibliographicResource({
