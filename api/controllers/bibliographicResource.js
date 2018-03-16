@@ -486,6 +486,16 @@ function saveElectronicJournal(req, res) {
     }
 }
 
+function listOC(req, res){
+    br.find({},{},function(err,docs){
+        if(err){
+            logger.error(err);
+            return res.status(500).json(err);
+        }
+        return res.status(200).json(docs);
+    });
+}
+
 
 module.exports = {
         list : list,
@@ -497,5 +507,6 @@ module.exports = {
         update: update,
         //getCrossrefReferences: getCrossrefReferences,
         //getPublisherUrl: getPublisherUrl,
-        saveElectronicJournal: saveElectronicJournal
+        saveElectronicJournal: saveElectronicJournal,
+        listOC: listOC
 };

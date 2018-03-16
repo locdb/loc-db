@@ -17,9 +17,7 @@ var bibliographicResourceOpenCitations = new SchemaObject({
     publicationDate: Date,
     status: {type: String, enum: [status.valid, status.external]},
     cites: [{type: String}],
-    pages: String,
     partOf: String, // link to other br
-    containerTitle: String,
     parts: [{type: BibliographicEntry}],
     embodiedAs: [{type: ResourceEmbodiment}],
     relatedDocument: Object

@@ -726,12 +726,73 @@ paths:
           schema:
             $ref: "#/definitions/ErrorResponse"
 
+  /bibliographicResourcesOC:
+    x-swagger-router-controller: bibliographicResource
+    get:
+      tags: [BibliographicResource]
+      description: Returns a list of bibliographic resources in OC format
+      operationId: listOC
+      responses:
+        "200":
+          description: Success
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/BibliographicResourceOpenCitations"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
   /swagger:
     x-swagger-pipe: swagger_raw
 
 
 
 definitions:
+  BibliographicResourceOpenCitations:
+    properties:
+      _id:
+        type: string
+      identifiers:
+        type: array
+        items:
+          $ref: "#/definitions/Identifier"
+      type:
+        type: string
+      title:
+        type: string
+      subtitle:
+        type: string
+      edition:
+        type: string
+      number:
+        type: string
+      contributors:
+        type: array
+        items:
+          $ref: "#/definitions/AgentRole"
+      publicationDate:
+        type: string
+        format: date
+      #status:
+      #  type: string
+      cites:
+        type: array
+        items:
+          type: string
+      partOf:
+        type: string
+      parts:
+        type: array
+        items:
+          $ref: "#/definitions/BibliographicEntry"
+      embodiedAs:
+        type: array
+        items:
+          $ref: "#/definitions/ResourceEmbodiment"
+      #relatedDocument:
+      #  type: any
 
   BibliographicResource:
     required:
