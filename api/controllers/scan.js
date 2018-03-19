@@ -191,26 +191,45 @@ function saveResource(req, res) {
                             logger.error(err);
                             return response.status(500).json(err);
                         }
-                        // we retrieved the metadata;
-                        // now we have to check, whether we have to append something
-                        return mongoBr.create(resource[0], function (err, resource) {
-                            if (err) {
+                        // we retrieved the metadata; but now lets check whether there are references in crossref
+                        var doi = null;
+                        for(var identifier of resource[0].getIdentifiersForType(resource[0].type)){
+                            if(identifier.scheme === enums.identifier.doi){
+                                doi = identifier.literalValue;
+                            }
+                        }
+                        var queryString = null;
+                        if(!doi){
+                            queryString = resource[0].getTitleForType(resource[0].type);
+                        }
+                        return crossrefHelper.queryReferences(doi, queryString, function(err, result){
+                            if(err){
                                 logger.error(err);
-                                return response.status(500).json(err);
                             }
-                            if (binaryFile || stringFile) {
-                                return databaseHelper.saveReferencesPageForResource(resource, binaryFile, textualPdf, stringFile, embodimentType, function (err, result) {
-                                    if (err) {
-                                        logger.error(err);
-                                        return response.status(500).json(err);
-                                    }
-                                    return response.json(result);
-                                });
-                            } else {
-                                return response.status(200).json(resource);
+                            if(result && result[0] && result[0].parts){
+                                resource[0].parts = result[0].parts;
+                            }else{
+                                resource[0].parts = [];
                             }
+                            // now we have to check whether we have to append something
+                            return mongoBr.create(resource[0], function (err, resource) {
+                                if (err) {
+                                    logger.error(err);
+                                    return response.status(500).json(err);
+                                }
+                                if (binaryFile || stringFile) {
+                                    return databaseHelper.saveReferencesPageForResource(resource, binaryFile, textualPdf, stringFile, embodimentType, function (err, result) {
+                                        if (err) {
+                                            logger.error(err);
+                                            return response.status(500).json(err);
+                                        }
+                                        return response.json(result);
+                                    });
+                                } else {
+                                    return response.status(200).json(resource);
+                                }
+                            });
                         });
-
                     });
                 default:
                     return response.status(400).json({"message": "Resource type not implemented."});

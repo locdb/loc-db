@@ -277,7 +277,7 @@ describe('controllers', function () {
 
 
         describe('POST /saveResource - Resource Type: MONOGRAPH', function () {
-
+            this.timeout(8000);
             it('should save a scan in the file system and create a single br in the db', function (done) {
                 agent
                     .post('/saveResource')

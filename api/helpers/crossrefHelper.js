@@ -81,15 +81,15 @@ CrossrefHelper.prototype.queryChapterMetaData = function(containerTitle, firstPa
             }
         });
     });
-}
+};
 
 
-/*/!**
+/**
  * Retrieves references from Crossref given a DOI or a query string and returns an array of BRs
  * @param doi
  * @param query
  * @param callback
- *!/
+ */
 CrossrefHelper.prototype.queryReferences = function(doi, query, callback){
     var self = this;
     if(doi != null){
@@ -122,7 +122,8 @@ CrossrefHelper.prototype.queryReferences = function(doi, query, callback){
             // check whether they really contain the 'reference' property
             var candidates = [];
             for(var obj of objs){
-                if(obj.reference){
+                if(stringSimilarity.compareTwoStrings(obj['title'][0], query) > 0.95 && obj.reference){
+                    logger.info("Match on pages and title, similarity = " + stringSimilarity.compareTwoStrings(obj['title'][0], query));
                     candidates.push(obj);
                 }
             }
@@ -134,9 +135,8 @@ CrossrefHelper.prototype.queryReferences = function(doi, query, callback){
                 return callback(null, res);
             });
         });
-    }*/
-
-//};
+    }
+};
 
 
 /**
