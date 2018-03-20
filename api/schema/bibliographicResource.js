@@ -91,6 +91,7 @@ var bibliographicResource = new SchemaObject({
     standard_edition: String,
     journalVolume_number: String,
     journalIssue_number: String,
+    journalArticle_number: String,
     bookPart_number: String,
     monograph_number: String,
     editedBook_number: String,
@@ -201,6 +202,25 @@ var bibliographicResource = new SchemaObject({
             }
             return properties;
         },
+        getAllTypesOfThis: function(){
+            var types = [];
+            var br = this.toObject()
+            for (var property in br) {
+                if (br.hasOwnProperty(property)) {
+                    // check whether the property is filled
+                    var camelType = "";
+                    if(property.indexOf('_') > -1){
+                        camelType = property.split("_")[0];
+                    }
+                }
+                if(camelType && camelType != ""){
+                    types.push(_.underscored(camelType).toUpperCase());
+                }
+            }
+            types = new Set(types);
+            types = Array.from(types);
+            return types;
+        },
         /**
          * Returns the property prefix for a given type
          * @param type
@@ -210,9 +230,6 @@ var bibliographicResource = new SchemaObject({
             return type.split("_").length > 1 ?
                 _.camelize(type.split("_")[0].toLowerCase()+ "-" + type.split("_")[1].toLowerCase()) + "_" :
                 type.split("_")[0].toLowerCase() + "_";
-        },
-        getPropertyPrefixForPreferredParent: function(type){
-
         },
         /**
          * Given a resource type, this function returns all possible parent resource types. The position 0 indicates our preferred type.

@@ -1008,6 +1008,8 @@ definitions:
         type: string
       journalIssue_number:
         type: string
+      journalArticle_number:
+        type: string
       bookPart_number:
         type: string
       monograph_number:
@@ -1603,6 +1605,8 @@ definitions:
       journalVolume_number:
         type: string
       journalIssue_number:
+        type: string
+      journalArticle_number:
         type: string
       bookPart_number:
         type: string

@@ -5,8 +5,10 @@ const logger = require('./../util/logger');
 const _ = require('lodash');
 const mongoose = require('mongoose');
 const crossrefHelper = require('./../helpers/crossrefHelper.js').createCrossrefHelper();
+const openCitationsHelper = require('./../helpers/openCitationsHelper.js').createOpenCitationsHelper();
 const enums = require('./../schema/enum.json');
 const Identifier = require('./../schema/identifier');
+const async = require("async");
 
 
 function list(req, res){
@@ -487,12 +489,25 @@ function saveElectronicJournal(req, res) {
 }
 
 function listOC(req, res){
+    var response = res;
     br.find({},{},function(err,docs){
         if(err){
             logger.error(err);
             return res.status(500).json(err);
         }
-        return res.status(200).json(docs);
+        async.map(docs, function(doc, cb){
+            openCitationsHelper.convertInternalBR2OC(doc, function (err, res) {
+                if(err){
+                    logger.error(err);
+                    return cb(err, null);
+                }
+                return cb(null, res);
+            });
+
+        }, function(err, res){
+            res = res.flatten();
+            return response.status(200).json(res);
+        });
     });
 }
 

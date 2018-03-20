@@ -445,6 +445,22 @@ describe('controllers', function() {
           });
       });
 
+      describe('GET /bibliographicResourcesOC', function() {
+          it('should convert the brs in the database to OC', function (done) {
+
+              agent
+                  .get('/bibliographicResourcesOC')
+                  .set('Accept', 'application/json')
+                  .expect('Content-Type', /json/)
+                  .expect(200)
+                  .end(function(err, res){
+                      should.not.exist(err);
+                      done();
+                  });
+
+          });
+      });
+
   });
 
 });

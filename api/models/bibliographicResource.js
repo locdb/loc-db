@@ -144,6 +144,7 @@ const brSchema = new Schema({
     standard_edition: String,
     journalVolume_number: String,
     journalIssue_number: String,
+    journalArticle_number: String,
     bookPart_number: String,
     monograph_number: String,
     editedBook_number: String,

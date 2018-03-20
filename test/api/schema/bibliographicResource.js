@@ -5,6 +5,156 @@ const enums = require('./../../../api/schema/enum.json');
 describe('schema', function() {
     describe('bibliographicResource', function () {
 
+        describe('getAllTypesOfThis', function () {
+            it('should return the types as expected', function (done) {
+                // artificial example
+                var bibliographicResource = new BibliographicResource({
+                    "_id": "5a2947087bdcfd4759582633",
+                    "dataset_publicationDate": new Date("1993"),
+                    "book_containerTitle": "Revue française de Sociologie",
+                    "journalArticle_number": "34",
+                    "status": "EXTERNAL",
+                    "__v": 0,
+                    "book_embodiedAs": [],
+                    "parts": [],
+                    "cites": [],
+                    "type": "BOOK",
+                    "journalIssue_contributors": [
+                        {
+                            "roleType": "AUTHOR",
+                            "_id": "5a2947087bdcfd4759582634",
+                            "heldBy": {
+                                "nameString": "Duru-Bellat, M.",
+                                "givenName": "",
+                                "familyName": "",
+                                "identifiers": []
+                            },
+                            "identifiers": []
+                        }
+                    ],
+                    "book_identifiers": [
+                        {
+                            "literalValue": "10.2307/3322050",
+                            "scheme": "DOI",
+                            "_id": "5a1d0e82a2b9423e05265b71"
+                        }
+                    ]
+                });
+
+                var types = bibliographicResource.getAllTypesOfThis();
+
+                types.should.be.ok();
+                types.sort().should.deepEqual([enums.resourceType.book, enums.resourceType.dataset,
+                    enums.resourceType.journalIssue, enums.resourceType.journalArticle].sort());
+                done();
+            });
+
+            it('should return the types as expected', function (done) {
+
+                var br = {
+                    "book_number": "34",
+                    "status": "EXTERNAL",
+                    "__v": 0,
+                    "type": "BOOK",
+                    "standardSeries_embodiedAs": [],
+                    "standard_embodiedAs": [],
+                    "referenceEntry_embodiedAs": [],
+                    "referenceBook_embodiedAs": [],
+                    "book_embodiedAs": [],
+                    "reportSeries_embodiedAs": [],
+                    "report_embodiedAs": [],
+                    "dataset_embodiedAs": [],
+                    "journalArticle_embodiedAs": [],
+                    "journalIssue_embodiedAs": [],
+                    "journalVolume_embodiedAs": [],
+                    "journal_embodiedAs": [],
+                    "proceedings_embodiedAs": [],
+                    "proceedingsArticle_embodiedAs": [],
+                    "dissertation_embodiedAs": [],
+                    "component_embodiedAs": [],
+                    "bookTrack_embodiedAs": [],
+                    "bookPart_embodiedAs": [],
+                    "bookSection_embodiedAs": [],
+                    "bookChapter_embodiedAs": [],
+                    "bookSet_embodiedAs": [],
+                    "bookSeries_embodiedAs": [],
+                    "editedBook_embodiedAs": [],
+                    "monograph_embodiedAs": [],
+                    "parts": [],
+                    "cites": [],
+                    "standardSeries_contributors": [],
+                    "standard_contributors": [],
+                    "referenceEntry_contributors": [],
+                    "referenceBook_contributors": [],
+                    "book_contributors": [
+                        {
+                            "roleType": "AUTHOR",
+                            "heldBy": {
+                                "nameString": "Duru-Bellat, M.",
+                                "givenName": "",
+                                "familyName": "",
+                                "identifiers": []
+                            },
+                            "identifiers": []
+                        }
+                    ],
+                    "reportSeries_contributors": [],
+                    "proceedings_contributors": [],
+                    "dissertation_contributors": [],
+                    "component_contributors": [],
+                    "bookTrack_contributors": [],
+                    "dataset_contributors": [],
+                    "bookChapter_contributors": [],
+                    "bookSet_contributors": [],
+                    "proceedingsArticle_contributors": [],
+                    "bookSeries_contributors": [],
+                    "editedBook_contributors": [],
+                    "monograph_contributors": [],
+                    "journalArticle_contributors": [],
+                    "journalIssue_contributors": [],
+                    "journalVolume_contributors": [],
+                    "report_contributors": [],
+                    "journal_contributors": [],
+                    "standardSeries_identifiers": [],
+                    "standard_identifiers": [],
+                    "referenceEntry_identifiers": [],
+                    "referenceBook_identifiers": [],
+                    "book_identifiers": [
+                        {
+                            "literalValue": "10.2307/3322050",
+                            "scheme": "DOI"
+                        }
+                    ],
+                    "reportSeries_identifiers": [],
+                    "report_identifiers": [],
+                    "dataset_identifiers": [],
+                    "proceedings_identifiers": [],
+                    "proceedingsArticle_identifiers": [],
+                    "dissertation_identifiers": [],
+                    "component_identifiers": [],
+                    "bookTrack_identifiers": [],
+                    "bookPart_identifiers": [],
+                    "bookSection_identifiers": [],
+                    "bookChapter_identifiers": [],
+                    "bookSet_identifiers": [],
+                    "bookSeries_identifiers": [],
+                    "editedBook_identifiers": [],
+                    "monograph_identifiers": [],
+                    "journalArticle_identifiers": [],
+                    "journalIssue_identifiers": [],
+                    "journalVolume_identifiers": [],
+                    "journal_identifiers": []
+                };
+
+                br = new BibliographicResource(br);
+                var types = br.getAllTypesOfThis();
+
+                types.should.be.ok();
+                types.sort().should.deepEqual([enums.resourceType.book].sort());
+                done();
+            });
+        });
+
         describe('getPropertyPrefixForType', function () {
             it('should return the prefix journal_ for type JOURNAL', function (done) {
                 var bibliographicResource = new BibliographicResource({});
