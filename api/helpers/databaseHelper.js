@@ -256,7 +256,7 @@ DatabaseHelper.prototype.convertSchemaResourceToMongoose = function(schemaResour
 };
 
 
-DatabaseHelper.prototype.setScanStatus = function(id, status, callback){
+DatabaseHelper.prototype.setScanStatus = function(id, status, name, callback){
     var self = this;
 
     // check if id is valid
@@ -283,8 +283,12 @@ DatabaseHelper.prototype.setScanStatus = function(id, status, callback){
             for (var embodiment of embodiments) {
                 for (var scan of embodiment.scans) {
                     if (scan._id == id) {
-                        // set the status such that we know that the scan is already in the queue
+                        // set the status
                         scan.status = status;
+                        // set also the scan name if it is given
+                        if(name){
+                            scan.scanName = name;
+                        }
                         var embodimentIndex = embodiments.indexOf(embodiment);
                         var scanIndex = embodiment.scans.indexOf(scan);
                         embodiments[embodimentIndex].scans[scanIndex] = scan;

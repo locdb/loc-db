@@ -368,14 +368,14 @@ function triggerOcrProcessing(req, res) {
         logger.error("Invalid value for parameter id.", {id: id});
         return response.status(400).json({"message": "Invalid parameter."});
     }
-    return databaseHelper.setScanStatus(id, enums.status.ocrProcessing, function(err, result){
+    return databaseHelper.setScanStatus(id, enums.status.ocrProcessing, null, function(err, result){
         var br = result[0];
         var scan = result[1];
         ocrHelper.ocr_fileupload(scan.scanName, scan.textualPdf, function (err, result) {
             if (err) {
                 logger.error(err);
                 logger.info("We try to set back the status of the scan");
-                return databaseHelper.setScanStatus(id, enums.status.notOcrProcessed, function(err, result){
+                return databaseHelper.setScanStatus(id, enums.status.notOcrProcessed, null, function(err, result){
                     if(err){
                         logger.error(err);
                         return response.status(500).json({"message": "Something went wrong when OCR processing"});
@@ -455,7 +455,7 @@ function triggerOcrProcessing(req, res) {
                             return response.status(500).json({"message": "An error occured."});
                         }
 
-                        databaseHelper.setScanStatus(id, enums.status.ocrProcessed, function(err, result){
+                        databaseHelper.setScanStatus(id, enums.status.ocrProcessed, res, function(err, result){
                             if(err){
                                 logger.error(err);
                                 return response.status(500).json(err);
@@ -465,7 +465,7 @@ function triggerOcrProcessing(req, res) {
                         });
                     });
                 }else{
-                    databaseHelper.setScanStatus(id, enums.status.ocrProcessed, function(err, result){
+                    databaseHelper.setScanStatus(id, enums.status.ocrProcessed, null, function(err, result){
                         if(err){
                             logger.error(err);
                             return response.status(500).json(err);
