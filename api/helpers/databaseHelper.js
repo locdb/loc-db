@@ -471,8 +471,8 @@ DatabaseHelper.prototype.createSimpleEqualsConditions = function(propertyStem, v
 
 DatabaseHelper.prototype.retrieveToDos = function(status, callback){
     var self = this;
-    if(status == enums.status.ocrProcessed) {
-        self.createSimpleEqualsConditions('embodiedAs', enums.status.ocrProcessed, '.scans.status', function(err,conditions){
+    if(status === enums.status.ocrProcessed || status === enums.status.ocrProcessing || status === enums.status.notOcrProcessed) {
+        self.createSimpleEqualsConditions('embodiedAs', status, '.scans.status', function(err,conditions){
             if(err){
                 logger.error(err);
                 return callback(err, null);
@@ -492,37 +492,6 @@ DatabaseHelper.prototype.retrieveToDos = function(status, callback){
 
             });
         });
-    }else if (status == enums.status.notOcrProcessed){
-        self.createSimpleEqualsConditions('embodiedAs', enums.status.notOcrProcessed, '.scans.status', function(err,conditions_1){
-            if (err) {
-                logger.error(err);
-                return callback(err, null);
-            }
-            self.createSimpleEqualsConditions('embodiedAs', enums.status.ocrProcessing, '.scans.status', function(err,conditions_2){
-                if (err) {
-                    logger.error(err);
-                    return callback(err, null);
-                }
-                conditions_1 = {'$or': conditions_1};
-                conditions_2 = {'$or': conditions_2};
-
-                mongoBr.find({'$or': [conditions_1, conditions_2]}, function (err, children) {
-                    if (err) {
-                        logger.error(err);
-                        return callback(err, null);
-                    }
-                    return self.mapChildrenAndParents(children, function(err, result){
-                        if (err) {
-                            logger.error(err);
-                            return callback(err, null);
-                        }
-                        return callback(null, result);
-                    });
-
-                });
-            });
-        });
-
     }else if (status == enums.status.external){
         // this case applies only to electronic journals at the moment and only if there is no scan uploaded yet
         mongoBr.find({'status': status}, function (err, children) {

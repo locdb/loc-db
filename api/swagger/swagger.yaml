@@ -497,6 +497,7 @@ paths:
               - NOT_OCR_PROCESSED
               - OCR_PROCESSED
               - EXTERNAL
+              - OCR_PROCESSING
       responses:
         "200":
           description: Success
