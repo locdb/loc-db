@@ -369,6 +369,13 @@ function triggerOcrProcessing(req, res) {
         return response.status(400).json({"message": "Invalid parameter."});
     }
     return databaseHelper.setScanStatus(id, enums.status.ocrProcessing, null, function(err, result){
+        if(err){
+            logger.error(err);
+            return response.status(400).json({"message": "Scan could not be found"});
+        }
+        if(!result || result.length < 2){
+            return response.status(400).json({"message": "Scan could not be found"});
+        }
         var br = result[0];
         var scan = result[1];
         ocrHelper.ocr_fileupload(scan.scanName, scan.textualPdf, function (err, result) {
