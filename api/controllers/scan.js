@@ -159,7 +159,8 @@ function saveResource(req, res) {
                                             type: enums.resourceType.bookChapter,
                                             bookChapter_embodiedAs: [new ResourceEmbodiment({
                                                 firstPage: firstPage,
-                                                lastPage: lastPage
+                                                lastPage: lastPage,
+                                                type: embodimentType
                                             })]
                                         });
                                     }
