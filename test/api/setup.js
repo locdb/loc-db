@@ -8,6 +8,7 @@ const dataBibliographicResource = require('./data/bibliographicResource');
 const dataBookChapter = require('./data/bookChapter.json');
 const dataBibliographicEntry = require('./data/bibliographicEntry');
 const dataToDo = require('./data/todo.json');
+const dataSearch = require('./data/searchEngine');
 const nock = require('nock');
 const async = require('async');
 
@@ -84,6 +85,24 @@ Setup.prototype.loadAdditionalToDo = function(cb){
     }, function(err, results) {
         cb(err, results);
     });
+};
+
+Setup.prototype.loadSearchData = function(cb){
+    async.each(dataSearch, function(bibliographicResource, callback){
+        var bibliographicResource = new br(bibliographicResource);
+        bibliographicResource.save(function(err, res){
+            if(err) console.log(err);
+            bibliographicResource.on('es-indexed', function(err, res){
+                if (err) console.log(err);
+                console.log('es-indexed');
+                callback(err,bibliographicResource);
+            });
+        });
+    }, function(err, results) {
+        console.log("Data loaded");
+        return cb(err, results);
+    });
+
 };
 
 Setup.prototype.mockOCRFileUpload = function(){

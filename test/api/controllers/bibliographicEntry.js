@@ -19,13 +19,16 @@ describe('controllers', function() {
                     if(err) return done(err);
                     setup.loadBibliographicResources(function(err, result){
                         if(err) return done(err);
-                        setup.login(agent, function(err, result){
-                            if(err) return done(err);
-                            setup.mockGVISuggestions();
-                            setup.mockK10PlusSuggestions();
-                            setTimeout(function () {
-                                done();
-                            }, 2000);
+                        setup.loadSearchData(function(err, result) {
+                            if (err) return done(err);
+                            setup.login(agent, function (err, result) {
+                                if (err) return done(err);
+                                setup.mockGVISuggestions();
+                                setup.mockK10PlusSuggestions();
+                                setTimeout(function () {
+                                    done();
+                                }, 2000);
+                            });
                         });
                     });
                 });
@@ -191,6 +194,24 @@ describe('controllers', function() {
                 this.timeout(3000);
 
                 var query = "The Semantic Web - ISWC 2015";
+                agent
+                    .get('/getInternalSuggestionsByQueryString')
+                    .query({ query: query })
+                    .query({ threshold: 0.4 })
+                    .set('Accept', 'application/json')
+                    .expect('Content-Type', /json/)
+                    .expect(200)
+                    .end(function (err, res) {
+                        res.body.should.have.lengthOf(1);
+                        should.not.exist(err);
+                        done();
+                    });
+            });
+
+            it('this should be the first test specific to problems with the search engine', function (done) {
+                this.timeout(3000);
+
+                var query = "markov";
                 agent
                     .get('/getInternalSuggestionsByQueryString')
                     .query({ query: query })
