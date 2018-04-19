@@ -647,7 +647,9 @@ paths:
           schema:
             type: array
             items:
-              $ref: "#/definitions/BibliographicResource"
+              type: array
+              items:
+                $ref: "#/definitions/BibliographicResource"
         default:
           description: Error
           schema:
@@ -676,7 +678,9 @@ paths:
           schema:
             type: array
             items:
-              $ref: "#/definitions/BibliographicResource"
+              type: array
+              items:
+                $ref: "#/definitions/BibliographicResource"
         default:
           description: Error
           schema:

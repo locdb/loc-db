@@ -180,7 +180,30 @@ function getInternalSuggestionsByQueryString(req, res) {
                     }
                 }
             }
-            return response.status(200).json(result);
+            async.map(result, function(br, callback){
+                if(br.partOf && br.partOf !== ""){
+                    // br has parent, we want to retrieve this too
+                    mongoBr.findById(br.partOf, function (err, parent) {
+                        if(err){
+                            logger.error(err);
+                            return callback(err, null);
+                        }
+                        if(parent){
+                            return callback(null, [br, parent]);
+                        }else{
+                            return callback(null, [br]);
+                        }
+                    });
+                }else{
+                    return callback(null, [br]);
+                }
+            }, function(err, groupedResults){
+                if(err){
+                    logger.error(err);
+                    return response.status(500).json(err);
+                }
+                return response.status(200).json(groupedResults);
+            });
         });
     }catch (err) {
         logger.error(err);

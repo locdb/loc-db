@@ -203,24 +203,26 @@ describe('controllers', function() {
                     .expect(200)
                     .end(function (err, res) {
                         res.body.should.have.lengthOf(1);
+                        res.body[0].should.have.lengthOf(1);
                         should.not.exist(err);
                         done();
                     });
             });
 
-            it('this should be the first test specific to problems with the search engine', function (done) {
+            it.only('this should be the first test specific to problems with the search engine', function (done) {
                 this.timeout(3000);
 
-                var query = "markov";
+                var query = "child";
                 agent
                     .get('/getInternalSuggestionsByQueryString')
                     .query({ query: query })
-                    .query({ threshold: 0.4 })
+                    .query({ threshold: 0.1 })
                     .set('Accept', 'application/json')
                     .expect('Content-Type', /json/)
                     .expect(200)
                     .end(function (err, res) {
                         res.body.should.have.lengthOf(1);
+                        res.body[0].should.have.lengthOf(2);
                         should.not.exist(err);
                         done();
                     });

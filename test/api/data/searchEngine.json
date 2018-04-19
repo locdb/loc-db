@@ -1,6 +1,10 @@
 [
-  {
-    "book_title": "Markovian",
-    "type": "BOOK"
-  }
+    {
+        "book_title": "Markovian",
+        "type": "BOOK"
+    },
+    {
+        "bookChapter_title": "Child",
+        "type": "BOOK_CHAPTER"
+    }
 ]
