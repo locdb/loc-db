@@ -209,7 +209,7 @@ describe('controllers', function() {
                     });
             });
 
-            it.only('this should be the first test specific to problems with the search engine', function (done) {
+            it('this should be the first test specific to problems with the search engine', function (done) {
                 this.timeout(3000);
 
                 var query = "child";

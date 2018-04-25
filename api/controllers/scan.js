@@ -91,6 +91,7 @@ function saveResource(req, res) {
                                 return crossrefHelper.queryByDOI(identifier.literalValue, function (err, resources) {
                                     // wenn das issue nicht existiert, kann auch der article nicht existieren
                                     // hier muss hierarschich vorgegangen werden
+                                    resources[0].status = enums.status.external;
                                     databaseHelper.curateHierarchy(resources, function (err, resources) {
                                         // jetzt müssen wir gucken, ob man noch einen Scan speichern muss oder nicht
                                         if (!binaryFile && !stringFile) {
@@ -122,6 +123,7 @@ function saveResource(req, res) {
                         case enums.identifier.doi:
                             // go to crossref and create chapter
                             return crossrefHelper.queryByDOI(identifier.literalValue, function (err, resources) {
+                                resources[0].status = enums.status.external;
                                 databaseHelper.curateHierarchy(resources, function (err, resources) {
                                     if (!binaryFile && !stringFile) {
                                         return response.json(resources);
