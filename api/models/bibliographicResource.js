@@ -50,16 +50,20 @@ const resourceEmbodimentSchema = new Schema({ // Resource Embodiment
     scans:[scanSchema]
 });
 
+
+var responsibleAgentSchema = new Schema({
+    identifiers: [identifiersSchema],
+    nameString: String,
+    givenName: String,
+    familyName: String
+});
+
+
 const agentRoleSchema = new Schema({
     identifiers: [identifiersSchema],
     roleType: String,
-    heldBy:{
-        identifiers: [identifiersSchema],
-        nameString: String,
-        givenName: String,
-        familyName: String
-    },
-    next: String // This is not necessary for now, as we are using an array
+    heldBy: responsibleAgentSchema//,
+    //next: String // This is not necessary for now, as we are using an array
 });
 
 const brSchema = new Schema({
