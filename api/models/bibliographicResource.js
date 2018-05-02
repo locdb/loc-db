@@ -15,22 +15,24 @@ const identifiersSchema = new Schema({
     scheme: String
 });
 
+const ocrDataSchema = new Schema({
+    coordinates: String,
+    authors: [String], // maybe use contributors thingy later
+    title: String,
+    date: String,
+    marker: String,
+    comments: String,
+    journal: String,
+    volume: String
+});
+
 const beSchema = new Schema({
     identifiers: [identifiersSchema],
     bibliographicEntryText: String,
     references: String,
     scanId: String,
     status: {type: String, enum: [enums.status.ocrProcessed, enums.status.valid, enums.status.external]},
-    ocrData:{
-        coordinates: String,
-        authors: [String], // maybe use contributors thingy later
-        title: String,
-        date: String,
-        marker: String,
-        comments: String,
-        journal: String,
-        volume: String
-    }
+    ocrData: ocrDataSchema
 });
 
 const scanSchema = new Schema({

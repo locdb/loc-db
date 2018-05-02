@@ -115,6 +115,7 @@ describe('controllers', function() {
                         ],
                         "bibliographicEntryText": "TEST ENTRY 1 -- UPDATED",
                         "ocrData": {
+                            "_id": "5ae9a62b34f532213443fe87",
                             "coordinates": "714 317 2238 356",
                             "title": "2Zur Ausgestaltung des Mehrheitsprinzips in der unmittelbaren Demokratie. In: Bayerische Verwaltungsbl&ttcr S. 33--43, 74-79. TmFENBACH, Paul: Sinn oder Unsinn von Abstimmungsquoren. Im Internet:",
                             "date": "2000",
