@@ -211,16 +211,81 @@ function getInternalSuggestionsByQueryString(req, res) {
     }
 }
 
+/**Given a string s, this function checks whether there is a DOI present and extracts it
+https://www.crossref.org/blog/dois-and-matching-regular-expressions/**/
+function extractDOI(s){
+// /^10.\d{4,9}/[-._;()/:A-Z0-9]+$/i
+    return s.match(/^10.\d{4,9}\/[-._;()\/:A-Z0-9]+$/i);
+}
 
-function getExternalSuggestionsByQueryString(req, res) {
-    var response = res;
-    var query = req.swagger.params.query.value;
-    query = decodeURI(decodeURI(query));
-    var threshold = req.swagger.params.threshold.value;
-    if(!threshold){
-        threshold = 0.45;
-    }
 
+function getExternalSuggestionsByDOI(doi, cb){
+    async.parallel([
+/*        function (callback) {
+            swbHelper.queryByQueryString(doi, function (err, res) {
+                if (err) {
+                    return callback(err, null);
+                }
+                for(var parentChild of res){
+                    for(var br of parentChild){
+                        br.source = enums.externalSources.swb;
+                    }
+                }
+                return callback(null, res);
+            });
+        },
+        function (callback) {
+            solrHelper.queryGVIByQueryString(doi, function (err, res) {
+                if (err) {
+                    return callback(err, null);
+                }
+                for(var parentChild of res){
+                    for(var br of parentChild){
+                        br.source = enums.externalSources.gvi;
+                    }
+                }
+                return callback(null, res);
+            });
+        },
+        function (callback) {
+            solrHelper.queryK10plusByQueryString(doi, function (err, res) {
+                if (err) {
+                    return callback(err, null);
+                }
+                for(var parentChild of res){
+                    for(var br of parentChild){
+                        br.source = enums.externalSources.k10plus;
+                    }
+                }
+                return callback(null, res);
+            });
+        },*/
+        /*function (callback) {
+         googleScholarHelper.query(query, function (err, res) {
+         if (err) {
+         return callback(err, null);
+         }
+         return callback(null, res);
+         });
+         },*/
+        function (callback) {
+            crossrefHelper.queryByDOI(doi, function (err, res) {
+                if (err) {
+                    return callback(err, null);
+                }
+                for(var br of res){
+                    br.source = enums.externalSources.crossref;
+                }
+                var result = [res];
+                return callback(null, result);
+            });
+        }],
+        function (err, res) {
+            return cb(err, res);
+        });
+}
+
+function getExternalSuggestionsByQueryString(query, cb){
     async.parallel([
             function (callback) {
                 swbHelper.queryByQueryString(query, function (err, res) {
@@ -262,13 +327,13 @@ function getExternalSuggestionsByQueryString(req, res) {
                 });
             },
             /*function (callback) {
-                googleScholarHelper.query(query, function (err, res) {
-                    if (err) {
-                        return callback(err, null);
-                    }
-                    return callback(null, res);
-                });
-            },*/
+             googleScholarHelper.query(query, function (err, res) {
+             if (err) {
+             return callback(err, null);
+             }
+             return callback(null, res);
+             });
+             },*/
             function (callback) {
                 crossrefHelper.query(query, function (err, res) {
                     if (err) {
@@ -281,34 +346,75 @@ function getExternalSuggestionsByQueryString(req, res) {
                     }
                     return callback(null, res);
                 });
-            }
-        ],
+            }],
         function (err, res) {
-            if (err) {
-                logger.error(err);
-                return response.status(500).json(err);
-            }
-            var result = [];
-            for(var sourceResults of res){
-                if (sourceResults.length > 0) {
-                    for (var parentChild of sourceResults) {
-                        for(var br of parentChild){
-                            if (Object.keys(br).length !== 0 && stringSimilarity.compareTwoStrings(br.getTitleForType(br.type) + br.getSubtitleForType(br.type) + br.getContributorsForType(br.type), query) >= threshold) {
-                                result.push(parentChild);
-                                break;
+            return cb(err, res);
+        });
+}
+
+
+function getExternalSuggestions(req, res) {
+    var response = res;
+    var query = req.swagger.params.query.value;
+    query = decodeURI(decodeURI(query));
+    var threshold = req.swagger.params.threshold.value;
+    if(!threshold){
+        threshold = 0.45;
+    }
+
+    var doi = extractDOI(query);
+
+    if(!doi){
+        getExternalSuggestionsByQueryString(query,
+            function (err, res) {
+                if (err) {
+                    logger.error(err);
+                    return response.status(500).json(err);
+                }
+                var result = [];
+                for(var sourceResults of res){
+                    if (sourceResults.length > 0) {
+                        for (var parentChild of sourceResults) {
+                            for(var br of parentChild){
+                                if (Object.keys(br).length !== 0 && stringSimilarity.compareTwoStrings(br.getTitleForType(br.type) + br.getSubtitleForType(br.type) + br.getContributorsForType(br.type), query) >= threshold) {
+                                    result.push(parentChild);
+                                    break;
+                                }
                             }
                         }
                     }
                 }
-            }
-            for(var parentChild of result){
-                for(var br of parentChild){
-                    br.status = enums.status.external;
+                for(var parentChild of result){
+                    for(var br of parentChild){
+                        br.status = enums.status.external;
+                    }
                 }
+                return response.json(result);
             }
-            return response.json(result);
-        }
-    );
+        );
+    }else{
+        getExternalSuggestionsByDOI(doi[0],
+            function (err, res) {
+
+                if (err) {
+                    logger.error(err);
+                    return response.status(500).json(err);
+                }
+                var result = [];
+                for(var sourceRes of res){
+                    for(var parentChild of sourceRes){
+                        for(var br of parentChild){
+                            br.status = enums.status.external;
+                        }
+                        result.push(parentChild);
+                    }
+                }
+
+                return response.json(result);
+            });
+    }
+
+
 }
 
 function addTargetBibliographicResource(req, res) {
@@ -509,6 +615,6 @@ module.exports = {
     addTargetBibliographicResource: addTargetBibliographicResource,
     removeTargetBibliographicResource : removeTargetBibliographicResource,
     getInternalSuggestionsByQueryString : getInternalSuggestionsByQueryString,
-    getExternalSuggestionsByQueryString : getExternalSuggestionsByQueryString,
+    getExternalSuggestionsByQueryString : getExternalSuggestions,
     create : create
 };

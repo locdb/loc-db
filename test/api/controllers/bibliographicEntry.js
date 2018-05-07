@@ -290,7 +290,7 @@ describe('controllers', function() {
                         });
                 });
 
-            it('should return 17 external suggestion for a bibliographic entry', function (done) {
+            it('should return 18 external suggestion for a bibliographic entry', function (done) {
                 this.timeout(100000);
                 var query = "Direkte Demokratie";
 
@@ -304,17 +304,17 @@ describe('controllers', function() {
                         should.not.exist(err);
                         res.body.should.be.Array;
                         //res.body.should.have.lengthOf(2);
-                        res.body.should.have.lengthOf(17);
-                        res.body[0][0].should.have.property("status", status.external);
+                        res.body.should.have.lengthOf(18);
+                        res.body[1][0].should.have.property("status", status.external);
                         //res.body[0].should.have.property("title", "Direkte Demokratie und Umweltpolitik in der Schweiz");
-                        res.body[0][0].should.have.property("bookChapter_identifiers");
-                        res.body[0][0].bookChapter_identifiers.should.be.Array;
-                        res.body[0][0].bookChapter_identifiers.should.have.lengthOf(2);
+                        res.body[1][0].should.have.property("bookChapter_identifiers");
+                        res.body[1][0].bookChapter_identifiers.should.be.Array;
+                        res.body[1][0].bookChapter_identifiers.should.have.lengthOf(2);
                         done();
                     });
             });
 
-            it.skip('issue 192: searching by doi', function (done) {
+            it('issue 192: searching by doi', function (done) {
                 this.timeout(100000);
                 var query = "10.1007/s00148-005-0056-5";
 
@@ -329,7 +329,7 @@ describe('controllers', function() {
                         res.body.should.be.Array;
                         //res.body.should.have.lengthOf(2);
                         res.body.should.have.lengthOf(1);
-                        res.body[0].should.have.property("status", status.external);
+                        res.body[0][0].should.have.property("status", status.external);
                         done();
                     });
             });
