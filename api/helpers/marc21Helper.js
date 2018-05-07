@@ -414,10 +414,15 @@ Marc21Helper.prototype.extractIndependentResource = function(records, type, call
                             literalValue: subfield._data.split("(DE-576)")[1]
                         });
                     }
-                } else if (subfield._code === "a") {
+                } else if (subfield._code === "a" && subfield._data) {
                     var nameArray = subfield._data.split(',');
-                    contributor.heldBy.givenName = nameArray[1] ? nameArray[1].trim() : "";
-                    contributor.heldBy.familyName = nameArray[1] ? nameArray[0].trim() : "";
+                    if(nameArray && nameArray.length > 1){
+                        contributor.heldBy.givenName = nameArray[1] ? nameArray[1].trim() : "";
+                        contributor.heldBy.familyName = nameArray[1] ? nameArray[0].trim() : "";
+                    }else if(nameArray.length == 1){
+                        contributor.heldBy.nameString = nameArray[0];
+                    }
+
                 }
             }
             resource.pushContributorForType(resource.type, contributor);
