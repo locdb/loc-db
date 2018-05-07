@@ -333,6 +333,26 @@ describe('controllers', function() {
                         done();
                     });
             });
+
+            it('issue 192: searching by doi 2 (doi and other words are given)', function (done) {
+                this.timeout(100000);
+                var query = "DOI: 10.1007/s00148-005-0056-5";
+
+                agent
+                    .get('/getExternalSuggestionsByQueryString')
+                    .set('Accept', 'application/json')
+                    .query({ query: query })
+                    .expect('Content-Type', /json/)
+                    .expect(200)
+                    .end(function (err, res) {
+                        should.not.exist(err);
+                        res.body.should.be.Array;
+                        //res.body.should.have.lengthOf(2);
+                        res.body.should.have.lengthOf(1);
+                        res.body[0][0].should.have.property("status", status.external);
+                        done();
+                    });
+            });
         });
 
 

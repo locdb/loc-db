@@ -214,8 +214,9 @@ function getInternalSuggestionsByQueryString(req, res) {
 /**Given a string s, this function checks whether there is a DOI present and extracts it
 https://www.crossref.org/blog/dois-and-matching-regular-expressions/**/
 function extractDOI(s){
-// /^10.\d{4,9}/[-._;()/:A-Z0-9]+$/i
-    return s.match(/^10.\d{4,9}\/[-._;()\/:A-Z0-9]+$/i);
+    // /^10.\d{4,9}/[-._;()/:A-Z0-9]+$/i
+    // modified such that the pattern can also appear in the middle of the string
+    return s.match(/10.\d{4,9}\/[-._;()\/:A-Z0-9]+$/i);
 }
 
 
