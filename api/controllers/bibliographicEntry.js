@@ -394,7 +394,7 @@ function getExternalSuggestions(req, res) {
             }
         );
     }else{
-        getExternalSuggestionsByDOI(doi[0],
+        getExternalSuggestionsByDOI(doi[0].trim(),
             function (err, res) {
 
                 if (err) {
