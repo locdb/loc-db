@@ -38,7 +38,7 @@ describe('controllers', function() {
 
         describe('GET /getToDoBibliographicEntries', function () {
 
-            it('should return a list of not ocr processed bibliographic entries of length 54', function (done) {
+            it.skip('should return a list of not ocr processed bibliographic entries of length 54', function (done) {
                 agent
                     .get('/getToDoBibliographicEntries')
                     .set('Accept', 'application/json')
@@ -77,7 +77,7 @@ describe('controllers', function() {
                     });
             });
 
-            it('should return a list of not ocr processed bibliographic entries by scanId of length 1', function (done) {
+            it('should return a list of not ocr processed bibliographic entries by scanId of length 3', function (done) {
                 var scanId = "58cb91fa5452691cd86bc941";
                 agent
                     .get('/getToDoBibliographicEntries')
@@ -89,10 +89,10 @@ describe('controllers', function() {
                         console.log(res.body);
                         should.not.exist(err);
                         res.body.should.be.Array;
-                        res.body.should.have.lengthOf(1);
-                        res.body[0].should.have.property("bibliographicEntryText", "TEST ENTRY 1");
-                        res.body[0].should.have.property("status", status.ocrProcessed);
-                        res.body[0].should.have.property("scanId", scanId);
+                        res.body.should.have.lengthOf(3);
+                        res.body[1].should.have.property("bibliographicEntryText", "TEST ENTRY 1");
+                        res.body[1].should.have.property("status", status.ocrProcessed);
+                        res.body[1].should.have.property("scanId", scanId);
                         id = res.body[0]._id;
                         done();
                     });
@@ -102,9 +102,11 @@ describe('controllers', function() {
         describe('PUT /bibliographicEntries/{id}', function () {
 
             it('should return a single updated bibliographic entry', function (done) {
-
+                this.timeout(10000000);
                 var update = `{
-                        "identifiers":[],
+                        "identifiers":[
+                            {"scheme":"DOI", "literalValue": "Test"}
+                        ],
                         "bibliographicEntryText": "TEST ENTRY 1 -- UPDATED",
                         "ocrData": {
                             "coordinates": "714 317 2238 356",
@@ -125,7 +127,10 @@ describe('controllers', function() {
                     .expect(200)
                     .end(function (err, res) {
                         console.log(res.body);
-                        update._id = id;
+                        res.body.should.have.property("identifiers");
+                        res.body.identifiers.should.have.lengthOf(1);
+                        update._id = res.body._id;
+                        update.identifiers[0]._id = res.body.identifiers[0]._id;
                         res.body.should.deepEqual(update);
                         should.not.exist(err);
                         done();
@@ -162,7 +167,7 @@ describe('controllers', function() {
 
         describe('POST /getInternalSuggestions', function () {
 
-            it('should return 0 internal suggestions for a bibliographic entry', function (done) {
+            it('should return 1 internal suggestions for a bibliographic entry', function (done) {
 
 
                 var searchObject = `{
@@ -185,7 +190,7 @@ describe('controllers', function() {
                     .expect('Content-Type', /json/)
                     .expect(200)
                     .end(function (err, res) {
-                        res.body.should.have.lengthOf(0);
+                        res.body.should.have.lengthOf(1);
                         should.not.exist(err);
                         done();
                     });
@@ -353,10 +358,11 @@ describe('controllers', function() {
                         res.body.should.have.lengthOf(5);
                         //res.body[0].should.have.property("title", "Direkte Demokratie in der Schweiz: Entwicklungen, Debatten und Wirkungen");
                         res.body[0].should.have.property("status", status.external);
+                        res.body[0].should.have.property("publicationYear", "2006");
                         res.body[1].should.have.property("containerTitle");
                         res.body[0].should.have.property("identifiers");
                         res.body[0].identifiers.should.be.Array;
-                        res.body[0].identifiers.should.have.lengthOf(3);
+                        res.body[0].identifiers.should.have.lengthOf(4);
                         res.body[0].identifiers[0].should.not.have.property("scheme", "URL_GOOGLE_SCHOLAR");
                         done();
                     });
@@ -385,13 +391,13 @@ describe('controllers', function() {
                             res.body[0].should.have.property("status", status.external);
                             res.body[0].should.have.property("identifiers");
                             res.body[0].identifiers.should.be.Array;
-                            res.body[0].identifiers.should.have.lengthOf(7);
-                            res.body[0].identifiers[6].should.have.property("scheme", "URL_SWB");
+                            res.body[0].identifiers.should.have.lengthOf(8);
+                            res.body[0].identifiers[7].should.have.property("scheme", "URL_SWB");
                             done();
                         });
                 });
 
-            it('should return 35 external suggestion for a bibliographic entry', function (done) {
+            it('should return 9 external suggestion for a bibliographic entry', function (done) {
                 this.timeout(100000);
                 var query = "Direkte Demokratie";
 
@@ -412,6 +418,26 @@ describe('controllers', function() {
                         res.body[0].identifiers.should.be.Array;
                         res.body[0].identifiers.should.have.lengthOf(2);
                         res.body[6].identifiers[0].should.not.have.property("scheme", "URL_GOOGLE_SCHOLAR");
+                        done();
+                    });
+            });
+
+            it('issue 192: searching by doi', function (done) {
+                this.timeout(100000);
+                var query = "10.1007/s00148-005-0056-5";
+
+                agent
+                    .get('/getExternalSuggestionsByQueryString')
+                    .set('Accept', 'application/json')
+                    .query({ query: query })
+                    .expect('Content-Type', /json/)
+                    .expect(200)
+                    .end(function (err, res) {
+                        should.not.exist(err);
+                        res.body.should.be.Array;
+                        //res.body.should.have.lengthOf(2);
+                        res.body.should.have.lengthOf(1);
+                        res.body[0].should.have.property("status", status.external);
                         done();
                     });
             });

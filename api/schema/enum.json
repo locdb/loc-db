@@ -9,8 +9,17 @@
   "identifier": {
     "isbn": "ISBN",
     "issn": "ISSN",
-    "ppn" : "PPN",
-    "doi" : "DOI"
+    "swb_ppn" : "SWB_PPN",
+    "olc_ppn" : "OLC_PPN",
+    "zdb_ppn" : "ZDB_PPN",
+    "zdb_id" : "ZDB_ID",
+    "ppn": "PPN",
+    "doi" : "DOI",
+    "lccn": "LCCN",
+    "gndId": "GND_ID",
+    "swbGndId": "SWB_GND_ID",
+    "oclcId": "OCLC_ID",
+    "uri": "URI"
   },
   "roleType": {
     "author": "AUTHOR",
@@ -19,9 +28,30 @@
     "corporate": "CORPORATE"
   },
   "resourceType": {
+    "book": "BOOK",
+    "bookChapter": "BOOK_CHAPTER",
+    "bookPart": "BOOK_PART",
+    "bookSection": "BOOK_SECTION",
+    "bookSeries": "BOOK_SERIES",
+    "bookSet": "BOOK_SET",
+    "bookTrack": "BOOK_TRACK",
+    "component": "COMPONENT",
+    "dataset": "DATASET",
+    "dissertation": "DISSERTATION",
+    "editedBook": "EDITED_BOOK",
+    "journalArticle": "JOURNAL_ARTICLE",
+    "journalIssue": "JOURNAL_ISSUE",
+    "journalVolume": "JOURNAL_VOLUME",
+    "journal": "JOURNAL",
     "monograph": "MONOGRAPH",
-    "collection": "COLLECTION",
-    "journal": "JOURNAL"
+    "proceedingsArticle": "PROCEEDINGS_ARTICLE",
+    "proceedings": "PROCEEDINGS",
+    "referenceBook": "REFERENCE_BOOK",
+    "referenceEntry": "REFERENCE_ENTRY",
+    "reportSeries": "REPORT_SERIES",
+    "report": "REPORT",
+    "standardSeries": "STANDARD_SERIES",
+    "standard": "STANDARD"
   },
   "embodimentType": {
     "digital": "DIGITAL",

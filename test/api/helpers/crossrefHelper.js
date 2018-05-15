@@ -39,7 +39,7 @@ describe('helpers', function() {
         });
 
         describe('queryReferences', function(){
-            it('should return result for a given query', function(done) {
+            it.skip('should return result for a given query', function(done) {
                 this.timeout(1000000000);
                 crossrefHelper.queryReferences(null, "", function(err, result){
                     console.log(result);

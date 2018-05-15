@@ -7,8 +7,10 @@ const AgentRole = require('./../schema/agentRole.js');
 const BibliographicEntry = require('./../schema/bibliographicEntry.js');
 const ResourceEmbodiment = require('./../schema/resourceEmbodiment.js');
 const enums = require('./../schema/enum.json');
-const errorlog = require('./../util/logger.js').errorlog;
+const logger = require('./../util/logger.js');
 const stringSimilarity = require('string-similarity');
+const removeDiacritics = require('diacritics').remove;
+const utf8 = require('utf8');
 
 var CrossrefHelper = function(){
 };
@@ -20,14 +22,16 @@ var CrossrefHelper = function(){
  */
 CrossrefHelper.prototype.query = function(query, callback){
     var self = this;
+    // TODO: remove this, when they have fixed the issue
+    query = removeDiacritics(query);
     crossref.works({query: query, mailto:"anne@informatik.uni-mannheim.de"}, (err, objs, nextOpts, done) => {
         if (err) {
-            errorlog.error(err);
+            logger.error(err);
             return callback(err, null);
         }
         self.parseObjects(objs, function(err, res){
             if (err) {
-                errorlog.error(err);
+                logger.error(err);
                 return callback(err, null);
             }
             return callback(null, res);
@@ -43,22 +47,25 @@ CrossrefHelper.prototype.query = function(query, callback){
  */
 CrossrefHelper.prototype.queryChapterMetaData = function(containerTitle, firstPage, lastPage, callback){
     var self = this;
+    // TODO: remove this, when they have fixed the issue
+    containerTitle = utf8.encode(containerTitle);
+    containerTitle = removeDiacritics(containerTitle);
     crossref.works({"query.container-title": containerTitle, mailto:"anne@informatik.uni-mannheim.de"}, (err, objs, nextOpts, done) => {
         if (err) {
-            errorlog.error(err);
+            logger.error(err);
             return callback(err, null);
         }
         var candidates = [];
         for(var obj of objs){
             if(stringSimilarity.compareTwoStrings(obj['container-title'][0], containerTitle) > 0.95
                 && (obj['page'] == firstPage + "-" + lastPage || obj['page'] == firstPage + "--" + lastPage)){
-                console.log("Match on pages and title, similarity = " + stringSimilarity.compareTwoStrings(obj['container-title'][0], containerTitle));
+                logger.info("Match on pages and title, similarity = " + stringSimilarity.compareTwoStrings(obj['container-title'][0], containerTitle));
                 candidates.push(obj);
             }
         }
         self.parseObjects(candidates, function(err, res){
             if (err) {
-                errorlog.error(err);
+                logger.error(err);
                 return callback(err, null);
             }
             return callback(null, res);
@@ -78,7 +85,7 @@ CrossrefHelper.prototype.queryReferences = function(doi, query, callback){
     if(doi != null){
         crossref.work(doi,(err, obj, nextOpts, done) => {
             if (err) {
-                errorlog.error(err);
+                logger.error(err);
                 return callback(err, null);
             }
             // check whether they really contain the 'reference' property
@@ -88,16 +95,18 @@ CrossrefHelper.prototype.queryReferences = function(doi, query, callback){
             }
             self.parseObjects(candidates, function(err, res){
                 if (err) {
-                    errorlog.error(err);
+                    logger.error(err);
                     return callback(err, null);
                 }
                 return callback(null, res);
             });
         });
     }else if(query != null){
+        // TODO: remove this, when they have fixed the issue
+        query = removeDiacritics(query);
         crossref.works({query: query, filter:{"has-references" : true}, mailto: "anne@informatik.uni-mannheim.de"}, (err, objs, nextOpts, done) => {
             if (err) {
-                errorlog.error(err);
+                logger.error(err);
                 return callback(err, null);
             }
             // check whether they really contain the 'reference' property
@@ -109,7 +118,7 @@ CrossrefHelper.prototype.queryReferences = function(doi, query, callback){
             }
             self.parseObjects(candidates, function(err, res){
                 if (err) {
-                    errorlog.error(err);
+                    logger.error(err);
                     return callback(err, null);
                 }
                 return callback(null, res);
@@ -129,7 +138,7 @@ CrossrefHelper.prototype.queryByDOI = function(doi, callback){
     var self = this;
     crossref.work(doi, (err, obj, nextOpts, done) => {
         if (err) {
-            errorlog.error(err);
+            logger.error(err);
             return callback(err, null);
         }
         // check whether they really contain the 'reference' property
@@ -138,7 +147,7 @@ CrossrefHelper.prototype.queryByDOI = function(doi, callback){
         var containerTitle = obj['container-title'] ? obj['container-title'] [0] : obj['container-title'];
         self.parseObjects(candidates, function(err, res){
             if (err) {
-                errorlog.error(err);
+                logger.error(err);
                 return callback(err, null);
             }
             if (res.length >0){
@@ -210,9 +219,8 @@ CrossrefHelper.prototype.parseObjects = function(objects, callback){
                 var referenceYear = reference.year ? reference.year : "";
                 var referenceJournal = reference['journal-title'] ? reference['journal-title'] : "";
                 var referenceVolume = reference.volume ? reference.volume : "";
-                if(reference['first-page']){
-                    var referenceComments = "First page: " + reference['first-page'];
-                }
+                var referenceComments = reference['first-page']? "First page: " + reference['first-page'] : "";
+
 
                 if(referenceTitle === ""){
                     referenceTitle = reference['volume-title'] ? reference['volume-title'] : "";
@@ -239,7 +247,16 @@ CrossrefHelper.prototype.parseObjects = function(objects, callback){
         var embodiedAs = [new ResourceEmbodiment({firstPage: firstPage, lastPage:lastPage})];
         var containerTitle = obj['container-title'] && obj['container-title'][0] ? obj['container-title'][0] : "";
 
-        // TODO: Parse type etc?
+        var publicationYear;
+        if(obj['issued'] && obj['issued']['date-parts'] && obj['issued']['date-parts'][0] && obj['issued']['date-parts'][0][0]){
+            publicationYear = obj['issued']['date-parts'][0][0];
+        }else if (obj['published-print'] && obj['published-print']['date-parts'] && obj['published-print']['date-parts'][0] && obj['published-print']['date-parts'][0][0]){
+            publicationYear = obj['published-print']['date-parts'][0][0];
+        }else if(obj['published-online'] && obj['published-online']['date-parts'] && obj['published-online']['date-parts'][0] && obj['published-online']['date-parts'][0][0]){
+            publicationYear = obj['published-online']['date-parts'][0][0];
+        }
+
+        // TODO: Parse type
         var bibliographicResource = new BibliographicResource({
             title: title,
             subtitle: subtitle,
@@ -248,7 +265,8 @@ CrossrefHelper.prototype.parseObjects = function(objects, callback){
             status: enums.status.external,
             parts: bes,
             embodiedAs: embodiedAs,
-            containerTitle: containerTitle
+            containerTitle: containerTitle,
+            publicationYear: publicationYear
         });
 
 
@@ -256,7 +274,6 @@ CrossrefHelper.prototype.parseObjects = function(objects, callback){
     }
     callback(null, res);
 };
-
 
 /**
  * Factory function

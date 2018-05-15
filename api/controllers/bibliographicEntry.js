@@ -1,7 +1,6 @@
 'use strict';
 const mongoBr = require('./../models/bibliographicResource.js');
-const errorlog = require('./../util/logger.js').errorlog;
-const accesslog = require('./../util/logger.js').accesslog;
+const logger = require('./../util/logger.js');
 const enums = require('./../schema/enum.json');
 const bibliographicResource = require('./../schema/bibliographicResource');
 const mongoose = require('mongoose');
@@ -20,12 +19,12 @@ function getToDoBibliographicEntries(req, res) {
     if (scanId) {
         // check if id is valid
         if (!mongoose.Types.ObjectId.isValid(scanId)) {
-            errorlog.error("Invalid value for parameter id.", {scanId: scanId});
+            logger.error("Invalid value for parameter id.", {scanId: scanId});
             return response.status(400).json({"message": "Invalid parameter."});
         }
         mongoBr.find({'parts.status': enums.status.ocrProcessed, 'parts.scanId': scanId}, function (err, brs) {
             if (err) {
-                errorlog.error(err);
+                logger.error(err);
                 return res.status(500).json({"message": "DB query failed."});
             }
             response.json(createBibliographicEntriesArray(brs, scanId));
@@ -33,7 +32,7 @@ function getToDoBibliographicEntries(req, res) {
     } else {
         mongoBr.find({'parts.status': enums.status.ocrProcessed}, function (err, brs) {
             if (err) {
-                errorlog.error(err);
+                logger.error(err);
                 return res.status(500).json({"message": "DB query failed."});
             }
             response.json(createBibliographicEntriesArray(brs, scanId));
@@ -48,7 +47,7 @@ function createBibliographicEntriesArray(brs, scanId) {
         var result = [];
         for (var br of brs) {
             for (var be of br.parts) {
-                if (be.status === enums.status.ocrProcessed && be.scanId === scanId) {
+                if (be.scanId === scanId) {
                     result.push(be);
                 }
             }
@@ -65,17 +64,17 @@ function update(req, res) {
     var update = req.swagger.params.bibliographicEntry.value;
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
-        errorlog.error("Invalid value for parameter id.", {id: id});
+        logger.error("Invalid value for parameter id.", {id: id});
         return response.status(400).json({"message": "Invalid parameter."});
     }
 
     mongoBr.findOne({'parts._id': id}, function (err, br) {
         if (err) {
-            errorlog.error(err);
+            logger.error(err);
             return res.status(500).json({"message": "DB query failed."});
         }
         if (!br) {
-            errorlog.error("No bibliographic entry found for id.", {id: id});
+            logger.error("No bibliographic entry found for id.", {id: id});
             return res.status(400).json({"message": "No bibliographic entry found for id."});
         }
 
@@ -83,9 +82,12 @@ function update(req, res) {
         for (var be of br.parts) {
             if (be._id.toString() === id) {
                 var index = br.parts.indexOf(be);
-                extend(true, be, update);
-                br.parts[index] = be;
-                br.save().then(function (result) {
+                //extend(true, be, update);
+
+                //be._id = id;
+                update._id = be._id;
+                br.parts[index] = update;
+                return br.save().then(function (result) {
                     for (var be of br.parts) {
                         if (be._id.toString() === id) {
                             return response.json(be);
@@ -105,20 +107,19 @@ function remove(req, res) {
     var id = req.swagger.params.id.value;
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
-        errorlog.error("Invalid value for parameter id.", {id: id});
+        logger.error("Invalid value for parameter id.", {id: id});
         return response.status(400).json({"message": "Invalid parameter."});
     }
 
     mongoBr.findOne({'parts._id': id}, function (err, br) {
         if (err) {
-            errorlog.error(err);
+            logger.error(err);
             return res.status(500).json({"message": "DB query failed."});
         }
         if (!br) {
-            errorlog.error("No bibliographic entry found for id.", {id: id});
+            logger.error("No bibliographic entry found for id.", {id: id});
             return res.status(400).json({"message": "No bibliographic entry found for id."});
         }
-
 
         for (var be of br.parts) {
             if (be._id.toString() === id) {
@@ -127,8 +128,8 @@ function remove(req, res) {
                 br.save().then(function (result) {
                     return response.json(result);
                 }, function (err) {
-                    errorlog.error(err);
-                    return response.status(500).send(err);
+                    logger.error(err);
+                    return response.status(500).json(err);
                 });
             }
         }
@@ -159,7 +160,7 @@ function getInternalSuggestions(req, res) {
         }, {hydrate: true}, function (err, brs) {
             var result = [];
             if (err) {
-                errorlog.error(err);
+                logger.error(err);
                 return res.status(500).json(err);
             }
             if (brs.hits && brs.hits.hits) {
@@ -175,7 +176,7 @@ function getInternalSuggestions(req, res) {
             return response.status(200).json(result);
         });
     }catch (err) {
-        errorlog.error(err);
+        logger.error(err);
         return response.json("Something went wrong with the internal suggestions");
     }
 }
@@ -206,7 +207,7 @@ function getInternalSuggestionsByQueryString(req, res) {
         }, {hydrate: true, hydrateWithESResults: true}, function (err, brs) {
             var result = [];
             if (err) {
-                errorlog.error(err);
+                logger.error(err);
                 return res.status(500).json(err);
             }
             if (brs.hits && brs.hits.hits) {
@@ -222,7 +223,7 @@ function getInternalSuggestionsByQueryString(req, res) {
             return response.status(200).json(result);
         });
     }catch (err) {
-        errorlog.error(err);
+        logger.error(err);
         return response.json("Something went wrong with the internal suggestions");
     }
 }
@@ -260,7 +261,7 @@ function getExternalSuggestions(req, res) {
         ],
         function (err, res) {
             if (err) {
-                errorlog.error(err);
+                logger.error(err);
                 return response.status(500).json(err);
             }
             var result = [];
@@ -316,14 +317,14 @@ function getExternalSuggestionsByQueryString(req, res) {
         ],
         function (err, res) {
             if (err) {
-                errorlog.error(err);
+                logger.error(err);
                 return response.status(500).json(err);
             }
             var result = [];
             for(var sourceResults of res){
                 if (sourceResults.length > 0) {
                     for (var br of sourceResults) {
-                        if (Object.keys(br).length !== 0 && stringSimilarity.compareTwoStrings(br.title + br.subtitle + br.contributors, query) > threshold) {
+                        if (Object.keys(br).length !== 0 && stringSimilarity.compareTwoStrings(br.title + br.subtitle + br.contributors, query) >= threshold) {
                             result.push(br);
                         }
                     }
@@ -341,7 +342,7 @@ function addTargetBibliographicResource(req, res) {
 
     // first check whether we received valid mongo ids
     if (!mongoose.Types.ObjectId.isValid(bibliographicEntryId) || !mongoose.Types.ObjectId.isValid(bibliographicResourceId)) {
-        errorlog.error("Invalid value for parameter id.", {
+        logger.error("Invalid value for parameter id.", {
             bibliographicEntryId: bibliographicEntryId,
             bibliographicResourceId: bibliographicResourceId
         });
@@ -352,19 +353,19 @@ function addTargetBibliographicResource(req, res) {
     // check whether the target br exists.. just to be sure
     mongoBr.findById(bibliographicResourceId, function (err, br) {
         if(!br){
-            errorlog.error("The target bibliographic resource cannot be found.");
+            logger.error("The target bibliographic resource cannot be found.");
             return response.status(400).json("The target bibliographic resource cannot be found.");
         }
 
         // load the source br which also contains the source be
         mongoBr.findOne({'parts._id': bibliographicEntryId}, function (err, br) {
             if (err){
-                errorlog.error(err);
+                logger.error(err);
                 return response.status(500).json(err);
             }
             // check also whether the resource id belongs to the source resource, we do not want circles
             if(br._id == bibliographicResourceId){
-                errorlog.error("The target and source bibliographic resource are identical.");
+                logger.error("The target and source bibliographic resource are identical.");
                 return response.status(400).json("The target and source bibliographic resource are identical.");
             }
             // project to corresponding be and
@@ -379,7 +380,7 @@ function addTargetBibliographicResource(req, res) {
                         break;
                     }else{
                         // entry is apparently already linked
-                        errorlog.error("The entry is already linked.");
+                        logger.error("The entry is already linked.");
                         return response.status(400).json("The entry is already linked.");
                     }
                 }
@@ -390,7 +391,7 @@ function addTargetBibliographicResource(req, res) {
             // save the updated br in the db
             br.save(function (err, br) {
                 if (err){
-                    errorlog.error(err);
+                    logger.error(err);
                     return response.status(500).json(err);
                 }
                 response.status(200).json(br);
@@ -405,7 +406,7 @@ function removeTargetBibliographicResource(req, res) {
 
     // first check whether we received valid mongo ids
     if (!mongoose.Types.ObjectId.isValid(bibliographicEntryId)) {
-        errorlog.error("Invalid value for parameter id.", {
+        logger.error("Invalid value for parameter id.", {
             bibliographicEntryId: bibliographicEntryId
         });
         return response.status(400).json({"message": "Invalid parameter."});
@@ -414,7 +415,7 @@ function removeTargetBibliographicResource(req, res) {
     // load the source br which also contains the source be
     mongoBr.findOne({'parts._id': bibliographicEntryId}, function (err, br) {
         if (err) {
-            errorlog.error(err);
+            logger.error(err);
             return response.status(500).json(err);
         }
 
@@ -441,7 +442,7 @@ function removeTargetBibliographicResource(req, res) {
         // save the updated br in the db
         br.save(function (err, br) {
             if (err) {
-                errorlog.error(err);
+                logger.error(err);
                 return response.status(500).json(err);
             }
             response.status(200).json(br);

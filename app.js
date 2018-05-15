@@ -6,19 +6,21 @@ const yaml = require('js-yaml');
 const fs = require('fs');
 const app = require('express')();
 const mongoose = require('mongoose');
-const errorlog = require('./api/util/logger.js').errorlog;
-const accesslog = require('./api/util/logger.js').accesslog;
+const logger = require('./api/util/logger.js');
 const cors = require('cors');
+const morgan = require('morgan');
 
 
 
 module.exports = app; // for testing
-
+mongoose.set('debug', function (collectionName, method, query, doc){
+    logger.info("MONGOOSE", collectionName + "." + method + "(" + JSON.stringify(query) + ")");
+});
 var db = mongoose.connection;
 
 db.on('error', console.error);
 db.once('open', function() {
-    accesslog.info("DB successfully opened.")
+    logger.info("DB successfully opened.")
 });
 
 // Configuring Passport
@@ -35,7 +37,7 @@ if(process.argv.indexOf("test" >0)){
     config = Object.assign(config, require("./test/api/config.js"));
 }
 
-accesslog.info("Running config:", {config : JSON.stringify(config)});
+logger.info("Running config:", {config : JSON.stringify(config)});
 
 var uri = "mongodb://" + config.DB.HOST + ":" + config.DB.PORT + "/" + config.DB.SCHEMA;
 
@@ -69,6 +71,32 @@ SwaggerExpress.create({appRoot: __dirname, securityHandlers: {
     app.use(passport.initialize());
     app.use(passport.session());
     app.use(cors({origin: "http://localhost:4200", credentials: true}));
+
+    // enable http logging
+    morgan.token('username', function (req, res) {
+        return req.user ? req.user.username : "";
+    });
+
+    morgan.token('userid', function (req, res) {
+        return req.user ? req.user._id : "";
+    });
+
+    morgan.token('body', function (req, res) {
+        return req.body ? JSON.stringify(req.body) : "";
+    });
+
+    app.use(morgan(':method :url :status :response-time ms - :res[content-length] - :username :userid - :body',{
+        skip: function (req, res) {
+            return res.statusCode < 400
+        }, stream: logger.streamError
+    }));
+
+    app.use(morgan(':method :url :status :response-time ms - :res[content-length] - :username :userid - :body',{
+        skip: function (req, res) {
+            return res.statusCode >= 400
+        }, stream: logger.streamInfo
+    }));
+
     swaggerExpress.register(app);
     app.listen(config.PORT);
 });

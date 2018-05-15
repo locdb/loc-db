@@ -13,6 +13,8 @@ tags:
     description: Services related to scans.
   - name: BibliographicEntry
     description: Services related to bibliographic entries.
+  - name: Utils
+    description: Services that are not directly related to the application.
 schemes:
   #- http
   - https
@@ -511,7 +513,9 @@ paths:
           description: The type of the resource.
           required: true
           type: string
-          enum: [MONOGRAPH, JOURNAL, COLLECTION]
+          enum: [BOOK, BOOK_CHAPTER, BOOK_PART, BOOK_SECTION, BOOK_SERIES, BOOK_SET,
+           BOOK_TRACK, COMPONENT, DATASET, DISSERTATION, EDITED_BOOK, JOURNAL_ARTICLE, JOURNAL_ISSUE, JOURNAL_VOLUME,
+            MONOGRAPH, JOURNAL, PROCEEDINGS_ARTICLE, PROCEEDINGS, REFERENCE_BOOK, REFERENCE_ENTRY, REPORT_SERIES, REPORT, STANDARD_SERIES, STANDARD]
       responses:
         "200":
           description: Success
@@ -809,7 +813,30 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
-  
+
+  /log:
+    x-swagger-router-controller: utils
+    post:
+      tags: [Utils]
+      description: Logs a json object.
+      operationId: log
+      parameters:
+        - name: logObject
+          in: body
+          description: The object to log.
+          required: false
+          schema:
+            $ref: "#/definitions/LogRequest"
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
   /swagger:
     x-swagger-pipe: swagger_raw
 
@@ -862,7 +889,6 @@ definitions:
   
   Identifier:
     required:
-      - literalValue
       - scheme
     properties:
       literalValue:
@@ -1139,3 +1165,8 @@ definitions:
     properties:
       message:
         type: string
+
+  LogRequest:
+    properties:
+      logObject:
+        type: object

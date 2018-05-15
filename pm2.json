@@ -4,6 +4,13 @@
     "name"      : "loc-db",
     "script"    : "app.js",
     "append_env_to_name": true,
+    "env_demo": {
+      "NODE_ENV": "demo",
+      "LOCDB_PORT": 3102,
+      "LOCDB_DB_SCHEMA": "locdb-demo",
+      "LOCDB_HOST": "locdb.bib.uni-mannheim.de",
+      "LOCDB_BASEPATH": "/demo"
+    },
     "env_development": {
       "NODE_ENV": "development",
       "LOCDB_PORT": 3101,
@@ -43,9 +50,20 @@
       "ref"  : "remotes/origin/dev",
       "repo" : "git@github.com:locdb/loc-db.git",
       "path" : "~/locdb-dev",
-      "post-deploy" : "npm install && pm2 startOrRestart pm2.json --env development",
+      "post-deploy" : "npm install && pm2 startOrRestart pm2.json --env development --output /dev/null --error /dev/null",
       "env"  : {
         "NODE_ENV": "development"
+      }
+    },
+    "demo" : {
+      "user" : "anlausch",
+      "host" : "locdb",
+      "ref"  : "origin/master",
+      "repo" : "git@github.com:locdb/loc-db.git",
+      "path" : "~/locdb-demo",
+      "post-deploy" : "npm install && pm2 startOrRestart pm2.json --env demo",
+      "env"  : {
+        "NODE_ENV": "demo"
       }
     }
   }

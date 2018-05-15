@@ -11,6 +11,7 @@ describe('controllers', function() {
 
   describe('bibliographicResource', function() {
       var id = "";
+      var idToDelete = "";
       before(function(done) {
           setup.loadBibliographicResources(function(err,res){
               setup.login(agent, function(err, res){
@@ -28,7 +29,7 @@ describe('controllers', function() {
       
       
       describe('GET /bibliographicResources', function(){
-          it('should return a list of bibliographic Resources of length 1', function(done){
+          it('should return a list of bibliographic Resources of length 3', function(done){
               agent
                   .get('/bibliographicResources')
                   .set('Accept', 'application/json')
@@ -37,7 +38,7 @@ describe('controllers', function() {
                   .end(function(err, res){
                       should.not.exist(err);
                       res.body.should.be.an.Array();
-                      res.body.should.have.length(1);
+                      res.body.should.have.length(3);
                       done();
                   });
           });
@@ -46,7 +47,7 @@ describe('controllers', function() {
       
       describe.skip('GET /createBibliographicResourceByPPN', function() {
           
-          it('should return a new bibliographic resouce', function(done) {
+          it('should return a new bibliographic resource', function(done) {
             agent
               .get('/createBibliographicResourceByPPN')
               .query({ ppn: '400433052', resourceType: enums.resourceType.collection})
@@ -78,6 +79,35 @@ describe('controllers', function() {
       });
       
       describe('GET /bibliographicResources', function(){
+          it('should return a list of bibliographic Resources of length 3', function(done){
+              agent
+                  .get('/bibliographicResources')
+                  .set('Accept', 'application/json')
+                  .expect('Content-Type', /json/)
+                  .expect(200)
+                  .end(function(err, res){
+                      should.not.exist(err);
+                      res.body.should.be.an.Array();
+                      res.body.should.have.length(3);
+                      idToDelete = res.body[0]._id;
+                      done();
+                  });
+          });
+      });
+
+      describe('DELETE /bibliographicResources/<id>', function(){
+          it('should return response code 200 and delete a single resource', function(done){
+              agent
+                  .delete('/bibliographicResources/' + idToDelete)
+                  .set('Accept', 'application/json')
+                  .expect('Content-Type', /json/)
+                  .expect(200)
+                  .end(function(err, res){
+                      should.not.exist(err);
+                      done();
+                  });
+          });
+
           it('should return a list of bibliographic Resources of length 2', function(done){
               agent
                   .get('/bibliographicResources')
@@ -87,12 +117,12 @@ describe('controllers', function() {
                   .end(function(err, res){
                       should.not.exist(err);
                       res.body.should.be.an.Array();
-                      res.body.should.have.length(1);
+                      res.body.should.have.length(2);
                       done();
                   });
           });
       });
-      
+
       describe('DELETE /bibliographicResources', function(){
           it('should return response code 200', function(done){
               agent
@@ -105,9 +135,7 @@ describe('controllers', function() {
                       done();
                   });
           });
-      });
-      
-      describe('GET /bibliographicResources', function(){
+
           it('should return a list of bibliographic resources of length 0', function(done){
               agent
                   .get('/bibliographicResources')
@@ -464,6 +492,39 @@ describe('controllers', function() {
                       done();
                   });
           });
+
+          it('Whats going on with the encoding', function(done){
+              var doi = "10.1007/978-3-658-17092-9_4";
+
+              agent
+                  .get('/saveElectronicJournal')
+                  .query({doi: doi})
+                  .set('Accept', 'application/json')
+                  .expect('Content-Type', /json/)
+                  .expect(200)
+                  .end(function(err, res){
+                      should.not.exist(err);
+                      // TODO: Check encoding
+                      done();
+                  });
+          });
+
+          it('Issue 179', function(done){
+              var doi = "10.1017/s0003055417000326";
+
+              agent
+                  .get('/saveElectronicJournal')
+                  .query({doi: doi})
+                  .set('Accept', 'application/json')
+                  .expect('Content-Type', /json/)
+                  .expect(200)
+                  .end(function(err, res){
+                      should.not.exist(err);
+                      res.body[1].parts[0].ocrData.should.have.property("comments", "First page: 159");
+                      res.body[1].parts[1].ocrData.should.have.property("comments", "");
+                      done();
+                  });
+          });
       });
 
       describe('GET /saveScanForElectronicJournal', function() {
@@ -480,16 +541,17 @@ describe('controllers', function() {
                   .expect(200)
                   .end(function (err, res) {
                       should.not.exist(err);
-                      res.body.should.be.Object;
-                      res.body.should.have.property("partOf");
-                      res.body.should.have.property("status", enums.status.valid);
-                      res.body.should.have.property("partOf");
-                      res.body.should.have.property("embodiedAs");
-                      res.body.embodiedAs.should.have.lengthOf(1);
-                      res.body.embodiedAs[0].should.have.property("scans");
-                      res.body.embodiedAs[0].scans.should.have.lengthOf(1);
-                      res.body.embodiedAs[0].scans[0].should.have.property("status", enums.status.notOcrProcessed);
-                      res.body.embodiedAs[0].scans[0].should.have.property("textualPdf", false);
+                      res.body.should.be.Array;
+                      res.body[0].should.have.property("partOf");
+                      res.body[0].should.have.property("status", enums.status.valid);
+                      res.body[0].should.have.property("partOf");
+                      res.body[0].should.have.property("embodiedAs");
+                      res.body[0].embodiedAs.should.have.lengthOf(1);
+                      res.body[0].embodiedAs[0].should.have.property("scans");
+                      res.body[0].embodiedAs[0].scans.should.have.lengthOf(1);
+                      res.body[0].embodiedAs[0].scans[0].should.have.property("status", enums.status.notOcrProcessed);
+                      res.body[0].embodiedAs[0].scans[0].should.have.property("textualPdf", false);
+                      res.body[1].should.deepEqual(res.body[0].embodiedAs[0].scans[0]);
                       done();
                   });
           });
@@ -507,18 +569,103 @@ describe('controllers', function() {
                   .expect(200)
                   .end(function (err, res) {
                       should.not.exist(err);
-                      res.body.should.be.Object;
-                      res.body.should.have.property("partOf");
-                      res.body.should.have.property("status", enums.status.valid);
-                      res.body.should.have.property("partOf");
-                      res.body.should.have.property("embodiedAs");
-                      res.body.embodiedAs.should.have.lengthOf(1);
-                      res.body.embodiedAs[0].should.have.property("scans");
-                      res.body.embodiedAs[0].scans.should.have.lengthOf(1);
-                      res.body.embodiedAs[0].scans[0].should.have.property("status", enums.status.notOcrProcessed);
-                      res.body.embodiedAs[0].scans[0].should.have.property("textualPdf", true);
+                      res.body.should.be.Array;
+                      res.body[0].should.have.property("partOf");
+                      res.body[0].should.have.property("status", enums.status.valid);
+                      res.body[0].should.have.property("partOf");
+                      res.body[0].should.have.property("embodiedAs");
+                      res.body[0].embodiedAs.should.have.lengthOf(1);
+                      res.body[0].embodiedAs[0].should.have.property("scans");
+                      res.body[0].embodiedAs[0].scans.should.have.lengthOf(1);
+                      res.body[0].embodiedAs[0].scans[0].should.have.property("status", enums.status.notOcrProcessed);
+                      res.body[0].embodiedAs[0].scans[0].should.have.property("textualPdf", true);
+                      res.body[1].should.deepEqual(res.body[0].embodiedAs[0].scans[0]);
                       done();
                   });
+          });
+      });
+
+      describe('POST /bibliographicResources', function() {
+          it('should not save a br in the db', function (done) {
+              var br = {
+                  "identifiers": [
+                      {
+                          "scheme": "OCLC_ID",
+                          "literalValue": "243773523"
+                      },
+                      {
+                          "scheme": "ISBN",
+                          "literalValue": "1878379259"
+                      },
+                      {
+                          "scheme": "ISBN",
+                          "literalValue": "1878379240"
+                      },
+                      {
+                          "scheme": "SWB_PPN",
+                          "literalValue": "03890019X"
+                      },
+                      {
+                          "scheme": "URL_SWB",
+                          "literalValue": "http://swb.bsz-bw.de/DB=2.1/PPNSET?PPN=03890019X"
+                      }
+                  ],
+                  "title": "Minorities at risk :",
+                  "subtitle": "a global view of ethnopolitical conflicts /",
+                  "edition": "1. publ., 2. print.",
+                  "contributors": [
+                      {
+                          "identifiers": [],
+                          "roleType": "PUBLISHER",
+                          "heldBy": {
+                              "identifiers": [],
+                              "roleType": "PUBLISHER",
+                              "givenName": "",
+                              "familyName": "",
+                              "nameString": "United States Institute of Peace Pr.,"
+                          }
+                      },
+                      {
+                          "identifiers": [],
+                          "roleType": "AUTHOR",
+                          "heldBy": {
+                              "identifiers": [],
+                              "roleType": "AUTHOR",
+                              "givenName": "",
+                              "familyName": "",
+                              "nameString": null
+                          }
+                      },
+                      {
+                          "identifiers": [],
+                          "roleType": "AUTHOR",
+                          "heldBy": {
+                              "identifiers": [],
+                              "roleType": "AUTHOR",
+                              "givenName": "",
+                              "familyName": "",
+                              "nameString": null
+                          }
+                      }
+                  ],
+                  "publicationYear": "1993",
+                  "status": "EXTERNAL",
+                  "type": "",
+                  "containerTitle": "",
+                  "number": ""
+              };
+
+              agent
+                  .post('/bibliographicResources')
+                  .send(br)
+                  .set('Accept', 'application/json')
+                  .expect('Content-Type', /json/)
+                  .expect(400)
+                  .end(function(err, res){
+                      should.not.exist(err);
+                      done();
+                  });
+
           });
       });
 
