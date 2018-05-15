@@ -228,6 +228,25 @@ describe('controllers', function() {
                         done();
                     });
             });
+
+            it('this should internally search for a given doi', function (done) {
+                this.timeout(3000);
+
+                var query = "10.1080/00313830802184608";
+                agent
+                    .get('/getInternalSuggestionsByQueryString')
+                    .query({ query: query })
+                    .query({ threshold: 0.1 })
+                    .set('Accept', 'application/json')
+                    .expect('Content-Type', /json/)
+                    .expect(200)
+                    .end(function (err, res) {
+                        res.body.should.have.lengthOf(1);
+                        res.body[0].should.have.lengthOf(2);
+                        should.not.exist(err);
+                        done();
+                    });
+            });
         });
 
 
@@ -314,7 +333,7 @@ describe('controllers', function() {
                     });
             });
 
-            it('issue 192: searching by doi', function (done) {
+            it('should search by doi', function (done) {
                 this.timeout(100000);
                 var query = "10.1007/s00148-005-0056-5";
 
@@ -334,7 +353,7 @@ describe('controllers', function() {
                     });
             });
 
-            it('issue 192: searching by doi 2 (doi and other words are given)', function (done) {
+            it('should search by doi 2 (doi and other words are given)', function (done) {
                 this.timeout(100000);
                 var query = "DOI: 10.1007/s00148-005-0056-5";
 

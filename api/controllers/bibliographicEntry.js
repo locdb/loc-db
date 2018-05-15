@@ -146,19 +146,34 @@ function getInternalSuggestionsByQueryString(req, res) {
     if(!threshold){
         threshold = 1.0;
     }
-    // get the property names to search in
-    var helper = new BibliographicResource();
-    var types = helper.getAllTypes();
-    var searchProperties = helper.getPropertyForTypes("title",types);
-    searchProperties.push.apply(searchProperties, helper.getPropertyForTypes("subtitle", types));
-    var contributors = helper.getPropertyForTypes("contributors", types);
-    for(var contributor of contributors){
-        searchProperties.push(contributor + '.heldBy.nameString');
-        searchProperties.push(contributor + '.heldBy.familyName');
-        searchProperties.push(contributor + '.heldBy.givenName');
+    var doi = extractDOI(query);
+
+    if(!doi) {
+        // get the property names to search in
+        var helper = new BibliographicResource();
+        var types = helper.getAllTypes();
+        var searchProperties = helper.getPropertyForTypes("title", types);
+        searchProperties.push.apply(searchProperties, helper.getPropertyForTypes("subtitle", types));
+        var contributors = helper.getPropertyForTypes("contributors", types);
+        for (var contributor of contributors) {
+            searchProperties.push(contributor + '.heldBy.nameString');
+            searchProperties.push(contributor + '.heldBy.familyName');
+            searchProperties.push(contributor + '.heldBy.givenName');
+        }
+
+    }else {
+        // get the property names to search in
+        var helper = new BibliographicResource();
+        var types = helper.getAllTypes();
+        var searchProperties = [];
+        var identifiers = helper.getPropertyForTypes("identifiers", types);
+        for (var identifier of identifiers) {
+            searchProperties.push(identifier + '.literalValue');
+        }
+        query = doi[0].trim();
     }
     // the search function offers an interface to elastic
-    try{
+    try {
         mongoBr.search({
             multi_match: {
                 query: query,
@@ -175,40 +190,41 @@ function getInternalSuggestionsByQueryString(req, res) {
                     var br = brs.hits.hits[i];
 
                     // we check, whether the result is good enough
-                    if(br._esResult._score > threshold){
+                    if (br._esResult._score > threshold) {
                         result.push(br.toObject());
                     }
                 }
             }
-            async.map(result, function(br, callback){
-                if(br.partOf && br.partOf !== ""){
+            async.map(result, function (br, callback) {
+                if (br.partOf && br.partOf !== "") {
                     // br has parent, we want to retrieve this too
                     mongoBr.findById(br.partOf, function (err, parent) {
-                        if(err){
+                        if (err) {
                             logger.error(err);
                             return callback(err, null);
                         }
-                        if(parent){
+                        if (parent) {
                             return callback(null, [br, parent]);
-                        }else{
+                        } else {
                             return callback(null, [br]);
                         }
                     });
-                }else{
+                } else {
                     return callback(null, [br]);
                 }
-            }, function(err, groupedResults){
-                if(err){
+            }, function (err, groupedResults) {
+                if (err) {
                     logger.error(err);
                     return response.status(500).json(err);
                 }
                 return response.status(200).json(groupedResults);
             });
         });
-    }catch (err) {
+    } catch (err) {
         logger.error(err);
         return response.json("Something went wrong with the internal suggestions");
     }
+
 }
 
 /**Given a string s, this function checks whether there is a DOI present and extracts it
