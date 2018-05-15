@@ -232,7 +232,7 @@ describe('controllers', function() {
             it('this should internally search for a given doi', function (done) {
                 this.timeout(3000);
 
-                var query = "10.1080/00313830802184608";
+                var query = "10.1080/00313830802184608 ";
                 agent
                     .get('/getInternalSuggestionsByQueryString')
                     .query({ query: query })
