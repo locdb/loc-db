@@ -18,13 +18,13 @@
     "express-session": "^1.15.3",
     "extend": "^3.0.0",
     "feedparser": "^2.2.1",
-    "file-type": "^5.2.0",
+    "file-type": "^6.2.0",
     "form-data": "^2.1.2",
     "google-scholar": "^1.2.5",
     "isomorphic-fetch": "^2.2.1",
     "js-yaml": "^3.8.3",
     "marc4js": "0.0.8",
-    "mongodb": "^2.2.13",
+    "mongodb": "^3.0.0",
     "mongoosastic": "^4.3.0",
     "mongoose": "^5.0.0",
     "morgan": "^1.9.0",
@@ -37,17 +37,17 @@
     "stream": "0.0.2",
     "string-similarity": "^1.2.0",
     "swagger-express-mw": "^0.7.0",
-    "swagger-ui-express": "2.0.0",
+    "swagger-ui-express": "2.0.10",
     "utf8": "^2.1.2",
     "winston": "^2.3.0",
     "winston-daily-rotate-file": "^1.4.4",
     "xml2js": "^0.4.17",
     "xmldom": "^0.1.27",
-    "xpath": "0.0.24"
+    "xpath": "0.0.25"
   },
   "devDependencies": {
     "nock": "^9.0.9",
-    "should": "^11.1.1",
+    "should": "^12.0.0",
     "supertest": "^3.0.0"
   },
   "scripts": {

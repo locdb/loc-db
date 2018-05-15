@@ -397,7 +397,7 @@ describe('controllers', function() {
                         });
                 });
 
-            it('should return 9 external suggestion for a bibliographic entry', function (done) {
+            it('should return 10 external suggestion for a bibliographic entry', function (done) {
                 this.timeout(100000);
                 var query = "Direkte Demokratie";
 
@@ -411,18 +411,18 @@ describe('controllers', function() {
                         should.not.exist(err);
                         res.body.should.be.Array;
                         //res.body.should.have.lengthOf(2);
-                        res.body.should.have.lengthOf(9);
+                        res.body.should.have.lengthOf(10);
                         res.body[0].should.have.property("status", status.external);
                         //res.body[0].should.have.property("title", "Direkte Demokratie und Umweltpolitik in der Schweiz");
                         res.body[0].should.have.property("identifiers");
                         res.body[0].identifiers.should.be.Array;
-                        res.body[0].identifiers.should.have.lengthOf(2);
+                        res.body[0].identifiers.should.have.lengthOf(3);
                         res.body[6].identifiers[0].should.not.have.property("scheme", "URL_GOOGLE_SCHOLAR");
                         done();
                     });
             });
 
-            it('issue 192: searching by doi', function (done) {
+            it.skip('issue 192: searching by doi', function (done) {
                 this.timeout(100000);
                 var query = "10.1007/s00148-005-0056-5";
 
