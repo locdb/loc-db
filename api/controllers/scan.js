@@ -361,9 +361,13 @@ function getToDo(req, res) {
             async.map(resultArray, function (parent, callback) {
                 // check first whether it is really a parent
                 if (parent.children) {
+                    if(!parent._id || parent._id == "" || parent._id == " "){
+                        logger.error(parent);
+                    }
                     mongoBr.findOne({'_id': parent._id}, function (err, br) {
                         if (err) {
                             logger.error(err);
+                            logger.error(parent);
                             return callback(err, null)
                         }
                         if (!br) {
@@ -394,10 +398,6 @@ function getToDo(req, res) {
     }else if (status == enums.status.external){
         // this case applies only to electronic journals at the moment and only if there is no scan uploaded yet
         mongoBr.find({'status': status}, function (err, children) {
-            if (err) {
-                logger.error(err);
-                return response.status(500).json({"message": "DB query failed."});
-            }
             if (err) {
                 logger.error(err);
                 return response.status(500).json({"message": "DB query failed."});
@@ -483,7 +483,7 @@ function getToDo(req, res) {
             }, function (err, res) {
                 if (err) {
                     logger.error(err);
-                    return response.status(500).json({"message": "DB query failed."});
+                    return response.status(500).json({"message": "Mapping failed."});
                 }
                 response.json(res);
             });

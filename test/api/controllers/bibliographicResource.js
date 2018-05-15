@@ -585,6 +585,90 @@ describe('controllers', function() {
           });
       });
 
+      describe('POST /bibliographicResources', function() {
+          it('should not save a br in the db', function (done) {
+              var br = {
+                  "identifiers": [
+                      {
+                          "scheme": "OCLC_ID",
+                          "literalValue": "243773523"
+                      },
+                      {
+                          "scheme": "ISBN",
+                          "literalValue": "1878379259"
+                      },
+                      {
+                          "scheme": "ISBN",
+                          "literalValue": "1878379240"
+                      },
+                      {
+                          "scheme": "SWB_PPN",
+                          "literalValue": "03890019X"
+                      },
+                      {
+                          "scheme": "URL_SWB",
+                          "literalValue": "http://swb.bsz-bw.de/DB=2.1/PPNSET?PPN=03890019X"
+                      }
+                  ],
+                  "title": "Minorities at risk :",
+                  "subtitle": "a global view of ethnopolitical conflicts /",
+                  "edition": "1. publ., 2. print.",
+                  "contributors": [
+                      {
+                          "identifiers": [],
+                          "roleType": "PUBLISHER",
+                          "heldBy": {
+                              "identifiers": [],
+                              "roleType": "PUBLISHER",
+                              "givenName": "",
+                              "familyName": "",
+                              "nameString": "United States Institute of Peace Pr.,"
+                          }
+                      },
+                      {
+                          "identifiers": [],
+                          "roleType": "AUTHOR",
+                          "heldBy": {
+                              "identifiers": [],
+                              "roleType": "AUTHOR",
+                              "givenName": "",
+                              "familyName": "",
+                              "nameString": null
+                          }
+                      },
+                      {
+                          "identifiers": [],
+                          "roleType": "AUTHOR",
+                          "heldBy": {
+                              "identifiers": [],
+                              "roleType": "AUTHOR",
+                              "givenName": "",
+                              "familyName": "",
+                              "nameString": null
+                          }
+                      }
+                  ],
+                  "publicationYear": "1993",
+                  "status": "EXTERNAL",
+                  "type": "",
+                  "containerTitle": "",
+                  "number": ""
+              };
+
+              agent
+                  .post('/bibliographicResources')
+                  .send(br)
+                  .set('Accept', 'application/json')
+                  .expect('Content-Type', /json/)
+                  .expect(400)
+                  .end(function(err, res){
+                      should.not.exist(err);
+                      done();
+                  });
+
+          });
+      });
+
   });
 
 });
