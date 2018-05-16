@@ -42,6 +42,7 @@ SolrHelper.prototype.queryGVIByQueryString = function(query, callback){
             return callback(err, null);
         }
         if (result.response) {
+            logger.log(result.response)
             if (result.response.docs.length == 0) {
                 return callback(null, []);
             } else {
@@ -67,13 +68,13 @@ SolrHelper.prototype.queryGVIByQueryString = function(query, callback){
                             logger.error(err);
                             return callback(err, null);
                         }
+
                         for(var i=0; i < results.length; i++){
                             for(var j=0; j < results[i].length; j++) {
                                 results[i][j].pushIdentifierForType(results[i][j].type, new Identifier({
                                     literalValue: additionalInformation[i],
                                     scheme: enums.identifier.gviId
                                 }));
-                                logger.log(results[i][j].getTitleForType(results[i][j].type))
                             }
                         }
                         return callback(null, results);
