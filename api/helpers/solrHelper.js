@@ -26,7 +26,9 @@ SolrHelper.prototype.queryGVIByQueryString = function(query, callback){
         core: config.GVI.CORE,
     });
 
-    query =query.replace(":","");
+    if(query.indexOf('\"') < 0){
+        query =query.replace(":","");
+    }
     // Lucene query
     // add start=0?
     var q = client.createQuery()
@@ -97,7 +99,10 @@ SolrHelper.prototype.queryK10plusByQueryString = function(query, callback){
         path: config.K10plus.PATH
     });
 
-    query =query.replace(":","");
+    if(query.indexOf('\"') < 0){
+        query =query.replace(":","");
+    }
+
 
     logger.log(query);
     // Lucene query
