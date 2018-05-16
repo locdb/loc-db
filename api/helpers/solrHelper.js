@@ -27,6 +27,7 @@ SolrHelper.prototype.queryGVIByQueryString = function(query, callback){
     });
 
     if(query.indexOf('\"') < 0){
+        logger.log("No quotation marks");
         query =query.replace(":","");
     }
     // Lucene query
@@ -72,6 +73,7 @@ SolrHelper.prototype.queryGVIByQueryString = function(query, callback){
                                     literalValue: additionalInformation[i],
                                     scheme: enums.identifier.gviId
                                 }));
+                                logger.log(results[i][j].getTitleForType(results[i][j].type))
                             }
                         }
                         return callback(null, results);
