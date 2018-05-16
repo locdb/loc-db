@@ -38,11 +38,11 @@ SolrHelper.prototype.queryGVIByQueryString = function(query, callback){
 
     client.search(q,function(err,result){
         if (err) {
-            logger.log(err);
+            logger.error(err);
             return callback(err, null);
         }
         if (result.response) {
-            logger.log(result.response)
+            logger.log(result.response);
             if (result.response.docs.length == 0) {
                 return callback(null, []);
             } else {
