@@ -19,7 +19,7 @@ function log(req, res){
     logObject._ip = ip;
     logObject._user = req.user ? {username: req.user.username, userid: req.user._id.toString()} : "USER_UNKNOWN";
     logger.info("EVALUATION_LOG", logObject);
-    return response.json({message: "Logging suceeded."});
+    return response.json({message: "Logging succeeded."});
 }
 
 function getK10Plus(req, res){
