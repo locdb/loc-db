@@ -113,7 +113,7 @@ describe('controllers', function () {
                     });
             });
 
-            it.only('should create a journal article in the db even if it does not exist in crossref', function (done) {
+            it('should create a journal article in the db even if it does not exist in crossref', function (done) {
                 agent
                     .post('/saveResource')
                     .type('form')

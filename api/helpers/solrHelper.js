@@ -26,10 +26,11 @@ SolrHelper.prototype.queryGVIByQueryString = function(query, callback){
         core: config.GVI.CORE,
     });
 
-    if(query.indexOf('\"') < 0){
-        logger.log("No quotation marks");
-        query =query.replace(":","");
-    }
+    //if(query.indexOf('\"') < 0){
+    //    logger.log("No quotation marks");
+    //    query =query.replace(":","");
+    //}
+    query = encodeURIComponent(query);
     // Lucene query
     // add start=0?
     var q = client.createQuery()
@@ -102,9 +103,10 @@ SolrHelper.prototype.queryK10plusByQueryString = function(query, callback){
         path: config.K10plus.PATH
     });
 
-    if(query.indexOf('\"') < 0){
-        query =query.replace(":","");
-    }
+    //if(query.indexOf('\"') < 0){
+    //    query =query.replace(":","");
+    //}
+    query = encodeURIComponent(query);
 
 
     logger.log(query);
