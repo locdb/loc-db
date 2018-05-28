@@ -190,6 +190,9 @@ CrossrefHelper.prototype.parseObjects = function(objects, callback){
 
 CrossrefHelper.prototype.parseIndependentResource = function(obj, callback){
     var resource = new BibliographicResource({type: this.getType(obj.type)});
+    if(!resource.type){
+        resource.type = enums.resourceType.bookChapter;
+    }
 
     // Identifiers
     if(obj.DOI){
