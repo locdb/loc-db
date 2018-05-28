@@ -2,6 +2,7 @@
 const ocrHelper = require('./../helpers/ocrHelper.js').createOcrHelper();
 const swbHelper = require('./../helpers/swbHelper.js').createSwbHelper();
 const BibliographicResource = require('./../schema/bibliographicResource.js');
+const Identifier = require('./../schema/identifier.js');
 const ResourceEmbodiment = require('./../schema/resourceEmbodiment');
 const Scan = require('./../schema/scan.js');
 const enums = require('./../schema/enum.json');
@@ -91,6 +92,12 @@ function saveResource(req, res) {
                                 return crossrefHelper.queryByDOI(identifier.literalValue, function (err, resources) {
                                     // wenn das issue nicht existiert, kann auch der article nicht existieren
                                     // hier muss hierarschich vorgegangen werden
+                                    if(!resources){
+                                        var child = new BibliographicResource({type: resourceType});
+                                        child.setIdentifiersForType(resourceType, [new Identifier({identifierScheme: enums.identifier.doi, literalValue: identifier.literalValue})]);
+                                        var parent = new BibliographicResource({type: enums.resourceType.journalIssue});
+                                        resources = [child, parent];
+                                    }
                                     resources[0].status = enums.status.external;
                                     databaseHelper.curateHierarchy(resources, function (err, resources) {
                                         // jetzt müssen wir gucken, ob man noch einen Scan speichern muss oder nicht

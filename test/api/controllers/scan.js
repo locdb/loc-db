@@ -113,6 +113,22 @@ describe('controllers', function () {
                     });
             });
 
+            it.only('should create a journal article in the db even if it does not exist in crossref', function (done) {
+                agent
+                    .post('/saveResource')
+                    .type('form')
+                    .field('identifierScheme', 'DOI')
+                    .field('identifierLiteralValue', '10.1086.657507')
+                    .field('resourceType', resourceType.journalArticle)
+                    .set('Accept', 'application/json')
+                    .expect('Content-Type', /json/)
+                    .expect(200)
+                    .end(function (err, res) {
+                        should.not.exist(err);
+                        done();
+                    });
+            });
+
             it('should append another journal article to the same issue', function (done) {
                 agent
                     .post('/saveResource')
