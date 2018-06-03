@@ -55,7 +55,7 @@
         "NODE_ENV": "development"
       }
     },
-    "development" : {
+    "demo" : {
       "user" : "anlausch",
       "host" : "locdb",
       "ref"  : "remotes/origin/datamodel",
