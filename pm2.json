@@ -58,7 +58,7 @@
     "demo" : {
       "user": "anlausch",
       "host": "locdb",
-      "ref": "origin/master",
+      "ref": "remotes/origin/demo",
       "repo": "git@github.com:locdb/loc-db.git",
       "path": "~/locdb-demo",
       "post-deploy": "npm install && pm2 startOrRestart pm2.json --env demo",
