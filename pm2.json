@@ -55,14 +55,14 @@
         "NODE_ENV": "development"
       }
     },
-    "demo" : {
-      "user": "anlausch",
-      "host": "locdb",
-      "ref": "remotes/origin/datamodel",
-      "repo": "git@github.com:locdb/loc-db.git",
-      "path": "~/locdb-demo",
-      "post-deploy": "npm install && pm2 startOrRestart pm2.json --env demo",
-      "env": {
+    "development" : {
+      "user" : "anlausch",
+      "host" : "locdb",
+      "ref"  : "remotes/origin/datamodel",
+      "repo" : "git@github.com:locdb/loc-db.git",
+      "path" : "~/locdb-demo",
+      "post-deploy" : "npm install && pm2 startOrRestart pm2.json --env demo --output /dev/null --error /dev/null",
+      "env"  : {
         "NODE_ENV": "demo"
       }
     }
