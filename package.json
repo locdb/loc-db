@@ -46,7 +46,7 @@
     "xpath": "0.0.25"
   },
   "devDependencies": {
-    "nock": "^9.0.9",
+    "nock": "^9.3.2",
     "should": "^12.0.0",
     "supertest": "^3.0.0"
   },
