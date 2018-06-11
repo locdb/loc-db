@@ -210,7 +210,7 @@ OcrHelper.prototype.getImageForPDF = function(fileName, callback){
             files: fs.createReadStream(path),
         };
 
-        request.post({url: config.URLS.OCR_IMAGEVIEW, formData: form, timeout:1000000, encoding: null}, function(err, res, body) {
+        request.post({url: config.URLS.OCR_IMAGEVIEW, formData: form, timeout:1000000000, encoding: null}, function(err, res, body) {
             if (err) {
                 logger.error(err);
                 return callback(err, null);
