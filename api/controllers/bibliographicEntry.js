@@ -10,7 +10,7 @@ const googleScholarHelper = require('./../helpers/googleScholarHelper.js').creat
 const crossrefHelper = require('./../helpers/crossrefHelper.js').createCrossrefHelper();
 const swbHelper = require('./../helpers/swbHelper.js').createSwbHelper();
 const solrHelper = require('./../helpers/solrHelper.js').createSolrHelper();
-const stringSimilarity = require('string-similarity');
+const suggestionHelper = require('./../helpers/suggestionHelper').createSuggestionHelper();
 
 
 function getToDoBibliographicEntries(req, res) {
@@ -374,9 +374,9 @@ function getExternalSuggestions(req, res) {
     var response = res;
     var query = req.swagger.params.query.value;
     query = decodeURI(decodeURI(query));
-    var threshold = req.swagger.params.threshold.value;
-    if(!threshold){
-        threshold = 0.45;
+    var k = req.swagger.params.k.value;
+    if(!k){
+        k = 10;
     }
 
     var doi = extractDOI(query);
@@ -390,8 +390,11 @@ function getExternalSuggestions(req, res) {
                         return response.status(500).json(err);
                     }
                 }
-                var result = [];
-                for(var sourceResults of res){
+
+
+                var result= [].concat.apply([], res);
+
+                /*for(var sourceResults of res){
                     if (sourceResults && sourceResults.length > 0) {
                         for (var parentChild of sourceResults) {
                             for(var br of parentChild){
@@ -402,13 +405,16 @@ function getExternalSuggestions(req, res) {
                             }
                         }
                     }
-                }
-                for(var parentChild of result){
-                    for(var br of parentChild){
-                        br.status = enums.status.external;
+                }*/
+                suggestionHelper.sort(query, result, function(err,result){
+                    result = result.slice(0, k);
+                    for(var parentChild of result){
+                        for(var br of parentChild){
+                            br.status = enums.status.external;
+                        }
                     }
-                }
-                return response.json(result);
+                    return response.json(result);
+                });
             }
         );
     }else{
@@ -439,6 +445,9 @@ function getExternalSuggestions(req, res) {
 
 
 }
+
+
+
 
 function addTargetBibliographicResource(req, res) {
     var response = res;

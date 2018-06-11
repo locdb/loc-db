@@ -23,8 +23,8 @@ describe('controllers', function() {
                             if (err) return done(err);
                             setup.login(agent, function (err, result) {
                                 if (err) return done(err);
-                                //setup.mockGVISuggestions();
-                                //setup.mockK10PlusSuggestions();
+                                setup.mockGVISuggestions();
+                                setup.mockK10PlusSuggestions();
                                 setTimeout(function () {
                                     done();
                                 }, 2000);
@@ -260,7 +260,7 @@ describe('controllers', function() {
                     .get('/getExternalSuggestionsByQueryString')
                     .set('Accept', 'application/json')
                     .query({ query: query })
-                    //.query({ threshold: 0.9 })
+                    .query({ k: 8 })
                     .expect('Content-Type', /json/)
                     .expect(200)
                     .end(function (err, res) {
@@ -270,8 +270,6 @@ describe('controllers', function() {
                         res.body.should.have.lengthOf(8);
                         //res.body[0].should.have.property("title", "Direkte Demokratie in der Schweiz: Entwicklungen, Debatten und Wirkungen");
                         res.body[0][0].should.have.property("status", status.external);
-                        res.body[0][0].should.have.property("source", externalSources.swb);
-                        res.body[0][0].should.have.property("journalArticle_publicationDate", "2006-01-01T00:00:00.000Z");
                         res.body[0][1].should.have.property("journal_title");
                         res.body[0][0].should.have.property("journalArticle_identifiers");
                         res.body[0][0].journalArticle_identifiers.should.be.Array;
@@ -285,13 +283,12 @@ describe('controllers', function() {
                     this.timeout(1000000);
                     var query = "Academically%2520Adrift:" +
                         "%2520Limited%2520Learning%2520on%2520College%2520Campuses";
-                    var threshold = 0.5;
 
                     agent
                         .get('/getExternalSuggestionsByQueryString')
                         .set('Accept', 'application/json')
                         .query({ query: query })
-                        .query({ threshold: 0.5 })
+                        .query({ k: 3 })
                         .expect('Content-Type', /json/)
                         .expect(200)
                         .end(function (err, res) {
@@ -303,8 +300,7 @@ describe('controllers', function() {
                             res.body[0][0].should.have.property("status", status.external);
                             res.body[0][0].should.have.property("monograph_identifiers");
                             res.body[0][0].monograph_identifiers.should.be.Array;
-                            res.body[0][0].monograph_identifiers.should.have.lengthOf(8);
-                            res.body[0][0].monograph_identifiers[7].should.have.property("scheme", "URL_SWB");
+                            res.body[0][0].monograph_identifiers.should.have.lengthOf(5);
                             done();
                         });
                 });
@@ -317,6 +313,7 @@ describe('controllers', function() {
                     .get('/getExternalSuggestionsByQueryString')
                     .set('Accept', 'application/json')
                     .query({ query: query })
+                    .query({ k: 18 })
                     .expect('Content-Type', /json/)
                     .expect(200)
                     .end(function (err, res) {
@@ -325,10 +322,6 @@ describe('controllers', function() {
                         //res.body.should.have.lengthOf(2);
                         res.body.should.have.lengthOf(18);
                         res.body[1][0].should.have.property("status", status.external);
-                        //res.body[0].should.have.property("title", "Direkte Demokratie und Umweltpolitik in der Schweiz");
-                        res.body[1][0].should.have.property("bookChapter_identifiers");
-                        res.body[1][0].bookChapter_identifiers.should.be.Array;
-                        res.body[1][0].bookChapter_identifiers.should.have.lengthOf(2);
                         done();
                     });
             });
@@ -373,7 +366,7 @@ describe('controllers', function() {
                     });
             });
 
-            it.only('should return a match from swb', function (done) {
+            it('should return a match from swb', function (done) {
                 this.timeout(100000);
                 var query = "1963 Hannah Arendt Über die Revolution";
 
@@ -387,7 +380,7 @@ describe('controllers', function() {
                         should.not.exist(err);
                         res.body.should.be.Array;
                         //res.body.should.have.lengthOf(2);
-                        res.body.should.have.lengthOf(1);
+                        res.body.should.have.lengthOf(10);
                         res.body[0][0].should.have.property("status", status.external);
                         done();
                     });
