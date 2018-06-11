@@ -452,7 +452,7 @@ function triggerOcrProcessing(req, res) {
                     });
                 },
                 function (callback) {
-                    ocrHelper.getImageForPDF(scan.scanName, function (err, res) {
+                    ocrHelper.getImagesForPDF(scan.scanName, function (err, res) {
                         if (err) {
                             logger.error(err);
                             return callback(err, null);

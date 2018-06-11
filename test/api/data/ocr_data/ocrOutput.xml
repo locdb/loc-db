@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LOCDBViewResults>
+    <FilesFound>
+        <filename>20180611113200_references-0.jpg</filename>
+        <filename>20180611113200_references-1.jpg</filename>
+        <filename>20180611113200_references-2.jpg</filename>
+        <filename>20180611113200_references-3.jpg</filename>
+    </FilesFound>
+    <FilesNotFound></FilesNotFound>
+    <algorithm fname="references-0.jpg" name="LOCDB Web service">
+        <BibStructured>
+            <authors>
+                <author>H Elonheimo</author>
+                <author>A Sourander</author>
+                <author>S Niemeli</author>
+                <author>H Helenrus</author>
+            </authors>
+            <title>Generic and crime type specific correlates of youth crimme. A Finnish population-based study.</title>
+            <date>2010</date>
+            <journal>Social Psychiatry and Physiatric Epidemiology</journal>
+            <volume>00</volume>
+            <marker>10.</marker>
+            <rawString>Elonheimo H, Sourander A, Niemeli S and Helenrus H (2010) Generic and crime type specific correlates of youth crimme. A Finnish population-based study. Social Psychiatry and Physiatric Epidemiology 00 (accessed 18 April 2011).</rawString>
+        </BibStructured>
+        <BibStructured>
+            <authors>
+                <author>M Farnnworth</author>
+                <author>T Thornberry</author>
+                <author>M Krohn</author>
+                <author>A Lizotte</author>
+            </authors>
+            <title>Measurement inn the study of class and delinquency: Integratiing theory and research.</title>
+            <date>1994</date>
+            <journal>Journal of Research in Crime and Delinquency</journal>
+            <volume>31</volume>
+            <issue>1</issue>
+            <pages>32--61</pages>
+            <marker>11.</marker>
+            <rawString>Farnnworth M, Thornberry T, Krohn M and Lizotte A (1994) Measurement inn the study of class and delinquency: Integratiing theory and research. Journal of Research in Crime and Delinquency 31(1): 32-61.</rawString>
+        </BibStructured>
+        <BibStructured>
+            <authors>
+                <author>M Christoffersen</author>
+                <author>K Soothill</author>
+                <author>B Francis</author>
+            </authors>
+            <title>Risk tactors tor a first-time drink-driving conviction among young men: A birth cohort study of all men born in Denmark in</title>
+            <date>2008</date>
+            <journal>Journal of Substance Abuse Treatment</journal>
+            <volume>34</volume>
+            <issue>4</issue>
+            <pages>415--4425</pages>
+            <marker>13.</marker>
+            <rawString>Christoffersen M, Soothill K and Francis B (2008) Risk tactors tor a first-time drink-driving conviction among young men: A birth cohort study of all men born in Denmark in 1966. Journal of Substance Abuse Treatment 34(4): 415-4425.</rawString>
+        </BibStructured>
+        <BibStructured>
+            <authors>
+                <author>M Christoffersen</author>
+                <author>K Soothill</author>
+                <author>B Francis</author>
+            </authors>
+            <title>Violent life events and social disadvantage: A systematic study of the social back-ground of various kinds of lethal violence, other violent crime, suicide, and suicide attempts.</title>
+            <date>2007</date>
+            <journal>Journal of Scandinavian Studies in Criminology and Crime Prevention</journal>
+            <volume>8</volume>
+            <issue>2</issue>
+            <pages>157--184</pages>
+            <marker>14.</marker>
+            <rawString>Christoffersen M, Soothill K and Francis B (2007) Violent life events and social disadvantage: A systematic study of the social back-ground of various kinds of lethal violence, other violent crime, suicide, and suicide attempts. Journal of Scandinavian Studies in Criminology and Crime Prevention 8(2): 157-184.</rawString>
+        </BibStructured>
+    </algorithm>
+    <algorithm fname="references-1.jpg" name="LOCDB Web service">
+        <BibStructured>
+            <authors>
+                <author>T Lappi-Seppailli</author>
+            </authors>
+            <title>Penal policy in Scandinavia. In: Tonry</title>
+            <date>2007</date>
+            <booktitle>Crime, Punishment, and Politics in Comparative Perspective. Crime and Justice - A Review of Research 36.</booktitle>
+            <pages>217--296</pages>
+            <editor>M (ed.)</editor>
+            <publisher>University of Chicago Press,</publisher>
+            <location>Chicago, IL:</location>
+            <marker>10.</marker>
+            <rawString>Lappi-Seppailli T (2007) Penal policy in Scandinavia. In: Tonry M (ed.) Crime, Punishment, and Politics in Comparative Perspective. Crime and Justice - A Review of Research 36. Chicago, IL: University of Chicago Press, 217-296.</rawString>
+        </BibStructured>
+        <BibStructured>
+            <authors>
+                <author>E Lahelma</author>
+                <author>M Laaksonen</author>
+                <author>P Martikainen</author>
+                <author>O Rahkonen</author>
+                <author>S Sarlio-Lahteenkorva</author>
+            </authors>
+            <title>Multiple measures of socioeconomic circumstances and common mental disorders.</title>
+            <date>2006</date>
+            <journal>Social Science &amp; Medicine</journal>
+            <volume>63</volume>
+            <issue>5</issue>
+            <pages>1383--1399</pages>
+            <marker>11.</marker>
+            <rawString>Lahelma E, Laaksonen M, Martikainen P, Rahkonen O and Sarlio-Lahteenkorva S (2006) Multiple measures of socioeconomic circumstances and common mental disorders. Social Science &amp; Medicine 63(5): 1383-1399.</rawString>
+        </BibStructured>
+        <BibStructured>
+            <authors>
+                <author>H Remes</author>
+                <author>P Martikcainen</author>
+                <author>T Valkonen</author>
+            </authors>
+            <title>Mortality inequalities by parental education among children and young adults in Finland 1990-2004.Journal of Epidemiology and</title>
+            <date>2010</date>
+            <journal>Commuity Health</journal>
+            <volume>64</volume>
+            <issue>2</issue>
+            <pages>130--135</pages>
+            <marker>12.</marker>
+            <rawString>Remes H, Martikcainen P and Valkonen T (2010) Mortality inequalities by parental education among children and young adults in Finland 1990-2004.Journal of Epidemiology and Commuity Health 64(2): 130-135.</rawString>
+        </BibStructured>
+        <BibStructured>
+            <authors>
+                <author>J MMurray</author>
+                <author>D Farrington</author>
+                <author>M Eisner</author>
+            </authors>
+            <title>Drawing conclusions about causes from systematic reviews of risk tactors: The Cambridge quality checklists.</title>
+            <date>2009</date>
+            <journal>Journal of Experimental Criminology</journal>
+            <volume>5</volume>
+            <issue>1</issue>
+            <pages>1--23</pages>
+            <marker>13.</marker>
+            <rawString>MMurray J, Farrington D and Eisner M (2009) Drawing conclusions about causes from systematic reviews of risk tactors: The Cambridge quality checklists. Journal of Experimental Criminology 5(1): 1-23.</rawString>
+        </BibStructured>
+        <BibStructured>
+            <authors>
+                <author>J Kivivuori</author>
+                <author>V Salmi</author>
+            </authors>
+            <title>The challenge of special needs education in school-based delinquency research.</title>
+            <date>2009</date>
+            <journal>Journal of Scandinavian Studies in Criminology and Crime Prevention</journal>
+            <volume>10</volume>
+            <issue>1</issue>
+            <pages>2--17</pages>
+            <marker>14.</marker>
+            <rawString>Kivivuori J and Salmi V (2009) The challenge of special needs education in school-based delinquency research. Journal of Scandinavian Studies in Criminology and Crime Prevention 10(1): 2-17.</rawString>
+        </BibStructured>
+        <BibStructured>
+            <authors>
+                <author>A Nilsson</author>
+                <author>F Estrada</author>
+            </authors>
+            <title>Criminality and Life-Chances. A Longitudinal Study of Crime, Childhood Circumstances and Living Conditions up to Age 48.</title>
+            <date>2009</date>
+            <pages>3</pages>
+            <institution>Stocktholm University, Department of Criminology Report Series</institution>
+            <location>Stockholm: Stockholm University.</location>
+            <marker>15.</marker>
+            <rawString>Nilsson A and Estrada F (2009) Criminality and Life-Chances. A Longitudinal Study of Crime, Childhood Circumstances and Living Conditions up to Age 48. Stocktholm University, Department of Criminology Report Series 2009: 3. Stockholm: Stockholm University.</rawString>
+        </BibStructured>
+        <BibStructured>
+            <authors>
+                <author>E Maguin</author>
+                <author>R Loeber</author>
+            </authors>
+            <title>Academic performance and delinquency.</title>
+            <date>1996</date>
+            <booktitle>Crime and Justice - A Review of Research 20.</booktitle>
+            <pages>145--264</pages>
+            <editor>In: Tonry M (ed.)</editor>
+            <publisher>Chicago University Press,</publisher>
+            <location>Chicago, IL:</location>
+            <marker>16.</marker>
+            <rawString>Maguin E and Loeber R (1996) Academic performance and delinquency. In: Tonry M (ed.) Crime and Justice - A Review of Research 20. Chicago, IL: Chicago University Press, 145-264.</rawString>
+        </BibStructured>
+        <BibStructured>
+            <authors>
+                <author>K Herttua</author>
+                <author>P Makeli</author>
+                <author>P Martikainen</author>
+            </authors>
+            <title>Changes in alcohol-related mortality and its socioeco- nomic differences after a large reduction in alcohol prices: A natural experiment based on register data.</title>
+            <date>2008</date>
+            <journal>American Journal of Epidemiology</journal>
+            <volume>168</volume>
+            <issue>10</issue>
+            <pages>1110--1</pages>
+            <marker>17.</marker>
+            <rawString>Herttua K, Makeli P and Martikainen P (2008) Changes in alcohol-related mortality and its socioeco- nomic differences after a large reduction in alcohol prices: A natural experiment based on register data. American Journal of Epidemiology 168(10): 1110-1 118.</rawString>
+        </BibStructured>
+        <BibStructured>
+            <authors>
+                <author>B Hallerod</author>
+                <author>A Westberg</author>
+            </authors>
+            <title>Youth problem: What's the problem?: A longitudinal study of incomes and economic hardships among Swedish youth.</title>
+            <date>2006</date>
+            <journal>Acta Sociologica</journal>
+            <volume>49</volume>
+            <issue>1</issue>
+            <pages>83--102</pages>
+            <marker>19.</marker>
+            <rawString>Hallerod B and Westberg A (2006) Youth problem: What's the problem?: A longitudinal study of incomes and economic hardships among Swedish youth. Acta Sociologica 49(1): 83-102.</rawString>
+        </BibStructured>
+    </algorithm>
+    <algorithm fname="references-2.jpg" name="LOCDB Web service">
+        <BibStructured>
+            <authors>
+                <author>E Wei</author>
+                <author>R Loeber</author>
+                <author>M Stouthamer-Loeber</author>
+            </authors>
+            <title>How many of the offspring born to teenage fathers are produced by repeat serious delinquents?</title>
+            <date>2002</date>
+            <journal>Criminal Behaviour and Mental Health</journal>
+            <volume>12</volume>
+            <issue>1</issue>
+            <pages>83--98</pages>
+            <marker>10.</marker>
+            <rawString>Wei E, Loeber R and Stouthamer-Loeber M (2002) How many of the offspring born to teenage fathers are produced by repeat serious delinquents? Criminal Behaviour and Mental Health 12(1): 83-98.</rawString>
+        </BibStructured>
+        <BibStructured>
+            <title>Pekka Martikainen is Professor of Demography at the Department of Social Studies,</title>
+            <date>1994</date>
+            <booktitle>He obtained his PhD at the London School of Economics and Political Science in</booktitle>
+            <institution>University of Helsinki.</institution>
+            <marker>11.</marker>
+            <rawString>Pekka Martikainen is Professor of Demography at the Department of Social Studies, University of Helsinki. He obtained his PhD at the London School of Economics and Political Science in 1994.</rawString>
+        </BibStructured>
+        <BibStructured>
+            <authors>
+                <author>B Wright</author>
+                <author>A Caspi</author>
+                <author>T Moffitt</author>
+                <author>P Silva</author>
+            </authors>
+            <title>Low self-control, social bonds, and crime: Social causation, social selection, or both?</title>
+            <date>1999</date>
+            <journal>Criminology</journal>
+            <volume>37</volume>
+            <issue>3</issue>
+            <pages>479--514</pages>
+            <marker>12.</marker>
+            <rawString>Wright B, Caspi A, Moffitt T and Silva P (1999b) Low self-control, social bonds, and crime: Social causation, social selection, or both? Criminology 37(3): 479-514.</rawString>
+        </BibStructured>
+        <BibStructured>
+            <authors>
+                <author>B Wright</author>
+                <author>A Caspi</author>
+                <author>T Moffitt</author>
+                <author>R Miech</author>
+                <author>P Silva</author>
+            </authors>
+            <title>Reconsidering the relationship between ses and delinquency: Causation but not correlatioon.</title>
+            <date>1999</date>
+            <journal>Criminology</journal>
+            <volume>37</volume>
+            <issue>1</issue>
+            <pages>175--194</pages>
+            <marker>13.</marker>
+            <rawString>Wright B, Caspi A, Moffitt T, Miech R and Silva P (1999a) Reconsidering the relationship between ses and delinquency: Causation but not correlatioon. Criminology 37(1): 175-194.</rawString>
+        </BibStructured>
+        <BibStructured>
+            <authors>
+                <author>Statistics Finland</author>
+            </authors>
+            <title>Peruskoulun koulupudolkaat lukuvuosina 1999/2000-2007/2008 [Compulsory school drop-outs during years 1999/2000-2007/2008]. Available at: http://www.stat.fi/til/kkkeskk/ 2007/kkesk</title>
+            <date>2009</date>
+            <pages>2009--03</pages>
+            <note>tau 005.html</note>
+            <marker>15.</marker>
+            <rawString>Statistics Finland (2009) Peruskoulun koulupudolkaat lukuvuosina 1999/2000-2007/2008 [Compulsory school drop-outs during years 1999/2000-2007/2008]. Available at: http://www.stat.fi/til/kkkeskk/ 2007/kkesk 2007 2009-03-11 tau 005.html</rawString>
+        </BibStructured>
+        <BibStructured>
+            <authors>
+                <author>J Ring</author>
+                <author>R Svensson</author>
+            </authors>
+            <title>Social class and criminality among young people: A study considering the effects of school achievement as a mediatinng factor on the basis of Swedish register and self-report data.</title>
+            <date>2007</date>
+            <journal>Journal of Scandinavian Studies in Criminology and Crime Prevention</journal>
+            <volume>8</volume>
+            <issue>2</issue>
+            <pages>210--233</pages>
+            <marker>16.</marker>
+            <rawString>Ring J and Svensson R (2007) Social class and criminality among young people: A study considering the effects of school achievement as a mediatinng factor on the basis of Swedish register and self-report data. Journal of Scandinavian Studies in Criminology and Crime Prevention 8(2): 210-233.</rawString>
+        </BibStructured>
+        <BibStructured>
+            <authors>
+                <author>T Valkonen</author>
+                <author>P Martikainen</author>
+                <author>M Jalovaara</author>
+                <author>S Koskinen</author>
+                <author>T Martelin</author>
+                <author>P Makela</author>
+            </authors>
+            <title>Changes in socio-economic inequalities in mortality during an economic boom and recession among middle- aged men and women in Finland.</title>
+            <date>2000</date>
+            <journal>European Journal of Public Health</journal>
+            <volume>10</volume>
+            <pages>274--280</pages>
+            <marker>18.</marker>
+            <rawString>Valkonen T, Martikainen P, Jalovaara M, Koskinen S, Martelin T and Makela P (2000) Changes in socio-economic inequalities in mortality during an economic boom and recession among middle- aged men and women in Finland. European Journal of Public Health 10: 274-280.</rawString>
+        </BibStructured>
+    </algorithm>
+    <algorithm fname="references-3.jpg" name="LOCDB Web service" />
+</LOCDBViewResults>

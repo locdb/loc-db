@@ -373,7 +373,7 @@ describe('controllers', function() {
                     });
             });
 
-            it.only('should return a match from swb', function (done) {
+            it('should return a match from swb', function (done) {
                 this.timeout(100000);
                 var query = "1963 Hannah Arendt Über die Revolution";
 

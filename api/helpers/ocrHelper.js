@@ -107,7 +107,9 @@ OcrHelper.prototype.parseXMLString = function(xmlString, fileName, callback){
                             }
                         }
 
-                        var be = new BibliographicEntry({bibliographicEntryText: citation.rawString[0]._,
+                        var be = new BibliographicEntry({
+                            bibliographicEntryText: citation.rawString[0], //._,
+                            scanId: algorithm.$.fname,
                             ocrData:{
                                 coordinates: coordinates,
                                 title: title,
@@ -119,7 +121,7 @@ OcrHelper.prototype.parseXMLString = function(xmlString, fileName, callback){
                             }});
                         bes.push(be.toObject())
                     }
-                    return callback(null, bes);
+                    //return callback(null, bes);
                 }
             //}
         }
@@ -177,7 +179,8 @@ OcrHelper.prototype.ocr_fileupload = function(fileName, textualPdf, callback){
     }else if((ext === "pdf" || ext === "PDF") && textualPdf){
         form = {
             files: fs.createReadStream(path),
-            Txt_Dummy: 'on'
+            Txt_Dummy: 'on',
+            pdfFlag: 'on' // added as default for the new version
         };
     }else{
         form = {
@@ -194,36 +197,36 @@ OcrHelper.prototype.ocr_fileupload = function(fileName, textualPdf, callback){
             logger.error("Request to OCR component failed.");
             return callback("Request to OCR component failed.", null);
         }
-        console.log(body);
+
         logger.info("Request to OCR component successful.", {body: body});
         callback(null, body);
     });
 };
 
-OcrHelper.prototype.getImageForPDF = function(fileName, callback){
+OcrHelper.prototype.getImagesForPDF = function(fileName, callback){
     var path = config.PATHS.UPLOAD + fileName;
     var ext = fileName.split('.')[fileName.split('.').length -1].toLowerCase();
 
     var form;
-    if(ext === "pdf"){
-        form = {
-            files: fs.createReadStream(path),
-        };
+   // if(ext === "pdf"){
+    form = {
+        files: fs.createReadStream(path),
+    };
 
-        request.post({url: config.URLS.OCR_IMAGEVIEW, formData: form, timeout:1000000000, encoding: null}, function(err, res, body) {
-            if (err) {
-                logger.error(err);
-                return callback(err, null);
-            }else if (res.statusCode!= 200) {
-                logger.error("Request to OCR component failed.");
-                return callback("Request to OCR component failed.", null);
-            }
-            logger.info("Request to OCR component successful.");
-            return callback(null, body);
-        });
-    }else{
-        return callback(null, null);
-    }
+    request.post({url: config.URLS.OCR_IMAGEVIEW, formData: form, timeout:1000000000, encoding: null}, function(err, res, body) {
+        if (err) {
+            logger.error(err);
+            return callback(err, null);
+        }else if (res.statusCode!= 200) {
+            logger.error("Request to OCR component failed.");
+            return callback("Request to OCR component failed.", null);
+        }
+        logger.info("Request to OCR component successful.");
+        return callback(null, body);
+    });
+    //}else{
+    //    return callback(null, null);
+    //}
 };
 
 /**
