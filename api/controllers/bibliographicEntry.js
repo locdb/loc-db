@@ -386,11 +386,13 @@ function getExternalSuggestions(req, res) {
             function (err, res) {
                 if (err) {
                     logger.error(err);
-                    return response.status(500).json(err);
+                    if(!res || (Array.isArray(res) && res.every(element => element === null))){
+                        return response.status(500).json(err);
+                    }
                 }
                 var result = [];
                 for(var sourceResults of res){
-                    if (sourceResults.length > 0) {
+                    if (sourceResults && sourceResults.length > 0) {
                         for (var parentChild of sourceResults) {
                             for(var br of parentChild){
                                 if (Object.keys(br).length !== 0 && stringSimilarity.compareTwoStrings(br.getTitleForType(br.type) + br.getSubtitleForType(br.type) + br.getContributorsForType(br.type), query) >= threshold) {
@@ -415,15 +417,19 @@ function getExternalSuggestions(req, res) {
 
                 if (err) {
                     logger.error(err);
-                    return response.status(500).json(err);
+                    if(!res || (Array.isArray(res) && res.every(element => element === null))){
+                        return response.status(500).json(err);
+                    }
                 }
                 var result = [];
                 for(var sourceRes of res){
-                    for(var parentChild of sourceRes){
-                        for(var br of parentChild){
-                            br.status = enums.status.external;
+                    if (sourceRes && sourceRes.length > 0) {
+                        for (var parentChild of sourceRes) {
+                            for (var br of parentChild) {
+                                br.status = enums.status.external;
+                            }
+                            result.push(parentChild);
                         }
-                        result.push(parentChild);
                     }
                 }
 

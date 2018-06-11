@@ -23,8 +23,8 @@ describe('controllers', function() {
                             if (err) return done(err);
                             setup.login(agent, function (err, result) {
                                 if (err) return done(err);
-                                setup.mockGVISuggestions();
-                                setup.mockK10PlusSuggestions();
+                                //setup.mockGVISuggestions();
+                                //setup.mockK10PlusSuggestions();
                                 setTimeout(function () {
                                     done();
                                 }, 2000);
@@ -356,6 +356,26 @@ describe('controllers', function() {
             it('should search by doi 2 (doi and other words are given)', function (done) {
                 this.timeout(100000);
                 var query = "DOI: 10.1007/s00148-005-0056-5";
+
+                agent
+                    .get('/getExternalSuggestionsByQueryString')
+                    .set('Accept', 'application/json')
+                    .query({ query: query })
+                    .expect('Content-Type', /json/)
+                    .expect(200)
+                    .end(function (err, res) {
+                        should.not.exist(err);
+                        res.body.should.be.Array;
+                        //res.body.should.have.lengthOf(2);
+                        res.body.should.have.lengthOf(1);
+                        res.body[0][0].should.have.property("status", status.external);
+                        done();
+                    });
+            });
+
+            it.only('should return a match from swb', function (done) {
+                this.timeout(100000);
+                var query = "1963 Hannah Arendt Über die Revolution";
 
                 agent
                     .get('/getExternalSuggestionsByQueryString')

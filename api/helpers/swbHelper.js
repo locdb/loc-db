@@ -106,9 +106,9 @@ SwbHelper.prototype.queryByTitle = function(title, callback){
  */
 SwbHelper.prototype.queryByQueryString = function(query, callback){
     var url = config.URLS.SWB
-        + '?query=pica.all%3D"'
+        + '?query=pica.all%3D'
         + query
-        + '"&version=1.1&operation=searchRetrieve&recordSchema=marc21'
+        + '&version=1.1&operation=searchRetrieve&recordSchema=marc21'
         + '&maximumRecords=5&recordPacking=xml';
     request({
         url: url,
