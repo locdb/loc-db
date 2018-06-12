@@ -2,6 +2,7 @@
 const BibliographicResource = require('./../schema/bibliographicResource');
 const logger = require('./../util/logger');
 const stringSimilarity = require('string-similarity');
+const levenshtein = require('fast-levenshtein');
 
 var SuggestionHelper = function(){
 };
@@ -45,7 +46,7 @@ SuggestionHelper.prototype.compare = function(parentChildA,parentChildB){
     if(scoreA == scoreB)
         return 0;
     if(scoreA > scoreB)
-        return -1;
+        return 1;
     else
         return -1;
 };
@@ -68,7 +69,7 @@ SuggestionHelper.prototype.computeSimilarities = function(query, suggestions, ca
                     br.getNumberForType(br.type)].join(' ');
 
                 parentChildScored.push({
-                    score: stringSimilarity.compareTwoStrings(stringRepresentation, query),
+                    score: levenshtein.get(stringRepresentation, query), //stringSimilarity.compareTwoStrings(stringRepresentation, query),
                     br: br
                 });
             }
