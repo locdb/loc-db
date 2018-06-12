@@ -23,7 +23,7 @@ describe('helpers', function() {
         });
 
         describe('queryByTitle', function(){
-            this.timeout(3000)
+            this.timeout(10000)
             it('should return a result for a given query', function(done) {
                 swbHelper.queryByTitle("Test", function(err, result){
                     result.should.be.ok;
