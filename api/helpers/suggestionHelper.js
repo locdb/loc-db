@@ -9,6 +9,7 @@ const swbHelper = require('./swbHelper.js').createSwbHelper();
 const solrHelper = require('./solrHelper.js').createSolrHelper();
 const enums = require('./../schema/enum.json');
 const async = require('async');
+const mongoBrSuggestions = require('./../models/bibliographicResourceSuggestions').mongoBrSuggestions;
 
 var SuggestionHelper = function(){
 };
@@ -233,39 +234,65 @@ SuggestionHelper.prototype.getExternalSuggestions = function(query, k, callback)
 
 
 
-/*
-SuggestionHelper.prototype.precalculateExternalSuggestions = function(br, callback) {
-    /!**
-     * If DOI exists, search for DOI only
-       if no DOI exists, and the citation is structured, search for title
-       if no DOI exists, and the citation is unstructured, search for the complete text of the citation
-     *!/
+SuggestionHelper.prototype.precalculateExternalSuggestions = function(br, cb) {
     var self = this;
-    for(var be of br.parts){
-        var queryString = '';
-        for(var identifier of be.identifiers){
-            if(identifier.scheme === enums.identifier.doi){
-                queryString = identifier.literalValue;
-            }
-        }
-        if(queryString ===''){
-            if(be.ocrData && be.ocrData.title && be.ocrData.authors && be.ocrData.authors.length > 0){
-                queryString = be.ocrData.title + ' ' + be.ocrData.authors[0];
-            }else if(be.ocrData && be.ocrData.title){
-                queryString = be.ocrData.title;
-            }else{
-                queryString = be.bibliographicEntryText
-            }
-        }
-        self.getExternalSuggestions(queryString, 10, function(err,result){
-            if(err){
+
+    async.map(br.parts, function(be, callback){
+        self.precalculateExternalSuggestionsForBE(be, function(err, res){
+            if (err) {
                 logger.error(err);
                 return callback(err, null);
             }
+            return callback(null, res);
         });
+    }, function(err,res){
+            if (err) {
+                logger.error(err);
+                return cb(err, null);
+            }
+            return cb(null, res);
+    });
+};
+
+
+SuggestionHelper.prototype.precalculateExternalSuggestionsForBE = function(be, callback) {
+    /**
+     * If DOI exists, search for DOI only
+     if no DOI exists, and the citation is structured, search for title
+     if no DOI exists, and the citation is unstructured, search for the complete text of the citation
+     */
+    var self = this;
+    var queryString = '';
+    for (var identifier of be.identifiers) {
+        if (identifier.scheme === enums.identifier.doi) {
+            queryString = identifier.literalValue;
+        }
     }
-}
-*/
+    if (queryString === '') {
+        if (be.ocrData && be.ocrData.title && be.ocrData.authors && be.ocrData.authors.length > 0) {
+            queryString = be.ocrData.title + ' ' + be.ocrData.authors[0];
+        } else if (be.ocrData && be.ocrData.title) {
+            queryString = be.ocrData.title;
+        } else {
+            queryString = be.bibliographicEntryText
+        }
+    }
+    self.getExternalSuggestions(queryString, 10, function (err, result) {
+        if (err) {
+            logger.error(err);
+            return callback(err, null);
+        }
+        var brSuggestions = new mongoBrSuggestions({suggestions: result, queryString: queryString});
+        brSuggestions.save(function (err, result) {
+            if (err) {
+                logger.error(err);
+                return callback(err, null);
+            }
+            return callback(null, result);
+        });
+    });
+};
+
 
 /**
  * Factory function

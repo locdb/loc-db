@@ -14,6 +14,6 @@ const brSuggestionsSchema = new Schema({
 var mongoBrSuggestions = mongoose.model('brSuggestions', brSuggestionsSchema);
 
 module.exports = {
-    mongoBr: mongoBrSuggestions,
-    brSchema: brSuggestionsSchema
+    mongoBrSuggestions: mongoBrSuggestions,
+    brSuggestionsSchema: brSuggestionsSchema
 };

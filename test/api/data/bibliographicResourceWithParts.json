@@ -1,0 +1,307 @@
+{
+  "type":"BOOK_CHAPTER",
+  "partOf":"5ae1bdb10a5ca46a3e4cb111",
+  "bookChapter_number":"2",
+  "bookChapter_publicationDate":"2018-05-14T00:00:00.000Z",
+  "bookChapter_subtitle":"Subtitle XY",
+  "bookChapter_title":"Beispielchapter",
+  "standardSeries_embodiedAs":[
+
+  ],
+  "standard_embodiedAs":[
+
+  ],
+  "referenceEntry_embodiedAs":[
+
+  ],
+  "referenceBook_embodiedAs":[
+
+  ],
+  "book_embodiedAs":[
+
+  ],
+  "reportSeries_embodiedAs":[
+
+  ],
+  "report_embodiedAs":[
+
+  ],
+  "dataset_embodiedAs":[
+
+  ],
+  "journalArticle_embodiedAs":[
+
+  ],
+  "journalIssue_embodiedAs":[
+
+  ],
+  "journalVolume_embodiedAs":[
+
+  ],
+  "journal_embodiedAs":[
+
+  ],
+  "proceedings_embodiedAs":[
+
+  ],
+  "proceedingsArticle_embodiedAs":[
+
+  ],
+  "dissertation_embodiedAs":[
+
+  ],
+  "component_embodiedAs":[
+
+  ],
+  "bookTrack_embodiedAs":[
+
+  ],
+  "bookPart_embodiedAs":[
+
+  ],
+  "bookSection_embodiedAs":[
+
+  ],
+  "bookChapter_embodiedAs":[
+    {
+      "type":"PRINT",
+      "firstPage":27,
+      "lastPage":28,
+      "_id":"5ae1be030a5ca46a3e4cb164",
+      "scans":[
+        {
+          "_id":"5ae1bdb10a5ca46a3e4cb11e",
+          "scanName":"5ae1bdb10a5ca46a3e4cb11e.png",
+          "xmlName":"5ae1bdb10a5ca46a3e4cb11e.xml",
+          "textualPdf":false,
+          "status":"OCR_PROCESSED"
+        }
+      ],
+      "identifiers":[
+
+      ]
+    }
+  ],
+  "bookSet_embodiedAs":[
+
+  ],
+  "bookSeries_embodiedAs":[
+
+  ],
+  "editedBook_embodiedAs":[
+
+  ],
+  "monograph_embodiedAs":[
+
+  ],
+  "parts":[
+    {
+      "bibliographicEntryText":"Literatur Acheson, Dean (1973). Ts Iast Eternal Realm, New York: W. W. Norton.",
+      "scanId":"5ae1bdb10a5ca46a3e4cb11e",
+      "status":"VALID",
+      "_id":"5ae1be030a5ca46a3e4cb163",
+      "ocrData":{
+        "coordinates":"205 2177 1347 2213",
+        "title":"Ts Iast Eternal Realm,",
+        "date":"1973",
+        "marker":"Acheson, Dean, 1973",
+        "journal":"",
+        "volume":"",
+        "_id":"5af943ad3f17a03bd70e76e5",
+        "authors":[
+          "Literatur Acheson"
+        ]
+      },
+      "references":"5b1a7028e9d4cb2b604d30ba",
+      "identifiers":[
+
+      ]
+    },
+    {
+      "bibliographicEntryText":"Arendt, Hannah (1963): Uber de Revolution, München: Piper.",
+      "scanId":"5ae1bdb10a5ca46a3e4cb11e",
+      "status":"OCR_PROCESSED",
+      "_id":"5ae1be030a5ca46a3e4cb162",
+      "ocrData":{
+        "coordinates":"224 2695 1152 2736",
+        "title":"Uber de Revolution,",
+        "date":"1963",
+        "marker":"Arendt, 1963",
+        "journal":"",
+        "volume":"",
+        "_id":"5af943ad3f17a03bd70e76e4",
+        "authors":[
+          "Hannah Arendt"
+        ]
+      },
+      "identifiers":[
+
+      ]
+    }
+  ],
+  "cites":[
+    "5aec100f1ef1bf5113036f87",
+    "5af19b08adf6d742d4492919",
+    "5af943763f17a03bd70e76b1",
+    "5b07c7fb55f46c1de89a1d6e",
+    "5b07cbb355f46c1de89a2162",
+    "5b0bcbc393d5536341f862cc",
+    "5b1a7028e9d4cb2b604d30ba"
+  ],
+  "standardSeries_contributors":[
+
+  ],
+  "standard_contributors":[
+
+  ],
+  "referenceEntry_contributors":[
+
+  ],
+  "referenceBook_contributors":[
+
+  ],
+  "book_contributors":[
+
+  ],
+  "reportSeries_contributors":[
+
+  ],
+  "proceedings_contributors":[
+
+  ],
+  "dissertation_contributors":[
+
+  ],
+  "component_contributors":[
+
+  ],
+  "bookTrack_contributors":[
+
+  ],
+  "dataset_contributors":[
+
+  ],
+  "bookChapter_contributors":[
+    {
+      "roleType":"AUTHOR",
+      "heldBy":{
+        "familyName":"Ich Selber",
+        "nameString":"Ich Selber",
+        "_id":"5af9a2fd8165ec2ece638fa2",
+        "identifiers":[
+
+        ]
+      },
+      "_id":"5af9a2fd8165ec2ece638fa1",
+      "identifiers":[
+
+      ]
+    }
+  ],
+  "bookSet_contributors":[
+
+  ],
+  "proceedingsArticle_contributors":[
+
+  ],
+  "bookSeries_contributors":[
+
+  ],
+  "editedBook_contributors":[
+
+  ],
+  "monograph_contributors":[
+
+  ],
+  "journalArticle_contributors":[
+
+  ],
+  "journalIssue_contributors":[
+
+  ],
+  "journalVolume_contributors":[
+
+  ],
+  "report_contributors":[
+
+  ],
+  "journal_contributors":[
+
+  ],
+  "standardSeries_identifiers":[
+
+  ],
+  "standard_identifiers":[
+
+  ],
+  "referenceEntry_identifiers":[
+
+  ],
+  "referenceBook_identifiers":[
+
+  ],
+  "book_identifiers":[
+
+  ],
+  "reportSeries_identifiers":[
+
+  ],
+  "report_identifiers":[
+
+  ],
+  "dataset_identifiers":[
+
+  ],
+  "proceedings_identifiers":[
+
+  ],
+  "proceedingsArticle_identifiers":[
+
+  ],
+  "dissertation_identifiers":[
+
+  ],
+  "component_identifiers":[
+
+  ],
+  "bookTrack_identifiers":[
+
+  ],
+  "bookPart_identifiers":[
+
+  ],
+  "bookSection_identifiers":[
+
+  ],
+  "bookChapter_identifiers":[
+    {
+      "scheme":"ISSN",
+      "literalValue":"123456789",
+      "_id":"5af9a2fd8165ec2ece638fa0"
+    }
+  ],
+  "bookSet_identifiers":[
+
+  ],
+  "bookSeries_identifiers":[
+
+  ],
+  "editedBook_identifiers":[
+
+  ],
+  "monograph_identifiers":[
+
+  ],
+  "journalArticle_identifiers":[
+
+  ],
+  "journalIssue_identifiers":[
+
+  ],
+  "journalVolume_identifiers":[
+
+  ],
+  "journal_identifiers":[
+
+  ]
+}

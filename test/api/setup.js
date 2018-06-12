@@ -139,11 +139,11 @@ Setup.prototype.mockGVISuggestions = function(){
     nock("http://gvi.bsz-bw.de")
         .get('/solr/GVI/select')
         .query(function(actualQueryObject){
-            if(actualQueryObject.q.indexOf("Hannah") !== -1 || actualQueryObject.q.indexOf("crime") !== -1 || actualQueryObject.q.indexOf("Campuses") !== -1 || actualQueryObject.q.indexOf("Demokratie") !== -1){
+            //if(actualQueryObject.q.indexOf("Hannah") !== -1 || actualQueryObject.q.indexOf("crime") !== -1 || actualQueryObject.q.indexOf("Campuses") !== -1 || actualQueryObject.q.indexOf("Demokratie") !== -1){
                 return true;
-            }else{
-                return false;
-            }
+            //}else{
+            //    return false;
+            //}
         })
         .replyWithFile(200, __dirname + '/data/gvi/querySuggestions.txt')
         .persist();
@@ -168,11 +168,11 @@ Setup.prototype.mockK10PlusSuggestions = function(){
     nock("http://findex.gbv.de")
         .get('/index/180/select')
         .query(function(actualQueryObject){
-            if(actualQueryObject.q.indexOf("Hannah") !== -1 || actualQueryObject.q.indexOf("crime") !== -1 || actualQueryObject.q.indexOf("Campuses") !== -1 || actualQueryObject.q.indexOf("Demokratie") !== -1){
+            //if(actualQueryObject.q.indexOf("Hannah") !== -1 || actualQueryObject.q.indexOf("crime") !== -1 || actualQueryObject.q.indexOf("Campuses") !== -1 || actualQueryObject.q.indexOf("Demokratie") !== -1){
                 return true;
-            }else{
-                return false;
-            }
+            //}else{
+            //    return false;
+            //}
         })
         .replyWithFile(200, __dirname + '/data/k10plus/querySuggestions.txt')
         .persist();
