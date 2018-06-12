@@ -3,11 +3,12 @@ const request = require('supertest');
 const server = require('../../../app');
 const setup = require('./../setup.js').createSetup();
 const status = require('./../../../api/schema/enum.json').status;
+const resourceType = require('./../../../api/schema/enum.json').resourceType;
 const externalSources = require('./../../../api/schema/enum.json').externalSources;
 
 var agent = request.agent(server);
 
-describe('controllers', function() {
+describe.only('controllers', function() {
 
     describe('bibliographicEntry', function () {
         var id = "";
@@ -597,6 +598,40 @@ describe('controllers', function() {
                         res.body.cites.should.be.Array().and.have.lengthOf(1);
                         done();
                     });
+            });
+        });
+
+        describe.only('GET /getPrecalculatedSuggestions/<id>', function () {
+            this.timeout(3000000)
+            it('should get the precalculated suggestions for a given be', function (done) {
+                    var be;
+                    agent
+                        .post('/saveResource')
+                        .type('form')
+                        .field('identifierScheme', 'DOI')
+                        .field('identifierLiteralValue', '10.1007/s11617-006-0056-1')
+                        .field('resourceType', resourceType.journalArticle)
+                        .set('Accept', 'application/json')
+                        .expect('Content-Type', /json/)
+                        .expect(200)
+                        .end(function (err, res) {
+                            should.not.exist(err);
+                            be = res.body[0].parts[0];
+                            setTimeout(function () {
+                                agent
+                                    .get('/getPrecalculatedSuggestions/' + be._id.toString())
+                                    .set('Accept', 'application/json')
+                                    .expect(200)
+                                    .end(function (err, res) {
+                                        should.not.exist(err);
+                                        res.body.should.be.Array();
+                                        res.body.should.not.have.lengthOf(0);
+                                        done();
+                                    });
+                            }, 30000);
+                        });
+
+
             });
         });
     });

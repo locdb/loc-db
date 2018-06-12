@@ -14,6 +14,7 @@ const crossrefHelper = require('./crossrefHelper').createCrossrefHelper();
 const async = require('async');
 const Scan = require('./../schema/scan');
 const ResourceEmbodiment = require('./../schema/resourceEmbodiment');
+const suggestionHelper = require('./suggestionHelper').createSuggestionHelper();
 
 var DatabaseHelper = function(){
 };
@@ -428,6 +429,14 @@ DatabaseHelper.prototype.curateHierarchy = function(resources, callback){
                 logger.error(err);
                 return callback(err, null);
             }
+
+            // TODO: Hook for precalculation of suggestions?
+            suggestionHelper.precalculateExternalSuggestions(child, function(err,res){
+                if(err){
+                    logger.error(err);
+                }
+            });
+
             return callback(err, [child, parent]);
         });
     });

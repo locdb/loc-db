@@ -15,7 +15,7 @@ const fs = require('fs');
 const path = require('path');
 const databaseHelper = require('./../helpers/databaseHelper.js').createDatabaseHelper();
 const crossrefHelper = require('./../helpers/crossrefHelper').createCrossrefHelper();
-
+const suggestionHelper = require('./../helpers/suggestionHelper').createSuggestionHelper();
 
 
 function saveResource(req, res) {
@@ -227,6 +227,14 @@ function saveResource(req, res) {
                                     logger.error(err);
                                     return response.status(500).json(err);
                                 }
+
+                                // TODO: Hook for precalculation of suggestions?
+                                suggestionHelper.precalculateExternalSuggestions(resource, function(err,res){
+                                    if(err){
+                                        logger.error(err);
+                                    }
+                                });
+
                                 if (binaryFile || stringFile) {
                                     return databaseHelper.saveReferencesPageForResource(resource, binaryFile, textualPdf, stringFile, embodimentType, function (err, result) {
                                         if (err) {
@@ -466,6 +474,14 @@ function triggerOcrProcessing(req, res) {
                     return response.status(500).json({"message": "An error occured."});
                 }
                 if(results[2]){
+
+                    // TODO: Hook for precalculation of suggestions?
+                    suggestionHelper.precalculateExternalSuggestions(results[0], function(err,res){
+                        if(err){
+                            logger.error(err);
+                        }
+                    });
+
                     ocrHelper.saveBinaryFile(scan._id.toString(), results[2], function(err, res){
                         if (err) {
                             logger.error(err);

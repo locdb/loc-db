@@ -255,20 +255,14 @@ SuggestionHelper.prototype.precalculateExternalSuggestions = function(br, cb) {
 };
 
 
-SuggestionHelper.prototype.precalculateExternalSuggestionsForBE = function(be, callback) {
-    /**
-     * If DOI exists, search for DOI only
-     if no DOI exists, and the citation is structured, search for title
-     if no DOI exists, and the citation is unstructured, search for the complete text of the citation
-     */
-    var self = this;
+SuggestionHelper.prototype.createQueryStringForBE = function(be, callback){
     var queryString = '';
     for (var identifier of be.identifiers) {
         if (identifier.scheme === enums.identifier.doi) {
             queryString = identifier.literalValue;
         }
     }
-    if (queryString === '') {
+    if (!queryString || queryString === '') {
         if (be.ocrData && be.ocrData.title && be.ocrData.authors && be.ocrData.authors.length > 0) {
             queryString = be.ocrData.title + ' ' + be.ocrData.authors[0];
         } else if (be.ocrData && be.ocrData.title) {
@@ -277,18 +271,34 @@ SuggestionHelper.prototype.precalculateExternalSuggestionsForBE = function(be, c
             queryString = be.bibliographicEntryText
         }
     }
-    self.getExternalSuggestions(queryString, 10, function (err, result) {
-        if (err) {
+    return callback(null, queryString);
+};
+
+SuggestionHelper.prototype.precalculateExternalSuggestionsForBE = function(be, callback) {
+    /**
+     * If DOI exists, search for DOI only
+     if no DOI exists, and the citation is structured, search for title
+     if no DOI exists, and the citation is unstructured, search for the complete text of the citation
+     */
+    var self = this;
+    self.createQueryStringForBE(be, function(err, queryString){
+        if(err){
             logger.error(err);
             return callback(err, null);
         }
-        var brSuggestions = new mongoBrSuggestions({suggestions: result, queryString: queryString});
-        brSuggestions.save(function (err, result) {
+        self.getExternalSuggestions(queryString, 10, function (err, result) {
             if (err) {
                 logger.error(err);
                 return callback(err, null);
             }
-            return callback(null, result);
+            var brSuggestions = new mongoBrSuggestions({suggestions: result, queryString: queryString});
+            brSuggestions.save(function (err, result) {
+                if (err) {
+                    logger.error(err);
+                    return callback(err, null);
+                }
+                return callback(null, result);
+            });
         });
     });
 };

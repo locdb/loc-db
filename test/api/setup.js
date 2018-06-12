@@ -2,6 +2,7 @@
 const config = require("./config.js");
 const mongoose = require('mongoose');
 const br = require('./../../api/models/bibliographicResource.js').mongoBr;
+const brSuggestions = require('./../../api/models/bibliographicResourceSuggestions.js').mongoBrSuggestions;
 const user = require('./../../api/models/user.js');
 const signup = require('./../../api/controllers/user.js').findOrCreateUser;
 const dataBibliographicResource = require('./data/bibliographicResource');
@@ -182,17 +183,19 @@ Setup.prototype.mockK10PlusSuggestions = function(){
 
 
 Setup.prototype.dropDB = function(callback){
-    br.remove({}, function(err) {
+    brSuggestions.remove({}, function(err) {
         console.log('Collection BR removed');
-        br.esTruncate(function(err){
-            console.log('Elastic BR index cleaned.');
-            user.remove({}, function(err) {
-                console.log('Collection User removed');
-                callback(err)
+        br.remove({}, function (err) {
+            console.log('Collection BR removed');
+            br.esTruncate(function (err) {
+                console.log('Elastic BR index cleaned.');
+                user.remove({}, function (err) {
+                    console.log('Collection User removed');
+                    callback(err)
+                });
             });
         });
     });
-
 };
 
 

@@ -749,6 +749,32 @@ paths:
           schema:
             $ref: "#/definitions/ErrorResponse"
 
+  /getPrecalculatedSuggestions/{id}:
+    x-swagger-router-controller: bibliographicEntry
+    get:
+      tags: [BibliographicEntry]
+      description: Retrieves external br suggestions (precalculated) for a given bibliographic entry.
+      operationId: getPrecalculatedSuggestions
+      parameters:
+        - name: id
+          in: path
+          description: The id of the be for which the precalculated suggestions shall be retrieved
+          required: true
+          type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            type: array
+            items:
+              type: array
+              items:
+                $ref: "#/definitions/BibliographicResource"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
   /swagger:
     x-swagger-pipe: swagger_raw
 

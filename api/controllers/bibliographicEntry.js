@@ -1,5 +1,6 @@
 'use strict';
 const mongoBr = require('./../models/bibliographicResource.js').mongoBr;
+const mongoBrSuggestions = require('./../models/bibliographicResourceSuggestions.js').mongoBrSuggestions;
 const logger = require('./../util/logger.js');
 const enums = require('./../schema/enum.json');
 const BibliographicResource = require('./../schema/bibliographicResource');
@@ -433,7 +434,54 @@ function create(req, res){
             return response.json(br);
         });
     });
+}
 
+
+function getPrecalculatedSuggestions(req, res){
+    var id = req.swagger.params.id.value;
+    var response = res;
+    
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        logger.error("Invalid value for parameter id.", {id: id});
+        return response.status(400).json({"message": "Invalid parameter."});
+    }
+
+    mongoBr.findOne({'parts._id': id}, function (err, br) {
+        if (err) {
+            logger.error(err);
+            return res.status(500).json({"message": "DB query failed."});
+        }
+        if (!br) {
+            logger.error("No bibliographic entry found for id.", {id: id});
+            return res.status(400).json({"message": "No bibliographic entry found for id."});
+        }
+
+
+        for (var be of br.parts) {
+            if (be._id.toString() === id) {
+                // we found the specific be
+                // create query string
+                suggestionHelper.createQueryStringForBE(be, function (err, queryString) {
+                    if (err) {
+                        logger.error(err);
+                        return response.status(500).json(err);
+                    }
+                    // retrieve suggestions by query
+                    mongoBrSuggestions.findOne({queryString: queryString}, function (err, suggestions) {
+                        if (err) {
+                            logger.error(err);
+                            return response.status(500).json(err);
+                        }
+                        if (!suggestions) {
+                            return response.json([]);
+                        }
+                        return response.json(suggestions.suggestions);
+
+                    });
+                });
+            }
+        }
+    });
 }
 
 module.exports = {
@@ -444,5 +492,6 @@ module.exports = {
     removeTargetBibliographicResource : removeTargetBibliographicResource,
     getInternalSuggestionsByQueryString : getInternalSuggestionsByQueryString,
     getExternalSuggestionsByQueryString : getExternalSuggestions,
+    getPrecalculatedSuggestions : getPrecalculatedSuggestions,
     create : create
 };

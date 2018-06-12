@@ -409,7 +409,7 @@ CrossrefHelper.prototype.parseReferences = function(obj, callback){
             }
 
             var bibliographicEntry = new BibliographicEntry({
-                identifiers:[new Identifier({scheme: enums.identifier.doi, literalValue: reference.DOI})],
+                identifiers: reference.DOI ? [new Identifier({scheme: enums.identifier.doi, literalValue: reference.DOI})] : [],
                 bibliographicEntryText: reference.unstructured,
                 ocrData:{
                     title: referenceTitle,
