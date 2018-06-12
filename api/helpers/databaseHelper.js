@@ -3,7 +3,7 @@
  */
 
 'use strict';
-const mongoBr = require('./../models/bibliographicResource.js');
+const mongoBr = require('./../models/bibliographicResource.js').mongoBr;
 const BibliographicResource = require('./../schema/bibliographicResource.js');
 const mongoose = require('mongoose');
 const enums = require('./../schema/enum.json');

@@ -1,7 +1,7 @@
 "use strict";
 const config = require("./config.js");
 const mongoose = require('mongoose');
-const br = require('./../../api/models/bibliographicResource.js');
+const br = require('./../../api/models/bibliographicResource.js').mongoBr;
 const user = require('./../../api/models/user.js');
 const signup = require('./../../api/controllers/user.js').findOrCreateUser;
 const dataBibliographicResource = require('./data/bibliographicResource');

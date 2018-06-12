@@ -1,4 +1,4 @@
-
+'use strict';
 // The bibliographicResource model
 const mongoose = require('mongoose')
        ,Schema = mongoose.Schema
@@ -250,7 +250,7 @@ brSchema.plugin(mongoosastic,{
     protocol: config.SEARCHINDEX.PROTOCOL
 });
 
-var mongoBr = mongoose.model('br', brSchema)
+var mongoBr = mongoose.model('br', brSchema);
 
 brSchema.transformIdentifiers = function(identifiers){
     var literalValues = [];
@@ -308,7 +308,9 @@ brSchema.pre('save', function (next) {
 
 
 
-
 mongoBr.synchronize();
 
-module.exports = mongoBr;
+module.exports = {
+    mongoBr: mongoBr,
+    brSchema: brSchema
+};

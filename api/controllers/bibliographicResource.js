@@ -1,6 +1,6 @@
 "use strict";
 const swbHelper = require('./../helpers/swbHelper.js').createSwbHelper();
-const br = require('./../models/bibliographicResource.js');
+const br = require('./../models/bibliographicResource.js').mongoBr;
 const logger = require('./../util/logger');
 const _ = require('lodash');
 const mongoose = require('mongoose');

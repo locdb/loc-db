@@ -1,5 +1,5 @@
 'use strict';
-const mongoBr = require('./../models/bibliographicResource.js');
+const mongoBr = require('./../models/bibliographicResource.js').mongoBr;
 const logger = require('./../util/logger.js');
 const enums = require('./../schema/enum.json');
 const BibliographicResource = require('./../schema/bibliographicResource');

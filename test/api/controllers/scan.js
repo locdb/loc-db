@@ -6,7 +6,7 @@ const status = require('./../../../api/schema/enum.json').status;
 const resourceType = require('./../../../api/schema/enum.json').resourceType;
 const fs = require('fs');
 const config = require('./../../../config/config.js');
-const mongoBr = require('./../../../api/models/bibliographicResource');
+const mongoBr = require('./../../../api/models/bibliographicResource').mongoBr;
 
 var agent = request.agent(server);
 

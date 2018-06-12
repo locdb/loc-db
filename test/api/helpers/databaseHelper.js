@@ -8,7 +8,7 @@ const databaseHelper = require('./../../../api/helpers/databaseHelper.js').creat
 const fs = require('fs');
 const enums = require('./../../../api/schema/enum.json');
 const config = require('./../../../config/config');
-const mongoBr = require('./../../../api/models/bibliographicResource.js');
+const mongoBr = require('./../../../api/models/bibliographicResource.js').mongoBr;
 
 describe('helpers', function() {
     describe('databaseHelper', function() {
