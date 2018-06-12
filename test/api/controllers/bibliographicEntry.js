@@ -270,10 +270,10 @@ describe('controllers', function() {
                         res.body.should.have.lengthOf(8);
                         //res.body[0].should.have.property("title", "Direkte Demokratie in der Schweiz: Entwicklungen, Debatten und Wirkungen");
                         res.body[0][0].should.have.property("status", status.external);
-                        res.body[0][1].should.have.property("journal_title");
-                        res.body[0][0].should.have.property("journalArticle_identifiers");
-                        res.body[0][0].journalArticle_identifiers.should.be.Array;
-                        res.body[0][0].journalArticle_identifiers.should.have.lengthOf(3);
+                        //res.body[0][1].should.have.property("journal_title");
+                        //res.body[0][0].should.have.property("journalArticle_identifiers");
+                        //res.body[0][0].journalArticle_identifiers.should.be.Array;
+                        //res.body[0][0].journalArticle_identifiers.should.have.lengthOf(3);
                         done();
                     });
             });

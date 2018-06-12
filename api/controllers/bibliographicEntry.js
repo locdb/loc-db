@@ -6,10 +6,8 @@ const BibliographicResource = require('./../schema/bibliographicResource');
 const mongoose = require('mongoose');
 const extend = require('extend');
 const async = require('async');
-const googleScholarHelper = require('./../helpers/googleScholarHelper.js').createGoogleScholarHelper();
-const crossrefHelper = require('./../helpers/crossrefHelper.js').createCrossrefHelper();
-const swbHelper = require('./../helpers/swbHelper.js').createSwbHelper();
-const solrHelper = require('./../helpers/solrHelper.js').createSolrHelper();
+
+
 const suggestionHelper = require('./../helpers/suggestionHelper').createSuggestionHelper();
 
 
@@ -146,7 +144,7 @@ function getInternalSuggestionsByQueryString(req, res) {
     if(!threshold){
         threshold = 1.0;
     }
-    var doi = extractDOI(query);
+    var doi = suggestionHelper.extractDOI(query);
 
     if(!doi) {
         // get the property names to search in
@@ -224,149 +222,6 @@ function getInternalSuggestionsByQueryString(req, res) {
         logger.error(err);
         return response.json("Something went wrong with the internal suggestions");
     }
-
-}
-
-/**Given a string s, this function checks whether there is a DOI present and extracts it
-https://www.crossref.org/blog/dois-and-matching-regular-expressions/**/
-function extractDOI(s){
-    // /^10.\d{4,9}/[-._;()/:A-Z0-9]+$/i
-    // modified such that the pattern can also appear in the middle of the string
-    return s.match(/10.\d{4,9}\/[-._;()\/:A-Z0-9]+/i);
-}
-
-
-function getExternalSuggestionsByDOI(doi, cb){
-    async.parallel([
-/*        function (callback) {
-            swbHelper.queryByQueryString(doi, function (err, res) {
-                if (err) {
-                    return callback(err, null);
-                }
-                for(var parentChild of res){
-                    for(var br of parentChild){
-                        br.source = enums.externalSources.swb;
-                    }
-                }
-                return callback(null, res);
-            });
-        },
-        function (callback) {
-            solrHelper.queryGVIByQueryString(doi, function (err, res) {
-                if (err) {
-                    return callback(err, null);
-                }
-                for(var parentChild of res){
-                    for(var br of parentChild){
-                        br.source = enums.externalSources.gvi;
-                    }
-                }
-                return callback(null, res);
-            });
-        },
-        function (callback) {
-            solrHelper.queryK10plusByQueryString(doi, function (err, res) {
-                if (err) {
-                    return callback(err, null);
-                }
-                for(var parentChild of res){
-                    for(var br of parentChild){
-                        br.source = enums.externalSources.k10plus;
-                    }
-                }
-                return callback(null, res);
-            });
-        },*/
-        /*function (callback) {
-         googleScholarHelper.query(query, function (err, res) {
-         if (err) {
-         return callback(err, null);
-         }
-         return callback(null, res);
-         });
-         },*/
-        function (callback) {
-            crossrefHelper.queryByDOI(doi, function (err, res) {
-                if (err) {
-                    return callback(err, null);
-                }
-                for(var br of res){
-                    br.source = enums.externalSources.crossref;
-                }
-                var result = [res];
-                return callback(null, result);
-            });
-        }],
-        function (err, res) {
-            return cb(err, res);
-        });
-}
-
-function getExternalSuggestionsByQueryString(query, cb){
-    async.parallel([
-            function (callback) {
-                swbHelper.queryByQueryString(query, function (err, res) {
-                    if (err) {
-                        return callback(err, null);
-                    }
-                    for(var parentChild of res){
-                        for(var br of parentChild){
-                            br.source = enums.externalSources.swb;
-                        }
-                    }
-                    return callback(null, res);
-                });
-            },
-            function (callback) {
-                solrHelper.queryGVIByQueryString(query, function (err, res) {
-                    if (err) {
-                        return callback(err, null);
-                    }
-                    for(var parentChild of res){
-                        for(var br of parentChild){
-                            br.source = enums.externalSources.gvi;
-                        }
-                    }
-                    return callback(null, res);
-                });
-            },
-            function (callback) {
-                solrHelper.queryK10plusByQueryString(query, function (err, res) {
-                    if (err) {
-                        return callback(err, null);
-                    }
-                    for(var parentChild of res){
-                        for(var br of parentChild){
-                            br.source = enums.externalSources.k10plus;
-                        }
-                    }
-                    return callback(null, res);
-                });
-            },
-            /*function (callback) {
-             googleScholarHelper.query(query, function (err, res) {
-             if (err) {
-             return callback(err, null);
-             }
-             return callback(null, res);
-             });
-             },*/
-            function (callback) {
-                crossrefHelper.query(query, function (err, res) {
-                    if (err) {
-                        return callback(err, null);
-                    }
-                    for(var parentChild of res){
-                        for(var br of parentChild){
-                            br.source = enums.externalSources.crossref;
-                        }
-                    }
-                    return callback(null, res);
-                });
-            }],
-        function (err, res) {
-            return cb(err, res);
-        });
 }
 
 
@@ -378,72 +233,13 @@ function getExternalSuggestions(req, res) {
     if(!k){
         k = 10;
     }
-
-    var doi = extractDOI(query);
-
-    if(!doi){
-        getExternalSuggestionsByQueryString(query,
-            function (err, res) {
-                if (err) {
-                    logger.error(err);
-                    if(!res || (Array.isArray(res) && res.every(element => element === null))){
-                        return response.status(500).json(err);
-                    }
-                }
-
-
-                var result= [].concat.apply([], res);
-
-                /*for(var sourceResults of res){
-                    if (sourceResults && sourceResults.length > 0) {
-                        for (var parentChild of sourceResults) {
-                            for(var br of parentChild){
-                                if (Object.keys(br).length !== 0 && stringSimilarity.compareTwoStrings(br.getTitleForType(br.type) + br.getSubtitleForType(br.type) + br.getContributorsForType(br.type), query) >= threshold) {
-                                    result.push(parentChild);
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                }*/
-                suggestionHelper.sort(query, result, function(err,result){
-                    result = result.slice(0, k);
-                    for(var parentChild of result){
-                        for(var br of parentChild){
-                            br.status = enums.status.external;
-                        }
-                    }
-                    return response.json(result);
-                });
-            }
-        );
-    }else{
-        getExternalSuggestionsByDOI(doi[0].trim(),
-            function (err, res) {
-
-                if (err) {
-                    logger.error(err);
-                    if(!res || (Array.isArray(res) && res.every(element => element === null))){
-                        return response.status(500).json(err);
-                    }
-                }
-                var result = [];
-                for(var sourceRes of res){
-                    if (sourceRes && sourceRes.length > 0) {
-                        for (var parentChild of sourceRes) {
-                            for (var br of parentChild) {
-                                br.status = enums.status.external;
-                            }
-                            result.push(parentChild);
-                        }
-                    }
-                }
-
-                return response.json(result);
-            });
-    }
-
-
+    suggestionHelper.getExternalSuggestions(query, k, function(err,result){
+        if(err){
+            logger.error(err);
+            return response.status(500).json(err);
+        }
+        return response.json(result);
+    });
 }
 
 
