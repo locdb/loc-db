@@ -11,11 +11,11 @@ var agenda = new Agenda({db: {address: mongoUri, collection: 'agenda'}});
 
 agenda.define('precalculate suggestions', function(job, done) {
     var br = job.attrs.data.br;
-    suggestionHelper.precalculateExternalSuggestions(br, function(err,res){
-        if(err){
-            logger.error(err);
-        }
-    });
+    //suggestionHelper.precalculateExternalSuggestions(br, function(err,res){
+    //    if(err){
+    //        logger.error(err);
+    //    }
+    //});
 });
 
 agenda.on('ready', function() {
