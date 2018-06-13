@@ -235,7 +235,7 @@ function saveResource(req, res) {
                                 //        logger.error(err);
                                 //    }
                                 //});
-                                agenda.now('precalculate suggestions', {br: child});
+                                agenda.now('precalculate suggestions', {br: resource});
 
                                 if (binaryFile || stringFile) {
                                     return databaseHelper.saveReferencesPageForResource(resource, binaryFile, textualPdf, stringFile, embodimentType, function (err, result) {
@@ -483,7 +483,7 @@ function triggerOcrProcessing(req, res) {
                     //        logger.error(err);
                     //    }
                     //});
-                    agenda.now('precalculate suggestions', {br: child});
+                    agenda.now('precalculate suggestions', {br: results[0]});
 
                     ocrHelper.saveBinaryFile(scan._id.toString(), results[2], function(err, res){
                         if (err) {
