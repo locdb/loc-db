@@ -236,22 +236,26 @@ SuggestionHelper.prototype.getExternalSuggestions = function(query, k, callback)
 
 SuggestionHelper.prototype.precalculateExternalSuggestions = function(br, cb) {
     var self = this;
-
-    async.map(br.parts, function(be, callback){
-        self.precalculateExternalSuggestionsForBE(be, function(err, res){
-            if (err) {
-                logger.error(err);
-                return callback(err, null);
-            }
-            return callback(null, res);
-        });
-    }, function(err,res){
+    if(br.parts && br.parts.length > 0){
+        async.map(br.parts, function(be, callback){
+            self.precalculateExternalSuggestionsForBE(be, function(err, res){
+                if (err) {
+                    logger.error(err);
+                    return callback(err, null);
+                }
+                return callback(null, res);
+            });
+        }, function(err,res){
             if (err) {
                 logger.error(err);
                 return cb(err, null);
             }
             return cb(null, res);
-    });
+        });
+    }else{
+        return cb(null, []);
+    }
+
 };
 
 

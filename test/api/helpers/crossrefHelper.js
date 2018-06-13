@@ -84,10 +84,10 @@ describe('helpers', function() {
                     result[0].should.have.property("parts");
                     result[0].parts.should.be.Array;
                     result[0].parts.should.have.lengthOf(25);
-                    result[0].parts[0].should.have.property("identifiers");
-                    result[0].parts[0].identifiers.should.be.Array;
-                    result[0].parts[0].identifiers.should.have.lengthOf(1);
-                    result[0].parts[0].identifiers[0].should.have.property("scheme", enums.identifier.doi);
+                    result[0].parts[22].should.have.property("identifiers");
+                    result[0].parts[22].identifiers.should.be.Array;
+                    result[0].parts[22].identifiers.should.have.lengthOf(1);
+                    result[0].parts[22].identifiers[0].should.have.property("scheme", enums.identifier.doi);
                     done();
                 });
             });
