@@ -15,7 +15,8 @@ const fs = require('fs');
 const path = require('path');
 const databaseHelper = require('./../helpers/databaseHelper.js').createDatabaseHelper();
 const crossrefHelper = require('./../helpers/crossrefHelper').createCrossrefHelper();
-const suggestionHelper = require('./../helpers/suggestionHelper').createSuggestionHelper();
+//const suggestionHelper = require('./../helpers/suggestionHelper').createSuggestionHelper();
+const agenda = require('./../jobs/jobs');
 
 
 function saveResource(req, res) {
@@ -229,11 +230,12 @@ function saveResource(req, res) {
                                 }
 
                                 // TODO: Hook for precalculation of suggestions?
-                                suggestionHelper.precalculateExternalSuggestions(resource, function(err,res){
-                                    if(err){
-                                        logger.error(err);
-                                    }
-                                });
+                                //suggestionHelper.precalculateExternalSuggestions(resource, function(err,res){
+                                //    if(err){
+                                //        logger.error(err);
+                                //    }
+                                //});
+                                agenda.now('precalculate suggestions', {br: child});
 
                                 if (binaryFile || stringFile) {
                                     return databaseHelper.saveReferencesPageForResource(resource, binaryFile, textualPdf, stringFile, embodimentType, function (err, result) {
@@ -476,11 +478,12 @@ function triggerOcrProcessing(req, res) {
                 if(results[2]){
 
                     // TODO: Hook for precalculation of suggestions?
-                    suggestionHelper.precalculateExternalSuggestions(results[0], function(err,res){
-                        if(err){
-                            logger.error(err);
-                        }
-                    });
+                    //suggestionHelper.precalculateExternalSuggestions(results[0], function(err,res){
+                    //    if(err){
+                    //        logger.error(err);
+                    //    }
+                    //});
+                    agenda.now('precalculate suggestions', {br: child});
 
                     ocrHelper.saveBinaryFile(scan._id.toString(), results[2], function(err, res){
                         if (err) {

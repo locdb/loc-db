@@ -15,6 +15,7 @@ const async = require('async');
 const Scan = require('./../schema/scan');
 const ResourceEmbodiment = require('./../schema/resourceEmbodiment');
 const suggestionHelper = require('./suggestionHelper').createSuggestionHelper();
+const agenda = require('./../jobs/jobs');
 
 var DatabaseHelper = function(){
 };
@@ -431,11 +432,12 @@ DatabaseHelper.prototype.curateHierarchy = function(resources, callback){
             }
 
             // TODO: Hook for precalculation of suggestions?
-            suggestionHelper.precalculateExternalSuggestions(child, function(err,res){
-                if(err){
-                    logger.error(err);
-                }
-            });
+            //suggestionHelper.precalculateExternalSuggestions(child, function(err,res){
+            //    if(err){
+            //        logger.error(err);
+            //    }
+            //});
+            agenda.now('precalculate suggestions', {br: child});
 
             return callback(err, [child, parent]);
         });
