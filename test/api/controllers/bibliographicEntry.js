@@ -8,7 +8,7 @@ const externalSources = require('./../../../api/schema/enum.json').externalSourc
 
 var agent = request.agent(server);
 
-describe.only('controllers', function() {
+describe('controllers', function() {
 
     describe('bibliographicEntry', function () {
         var id = "";
@@ -175,18 +175,19 @@ describe.only('controllers', function() {
 
         describe('GET /getInternalSuggestionsByQueryString', function () {
 
-            it('should return 0 internal suggestions for a bibliographic entry', function (done) {
+            it('should return 1 internal suggestions for a bibliographic entry', function (done) {
 
 
                 var query = "The Semantic Web";
                 agent
                     .get('/getInternalSuggestionsByQueryString')
                     .query({ query: query })
+                    .query({ k: 1 })
                     .set('Accept', 'application/json')
                     .expect('Content-Type', /json/)
                     .expect(200)
                     .end(function (err, res) {
-                        res.body.should.have.lengthOf(0);
+                        res.body.should.have.lengthOf(1);
                         should.not.exist(err);
                         done();
                     });
@@ -199,7 +200,6 @@ describe.only('controllers', function() {
                 agent
                     .get('/getInternalSuggestionsByQueryString')
                     .query({ query: query })
-                    .query({ threshold: 0.4 })
                     .set('Accept', 'application/json')
                     .expect('Content-Type', /json/)
                     .expect(200)
@@ -218,7 +218,6 @@ describe.only('controllers', function() {
                 agent
                     .get('/getInternalSuggestionsByQueryString')
                     .query({ query: query })
-                    .query({ threshold: 0.1 })
                     .set('Accept', 'application/json')
                     .expect('Content-Type', /json/)
                     .expect(200)
@@ -237,7 +236,6 @@ describe.only('controllers', function() {
                 agent
                     .get('/getInternalSuggestionsByQueryString')
                     .query({ query: query })
-                    .query({ threshold: 0.1 })
                     .set('Accept', 'application/json')
                     .expect('Content-Type', /json/)
                     .expect(200)
@@ -601,7 +599,7 @@ describe.only('controllers', function() {
             });
         });
 
-        describe.only('GET /getPrecalculatedSuggestions/<id>', function () {
+        describe('GET /getPrecalculatedSuggestions/<id>', function () {
             this.timeout(3000000)
             it('should get the precalculated suggestions for a given be', function (done) {
                     var be;

@@ -636,9 +636,9 @@ paths:
           description: The query string for which the suggestions shall be retrieved
           required: true
           type: string
-        - name: threshold
+        - name: k
           in: query
-          description: The elastic relevance score for above which entrys shall be retrieved
+          description: Top k results that shall be retrieved (the default value is 10)
           required: false
           type: number
       responses:

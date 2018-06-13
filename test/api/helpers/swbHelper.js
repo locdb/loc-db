@@ -23,7 +23,7 @@ describe('helpers', function() {
         });
 
         describe('queryByTitle', function(){
-            this.timeout(10000)
+            this.timeout(100000)
             it('should return a result for a given query', function(done) {
                 swbHelper.queryByTitle("Test", function(err, result){
                     result.should.be.ok;
@@ -36,7 +36,7 @@ describe('helpers', function() {
         });
 
         describe('queryOLC', function(){
-            this.timeout(3000)
+            this.timeout(100000)
             it('should return a result for a given query', function(done) {
                 swbHelper.queryOLC("1994632569", function(err, result){
                     result[0].should.be.ok;

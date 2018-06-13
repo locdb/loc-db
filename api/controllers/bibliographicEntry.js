@@ -141,9 +141,9 @@ function getInternalSuggestionsByQueryString(req, res) {
     var response = res;
     var query = req.swagger.params.query.value;//decodeURI(decodeURI(req.swagger.params.query.value));
     //var query = req.swagger.params.query.value;
-    var threshold = req.swagger.params.threshold.value;
-    if(!threshold){
-        threshold = 1.0;
+    var k = req.swagger.params.k.value;
+    if(!k){
+        k = 10;
     }
     var doi = suggestionHelper.extractDOI(query);
 
@@ -184,33 +184,36 @@ function getInternalSuggestionsByQueryString(req, res) {
                 logger.error(err);
                 return res.status(500).json(err);
             }
-            if (brs.hits && brs.hits.hits) {
-                for (var i in brs.hits.hits) {
-                    var br = brs.hits.hits[i];
-
-                    // we check, whether the result is good enough
-                    if (br._esResult._score > threshold) {
-                        result.push(br.toObject());
-                    }
-                }
+            //if (brs.hits && brs.hits.hits) {
+            //    for (var i in brs.hits.hits) {
+            //       var br = brs.hits.hits[i];
+            //
+            //        // we check, whether the result is good enough
+            //        if (br._esResult._score > threshold) {
+            //            result.push(br.toObject());
+            //        }
+            //    }
+            //}
+            if(brs && brs.hits && brs.hits.hits && brs.hits.hits.length >0){
+                result = brs.hits.hits.slice(0, k);
             }
             async.map(result, function (br, callback) {
-                if (br.partOf && br.partOf !== "") {
-                    // br has parent, we want to retrieve this too
-                    mongoBr.findById(br.partOf, function (err, parent) {
-                        if (err) {
-                            logger.error(err);
-                            return callback(err, null);
-                        }
-                        if (parent) {
-                            return callback(null, [br, parent]);
-                        } else {
-                            return callback(null, [br]);
-                        }
-                    });
-                } else {
-                    return callback(null, [br]);
-                }
+            if (br.partOf && br.partOf !== "") {
+                // br has parent, we want to retrieve this too
+                mongoBr.findById(br.partOf, function (err, parent) {
+                    if (err) {
+                        logger.error(err);
+                        return callback(err, null);
+                    }
+                    if (parent) {
+                        return callback(null, [br, parent]);
+                    } else {
+                        return callback(null, [br]);
+                    }
+                });
+            } else {
+                return callback(null, [br]);
+            }
             }, function (err, groupedResults) {
                 if (err) {
                     logger.error(err);
@@ -440,7 +443,7 @@ function create(req, res){
 function getPrecalculatedSuggestions(req, res){
     var id = req.swagger.params.id.value;
     var response = res;
-    
+
     if (!mongoose.Types.ObjectId.isValid(id)) {
         logger.error("Invalid value for parameter id.", {id: id});
         return response.status(400).json({"message": "Invalid parameter."});
