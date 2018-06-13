@@ -1,6 +1,7 @@
 "use strict";
 const swbHelper = require('./../helpers/swbHelper.js').createSwbHelper();
 const br = require('./../models/bibliographicResource.js').mongoBr;
+const brSuggestions = require('./../models/bibliographicResourceSuggestions.js').mongoBrSuggestions;
 const logger = require('./../util/logger');
 const _ = require('lodash');
 const mongoose = require('mongoose');
@@ -102,12 +103,18 @@ function deleteAll(req, res){
             logger.error(err);
             return response.status(500).json({"message":'Delete operation failed.'});
         }
-        return br.esTruncate(function(err){
-            if(err){
+        return brSuggestions.remove({}, function(err, res) {
+            if (err) {
                 logger.error(err);
-                return response.status(500).json({"message":'Delete operation failed.'});
+                return response.status(500).json({"message": 'Delete operation failed.'});
             }
-            return response.status(200).send({"message":'Delete operation succeeded.'});
+            return br.esTruncate(function (err) {
+                if (err) {
+                    logger.error(err);
+                    return response.status(500).json({"message": 'Delete operation failed.'});
+                }
+                return response.status(200).send({"message": 'Delete operation succeeded.'});
+            });
         });
     });
 }
