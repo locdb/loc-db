@@ -28,7 +28,7 @@
   },
   {
     "name"      : "loc-db",
-    "script"    : "./api/jobs/job.js",
+    "script"    : "./api/jobs/jobs.js",
     "append_env_to_name": true,
     "env_development": {
       "NODE_ENV": "development",
