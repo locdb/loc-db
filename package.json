@@ -37,7 +37,7 @@
     "stream": "0.0.2",
     "string-similarity": "^1.2.0",
     "swagger-express-mw": "^0.7.0",
-    "swagger-ui-express": "2.0.10",
+    "swagger-ui-express": "3.0.10",
     "utf8": "^2.1.2",
     "winston": "^2.3.0",
     "winston-daily-rotate-file": "^3.0.0",
