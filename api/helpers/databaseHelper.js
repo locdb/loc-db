@@ -184,7 +184,10 @@ DatabaseHelper.prototype.transformIdentifiers = function(identifiers){
 DatabaseHelper.prototype.createResourceIfNotExists = function(br, callback){
     // I should check the identifiers --> some preferred ones, such as DOI, ISSN, SWB_PPN, OLC_PPN,
     // but also some additional properties depending on the resource type, .. propaply for journals/ journal Issues, I should chekc all number properties
-
+    if(!br){
+        logger.error("No br given");
+        return callback(null, br);
+    }
     var self = this;
     var identifiers = self.transformIdentifiers(br.getIdentifiersForType(br.type));
     var title = br.getTitleForType(br.type);
