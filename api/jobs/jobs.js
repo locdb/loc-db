@@ -14,7 +14,9 @@ agenda.define('precalculate suggestions', function(job, done) {
     suggestionHelper.precalculateExternalSuggestions(br, function(err,res){
        if(err){
            logger.error(err);
+           done(err, res);
        }
+       done(err, res);
     });
 });
 
