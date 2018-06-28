@@ -6,6 +6,7 @@ const Agenda = require('agenda');
 const config = require('./../../config/config');
 const mongoUri = "mongodb://" + config.DB.HOST + ":" + config.DB.PORT + "/" + config.DB.SCHEMA;
 const suggestionHelper = require('./../helpers/suggestionHelper').createSuggestionHelper();
+const logger = require('./../util/logger');
 
 var agenda = new Agenda({db: {address: mongoUri, collection: 'agenda'}});
 
