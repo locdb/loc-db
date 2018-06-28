@@ -64,25 +64,28 @@ SuggestionHelper.prototype.computeSimilarities = function(query, suggestions, ca
     var suggestionsScored = [];
     for(var parentChild of suggestions) {
         var parentChildScored = [];
-        for (var br of parentChild) {
-            if(Object.keys(br).length !== 0) {
-                var firstAuthor = br.getContributorsForType(br.type) &&  br.getContributorsForType(br.type)[0]
-                && br.getContributorsForType(br.type)[0].heldBy && br.getContributorsForType(br.type)[0].heldBy.familyName ? br.getContributorsForType(br.type)[0].heldBy.familyName : '';
+        if(parentChild){
+            for (var br of parentChild) {
+                if(Object.keys(br).length !== 0) {
+                    var firstAuthor = br.getContributorsForType(br.type) &&  br.getContributorsForType(br.type)[0]
+                    && br.getContributorsForType(br.type)[0].heldBy && br.getContributorsForType(br.type)[0].heldBy.familyName ? br.getContributorsForType(br.type)[0].heldBy.familyName : '';
 
-                var fullYear =  br.getPublicationDateForType(br.type) ?  br.getPublicationDateForType(br.type).getFullYear() : '';
+                    var fullYear =  br.getPublicationDateForType(br.type) ?  br.getPublicationDateForType(br.type).getFullYear() : '';
 
-                var stringRepresentation = [br.getTitleForType(br.type), br.getSubtitleForType(br.type),
-                    firstAuthor, fullYear,
-                    br.getNumberForType(br.type)].join(' ');
+                    var stringRepresentation = [br.getTitleForType(br.type), br.getSubtitleForType(br.type),
+                        firstAuthor, fullYear,
+                        br.getNumberForType(br.type)].join(' ');
 
-                parentChildScored.push({
-                    score: levenshtein.get(stringRepresentation, query), //stringSimilarity.compareTwoStrings(stringRepresentation, query),
-                    br: br
-                });
+                    parentChildScored.push({
+                        score: levenshtein.get(stringRepresentation, query), //stringSimilarity.compareTwoStrings(stringRepresentation, query),
+                        br: br
+                    });
+                }
             }
         }
-        suggestionsScored.push(parentChildScored);
-
+        if(parentChildScored.length > 0){
+            suggestionsScored.push(parentChildScored);
+        }
     }
     return callback(null, suggestionsScored);
 
