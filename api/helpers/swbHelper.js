@@ -1,10 +1,12 @@
 'use strict';
-const request = require('ajax-request');
+const request = require('request');
 const config = require('./../../config/config.js');
 const marc21Helper = require('./../helpers/marc21Helper.js').createMarc21Helper();
 const enums = require('./../schema/enum.json');
 const BibliographicResource = require('./../schema/bibliographicResource');
 const logger = require('./../util/logger');
+var cachedRequest = require('cached-request')(request);
+cachedRequest.setCacheDirectory(config.PATHS.CACHE);
 
 
 var SwbHelper = function(){
@@ -23,10 +25,7 @@ SwbHelper.prototype.query = function(ppn, resourceType, callback){
             + '&maximumRecords=1&startRecord=1&recordPacking=xml&sortKeys=none'
             +'&x-info-5-mg-requestGroupings=none';
     }
-    request({
-        url: url,
-        method: 'GET',
-    }, function(err, res, body) {
+    cachedRequest({url: url}, function(err, res, body) {
           marc21Helper.parseBibliographicResource(body, 'marcxml', function(err, result){
               if(err){
                   logger.error(err);
@@ -40,10 +39,7 @@ SwbHelper.prototype.query = function(ppn, resourceType, callback){
 SwbHelper.prototype.queryOLC = function(ppn, callback){
     var url = config.URLS.OLCSSGSOZ + '?query=pica.ppn+%3D+"'
         + ppn + '"&maximumRecords=1';
-    request({
-        url: url,
-        method: 'GET',
-    }, function(err, res, body) {
+    cachedRequest({url: url}, function(err, res, body) {
         marc21Helper.parseBibliographicResource(body, 'marcxml', function(err, result){
             if(err){
                 logger.error(err);
@@ -67,10 +63,7 @@ SwbHelper.prototype.queryByTitle = function(title, callback){
         + '"&version=1.1&operation=searchRetrieve&recordSchema=marc21'
         + '&maximumRecords=5&startRecord=2&recordPacking=xml&sortKeys=none'
         +'&x-info-5-mg-requestGroupings=none';
-    request({
-        url: url,
-        method: 'GET',
-    }, function(err, res, body) {
+    cachedRequest({url: url}, function(err, res, body) {
         if(err){
             logger.log(err);
             return callback(err, null);
@@ -110,10 +103,7 @@ SwbHelper.prototype.queryByQueryString = function(query, callback){
         + encodeURIComponent(query)
         + '&version=1.1&operation=searchRetrieve&recordSchema=marc21'
         + '&maximumRecords=5&recordPacking=xml';
-    request({
-        url: url,
-        method: 'GET',
-    }, function(err, res, body) {
+    cachedRequest({url: url}, function(err, res, body) {
         if(err){
             logger.log(err);
             return callback(err, null);
