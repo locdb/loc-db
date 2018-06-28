@@ -1,6 +1,6 @@
 'use strict';
 
-const crossref = require('./.././crossref');
+const crossref = require('./../../custom_modules/crossref');
 const Identifier = require('./../schema/identifier.js');
 const BibliographicResource = require('./../schema/bibliographicResource.js');
 const AgentRole = require('./../schema/agentRole.js');
