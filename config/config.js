@@ -40,7 +40,8 @@ var config = {
         OCR_IMAGEVIEW: "https://locdb-dev.opendfki.de/getimage/"
     },
     PATHS: {
-        UPLOAD: (process.env.LOCDB_UPLOAD_PATH || "./../upload/")
+        UPLOAD: (process.env.LOCDB_UPLOAD_PATH || "./../upload/"),
+        CACHE: (process.env.LOCDB_CACHE_PATH || "./../cache/")
     }
 }
 
