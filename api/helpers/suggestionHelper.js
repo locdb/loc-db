@@ -184,6 +184,9 @@ SuggestionHelper.prototype.getExternalSuggestionsByQueryString = function(query,
 
 SuggestionHelper.prototype.getExternalSuggestions = function(query, k, callback) {
     var self = this;
+    if(!query){
+        return callback(null, null);
+    }
     var doi = self.extractDOI(query);
 
     if(!doi){
