@@ -140,8 +140,12 @@ function remove(req, res) {
 function getInternalSuggestionsByQueryString(req, res) {
     var response = res;
     var query = req.swagger.params.query.value;
-    query = decodeURIComponent(query);//decodeURI(decodeURI(req.swagger.params.query.value));
-    //var query = req.swagger.params.query.value;
+    try{
+        query = decodeURIComponent(query);
+    } catch(err){
+        logger.error(err);
+        query = query;
+    }
     var k = req.swagger.params.k.value;
     if(!k){
         k = 10;
@@ -233,7 +237,13 @@ function getInternalSuggestionsByQueryString(req, res) {
 function getExternalSuggestions(req, res) {
     var response = res;
     var query = req.swagger.params.query.value;
-    query = decodeURIComponent(query);
+    try{
+        query = decodeURIComponent(query);
+    } catch(err){
+        logger.error(err);
+        query = query;
+    }
+
     var k = req.swagger.params.k.value;
     if(!k){
         k = 10;
