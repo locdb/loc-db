@@ -27,7 +27,7 @@
     }
   },
   {
-    "name"      : "loc-db",
+    "name"      : "loc-db-jobs",
     "script"    : "./api/jobs/jobs.js",
     "append_env_to_name": true,
     "env_development": {
