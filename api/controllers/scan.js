@@ -1,5 +1,4 @@
 "use strict";
-const ocrHelper = require('./../helpers/ocrHelper.js').createOcrHelper();
 const swbHelper = require('./../helpers/swbHelper.js').createSwbHelper();
 const BibliographicResource = require('./../schema/bibliographicResource.js');
 const Identifier = require('./../schema/identifier.js');
@@ -15,9 +14,7 @@ const fs = require('fs');
 const path = require('path');
 const databaseHelper = require('./../helpers/databaseHelper.js').createDatabaseHelper();
 const crossrefHelper = require('./../helpers/crossrefHelper').createCrossrefHelper();
-//const suggestionHelper = require('./../helpers/suggestionHelper').createSuggestionHelper();
 const agenda = require('./../jobs/jobs');
-
 
 function saveResource(req, res) {
     var response = res;
@@ -102,6 +99,7 @@ function saveResource(req, res) {
                                     resources[0].status = enums.status.external;
                                     databaseHelper.curateHierarchy(resources, function (err, resources) {
                                         // jetzt müssen wir gucken, ob man noch einen Scan speichern muss oder nicht
+                                        agenda.now('precalculate suggestions', {br: resources[0]});
                                         if (!binaryFile && !stringFile) {
                                             return response.json(resources);
                                         }
@@ -133,6 +131,7 @@ function saveResource(req, res) {
                             return crossrefHelper.queryByDOI(identifier.literalValue, function (err, resources) {
                                 resources[0].status = enums.status.external;
                                 databaseHelper.curateHierarchy(resources, function (err, resources) {
+                                    agenda.now('precalculate suggestions', {br: resources[0]});
                                     if (!binaryFile && !stringFile) {
                                         return response.json(resources);
                                     }
@@ -176,6 +175,7 @@ function saveResource(req, res) {
                                     }
                                     resources = [child, parent];
                                     databaseHelper.curateHierarchy(resources, function (err, resources) {
+                                        agenda.now('precalculate suggestions', {br: resources[0]});
                                         // jetzt müssen wir gucken, ob man noch einen Scan speichern muss oder nicht
                                         if (!binaryFile && !stringFile) {
                                             return response.json(resources);
@@ -398,120 +398,8 @@ function triggerOcrProcessing(req, res) {
         }
         var br = result[0];
         var scan = result[1];
-        ocrHelper.ocr_fileupload(scan.scanName, scan.textualPdf, function (err, result) {
-            if (err) {
-                logger.error(err);
-                logger.info("We try to set back the status of the scan");
-                return databaseHelper.setScanStatus(id, enums.status.notOcrProcessed, null, function(err, result){
-                    if(err){
-                        logger.error(err);
-                        return response.status(500).json({"message": "Something went wrong when OCR processing"});
-                    }
-                    return response.status(502).json({"message": "OCR request failed."});
-                });
-            }
-            var name = scan._id.toString() + ".xml";
-            async.parallel([
-                // Do two functions in parallel: 1) parse xml string 2) save xml string in file
-                function (callback) {
-                    ocrHelper.parseXMLString(result, scan.scanName, function (err, bes) {
-                        if (err) {
-                            logger.error(err);
-                            return response.status(500).json({"message": "XML parsing failed."});
-                        }
-
-                        bes.map(function (be) {
-                            console.log(be);
-                            be.scanId = id;
-                            be.status = enums.status.ocrProcessed;
-                            br.parts.push(be);
-                        });
-
-                        var helperBr = new BibliographicResource(br);
-                        var embodiments = helperBr.getResourceEmbodimentsForType(br.type);
-                        for (var embodiment of embodiments) {
-                            for (var scan of embodiment.scans) {
-                                if (scan._id == id) {
-                                    scan.xmlName = name;
-                                    var embodimentIndex = embodiments.indexOf(embodiment);
-                                    var scanIndex = embodiment.scans.indexOf(scan);
-                                    embodiments[embodimentIndex].scans[scanIndex] = scan;
-
-                                    databaseHelper.convertSchemaResourceToMongoose(helperBr, function (err, br) {
-                                        return br.save(function (err, br) {
-                                            if (err) {
-                                                logger.error(err);
-                                                return callback(err, null)
-                                            }
-                                            callback(null, br);
-                                        });
-                                    });
-                                }
-                            }
-                        }
-                    });
-                },
-                function (callback) {
-
-                    ocrHelper.saveStringFile(name, result, function (err, res) {
-                        if (err) {
-                            logger.error(err);
-                            return callback(err, null);
-                        }
-                        callback(null, name);
-                    });
-                },
-                function (callback) {
-                    ocrHelper.getImageForPDF(scan.scanName, function (err, res) {
-                        if (err) {
-                            logger.error(err);
-                            return callback(err, null);
-                        }
-                        callback(null, res);
-                    });
-                }
-            ], function (err, results) {
-                if (err) {
-                    logger.error(err);
-                    return response.status(500).json({"message": "An error occured."});
-                }
-                if(results[2]){
-
-                    // TODO: Hook for precalculation of suggestions?
-                    //suggestionHelper.precalculateExternalSuggestions(results[0], function(err,res){
-                    //    if(err){
-                    //        logger.error(err);
-                    //    }
-                    //});
-                    agenda.now('precalculate suggestions', {br: results[0]});
-
-                    ocrHelper.saveBinaryFile(scan._id.toString(), results[2], function(err, res){
-                        if (err) {
-                            logger.error(err);
-                            return response.status(500).json({"message": "An error occured."});
-                        }
-
-                        databaseHelper.setScanStatus(id, enums.status.ocrProcessed, res, function(err, result){
-                            if(err){
-                                logger.error(err);
-                                return response.status(500).json(err);
-                            }
-                            var br = result[0];
-                            return response.json(br);
-                        });
-                    });
-                }else{
-                    databaseHelper.setScanStatus(id, enums.status.ocrProcessed, null, function(err, result){
-                        if(err){
-                            logger.error(err);
-                            return response.status(500).json(err);
-                        }
-                        var br = result[0];
-                        return response.json(br);
-                    });
-                }
-            });
-        });
+        agenda.now('extract references', {scan: scan.toObject(), id: id, br: br});
+        return response.status(200).json({"message": "Reference extraction triggered."});
     });
 };
 

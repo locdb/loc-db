@@ -4,22 +4,13 @@
 // and startup script.
 const Agenda = require('agenda');
 const config = require('./../../config/config');
-const mongoUri = "mongodb://" + config.DB.HOST + ":" + config.DB.PORT + "/" + config.DB.SCHEMA;
-const suggestionHelper = require('./../helpers/suggestionHelper').createSuggestionHelper();
 const logger = require('./../util/logger');
+const mongoUri = "mongodb://" + config.DB.HOST + ":" + config.DB.PORT + "/" + config.DB.SCHEMA;
+const agenda = new Agenda({db: {address: mongoUri, collection: 'agenda'}});
 
-var agenda = new Agenda({db: {address: mongoUri, collection: 'agenda'}});
+require('./precalculateSuggestions')(agenda);
+require('./extractReferences')(agenda);
 
-agenda.define('precalculate suggestions', function(job, done) {
-    var br = job.attrs.data.br;
-    suggestionHelper.precalculateExternalSuggestions(br, function(err,res){
-       if(err){
-           logger.error(err);
-           done();
-       }
-       done();
-    });
-});
 
 agenda.on('ready', function() {
     agenda.start();

@@ -1,56 +1,134 @@
 'use strict';
-const config = require('./../../config/config.js');
+const config = require('./../../config/config');
 const fs = require('fs');
 const xml2js = require('xml2js');
-const BibliographicEntry = require('./../schema/bibliographicEntry.js');
+const BibliographicEntry = require('./../schema/bibliographicEntry');
 const request = require('request');
-const logger = require('./../util/logger.js');
-const fileType = require('file-type');
-
+const logger = require('./../util/logger');
+const databaseHelper = require('./databaseHelper').createDatabaseHelper();
+const fileHelper = require('./fileHelper').createFileHelper();
+const enums = require('./../schema/enum.json');
+const async = require('async');
+const BibliographicResource = require('./../schema/bibliographicResource.js');
 
 var OcrHelper = function(){
 };
 
-
-OcrHelper.prototype.saveBinaryFile = function(fileName, fileBuffer, callback){
-    var fileExtension = fileType(fileBuffer).ext;
-    var fileName = fileName + '.' + fileExtension;
-
-    if (!fs.existsSync(config.PATHS.UPLOAD)){
-        logger.info("Create dir", {name: config.PATHS.UPLOAD});
-        fs.mkdir(config.PATHS.UPLOAD, function(err, res){
-            if(err){
-                logger.error(err);
-                return callback(err, null);
-            }
-            fs.writeFile(config.PATHS.UPLOAD + fileName, fileBuffer, 'binary', function(err){
+OcrHelper.prototype.triggerOcrProcessing = function(scan, id, br, callback){
+    let self = this;
+    self.ocr_fileupload(scan.scanName, scan.textualPdf, function (err, result) {
+        if (err) {
+            logger.error(err);
+            logger.info("We try to set back the status of the scan");
+            return databaseHelper.setScanStatus(id, enums.status.notOcrProcessed, null, function(err, result){
                 if(err){
                     logger.error(err);
-                    return callback(err, null);
+                    return callback(new Error("Something went wrong with setting back the scan status"), result);
                 }
-                return callback(null, fileName);
+                return callback(new Error("Set back scan status: Something went wrong when OCR processing"), result);
             });
-        });
-    }else{
-        fs.writeFile(config.PATHS.UPLOAD + fileName, fileBuffer, 'binary', function(err){
-            if(err){
-                logger.error(err);
-                return callback(err, null);
-            }
-            return callback(null, fileName);
-        });
-    }
-};
-
-OcrHelper.prototype.saveStringFile = function(fileName, fileString, callback){
-    fs.writeFile(config.PATHS.UPLOAD + fileName, fileString, 'utf-8', function(err){
-        if(err){
-            errorlog.error(err);
-            return callback(err, null)
         }
-        callback(null,null);
+        var name = scan._id.toString() + ".xml";
+        async.parallel([
+            // Do two functions in parallel: 1) parse xml string 2) save xml string in file
+            function (callback) {
+                self.parseXMLString(result, scan.scanName, function (err, bes) {
+                    if (err) {
+                        logger.error(err);
+                        return callback(new Error("XML parsing failed"), bes);
+                    }
+
+                    bes.map(function (be) {
+                        console.log(be);
+                        be.scanId = id;
+                        be.status = enums.status.ocrProcessed;
+                        br.parts.push(be);
+                    });
+
+                    var helperBr = new BibliographicResource(br);
+                    var embodiments = helperBr.getResourceEmbodimentsForType(br.type);
+                    for (var embodiment of embodiments) {
+                        for (var scan of embodiment.scans) {
+                            if (scan._id == id) {
+                                scan.xmlName = name;
+                                var embodimentIndex = embodiments.indexOf(embodiment);
+                                var scanIndex = embodiment.scans.indexOf(scan);
+                                embodiments[embodimentIndex].scans[scanIndex] = scan;
+
+                                databaseHelper.convertSchemaResourceToMongoose(helperBr, function (err, br) {
+                                    if(br){
+                                        var err = new Error("Br is null")
+                                        logger.error(err);
+                                        return callback(err, null);
+                                    }
+                                    return br.save(function (err, br) {
+                                        if (err) {
+                                            logger.error(err);
+                                            return callback(err, null)
+                                        }
+                                        return callback(null, br);
+                                    });
+                                });
+                            }
+                        }
+                    }
+                });
+            },
+            function (callback) {
+                fileHelper.saveStringFile(name, result, function (err, res) {
+                    if (err) {
+                        logger.error(err);
+                        return callback(err, null);
+                    }
+                    callback(null, name);
+                });
+            },
+            function (callback) {
+                self.getImageForPDF(scan.scanName, function (err, res) {
+                    if (err) {
+                        logger.error(err);
+                        return callback(err, null);
+                    }
+                    callback(null, res);
+                });
+            }
+        ], function (err, results) {
+            if (err) {
+                logger.error(err);
+                return callback(err, results);
+            }
+            if(results[2]){
+
+
+                fileHelper.saveBinaryFile(scan._id.toString(), results[2], function(err, res){
+                    if (err) {
+                        logger.error(err);
+                        return callback(err, res);
+                    }
+
+                    databaseHelper.setScanStatus(id, enums.status.ocrProcessed, res, function(err, result){
+                        if(err){
+                            logger.error(err);
+                            return callback(err, result);
+                        }
+                        var br = result[0];
+                        return callback(null, br);
+                    });
+                });
+            }else{
+                databaseHelper.setScanStatus(id, enums.status.ocrProcessed, null, function(err, result){
+                    if(err){
+                        logger.error(err);
+                        return callback(err, null);
+                    }
+                    var br = result[0];
+                    return callback(null, br);
+                });
+            }
+        });
     });
 };
+
 
 /**
  * Should return a list of bibliographic entries
@@ -194,7 +272,6 @@ OcrHelper.prototype.ocr_fileupload = function(fileName, textualPdf, callback){
             logger.error("Request to OCR component failed.");
             return callback("Request to OCR component failed.", null);
         }
-        console.log(body);
         logger.info("Request to OCR component successful.", {body: body});
         callback(null, body);
     });

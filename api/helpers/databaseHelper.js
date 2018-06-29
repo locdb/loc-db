@@ -8,14 +8,12 @@ const BibliographicResource = require('./../schema/bibliographicResource.js');
 const mongoose = require('mongoose');
 const enums = require('./../schema/enum.json');
 const logger = require('./../util/logger');
-const ocrHelper = require('./ocrHelper').createOcrHelper();
+const fileHelper = require('./fileHelper').createFileHelper();
 const swbHelper = require('./swbHelper').createSwbHelper();
 const crossrefHelper = require('./crossrefHelper').createCrossrefHelper();
 const async = require('async');
 const Scan = require('./../schema/scan');
 const ResourceEmbodiment = require('./../schema/resourceEmbodiment');
-const suggestionHelper = require('./suggestionHelper').createSuggestionHelper();
-const agenda = require('./../jobs/jobs');
 
 var DatabaseHelper = function(){
 };
@@ -36,7 +34,7 @@ DatabaseHelper.prototype.saveScan = function(scan, textualPdf, callback){
     // get unique id from mongo which we use as filename
     var scanId = mongoose.Types.ObjectId().toString();
 
-    ocrHelper.saveBinaryFile(scanId, scan.buffer, function (err, scanName) {
+    fileHelper.saveBinaryFile(scanId, scan.buffer, function (err, scanName) {
         // if there is an error, log it and return
         if (err) {
             errorlog.error(err);
@@ -253,6 +251,10 @@ DatabaseHelper.prototype.convertSchemaResourceToMongoose = function(schemaResour
             logger.error(err);
             return callback(err, null);
         }
+        if(!br){
+            logger.error(new Error("No br found."));
+            return callback(err, null);
+        }
         for(var property in schemaResource.toObject()){
             br[property] = schemaResource.toObject()[property];
         }
@@ -376,7 +378,7 @@ DatabaseHelper.prototype.saveStringScan = function(scan, callback){
     // get unique id from mongo which we use as filename
     var scanId = mongoose.Types.ObjectId().toString();
 
-    ocrHelper.saveStringFile(scanId, scan, function (err, scanName) {
+    fileHelper.saveStringFile(scanId, scan, function (err, scanName) {
         // if there is an error, log it and return
         if (err) {
             logger.error(err);
@@ -433,15 +435,6 @@ DatabaseHelper.prototype.curateHierarchy = function(resources, callback){
                 logger.error(err);
                 return callback(err, null);
             }
-
-            // TODO: Hook for precalculation of suggestions?
-            //suggestionHelper.precalculateExternalSuggestions(child, function(err,res){
-            //    if(err){
-            //        logger.error(err);
-            //    }
-            //});
-            agenda.now('precalculate suggestions', {br: child});
-
             return callback(err, [child, parent]);
         });
     });
