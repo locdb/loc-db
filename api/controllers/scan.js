@@ -202,8 +202,13 @@ function saveResource(req, res) {
                             logger.error(err);
                             return response.status(500).json(err);
                         }
+                        if(!resource || !resource[0]){
+                            logger.error(new Error("No resource retrieved from SWB"));
+                            return response.status(500).json(err);
+                        }
                         // we retrieved the metadata; but now lets check whether there are references in crossref
                         var doi = null;
+
                         for(var identifier of resource[0].getIdentifiersForType(resource[0].type)){
                             if(identifier.scheme === enums.identifier.doi){
                                 doi = identifier.literalValue;
