@@ -159,7 +159,7 @@ function saveResource(req, res) {
                                 crossrefHelper.queryChapterMetaData(parent.getTitleForType(parent.type), firstPage, lastPage, function(err, res) {
                                     if (err) {
                                         logger.error(err);
-                                        return callback(err, null);
+                                        return response.status(500).send(err);
                                     }
                                     if (res && res[0]) {
                                         var child = new BibliographicResource(res[0]);
