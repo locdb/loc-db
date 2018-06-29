@@ -246,7 +246,7 @@ DatabaseHelper.prototype.convertSchemaResourceToMongoose = function(schemaResour
     if(typeof id !== "string"){
         id = id.toString();
     }
-    return mongoBr.findById(schemaResource._id, function(err, br){
+    return mongoBr.findById(id, function(err, br){
         if(err){
             logger.error(err);
             return callback(err, null);
