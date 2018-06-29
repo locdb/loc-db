@@ -56,7 +56,7 @@ OcrHelper.prototype.triggerOcrProcessing = function(scan, id, br, callback){
                                 embodiments[embodimentIndex].scans[scanIndex] = scan;
 
                                 databaseHelper.convertSchemaResourceToMongoose(helperBr, function (err, br) {
-                                    if(br){
+                                    if(!br){
                                         var err = new Error("Br is null")
                                         logger.error(err);
                                         return callback(err, null);
