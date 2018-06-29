@@ -15,7 +15,7 @@ module.exports = function(agenda) {
                 return done(err);
             }
 
-            agenda.now('precalculate suggestions', {br: res[0]}, function(err,res){
+            agenda.now('precalculate suggestions', {br: res}, function(err,res){
                 if(err){
                     logger.error(err);
                     return done(err);
