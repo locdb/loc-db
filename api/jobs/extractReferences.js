@@ -12,11 +12,16 @@ module.exports = function(agenda) {
         ocrHelper.triggerOcrProcessing(scan, id, br, function(err,res){
             if(err){
                 logger.error(err);
-                done();
+                return done(err);
             }
 
-            agenda.now('precalculate suggestions', {br: res[0]});
-            done();
+            agenda.now('precalculate suggestions', {br: res[0]}, function(err,res){
+                if(err){
+                    logger.error(err);
+                    return done(err);
+                }
+                return done();
+            });
         });
     });
 };

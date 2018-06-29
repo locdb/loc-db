@@ -10,9 +10,9 @@ module.exports = function(agenda) {
         suggestionHelper.precalculateExternalSuggestions(br, function(err,res){
             if(err){
                 logger.error(err);
-                done();
+                return done(err);
             }
-            done();
+            return done();
         });
     });
 
