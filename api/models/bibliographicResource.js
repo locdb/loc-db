@@ -238,7 +238,8 @@ const brSchema = new Schema({
     referenceBook_embodiedAs: [resourceEmbodimentSchema],
     referenceEntry_embodiedAs: [resourceEmbodimentSchema],
     standard_embodiedAs: [resourceEmbodimentSchema],
-    standardSeries_embodiedAs:[resourceEmbodimentSchema]
+    standardSeries_embodiedAs:[resourceEmbodimentSchema],
+    source: String
 });
 
 
