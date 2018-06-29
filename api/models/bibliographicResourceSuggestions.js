@@ -3,7 +3,10 @@
 const mongoose = require('mongoose')
     ,Schema = mongoose.Schema
     ,ObjectId = Schema.ObjectId;
+const extend = require('mongoose-schema-extend');
 const brSchema = require('./bibliographicResource').brSchema;
+
+brSchema.extend({source: String});
 
 const brSuggestionsSchema = new Schema({
     suggestions: [[brSchema]],

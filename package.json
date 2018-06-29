@@ -31,6 +31,7 @@
     "mongodb": "^2.2.13",
     "mongoosastic": "^4.3.0",
     "mongoose": "^4.7.2",
+    "mongoose-schema-extend": "^0.2.2",
     "morgan": "^1.9.0",
     "natural": "^0.5.0",
     "passport": "^0.3.2",
