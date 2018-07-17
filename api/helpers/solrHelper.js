@@ -119,7 +119,7 @@ SolrHelper.prototype.queryK10plusByQueryString = function(query, callback){
 
     logger.log(q);
 
-    client.get("standard", "q=allfields:"+query, function(err,result){
+    client.get("select", "q=allfields:"+query, function(err,result){
     //client.search(q,function(err,result) {
         if (err) {
             logger.error(err);
