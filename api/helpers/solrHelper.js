@@ -114,6 +114,7 @@ SolrHelper.prototype.queryK10plusByQueryString = function(query, callback){
     // add start=0?
     var q = client.createQuery()
         .q({allfields: query})
+        .dismax()
         .rows(20);
 
     logger.log(q);
