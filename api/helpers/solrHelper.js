@@ -103,10 +103,10 @@ SolrHelper.prototype.queryK10plusByQueryString = function(query, callback){
         path: config.K10plus.PATH
     });
 
-    //if(query.indexOf('\"') < 0){
-    //    query =query.replace(":","");
-    //}
-    //query = encodeURIComponent(query);
+    if(query.indexOf('\"') < 0){
+        query =query.replace(":","");
+    }
+    query = encodeURIComponent(query);
 
 
 
@@ -119,7 +119,7 @@ SolrHelper.prototype.queryK10plusByQueryString = function(query, callback){
 
     //logger.log(q);
     var q = "q=allfields:"+query;
-    q=encodeURIComponent(q);
+    //q=encodeURIComponent(q);
     logger.log(q);
 
     client.get("select", q, function(err,result){
