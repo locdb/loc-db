@@ -35,7 +35,7 @@ SolrHelper.prototype.queryGVIByQueryString = function(query, callback){
     // add start=0?
     var q = client.createQuery()
         .q({allfields: query})
-        .rows(20);
+        .rows(10);
 
     client.search(q,function(err,result){
         if (err) {
@@ -112,14 +112,16 @@ SolrHelper.prototype.queryK10plusByQueryString = function(query, callback){
 
     // Lucene query
     // add start=0?
-    var q = client.createQuery()
-        .q({allfields: query})
-        .dismax()
-        .rows(20);
+    //var q = client.createQuery()
+    //    .q({allfields: query})
+    //    .dismax()
+    //    .rows(10);
 
+    //logger.log(q);
+    var q = "q=allfields:"+query;
     logger.log(q);
 
-    client.get("select", "q=allfields:"+query, function(err,result){
+    client.get("select", q, function(err,result){
     //client.search(q,function(err,result) {
         if (err) {
             logger.error(err);
