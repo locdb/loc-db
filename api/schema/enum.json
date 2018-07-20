@@ -4,7 +4,8 @@
     "ocrProcessing": "OCR_PROCESSING",
     "ocrProcessed": "OCR_PROCESSED",
     "valid": "VALID",
-    "external": "EXTERNAL"
+    "external": "EXTERNAL",
+    "obsolete": "OBSOLETE"
   },
   "identifier": {
     "isbn": "ISBN",

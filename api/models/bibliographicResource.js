@@ -31,6 +31,7 @@ const beSchema = new Schema({
     bibliographicEntryText: String,
     references: String,
     scanId: String,
+    scanName: String,
     status: {type: String, enum: [enums.status.ocrProcessed, enums.status.valid, enums.status.external]},
     ocrData: ocrDataSchema
 });

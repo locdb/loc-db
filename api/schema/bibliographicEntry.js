@@ -20,6 +20,7 @@ var bibliographicEntry = new SchemaObject({
         volume: String
     },
     scanId: String,
+    scanName: String,
     status: {type: String, enum: [status.ocrProcessed, status.valid, status.external]},
 });
 
