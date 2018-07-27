@@ -360,7 +360,7 @@ DatabaseHelper.prototype.replaceScanWithScanPages = function(id, scans, callback
                                 }
                             }
                         }
-                        embodiments[embodimentIndex].scans.concat(scans);
+                        embodiments[embodimentIndex].scans = embodiments[embodimentIndex].scans.concat(scans);
                         var helperBr = new BibliographicResource(br);
                         helperBr.setResourceEmbodimentsForType(br.type, embodiments);
                         return self.convertSchemaResourceToMongoose(helperBr, function (err, br) {
