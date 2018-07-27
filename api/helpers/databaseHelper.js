@@ -365,7 +365,7 @@ DatabaseHelper.prototype.replaceScanWithScanPages = function(id, scans, callback
                         helperBr.setResourceEmbodimentsForType(br.type, embodiments);
                         return self.convertSchemaResourceToMongoose(helperBr, function (err, br) {
                             return br.save(function (err, res) {
-                                if (err) {
+                               if (err) {
                                     logger.error(err);
                                     return callback(err, null);
                                 }
