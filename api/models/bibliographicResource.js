@@ -69,7 +69,7 @@ const agentRoleSchema = new Schema({
     //next: String // This is not necessary for now, as we are using an array
 });
 
-const brSchema = new Schema({
+var brSchema = new Schema({
     journal_identifiers: [identifiersSchema],
     journalVolume_identifiers: [identifiersSchema],
     journalIssue_identifiers: [identifiersSchema],
