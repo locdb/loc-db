@@ -267,7 +267,7 @@ brSchema.transformIdentifiers = function(identifiers){
 brSchema.pre('save', function (next) {
     var self = this;
     var br = new BibliographicResource(self)
-    var identifiers = self.transformIdentifiers(br.getIdentifiersForType(br.type));
+    var identifiers = brSchema.transformIdentifiers(br.getIdentifiersForType(br.type));
     var title = br.getTitleForType(br.type);
     var number = br.getNumberForType(br.type);
     var edition = br.getEditionForType(br.type);
