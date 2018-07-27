@@ -286,6 +286,10 @@ brSchema.pre('save', function (next) {
             .where("journal_title", journalTitle)
             .all("journal_identifiers", journalIdentifiers)
             .exec(function (err, docs) {
+                if(err){
+                    logger.error(err);
+                    next();
+                }
                 if (docs.length !== 0){
                     logger.log('Br exists: ', docs[0]._id);
                     next(new Error("Br already exists."), docs[0]);
@@ -299,6 +303,10 @@ brSchema.pre('save', function (next) {
             .where(propertyPrefix.concat("edition"), edition)
             .all(propertyPrefix.concat("identifiers.literalValue"), identifiers)
             .exec(function (err, docs) {
+                if(err){
+                    logger.error(err);
+                    next();
+                }
                 if (docs.length !== 0){
                     logger.log('Br exists: ', docs[0]._id);
                     next(new Error("Br already exists."), docs[0]);
