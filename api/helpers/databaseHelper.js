@@ -478,13 +478,14 @@ DatabaseHelper.prototype.curateHierarchy = function(resources, callback){
     var self = this;
     // create the parent if it does not exist
     self.createResourceIfNotExists(parent, function (err, parent) {
-        if(err){
+        if (err) {
             logger.error(err);
             return callback(err, null);
         }
-        if(parent === null){
-           logger.error("Something went wrong with retrieving the parent");
-           return callback(err, null);
+        if (parent === null) {
+            var err = new Error("Cannot build hierarchy for given parameters.");
+            logger.error(err);
+            return callback(err, null);
         }
         // res should be the mongo instance of the parent
         // set the child partOf accordingly
@@ -492,8 +493,8 @@ DatabaseHelper.prototype.curateHierarchy = function(resources, callback){
         // can the child already exist? No, otherwise we wouldn't have checked correctly in the very beginning
         // save the child
         child = new mongoBr(child);
-        child.save(function(err, child){
-            if(err){
+        child.save(function (err, child) {
+            if (err) {
                 logger.error(err);
                 return callback(err, null);
             }

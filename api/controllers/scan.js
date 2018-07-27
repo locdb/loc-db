@@ -98,6 +98,10 @@ function saveResource(req, res) {
                                     }
                                     resources[0].status = enums.status.external;
                                     databaseHelper.curateHierarchy(resources, function (err, resources) {
+                                        if(err){
+                                            logger.error(err);
+                                            return response.status(400).json(err);
+                                        }
                                         // jetzt müssen wir gucken, ob man noch einen Scan speichern muss oder nicht
                                         agenda.now('precalculate suggestions', {br: resources[0]});
                                         if (!binaryFile && !stringFile) {
@@ -131,6 +135,10 @@ function saveResource(req, res) {
                             return crossrefHelper.queryByDOI(identifier.literalValue, function (err, resources) {
                                 resources[0].status = enums.status.external;
                                 databaseHelper.curateHierarchy(resources, function (err, resources) {
+                                    if(err){
+                                        logger.error(err);
+                                        return response.status(400).json(err);
+                                    }
                                     agenda.now('precalculate suggestions', {br: resources[0]});
                                     if (!binaryFile && !stringFile) {
                                         return response.json(resources);
@@ -139,7 +147,7 @@ function saveResource(req, res) {
                                         if (resource.type === enums.resourceType.journalArticle) {
                                             databaseHelper.saveReferencesPageForResource(resource, binaryFile, textualPdf, stringFile, embodimentType, function (err, result) {
                                                 if (err) {
-                                                    errorlog.error(err);
+                                                    logger.error(err);
                                                     return response.status(500).json(err);
                                                 }
                                                 return response.json(result);
@@ -175,6 +183,10 @@ function saveResource(req, res) {
                                     }
                                     resources = [child, parent];
                                     databaseHelper.curateHierarchy(resources, function (err, resources) {
+                                        if(err){
+                                            logger.error(err);
+                                            return response.status(400).json(err);
+                                        }
                                         agenda.now('precalculate suggestions', {br: resources[0]});
                                         // jetzt müssen wir gucken, ob man noch einen Scan speichern muss oder nicht
                                         if (!binaryFile && !stringFile) {
