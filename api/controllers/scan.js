@@ -1,494 +1,289 @@
 "use strict";
-const ocrHelper = require('./../helpers/ocrHelper.js').createOcrHelper();
 const swbHelper = require('./../helpers/swbHelper.js').createSwbHelper();
 const BibliographicResource = require('./../schema/bibliographicResource.js');
+const Identifier = require('./../schema/identifier.js');
+const ResourceEmbodiment = require('./../schema/resourceEmbodiment');
 const Scan = require('./../schema/scan.js');
 const enums = require('./../schema/enum.json');
 const async = require('async');
-const mongoBr = require('./../models/bibliographicResource.js');
+const mongoBr = require('./../models/bibliographicResource.js').mongoBr;
 const logger = require('./../util/logger.js');
 const config = require('./../../config/config.js');
 const mongoose = require('mongoose');
 const fs = require('fs');
 const path = require('path');
 const databaseHelper = require('./../helpers/databaseHelper.js').createDatabaseHelper();
+const crossrefHelper = require('./../helpers/crossrefHelper').createCrossrefHelper();
+const agenda = require('./../jobs/jobs');
 
-
-
-
-function saveScan(req, res) {
+function saveResource(req, res) {
     var response = res;
-    var scan = req.swagger.params.scan.value;
-    var ppn = req.swagger.params.ppn.value;
+    var identifier = {
+        "scheme": req.swagger.params.identifierScheme.value,
+        "literalValue": req.swagger.params.identifierLiteralValue.value
+    };
+    var resourceType = req.swagger.params.resourceType.value;
     var firstPage = req.swagger.params.firstPage.value;
     var lastPage = req.swagger.params.lastPage.value;
-    var resourceType = req.swagger.params.resourceType.value;
+    var binaryFile = req.swagger.params.binaryFile.value;
     var textualPdf = req.swagger.params.textualPdf.value;
+    var stringFile = req.swagger.params.stringFile.value;
+    var embodimentType = req.swagger.params.embodimentType.value;
 
-    if(resourceType == enums.resourceType.monograph){
-        databaseHelper.saveIndependentPrintResource(scan, ppn, resourceType, textualPdf, function(err,res){
-            if(err){
-                logger.error(err);
-                return response.status(400).json(err);
+    // 1. Check whether resource already exists given it's identifier, resourceType and maybe first or lastPage
+    databaseHelper.resourceExists(identifier, resourceType, firstPage, lastPage, function(err, resource) {
+        if (err) {
+            logger.error(err);
+            return response.status(500).json(err);
+        } else if (resource) {
+            // 1a. resource already exists
+            // 2. now we have to append the string file or textual pdf if given
+            if (!binaryFile && !stringFile) {
+                return response.status(400).json({"message": "The resource already exists."});
             }
-            return response.json(res);
-        });
-    }else if(resourceType == enums.resourceType.journal
-        || resourceType == enums.resourceType.bookChapter || resourceType == enums.resourceType.proceedingsArticle) {
-        databaseHelper.saveDependentPrintResource(scan, firstPage, lastPage, ppn, resourceType, textualPdf, function (err, res) {
-            if(err){
-                logger.error(err);
-                return response.status(400).json(err);
-            }
-            return response.json(res);
-        });
-    }
-};
-
-
-function saveScanForElectronicJournal(req, res) {
-    var response = res;
-    var scan = req.swagger.params.scan.value;
-    var textualPdf = req.swagger.params.textualPdf.value;
-    //var id = req.swagger.params.id.value;
-    // check if id is valid
-/*    if (!mongoose.Types.ObjectId.isValid(id)) {
-        logger.error("Invalid value for parameter id.", {id: id});
-        return response.status(400).json({"message": "Invalid parameter."});
-    }*/
-    var doi = req.swagger.params.doi.value;
-    var ppn = req.swagger.params.ppn.value;
-
-    if(doi && !ppn){
-        logger.info("Doi was given.");
-        mongoBr.findOne({
-            //'_id': id
-            "identifiers.scheme": enums.identifier.doi,
-            "identifiers.literalValue": doi
-        }, function (err, child) {
-            // if there is an error, log it and return
-            if (err) {
-                logger.error(err);
-                return response.status(500).json(err);
-            }
-            if(!child){
-                logger.error("No br could be found for parameter doi.", {'doi': doi});
-                return response.status(400).json(err);
-            }
-            // we only have to save the file and add it to the child and we have to change the status of the child
-            databaseHelper.saveScan(scan, textualPdf, function(err,scan){
-                child.status = enums.status.valid;
-                if(child.embodiedAs.length == 0){
-                    child.embodiedAs.push({scans: [], type : enums.embodimentType.digital});
-                    child.embodiedAs[0].scans.push(scan);
+            return databaseHelper.saveReferencesPageForResource(resource[0], binaryFile, textualPdf, stringFile, embodimentType, function (err, result) {
+                if (err) {
+                    logger.error(err);
+                    return response.status(500).json(err);
+                }
+                // retrieve parent if necessary
+                if(result[0].partOf && result[0].partOf !== ""){
+                    mongoBr.findById(result[0].partOf, function(err, parent){
+                        return response.json([result[0], parent, result[1]]);
+                    });
                 }else{
-                    for (var embodiment of child.embodiedAs){
-                        // we check for the digital embodiment and append the scan to it
-                        if(embodiment.type == enums.embodimentType.digital || !embodiment.type){
-                            embodiment.scans.push(scan);
-                            break;
+                    return response.json(result);
+                }
+            });
+        } else if (!resource) {
+            // 1b. resource does not exist; we will have to create it depending on the resourceType and identifier
+            switch (resourceType) {
+                case enums.resourceType.journal:
+                    // The resource is a journal, the ZDB ID should be given and basically nothing else
+                    if (identifier.scheme !== enums.identifier.zdbPpn || stringFile || binaryFile || firstPage || lastPage) {
+                        return response.status(400).json({"message": "In order to create a journal resource in the db, provide the zdb ppn."})
+                    } else {
+                        return swbHelper.query(identifier.literalValue, resourceType, function (err, resource) {
+                            if (err) {
+                                logger.error(err);
+                                return response.status(500).json(err);
+                            }
+                            // we retrieved the metadata; As it should not be possible to append a scan directly to a journal,
+                            // we are done
+                            //resource.type = resourceType;
+                            mongoBr.create(resource, function (err, resource) {
+                                if (err) {
+                                    logger.error(err);
+                                    return response.status(500).json(err);
+                                }
+                                return response.status(200).json(resource);
+                            });
+                        });
+                    }
+                case enums.resourceType.journalArticle:
+                    if (identifier.scheme !== enums.identifier.olcPpn && identifier.scheme !== enums.identifier.doi) {
+                        return response.status(400).json({"message": "Not the appropriate input data for creating a journal article."})
+                    } else {
+                        switch (identifier.scheme) {
+                            case enums.identifier.doi:
+                                // go to crossref and create article
+                                return crossrefHelper.queryByDOI(identifier.literalValue, function (err, resources) {
+                                    // wenn das issue nicht existiert, kann auch der article nicht existieren
+                                    // hier muss hierarschich vorgegangen werden
+                                    if(!resources){
+                                        var child = new BibliographicResource({type: resourceType});
+                                        child.setIdentifiersForType(resourceType, [new Identifier({identifierScheme: enums.identifier.doi, literalValue: identifier.literalValue})]);
+                                        var parent = new BibliographicResource({type: enums.resourceType.journalIssue});
+                                        resources = [child, parent];
+                                    }
+                                    resources[0].status = enums.status.external;
+                                    databaseHelper.curateHierarchy(resources, function (err, resources) {
+                                        // jetzt müssen wir gucken, ob man noch einen Scan speichern muss oder nicht
+                                        agenda.now('precalculate suggestions', {br: resources[0]});
+                                        if (!binaryFile && !stringFile) {
+                                            return response.json(resources);
+                                        }
+                                        for (var resource of resources) {
+                                            if (resource.type === enums.resourceType.journalArticle) {
+                                                databaseHelper.saveReferencesPageForResource(resource, binaryFile, textualPdf, stringFile, embodimentType, function (err, result) {
+                                                    if (err) {
+                                                        logger.error(err);
+                                                        return response.status(500).json(err);
+                                                    }
+                                                    result = [result[0], resources[1], result[1]];
+                                                    return response.json(result);
+                                                });
+                                            }
+                                        }
+
+                                    });
+                                });
+                            case enums.identifier.olcPpn:
+                                // go to olc and create article
+                                return response.status(400).json({"message": "Identifier type not implemented."});
                         }
                     }
-                }
-                return child.save(function (err, result) {
-                    if(err){
-                        logger.log(err);
-                        return response.status(500).json(err);
-                    }
-                    databaseHelper.findScanByScanName(result, scan.scanName, function(err, scan){
-                        var res = [result, scan];
-                        return response.status(200).json(res);
-                    });
-                });
-            });
-        });
-    }else if (ppn && !doi){
-        logger.info("PPN was given.");
-        mongoBr.findOne({
-            //'_id': id
-            "identifiers.scheme": enums.identifier.ppn,
-            "identifiers.literalValue": ppn
-        }, function (err, child) {
-            // if there is an error, log it and return
-            if (err) {
-                logger.error(err);
-                return response.status(500).json(err);
-            }
-            if(!child){
-                logger.error("No br could be found for parameter ppn.", {'doi': ppn});
-                return response.status(400).json(err);
-            }
-            // we only have to save the file and add it to the child and we have to change the status of the child
-            databaseHelper.saveScan(scan, textualPdf, function(err,scan){
-                child.status = enums.status.valid;
-                if(child.embodiedAs.length == 0){
-                    child.embodiedAs.push({scans: [], type : enums.embodimentType.digital});
-                    child.embodiedAs[0].scans.push(scan);
-                }else{
-                    for (var embodiment of child.embodiedAs){
-                        // we check for the digital embodiment and append the scan to it
-                        if(embodiment.type == enums.embodimentType.digital){
-                            embodiment.scans.push(scan);
-                            break;
-                        }
-                    }
-                }
-                return child.save(function (err, result) {
-                    if(err){
-                        logger.log(err);
-                        return response.status(500).json(err);
-                    }
-                    databaseHelper.findScanByScanName(result, scan.scanName, function(err, scan){
-                        var res = [result, scan];
-                        return response.status(200).json(res);
-                    });
-                });
-            });
-        });
-    }else{
-        return response.status(400).json("Wrong parameter input.");
-    }
+                case enums.resourceType.bookChapter || enums.resourceType.proceedingsArticle:
+                    //return response.status(400).json({"message": "Resource type not implemented yet."});
+                    switch (identifier.scheme) {
+                        case enums.identifier.doi:
+                            // go to crossref and create chapter
+                            return crossrefHelper.queryByDOI(identifier.literalValue, function (err, resources) {
+                                resources[0].status = enums.status.external;
+                                databaseHelper.curateHierarchy(resources, function (err, resources) {
+                                    agenda.now('precalculate suggestions', {br: resources[0]});
+                                    if (!binaryFile && !stringFile) {
+                                        return response.json(resources);
+                                    }
+                                    for (var resource of resources) {
+                                        if (resource.type === enums.resourceType.journalArticle) {
+                                            databaseHelper.saveReferencesPageForResource(resource, binaryFile, textualPdf, stringFile, embodimentType, function (err, result) {
+                                                if (err) {
+                                                    errorlog.error(err);
+                                                    return response.status(500).json(err);
+                                                }
+                                                return response.json(result);
+                                            });
+                                        }
+                                    }
 
-};
+                                });
+                            });
+                        case enums.identifier.swbPpn:
+                            return swbHelper.query(identifier.literalValue, resourceType, function (err, resources) {
+                                if (err) {
+                                    logger.error(err);
+                                    return response.status(500).json(err);
+                                }
+                                var parent = resources[0];
+                                crossrefHelper.queryChapterMetaData(parent.getTitleForType(parent.type), firstPage, lastPage, function(err, res) {
+                                    if (err) {
+                                        logger.error(err);
+                                        //return response.status(200).send(res);
+                                    }
+                                    if (res && res[0]) {
+                                        var child = new BibliographicResource(res[0]);
+                                    } else {
+                                        var child = new BibliographicResource({
+                                            type: enums.resourceType.bookChapter,
+                                            bookChapter_embodiedAs: [new ResourceEmbodiment({
+                                                firstPage: firstPage,
+                                                lastPage: lastPage,
+                                                type: embodimentType
+                                            })]
+                                        });
+                                    }
+                                    resources = [child, parent];
+                                    databaseHelper.curateHierarchy(resources, function (err, resources) {
+                                        agenda.now('precalculate suggestions', {br: resources[0]});
+                                        // jetzt müssen wir gucken, ob man noch einen Scan speichern muss oder nicht
+                                        if (!binaryFile && !stringFile) {
+                                            return response.json(resources);
+                                        }
+                                        child = resources[0];
+                                        parent = resources[1];
+                                        databaseHelper.saveReferencesPageForResource(child, binaryFile, textualPdf, stringFile, embodimentType, function (err, result) {
+                                            if (err) {
+                                                logger.error(err);
+                                                return response.status(500).json(err);
+                                            }
+                                            result = [result[0], parent, result[1]];
+                                            return response.json(result);
+                                        });
+
+
+                                    });
+                                });
+                            });
+                    }
+                case enums.resourceType.monograph || enums.resourceType.book:
+                    return swbHelper.query(identifier.literalValue, resourceType, function (err, resource) {
+                        if (err) {
+                            logger.error(err);
+                            return response.status(500).json(err);
+                        }
+                        if(!resource || !resource[0]){
+                            logger.error(new Error("No resource retrieved from SWB"));
+                            return response.status(500).json(err);
+                        }
+                        // we retrieved the metadata; but now lets check whether there are references in crossref
+                        var doi = null;
+
+                        for(var identifier of resource[0].getIdentifiersForType(resource[0].type)){
+                            if(identifier.scheme === enums.identifier.doi){
+                                doi = identifier.literalValue;
+                            }
+                        }
+                        var queryString = null;
+                        if(!doi){
+                            queryString = resource[0].getTitleForType(resource[0].type);
+                        }
+                        return crossrefHelper.queryReferences(doi, queryString, function(err, result){
+                            if(err){
+                                logger.error(err);
+                            }
+                            if(result && result[0] && result[0].parts){
+                                resource[0].parts = result[0].parts;
+                            }else{
+                                resource[0].parts = [];
+                            }
+                            // now we have to check whether we have to append something
+                            return mongoBr.create(resource[0], function (err, resource) {
+                                if (err) {
+                                    logger.error(err);
+                                    return response.status(500).json(err);
+                                }
+
+                                // TODO: Hook for precalculation of suggestions?
+                                //suggestionHelper.precalculateExternalSuggestions(resource, function(err,res){
+                                //    if(err){
+                                //        logger.error(err);
+                                //    }
+                                //});
+                                agenda.now('precalculate suggestions', {br: resource});
+                                if (binaryFile || stringFile) {
+                                    return databaseHelper.saveReferencesPageForResource(resource, binaryFile, textualPdf, stringFile, embodimentType, function (err, result) {
+                                        if (err) {
+                                            logger.error(err);
+                                            return response.status(500).json(err);
+                                        }
+                                        return response.json(result);
+                                    });
+                                } else {
+                                    return response.status(200).json(resource);
+                                }
+                            });
+                        });
+                    });
+                default:
+                    return response.status(400).json({"message": "Resource type not implemented."});
+            }
+        }
+    });
+}
+
 
 
 function getToDo(req, res) {
     var response = res;
     var status = req.swagger.params.status.value;
-    if ((status !== enums.status.notOcrProcessed) && (status !== enums.status.ocrProcessed) && (status !== enums.status.external)) {
-        logger.error(err);
-        return response.status(400).json({"message": "Invalid parameter."});
-    }
-    if(status == enums.status.ocrProcessed) {
-        mongoBr.find({'embodiedAs.scans.status': status}, function (err, children) {
-            if (err) {
-                logger.error(err);
-                return response.status(500).json({"message": "DB query failed."});
-            }
-            var resultArray = [];
-            var resultObject;
-            for (var child of children) {
-                // check here whether it is really a child
-                if (child.partOf) {
-                    // this applies to dependent resources
-                    var alreadyIn = false;
-                    if (resultArray.length !== 0) {
-                        for (var i of resultArray) {
-                            if (i._id == child.partOf) {
-                                alreadyIn = true;
-                                resultObject = i;
-                                break;
-                            } else {
-                                resultObject = {};
-                                resultObject._id = child.partOf;
-                                resultObject.children = [];
-                            }
-                        }
-                    } else {
-                        resultObject = {};
-                        resultObject._id = child.partOf;
-                        resultObject.children = [];
-                    }
-                    var resultChild = {};
-                    resultChild._id = child._id;
-                    //resultChild.status = child.status;
-                    var scans = [];
-                    for (var embodiment of child.embodiedAs) {
-                        for (var scan of embodiment.scans) {
-                            if (scan.status === status) {
-                                scans.push({
-                                    "_id": scan._id.toString(),
-                                    "status": scan.status,
-                                    "firstPage": embodiment.firstPage,
-                                    "lastPage": embodiment.lastPage
-                                });
-                            }
-                        }
-                    }
-
-                    resultChild.scans = scans;
-                    // TODO: We want to show more information to the user
-                    resultChild.title = child.title;
-                    resultChild.subtitle = child.subtitle;
-                    resultChild.type = child.subtitle;
-                    resultChild.publicationYear = child.publicationYear;
-                    resultChild.edition = child.edition;
-                    resultChild.number = child.number;
-                    resultChild.contributors = child.contributors;
-                    resultChild.identifiers = child.identifiers;
-
-                    if (!resultObject.children) {
-                        resultObject.children = [];
-                    }
-                    resultObject.children.push(resultChild);
-                    if (!alreadyIn) {
-                        resultArray.push(resultObject);
-                    }
-                } else {
-                    // This applies to independent resources
-                    var scans = [];
-                    var resultObject = child;
-                    for (var embodiment of child.embodiedAs) {
-                        for (var scan of embodiment.scans) {
-                            if (scan.status === status) {
-                                scans.push({"_id": scan._id.toString(), "status": scan.status});
-                            }
-                        }
-                    }
-                    resultObject = resultObject.toObject();
-                    delete resultObject.embodiedAs;
-                    resultObject.scans = scans;
-                    resultArray.push(resultObject);
-                }
-            }
-            // add additional information for displaying it to the user
-            async.map(resultArray, function (parent, callback) {
-                // check first whether it is really a parent
-                if (parent.children) {
-                    mongoBr.findOne({'_id': parent._id}, function (err, br) {
-                        if (err) {
-                            logger.error(err);
-                            return callback(err, null)
-                        }
-                        if (!br) {
-                            return callback(null, parent);
-                        }
-                        parent.identifiers = br.identifiers ? br.identifiers : [];
-                        parent.title = br.title ? br.title : "";
-                        parent.subtitle = br.subtitle ? br.subtitle : "";
-                        parent.publicationYear = br.publicationYear ? br.publicationYear : -1;
-                        parent.contributors = br.contributors ? br.contributors : [];
-                        parent.type = br.type ? br.type : "";
-                        parent.edition = br.edition ? br.edition : "";
-                        parent.number = br.number ? br.number : -1;
-                        callback(null, parent);
-                    });
-                } else {
-                    callback(null, parent);
-                }
-            }, function (err, res) {
-                if (err) {
-                    logger.error(err);
-                    return response.status(500).json({"message": "DB query failed."});
-                }
-                response.json(res);
-            });
-
+    async.map(status, function(stat, callback){
+        databaseHelper.retrieveToDos(stat, function(err,res){
+           if(err){
+               logger.error(err);
+               return callback(err, null);
+           }
+           return callback(null, res);
         });
-    }else if (status == enums.status.notOcrProcessed){
-        mongoBr.find({ $or: [ {'embodiedAs.scans.status': enums.status.notOcrProcessed}, {'embodiedAs.scans.status': enums.status.ocrProcessing}] }, function (err, children) {
-            if (err) {
-                logger.error(err);
-                return response.status(500).json({"message": "DB query failed."});
-            }
-            var resultArray = [];
-            var resultObject;
-            for (var child of children) {
-                // check here whether it is really a child
-                if (child.partOf) {
-                    // this applies to dependent resources
-                    var alreadyIn = false;
-                    if (resultArray.length !== 0) {
-                        for (var i of resultArray) {
-                            if (i._id == child.partOf) {
-                                alreadyIn = true;
-                                resultObject = i;
-                                break;
-                            } else {
-                                resultObject = {};
-                                resultObject._id = child.partOf;
-                                resultObject.children = [];
-                            }
-                        }
-                    } else {
-                        resultObject = {};
-                        resultObject._id = child.partOf;
-                        resultObject.children = [];
-                    }
-                    var resultChild = {};
-                    resultChild._id = child._id;
-                    //resultChild.status = child.status;
-                    var scans = [];
-                    for (var embodiment of child.embodiedAs) {
-                        for (var scan of embodiment.scans) {
-                            if (scan.status === status) {
-                                scans.push({
-                                    "_id": scan._id.toString(),
-                                    "status": scan.status,
-                                    "firstPage": embodiment.firstPage,
-                                    "lastPage": embodiment.lastPage
-                                });
-                            }
-                        }
-                    }
+    }, function(err, result){
+        if(err){
+            logger.error(err);
+            return response.status(500).json(err);
+        }
+        result = [].concat.apply([], result);
+        return response.json(result);
 
-                    resultChild.scans = scans;
-                    // TODO: We want to show more information to the user
-                    resultChild.title = child.title;
-                    resultChild.subtitle = child.subtitle;
-                    resultChild.type = child.subtitle;
-                    resultChild.publicationYear = child.publicationYear;
-                    resultChild.edition = child.edition;
-                    resultChild.number = child.number;
-                    resultChild.contributors = child.contributors;
-                    resultChild.identifiers = child.identifiers;
-
-                    if (!resultObject.children) {
-                        resultObject.children = [];
-                    }
-                    resultObject.children.push(resultChild);
-                    if (!alreadyIn) {
-                        resultArray.push(resultObject);
-                    }
-                } else {
-                    // This applies to independent resources
-                    var scans = [];
-                    var resultObject = child;
-                    for (var embodiment of child.embodiedAs) {
-                        for (var scan of embodiment.scans) {
-                            if (scan.status === status) {
-                                scans.push({"_id": scan._id.toString(), "status": scan.status});
-                            }
-                        }
-                    }
-                    resultObject = resultObject.toObject();
-                    delete resultObject.embodiedAs;
-                    resultObject.scans = scans;
-                    resultArray.push(resultObject);
-                }
-            }
-            // add additional information for displaying it to the user
-            async.map(resultArray, function (parent, callback) {
-                // check first whether it is really a parent
-                if (parent.children) {
-                    if(!parent._id || parent._id == "" || parent._id == " "){
-                        logger.error(parent);
-                    }
-                    mongoBr.findOne({'_id': parent._id}, function (err, br) {
-                        if (err) {
-                            logger.error(err);
-                            logger.error(parent);
-                            return callback(err, null)
-                        }
-                        if (!br) {
-                            return callback(null, parent);
-                        }
-                        parent.identifiers = br.identifiers ? br.identifiers : [];
-                        parent.title = br.title ? br.title : "";
-                        parent.subtitle = br.subtitle ? br.subtitle : "";
-                        parent.publicationYear = br.publicationYear ? br.publicationYear : -1;
-                        parent.contributors = br.contributors ? br.contributors : [];
-                        parent.type = br.type ? br.type : "";
-                        parent.edition = br.edition ? br.edition : "";
-                        parent.number = br.number ? br.number : -1;
-                        callback(null, parent);
-                    });
-                } else {
-                    callback(null, parent);
-                }
-            }, function (err, res) {
-                if (err) {
-                    logger.error(err);
-                    return response.status(500).json({"message": "DB query failed."});
-                }
-                response.json(res);
-            });
-
-        });
-    }else if (status == enums.status.external){
-        // this case applies only to electronic journals at the moment and only if there is no scan uploaded yet
-        mongoBr.find({'status': status}, function (err, children) {
-            if (err) {
-                logger.error(err);
-                return response.status(500).json({"message": "DB query failed."});
-            }
-            var resultArray = [];
-            var resultObject;
-            for (var child of children) {
-                // check here whether it is really a child
-                if (child.partOf || child.containerTitle) {
-                    // this applies to dependent resources
-                    var alreadyIn = false;
-                    if (resultArray.length !== 0) {
-                        for (var i of resultArray) {
-                            if (i._id == child.partOf) {
-                                alreadyIn = true;
-                                resultObject = i;
-                                break;
-                            } else {
-                                resultObject = {};
-                                resultObject._id = child.partOf;
-                                resultObject.children = [];
-                            }
-                        }
-                    } else {
-                        resultObject = {};
-                        resultObject._id = child.partOf;
-                        resultObject.children = [];
-                    }
-                    var resultChild = {};
-                    resultChild._id = child._id;
-                    // TODO: We want to show more information to the user
-                    resultChild.title = child.title;
-                    resultChild.subtitle = child.subtitle;
-                    resultChild.type = child.type;
-                    resultChild.publicationYear = child.publicationYear;
-                    resultChild.edition = child.edition;
-                    resultChild.number = child.number;
-                    resultChild.contributors = child.contributors;
-                    resultChild.identifiers = child.identifiers;
-                    resultChild.parts = child.parts;
-/*                    var scans = [];
-                    // this is the difference now: Before we needed to add the scans, but now, we only add a dummy.
-                    scans.push({
-                        "_id": "No scan available."
-                    });*/
-
-                    //resultChild.scans = scans;
-                    if (!resultObject.children) {
-                        resultObject.children = [];
-                    }
-                    resultObject.children.push(resultChild);
-                    if (!alreadyIn) {
-                        resultArray.push(resultObject);
-                    }
-                }
-            }
-            // add additional information for displaying it to the user
-            async.map(resultArray, function (parent, callback) {
-                // check first whether it is really a parent
-                if (parent.children) {
-                    mongoBr.findOne({'_id': parent._id}, function (err, br) {
-                        if (err) {
-                            logger.error(err);
-                            return callback(err, null)
-                        }
-                        if (!br) {
-                            return callback(null, parent);
-                        }
-                        parent.identifiers = br.identifiers ? br.identifiers : [];
-                        parent.title = br.title ? br.title : "";
-                        parent.subtitle = br.subtitle ? br.subtitle : "";
-                        parent.publicationYear = br.publicationYear ? br.publicationYear : -1;
-                        parent.contributors = br.contributors ? br.contributors : [];
-                        parent.type = br.type ? br.type : "";
-                        parent.edition = br.edition ? br.edition : "";
-                        parent.number = br.number ? br.number : "-1";
-                        parent.parts = br.parts ? br.parts : [];
-                        callback(null, parent);
-                    });
-                } else {
-                    callback(null, parent);
-                }
-            }, function (err, res) {
-                if (err) {
-                    logger.error(err);
-                    return response.status(500).json({"message": "Mapping failed."});
-                }
-                response.json(res);
-            });
-        });
-    }
+    });
 }
 
 
@@ -503,27 +298,33 @@ function get(req, res) {
     }
 
     // retrieve corresponding entry from the db
-    mongoBr.findOne({'embodiedAs.scans._id': id}, function (err, br) {
+    return databaseHelper.createSimpleEqualsConditions('embodiedAs', id, '.scans._id', function(err,conditions) {
         if (err) {
             logger.error(err);
-            return response.status(500).json({"message": "DB query failed."});
-        } else if (!br) {
-            logger.error("No entry found for parameter id.", {id: id});
-            return response.status(400).json({"message": "No entry found."});
+            return response.status(500).json({"message": "Something weird happened."});
         }
-        for (var embodiment of br.embodiedAs) {
-            for (var scan of embodiment.scans) {
-                if (scan._id == id) {
-                    // send file
-                    var filePath = config.PATHS.UPLOAD + scan.scanName;
-                    return response.sendFile(path.resolve(filePath), function (err) {
-                        if (err) return logger.error(err);
-                    });
+        return mongoBr.findOne({'$or': conditions}, function (err, br) {
+            if (err) {
+                logger.error(err);
+                return response.status(500).json({"message": "DB query failed."});
+            } else if (!br) {
+                logger.error("No entry found for parameter id.", {id: id});
+                return response.status(400).json({"message": "No entry found."});
+            }
+            for (var embodiment of new BibliographicResource(br).getResourceEmbodimentsForType(br.type)) {
+                for (var scan of embodiment.scans) {
+                    if (scan._id.toString() === id) {
+                        // send file
+                        var filePath = config.PATHS.UPLOAD + scan.scanName;
+                        return response.sendFile(path.resolve(filePath), function (err) {
+                            if (err) return logger.error(err);
+                        });
+                    }
                 }
             }
-        }
+        });
     });
-}
+};
 
 
 function remove(req, res) {
@@ -536,35 +337,48 @@ function remove(req, res) {
         return response.status(400).json({"message": "Invalid parameter."});
     }
 
-    // retrieve corresponding entry from the db
-    mongoBr.findOne({'embodiedAs.scans._id': id}, function (err, br) {
+    return databaseHelper.createSimpleEqualsConditions('embodiedAs', id, '.scans._id', function(err,conditions) {
         if (err) {
             logger.error(err);
-            return response.status(500).json({"message": "DB query failed."});
-        } else if (!br) {
-            logger.error("No entry found for parameter id.", {id: id});
-            return response.status(400).json({"message": "No entry found."});
+            return callback(new Error("Something weird happened."), null);
         }
-        for (var embodiment of br.embodiedAs) {
-            for (var scan of embodiment.scans) {
-                if (scan._id == id) {
-                    // remove scan
-                   var scanIndex =  embodiment.scans.indexOf(scan);
-                    if (scanIndex > -1) {
-                        embodiment.scans.splice(scanIndex, 1);
-                    }
-                    var embodimentIndex = br.embodiedAs.indexOf(embodiment);
-                    br.embodiedAs[embodimentIndex] = embodiment;
-                    return br.save(function(err, res){
-                        if (err) {
-                            logger.error(err);
-                            return response.status(500).json({"message": "DB query failed."});
+        return mongoBr.findOne({'$or': conditions}, function (err, br) {
+            // do error handling
+            if (err) {
+                logger.error(err);
+                return callback(err, null);
+            } else if (!br) {
+                logger.error("No entry found for parameter id.", {id: id});
+                return callback(null, null);
+            }
+            var helperBr = new BibliographicResource(br);
+            var embodiments = helperBr.getResourceEmbodimentsForType(br.type);
+            for (var embodiment of embodiments) {
+                for (var scan of embodiment.scans) {
+                    if (scan._id == id) {
+                        // remove scan
+                        var scanIndex = embodiment.scans.indexOf(scan);
+                        var embodimentIndex = embodiments.indexOf(embodiment);
+                        if (scanIndex > -1) {
+                            var scans = embodiment.toObject().scans;
+                            scans.splice(scanIndex, 1);
+                            embodiment.scans = scans;//embodiment.toObject().scans.splice(scanIndex, 1);
                         }
-                        return response.status(200).json({"message": "Delete succeeded"})
-                    });
+                        embodiments[embodimentIndex] = embodiment;
+                        helperBr.setResourceEmbodimentsForType(br.type, embodiments);
+                        databaseHelper.convertSchemaResourceToMongoose(helperBr, function(err, br){
+                            return br.save(function (err, br) {
+                                if (err) {
+                                    logger.error(err);
+                                    return response.status(500).json({"message": "DB query failed."});
+                                }
+                                return response.status(200).json({"message": "Delete succeeded"})
+                            });
+                        });
+                    }
                 }
             }
-        }
+        });
     });
 }
 
@@ -578,181 +392,24 @@ function triggerOcrProcessing(req, res) {
         logger.error("Invalid value for parameter id.", {id: id});
         return response.status(400).json({"message": "Invalid parameter."});
     }
-
-    // read the corresponding scan by id
-    mongoBr.findOne({
-        'embodiedAs.scans': {
-            '$elemMatch': {
-                '_id': id,
-                'status': enums.status.notOcrProcessed
-            }
-        }
-    }, function (err, br) {
-        // do error handling
-        if (err) {
+    return databaseHelper.setScanStatus(id, enums.status.ocrProcessing, null, function(err, result){
+        if(err){
             logger.error(err);
-            return response.status(500).json({"message": "DB query failed."});
-        } else if (!br) {
-            logger.error("No entry found for parameter id.", {id: id});
-            return response.status(400).json({"message": "No entry found."});
+            return response.status(400).json({"message": "Scan could not be found"});
         }
-        for (var embodiment of br.embodiedAs) {
-            for (var scan of embodiment.scans) {
-                if (scan._id == id) {
-                    // set the status such that we know that the scan is already in the queue
-                    scan.status = enums.status.ocrProcessing;
-
-                    var embodimentIndex = br.embodiedAs.indexOf(embodiment);
-                    var scanIndex = embodiment.scans.indexOf(scan);
-                    br.embodiedAs[embodimentIndex].scans[scanIndex] = scan;
-
-                    br.save(function(err,res){
-                        ocrHelper.ocr_fileupload(scan.scanName, scan.textualPdf, function (err, result) {
-                            if (err) {
-                                logger.error(err);
-                                logger.info("We try to set back the status of the scan");
-                                return mongoBr.findOne({
-                                    'embodiedAs.scans': {
-                                        '$elemMatch': {
-                                            '_id': id
-                                        }
-                                    }
-                                }, function (err, br) {
-                                    for (var embodiment of br.embodiedAs) {
-                                        for (var scan of embodiment.scans) {
-                                            if (scan._id == id) {
-                                                var embodimentIndex = br.embodiedAs.indexOf(embodiment);
-                                                var scanIndex = embodiment.scans.indexOf(scan);
-                                                scan.status = enums.status.notOcrProcessed;
-                                                br.embodiedAs[embodimentIndex].scans[scanIndex] = scan;
-                                                return br.save(function (err, res) {
-                                                    return response.status(502).json({"message": "OCR request failed."});
-                                                });
-                                            }
-                                        }
-                                    }
-                                });
-                            }
-                            var name = scan._id.toString() + ".xml";
-                            async.parallel([
-                                // Do two functions in parallel: 1) parse xml string 2) save xml string in file
-                                function (callback) {
-                                    ocrHelper.parseXMLString(result, scan.scanName, function (err, bes) {
-                                        if (err) {
-                                            logger.error(err);
-                                            return response.status(500).json({"message": "XML parsing failed."});
-                                        }
-
-                                        bes.map(function (be) {
-                                            console.log(be);
-                                            be.scanId = id;
-                                            be.status = enums.status.ocrProcessed;
-                                            br.parts.push(be);
-                                        });
-
-                                        var embodimentIndex = br.embodiedAs.indexOf(embodiment);
-                                        var scanIndex = embodiment.scans.indexOf(scan);
-
-                                        scan.xmlName = name;
-                                        br.embodiedAs[embodimentIndex].scans[scanIndex] = scan;
-
-                                        br.save().then(function (br) {
-                                            callback(null, br);
-                                        }, function (err) {
-                                            logger.error(err);
-                                            callback(err, null)
-                                        });
-
-                                    });
-                                },
-                                function (callback) {
-
-                                    ocrHelper.saveStringFile(name, result, function (err, res) {
-                                        if (err) {
-                                            logger.error(err);
-                                            return callback(err, null);
-                                        }
-                                        callback(null, name);
-                                    });
-                                },
-                                function (callback) {
-                                    ocrHelper.getImageForPDF(scan.scanName, function (err, res) {
-                                        if (err) {
-                                            logger.error(err);
-                                            return callback(err, null);
-                                        }
-                                        callback(null, res);
-                                    });
-                                }
-                            ], function (err, results) {
-                                if (err) {
-                                    logger.error(err);
-                                    return response.status(500).json({"message": "An error occured."});
-                                }
-                                if(results[2]){
-                                    ocrHelper.saveBinaryFile(scan._id.toString(), results[2], function(err, res){
-                                        if (err) {
-                                            logger.error(err);
-                                            return response.status(500).json({"message": "An error occured."});
-                                        }
-
-                                        mongoBr.findOne({
-                                            'embodiedAs.scans': {
-                                                '$elemMatch': {
-                                                    '_id': id
-                                                }
-                                            }
-                                        }, function (err, br) {
-                                            // do error handling
-                                            if (err) {
-                                                logger.error(err);
-                                                return response.status(500).json({"message": "DB query failed."});
-                                            }
-                                            for (var embodiment of br.embodiedAs) {
-                                                for (var scan of embodiment.scans) {
-                                                    if (scan._id == id) {
-                                                        // Interestingly, mongodb seems not to be aware of the update
-                                                        // when you change the scan directly
-                                                        var embodimentIndex = br.embodiedAs.indexOf(embodiment);
-                                                        var scanIndex = embodiment.scans.indexOf(scan);
-                                                        scan.scanName = res;
-                                                        scan.status = enums.status.ocrProcessed;
-                                                        br.embodiedAs[embodimentIndex].scans[scanIndex] = scan;
-                                                        br.save().then(function (br) {
-                                                            return response.json(br);
-                                                        }, function (err) {
-                                                            logger.error(err);
-                                                            return response.status(500).json(err);
-                                                        });
-                                                    }
-                                                }
-                                            }
-                                        });
-                                    });
-                                }else{
-                                    var embodimentIndex = br.embodiedAs.indexOf(embodiment);
-                                    var scanIndex = embodiment.scans.indexOf(scan);
-                                    scan.status = enums.status.ocrProcessed;
-                                    results[0].embodiedAs[embodimentIndex].scans[scanIndex] = scan;
-                                    results[0].save().then(function (br) {
-                                        return response.json(br);
-                                    }, function (err) {
-                                        logger.error(err);
-                                        return response.status(500).json(err);
-                                    });
-                                }
-                            });
-                        });
-                    });
-                }
-            }
+        if(!result || result.length < 2){
+            return response.status(400).json({"message": "Scan could not be found"});
         }
+        var br = result[0];
+        var scan = result[1];
+        agenda.now('extract references', {scan: scan.toObject(), id: id, br: br});
+        return response.status(200).json({"message": "Reference extraction triggered."});
     });
-}
+};
+
 
 module.exports = {
-    saveScan: saveScan,
-    saveScanForElectronicJournal: saveScanForElectronicJournal,
+    saveResource: saveResource,
     getToDo: getToDo,
     triggerOcrProcessing: triggerOcrProcessing,
     get: get,

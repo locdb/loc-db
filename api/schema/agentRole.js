@@ -4,23 +4,15 @@
 'use strict';
 
 const SchemaObject = require('schema-object');
-const status = require('./enum.json').status;
 const Identifier = require('./identifier.js');
+const ResponsibleAgent = require('./responsibleAgent.js');
 
 //Create bibliographicEntry schema
 var agentRole = new SchemaObject({
     identifiers: [{type: Identifier}],
     roleType: String,
-    heldBy:{
-        identifiers: [{
-            value: String,
-            scheme: String
-        }],
-        nameString: String,
-        givenName: String,
-        familyName: String
-    }
-    //next: {type: this}
+    heldBy:{type: ResponsibleAgent},
+    next: {type: this}
 });
 
 module.exports = agentRole;

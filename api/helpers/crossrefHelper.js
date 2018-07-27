@@ -1,6 +1,6 @@
 'use strict';
 
-const crossref = require('crossref');
+const crossref = require('./../../custom_modules/crossref');
 const Identifier = require('./../schema/identifier.js');
 const BibliographicResource = require('./../schema/bibliographicResource.js');
 const AgentRole = require('./../schema/agentRole.js');
@@ -11,6 +11,7 @@ const logger = require('./../util/logger.js');
 const stringSimilarity = require('string-similarity');
 const removeDiacritics = require('diacritics').remove;
 const utf8 = require('utf8');
+const async = require('async');
 
 var CrossrefHelper = function(){
 };
@@ -33,6 +34,11 @@ CrossrefHelper.prototype.query = function(query, callback){
             if (err) {
                 logger.error(err);
                 return callback(err, null);
+            }
+            for(var parentChild of res){
+                for(var br of parentChild){
+                    br.status = enums.status.external;
+                }
             }
             return callback(null, res);
         });
@@ -68,7 +74,11 @@ CrossrefHelper.prototype.queryChapterMetaData = function(containerTitle, firstPa
                 logger.error(err);
                 return callback(err, null);
             }
-            return callback(null, res);
+            if(res && res[0]) {
+                return callback(null, res[0]);
+            }else{
+                return callback(null, []);
+            }
         });
     });
 };
@@ -112,7 +122,8 @@ CrossrefHelper.prototype.queryReferences = function(doi, query, callback){
             // check whether they really contain the 'reference' property
             var candidates = [];
             for(var obj of objs){
-                if(obj.reference){
+                if(stringSimilarity.compareTwoStrings(obj['title'][0], query) > 0.95 && obj.reference){
+                    logger.info("Match on pages and title, similarity = " + stringSimilarity.compareTwoStrings(obj['title'][0], query));
                     candidates.push(obj);
                 }
             }
@@ -125,7 +136,6 @@ CrossrefHelper.prototype.queryReferences = function(doi, query, callback){
             });
         });
     }
-
 };
 
 
@@ -144,16 +154,13 @@ CrossrefHelper.prototype.queryByDOI = function(doi, callback){
         // check whether they really contain the 'reference' property
         var candidates = [];
         candidates.push(obj);
-        var containerTitle = obj['container-title'] ? obj['container-title'] [0] : obj['container-title'];
         self.parseObjects(candidates, function(err, res){
             if (err) {
                 logger.error(err);
                 return callback(err, null);
             }
             if (res.length >0){
-                var result = []
-                result[0] = res[0];
-                result[1] = containerTitle;
+                var result = res[0];
                 return callback(null, result);
             }
             return callback(null, null);
@@ -162,118 +169,264 @@ CrossrefHelper.prototype.queryByDOI = function(doi, callback){
 };
 
 
-/**
- * Parses an array of Crossref objects and returns an array of BRs
- * @param objects
- * @param callback
- */
-CrossrefHelper.prototype.parseObjects = function(objects, callback){
-    var res = [];
-    for(var obj of objects){
 
-        // Identifiers
-        var identifiers = [];
-        if(obj.DOI){
-            var identifier = new Identifier({scheme: enums.identifier.doi, literalValue: obj.DOI});
-            identifiers.push(identifier.toObject());
+CrossrefHelper.prototype.parseObjects = function(objects, callback){
+    var self = this;
+    async.map(objects, function(obj, cb){
+        if(obj['container-title'] && obj['container-title'].length > 0){
+            self.parseDependentResource(obj, function (err, result) {
+                cb(err, result);
+            });
+        }else{
+            self.parseIndependentResource(obj, function(err,result){
+                cb(err, result);
+            });
         }
-        if(obj.URL){
-            var identifier = new Identifier({scheme: enums.externalSources.crossref, literalValue: obj.URL});
-            identifiers.push(identifier.toObject());
+    }, function(err, results) {
+        return callback(null, results);
+    });
+};
+
+
+CrossrefHelper.prototype.parseIndependentResource = function(obj, callback){
+    var resource = new BibliographicResource({type: this.getType(obj.type)});
+    if(!resource.type){
+        resource.type = enums.resourceType.bookChapter;
+    }
+
+    // Identifiers
+    if(obj.DOI){
+        resource.pushIdentifierForType(resource.type, new Identifier({scheme: enums.identifier.doi, literalValue: obj.DOI}));
+    }
+    if(obj.URL){
+        resource.pushIdentifierForType(resource.type, new Identifier({scheme: enums.identifier.crossrefUrl, literalValue: obj.URL}));
+    }
+    if(obj.ISBN && resource.type !== enums.resourceType.bookChapter && !obj['container-title']){
+        for(var isbn of obj.ISBN){
+            resource.pushIdentifierForType(resource.type, new Identifier({scheme: enums.identifier.isbn, literalValue: isbn}));
         }
-        if(obj.ISSN){
-            for(var issn of obj.ISSN){
-                var identifier = new Identifier({scheme: enums.identifier.issn, literalValue: issn});
-                identifiers.push(identifier.toObject())
-            }
+    }
+
+    // Contributors
+    if(obj.author){
+        for(var author of obj.author){
+            resource.pushContributorForType(resource.type, new AgentRole({roleType: enums.roleType.author, heldBy: {givenName: author.given, familyName: author.family}}));
         }
-        // Contributors
-        var contributors = [];
-        if(obj.author){
-            for(var author of obj.author){
-                var agentRole = new AgentRole({roleType: enums.roleType.author, heldBy: {nameString: (author.family + " " + author.given), givenName: author.given, familyName: author.family}});
-                contributors.push(agentRole.toObject());
+    }
+    if(obj.editor){
+        for(var editor of obj.editor){
+            resource.pushContributorForType(resource.type, new AgentRole({roleType: enums.roleType.editor, heldBy: {givenName: editor.given, familyName: editor.family}}));
+        }
+    }
+    if(obj.publisher){
+        resource.pushContributorForType(resource.type, new AgentRole({roleType: enums.roleType.publisher, heldBy: {nameString: obj.publisher}}));
+    }
+
+    // Numbers/ Edition
+    if(obj.edition_number){
+        resource.setEditionForType(resource.type, obj.edition_number);
+    }
+    if(obj['article-number']){
+        resource.setNumberForType(resource.type, obj['article-number']);
+    }
+
+    // Titles
+    resource.setTitleForType(resource.type, (obj.title && obj.title[0] ? obj.title[0] : ""));
+    resource.setSubtitleForType(resource.type, obj.subtitle && obj.subtitle[0] ? obj.subtitle[0] : "");
+
+    // Embodiment
+    if(obj.page){
+        var firstPage = obj.page && obj.page.split('-').length == 2  ? obj.page.split('-')[0] : obj.page ;
+        var lastPage = obj.page && obj.page.split('-').length == 2 ? obj.page.split('-')[1] : "" ;
+        resource.pushResourceEmbodimentForType(resource.type, new ResourceEmbodiment({firstPage: firstPage, lastPage:lastPage}));
+    }
+
+    // Publication Year
+    if(obj['issued'] && obj['issued']['date-parts'] && obj['issued']['date-parts'][0] && obj['issued']['date-parts'][0][0]){
+        if(obj['issued']['date-time']){
+            resource.setPublicationDateForType(resource.type, obj['issued']['date-time']);
+        }else{
+            resource.setPublicationDateForType(resource.type, obj['issued']['date-parts'][0][0]);
+        }
+    }else if (obj['published-print'] && obj['published-print']['date-parts'] && obj['published-print']['date-parts'][0] && obj['published-print']['date-parts'][0][0]){
+        if(obj['published-print']['date-time']){
+            resource.setPublicationDateForType(resource.type, obj['published-print']['date-time']);
+        }else{
+            resource.setPublicationDateForType(resource.type, obj['published-print']['date-parts'][0][0]);
+        }
+    }else if(obj['published-online'] && obj['published-online']['date-parts'] && obj['published-online']['date-parts'][0] && obj['published-online']['date-parts'][0][0]){
+        if(obj['published-online']['date-time']){
+            resource.setPublicationDateForType(resource.type, obj['published-online']['date-time']);
+        }else{
+            resource.setPublicationDateForType(resource.type, obj['published-online']['date-parts'][0][0]);
+        }
+    }
+    this.parseReferences(obj, function(err, bes){
+        resource.parts = bes;
+        return callback(null, [resource]);
+    });
+};
+
+CrossrefHelper.prototype.getCrossrefParentType = function (child, obj) {
+    if(child.type === enums.resourceType.journalArticle && !obj.issue && !obj.volume){
+        return enums.resourceType.journal;
+    }else if (child.type === enums.resourceType.journalArticle && !obj.issue){
+        return enums.resourceType.journalVolume;
+    }else{
+        return child.getContainerTypeForType(child.type).length > 0 ? child.getContainerTypeForType(child.type)[0] : "";
+    }
+}
+
+CrossrefHelper.prototype.parseDependentResource = function(obj, callback){
+    var self = this;
+
+    return this.parseIndependentResource(obj, function(err, res){
+        var child = res[0];
+        var parentType = self.getCrossrefParentType(child, obj);
+        if(parentType === ""){
+            return callback(null,[child]);
+        }
+        var parent = new BibliographicResource({type: parentType});
+
+        // set the general parent properties
+        if(child.type === enums.resourceType.journalArticle){
+            parent.setTitleForType(enums.resourceType.journal, obj['container-title'][0]);
+        }else{
+            parent.setTitleForType(parentType, obj['container-title'][0]);
+        }
+
+        if(obj.editor){
+            for(var editor of obj.editor){
+                parent.pushContributorForType(parent.type, new AgentRole({roleType: enums.roleType.editor, heldBy: {givenName: editor.given, familyName: editor.family}}));
             }
         }
         if(obj.publisher){
-            var agentRole = new AgentRole({roleType: enums.roleType.publisher, heldBy: {nameString: obj.publisher}});
-            contributors.push(agentRole.toObject());
+            parent.pushContributorForType(parent.type, new AgentRole({roleType: enums.roleType.publisher, heldBy: {nameString: obj.publisher}}));
         }
-        // Title
-        var title = "";
-        if(obj.title && obj.title[0]) {
-            title = obj.title[0];
+        if(obj.ISSN && child.type == enums.resourceType.journalArticle){
+            for(var issn of obj.ISSN){
+                parent.pushIdentifierForType(enums.resourceType.journal, new Identifier({scheme: enums.identifier.issn, literalValue: issn}));
+            }
+        }else if(obj.ISSN){
+            for(var issn of obj.ISSN){
+                parent.pushIdentifierForType(enums.resourceType.bookSeries, new Identifier({scheme: enums.identifier.issn, literalValue: issn}));
+            }
         }
-        // Subtitle
-        var subtitle = ""
-        if(obj.subtitle && obj.subtitle[0]) {
-            subtitle = obj.subtitle[0];
+        if(obj.ISBN){
+            for(var isbn of obj.ISBN){
+                parent.pushIdentifierForType(parent.type, new Identifier({scheme: enums.identifier.isbn, literalValue: isbn}));
+            }
         }
-
-        // Reference list
-        if(obj.reference){
-            var bes = [];
-            for(var reference of obj.reference){
-                var referenceTitle = reference['article-title'] ? reference['article-title'] : "";
-                var referenceAuthor = reference.author ? reference.author : "";
-                var referenceYear = reference.year ? reference.year : "";
-                var referenceJournal = reference['journal-title'] ? reference['journal-title'] : "";
-                var referenceVolume = reference.volume ? reference.volume : "";
-                var referenceComments = reference['first-page']? "First page: " + reference['first-page'] : "";
+        if(obj.issue){
+            parent.setNumberForType(enums.resourceType.journalIssue, obj.issue);
+        }
+        if(obj.volume){
+            parent.setNumberForType(enums.resourceType.journalVolume, obj.volume);
+        }
+        return callback(null,[child, parent]);
+    });
+};
 
 
-                if(referenceTitle === ""){
-                    referenceTitle = reference['volume-title'] ? reference['volume-title'] : "";
-                }
+/**
+ * Given a crossref type, it returns the matching internal enum
+ * @param type
+ * @returns type
+ */
+CrossrefHelper.prototype.getType = function(type){
+    switch(type){
+        case 'journal-article':
+            return enums.resourceType.journalArticle;
+        case 'journal':
+            return enums.resourceType.journal;
+        case 'journal-issue':
+            return enums.resourceType.journalIssue;
+        case 'journal-volume':
+            return enums.resourceType.journalVolume;
+        case 'book':
+            return enums.resourceType.book;
+        case 'book-chapter':
+            return enums.resourceType.bookChapter;
+        case 'book-part':
+            return enums.resourceType.bookPart;
+        case 'book-section':
+            return enums.resourceType.bookSection;
+        case 'book-series':
+            return enums.resourceType.bookSeries;
+        case 'book-set':
+            return enums.resourceType.bookSet;
+        case 'book-track':
+            return enums.resourceType.bookTrack;
+        case 'edited-book':
+            return enums.resourceType.editedBook;
+        case 'component':
+            return enums.resourceType.component;
+        case 'dataset':
+            return enums.resourceType.dataset;
+        case 'dissertation':
+            return enums.resourceType.dissertation;
+        case 'proceedings':
+            return enums.resourceType.proceedings;
+        case 'proceedings-article':
+            return enums.resourceType.proceedingsArticle;
+        case 'monograph':
+            return enums.resourceType.monograph;
+        case 'reference-book':
+            return enums.resourceType.referenceBook;
+        case 'reference-entry':
+            return enums.resourceType.referenceEntry;
+        case 'report':
+            return enums.resourceType.report;
+        case 'report-series':
+            return enums.resourceType.reportSeries;
+        case 'standard':
+            return enums.resourceType.standard;
+        case 'standard-series':
+            return enums.resourceType.standardSeries;
+    }
+};
 
-                var bibliographicEntry = new BibliographicEntry({
-                    identifiers:[new Identifier({scheme: enums.identifier.doi, literalValue: reference.DOI})],
-                    bibliographicEntryText: reference.unstructured,
-                    ocrData:{
-                        title: referenceTitle,
-                        date: referenceYear,
-                        authors: [referenceAuthor],
-                        journal: referenceJournal,
-                        volume: referenceVolume,
-                        comments: referenceComments
-                    },
-                    status: enums.status.external});
-                bes.push(bibliographicEntry);
+
+/**
+ * Extracts the references from a given crossref object
+ * @param obj
+ */
+CrossrefHelper.prototype.parseReferences = function(obj, callback){
+    // Reference list
+    if(obj.reference){
+        var bes = [];
+        for(var reference of obj.reference){
+            var referenceTitle = reference['article-title'] ? reference['article-title'] : "";
+            var referenceAuthor = reference.author ? reference.author : "";
+            var referenceYear = reference.year ? reference.year : "";
+            var referenceJournal = reference['journal-title'] ? reference['journal-title'] : "";
+            var referenceVolume = reference.volume ? reference.volume : "";
+            var referenceComments = reference['first-page']? "First page: " + reference['first-page'] : "";
+
+
+            if(referenceTitle === ""){
+                referenceTitle = reference['volume-title'] ? reference['volume-title'] : "";
             }
 
+            var bibliographicEntry = new BibliographicEntry({
+                identifiers: reference.DOI ? [new Identifier({scheme: enums.identifier.doi, literalValue: reference.DOI})] : [],
+                bibliographicEntryText: reference.unstructured,
+                ocrData:{
+                    title: referenceTitle,
+                    date: referenceYear,
+                    authors: [referenceAuthor],
+                    journal: referenceJournal,
+                    volume: referenceVolume,
+                    comments: referenceComments
+                },
+                status: enums.status.external});
+
+            bes.push(bibliographicEntry);
         }
-        var firstPage = obj.page && obj.page.split('-').length == 2  ? obj.page.split('-')[0] : obj.page ;
-        var lastPage = obj.page && obj.page.split('-').length == 2 ? obj.page.split('-')[1] : "" ;
-        var embodiedAs = [new ResourceEmbodiment({firstPage: firstPage, lastPage:lastPage})];
-        var containerTitle = obj['container-title'] && obj['container-title'][0] ? obj['container-title'][0] : "";
-
-        var publicationYear;
-        if(obj['issued'] && obj['issued']['date-parts'] && obj['issued']['date-parts'][0] && obj['issued']['date-parts'][0][0]){
-            publicationYear = obj['issued']['date-parts'][0][0];
-        }else if (obj['published-print'] && obj['published-print']['date-parts'] && obj['published-print']['date-parts'][0] && obj['published-print']['date-parts'][0][0]){
-            publicationYear = obj['published-print']['date-parts'][0][0];
-        }else if(obj['published-online'] && obj['published-online']['date-parts'] && obj['published-online']['date-parts'][0] && obj['published-online']['date-parts'][0][0]){
-            publicationYear = obj['published-online']['date-parts'][0][0];
-        }
-
-        // TODO: Parse type
-        var bibliographicResource = new BibliographicResource({
-            title: title,
-            subtitle: subtitle,
-            contributors: contributors,
-            identifiers: identifiers,
-            status: enums.status.external,
-            parts: bes,
-            embodiedAs: embodiedAs,
-            containerTitle: containerTitle,
-            publicationYear: publicationYear
-        });
-
-
-        res.push(bibliographicResource.toObject());
     }
-    callback(null, res);
+    return callback(null, bes);
 };
+
 
 /**
  * Factory function

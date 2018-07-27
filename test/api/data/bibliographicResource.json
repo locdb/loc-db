@@ -1,26 +1,28 @@
 [
   {
     "_id": "592420955e7d7f3e54934304",
-    "title": "The Semantic Web - ISWC 2015",
-    "subtitle": "14th International Semantic Web Conference, Bethlehem, PA, USA, October 11-15, 2015, Proceedings, Part I /",
+    "editedBook_title": "The Semantic Web - ISWC 2015",
+    "editedBook_subtitle": "14th International Semantic Web Conference, Bethlehem, PA, USA, October 11-15, 2015, Proceedings, Part I /",
     "__v": 0,
-    "embodiedAs": [],
+    "editedBook_embodiedAs": [],
     "parts": [],
     "cites": [],
-    "contributors": [],
-    "identifiers": []
+    "editedBook_contributors": [],
+    "editedBook_identifiers": [],
+    "type": "EDITED_BOOK"
   },
   {
     "_id": "5a2947087bdcfd4759582633",
-    "publicationYear": "1993",
-    "containerTitle": "Revue française de Sociologie",
-    "number": "34",
+    "book_publicationYear": "1993",
+    "book_containerTitle": "Revue française de Sociologie",
+    "book_number": "34",
     "status": "EXTERNAL",
     "__v": 0,
-    "embodiedAs": [],
+    "book_embodiedAs": [],
     "parts": [],
     "cites": [],
-    "contributors": [
+    "type": "BOOK",
+    "book_contributors": [
       {
         "roleType": "AUTHOR",
         "_id": "5a2947087bdcfd4759582634",
@@ -33,7 +35,7 @@
         "identifiers": []
       }
     ],
-    "identifiers": [
+    "book_identifiers": [
       {
         "literalValue": "10.2307/3322050",
         "scheme": "DOI",
@@ -43,11 +45,11 @@
   },
   {
     "_id": "5a294938bc0d3f4a326761c6",
-    "title": "Privat-staatliche Regelungsstrukturen im frühen Industrie- und Sozialstaat /",
-    "publicationYear": "2016",
+    "monograph_title": "Privat-staatliche Regelungsstrukturen im frühen Industrie- und Sozialstaat /",
+    "monograph_publicationYear": "2016",
     "type": "MONOGRAPH",
     "__v": 0,
-    "embodiedAs": [
+    "monograph_embodiedAs": [
       {
         "type": "PRINT",
         "_id": "5a294938bc0d3f4a326761c7",
@@ -64,7 +66,7 @@
     ],
     "parts": [],
     "cites": [],
-    "contributors": [
+    "monograph_contributors": [
       {
         "roleType": "AUTHOR",
         "_id": "5a294938bc0d3f4a326761ca",
@@ -86,7 +88,7 @@
         "identifiers": []
       }
     ],
-    "identifiers": [
+    "monograph_identifiers": [
       {
         "literalValue": "958009108",
         "scheme": "OCLC_ID",

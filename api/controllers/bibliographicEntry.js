@@ -1,15 +1,15 @@
 'use strict';
-const mongoBr = require('./../models/bibliographicResource.js');
+const mongoBr = require('./../models/bibliographicResource.js').mongoBr;
+const mongoBrSuggestions = require('./../models/bibliographicResourceSuggestions.js').mongoBrSuggestions;
 const logger = require('./../util/logger.js');
 const enums = require('./../schema/enum.json');
-const bibliographicResource = require('./../schema/bibliographicResource');
+const BibliographicResource = require('./../schema/bibliographicResource');
 const mongoose = require('mongoose');
 const extend = require('extend');
 const async = require('async');
-const googleScholarHelper = require('./../helpers/googleScholarHelper.js').createGoogleScholarHelper();
-const crossrefHelper = require('./../helpers/crossrefHelper.js').createCrossrefHelper();
-const swbHelper = require('./../helpers/swbHelper.js').createSwbHelper();
-const stringSimilarity = require('string-similarity');
+
+
+const suggestionHelper = require('./../helpers/suggestionHelper').createSuggestionHelper();
 
 
 function getToDoBibliographicEntries(req, res) {
@@ -137,72 +137,51 @@ function remove(req, res) {
 }
 
 
-function getInternalSuggestions(req, res) {
+function getInternalSuggestionsByQueryString(req, res) {
     var response = res;
-    var title = req.swagger.params.bibliographicEntry.value.ocrData.title.replace(/:/g, ' ');
-    var authors = req.swagger.params.bibliographicEntry.value.ocrData.authors
-    authors = authors.join(' ').replace(/:/g, ' ');
-    var bibliographicEntryText = req.swagger.params.bibliographicEntry.value.bibliographicEntryText.replace(/:/g, ' ')
+    var query = req.swagger.params.query.value;
+    try{
+        query = decodeURIComponent(query);
+    } catch(err){
+        logger.error(err);
+        query = query;
+    }
+    var k = req.swagger.params.k.value;
+    if(!k){
+        k = 10;
+    }
+    var doi = suggestionHelper.extractDOI(query);
 
+    if(!doi) {
+        // get the property names to search in
+        var helper = new BibliographicResource();
+        var types = helper.getAllTypes();
+        var searchProperties = helper.getPropertyForTypes("title", types);
+        searchProperties.push.apply(searchProperties, helper.getPropertyForTypes("subtitle", types));
+        var contributors = helper.getPropertyForTypes("contributors", types);
+        for (var contributor of contributors) {
+            searchProperties.push(contributor + '.heldBy.nameString');
+            searchProperties.push(contributor + '.heldBy.familyName');
+            searchProperties.push(contributor + '.heldBy.givenName');
+        }
+
+    }else {
+        // get the property names to search in
+        var helper = new BibliographicResource();
+        var types = helper.getAllTypes();
+        var searchProperties = [];
+        var identifiers = helper.getPropertyForTypes("identifiers", types);
+        for (var identifier of identifiers) {
+            searchProperties.push(identifier + '.literalValue');
+        }
+        query = doi[0].trim();
+    }
     // the search function offers an interface to elastic
     try {
         mongoBr.search({
             multi_match: {
-                query: title + " " + authors + " " + bibliographicEntryText,
-                fields: [
-                    "title",
-                    "subtitle",
-                    "contributors.heldBy.nameString",
-                    "contributors.heldBy.givenName",
-                    "contributors.heldBy.familyName"
-                ]
-            }
-        }, {hydrate: true}, function (err, brs) {
-            var result = [];
-            if (err) {
-                logger.error(err);
-                return res.status(500).json(err);
-            }
-            if (brs.hits && brs.hits.hits) {
-                for (var i in brs.hits.hits) {
-                    var br = brs.hits.hits[i];
-                    // return only the top 5 result
-                    // but only if they do not only exist in elastic but also in mongo
-                    if (br && result.length <= 5) {
-                        result.push(br.toObject());
-                    }
-                }
-            }
-            return response.status(200).json(result);
-        });
-    }catch (err) {
-        logger.error(err);
-        return response.json("Something went wrong with the internal suggestions");
-    }
-}
-
-
-function getInternalSuggestionsByQueryString(req, res) {
-    var response = res;
-    var query = decodeURI(decodeURI(query));
-    var query = req.swagger.params.query.value;
-    var threshold = req.swagger.params.threshold.value;
-    if(!threshold){
-        threshold = 1.0;
-    }
-
-    // the search function offers an interface to elastic
-    try{
-        mongoBr.search({
-            multi_match: {
                 query: query,
-                fields: [
-                    "title",
-                    "subtitle",
-                    "contributors.heldBy.nameString",
-                    "contributors.heldBy.givenName",
-                    "contributors.heldBy.familyName"
-                ]
+                fields: searchProperties
             }
         }, {hydrate: true, hydrateWithESResults: true}, function (err, brs) {
             var result = [];
@@ -210,130 +189,76 @@ function getInternalSuggestionsByQueryString(req, res) {
                 logger.error(err);
                 return res.status(500).json(err);
             }
-            if (brs.hits && brs.hits.hits) {
-                for (var i in brs.hits.hits) {
-                    var br = brs.hits.hits[i];
-
-                    // we check, whether the result is good enough
-                    if(br._esResult._score > threshold){
-                        result.push(br.toObject());
-                    }
-                }
+            //if (brs.hits && brs.hits.hits) {
+            //    for (var i in brs.hits.hits) {
+            //       var br = brs.hits.hits[i];
+            //
+            //        // we check, whether the result is good enough
+            //        if (br._esResult._score > threshold) {
+            //            result.push(br.toObject());
+            //        }
+            //    }
+            //}
+            if(brs && brs.hits && brs.hits.hits && brs.hits.hits.length >0){
+                result = brs.hits.hits.slice(0, k);
             }
-            return response.status(200).json(result);
+            async.map(result, function (br, callback) {
+            if (br.partOf && br.partOf !== "") {
+                // br has parent, we want to retrieve this too
+                mongoBr.findById(br.partOf, function (err, parent) {
+                    if (err) {
+                        logger.error(err);
+                        return callback(err, null);
+                    }
+                    if (parent) {
+                        return callback(null, [br, parent]);
+                    } else {
+                        return callback(null, [br]);
+                    }
+                });
+            } else {
+                return callback(null, [br]);
+            }
+            }, function (err, groupedResults) {
+                if (err) {
+                    logger.error(err);
+                    return response.status(500).json(err);
+                }
+                return response.status(200).json(groupedResults);
+            });
         });
-    }catch (err) {
+    } catch (err) {
         logger.error(err);
         return response.json("Something went wrong with the internal suggestions");
     }
 }
 
+
 function getExternalSuggestions(req, res) {
     var response = res;
-    var searchObject = req.swagger.params.bibliographicEntry.value;
-    var title = searchObject.ocrData.title;
-
-    async.parallel([
-            function (callback) {
-                swbHelper.queryByTitle(title, function (err, res) {
-                    if (err) {
-                        return callback(err, null);
-                    }
-                    return callback(null, res);
-                });
-            },
-            function (callback) {
-                googleScholarHelper.query(title, function (err, res) {
-                    if (err) {
-                        return callback(err, null);
-                    }
-                    return callback(null, res);
-                });
-            },
-            function (callback) {
-                crossrefHelper.query(title, function (err, res) {
-                    if (err) {
-                        return callback(err, null);
-                    }
-                    return callback(null, res);
-                });
-            }
-        ],
-        function (err, res) {
-            if (err) {
-                logger.error(err);
-                return response.status(500).json(err);
-            }
-            var result = [];
-            for(var sourceResults of res){
-                if (sourceResults.length > 0) {
-                    for (var br of sourceResults) {
-                        if (Object.keys(br).length !== 0) { //&& natural.LevenshteinDistance(be.title, title) <= 10) {
-                            result.push(br);
-                        }
-                    }
-                }
-            }
-            return response.json(result);
-        }
-    );
-}
-
-
-function getExternalSuggestionsByQueryString(req, res) {
-    var response = res;
     var query = req.swagger.params.query.value;
-    query = decodeURI(decodeURI(query));
-    var threshold = req.swagger.params.threshold.value;
-    if(!threshold){
-        threshold = 0.45;
+    try{
+        query = decodeURIComponent(query);
+    } catch(err){
+        logger.error(err);
+        query = query;
     }
 
-    async.parallel([
-            function (callback) {
-                swbHelper.queryByQueryString(query, function (err, res) {
-                    if (err) {
-                        return callback(err, null);
-                    }
-                    return callback(null, res);
-                });
-            },
-            /*function (callback) {
-                googleScholarHelper.query(query, function (err, res) {
-                    if (err) {
-                        return callback(err, null);
-                    }
-                    return callback(null, res);
-                });
-            },*/
-            function (callback) {
-                crossrefHelper.query(query, function (err, res) {
-                    if (err) {
-                        return callback(err, null);
-                    }
-                    return callback(null, res);
-                });
-            }
-        ],
-        function (err, res) {
-            if (err) {
-                logger.error(err);
-                return response.status(500).json(err);
-            }
-            var result = [];
-            for(var sourceResults of res){
-                if (sourceResults.length > 0) {
-                    for (var br of sourceResults) {
-                        if (Object.keys(br).length !== 0 && stringSimilarity.compareTwoStrings(br.title + br.subtitle + br.contributors, query) >= threshold) {
-                            result.push(br);
-                        }
-                    }
-                }
-            }
-            return response.json(result);
+    var k = req.swagger.params.k.value;
+    if(!k){
+        k = 10;
+    }
+    suggestionHelper.getExternalSuggestions(query, k, function(err,result){
+        if(err){
+            logger.error(err);
+            return response.status(500).json(err);
         }
-    );
+        return response.json(result);
+    });
 }
+
+
+
 
 function addTargetBibliographicResource(req, res) {
     var response = res;
@@ -451,14 +376,136 @@ function removeTargetBibliographicResource(req, res) {
 
 }
 
+function create(req, res){
+    var bibliographicResourceId = req.swagger.params.bibliographicResourceId.value;
+    var bibliographicEntry = req.swagger.params.bibliographicEntry.value;
+    var response = res;
+
+    // first check whether we received valid mongo ids
+    if (!mongoose.Types.ObjectId.isValid(bibliographicResourceId)) {
+        logger.error("Invalid value for parameter id.", {
+            bibliographicResourceId: bibliographicResourceId
+        });
+        return response.status(400).json({"message": "Invalid parameter id."});
+    }
+
+    // load the source br which should contain the be
+    return mongoBr.findOne({'_id': bibliographicResourceId}, function (err, br) {
+        if (err) {
+            logger.error(err);
+            return response.status(500).json(err);
+        }
+        if(!br){
+            logger.error("No br found for parameter id.", {
+                bibliographicResourceId: bibliographicResourceId
+            });
+            return response.status(400).json({"message": "No resource found."});
+        }
+
+        // update the br
+        br.parts.push(bibliographicEntry);
+
+        // if the entry to be added also references another resource, we have to push this to the resource level too
+        if(bibliographicEntry.references && bibliographicEntry.references != ""){
+            // first check whether we received valid mongo ids
+            if (!mongoose.Types.ObjectId.isValid(bibliographicEntry.references) || bibliographicEntry.references == bibliographicResourceId ) {
+                logger.error("Invalid value for parameter references in be.", {
+                    bibliographicResourceId: bibliographicEntry.references
+                });
+                return response.status(400).json({"message": "Invalid parameter references."});
+            }
+            return mongoBr.findOne({'_id': bibliographicEntry.references}, function (err, target) {
+                if (err) {
+                    logger.error(err);
+                    return response.status(500).json(err);
+                }
+                if (!target) {
+                    logger.error("No target br found for parameter references.", {
+                        references: bibliographicEntry.references
+                    });
+                    return response.status(400).json({"message": "No target resource found."});
+                }
+
+                br.cites.push(bibliographicEntry.references);
+
+                // now everything is updated; therefore, we have to save the resource again
+                return br.save(function(err, br){
+                    if (err) {
+                        logger.error(err);
+                        return response.status(500).json(err);
+                    }
+                    return response.json(br);
+                });
+            });
+        }
+
+        // now everything is updated; therefore, we have to save the resource again
+        return br.save(function(err, br){
+            if (err) {
+                logger.error(err);
+                return response.status(500).json(err);
+            }
+            return response.json(br);
+        });
+    });
+}
+
+
+function getPrecalculatedSuggestions(req, res){
+    var id = req.swagger.params.id.value;
+    var response = res;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        logger.error("Invalid value for parameter id.", {id: id});
+        return response.status(400).json({"message": "Invalid parameter."});
+    }
+
+    mongoBr.findOne({'parts._id': id}, function (err, br) {
+        if (err) {
+            logger.error(err);
+            return res.status(500).json({"message": "DB query failed."});
+        }
+        if (!br) {
+            logger.error("No bibliographic entry found for id.", {id: id});
+            return res.status(400).json({"message": "No bibliographic entry found for id."});
+        }
+
+
+        for (var be of br.parts) {
+            if (be._id.toString() === id) {
+                // we found the specific be
+                // create query string
+                suggestionHelper.createQueryStringForBE(be, function (err, queryString) {
+                    if (err) {
+                        logger.error(err);
+                        return response.status(500).json(err);
+                    }
+                    // retrieve suggestions by query
+                    mongoBrSuggestions.findOne({queryString: queryString}, function (err, suggestions) {
+                        if (err) {
+                            logger.error(err);
+                            return response.status(500).json(err);
+                        }
+                        if (!suggestions) {
+                            return response.json([]);
+                        }
+                        return response.json(suggestions.suggestions);
+
+                    });
+                });
+            }
+        }
+    });
+}
+
 module.exports = {
     getToDoBibliographicEntries: getToDoBibliographicEntries,
     update: update,
     remove: remove,
-    getInternalSuggestions: getInternalSuggestions,
-    getExternalSuggestions: getExternalSuggestions,
     addTargetBibliographicResource: addTargetBibliographicResource,
     removeTargetBibliographicResource : removeTargetBibliographicResource,
     getInternalSuggestionsByQueryString : getInternalSuggestionsByQueryString,
-    getExternalSuggestionsByQueryString : getExternalSuggestionsByQueryString
+    getExternalSuggestionsByQueryString : getExternalSuggestions,
+    getPrecalculatedSuggestions : getPrecalculatedSuggestions,
+    create : create
 };

@@ -154,23 +154,23 @@ describe('controllers', function() {
       describe('POST /bibliographicResources', function(){
 
           var data = new BibliographicResource({
-              identifiers: [{
+              book_identifiers: [{
                   literalValue: "978-3-86680-192-9",
                   scheme: enums.identifier.isbn
               }],
-              title: "Test Bibliographic Resource",
-              subtitle: "Testing is fun",
-              number: 2,
-              containerTitle: "This is the title of the parent resource.",
-              contributors: [{
+              book_title: "Test Bibliographic Resource",
+              book_subtitle: "Testing is fun",
+              book_number: 2,
+              book_contributors: [{
                   roleType: enums.roleType.author,
                   heldBy:{
                       givenName: "Anne",
                       familyName: "Lauscher"
                   },
               }],
-              publicationYear: "2017",
+              book_publicationYear: "2017",
               status: enums.status.valid,
+              type: enums.resourceType.book
           });
 
           it('should add a new bibliographicResource to the db', function(done){
@@ -208,14 +208,14 @@ describe('controllers', function() {
       describe('PUT /bibliographicResources/<id>', function(){
 
           var data = new BibliographicResource({
-              identifiers: [{
+              book_identifiers: [{
                   literalValue: "978-3-86680-192-9",
                   scheme: enums.identifier.isbn
               }],
-              title: "Title changed",
-              subtitle: "Testing is fun",
-              number: 2,
-              contributors: [{
+              book_title: "Title changed",
+              book_subtitle: "Testing is fun",
+              book_number: 2,
+              book_contributors: [{
                   roleType: enums.roleType.author,
                   heldBy:{
                       givenName: "Anne",
@@ -230,8 +230,9 @@ describe('controllers', function() {
                           familyName: "Eckert"
                       },
                   }],
-              publicationYear: 2017,
+              book_publicationYear: 2017,
               status: enums.status.valid,
+              type: enums.resourceType.book,
               parts: [{
                   bibliographicEntryText: "Test test test",
                   status: enums.status.ocrProcessed,
@@ -276,7 +277,7 @@ describe('controllers', function() {
       });
 
 
-      describe('POST /getCrossrefReferences', function(){
+/*      describe('POST /getCrossrefReferences', function(){
           this.timeout(1000000000);
 
           it('should retrieve crossref references by doi', function(done){
@@ -333,10 +334,10 @@ describe('controllers', function() {
                       done();
                   });
           });
-      });
+      });*/
 
 
-      describe('GET /getPublisherUrl', function(){
+/*      describe('GET /getPublisherUrl', function(){
           this.timeout(1000000000);
 
           it('should retrieve the publisher url', function(done){
@@ -359,236 +360,12 @@ describe('controllers', function() {
                       done();
                   });
           });
-      });
-
-
-      describe('GET /saveElectronicJournal', function(){
-          this.timeout(1000000000);
-
-          it('should retrieve the meta data from crossref and create the parent as well as the child resource', function(done){
-              var doi = "10.1007/s11617-006-0056-1";
-
-              agent
-                  .get('/saveElectronicJournal')
-                  .query({doi: doi})
-                  .set('Accept', 'application/json')
-                  .expect('Content-Type', /json/)
-                  .expect(200)
-                  .end(function(err, res){
-                      should.not.exist(err);
-                      res.body.should.be.Array;
-                      res.body.should.have.length(2);
-                      res.body[0].should.have.property("title", "Soziologie");
-                      res.body[0].should.not.have.property("partOf");
-                      res.body[1].should.have.property("status", enums.status.external);
-                      res.body[1].should.have.property("partOf", res.body[0]._id);
-                      done();
-                  });
-          });
-
-
-          it('should retrieve the meta data from crossref and create the child resource (parent is already existing)', function(done){
-              var doi = "10.1007/s11617-006-0056-1";
-
-              agent
-                  .get('/saveElectronicJournal')
-                  .query({doi: doi})
-                  .set('Accept', 'application/json')
-                  .expect('Content-Type', /json/)
-                  .expect(200)
-                  .end(function(err, res){
-                      should.not.exist(err);
-                      res.body.should.be.Array;
-                      res.body.should.have.length(2);
-                      res.body[0].should.have.property("title", "Soziologie");
-                      res.body[0].should.not.have.property("partOf");
-                      res.body[1].should.have.property("status", enums.status.external);
-                      res.body[1].should.have.property("partOf", res.body[0]._id);
-                      done();
-                  });
-          });
-
-
-          it('should retrieve the meta data from olcssg and create the parent and child', function(done){
-              var ppn = "1994632569";
-
-              agent
-                  .get('/saveElectronicJournal')
-                  .query({ppn: ppn})
-                  .set('Accept', 'application/json')
-                  .expect('Content-Type', /json/)
-                  .expect(200)
-                  .end(function(err, res){
-                      should.not.exist(err);
-                      res.body.should.be.Array;
-                      res.body.should.have.length(2);
-                      res.body[0].should.not.have.property("partOf");
-                      res.body[1].should.have.property("status", enums.status.external);
-                      res.body[1].should.have.property("partOf", res.body[0]._id);
-                      done();
-                  });
-          });
-
-          it('should retrieve the meta data from olcssg and create the child', function(done){
-              var ppn = "1994632569";
-
-              agent
-                  .get('/saveElectronicJournal')
-                  .query({ppn: ppn})
-                  .set('Accept', 'application/json')
-                  .expect('Content-Type', /json/)
-                  .expect(200)
-                  .end(function(err, res){
-                      should.not.exist(err);
-                      res.body.should.be.Array;
-                      res.body.should.have.length(2);
-                      res.body[0].should.not.have.property("partOf");
-                      res.body[1].should.have.property("status", enums.status.external);
-                      res.body[1].should.have.property("partOf", res.body[0]._id);
-                      id = res.body[1]._id;
-                      done();
-                  });
-          });
-
-          it('should retrieve the meta data from crossref; issue with subtitle in type field', function(done){
-              var doi = "10.1177/0146167216676479";
-
-              agent
-                  .get('/saveElectronicJournal')
-                  .query({doi: doi})
-                  .set('Accept', 'application/json')
-                  .expect('Content-Type', /json/)
-                  .expect(200)
-                  .end(function(err, res){
-                      should.not.exist(err);
-                      res.body.should.be.Array;
-                      res.body.should.have.length(2);
-                      res.body[0].should.not.have.property("partOf");
-                      res.body[1].should.have.property("status", enums.status.external);
-                      res.body[1].should.have.property("partOf", res.body[0]._id);
-                      id = res.body[1]._id;
-                      done();
-                  });
-          });
-
-
-          it('should retrieve the meta data and references with details crossref', function(done){
-              var doi = "10.1111/1468-4446.12286";
-
-              agent
-                  .get('/saveElectronicJournal')
-                  .query({doi: doi})
-                  .set('Accept', 'application/json')
-                  .expect('Content-Type', /json/)
-                  .expect(200)
-                  .end(function(err, res){
-                      should.not.exist(err);
-                      res.body.should.be.Array;
-                      res.body.should.have.length(2);
-                      res.body[0].should.not.have.property("partOf");
-                      res.body[1].should.have.property("status", enums.status.external);
-                      res.body[1].should.have.property("partOf", res.body[0]._id);
-                      id = res.body[1]._id;
-                      done();
-                  });
-          });
-
-          it('Whats going on with the encoding', function(done){
-              var doi = "10.1007/978-3-658-17092-9_4";
-
-              agent
-                  .get('/saveElectronicJournal')
-                  .query({doi: doi})
-                  .set('Accept', 'application/json')
-                  .expect('Content-Type', /json/)
-                  .expect(200)
-                  .end(function(err, res){
-                      should.not.exist(err);
-                      // TODO: Check encoding
-                      done();
-                  });
-          });
-
-          it('Issue 179', function(done){
-              var doi = "10.1017/s0003055417000326";
-
-              agent
-                  .get('/saveElectronicJournal')
-                  .query({doi: doi})
-                  .set('Accept', 'application/json')
-                  .expect('Content-Type', /json/)
-                  .expect(200)
-                  .end(function(err, res){
-                      should.not.exist(err);
-                      res.body[1].parts[0].ocrData.should.have.property("comments", "First page: 159");
-                      res.body[1].parts[1].ocrData.should.have.property("comments", "");
-                      done();
-                  });
-          });
-      });
-
-      describe('GET /saveScanForElectronicJournal', function() {
-          it('should append a scan to an article', function (done) {
-              var ppn = "1994632569";
-              agent
-                  .post('/saveScanForElectronicJournal')
-                  .type('form')
-                  .field('ppn', ppn)
-                  .field('textualPdf', false)
-                  .attach('scan', './test/api/data/ocr_data/02_input.png')
-                  .set('Accept', 'application/json')
-                  .expect('Content-Type', /json/)
-                  .expect(200)
-                  .end(function (err, res) {
-                      should.not.exist(err);
-                      res.body.should.be.Array;
-                      res.body[0].should.have.property("partOf");
-                      res.body[0].should.have.property("status", enums.status.valid);
-                      res.body[0].should.have.property("partOf");
-                      res.body[0].should.have.property("embodiedAs");
-                      res.body[0].embodiedAs.should.have.lengthOf(1);
-                      res.body[0].embodiedAs[0].should.have.property("scans");
-                      res.body[0].embodiedAs[0].scans.should.have.lengthOf(1);
-                      res.body[0].embodiedAs[0].scans[0].should.have.property("status", enums.status.notOcrProcessed);
-                      res.body[0].embodiedAs[0].scans[0].should.have.property("textualPdf", false);
-                      res.body[1].should.deepEqual(res.body[0].embodiedAs[0].scans[0]);
-                      done();
-                  });
-          });
-
-          it('should append a scan to an article by doi', function (done) {
-              var doi = "10.1007/s11617-006-0056-1";
-              agent
-                  .post('/saveScanForElectronicJournal')
-                  .type('form')
-                  .field('doi', doi)
-                  .field('textualPdf', true)
-                  .attach('scan', './test/api/data/ocr_data/references.pdf')
-                  .set('Accept', 'application/json')
-                  .expect('Content-Type', /json/)
-                  .expect(200)
-                  .end(function (err, res) {
-                      should.not.exist(err);
-                      res.body.should.be.Array;
-                      res.body[0].should.have.property("partOf");
-                      res.body[0].should.have.property("status", enums.status.valid);
-                      res.body[0].should.have.property("partOf");
-                      res.body[0].should.have.property("embodiedAs");
-                      res.body[0].embodiedAs.should.have.lengthOf(1);
-                      res.body[0].embodiedAs[0].should.have.property("scans");
-                      res.body[0].embodiedAs[0].scans.should.have.lengthOf(1);
-                      res.body[0].embodiedAs[0].scans[0].should.have.property("status", enums.status.notOcrProcessed);
-                      res.body[0].embodiedAs[0].scans[0].should.have.property("textualPdf", true);
-                      res.body[1].should.deepEqual(res.body[0].embodiedAs[0].scans[0]);
-                      done();
-                  });
-          });
-      });
+      });*/
 
       describe('POST /bibliographicResources', function() {
           it('should not save a br in the db', function (done) {
               var br = {
-                  "identifiers": [
+                  "book_identifiers": [
                       {
                           "scheme": "OCLC_ID",
                           "literalValue": "243773523"
@@ -610,10 +387,10 @@ describe('controllers', function() {
                           "literalValue": "http://swb.bsz-bw.de/DB=2.1/PPNSET?PPN=03890019X"
                       }
                   ],
-                  "title": "Minorities at risk :",
-                  "subtitle": "a global view of ethnopolitical conflicts /",
-                  "edition": "1. publ., 2. print.",
-                  "contributors": [
+                  "book_title": "Minorities at risk :",
+                  "book_subtitle": "a global view of ethnopolitical conflicts /",
+                  "book_edition": "1. publ., 2. print.",
+                  "book_contributors": [
                       {
                           "identifiers": [],
                           "roleType": "PUBLISHER",
@@ -648,11 +425,10 @@ describe('controllers', function() {
                           }
                       }
                   ],
-                  "publicationYear": "1993",
+                  "book_publicationYear": "1993",
                   "status": "EXTERNAL",
                   "type": "",
-                  "containerTitle": "",
-                  "number": ""
+                  "book_number": ""
               };
 
               agent
@@ -661,6 +437,22 @@ describe('controllers', function() {
                   .set('Accept', 'application/json')
                   .expect('Content-Type', /json/)
                   .expect(400)
+                  .end(function(err, res){
+                      should.not.exist(err);
+                      done();
+                  });
+
+          });
+      });
+
+      describe('GET /bibliographicResourcesOC', function() {
+          it('should convert the brs in the database to OC', function (done) {
+
+              agent
+                  .get('/bibliographicResourcesOC')
+                  .set('Accept', 'application/json')
+                  .expect('Content-Type', /json/)
+                  .expect(200)
                   .end(function(err, res){
                       should.not.exist(err);
                       done();

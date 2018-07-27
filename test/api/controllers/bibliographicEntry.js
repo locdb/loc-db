@@ -3,6 +3,8 @@ const request = require('supertest');
 const server = require('../../../app');
 const setup = require('./../setup.js').createSetup();
 const status = require('./../../../api/schema/enum.json').status;
+const resourceType = require('./../../../api/schema/enum.json').resourceType;
+const externalSources = require('./../../../api/schema/enum.json').externalSources;
 
 var agent = request.agent(server);
 
@@ -12,17 +14,22 @@ describe('controllers', function() {
         var id = "";
 
         before(function (done) {
-            this.timeout(4000);
+            this.timeout(8000);
             setup.dropDB(function(){
                 setup.loadBibliographicEntry(function(err, result){
                     if(err) return done(err);
                     setup.loadBibliographicResources(function(err, result){
                         if(err) return done(err);
-                        setup.login(agent, function(err, result){
-                            if(err) return done(err);
-                            setTimeout(function () {
-                                done();
-                            }, 2000);
+                        setup.loadSearchData(function(err, result) {
+                            if (err) return done(err);
+                            setup.login(agent, function (err, result) {
+                                if (err) return done(err);
+                                setup.mockGVISuggestions();
+                                setup.mockK10PlusSuggestions();
+                                setTimeout(function () {
+                                    done();
+                                }, 2000);
+                            });
                         });
                     });
                 });
@@ -109,6 +116,7 @@ describe('controllers', function() {
                         ],
                         "bibliographicEntryText": "TEST ENTRY 1 -- UPDATED",
                         "ocrData": {
+                            "_id": "5ae9a62b34f532213443fe87",
                             "coordinates": "714 317 2238 356",
                             "title": "2Zur Ausgestaltung des Mehrheitsprinzips in der unmittelbaren Demokratie. In: Bayerische Verwaltungsbl&ttcr S. 33--43, 74-79. TmFENBACH, Paul: Sinn oder Unsinn von Abstimmungsquoren. Im Internet:",
                             "date": "2000",
@@ -165,95 +173,16 @@ describe('controllers', function() {
             });
         });
 
-        describe('POST /getInternalSuggestions', function () {
-
-            it('should return 1 internal suggestions for a bibliographic entry', function (done) {
-
-
-                var searchObject = `{
-                        "bibliographicEntryText": "TEST ENTRY 1 -- UPDATED",
-                        "ocrData": {
-                            "coordinates": "714 317 2238 356",
-                            "title": "2Zur Ausgestaltung des Mehrheitsprinzips in der unmittelbaren Demokratie. In: Bayerische Verwaltungsbl&ttcr S. 33--43, 74-79. TmFENBACH, Paul: Sinn oder Unsinn von Abstimmungsquoren. Im Internet:",
-                            "date": "2000",
-                            "marker": "THUM, 2000",
-                            "authors": [ "Cornelius THUM" ]
-                        },
-                        "scanId": "58cb91fa5452691cd86bc941",
-                        "status": "VALID"
-                        }`;
-                var searchObject = JSON.parse(searchObject);
-                agent
-                    .post('/getInternalSuggestions')
-                    .set('Accept', 'application/json')
-                    .send(searchObject)
-                    .expect('Content-Type', /json/)
-                    .expect(200)
-                    .end(function (err, res) {
-                        res.body.should.have.lengthOf(1);
-                        should.not.exist(err);
-                        done();
-                    });
-            });
-
-            it('should return 1 internal suggestions for a bibliographic entry', function (done) {
-
-                var searchObject = `{
-                        "bibliographicEntryText": "The Semantic Web - ISWC 2015",
-                        "ocrData":{
-                            "coordinates": "714 317 2238 356",
-                            "title": "The Semantic Web - ISWC 2015",
-                            "date": "2000",
-                            "marker": "THUM, 2000",
-                            "authors": []
-                        },
-                        "scanId": "58cb91fa5452691cd86bc941",
-                        "status": ""
-                        }`;
-                var searchObject = JSON.parse(searchObject);
-                console.log("Suggestions called");
-                agent
-                    .post('/getInternalSuggestions')
-                    .set('Accept', 'application/json')
-                    .send(searchObject)
-                    .expect('Content-Type', /json/)
-                    .expect(200)
-                    .end(function (err, res) {
-                        console.log(res.body);
-                        res.body.should.have.lengthOf(1);
-                        should.not.exist(err);
-                        done();
-                    });
-            });
-        });
-
         describe('GET /getInternalSuggestionsByQueryString', function () {
 
-            it('should return 0 internal suggestions for a bibliographic entry', function (done) {
+            it('should return 1 internal suggestions for a bibliographic entry', function (done) {
 
 
                 var query = "The Semantic Web";
                 agent
                     .get('/getInternalSuggestionsByQueryString')
                     .query({ query: query })
-                    .set('Accept', 'application/json')
-                    .expect('Content-Type', /json/)
-                    .expect(200)
-                    .end(function (err, res) {
-                        res.body.should.have.lengthOf(0);
-                        should.not.exist(err);
-                        done();
-                    });
-            });
-
-            it('should return 1 internal suggestions for a bibliographic entry', function (done) {
-
-
-                var query = "The Semantic Web - ISWC 2015";
-                agent
-                    .get('/getInternalSuggestionsByQueryString')
-                    .query({ query: query })
-                    .query({ threshold: 0.5 })
+                    .query({ k: 1 })
                     .set('Accept', 'application/json')
                     .expect('Content-Type', /json/)
                     .expect(200)
@@ -263,75 +192,57 @@ describe('controllers', function() {
                         done();
                     });
             });
-        });
 
+            it('should return 1 internal suggestions for a bibliographic entry', function (done) {
+                this.timeout(3000);
 
-        describe.skip('POST /getExternalSuggestions', function () {
-
-            it('should return one external suggestion for a bibliographic entry', function (done) {
-                this.timeout(1000000000);
-                var searchObject = `{
-                        "bibliographicEntryText": "bibliographicEntryText",
-                        "status": "",
-                        "ocrData":{
-                            "title": "Direkte Demokratie in der Schweiz: Entwicklungen, Debatten und Wirkungen, In:",
-                            "date": "",
-                            "marker": "",
-                            "authors": []
-                        }
-                }`;
-                var searchObject = JSON.parse(searchObject);
+                var query = "The Semantic Web - ISWC 2015";
                 agent
-                    .post('/getExternalSuggestions')
+                    .get('/getInternalSuggestionsByQueryString')
+                    .query({ query: query })
                     .set('Accept', 'application/json')
-                    .send(searchObject)
                     .expect('Content-Type', /json/)
                     .expect(200)
                     .end(function (err, res) {
+                        res.body.should.have.lengthOf(1);
+                        res.body[0].should.have.lengthOf(1);
                         should.not.exist(err);
-                        res.body.should.be.Array;
-                        //res.body.should.have.lengthOf(1);
-                        res.body.should.have.lengthOf(21);
-                        //res.body[0].should.have.property("title", "Direkte Demokratie in der Schweiz: Entwicklungen, Debatten und Wirkungen");
-                        res.body[0].should.have.property("status", status.external);
-                        res.body[0].should.have.property("identifiers");
-                        res.body[0].identifiers.should.be.Array;
-                        res.body[0].identifiers.should.have.lengthOf(1);
-                        res.body[0].identifiers[0].should.have.property("scheme", "URL_GOOGLE_SCHOLAR");
                         done();
                     });
             });
 
-            it('should return two external suggestion for a bibliographic entry', function (done) {
-                this.timeout(1000000000);
-                var searchObject = `{
-                        "bibliographicEntryText": "bibliographicEntryText",
-                        "status": "",
-                        "ocrData":{
-                            "title": "Direkte Demokratie",
-                            "date": "",
-                            "marker": "",
-                            "authors": []
-                        }
-                    }`;
-                var searchObject = JSON.parse(searchObject);
+            it('this should be the first test specific to problems with the search engine', function (done) {
+                this.timeout(3000);
+
+                var query = "child";
                 agent
-                    .post('/getExternalSuggestions')
+                    .get('/getInternalSuggestionsByQueryString')
+                    .query({ query: query })
                     .set('Accept', 'application/json')
-                    .send(searchObject)
                     .expect('Content-Type', /json/)
                     .expect(200)
                     .end(function (err, res) {
+                        res.body.should.have.lengthOf(1);
+                        res.body[0].should.have.lengthOf(2);
                         should.not.exist(err);
-                        res.body.should.be.Array;
-                        //res.body.should.have.lengthOf(2);
-                        res.body.should.have.lengthOf(35);
-                        res.body[0].should.have.property("status", status.external);
-                        //res.body[0].should.have.property("title", "Direkte Demokratie und Umweltpolitik in der Schweiz");
-                        res.body[0].should.have.property("identifiers");
-                        res.body[0].identifiers.should.be.Array;
-                        res.body[0].identifiers.should.have.lengthOf(1);
-                        res.body[6].identifiers[0].should.have.property("scheme", "URL_GOOGLE_SCHOLAR");
+                        done();
+                    });
+            });
+
+            it('this should internally search for a given doi', function (done) {
+                this.timeout(3000);
+
+                var query = "10.1080/00313830802184608 ";
+                agent
+                    .get('/getInternalSuggestionsByQueryString')
+                    .query({ query: query })
+                    .set('Accept', 'application/json')
+                    .expect('Content-Type', /json/)
+                    .expect(200)
+                    .end(function (err, res) {
+                        res.body.should.have.lengthOf(1);
+                        res.body[0].should.have.lengthOf(2);
+                        should.not.exist(err);
                         done();
                     });
             });
@@ -340,7 +251,7 @@ describe('controllers', function() {
 
         describe('GET /getExternalSuggestionsByQueryString', function () {
 
-            it('should return 5 suggestion for a query string', function (done) {
+            it('should return 8 suggestion for a query string', function (done) {
                 this.timeout(1000000);
                 var query = "The association between social capital and juvenile crime: The role of individual and structural factors.";
 
@@ -348,22 +259,20 @@ describe('controllers', function() {
                     .get('/getExternalSuggestionsByQueryString')
                     .set('Accept', 'application/json')
                     .query({ query: query })
-                    //.query({ threshold: 0.9 })
+                    .query({ k: 8 })
                     .expect('Content-Type', /json/)
                     .expect(200)
                     .end(function (err, res) {
                         should.not.exist(err);
                         res.body.should.be.Array;
                         //res.body.should.have.lengthOf(1);
-                        res.body.should.have.lengthOf(5);
+                        res.body.should.have.lengthOf(8);
                         //res.body[0].should.have.property("title", "Direkte Demokratie in der Schweiz: Entwicklungen, Debatten und Wirkungen");
-                        res.body[0].should.have.property("status", status.external);
-                        res.body[0].should.have.property("publicationYear", "2006");
-                        res.body[1].should.have.property("containerTitle");
-                        res.body[0].should.have.property("identifiers");
-                        res.body[0].identifiers.should.be.Array;
-                        res.body[0].identifiers.should.have.lengthOf(4);
-                        res.body[0].identifiers[0].should.not.have.property("scheme", "URL_GOOGLE_SCHOLAR");
+                        res.body[0][0].should.have.property("status", status.external);
+                        //res.body[0][1].should.have.property("journal_title");
+                        //res.body[0][0].should.have.property("journalArticle_identifiers");
+                        //res.body[0][0].journalArticle_identifiers.should.be.Array;
+                        //res.body[0][0].journalArticle_identifiers.should.have.lengthOf(3);
                         done();
                     });
             });
@@ -373,13 +282,12 @@ describe('controllers', function() {
                     this.timeout(1000000);
                     var query = "Academically%2520Adrift:" +
                         "%2520Limited%2520Learning%2520on%2520College%2520Campuses";
-                    var threshold = 0.5;
 
                     agent
                         .get('/getExternalSuggestionsByQueryString')
                         .set('Accept', 'application/json')
                         .query({ query: query })
-                        .query({ threshold: 0.5 })
+                        .query({ k: 3 })
                         .expect('Content-Type', /json/)
                         .expect(200)
                         .end(function (err, res) {
@@ -388,16 +296,16 @@ describe('controllers', function() {
                             //res.body.should.have.lengthOf(1);
                             res.body.should.have.lengthOf(3);
                             //res.body[0].should.have.property("title", "Direkte Demokratie in der Schweiz: Entwicklungen, Debatten und Wirkungen");
-                            res.body[0].should.have.property("status", status.external);
-                            res.body[0].should.have.property("identifiers");
-                            res.body[0].identifiers.should.be.Array;
-                            res.body[0].identifiers.should.have.lengthOf(8);
-                            res.body[0].identifiers[7].should.have.property("scheme", "URL_SWB");
+                            res.body[0][0].should.have.property("status", status.external);
+                            res.body[0][0].should.have.property("monograph_identifiers");
+                            res.body[0][0].monograph_identifiers.should.be.Array;
+                            res.body[0][0].monograph_identifiers.should.have.lengthOf(5);
                             done();
                         });
                 });
 
-            it('should return 10 external suggestion for a bibliographic entry', function (done) {
+
+            it('should return 18 external suggestion for a bibliographic entry', function (done) {
                 this.timeout(100000);
                 var query = "Direkte Demokratie";
 
@@ -405,24 +313,21 @@ describe('controllers', function() {
                     .get('/getExternalSuggestionsByQueryString')
                     .set('Accept', 'application/json')
                     .query({ query: query })
+                    .query({ k: 18 })
                     .expect('Content-Type', /json/)
                     .expect(200)
                     .end(function (err, res) {
                         should.not.exist(err);
                         res.body.should.be.Array;
                         //res.body.should.have.lengthOf(2);
-                        res.body.should.have.lengthOf(10);
-                        res.body[0].should.have.property("status", status.external);
-                        //res.body[0].should.have.property("title", "Direkte Demokratie und Umweltpolitik in der Schweiz");
-                        res.body[0].should.have.property("identifiers");
-                        res.body[0].identifiers.should.be.Array;
-                        res.body[0].identifiers.should.have.lengthOf(3);
-                        res.body[6].identifiers[0].should.not.have.property("scheme", "URL_GOOGLE_SCHOLAR");
+                        res.body.should.have.lengthOf(18);
+                        res.body[1][0].should.have.property("status", status.external);
                         done();
                     });
             });
 
-            it.skip('issue 192: searching by doi', function (done) {
+
+            it('should search by doi', function (done) {
                 this.timeout(100000);
                 var query = "10.1007/s00148-005-0056-5";
 
@@ -437,7 +342,47 @@ describe('controllers', function() {
                         res.body.should.be.Array;
                         //res.body.should.have.lengthOf(2);
                         res.body.should.have.lengthOf(1);
-                        res.body[0].should.have.property("status", status.external);
+                        res.body[0][0].should.have.property("status", status.external);
+                        done();
+                    });
+            });
+
+            it('should search by doi 2 (doi and other words are given)', function (done) {
+                this.timeout(100000);
+                var query = "DOI: 10.1007/s00148-005-0056-5";
+
+                agent
+                    .get('/getExternalSuggestionsByQueryString')
+                    .set('Accept', 'application/json')
+                    .query({ query: query })
+                    .expect('Content-Type', /json/)
+                    .expect(200)
+                    .end(function (err, res) {
+                        should.not.exist(err);
+                        res.body.should.be.Array;
+                        //res.body.should.have.lengthOf(2);
+                        res.body.should.have.lengthOf(1);
+                        res.body[0][0].should.have.property("status", status.external);
+                        done();
+                    });
+            });
+
+            it('should return a match from swb', function (done) {
+                this.timeout(100000);
+                var query = "1963 Hannah Arendt Über die Revolution";
+
+                agent
+                    .get('/getExternalSuggestionsByQueryString')
+                    .set('Accept', 'application/json')
+                    .query({ query: query })
+                    .expect('Content-Type', /json/)
+                    .expect(200)
+                    .end(function (err, res) {
+                        should.not.exist(err);
+                        res.body.should.be.Array;
+                        //res.body.should.have.lengthOf(2);
+                        res.body.should.have.lengthOf(10);
+                        res.body[0][0].should.have.property("status", status.external);
                         done();
                     });
             });
@@ -569,6 +514,124 @@ describe('controllers', function() {
                         res.body.parts.should.not.containDeep([{"_id": bibliographicEntryId}]);
                         done();
                     });
+            });
+        });
+
+        describe('POST /bibliographicEntries', function () {
+
+            it('should create a new bibliographic entry for a given br', function (done) {
+                var bibliographicResourceId = '592420955e7d7f3e54934304';
+                var bibliographicEntry = {
+                    bibliographicEntryText: "New entry that we want to create",
+                    status: "OCR_PROCESSED"
+                };
+                agent
+                    .post('/bibliographicEntries?bibliographicResourceId=' + bibliographicResourceId)
+                    .send(bibliographicEntry)
+                    .set('Accept', 'application/json')
+                    .expect(200)
+                    .end(function (err, res) {
+                        should.not.exist(err);
+                        res.body.should.be.Object;
+                        res.body.should.have.property("parts");
+                        res.body.parts.should.be.Array().and.have.lengthOf(1);
+                        res.body.parts[0].should.have.property("bibliographicEntryText", "New entry that we want to create");
+                        res.body.cites.should.be.Array().and.have.lengthOf(0);
+                        done();
+                    });
+            });
+
+            it('should not create a new bibliographic entry for a given br as it is referencing something that does not exist', function (done) {
+                var bibliographicResourceId = '592420955e7d7f3e54934304';
+                var bibliographicEntry = {
+                    bibliographicEntryText: "New entry that we want to create 2",
+                    status: "OCR_PROCESSED",
+                    references: '58cb92465452691cd86bc94b',
+                };
+                agent
+                    .post('/bibliographicEntries?bibliographicResourceId=' + bibliographicResourceId)
+                    .send(bibliographicEntry)
+                    .set('Accept', 'application/json')
+                    .expect(400)
+                    .end(function (err, res) {
+                        should.not.exist(err);
+                        done();
+                    });
+            });
+
+            it('should not create a new bibliographic entry for a given br as it is referencing the origin br', function (done) {
+                var bibliographicResourceId = '592420955e7d7f3e54934304';
+                var bibliographicEntry = {
+                    bibliographicEntryText: "New entry that we want to create 2",
+                    status: "OCR_PROCESSED",
+                    references: '592420955e7d7f3e54934304',
+                };
+                agent
+                    .post('/bibliographicEntries?bibliographicResourceId=' + bibliographicResourceId)
+                    .send(bibliographicEntry)
+                    .set('Accept', 'application/json')
+                    .expect(400)
+                    .end(function (err, res) {
+                        should.not.exist(err);
+                        done();
+                    });
+            });
+
+            it('should create a new bibliographic entry referencing a target br', function (done) {
+                var bibliographicResourceId = '592420955e7d7f3e54934304';
+                var bibliographicEntry = {
+                    bibliographicEntryText: "New entry that we want to create 2",
+                    status: "OCR_PROCESSED",
+                    references: "5a2947087bdcfd4759582633",
+                };
+                agent
+                    .post('/bibliographicEntries?bibliographicResourceId=' + bibliographicResourceId)
+                    .send(bibliographicEntry)
+                    .set('Accept', 'application/json')
+                    .expect(200)
+                    .end(function (err, res) {
+                        should.not.exist(err);
+                        res.body.should.be.Object;
+                        res.body.should.have.property("parts");
+                        res.body.parts.should.be.Array().and.have.lengthOf(2);
+                        res.body.parts[1].should.have.property("bibliographicEntryText", "New entry that we want to create 2");
+                        res.body.cites.should.be.Array().and.have.lengthOf(1);
+                        done();
+                    });
+            });
+        });
+
+        describe('GET /getPrecalculatedSuggestions/<id>', function () {
+            this.timeout(3000000)
+            it('should get the precalculated suggestions for a given be', function (done) {
+                    var be;
+                    agent
+                        .post('/saveResource')
+                        .type('form')
+                        .field('identifierScheme', 'DOI')
+                        .field('identifierLiteralValue', '10.1007/s11617-006-0056-1')
+                        .field('resourceType', resourceType.journalArticle)
+                        .set('Accept', 'application/json')
+                        .expect('Content-Type', /json/)
+                        .expect(200)
+                        .end(function (err, res) {
+                            should.not.exist(err);
+                            be = res.body[0].parts[0];
+                            setTimeout(function () {
+                                agent
+                                    .get('/getPrecalculatedSuggestions/' + be._id.toString())
+                                    .set('Accept', 'application/json')
+                                    .expect(200)
+                                    .end(function (err, res) {
+                                        should.not.exist(err);
+                                        res.body.should.be.Array();
+                                        res.body.should.not.have.lengthOf(0);
+                                        done();
+                                    });
+                            }, 30000);
+                        });
+
+
             });
         });
     });

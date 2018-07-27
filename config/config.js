@@ -16,16 +16,32 @@ var config = {
         PORT: (process.env.LOCDB_SEARCHINDEX_PORT || "9200"),
         PROTOCOL: (process.env.LOCDB_SEARCHINDEX_PROTOCOL || "http")
     },
+    GVI:{
+        HOST: 'gvi.bsz-bw.de',
+        PORT: 80,
+        CORE: 'GVI',
+        //ROOTPATH: 'solr/GVI',
+        //PROTOCOL: 'http'
+    },
+    K10plus:{
+        HOST: 'findex.gbv.de',
+        PORT: 80,
+        CORE: '180',
+        PATH: '/index'
+        //ROOTPATH: 'solr/GVI',
+        //PROTOCOL: 'http'
+    },
     URLS: {
         SWB: "http://swb.bsz-bw.de/sru/DB=2.1/username=/password=/",
         ZDB: "http://services.dnb.de/sru/zdb",
         OLCSSGSOZ: "http://sru.gbv.de/olcssg-soz",
-        OCR_FILEUPLOAD: "https://locdb-dev.opendfki.de/fileupload/",
-        OCR_FILEVIEW: "https://locdb-dev.opendfki.de/fileview/",
-        OCR_IMAGEVIEW: "https://locdb-dev.opendfki.de/getimage/"
+        OCR_FILEUPLOAD: "https://locdb.opendfki.de/fileupload/",
+        OCR_FILEVIEW: "https://locdb.opendfki.de/fileview/",
+        OCR_IMAGEVIEW: "https://locdb.opendfki.de/getimage/"
     },
     PATHS: {
-        UPLOAD: (process.env.LOCDB_UPLOAD_PATH || "./../upload/")
+        UPLOAD: (process.env.LOCDB_UPLOAD_PATH || "./../upload/"),
+        CACHE: (process.env.LOCDB_CACHE_PATH || "./../cache/")
     }
 }
 

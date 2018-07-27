@@ -1,0 +1,1311 @@
+
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="http://swb.bsz-bw.de/sru/?xsl=searchRetrieveResponse" ?>
+<srw:searchRetrieveResponse xmlns:srw="http://www.loc.gov/zing/srw/"
+                            xmlns:dc="http://purl.org/dc/elements/1.1/"
+                            xmlns:diag="http://www.loc.gov/zing/srw/diagnostic/"
+                            xmlns:xcql="http://www.loc.gov/zing/cql/xcql/">
+    <srw:version>1.1</srw:version>
+    <srw:numberOfRecords>1</srw:numberOfRecords>
+    <srw:resultSetId>SID4e4438a9-0S14722</srw:resultSetId>
+    <srw:records>
+
+
+
+        <srw:record>
+            <srw:recordSchema>marc21</srw:recordSchema>
+            <srw:recordPacking>xml</srw:recordPacking>
+            <srw:recordData>
+                <record>
+                    <leader>     cas a22        4500</leader>
+                    <controlfield tag="001">014390272</controlfield>
+                    <controlfield tag="003">DE-576</controlfield>
+                    <controlfield tag="005">20170704100246.0</controlfield>
+                    <controlfield tag="007">tu</controlfield>
+                    <controlfield tag="008">880728c19319999xx    p            0eng c</controlfield>
+                    <datafield tag="035" ind1=" " ind2=" "><subfield code="a">(OCoLC)888524498</subfield></datafield>
+                    <datafield tag="016" ind1="7" ind2=" "><subfield code="a">010001786</subfield>
+                        <subfield code="2">DE-101</subfield></datafield>
+                    <datafield tag="016" ind1="7" ind2=" "><subfield code="a">215-x</subfield>
+                        <subfield code="2">DE-600</subfield></datafield>
+                    <datafield tag="022" ind1=" " ind2=" "><subfield code="a">0020-5850</subfield></datafield>
+                    <datafield tag="030" ind1=" " ind2=" "><subfield code="a">IAFFB</subfield></datafield>
+                    <datafield tag="035" ind1=" " ind2=" "><subfield code="a">(DE-599)ZDB215-x</subfield></datafield>
+                    <datafield tag="035" ind1=" " ind2=" "><subfield code="a">(DE-615)00258143</subfield></datafield>
+                    <datafield tag="040" ind1=" " ind2=" "><subfield code="a">DE-576</subfield>
+                        <subfield code="b">ger</subfield>
+                        <subfield code="c">DE-576</subfield>
+                        <subfield code="e">rakwb</subfield></datafield>
+                    <datafield tag="041" ind1=" " ind2=" "><subfield code="a">eng</subfield></datafield>
+                    <datafield tag="044" ind1=" " ind2=" "><subfield code="a">XA-GB</subfield></datafield>
+                    <datafield tag="082" ind1="0" ind2=" "><subfield code="a">327/.05</subfield></datafield>
+                    <datafield tag="082" ind1="0" ind2=" "><subfield code="a">320</subfield></datafield>
+                    <datafield tag="084" ind1=" " ind2=" "><subfield code="a">MA 1000</subfield>
+                        <subfield code="2">rvk</subfield></datafield>
+                    <datafield tag="084" ind1=" " ind2=" "><subfield code="a">PR 1000</subfield>
+                        <subfield code="2">rvk</subfield></datafield>
+                    <datafield tag="084" ind1=" " ind2=" "><subfield code="a">680</subfield>
+                        <subfield code="2">zdbs</subfield></datafield>
+                    <datafield tag="084" ind1=" " ind2=" "><subfield code="a">3,6</subfield>
+                        <subfield code="2">ssgn</subfield></datafield>
+                    <datafield tag="210" ind1="1" ind2="0"><subfield code="a">Int. Affairs</subfield></datafield>
+                    <datafield tag="210" ind1="1" ind2="0"><subfield code="a">Internat Aff</subfield></datafield>
+                    <datafield tag="210" ind1="1" ind2="0"><subfield code="a">Int Aff</subfield></datafield>
+                    <datafield tag="210" ind1="1" ind2="0"><subfield code="a">INA</subfield></datafield>
+                    <datafield tag="210" ind1="1" ind2="0"><subfield code="a">IAI</subfield></datafield>
+                    <datafield tag="210" ind1="1" ind2="0"><subfield code="a">IA</subfield></datafield>
+                    <datafield tag="245" ind1="1" ind2="0"><subfield code="a">International affairs /</subfield>
+                        <subfield code="c">Chatham House</subfield></datafield>
+                    <datafield tag="246" ind1="1" ind2=" "><subfield code="i">Hauptsacht. 1940 - 1943: </subfield>
+                        <subfield code="a">International affairs review supplement</subfield></datafield>
+                    <datafield tag="260" ind1=" " ind2=" "><subfield code="a">Oxford :</subfield>
+                        <subfield code="b">Oxford University Press</subfield></datafield>
+                    <datafield tag="260" ind1=" " ind2=" "><subfield code="a">Oxford :</subfield>
+                        <subfield code="b">Oxford Univ. Press</subfield></datafield>
+                    <datafield tag="260" ind1=" " ind2=" "><subfield code="a">Guildford :</subfield>
+                        <subfield code="b">Butterworth,</subfield>
+                        <subfield code="c">früher</subfield></datafield>
+                    <datafield tag="260" ind1=" " ind2=" "><subfield code="a">Cambridge :</subfield>
+                        <subfield code="b">Cambridge Univ. Press,</subfield>
+                        <subfield code="c">früher</subfield></datafield>
+                    <datafield tag="260" ind1=" " ind2=" "><subfield code="a">Oxford :</subfield>
+                        <subfield code="b">Blackwell,</subfield>
+                        <subfield code="c">[?]-2008,1</subfield></datafield>
+                    <datafield tag="260" ind1=" " ind2=" "><subfield code="a">Oxford :</subfield>
+                        <subfield code="b">Wiley-Blackwell,</subfield>
+                        <subfield code="c">[?]-2016</subfield></datafield>
+                    <datafield tag="363" ind1="0" ind2="1"><subfield code="a">10</subfield>
+                        <subfield code="i">1931</subfield></datafield>
+                    <datafield tag="362" ind1="1" ind2=" "><subfield code="a">10.1931 -</subfield></datafield>
+                    <datafield tag="500" ind1=" " ind2=" "><subfield code="a">Repr.: Folkestone : Dawson.</subfield></datafield>
+                    <datafield tag="500" ind1=" " ind2=" "><subfield code="a">Beteil. Körp. 10.1931 - 80.2004,4: Royal Institute of International Affairs, London.</subfield></datafield>
+                    <datafield tag="515" ind1=" " ind2=" "><subfield code="a">Ersch. zweimonatl., bis 78.2002 vierteljährl.; 79.2003 - 81.2005 5x jährl.</subfield></datafield>
+                    <datafield tag="689" ind1="0" ind2="0"><subfield code="D">s</subfield>
+                        <subfield code="0">(DE-588)4072885-7</subfield>
+                        <subfield code="0">(DE-576)209188553</subfield>
+                        <subfield code="2">gnd</subfield>
+                        <subfield code="a">Internationale Politik</subfield></datafield>
+                    <datafield tag="689" ind1="0" ind2="1"><subfield code="A">f</subfield>
+                        <subfield code="2">gnd</subfield>
+                        <subfield code="a">Zeitschrift</subfield></datafield>
+                    <datafield tag="689" ind1="0" ind2=" "><subfield code="5">DE-101</subfield></datafield>
+                    <datafield tag="689" ind1="1" ind2="0"><subfield code="D">s</subfield>
+                        <subfield code="0">(DE-588)4072885-7</subfield>
+                        <subfield code="0">(DE-576)209188553</subfield>
+                        <subfield code="2">gnd</subfield>
+                        <subfield code="a">Internationale Politik</subfield></datafield>
+                    <datafield tag="689" ind1="1" ind2="1"><subfield code="A">f</subfield>
+                        <subfield code="2">gnd</subfield>
+                        <subfield code="a">Zeitschrift</subfield></datafield>
+                    <datafield tag="689" ind1="1" ind2=" "><subfield code="5">DE-576</subfield></datafield>
+                    <datafield tag="710" ind1="2" ind2=" "><subfield code="a">Royal Institute of International Affairs</subfield>
+                        <subfield code="0">(DE-588)35736-4</subfield>
+                        <subfield code="0">(DE-576)190341572</subfield></datafield>
+                    <datafield tag="775" ind1="0" ind2="8"><subfield code="i">Online-Ausg.</subfield>
+                        <subfield code="a">International affairs</subfield>
+                        <subfield code="d">Oxford : Oxford University Press, 1931</subfield>
+                        <subfield code="h">Online-Ressource</subfield>
+                        <subfield code="x">1468-2346</subfield>
+                        <subfield code="w">(DE-576)077885627</subfield>
+                        <subfield code="w">(DE-600)1475513-0</subfield></datafield>
+                    <datafield tag="780" ind1="0" ind2="0"><subfield code="i">Vorg.</subfield>
+                        <subfield code="a">Royal Institute of International Affairs</subfield>
+                        <subfield code="t">Journal of the Royal Institute of International Affairs</subfield>
+                        <subfield code="d">London : [s.n.], 1926</subfield>
+                        <subfield code="w">(DE-576)014920689</subfield>
+                        <subfield code="w">(DE-600)210546-9</subfield></datafield>
+                    <datafield tag="935" ind1=" " ind2=" "><subfield code="b">druck</subfield></datafield>
+                    <datafield tag="936" ind1="r" ind2="v"><subfield code="a">MA 1000</subfield>
+                        <subfield code="b">Zeitschriften</subfield>
+                        <subfield code="k">Politologie</subfield>
+                        <subfield code="k">Zeitschriften</subfield>
+                        <subfield code="0">201576767</subfield></datafield>
+                    <datafield tag="936" ind1="r" ind2="v"><subfield code="a">PR 1000</subfield>
+                        <subfield code="b">Zeitschriften</subfield>
+                        <subfield code="k">Rechtswissenschaft</subfield>
+                        <subfield code="k">Völkerrecht</subfield>
+                        <subfield code="k">Zeitschriften</subfield>
+                        <subfield code="0">205347541</subfield></datafield>
+                    <leader>000  xxxxxcy  a22     3n 4500</leader>
+                    <leader>001 10856567X</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  014390272</leader>
+                    <leader>005  20050226000000</leader>
+                    <leader>008  880929||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        1</leader>
+                    <leader>852
+                        DE-21</leader>
+                    <leader>852 1
+                        Kb 647
+                        00</leader>
+                    <leader>85900
+                        1.1
+                        19
+                        1940/43</leader>
+                    <leader>85910
+                        1.2
+                        80
+                        2004</leader>
+                    <leader>86630
+                        19.1940/43 - 80.2004</leader>
+                    <leader>866 0
+                        ZLS-WZ</leader>
+                    <leader>000  xxxxxcy  a22     3n 4500</leader>
+                    <leader>001 108565688</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  014390272</leader>
+                    <leader>005  20031030000000</leader>
+                    <leader>008  880930||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        1</leader>
+                    <leader>852
+                        DE-21-62</leader>
+                    <leader>852 1
+                        00</leader>
+                    <leader>85900
+                        1.1
+                        29
+                        1953</leader>
+                    <leader>85910
+                        1.2
+                        49
+                        1973</leader>
+                    <leader>86630
+                        29.1953 - 49.1973</leader>
+                    <leader>000  xxxxxcy  a22     3n 4500</leader>
+                    <leader>001 108565696</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  014390272</leader>
+                    <leader>005  20111215062051</leader>
+                    <leader>008  880930||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        1</leader>
+                    <leader>852
+                        DE-21-58</leader>
+                    <leader>852 1
+                        Z 237
+                        00</leader>
+                    <leader>85900
+                        1.1
+                        53
+                        1977</leader>
+                    <leader>85910
+                        1.2
+                        87
+                        2011</leader>
+                    <leader>86630
+                        53.1977 - 87.2011</leader>
+                    <leader>000  xxxxxcy  a22     3n 4500</leader>
+                    <leader>001 108565394</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  014390272</leader>
+                    <leader>005  20031030000000</leader>
+                    <leader>008  881007||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        1</leader>
+                    <leader>852
+                        DE-25</leader>
+                    <leader>852 1
+                        G 1003,i
+                        00</leader>
+                    <leader>85900
+                        1.1
+                        10
+                        1931</leader>
+                    <leader>85910
+                        1.2
+                        43
+                        1967</leader>
+                    <leader>86630
+                        10.1931 - 43.1967</leader>
+                    <leader>866 0
+                        10-27 als Repr. 1966-68</leader>
+                    <leader>000  xxxxxcy  a22     3n 4500</leader>
+                    <leader>001 108565408</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  014390272</leader>
+                    <leader>005  20120315050438</leader>
+                    <leader>008  010130||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        2</leader>
+                    <leader>852
+                        DE-25</leader>
+                    <leader>852 1
+                        ZR 1008
+                        00</leader>
+                    <leader>85900
+                        1.1
+                        44
+                        1968</leader>
+                    <leader>85910
+                        1.2
+                        87
+                        2011</leader>
+                    <leader>86630
+                        44.1968 - 87.2011</leader>
+                    <leader>000  xxxxxcy  a22     3n 4500</leader>
+                    <leader>001 108565416</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  014390272</leader>
+                    <leader>005  20020813000000</leader>
+                    <leader>008  010130||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        7</leader>
+                    <leader>852
+                        DE-25</leader>
+                    <leader>852 1
+                        00</leader>
+                    <leader>86630
+                        15.1936
+                        - Suppl. zu</leader>
+                    <leader>000  xxxxxcy  a22     3n 4500</leader>
+                    <leader>001 108565378</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  014390272</leader>
+                    <leader>005  20031030000000</leader>
+                    <leader>008  881012||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        1</leader>
+                    <leader>852
+                        DE-25-92</leader>
+                    <leader>852 1
+                        00</leader>
+                    <leader>85900
+                        1.1
+                        31
+                        1955</leader>
+                    <leader>85910
+                        1.2
+                        78
+                        2002</leader>
+                    <leader>86630
+                        31.1955 - 78.2002</leader>
+                    <leader>000  xxxxxnx  a22     zn 4500</leader>
+                    <leader>001 108565386</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  014390272</leader>
+                    <leader>005  20030627000000</leader>
+                    <leader>008  030627||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        Bestand: 31.1955 - 78.2002</leader>
+                    <leader>852
+                        DE-25-92</leader>
+                    <leader>852 1
+                        ZI 100 -
+                        p
+                        00</leader>
+                    <leader>86630
+                        Frei 92: Z 55</leader>
+                    <leader>935
+                        z0</leader>
+                    <leader>000  xxxxxcy  a22     3n 4500</leader>
+                    <leader>001 108565653</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  014390272</leader>
+                    <leader>005  20101209081943</leader>
+                    <leader>008  880909||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        1</leader>
+                    <leader>852
+                        DE-291</leader>
+                    <leader>852 1
+                        Z 54-932
+                        00</leader>
+                    <leader>85900
+                        1.1
+                        10
+                        1931</leader>
+                    <leader>85910
+                        1.2
+                        86
+                        2010</leader>
+                    <leader>86630
+                        10.1931 - 86.2010</leader>
+                    <leader>866 0
+                        Späteres siehe Internetausg.</leader>
+                    <leader>000  xxxxxcy  a22     3n 4500</leader>
+                    <leader>001 10856536X</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  014390272</leader>
+                    <leader>005  20130111114823</leader>
+                    <leader>008  940421||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        2</leader>
+                    <leader>852
+                        DE-14</leader>
+                    <leader>852 1
+                        Y. 8. 6214
+                        00</leader>
+                    <leader>85900
+                        1.1
+                        68
+                        1992</leader>
+                    <leader>85910
+                        1.2
+                        88
+                        2012</leader>
+                    <leader>86630
+                        68.1992 - 88.2012</leader>
+                    <leader>000  xxxxxcy  a22     3n 4500</leader>
+                    <leader>001 10856553X</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  014390272</leader>
+                    <leader>005  20050112000000</leader>
+                    <leader>008  881005||||||||||||||||ger|||||||</leader>
+                    <leader>541
+                        Z 175</leader>
+                    <leader>852
+                        1</leader>
+                    <leader>852
+                        DE-352</leader>
+                    <leader>852 1
+                        pol 2/i33
+                        00</leader>
+                    <leader>85900
+                        1.1
+                        10
+                        1931</leader>
+                    <leader>85910
+                        1.2
+                        80
+                        2004</leader>
+                    <leader>86630
+                        10.1931 - 80.2004</leader>
+                    <leader>000  xxxxxcy  a22     3n 4500</leader>
+                    <leader>001 108565599</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  014390272</leader>
+                    <leader>005  20031030000000</leader>
+                    <leader>008  880923||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        2</leader>
+                    <leader>852
+                        DE-24</leader>
+                    <leader>852 1
+                        Z 2249
+                        00</leader>
+                    <leader>85900
+                        1.1
+                        20
+                        1944</leader>
+                    <leader>85910
+                        1.2
+                        24
+                        1948</leader>
+                    <leader>85900
+                        2.1
+                        28
+                        1954</leader>
+                    <leader>85910
+                        2.2
+                        50
+                        1974</leader>
+                    <leader>86630
+                        20.1944 - 24.1948; 28.1954 - 50.1974</leader>
+                    <leader>000  xxxxxcy  a22     3n 4500</leader>
+                    <leader>001 108565602</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  014390272</leader>
+                    <leader>005  20060511155622</leader>
+                    <leader>008  880927||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        1</leader>
+                    <leader>852
+                        DE-24</leader>
+                    <leader>852 1
+                        BZ 153
+                        00</leader>
+                    <leader>85900
+                        1.1
+                        15
+                        1936</leader>
+                    <leader>85910
+                        1.2
+                        18
+                        1939</leader>
+                    <leader>86630
+                        RSWK. - Ausgewertet. - ws 7/00</leader>
+                    <leader>86630
+                        15.1936 - 18.1939</leader>
+                    <leader>000  xxxxxcy  a22     3n 4500</leader>
+                    <leader>001 108565610</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  014390272</leader>
+                    <leader>005  20031030000000</leader>
+                    <leader>008  010130||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        4</leader>
+                    <leader>852
+                        DE-24</leader>
+                    <leader>852 1
+                        BZ 4447
+                        00</leader>
+                    <leader>85900
+                        1.1
+                        55
+                        1979</leader>
+                    <leader>85910
+                        1.2
+                        75
+                        1999</leader>
+                    <leader>86630
+                        55.1979 - 75.1999</leader>
+                    <leader>000  xxxxxcy  a22     3n 4500</leader>
+                    <leader>001 108565629</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  014390272</leader>
+                    <leader>005  20161221070354</leader>
+                    <leader>008  010427||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        5</leader>
+                    <leader>852
+                        DE-24</leader>
+                    <leader>852 1
+                        Z 20038
+                        00</leader>
+                    <leader>85900
+                        1.1
+                        76
+                        2000</leader>
+                    <leader>85910
+                        1.2
+                        92
+                        2016</leader>
+                    <leader>86630
+                        76.2000 - 92.2016</leader>
+                    <leader>000  xxxxxcy  a22     3n 4500</leader>
+                    <leader>001 108565637</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  014390272</leader>
+                    <leader>005  20031030000000</leader>
+                    <leader>008  010508||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        3</leader>
+                    <leader>852
+                        DE-24</leader>
+                    <leader>852 1
+                        BZ 153
+                        00</leader>
+                    <leader>85900
+                        1.1
+                        51
+                        1975</leader>
+                    <leader>85910
+                        1.2
+                        54
+                        1978</leader>
+                    <leader>86630
+                        51.1975 - 54.1978</leader>
+                    <leader>000  xxxxxcy  a22     3n 4500</leader>
+                    <leader>001 508330386</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  014390272</leader>
+                    <leader>005  20060511155622</leader>
+                    <leader>008  060508||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        6</leader>
+                    <leader>852
+                        DE-24</leader>
+                    <leader>852 1
+                        BZ 153
+                        00</leader>
+                    <leader>85900
+                        1.1
+                        20
+                        1944</leader>
+                    <leader>85910
+                        1.2
+                        21
+                        1945</leader>
+                    <leader>85900
+                        2.1
+                        31
+                        1955</leader>
+                    <leader>85900
+                        3.1
+                        46
+                        1970</leader>
+                    <leader>85910
+                        3.2
+                        50
+                        1974</leader>
+                    <leader>86630
+                        20.1944 - 21.1945; 31.1955; 46.1970 - 50.1974</leader>
+                    <leader>866 0
+                        2.Ex.</leader>
+                    <leader>000  xxxxxcy  a22     3n 4500</leader>
+                    <leader>001 108565556</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  014390272</leader>
+                    <leader>005  20060921105711</leader>
+                    <leader>008  880915||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        2</leader>
+                    <leader>852
+                        DE-180</leader>
+                    <leader>852 1
+                        Z 3437
+                        00</leader>
+                    <leader>852 1
+                        01</leader>
+                    <leader>852 2
+                        Tiefmagazin
+                        01</leader>
+                    <leader>85900
+                        1.1
+                        10
+                        1931</leader>
+                    <leader>85910
+                        1.2
+                        65
+                        1989</leader>
+                    <leader>86630
+                        10.1931 - 65.1989</leader>
+                    <leader>000  xxxxxcy  a22     3n 4500</leader>
+                    <leader>001 601081803</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  014390272</leader>
+                    <leader>005  20130829040913</leader>
+                    <leader>008  060908||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        1</leader>
+                    <leader>852
+                        DE-180</leader>
+                    <leader>852 1
+                        400 MA 4100
+                        00</leader>
+                    <leader>852 1
+                        01</leader>
+                    <leader>852 2
+                        BB A5
+                        01</leader>
+                    <leader>85900
+                        1.1
+                        66
+                        1990</leader>
+                    <leader>85910
+                        1.2
+                        89
+                        2013</leader>
+                    <leader>86630
+                        66.1990 - 89.2013</leader>
+                    <leader>000  xxxxxcy  a22     3n 4500</leader>
+                    <leader>001 108565548</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  014390272</leader>
+                    <leader>005  20130117035516</leader>
+                    <leader>008  950715||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        1</leader>
+                    <leader>852
+                        DE-15</leader>
+                    <leader>852 1
+                        MA 4100
+                        00</leader>
+                    <leader>852 1
+                        01</leader>
+                    <leader>852 2
+                        96-7-583
+                        HB/FH
+                        01</leader>
+                    <leader>85900
+                        1.1
+                        71
+                        1995</leader>
+                    <leader>85910
+                        1.2
+                        85
+                        2009</leader>
+                    <leader>86630
+                        71.1995 - 85.2009</leader>
+                    <leader>866 0
+                        letzten 10 Jg. Freihand</leader>
+                    <leader>000  xxxxxcy  a22     3n 4500</leader>
+                    <leader>001 108565475</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  014390272</leader>
+                    <leader>005  20080228103644</leader>
+                    <leader>008  880917||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        1</leader>
+                    <leader>852
+                        DE-16</leader>
+                    <leader>852 1
+                        J 8353-24-28
+                        00</leader>
+                    <leader>85900
+                        1.1
+                        28
+                        1952</leader>
+                    <leader>85910
+                        1.2
+                        37
+                        1961</leader>
+                    <leader>86630
+                        28.1952 - 37.1961</leader>
+                    <leader>000  xxxxxcy  a22     3n 4500</leader>
+                    <leader>001 108565483</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  014390272</leader>
+                    <leader>005  20101202075038</leader>
+                    <leader>008  010130||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        2</leader>
+                    <leader>852
+                        DE-16</leader>
+                    <leader>852 1
+                        ZSA 1256 B
+                        00</leader>
+                    <leader>85900
+                        1.1
+                        38
+                        1962</leader>
+                    <leader>85910
+                        1.2
+                        86
+                        2010</leader>
+                    <leader>86630
+                        38.1962 - 86.2010
+                        [L=38; N=74.1998,1]</leader>
+                    <leader>000  xxxxxcy  a22     3n 4500</leader>
+                    <leader>001 564607916</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  014390272</leader>
+                    <leader>005  20080228101551</leader>
+                    <leader>008  080222||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        1</leader>
+                    <leader>852
+                        DE-16-66</leader>
+                    <leader>852 1
+                        Hta 60.1
+                        00</leader>
+                    <leader>85900
+                        1.1
+                        36
+                        1960</leader>
+                    <leader>86630
+                        36.1960,4</leader>
+                    <leader>000  xxxxxcy  a22     3n 4500</leader>
+                    <leader>001 596023790</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  014390272</leader>
+                    <leader>005  20110526065829</leader>
+                    <leader>008  991125||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        1</leader>
+                    <leader>852
+                        DE-16-160</leader>
+                    <leader>852 1
+                        WS/Z IA.01
+                        00</leader>
+                    <leader>85900
+                        1.1
+                        10
+                        1931</leader>
+                    <leader>85910
+                        1.2
+                        17
+                        1938</leader>
+                    <leader>85900
+                        2.1
+                        20
+                        1944</leader>
+                    <leader>85910
+                        2.2
+                        79
+                        2003</leader>
+                    <leader>86630
+                        10.1931 - 17.1938; 20.1944 - 79.2003
+                        [L=22;32-34]</leader>
+                    <leader>000  xxxxxcy  a22     3n 4500</leader>
+                    <leader>001 108565505</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  014390272</leader>
+                    <leader>005  20100520073239</leader>
+                    <leader>007  huuuu ||uuuu</leader>
+                    <leader>008  910328||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        1</leader>
+                    <leader>852
+                        DE-31</leader>
+                    <leader>852 1
+                        ZA 5231 MA
+                        00</leader>
+                    <leader>85900
+                        1.1
+                        10
+                        1931</leader>
+                    <leader>85910
+                        1.2
+                        45
+                        1969</leader>
+                    <leader>86630
+                        10.1931 - 45.1969</leader>
+                    <leader>866 0
+                        Microfiches</leader>
+                    <leader>935
+                        mkop</leader>
+                    <leader>000  xxxxxcy  a22     3n 4500</leader>
+                    <leader>001 108565513</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  014390272</leader>
+                    <leader>005  20160314113813</leader>
+                    <leader>008  010130||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        2</leader>
+                    <leader>852
+                        DE-31</leader>
+                    <leader>852 1
+                        ZA 5231
+                        00</leader>
+                    <leader>85900
+                        1.1
+                        46
+                        1970</leader>
+                    <leader>85910
+                        1.2
+                        91
+                        2015</leader>
+                    <leader>86630
+                        46.1970 - 91.2015
+                        [N=51.1975,4]</leader>
+                    <leader>000  xxxxxcy  a22     3n 4500</leader>
+                    <leader>001 108565351</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  014390272</leader>
+                    <leader>005  20140320033626</leader>
+                    <leader>008  980402||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        1</leader>
+                    <leader>852
+                        DE-Ch1</leader>
+                    <leader>852 1
+                        S 1/A 4576
+                        00</leader>
+                    <leader>85900
+                        1.1
+                        40
+                        1964</leader>
+                    <leader>85910
+                        1.2
+                        49
+                        1973</leader>
+                    <leader>85900
+                        2.1
+                        54
+                        1978</leader>
+                    <leader>85910
+                        2.2
+                        63
+                        1987</leader>
+                    <leader>85900
+                        3.1
+                        68
+                        1992</leader>
+                    <leader>85900
+                        4.1
+                        70
+                        1994</leader>
+                    <leader>85910
+                        4.2
+                        89
+                        2013</leader>
+                    <leader>86630
+                        40.1964 - 49.1973; 54.1978 - 63.1987; 68.1992; 70.1994 - 89.2013
+                        [N=42.1966,1; 47.1971,2; 57.1981]</leader>
+                    <leader>000  xxxxxcy  a22     3n 4500</leader>
+                    <leader>001 108565491</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  014390272</leader>
+                    <leader>005  20170316143314</leader>
+                    <leader>008  961113||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        1</leader>
+                    <leader>852
+                        DE-Ka26</leader>
+                    <leader>852 1
+                        ZP 67
+                        00</leader>
+                    <leader>852 1
+                        S 150/075
+                        01</leader>
+                    <leader>85900
+                        1.1
+                        10
+                        1931</leader>
+                    <leader>85910
+                        1.2
+                        59
+                        1983</leader>
+                    <leader>86630
+                        10.1931 - 59.1983</leader>
+                    <leader>866 0
+                        10, 13 u.19 als Reprint. - "The Crimea and Potsdam conferences of the leaders of the three great powers": 1. sitting 1945 (1965) - 13. sitting 1945 (1966) unter der Signatur: S 150/075</leader>
+                    <leader>000  xxxxxcy  a22     3n 4500</leader>
+                    <leader>001 108565459</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  014390272</leader>
+                    <leader>005  20070907130829</leader>
+                    <leader>008  880922||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        1</leader>
+                    <leader>852
+                        DE-B208</leader>
+                    <leader>852 1
+                        VR: III A/GB: 1
+                        00</leader>
+                    <leader>85901
+                        1.1
+                        10
+                        1931</leader>
+                    <leader>86630
+                        10.1931 -</leader>
+                    <leader>000  xxxxxcy  a22     3n 4500</leader>
+                    <leader>001 108565467</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  014390272</leader>
+                    <leader>005  20070907130829</leader>
+                    <leader>008  010130||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        24</leader>
+                    <leader>852
+                        DE-B208</leader>
+                    <leader>852 1
+                        00</leader>
+                    <leader>86630
+                        1/52.1922/76(1978)
+                        - Index</leader>
+                    <leader>000  xxxxxcy  a22     3n 4500</leader>
+                    <leader>001 108565661</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  014390272</leader>
+                    <leader>005  20170717105309</leader>
+                    <leader>008  970301||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        1</leader>
+                    <leader>852
+                        DE-Sp3</leader>
+                    <leader>852 1
+                        A XIII 92
+                        00</leader>
+                    <leader>85900
+                        1.1
+                        26
+                        1950</leader>
+                    <leader>85910
+                        1.2
+                        92
+                        2016</leader>
+                    <leader>86630
+                        Kardex +</leader>
+                    <leader>86630
+                        26.1950 - 92.2016</leader>
+                    <leader>866 0
+                        Präsenzbestand. - Standort Magazin Gästehaus. - Berichtszeitraumbegrenzter Online-Zugriff s. http://www.bibliothek.uni-regensburg.de/ezeit/?1475513. -</leader>
+                    <leader>000  xxxxxcx  a22     zn 4500</leader>
+                    <leader>001 108565572</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  014390272</leader>
+                    <leader>005  20150303132200</leader>
+                    <leader>008  030412||||||||||||||||ger|||||||</leader>
+                    <leader>035
+                        (DE-212)I 6245</leader>
+                    <leader>035
+                        (DE-212)00258143</leader>
+                    <leader>852
+                        DE-212</leader>
+                    <leader>852 1
+                        00</leader>
+                    <leader>935
+                        KONV</leader>
+                    <leader>000  xxxxxcy  a22     3n 4500</leader>
+                    <leader>001 108565580</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  014390272</leader>
+                    <leader>005  20150303132200</leader>
+                    <leader>008  030911||||||||||||||||ger|||||||</leader>
+                    <leader>035
+                        (DE-212)00258143</leader>
+                    <leader>852
+                        1</leader>
+                    <leader>852
+                        DE-212</leader>
+                    <leader>852 1
+                        Z - GB 387
+                        00</leader>
+                    <leader>85901
+                        1.1
+                        67
+                        1991</leader>
+                    <leader>86630
+                        67.1991 -</leader>
+                    <leader>000  xxxxxcx  a22     zn 4500</leader>
+                    <leader>001 75227094X</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  014390272</leader>
+                    <leader>005  20150120163735</leader>
+                    <leader>008  130701||||||||||||||||ger|||||||</leader>
+                    <leader>035
+                        (DE-212)00258143</leader>
+                    <leader>035
+                        (DE-212)I6245</leader>
+                    <leader>852
+                        DE-212</leader>
+                    <leader>852 1
+                        Z - GB 387
+                        00</leader>
+                    <leader>8564
+                        http://www.chathamhouse.org.uk/publications/ia</leader>
+                    <leader>935
+                        IFIV</leader>
+                    <leader>000  xxxxxcx  a22     zn 4500</leader>
+                    <leader>001 108565645</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  014390272</leader>
+                    <leader>005  20030820000000</leader>
+                    <leader>008  021018||||||||||||||||ger|||||||</leader>
+                    <leader>035
+                        (DE-Lg3)I 6245</leader>
+                    <leader>852
+                        DE-Lg3</leader>
+                    <leader>852 1
+                        RV 00060
+                        p
+                        00</leader>
+                    <leader>866
+                        52 (1976) 1 -</leader>
+                    <leader>935
+                        KONV</leader>
+                    <leader>000  xxxxxcy  a22     3n 4500</leader>
+                    <leader>001 515212660</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  014390272</leader>
+                    <leader>005  20170120133309</leader>
+                    <leader>008  200825||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        1</leader>
+                    <leader>852
+                        DE-Lg3</leader>
+                    <leader>852 1
+                        00</leader>
+                    <leader>85900
+                        1.1
+                        52
+                        1976</leader>
+                    <leader>85910
+                        1.2
+                        92
+                        2016</leader>
+                    <leader>86630
+                        52.1976 - 92.2016</leader>
+                    <leader>000  xxxxxnx  a22     zn 4500</leader>
+                    <leader>001 752720104</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  014390272</leader>
+                    <leader>005  20130703075822</leader>
+                    <leader>008  130703||||||||||||||||ger|||||||</leader>
+                    <leader>035
+                        (DE-Lg3)00258143</leader>
+                    <leader>035
+                        (DE-Lg3)I6245</leader>
+                    <leader>689
+                        s
+                        Internationale Politik; Außenpolitik</leader>
+                    <leader>852
+                        DE-Lg3</leader>
+                    <leader>852 1
+                        00</leader>
+                    <leader>8564
+                        http://www.chathamhouse.org.uk/publications/ia</leader>
+                    <leader>935
+                        IFIV</leader>
+                    <leader>936ln
+                        SB Internationale(s) Politik/System</leader>
+                    <leader>936ln
+                        RQ Weltweit</leader>
+                    <leader>000  xxxxxcy  a22     3n 4500</leader>
+                    <leader>001 108565432</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  014390272</leader>
+                    <leader>005  20080228103645</leader>
+                    <leader>008  880921||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        1</leader>
+                    <leader>852
+                        DE-He79</leader>
+                    <leader>852 1
+                        00</leader>
+                    <leader>85901
+                        1.1
+                        49
+                        1973</leader>
+                    <leader>86630
+                        49.1973 -</leader>
+                    <leader>000  xxxxxnx  a22     zn 4500</leader>
+                    <leader>001 753380218</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  014390272</leader>
+                    <leader>005  20130703193416</leader>
+                    <leader>008  130703||||||||||||||||ger|||||||</leader>
+                    <leader>035
+                        (DE-615)00258143</leader>
+                    <leader>035
+                        (DE-615)I6245</leader>
+                    <leader>689
+                        s
+                        Internationale Politik; Außenpolitik</leader>
+                    <leader>852
+                        DE-615</leader>
+                    <leader>852 1
+                        p
+                        00</leader>
+                    <leader>8564
+                        http://www.chathamhouse.org.uk/publications/ia</leader>
+                    <leader>935
+                        IFIV</leader>
+                    <leader>936ln
+                        SB Internationale(s) Politik/System</leader>
+                    <leader>936ln
+                        RQ Weltweit</leader>
+                    <leader>000  xxxxxnx  a22     zn 4500</leader>
+                    <leader>001 753380226</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  014390272</leader>
+                    <leader>005  20130703193416</leader>
+                    <leader>008  130703||||||||||||||||ger|||||||</leader>
+                    <leader>035
+                        (DE-F131)00258143</leader>
+                    <leader>035
+                        (DE-F131)I6245</leader>
+                    <leader>852
+                        DE-F131</leader>
+                    <leader>852 1
+                        ZD 00262
+                        l
+                        00</leader>
+                    <leader>935
+                        IFIV</leader>
+                    <leader>000  xxxxxnx  a22     zn 4500</leader>
+                    <leader>001 753380234</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  014390272</leader>
+                    <leader>005  20130703193416</leader>
+                    <leader>008  130703||||||||||||||||ger|||||||</leader>
+                    <leader>035
+                        (DE-B1503)00258143</leader>
+                    <leader>035
+                        (DE-B1503)I6245</leader>
+                    <leader>852
+                        DE-B1503</leader>
+                    <leader>852 1
+                        ZK017
+                        n
+                        00</leader>
+                    <leader>935
+                        IFIV</leader>
+                    <leader>000  xxxxxnx  a22     zn 4500</leader>
+                    <leader>001 753380242</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  014390272</leader>
+                    <leader>005  20130703193416</leader>
+                    <leader>008  130703||||||||||||||||ger|||||||</leader>
+                    <leader>035
+                        (DE-H221)00258143</leader>
+                    <leader>035
+                        (DE-H221)I6245</leader>
+                    <leader>852
+                        DE-H221</leader>
+                    <leader>852 1
+                        3/2
+                        00</leader>
+                    <leader>935
+                        IFIV</leader>
+                    <leader>000  xxxxxnx  a22     zn 4500</leader>
+                    <leader>001 753380250</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  014390272</leader>
+                    <leader>005  20130703193416</leader>
+                    <leader>008  130703||||||||||||||||ger|||||||</leader>
+                    <leader>035
+                        (DE-F197)00258143</leader>
+                    <leader>035
+                        (DE-F197)I6245</leader>
+                    <leader>852
+                        DE-F197</leader>
+                    <leader>852 1
+                        ZS I
+                        00</leader>
+                    <leader>935
+                        IFIV</leader>
+                    <leader>000  xxxxxnx  a22     zn 4500</leader>
+                    <leader>001 753380269</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  014390272</leader>
+                    <leader>005  20130703193416</leader>
+                    <leader>008  130703||||||||||||||||ger|||||||</leader>
+                    <leader>035
+                        (DE-188-211)00258143</leader>
+                    <leader>035
+                        (DE-188-211)I6245</leader>
+                    <leader>852
+                        DE-188-211</leader>
+                    <leader>852 1
+                        Zs 377
+                        p
+                        00</leader>
+                    <leader>935
+                        IFIV</leader>
+                    <leader>000  xxxxxnx  a22     zn 4500</leader>
+                    <leader>001 753380277</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  014390272</leader>
+                    <leader>005  20130703193416</leader>
+                    <leader>008  130703||||||||||||||||ger|||||||</leader>
+                    <leader>035
+                        (DE-B1567)00258143</leader>
+                    <leader>035
+                        (DE-B1567)I6245</leader>
+                    <leader>852
+                        DE-B1567</leader>
+                    <leader>852 1
+                        X. 00117
+                        n
+                        00</leader>
+                    <leader>935
+                        IFIV</leader>
+                    <leader>000  xxxxxnx  a22     zn 4500</leader>
+                    <leader>001 809898527</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  014390272</leader>
+                    <leader>005  20140131000000</leader>
+                    <leader>008  140131||||||||||||||||ger|||||||</leader>
+                    <leader>035
+                        (H222)00258143</leader>
+                    <leader>852
+                        H222</leader>
+                    <leader>852 1
+                        3/2
+                        00</leader>
+                    <leader>000  xxxxxcy  a22     3n 4500</leader>
+                    <leader>001 844588067</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  014390272</leader>
+                    <leader>005  20150518160324</leader>
+                    <leader>008  060608||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        1</leader>
+                    <leader>852
+                        DE-H222</leader>
+                    <leader>852 1
+                        3/2
+                        00</leader>
+                    <leader>85900
+                        1.1
+                        29
+                        1953</leader>
+                    <leader>85910
+                        1.2
+                        81
+                        2005</leader>
+                    <leader>86630
+                        29.1953 - 81.2005,5</leader>
+                    <leader>000  xxxxxcy  a22     3n 4500</leader>
+                    <leader>001 844603813</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  014390272</leader>
+                    <leader>005  20150518162941</leader>
+                    <leader>008  991125||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        1</leader>
+                    <leader>852
+                        DE-H221</leader>
+                    <leader>852 1
+                        00</leader>
+                    <leader>85900
+                        1.1
+                        42
+                        1966</leader>
+                    <leader>85910
+                        1.2
+                        45
+                        1969</leader>
+                    <leader>86630
+                        42.1966 - 45.1969</leader>
+                    <leader>000  xxxxxcy  a22     3n 4500</leader>
+                    <leader>001 973625260</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  014390272</leader>
+                    <leader>005  20170711131318</leader>
+                    <leader>008  170404||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        DE-B1503</leader>
+                    <leader>852 1
+                        ZK 17
+                        00</leader>
+                    <leader>85900
+                        1.1
+                        61
+                        1985</leader>
+                    <leader>85910
+                        1.2
+                        89
+                        2013</leader>
+                    <leader>86630
+                        61.1985 - 89.2013
+                        [N=82.2006,5]</leader>
+                    <leader>000  xxxxxcx  a22     zn 4500</leader>
+                    <leader>001 984461841</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  014390272</leader>
+                    <leader>005  20171103111957</leader>
+                    <leader>008  171016||||||||||||||||ger|||||||</leader>
+                    <leader>035
+                        (H222)00258143</leader>
+                    <leader>852
+                        H222</leader>
+                    <leader>852 1
+                        3/2
+                        00</leader></record></srw:recordData><srw:recordPosition>1</srw:recordPosition></srw:record>
+    </srw:records>
+    <srw:echoedSearchRetrieveRequest>
+        <srw:version>1.1</srw:version>
+        <srw:query>pica.ppn+%3D+014390272</srw:query>
+        <srw:xQuery><xcql:searchClause><xcql:index>pica.ppn</xcql:index><xcql:relation><xcql:value>=</xcql:value></xcql:relation><xcql:term>014390272</xcql:term></xcql:searchClause></srw:xQuery>
+        <startRecord>1</startRecord>
+        <maximumRecords>5</maximumRecords>
+        <srw:recordPacking>xml</srw:recordPacking>
+        <srw:recordSchema>marc21</srw:recordSchema>
+
+        <srw:stylesheet>http://swb.bsz-bw.de/sru/?xsl=searchRetrieveResponse</srw:stylesheet>
+    </srw:echoedSearchRetrieveRequest>
+    <diag:diagnostics>
+        <diag:uri>info:srw/diagnostic/1/0</diag:uri>
+
+
+    </diag:diagnostics>
+    <srw:extraResponseData>
+        <rob:authenticationToken xmlns:rob="info:srw/extension/2/auth-1.0">U998,Pbszgast,I17,B0728+,SY,NRecherche-DB,D2.1,E4e4438a9-0,A,H,R193.197.31.15,FY</rob:authenticationToken>
+        <mg:resultGrouping xmlns:mg="info:srw/extension/5/metadata-grouping-v1.0">
+
+            <mg:grouping key="9008" description="Sysflag"></mg:grouping>
+
+            <mg:grouping key="9001" description="Materialart"></mg:grouping>
+
+            <mg:grouping key="9000" description="Erscheinungsjahr"></mg:grouping>
+
+            <mg:grouping key="9030" description="LibID-ADI"></mg:grouping>
+
+            <mg:grouping key="9005" description="jetzt AUI"></mg:grouping>
+
+            <mg:grouping key="9002" description="Region"></mg:grouping>
+
+            <mg:grouping key="9004" description="Sprache"></mg:grouping>
+
+            <mg:grouping key="9015" description="Erschliessungsmaterial"></mg:grouping>
+
+
+        </mg:resultGrouping>
+    </srw:extraResponseData>
+</srw:searchRetrieveResponse>

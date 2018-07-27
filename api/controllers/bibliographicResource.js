@@ -1,12 +1,14 @@
 "use strict";
 const swbHelper = require('./../helpers/swbHelper.js').createSwbHelper();
-const br = require('./../models/bibliographicResource.js');
+const br = require('./../models/bibliographicResource.js').mongoBr;
 const logger = require('./../util/logger');
 const _ = require('lodash');
 const mongoose = require('mongoose');
 const crossrefHelper = require('./../helpers/crossrefHelper.js').createCrossrefHelper();
+const openCitationsHelper = require('./../helpers/openCitationsHelper.js').createOpenCitationsHelper();
 const enums = require('./../schema/enum.json');
 const Identifier = require('./../schema/identifier');
+const async = require("async");
 
 
 function list(req, res){
@@ -178,55 +180,7 @@ function createByPPN(req, res){
 }
 
 
-function getCrossrefReferences(req, res){
-    var br = req.swagger.params.bibliographicResource.value;
-    var response = res;
-    // first check whether it has a doi, because then it is way easier to retrieve the data
-    var doi = null;
-    var query = null;
-    for(var identifier of br.identifiers){
-        if(identifier.scheme == enums.identifier.doi){
-            doi = identifier.literalValue;
-            break;
-        }
-    }
-    // if there is no doi given, we prepare a query string
-    if(!doi){
-        // TODO: Improve query?
-        query = br.title + " " + br.subtitle;
-    }
-    crossrefHelper.queryReferences(doi, query, function(err,res){
-        if(err){
-            logger.error(err);
-            return response.status(500).json(err);
-        }
-        response.json(res);
-    });
-}
-
-
-function getPublisherUrl(req, res){
-    var ppn = req.swagger.params.ppn.value;
-    var resourceType = req.swagger.params.resourceType.value;
-    var response = res;
-
-    swbHelper.query(ppn, resourceType, function(err, result) {
-        if (err) {
-            logger.error(err);
-            return response.status(500).json(err);
-        }else{
-            for (var identifier of result.identifiers){
-                // TODO: Shall we save the resource? Shall we return the whole resource?
-                if(identifier.scheme === "URI"){
-                    return response.status(200).json(identifier);
-                }
-            }
-            return response.status(200).json({message: "No URI found."});
-        }
-    });
-}
-
-
+// TODO: DELETE THIS! We just want to have it to check for the logic
 function saveElectronicJournal(req, res) {
     var doi = req.swagger.params.doi.value;
     var ppn = req.swagger.params.ppn.value;
@@ -352,7 +306,7 @@ function saveElectronicJournal(req, res) {
                     var resource = new br(result);
                     resource.type = enums.resourceType.journal;
                     resource.status = enums.status.external;
-                    resource.identifiers.push({'scheme': enums.identifier.ppn, 'literalValue': ppn});
+                    resource.identifiers.push({'scheme': enums.identifier.olcPpn, 'literalValue': ppn});
                     // we should try to find the parent resource in our system
                     // therefore we have to extract the issns if available
                     var issns = [];
@@ -534,6 +488,29 @@ function saveElectronicJournal(req, res) {
     }
 }
 
+function listOC(req, res){
+    var response = res;
+    br.find({},{},function(err,docs){
+        if(err){
+            logger.error(err);
+            return res.status(500).json(err);
+        }
+        async.map(docs, function(doc, cb){
+            openCitationsHelper.convertInternalBR2OC(doc, function (err, res) {
+                if(err){
+                    logger.error(err);
+                    return cb(err, null);
+                }
+                return cb(null, res);
+            });
+
+        }, function(err, res){
+            res = res.flatten();
+            return response.status(200).json(res);
+        });
+    });
+}
+
 
 module.exports = {
         list : list,
@@ -543,7 +520,8 @@ module.exports = {
         createByPPN: createByPPN,
         save: save,
         update: update,
-        getCrossrefReferences: getCrossrefReferences,
-        getPublisherUrl: getPublisherUrl,
-        saveElectronicJournal: saveElectronicJournal
+        //getCrossrefReferences: getCrossrefReferences,
+        //getPublisherUrl: getPublisherUrl,
+        saveElectronicJournal: saveElectronicJournal,
+        listOC: listOC
 };

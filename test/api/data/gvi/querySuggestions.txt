@@ -1,0 +1,30 @@
+{
+  "responseHeader":{
+    "zkConnected":true,
+    "status":0,
+    "QTime":105,
+    "params":{
+      "q":"allfields:\"The association between social capital and juvenile crime: The role of individual and structural factors\"",
+      "df":"allfields",
+      "indent":"on",
+      "echoParams":"all",
+      "spellcheck":"false",
+      "collection":"GVI",
+      "rows":"10",
+      "wt":"json"}},
+  "response":{"numFound":1,"start":0,"maxScore":115.29475,"docs":[
+      {
+        "catalog":"DE-576",
+        "consortium":["DE-576"],
+        "language":["eng"],
+        "collection":"SWB",
+        "material_content_type":["Article"],
+        "fullrecord":"<?xml version=\"1.0\" encoding=\"UTF-8\"?><collection xmlns=\"http://www.loc.gov/MARC21/slim\"><record><leader>00863caa a22002412  4500</leader><controlfield tag=\"001\">456049053</controlfield><controlfield tag=\"003\">DE-576</controlfield><controlfield tag=\"005\">20161018174806.0</controlfield><controlfield tag=\"007\">tu</controlfield><controlfield tag=\"008\">160223s2006    xx             00 0 eng c</controlfield><datafield tag=\"024\" ind1=\"7\" ind2=\" \"><subfield code=\"a\">10.1177/1477370806061967</subfield><subfield code=\"2\">doi</subfield></datafield><datafield tag=\"035\" ind1=\" \" ind2=\" \"><subfield code=\"a\">(DE-599)BSZ456049053</subfield></datafield><datafield tag=\"040\" ind1=\" \" ind2=\" \"><subfield code=\"a\">DE-576</subfield><subfield code=\"b\">ger</subfield><subfield code=\"c\">DE-576</subfield><subfield code=\"e\">rakwb</subfield></datafield><datafield tag=\"041\" ind1=\" \" ind2=\" \"><subfield code=\"a\">eng</subfield></datafield><datafield tag=\"100\" ind1=\"1\" ind2=\" \"><subfield code=\"a\">Salmi, Venla</subfield><subfield code=\"0\">(DE-576)189457856</subfield></datafield><datafield tag=\"245\" ind1=\"1\" ind2=\"4\"><subfield code=\"a\">The Association between Social Capital and Juvenile Crime. The Role of Individual and Structural Factors /</subfield><subfield code=\"c\">Venla Salmi, Janne Kivivuori</subfield></datafield><datafield tag=\"260\" ind1=\" \" ind2=\" \"><subfield code=\"c\">2006</subfield></datafield><datafield tag=\"700\" ind1=\"1\" ind2=\" \"><subfield code=\"a\">Kivivuori, Janne</subfield><subfield code=\"0\">(DE-576)169037223</subfield><subfield code=\"4\">aut</subfield></datafield><datafield tag=\"773\" ind1=\"0\" ind2=\"8\"><subfield code=\"i\">In</subfield><subfield code=\"a\">European journal of criminology</subfield><subfield code=\"d\">2006</subfield><subfield code=\"g\">3(2006), 2, S. 123-148</subfield><subfield code=\"w\">(DE-576)109717155</subfield><subfield code=\"w\">(DE-600)2134760-8</subfield><subfield code=\"x\">1477-3708</subfield></datafield><datafield tag=\"924\" ind1=\"1\" ind2=\" \"><subfield code=\"a\">899554334</subfield><subfield code=\"b\">DE-21-110</subfield><subfield code=\"c\">BSZ</subfield><subfield code=\"d\">b</subfield><subfield code=\"g\">In: Z 193</subfield><subfield code=\"9\">21/110</subfield></datafield><datafield tag=\"935\" ind1=\" \" ind2=\" \"><subfield code=\"a\">mkri</subfield></datafield><datafield tag=\"935\" ind1=\" \" ind2=\" \"><subfield code=\"b\">druck</subfield></datafield><datafield tag=\"936\" ind1=\"u\" ind2=\"w\"><subfield code=\"d\">3</subfield><subfield code=\"j\">2006</subfield><subfield code=\"e\">2</subfield><subfield code=\"h\">123-148</subfield></datafield></record></collection>\n",
+        "ill_flag":["Undefined"],
+        "material_media_type":["Book"],
+        "material_pubform":["Monographic component part"],
+        "id":"(DE-576)456049053",
+        "_version_":1585510992020766720,
+        "recordtype":"gvimarc",
+        "index_date":"2017-11-30T16:58:31.469Z"}]
+  }}

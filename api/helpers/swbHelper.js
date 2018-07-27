@@ -1,10 +1,12 @@
 'use strict';
-const request = require('ajax-request');
+const request = require('request');
 const config = require('./../../config/config.js');
 const marc21Helper = require('./../helpers/marc21Helper.js').createMarc21Helper();
 const enums = require('./../schema/enum.json');
 const BibliographicResource = require('./../schema/bibliographicResource');
 const logger = require('./../util/logger');
+var cachedRequest = require('cached-request')(request);
+cachedRequest.setCacheDirectory(config.PATHS.CACHE);
 
 
 var SwbHelper = function(){
@@ -23,11 +25,8 @@ SwbHelper.prototype.query = function(ppn, resourceType, callback){
             + '&maximumRecords=1&startRecord=1&recordPacking=xml&sortKeys=none'
             +'&x-info-5-mg-requestGroupings=none';
     }
-    request({
-        url: url,
-        method: 'GET',
-    }, function(err, res, body) {
-          marc21Helper.parseBibliographicResource(body ,function(err, result){
+    cachedRequest({url: url}, function(err, res, body) {
+          marc21Helper.parseBibliographicResource(body, 'marcxml', function(err, result){
               if(err){
                   logger.error(err);
                   return callback(err, null);
@@ -40,11 +39,8 @@ SwbHelper.prototype.query = function(ppn, resourceType, callback){
 SwbHelper.prototype.queryOLC = function(ppn, callback){
     var url = config.URLS.OLCSSGSOZ + '?query=pica.ppn+%3D+"'
         + ppn + '"&maximumRecords=1';
-    request({
-        url: url,
-        method: 'GET',
-    }, function(err, res, body) {
-        marc21Helper.parseBibliographicResource(body ,function(err, result){
+    cachedRequest({url: url}, function(err, res, body) {
+        marc21Helper.parseBibliographicResource(body, 'marcxml', function(err, result){
             if(err){
                 logger.error(err);
                 return callback(err, null);
@@ -67,16 +63,13 @@ SwbHelper.prototype.queryByTitle = function(title, callback){
         + '"&version=1.1&operation=searchRetrieve&recordSchema=marc21'
         + '&maximumRecords=5&startRecord=2&recordPacking=xml&sortKeys=none'
         +'&x-info-5-mg-requestGroupings=none';
-    request({
-        url: url,
-        method: 'GET',
-    }, function(err, res, body) {
+    cachedRequest({url: url}, function(err, res, body) {
         if(err){
             logger.log(err);
             return callback(err, null);
         }
 
-        marc21Helper.parseBibliographicResources(body ,function(err, result){
+        marc21Helper.parseBibliographicResources(body, function(err, result){
             if(err){
                 logger.error(err);
                 return callback(err, null);
@@ -87,9 +80,9 @@ SwbHelper.prototype.queryByTitle = function(title, callback){
                 br = br.toObject();
                 // TODO: Maybe add ppn here?
                 if(br.identifiers){
-                    br.identifiers.push({scheme: enums.externalSources.swb, literalValue: ""});
+                    br.identifiers.push({scheme: enums.identifier.swbUrl, literalValue: ""});
                 }else{
-                    br.identifiers = [{scheme: enums.externalSources.swb, literalValue: ""}];
+                    br.identifiers = [{scheme: enums.identifier.swbUrl, literalValue: ""}];
                 }
                 br.status = enums.status.external;
                 brs.push(br);
@@ -106,43 +99,35 @@ SwbHelper.prototype.queryByTitle = function(title, callback){
  */
 SwbHelper.prototype.queryByQueryString = function(query, callback){
     var url = config.URLS.SWB
-        + '?query=pica.all%3D"'
-        + query
-        + '"&version=1.1&operation=searchRetrieve&recordSchema=marc21'
+        + '?query=pica.all%3D'
+        + encodeURIComponent(query)
+        + '&version=1.1&operation=searchRetrieve&recordSchema=marc21'
         + '&maximumRecords=5&recordPacking=xml';
-    request({
-        url: url,
-        method: 'GET',
-    }, function(err, res, body) {
+    cachedRequest({url: url}, function(err, res, body) {
         if(err){
             logger.log(err);
             return callback(err, null);
         }
 
-        return marc21Helper.parseBibliographicResources(body ,function(err, result){
+        return marc21Helper.parseBibliographicResources(body, function(err, result){
             if(err){
                 logger.error(err);
                 return callback(err, null);
             }
-            var brs = [];
-            for(var res of result){
-                var br = new BibliographicResource(res);
-                br = br.toObject();
-                var ppn = "";
-                for(var identifier of br.identifiers){
-                    if(identifier.scheme === enums.identifier.swb_ppn){
-                        ppn = identifier.literalValue;
+            for(var parentChild of result){
+                for(var br of parentChild){
+                    var type = br.type;
+                    var ppn = "";
+                    for(var identifier of br.getIdentifiersForType(type)){
+                        br.status = enums.status.external;
+                        if(identifier.scheme === enums.identifier.swbPpn){
+                            ppn = identifier.literalValue;
+                            br.pushIdentifierForType(type, {scheme: enums.identifier.swbUrl, literalValue: "http://swb.bsz-bw.de/DB=2.1/PPNSET?PPN=" + ppn});
+                        }
                     }
                 }
-                if(br.identifiers){
-                    br.identifiers.push({scheme: enums.externalSources.swb, literalValue: "http://swb.bsz-bw.de/DB=2.1/PPNSET?PPN=" + ppn});
-                }else{
-                    br.identifiers = [{scheme: enums.externalSources.swb, literalValue: "http://swb.bsz-bw.de/DB=2.1/PPNSET?PPN=" + ppn}];
-                }
-                br.status = enums.status.external;
-                brs.push(br);
             }
-            return callback(null, brs);
+            return callback(null, result);
         });
     });
 };

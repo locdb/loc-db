@@ -9,7 +9,8 @@ const mongoose = require('mongoose');
 const logger = require('./api/util/logger.js');
 const cors = require('cors');
 const morgan = require('morgan');
-
+const agendash = require('agendash');
+const agenda = require('./api/jobs/jobs');
 
 
 module.exports = app; // for testing
@@ -48,6 +49,7 @@ swaggerDocument.host = config.HOST;
 swaggerDocument.basePath = config.BASEPATH;
 swaggerDocument.securityDefinitions = null;
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, false, {validatorUrl : null, }));
+app.use('/agendash', agendash(agenda));
 
 SwaggerExpress.create({appRoot: __dirname, securityHandlers: {
     basicAuth: function (req, authOrSecDef, callback){

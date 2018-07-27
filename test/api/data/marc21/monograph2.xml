@@ -1,0 +1,1219 @@
+
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="http://swb.bsz-bw.de/sru/?xsl=searchRetrieveResponse" ?>
+<srw:searchRetrieveResponse xmlns:srw="http://www.loc.gov/zing/srw/"
+                            xmlns:dc="http://purl.org/dc/elements/1.1/"
+                            xmlns:diag="http://www.loc.gov/zing/srw/diagnostic/"
+                            xmlns:xcql="http://www.loc.gov/zing/cql/xcql/">
+    <srw:version>1.1</srw:version>
+    <srw:numberOfRecords>1</srw:numberOfRecords>
+    <srw:resultSetId>SID4e4438a9-0S14902</srw:resultSetId>
+    <srw:records>
+
+
+
+        <srw:record>
+            <srw:recordSchema>marc21</srw:recordSchema>
+            <srw:recordPacking>xml</srw:recordPacking>
+            <srw:recordData>
+                <record>
+                    <leader>     cam a22        4500</leader>
+                    <controlfield tag="001">012160954</controlfield>
+                    <controlfield tag="003">DE-576</controlfield>
+                    <controlfield tag="005">20140428173859.0</controlfield>
+                    <controlfield tag="007">tu</controlfield>
+                    <controlfield tag="008">860918s1985    xx             00 0 ger c</controlfield>
+                    <datafield tag="015" ind1=" " ind2=" "><subfield code="a">85,A50,0342</subfield>
+                        <subfield code="2">dnb</subfield></datafield>
+                    <datafield tag="035" ind1=" " ind2=" "><subfield code="a">(OCoLC)13323518</subfield></datafield>
+                    <datafield tag="016" ind1="7" ind2=" "><subfield code="a">850992184</subfield>
+                        <subfield code="2">DE-101</subfield></datafield>
+                    <datafield tag="020" ind1=" " ind2=" "><subfield code="a">3446142045</subfield>
+                        <subfield code="9">3-446-14204-5</subfield></datafield>
+                    <datafield tag="035" ind1=" " ind2=" "><subfield code="a">(DE-599)DNB850992184</subfield></datafield>
+                    <datafield tag="035" ind1=" " ind2=" "><subfield code="a">(DE-615)00291213</subfield></datafield>
+                    <datafield tag="040" ind1=" " ind2=" "><subfield code="a">DE-576</subfield>
+                        <subfield code="b">ger</subfield>
+                        <subfield code="c">DE-576</subfield>
+                        <subfield code="e">rakwb</subfield></datafield>
+                    <datafield tag="041" ind1=" " ind2=" "><subfield code="a">ger</subfield></datafield>
+                    <datafield tag="082" ind1="0" ind2=" "><subfield code="a">809/.93355</subfield></datafield>
+                    <datafield tag="082" ind1="0" ind2=" "><subfield code="a">0903</subfield></datafield>
+                    <datafield tag="082" ind1="0" ind2=" "><subfield code="a">0904</subfield></datafield>
+                    <datafield tag="082" ind1="0" ind2=" "><subfield code="a">944</subfield></datafield>
+                    <datafield tag="082" ind1="0" ind2=" "><subfield code="a">306.09</subfield></datafield>
+                    <datafield tag="084" ind1=" " ind2=" "><subfield code="a">SK01</subfield>
+                        <subfield code="2">FIV</subfield></datafield>
+                    <datafield tag="084" ind1=" " ind2=" "><subfield code="a">ZGF650</subfield>
+                        <subfield code="2">DFI</subfield></datafield>
+                    <datafield tag="084" ind1=" " ind2=" "><subfield code="a">RA04.06</subfield>
+                        <subfield code="2">FIV</subfield></datafield>
+                    <datafield tag="084" ind1=" " ind2=" "><subfield code="a">RA05.01</subfield>
+                        <subfield code="2">FIV</subfield></datafield>
+                    <datafield tag="084" ind1=" " ind2=" "><subfield code="a">RA04.02</subfield>
+                        <subfield code="2">FIV</subfield></datafield>
+                    <datafield tag="084" ind1=" " ind2=" "><subfield code="a">MS 8010</subfield>
+                        <subfield code="2">rvk</subfield></datafield>
+                    <datafield tag="084" ind1=" " ind2=" "><subfield code="a">CC 3900</subfield>
+                        <subfield code="2">rvk</subfield></datafield>
+                    <datafield tag="084" ind1=" " ind2=" "><subfield code="a">MQ 2200</subfield>
+                        <subfield code="2">rvk</subfield></datafield>
+                    <datafield tag="084" ind1=" " ind2=" "><subfield code="a">EC 2460</subfield>
+                        <subfield code="2">rvk</subfield></datafield>
+                    <datafield tag="084" ind1=" " ind2=" "><subfield code="a">MS 1810</subfield>
+                        <subfield code="2">rvk</subfield></datafield>
+                    <datafield tag="084" ind1=" " ind2=" "><subfield code="a">6,24</subfield>
+                        <subfield code="2">ssgn</subfield></datafield>
+                    <datafield tag="100" ind1="1" ind2=" "><subfield code="a">Lepenies, Wolf</subfield>
+                        <subfield code="d">1941-</subfield>
+                        <subfield code="0">(DE-588)115705074</subfield>
+                        <subfield code="0">(DE-576)16196267X</subfield></datafield>
+                    <datafield tag="245" ind1="1" ind2="4"><subfield code="a">Die drei Kulturen :</subfield>
+                        <subfield code="b">Soziologie zwischen Literatur und  Wissenschaft /</subfield>
+                        <subfield code="c">Wolf Lepenies</subfield></datafield>
+                    <datafield tag="260" ind1=" " ind2=" "><subfield code="a">München ;</subfield>
+                        <subfield code="a">Wien [u.a.] :</subfield>
+                        <subfield code="b">Hanser,</subfield>
+                        <subfield code="c">1985</subfield></datafield>
+                    <datafield tag="300" ind1=" " ind2=" "><subfield code="a">562 S.</subfield></datafield>
+                    <datafield tag="336" ind1=" " ind2=" "><subfield code="a">Text</subfield>
+                        <subfield code="b">txt</subfield>
+                        <subfield code="2">rdacontent</subfield></datafield>
+                    <datafield tag="337" ind1=" " ind2=" "><subfield code="a">ohne Hilfsmittel zu benutzen</subfield>
+                        <subfield code="b">n</subfield>
+                        <subfield code="2">rdamedia</subfield></datafield>
+                    <datafield tag="338" ind1=" " ind2=" "><subfield code="a">Band</subfield>
+                        <subfield code="b">nc</subfield>
+                        <subfield code="2">rdacarrier</subfield></datafield>
+                    <datafield tag="500" ind1=" " ind2=" "><subfield code="a">Literaturverz. S. 435 - 444; 461 - 475; 505 - 527.</subfield></datafield>
+                    <datafield tag="591" ind1=" " ind2=" "><subfield code="a">720 ff. bvb; 580 ff. bvb ; IMD-Felder und 1131 maschinell ergänzt</subfield></datafield>
+                    <datafield tag="650" ind1=" " ind2="0"><subfield code="a">Sociology</subfield></datafield>
+                    <datafield tag="650" ind1=" " ind2="4"><subfield code="a">Frankreich</subfield>
+                        <subfield code="x">Deutschland</subfield>
+                        <subfield code="x">Vereinigtes Königreich</subfield>
+                        <subfield code="x">Internationaler Vergleich/Ländervergleich</subfield>
+                        <subfield code="x">Soziologie</subfield>
+                        <subfield code="x">Wissenschaften</subfield>
+                        <subfield code="x">Literatur</subfield></datafield>
+                    <datafield tag="650" ind1=" " ind2="4"><subfield code="a">Comte, Auguste</subfield>
+                        <subfield code="x">Durkheim, Emile</subfield>
+                        <subfield code="x">Péguy, Charles</subfield>
+                        <subfield code="x">Kultureinfluss</subfield>
+                        <subfield code="x">Intellektueller Dialog</subfield></datafield>
+                    <datafield tag="689" ind1="0" ind2="0"><subfield code="D">s</subfield>
+                        <subfield code="0">(DE-588)4077624-4</subfield>
+                        <subfield code="0">(DE-576)209205849</subfield>
+                        <subfield code="2">gnd</subfield>
+                        <subfield code="a">Soziologie</subfield></datafield>
+                    <datafield tag="689" ind1="0" ind2="1"><subfield code="A">f</subfield>
+                        <subfield code="2">gnd</subfield>
+                        <subfield code="a">Aufsatzsammlung</subfield></datafield>
+                    <datafield tag="689" ind1="0" ind2=" "><subfield code="5">DE-576</subfield></datafield>
+                    <datafield tag="689" ind1="1" ind2="0"><subfield code="D">s</subfield>
+                        <subfield code="0">(DE-588)4167885-0</subfield>
+                        <subfield code="0">(DE-576)209911816</subfield>
+                        <subfield code="2">gnd</subfield>
+                        <subfield code="a">Literatursoziologie</subfield></datafield>
+                    <datafield tag="689" ind1="1" ind2="1"><subfield code="A">z</subfield>
+                        <subfield code="2">gnd</subfield>
+                        <subfield code="a">Geschichte</subfield></datafield>
+                    <datafield tag="689" ind1="1" ind2=" "><subfield code="5">DE-576</subfield></datafield>
+                    <datafield tag="689" ind1="2" ind2="0"><subfield code="D">s</subfield>
+                        <subfield code="0">(DE-588)4077624-4</subfield>
+                        <subfield code="0">(DE-576)209205849</subfield>
+                        <subfield code="2">gnd</subfield>
+                        <subfield code="a">Soziologie</subfield></datafield>
+                    <datafield tag="689" ind1="2" ind2="1"><subfield code="D">s</subfield>
+                        <subfield code="0">(DE-588)4035964-5</subfield>
+                        <subfield code="0">(DE-576)209015608</subfield>
+                        <subfield code="2">gnd</subfield>
+                        <subfield code="a">Literatur</subfield></datafield>
+                    <datafield tag="689" ind1="2" ind2="2"><subfield code="A">z</subfield>
+                        <subfield code="2">gnd</subfield>
+                        <subfield code="a">Geschichte</subfield></datafield>
+                    <datafield tag="689" ind1="2" ind2=" "><subfield code="5">DE-576</subfield></datafield>
+                    <datafield tag="689" ind1="3" ind2="0"><subfield code="D">s</subfield>
+                        <subfield code="0">(DE-588)4041421-8</subfield>
+                        <subfield code="0">(DE-576)209044837</subfield>
+                        <subfield code="2">gnd</subfield>
+                        <subfield code="a">Naturwissenschaften</subfield></datafield>
+                    <datafield tag="689" ind1="3" ind2="1"><subfield code="D">s</subfield>
+                        <subfield code="0">(DE-588)4035964-5</subfield>
+                        <subfield code="0">(DE-576)209015608</subfield>
+                        <subfield code="2">gnd</subfield>
+                        <subfield code="a">Literatur</subfield></datafield>
+                    <datafield tag="689" ind1="3" ind2="2"><subfield code="D">s</subfield>
+                        <subfield code="0">(DE-588)4077628-1</subfield>
+                        <subfield code="0">(DE-576)209205865</subfield>
+                        <subfield code="2">gnd</subfield>
+                        <subfield code="a">Soziologische Theorie</subfield></datafield>
+                    <datafield tag="689" ind1="3" ind2="3"><subfield code="A">z</subfield>
+                        <subfield code="2">gnd</subfield>
+                        <subfield code="a">Geschichte 1850-1940</subfield></datafield>
+                    <datafield tag="689" ind1="3" ind2=" "><subfield code="5">DE-576</subfield></datafield>
+                    <datafield tag="689" ind1="4" ind2="0"><subfield code="D">s</subfield>
+                        <subfield code="0">(DE-588)4055916-6</subfield>
+                        <subfield code="0">(DE-576)209115904</subfield>
+                        <subfield code="2">gnd</subfield>
+                        <subfield code="a">Sozialwissenschaften</subfield></datafield>
+                    <datafield tag="689" ind1="4" ind2="1"><subfield code="D">s</subfield>
+                        <subfield code="0">(DE-588)4041421-8</subfield>
+                        <subfield code="0">(DE-576)209044837</subfield>
+                        <subfield code="2">gnd</subfield>
+                        <subfield code="a">Naturwissenschaften</subfield></datafield>
+                    <datafield tag="689" ind1="4" ind2="2"><subfield code="D">s</subfield>
+                        <subfield code="0">(DE-588)4035964-5</subfield>
+                        <subfield code="0">(DE-576)209015608</subfield>
+                        <subfield code="2">gnd</subfield>
+                        <subfield code="a">Literatur</subfield></datafield>
+                    <datafield tag="689" ind1="4" ind2=" "><subfield code="5">DE-576</subfield></datafield>
+                    <datafield tag="689" ind1="5" ind2="0"><subfield code="D">s</subfield>
+                        <subfield code="0">(DE-588)4077624-4</subfield>
+                        <subfield code="0">(DE-576)209205849</subfield>
+                        <subfield code="2">gnd</subfield>
+                        <subfield code="a">Soziologie</subfield></datafield>
+                    <datafield tag="689" ind1="5" ind2="1"><subfield code="D">s</subfield>
+                        <subfield code="0">(DE-588)4117665-0</subfield>
+                        <subfield code="0">(DE-576)209511842</subfield>
+                        <subfield code="2">gnd</subfield>
+                        <subfield code="a">Wissenschaftstheorie</subfield></datafield>
+                    <datafield tag="689" ind1="5" ind2="2"><subfield code="A">z</subfield>
+                        <subfield code="2">gnd</subfield>
+                        <subfield code="a">Geschichte</subfield></datafield>
+                    <datafield tag="689" ind1="5" ind2=" "><subfield code="5">DE-576</subfield></datafield>
+                    <datafield tag="689" ind1="6" ind2="0"><subfield code="D">p</subfield>
+                        <subfield code="0">(DE-588)118577166</subfield>
+                        <subfield code="0">(DE-576)319027511</subfield>
+                        <subfield code="2">gnd</subfield>
+                        <subfield code="a">Mann, Thomas</subfield>
+                        <subfield code="d">1875-1955</subfield></datafield>
+                    <datafield tag="689" ind1="6" ind2=" "><subfield code="5">DE-576</subfield></datafield>
+                    <datafield tag="689" ind1="7" ind2="0"><subfield code="D">p</subfield>
+                        <subfield code="0">(DE-588)118629743</subfield>
+                        <subfield code="0">(DE-576)209155736</subfield>
+                        <subfield code="2">gnd</subfield>
+                        <subfield code="a">Weber, Max</subfield>
+                        <subfield code="d">1864-1920</subfield></datafield>
+                    <datafield tag="689" ind1="7" ind2=" "><subfield code="5">DE-576</subfield></datafield>
+                    <datafield tag="655" ind1=" " ind2="7"><subfield code="a">Aufsatzsammlung</subfield>
+                        <subfield code="0">(DE-588)4143413-4</subfield>
+                        <subfield code="0">(DE-576)209726091</subfield>
+                        <subfield code="2">gnd-content</subfield></datafield>
+                    <datafield tag="856" ind1="4" ind2="2"><subfield code="m">DE-576;DE-16</subfield>
+                        <subfield code="q">application/pdf</subfield>
+                        <subfield code="u">http://swbplus.bsz-bw.de/bsz012160954inh.htm</subfield>
+                        <subfield code="v">20090925080043</subfield>
+                        <subfield code="3">Inhaltsverzeichnis</subfield></datafield>
+                    <datafield tag="935" ind1=" " ind2=" "><subfield code="a">imda</subfield></datafield>
+                    <datafield tag="935" ind1=" " ind2=" "><subfield code="b">druck</subfield></datafield>
+                    <datafield tag="936" ind1="r" ind2="v"><subfield code="a">MS 8010</subfield>
+                        <subfield code="b">Literatur</subfield>
+                        <subfield code="k">Soziologie</subfield>
+                        <subfield code="k">Spezielle Soziologien</subfield>
+                        <subfield code="k">Kunstsoziologie</subfield>
+                        <subfield code="k">Literatur</subfield>
+                        <subfield code="0">201422956</subfield></datafield>
+                    <datafield tag="936" ind1="r" ind2="v"><subfield code="a">CC 3900</subfield>
+                        <subfield code="b">Zur Theorie der Sozialwissenschaften</subfield>
+                        <subfield code="k">Philosophie</subfield>
+                        <subfield code="k">Systematische Philosophie</subfield>
+                        <subfield code="k">Spezielle Wissenschaftstheorie</subfield>
+                        <subfield code="k">Zur Theorie der Sozialwissenschaften</subfield>
+                        <subfield code="0">200638831</subfield></datafield>
+                    <datafield tag="936" ind1="r" ind2="v"><subfield code="a">MQ 2200</subfield>
+                        <subfield code="b">Gesamtdarstellungen zur Geschichte der Soziologie</subfield>
+                        <subfield code="k">Soziologie</subfield>
+                        <subfield code="k">Einführung und Geschichte</subfield>
+                        <subfield code="k">Geschichte der Soziologie</subfield>
+                        <subfield code="k">Gesamtdarstellungen zur Geschichte der Soziologie</subfield>
+                        <subfield code="0">201427400</subfield></datafield>
+                    <datafield tag="936" ind1="r" ind2="v"><subfield code="a">EC 2460</subfield>
+                        <subfield code="b">Beziehungen der Literatur zu Gesellschaft und Wirtschaft</subfield>
+                        <subfield code="k">Allgemeine und vergleichende Sprach- und Literaturwissenschaft. Indogermanistik. Außereuropäische Sprachen und Literaturen</subfield>
+                        <subfield code="k">Allgemeine und vergleichende Literaturwissenschaft.</subfield>
+                        <subfield code="k">Beziehungen der Literatur zu anderen Gebieten</subfield>
+                        <subfield code="k">Beziehungen der Literatur zu Gesellschaft und Wirtschaft</subfield>
+                        <subfield code="0">200749226</subfield></datafield>
+                    <datafield tag="936" ind1="r" ind2="v"><subfield code="a">MS 1810</subfield>
+                        <subfield code="b">Wohnwesen, Nachbarschaft, Slums, Vororte</subfield>
+                        <subfield code="k">Soziologie</subfield>
+                        <subfield code="k">Spezielle Soziologien</subfield>
+                        <subfield code="k">Stadtsoziologie</subfield>
+                        <subfield code="k">Wohnwesen, Nachbarschaft, Slums, Vororte</subfield>
+                        <subfield code="0">200817884</subfield></datafield>
+                    <leader>000  xxxxxcx  a22     zn 4500</leader>
+                    <leader>001 467471495</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20000506000000</leader>
+                    <leader>008  930330||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        DE-21</leader>
+                    <leader>852 1
+                        25 A 14670
+                        00</leader>
+                    <leader>935
+                        comp
+                        konv</leader>
+                    <leader>000  xxxxxcx  a22     zn 4500</leader>
+                    <leader>001 467471509</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20020225000000</leader>
+                    <leader>008  960906||||||||||||||||ger|||||||</leader>
+                    <leader>541
+                        4938/85</leader>
+                    <leader>852
+                        DE-21-108</leader>
+                    <leader>852 1
+                        HN 100.088
+                        p
+                        00</leader>
+                    <leader>936ln
+                        229163335
+                        HN 100</leader>
+                    <leader>000  xxxxxcx  a22     zn 4500</leader>
+                    <leader>001 467471517</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20100508074910</leader>
+                    <leader>008  960314||||||||||||||||ger|||||||</leader>
+                    <leader>541
+                        86/170</leader>
+                    <leader>689
+                        s
+                        Soziologie</leader>
+                    <leader>852
+                        DE-21-24</leader>
+                    <leader>852 1
+                        C,VId,141
+                        p
+                        00</leader>
+                    <leader>936ln
+                        C,VId,</leader>
+                    <leader>000  xxxxxcx  a22     zn 4500</leader>
+                    <leader>001 467471533</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20100407071007</leader>
+                    <leader>008  050323||||||||||||||||ger|||||||</leader>
+                    <leader>541
+                        85-790</leader>
+                    <leader>689
+                        s
+                        241084598
+                        Literaturgeschichte</leader>
+                    <leader>689
+                        s
+                        241079764
+                        Soziologie / Geschichte</leader>
+                    <leader>689
+                        s
+                        24108458X
+                        Wissenschaftsgeschichte</leader>
+                    <leader>852
+                        DE-21-85</leader>
+                    <leader>852 1
+                        2.000.1985
+                        p
+                        00</leader>
+                    <leader>935
+                        k085</leader>
+                    <leader>000  xxxxxnx  a22     zn 4500</leader>
+                    <leader>001 521529336</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20061127113909</leader>
+                    <leader>008  061127||||||||||||||||ger|||||||</leader>
+                    <leader>541
+                        86/10</leader>
+                    <leader>852
+                        DE-21-52</leader>
+                    <leader>852 1
+                        Af 780
+                        p
+                        00</leader>
+                    <leader>935
+                        k052
+                        kneu</leader>
+                    <leader>000  xxxxxcx  a22     zn 4500</leader>
+                    <leader>001 467471541</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20030423000000</leader>
+                    <leader>008  931006||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        DE-25</leader>
+                    <leader>852 1
+                        SW 85/1646
+                        00</leader>
+                    <leader>85281
+                        SW  85/01646
+                        00</leader>
+                    <leader>86630
+                        yz</leader>
+                    <leader>935
+                        reko</leader>
+                    <leader>935
+                        z0</leader>
+                    <leader>000  xxxxxcx  a22     zn 4500</leader>
+                    <leader>001 46747155X</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20160930081415</leader>
+                    <leader>008  040325||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        DE-25-30b</leader>
+                    <leader>852 1
+                        Frei 30b:   As  13/64
+                        p
+                        00</leader>
+                    <leader>86630
+                        1986-k-71</leader>
+                    <leader>935
+                        sk</leader>
+                    <leader>000  xxxxxcx  a22     zn 4500</leader>
+                    <leader>001 467471568</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20050202000000</leader>
+                    <leader>008  940526||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        DE-25-92</leader>
+                    <leader>852 1
+                        Frei 92: F V 279
+                        p
+                        00</leader>
+                    <leader>86630
+                        296/85 h</leader>
+                    <leader>935
+                        reko</leader>
+                    <leader>935
+                        z0</leader>
+                    <leader>000  xxxxxcx  a22     zn 4500</leader>
+                    <leader>001 467471576</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20101127121819</leader>
+                    <leader>008  981121||||||||||||||||ger|||||||</leader>
+                    <leader>035
+                        (DE-291)201913</leader>
+                    <leader>035
+                        (DE-291)003070247</leader>
+                    <leader>035
+                        (DE-291)87a030304</leader>
+                    <leader>852
+                        DE-291</leader>
+                    <leader>852 1
+                        88-1159
+                        00</leader>
+                    <leader>86630
+                        zakh</leader>
+                    <leader>935
+                        KONV</leader>
+                    <leader>936le
+                        233804285</leader>
+                    <leader>936le
+                        234291699</leader>
+                    <leader>936le
+                        234291702</leader>
+                    <leader>936le
+                        234291710</leader>
+                    <leader>936le
+                        234291729</leader>
+                    <leader>936le
+                        234291737</leader>
+                    <leader>000  xxxxxcx  a22     zn 4500</leader>
+                    <leader>001 467471592</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20090203220652</leader>
+                    <leader>008  930603||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        LSTO: 02</leader>
+                    <leader>852
+                        DE-14</leader>
+                    <leader>852 1
+                        93 8 17153
+                        00</leader>
+                    <leader>935
+                        ddub</leader>
+                    <leader>935
+                        z0</leader>
+                    <leader>000  xxxxxnx  a22     zn 4500</leader>
+                    <leader>001 467471606</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20000510000000</leader>
+                    <leader>008  000510||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        DE-14</leader>
+                    <leader>852 1
+                        00</leader>
+                    <leader>935
+                        ddlb
+                        ABET</leader>
+                    <leader>000  xxxxxcx  a22     zn 4500</leader>
+                    <leader>001 467471614</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20140114145931</leader>
+                    <leader>008  860918||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        DE-352</leader>
+                    <leader>852 1
+                        00</leader>
+                    <leader>000  xxxxxcx  a22     zn 4500</leader>
+                    <leader>001 467471630</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20030425000000</leader>
+                    <leader>008  020513||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        na</leader>
+                    <leader>852
+                        DE-24</leader>
+                    <leader>852 1
+                        35/15345
+                        00</leader>
+                    <leader>85281
+                        35/0015345
+                        00</leader>
+                    <leader>935
+                        0030</leader>
+                    <leader>000  xxxxxnx  a22     zn 4500</leader>
+                    <leader>001 885221788</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20160312063213</leader>
+                    <leader>008  160312||||||||||||||||ger|||||||</leader>
+                    <leader>035
+                        (DE-180)22146707360002561</leader>
+                    <leader>852
+                        DE-180</leader>
+                    <leader>852 1
+                        400 MS 8010 L595
+                        00</leader>
+                    <leader>852 2
+                        400
+                        00</leader>
+                    <leader>935
+                        alma</leader>
+                    <leader>000  xxxxxcx  a22     zn 4500</leader>
+                    <leader>001 887414281</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20170202055541</leader>
+                    <leader>008  160302||||||||||||||||ger|||||||</leader>
+                    <leader>035
+                        (DE-180)22146707390002561</leader>
+                    <leader>852
+                        DE-180</leader>
+                    <leader>852 1
+                        500 CC 3900 L595
+                        00</leader>
+                    <leader>852 2
+                        500
+                        00</leader>
+                    <leader>935
+                        alma</leader>
+                    <leader>000  xxxxxcx  a22     zn 4500</leader>
+                    <leader>001 908524935</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20170901060309</leader>
+                    <leader>008  160401||||||||||||||||ger|||||||</leader>
+                    <leader>035
+                        (DE-180)22171179320002561</leader>
+                    <leader>852
+                        DE-180</leader>
+                    <leader>852 1
+                        AL 8095
+                        00</leader>
+                    <leader>852 2
+                        MAG01
+                        00</leader>
+                    <leader>935
+                        alma</leader>
+                    <leader>000  xxxxxcx  a22     zn 4500</leader>
+                    <leader>001 46747169X</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20080607031114</leader>
+                    <leader>008  970915||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        DE-16</leader>
+                    <leader>852 1
+                        85 A 10592
+                        00</leader>
+                    <leader>935
+                        hdka</leader>
+                    <leader>000  xxxxxnu  a22     zn 4500</leader>
+                    <leader>001 467471703</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  19970915000000</leader>
+                    <leader>008  970915||||||||||||||||ger|||||||</leader>
+                    <leader>014
+                        46747169X
+                        DE-576</leader>
+                    <leader>852
+                        034452871</leader>
+                    <leader>852
+                        DE-16</leader>
+                    <leader>852 1
+                        00</leader>
+                    <leader>000  xxxxxcx  a22     zn 4500</leader>
+                    <leader>001 467471711</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20140411095119</leader>
+                    <leader>008  991213||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        DE-16-160</leader>
+                    <leader>852 1
+                        WS/CC 3900 L595
+                        09.01.2010
+                        00</leader>
+                    <leader>000  xxxxxcu  a22     zn 4500</leader>
+                    <leader>001 46747172X</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20090309022848</leader>
+                    <leader>008  991213||||||||||||||||ger|||||||</leader>
+                    <leader>014
+                        467471711
+                        DE-576</leader>
+                    <leader>541
+                        144616</leader>
+                    <leader>852
+                        571786169</leader>
+                    <leader>852
+                        DE-16-160</leader>
+                    <leader>852 1
+                        00</leader>
+                    <leader>000  xxxxxcx  a22     zn 4500</leader>
+                    <leader>001 467471738</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20111027214239</leader>
+                    <leader>008  890927||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        DE-16-77</leader>
+                    <leader>852 1
+                        eth 86/697
+                        00</leader>
+                    <leader>936ln
+                        SAI 422 soz 1985</leader>
+                    <leader>936ln
+                        SAI 422 lit 1985</leader>
+                    <leader>936ln
+                        SAI 424 soz 1985</leader>
+                    <leader>936ln
+                        SAI 424 lit 1985</leader>
+                    <leader>936ln
+                        SAI 431 soz 1985</leader>
+                    <leader>936ln
+                        SAI 431 lit 1985</leader>
+                    <leader>000  xxxxxnu  a22     zn 4500</leader>
+                    <leader>001 467471746</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  19890927000000</leader>
+                    <leader>008  890927||||||||||||||||ger|||||||</leader>
+                    <leader>014
+                        467471738
+                        DE-576</leader>
+                    <leader>541
+                        86/697</leader>
+                    <leader>852
+                        450077849</leader>
+                    <leader>852
+                        DE-16-77</leader>
+                    <leader>852 1
+                        00</leader>
+                    <leader>000  xxxxxnx  a22     zn 4500</leader>
+                    <leader>001 467471770</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20051206000000</leader>
+                    <leader>008  051206||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        DE-16-123</leader>
+                    <leader>852 1
+                        00</leader>
+                    <leader>000  xxxxxnu  a22     zn 4500</leader>
+                    <leader>001 467471789</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20051206000000</leader>
+                    <leader>008  051206||||||||||||||||ger|||||||</leader>
+                    <leader>014
+                        467471770
+                        DE-576</leader>
+                    <leader>541
+                        85/344</leader>
+                    <leader>852
+                        583114987</leader>
+                    <leader>852
+                        DE-16-123</leader>
+                    <leader>852 1
+                        00</leader>
+                    <leader>000  xxxxxcx  a22     zn 4500</leader>
+                    <leader>001 501407863</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20080603015421</leader>
+                    <leader>008  060123||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        DE-16-12</leader>
+                    <leader>852 1
+                        170 Lep 2
+                        p
+                        00</leader>
+                    <leader>935
+                        reko</leader>
+                    <leader>000  xxxxxnu  a22     zn 4500</leader>
+                    <leader>001 501407871</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20060123204224</leader>
+                    <leader>008  060123||||||||||||||||ger|||||||</leader>
+                    <leader>014
+                        501407863
+                        DE-576</leader>
+                    <leader>541
+                        20004</leader>
+                    <leader>852
+                        613738620</leader>
+                    <leader>852
+                        DE-16-12</leader>
+                    <leader>852 1
+                        00</leader>
+                    <leader>000  xxxxxnx  a22     zn 4500</leader>
+                    <leader>001 549831819</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20070913125750</leader>
+                    <leader>008  070913||||||||||||||||ger|||||||</leader>
+                    <leader>541
+                        1986/B 39</leader>
+                    <leader>852
+                        602516328</leader>
+                    <leader>852
+                        DE-16-29</leader>
+                    <leader>852 1
+                        Soz 4 LEP 112/2
+                        p
+                        00</leader>
+                    <leader>935
+                        reko</leader>
+                    <leader>000  xxxxxcx  a22     zn 4500</leader>
+                    <leader>001 467471797</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20070327155454</leader>
+                    <leader>008  930901||||||||||||||||ger|||||||</leader>
+                    <leader>035
+                        (DE-90)86k020704</leader>
+                    <leader>852
+                        DE-90</leader>
+                    <leader>852 1
+                        86 A 633
+                        00</leader>
+                    <leader>935
+                        z0</leader>
+                    <leader>936ln
+                        218771924
+                        Fq 1 : 5.2</leader>
+                    <leader>000  xxxxxcx  a22     zn 4500</leader>
+                    <leader>001 633491896</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20100427123232</leader>
+                    <leader>008  100312||||||||||||||||ger|||||||</leader>
+                    <leader>035
+                        (DE-Ka85)0000084951</leader>
+                    <leader>689
+                        s
+                        Literaturwissenschaft, Belletristik</leader>
+                    <leader>689
+                        s
+                        Sozialwissenschaften, Soziologie</leader>
+                    <leader>852
+                        DE-Ka85</leader>
+                    <leader>852 1
+                        R Lep 7
+                        n
+                        00</leader>
+                    <leader>938
+                        fzka</leader>
+                    <leader>000  xxxxxnx  a22     zn 4500</leader>
+                    <leader>001 700059423</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20120109101038</leader>
+                    <leader>008  120109||||||||||||||||ger|||||||</leader>
+                    <leader>689
+                        s
+                        Soziologie</leader>
+                    <leader>852
+                        DE-90-66</leader>
+                    <leader>852 1
+                        p
+                        00</leader>
+                    <leader>000  xxxxxnu  a22     zn 4500</leader>
+                    <leader>001 70005958X</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20120109101115</leader>
+                    <leader>008  120109||||||||||||||||ger|||||||</leader>
+                    <leader>014
+                        700059423
+                        DE-576</leader>
+                    <leader>541
+                        WS 70</leader>
+                    <leader>852
+                        Beilagen s. Ordner</leader>
+                    <leader>852
+                        DE-90-66</leader>
+                    <leader>852 1
+                        WS Regal 1,1,2:26
+                        00</leader>
+                    <leader>86630
+                        Bibliothek Sewing</leader>
+                    <leader>000  xxxxxcx  a22     zn 4500</leader>
+                    <leader>001 467471835</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20100708172858</leader>
+                    <leader>008  940608||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        DE-93</leader>
+                    <leader>852 1
+                        3J 8411
+                        00</leader>
+                    <leader>85281
+                        3J          8411
+                        00</leader>
+                    <leader>935
+                        kosu</leader>
+                    <leader>935
+                        z0</leader>
+                    <leader>938
+                        1986.1862
+                        0</leader>
+                    <leader>000  xxxxxcx  a22     zn 4500</leader>
+                    <leader>001 467471843</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20020108000000</leader>
+                    <leader>008  960506||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        (6928) G / ba / KORR</leader>
+                    <leader>852
+                        DE-93-94</leader>
+                    <leader>852 1
+                        U8--LEP26
+                        p
+                        00</leader>
+                    <leader>935
+                        xx</leader>
+                    <leader>000  xxxxxcx  a22     zn 4500</leader>
+                    <leader>001 467471851</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20111121091026</leader>
+                    <leader>008  940826||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        26.08.94/ha</leader>
+                    <leader>852
+                        DE-31</leader>
+                    <leader>852 1
+                        87 A 25
+                        00</leader>
+                    <leader>935
+                        z0</leader>
+                    <leader>936le
+                        231695780</leader>
+                    <leader>936le
+                        231770952</leader>
+                    <leader>000  xxxxxcx  a22     zn 4500</leader>
+                    <leader>001 46747186X</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  19991201000000</leader>
+                    <leader>008  940824||||||||||||||||ger|||||||</leader>
+                    <leader>689
+                        s
+                        235826936
+                        Soziologie</leader>
+                    <leader>689
+                        s
+                        23617648X
+                        Literatursoziologie</leader>
+                    <leader>689
+                        s
+                        235837261
+                        Wissenschaftstheorie</leader>
+                    <leader>689
+                        s
+                        235889571
+                        Naturwissenschaften</leader>
+                    <leader>689
+                        s
+                        235893048
+                        Soziologische Theorie</leader>
+                    <leader>852
+                        DE-Ch1</leader>
+                    <leader>852 1
+                        MQ 2700 lep
+                        00</leader>
+                    <leader>936ln
+                        222672250
+                        MQ 2200</leader>
+                    <leader>936ln
+                        221791930
+                        MQ 2700</leader>
+                    <leader>000  xxxxxcx  a22     zn 4500</leader>
+                    <leader>001 467471878</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20080225111031</leader>
+                    <leader>008  950316||||||||||||||||ger|||||||</leader>
+                    <leader>689
+                        s
+                        235747564
+                        Sociology</leader>
+                    <leader>852
+                        DE-289</leader>
+                    <leader>852 1
+                        HM 24/1985 Lb
+                        00</leader>
+                    <leader>852 2
+                        P
+                        00</leader>
+                    <leader>000  xxxxxnx  a22     zn 4500</leader>
+                    <leader>001 467471886</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  19980526000000</leader>
+                    <leader>008  980526||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        DE-Lg1</leader>
+                    <leader>852 1
+                        Soz 2c Lep
+                        00</leader>
+                    <leader>936ln
+                        226732177
+                        Soz 2c Lep</leader>
+                    <leader>936ln
+                        226732185
+                        Soz 2g Lep</leader>
+                    <leader>000  xxxxxcx  a22     zn 4500</leader>
+                    <leader>001 467471940</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20090319070342</leader>
+                    <leader>008  001027||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        zm a</leader>
+                    <leader>852
+                        DE-Lg1</leader>
+                    <leader>852 1
+                        301.12 Lep
+                        00</leader>
+                    <leader>852 1
+                        102860
+                        01</leader>
+                    <leader>935
+                        s1pz</leader>
+                    <leader>935
+                        z0</leader>
+                    <leader>936ln
+                        301.12</leader>
+                    <leader>000  xxxxxnx  a22     zn 4500</leader>
+                    <leader>001 56630628X</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20080320163145</leader>
+                    <leader>008  080320||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        23 cm 2008/ 12-y-14</leader>
+                    <leader>852
+                        DE-752</leader>
+                    <leader>852 1
+                        A d/ Lepe 45
+                        00</leader>
+                    <leader>936le
+                        23369997X</leader>
+                    <leader>936le
+                        233755012</leader>
+                    <leader>936le
+                        233690549</leader>
+                    <leader>936ln
+                        225405822
+                        A d</leader>
+                    <leader>936ln
+                        225251647
+                        E kn</leader>
+                    <leader>936ln
+                        22533741X
+                        P bk</leader>
+                    <leader>936ln
+                        225385813
+                        P dk</leader>
+                    <leader>936ln
+                        229556167
+                        G ar 1</leader>
+                    <leader>936ln
+                        226238032
+                        G ao</leader>
+                    <leader>000  xxxxxcx  a22     zn 4500</leader>
+                    <leader>001 619216921</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20100113214043</leader>
+                    <leader>008  091211||||||||||||||||ger|||||||</leader>
+                    <leader>035
+                        (DE-Mar1)392469</leader>
+                    <leader>541
+                        86.354</leader>
+                    <leader>852
+                        DE-Mar1</leader>
+                    <leader>852 1
+                        C3
+                        l
+                        00</leader>
+                    <leader>000  xxxxxnx  a22     zn 4500</leader>
+                    <leader>001 467471908</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20021025000000</leader>
+                    <leader>008  021025||||||||||||||||ger|||||||</leader>
+                    <leader>035
+                        (DE-Lg3)R085000</leader>
+                    <leader>689
+                        s
+                        239903471
+                        Wissenschaftsgebiete</leader>
+                    <leader>689
+                        s
+                        239902971
+                        Frankreich</leader>
+                    <leader>689
+                        s
+                        239903307
+                        Deutschland</leader>
+                    <leader>689
+                        s
+                        239903358
+                        Vereinigtes Königreich</leader>
+                    <leader>852
+                        DE-Lg3</leader>
+                    <leader>852 1
+                        VM 110.LEP
+                        p
+                        00</leader>
+                    <leader>935
+                        KONV</leader>
+                    <leader>936ln
+                        23004977X
+                        SK01</leader>
+                    <leader>936ln
+                        230049273
+                        RA04.06</leader>
+                    <leader>936ln
+                        230049605
+                        RA05.01</leader>
+                    <leader>936ln
+                        230049656
+                        RA04.02</leader>
+                    <leader>000  xxxxxnu  a22     zn 4500</leader>
+                    <leader>001 467471916</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20021025000000</leader>
+                    <leader>008  021025||||||||||||||||ger|||||||</leader>
+                    <leader>014
+                        467471908
+                        DE-576</leader>
+                    <leader>541
+                        DFI 86/0231</leader>
+                    <leader>852
+                        DE-Lg3</leader>
+                    <leader>852 1
+                        VM 110.LEP
+                        00</leader>
+                    <leader>000  xxxxxnx  a22     zn 4500</leader>
+                    <leader>001 752864696</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20130703084952</leader>
+                    <leader>008  130703||||||||||||||||ger|||||||</leader>
+                    <leader>035
+                        (DE-Lg3)00291213</leader>
+                    <leader>035
+                        (DE-Lg3)R85000</leader>
+                    <leader>689
+                        s
+                        Frankreich; Deutschland; Vereinigtes Königreich; Internationaler Vergleich/Ländervergleich; Soziologie; Wissenschaften; Literatur</leader>
+                    <leader>689
+                        s
+                        Comte, Auguste; Durkheim, Emile; Péguy, Charles; Kultureinfluss; Intellektueller Dialog</leader>
+                    <leader>852
+                        DE-Lg3</leader>
+                    <leader>852 1
+                        VM 110.LEP
+                        00</leader>
+                    <leader>935
+                        RFIV</leader>
+                    <leader>936ln
+                        SK01 Wissenschaftsgebiete</leader>
+                    <leader>936ln
+                        RA04.06 Frankreich</leader>
+                    <leader>936ln
+                        RA05.01 Deutschland</leader>
+                    <leader>936ln
+                        RA04.02 Vereinigtes Königreich</leader>
+                    <leader>000  xxxxxcx  a22     zn 4500</leader>
+                    <leader>001 467471924</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20160321141115</leader>
+                    <leader>008  000809||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        DE-951</leader>
+                    <leader>852 1
+                        24690
+                        00</leader>
+                    <leader>935
+                        adis</leader>
+                    <leader>000  xxxxxnu  a22     zn 4500</leader>
+                    <leader>001 467471932</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20000809000000</leader>
+                    <leader>008  000809||||||||||||||||ger|||||||</leader>
+                    <leader>014
+                        467471924
+                        DE-576</leader>
+                    <leader>852
+                        00463264</leader>
+                    <leader>852
+                        DE-951</leader>
+                    <leader>852 1
+                        24690
+                        00</leader>
+                    <leader>852 2
+                        BIB
+                        00</leader>
+                    <leader>000  xxxxxnx  a22     zn 4500</leader>
+                    <leader>001 467471967</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20050216000000</leader>
+                    <leader>008  050216||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        DE-Rot2</leader>
+                    <leader>852 1
+                        16 A 425
+                        00</leader>
+                    <leader>000  xxxxxcx  a22     zn 4500</leader>
+                    <leader>001 467471991</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  19940805000000</leader>
+                    <leader>008  900607||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        DE-Kh1</leader>
+                    <leader>852 1
+                        00</leader>
+                    <leader>000  xxxxxnx  a22     zn 4500</leader>
+                    <leader>001 586629629</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20081202121753</leader>
+                    <leader>008  081202||||||||||||||||ger|||||||</leader>
+                    <leader>541
+                        22507vS</leader>
+                    <leader>852
+                        629014571</leader>
+                    <leader>852
+                        DE-He79</leader>
+                    <leader>852 1
+                        535 Lepe/3K
+                        p
+                        00</leader>
+                    <leader>000  xxxxxnx  a22     zn 4500</leader>
+                    <leader>001 760462577</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  012160954</leader>
+                    <leader>005  20130711002752</leader>
+                    <leader>008  130711||||||||||||||||ger|||||||</leader>
+                    <leader>035
+                        (DE-615)00291213</leader>
+                    <leader>035
+                        (DE-615)R85000</leader>
+                    <leader>689
+                        s
+                        Frankreich; Deutschland; Vereinigtes Königreich; Internationaler Vergleich/Ländervergleich; Soziologie; Wissenschaften; Literatur</leader>
+                    <leader>689
+                        s
+                        Comte, Auguste; Durkheim, Emile; Péguy, Charles; Kultureinfluss; Intellektueller Dialog</leader>
+                    <leader>852
+                        DE-615</leader>
+                    <leader>852 1
+                        p
+                        00</leader>
+                    <leader>935
+                        RFIV</leader>
+                    <leader>936ln
+                        SK01 Wissenschaftsgebiete</leader>
+                    <leader>936ln
+                        RA04.06 Frankreich</leader>
+                    <leader>936ln
+                        RA05.01 Deutschland</leader>
+                    <leader>936ln
+                        RA04.02 Vereinigtes Königreich</leader></record></srw:recordData><srw:recordPosition>1</srw:recordPosition></srw:record>
+    </srw:records>
+    <srw:echoedSearchRetrieveRequest>
+        <srw:version>1.1</srw:version>
+        <srw:query>pica.ppn+%3D+012160954</srw:query>
+        <srw:xQuery><xcql:searchClause><xcql:index>pica.ppn</xcql:index><xcql:relation><xcql:value>=</xcql:value></xcql:relation><xcql:term>012160954</xcql:term></xcql:searchClause></srw:xQuery>
+        <startRecord>1</startRecord>
+        <maximumRecords>5</maximumRecords>
+        <srw:recordPacking>xml</srw:recordPacking>
+        <srw:recordSchema>marc21</srw:recordSchema>
+
+        <srw:stylesheet>http://swb.bsz-bw.de/sru/?xsl=searchRetrieveResponse</srw:stylesheet>
+    </srw:echoedSearchRetrieveRequest>
+    <diag:diagnostics>
+        <diag:uri>info:srw/diagnostic/1/0</diag:uri>
+
+
+    </diag:diagnostics>
+    <srw:extraResponseData>
+        <rob:authenticationToken xmlns:rob="info:srw/extension/2/auth-1.0">U998,Pbszgast,I17,B0728+,SY,NRecherche-DB,D2.1,E4e4438a9-0,A,H,R193.197.31.15,FY</rob:authenticationToken>
+        <mg:resultGrouping xmlns:mg="info:srw/extension/5/metadata-grouping-v1.0">
+
+            <mg:grouping key="9008" description="Sysflag"></mg:grouping>
+
+            <mg:grouping key="9001" description="Materialart"></mg:grouping>
+
+            <mg:grouping key="9000" description="Erscheinungsjahr"></mg:grouping>
+
+            <mg:grouping key="9030" description="LibID-ADI"></mg:grouping>
+
+            <mg:grouping key="9005" description="jetzt AUI"></mg:grouping>
+
+            <mg:grouping key="9002" description="Region"></mg:grouping>
+
+            <mg:grouping key="9004" description="Sprache"></mg:grouping>
+
+            <mg:grouping key="9015" description="Erschliessungsmaterial"></mg:grouping>
+
+
+        </mg:resultGrouping>
+    </srw:extraResponseData>
+</srw:searchRetrieveResponse>

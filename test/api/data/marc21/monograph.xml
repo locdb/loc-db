@@ -1,0 +1,316 @@
+
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="http://swb.bsz-bw.de/sru/?xsl=searchRetrieveResponse" ?>
+<srw:searchRetrieveResponse xmlns:srw="http://www.loc.gov/zing/srw/"
+                            xmlns:dc="http://purl.org/dc/elements/1.1/"
+                            xmlns:diag="http://www.loc.gov/zing/srw/diagnostic/"
+                            xmlns:xcql="http://www.loc.gov/zing/cql/xcql/">
+    <srw:version>1.1</srw:version>
+    <srw:numberOfRecords>1</srw:numberOfRecords>
+    <srw:resultSetId>SID4e4438a9-0S14903</srw:resultSetId>
+    <srw:records>
+
+
+
+        <srw:record>
+            <srw:recordSchema>marc21</srw:recordSchema>
+            <srw:recordPacking>xml</srw:recordPacking>
+            <srw:recordData>
+                <record>
+                    <leader>     cam a22        4500</leader>
+                    <controlfield tag="001">427229413</controlfield>
+                    <controlfield tag="003">DE-576</controlfield>
+                    <controlfield tag="005">20170811143358.0</controlfield>
+                    <controlfield tag="007">tu</controlfield>
+                    <controlfield tag="008">150305s2014    xx             00 0 eng c</controlfield>
+                    <datafield tag="035" ind1=" " ind2=" "><subfield code="a">(OCoLC)985734255</subfield></datafield>
+                    <datafield tag="020" ind1=" " ind2=" "><subfield code="a">9781442236776</subfield>
+                        <subfield code="9">978-1-4422-3677-6</subfield></datafield>
+                    <datafield tag="024" ind1="3" ind2=" "><subfield code="a">9781442236776</subfield></datafield>
+                    <datafield tag="035" ind1=" " ind2=" "><subfield code="a">(DE-599)BSZ427229413</subfield></datafield>
+                    <datafield tag="035" ind1=" " ind2=" "><subfield code="a">(DE-615)00915751</subfield></datafield>
+                    <datafield tag="040" ind1=" " ind2=" "><subfield code="a">DE-576</subfield>
+                        <subfield code="b">ger</subfield>
+                        <subfield code="c">DE-576</subfield>
+                        <subfield code="e">rakwb</subfield></datafield>
+                    <datafield tag="041" ind1=" " ind2=" "><subfield code="a">eng</subfield></datafield>
+                    <datafield tag="044" ind1=" " ind2=" "><subfield code="a">XD-US</subfield></datafield>
+                    <datafield tag="050" ind1=" " ind2="0"><subfield code="a">HD1537.C5</subfield></datafield>
+                    <datafield tag="084" ind1=" " ind2=" "><subfield code="a">SG02.04</subfield>
+                        <subfield code="2">FIV</subfield></datafield>
+                    <datafield tag="084" ind1=" " ind2=" "><subfield code="a">SG08</subfield>
+                        <subfield code="2">FIV</subfield></datafield>
+                    <datafield tag="084" ind1=" " ind2=" "><subfield code="a">RI03.03</subfield>
+                        <subfield code="2">FIV</subfield></datafield>
+                    <datafield tag="084" ind1=" " ind2=" "><subfield code="a">SG08</subfield>
+                        <subfield code="2">FIV</subfield></datafield>
+                    <datafield tag="100" ind1="1" ind2=" "><subfield code="a">Sun, Wanning</subfield>
+                        <subfield code="d">1963-</subfield>
+                        <subfield code="0">(DE-588)138367566</subfield>
+                        <subfield code="0">(DE-576)30731507X</subfield></datafield>
+                    <datafield tag="245" ind1="1" ind2="0"><subfield code="a">Subaltern China :</subfield>
+                        <subfield code="b">rural migrants, media, and cultural practices /</subfield>
+                        <subfield code="c">Wanning Sun</subfield></datafield>
+                    <datafield tag="260" ind1=" " ind2=" "><subfield code="a">Lanham [u.a.] :</subfield>
+                        <subfield code="b">Rowman &#38; Littlefield,</subfield>
+                        <subfield code="c">2014</subfield></datafield>
+                    <datafield tag="300" ind1=" " ind2=" "><subfield code="a">XVII, 301 S. +</subfield>
+                        <subfield code="e">Ill.</subfield></datafield>
+                    <datafield tag="336" ind1=" " ind2=" "><subfield code="a">Text</subfield>
+                        <subfield code="b">txt</subfield>
+                        <subfield code="2">rdacontent</subfield></datafield>
+                    <datafield tag="337" ind1=" " ind2=" "><subfield code="a">ohne Hilfsmittel zu benutzen</subfield>
+                        <subfield code="b">n</subfield>
+                        <subfield code="2">rdamedia</subfield></datafield>
+                    <datafield tag="338" ind1=" " ind2=" "><subfield code="a">Band</subfield>
+                        <subfield code="b">nc</subfield>
+                        <subfield code="2">rdacarrier</subfield></datafield>
+                    <datafield tag="490" ind1="0" ind2=" "><subfield code="a">Asia, Pacific, perspectives series</subfield></datafield>
+                    <datafield tag="591" ind1=" " ind2=" "><subfield code="a">5550: TUUB15 ; IMD-Felder und 1131 maschinell ergänzt</subfield></datafield>
+                    <datafield tag="650" ind1=" " ind2="0"><subfield code="a">Agricultural laborers</subfield>
+                        <subfield code="x">Social conditions</subfield>
+                        <subfield code="x">China</subfield></datafield>
+                    <datafield tag="650" ind1=" " ind2="0"><subfield code="a">Peasants</subfield>
+                        <subfield code="x">Social conditions</subfield>
+                        <subfield code="x">China</subfield></datafield>
+                    <datafield tag="650" ind1=" " ind2="0"><subfield code="a">Migrant labor</subfield>
+                        <subfield code="x">China</subfield></datafield>
+                    <datafield tag="650" ind1=" " ind2="0"><subfield code="a">Marginality, Social</subfield>
+                        <subfield code="x">China</subfield></datafield>
+                    <datafield tag="650" ind1=" " ind2="0"><subfield code="a">Social classes</subfield>
+                        <subfield code="x">China</subfield></datafield>
+                    <datafield tag="650" ind1=" " ind2="0"><subfield code="a">Mass media</subfield>
+                        <subfield code="x">Social aspects</subfield>
+                        <subfield code="x">China</subfield></datafield>
+                    <datafield tag="650" ind1=" " ind2="0"><subfield code="a">Mass media</subfield>
+                        <subfield code="x">Political aspects</subfield>
+                        <subfield code="x">China</subfield></datafield>
+                    <datafield tag="650" ind1=" " ind2="0"><subfield code="a">Agricultural laborers</subfield>
+                        <subfield code="x">Social conditions</subfield></datafield>
+                    <datafield tag="650" ind1=" " ind2="0"><subfield code="a">Economic history</subfield></datafield>
+                    <datafield tag="650" ind1=" " ind2="0"><subfield code="a">Marginality, Social</subfield></datafield>
+                    <datafield tag="650" ind1=" " ind2="0"><subfield code="a">Mass media</subfield>
+                        <subfield code="x">Political aspects</subfield></datafield>
+                    <datafield tag="650" ind1=" " ind2="0"><subfield code="a">Mass media</subfield>
+                        <subfield code="x">Social aspects</subfield></datafield>
+                    <datafield tag="650" ind1=" " ind2="0"><subfield code="a">Migrant labor</subfield></datafield>
+                    <datafield tag="650" ind1=" " ind2="0"><subfield code="a">Peasants</subfield>
+                        <subfield code="x">Social conditions</subfield></datafield>
+                    <datafield tag="650" ind1=" " ind2="0"><subfield code="a">Social classes</subfield></datafield>
+                    <datafield tag="650" ind1=" " ind2="0"><subfield code="a">Social conditions</subfield></datafield>
+                    <datafield tag="651" ind1=" " ind2="0"><subfield code="a">China</subfield>
+                        <subfield code="x">Social conditions</subfield>
+                        <subfield code="x">2000-</subfield></datafield>
+                    <datafield tag="651" ind1=" " ind2="0"><subfield code="a">China</subfield>
+                        <subfield code="x">Economic conditions</subfield>
+                        <subfield code="x">2000-</subfield>
+                        <subfield code="x">China</subfield></datafield>
+                    <datafield tag="650" ind1=" " ind2="4"><subfield code="a">Volksrepublik China</subfield>
+                        <subfield code="x">Binnenwanderung</subfield>
+                        <subfield code="x">Regionale Mobilität</subfield>
+                        <subfield code="x">Land-Stadt-Wanderung</subfield>
+                        <subfield code="x">Kultur</subfield>
+                        <subfield code="x">Technologische Kultur</subfield>
+                        <subfield code="x">Mediennutzung</subfield>
+                        <subfield code="x">Information und Kommunikation</subfield>
+                        <subfield code="x">Politische Partizipation</subfield>
+                        <subfield code="x">Menschenrechte</subfield>
+                        <subfield code="x">Politisch-gesellschaftliches Verhalten</subfield></datafield>
+                    <datafield tag="650" ind1=" " ind2="4"><subfield code="a">People's Republic of China</subfield>
+                        <subfield code="x">Domestic migration</subfield>
+                        <subfield code="x">Regional mobility</subfield>
+                        <subfield code="x">Rural-urban migration</subfield>
+                        <subfield code="x">Culture</subfield>
+                        <subfield code="x">Technological culture</subfield>
+                        <subfield code="x">Use of media</subfield>
+                        <subfield code="x">Information and communication</subfield>
+                        <subfield code="x">Political participation</subfield>
+                        <subfield code="x">Human rights</subfield>
+                        <subfield code="x">Socio-political behaviour</subfield></datafield>
+                    <datafield tag="650" ind1=" " ind2="4"><subfield code="a">Literatur</subfield>
+                        <subfield code="x">Soziokultureller Wandel</subfield>
+                        <subfield code="x">Gesellschaftliche Prozesse</subfield>
+                        <subfield code="x">Materielle Kultur</subfield>
+                        <subfield code="x">Elektronische Medien</subfield>
+                        <subfield code="x">Kommunikationsmittel</subfield></datafield>
+                    <datafield tag="650" ind1=" " ind2="4"><subfield code="a">Literature</subfield>
+                        <subfield code="x">Socio-cultural change</subfield>
+                        <subfield code="x">Social processes</subfield>
+                        <subfield code="x">Material culture</subfield>
+                        <subfield code="x">Electronic media</subfield>
+                        <subfield code="x">Means of communication</subfield></datafield>
+                    <datafield tag="689" ind1="0" ind2="0"><subfield code="D">g</subfield>
+                        <subfield code="0">(DE-588)4009937-4</subfield>
+                        <subfield code="0">(DE-576)208885382</subfield>
+                        <subfield code="2">gnd</subfield>
+                        <subfield code="a">China</subfield></datafield>
+                    <datafield tag="689" ind1="0" ind2="1"><subfield code="D">s</subfield>
+                        <subfield code="0">(DE-588)4120730-0</subfield>
+                        <subfield code="0">(DE-576)209537477</subfield>
+                        <subfield code="2">gnd</subfield>
+                        <subfield code="a">Migration</subfield></datafield>
+                    <datafield tag="689" ind1="0" ind2="2"><subfield code="D">s</subfield>
+                        <subfield code="0">(DE-588)4034217-7</subfield>
+                        <subfield code="0">(DE-576)209005718</subfield>
+                        <subfield code="2">gnd</subfield>
+                        <subfield code="a">Landarbeiter</subfield></datafield>
+                    <datafield tag="689" ind1="0" ind2="3"><subfield code="D">s</subfield>
+                        <subfield code="0">(DE-588)4187060-8</subfield>
+                        <subfield code="0">(DE-576)210043318</subfield>
+                        <subfield code="2">gnd</subfield>
+                        <subfield code="a">Unterprivilegierter</subfield></datafield>
+                    <datafield tag="689" ind1="0" ind2="4"><subfield code="D">s</subfield>
+                        <subfield code="0">(DE-588)4077587-2</subfield>
+                        <subfield code="0">(DE-576)209205733</subfield>
+                        <subfield code="2">gnd</subfield>
+                        <subfield code="a">Sozialer Wandel</subfield></datafield>
+                    <datafield tag="689" ind1="0" ind2="5"><subfield code="D">s</subfield>
+                        <subfield code="0">(DE-588)4133903-4</subfield>
+                        <subfield code="0">(DE-576)209647760</subfield>
+                        <subfield code="2">gnd</subfield>
+                        <subfield code="a">Kulturanthropologie</subfield></datafield>
+                    <datafield tag="689" ind1="0" ind2=" "><subfield code="5">DE-576</subfield></datafield>
+                    <datafield tag="776" ind1="1" ind2=" "><subfield code="z">9781442236783</subfield>
+                        <subfield code="9">978-1-4422-3678-3</subfield></datafield>
+                    <datafield tag="935" ind1=" " ind2=" "><subfield code="a">zkor</subfield>
+                        <subfield code="a">imda</subfield></datafield>
+                    <datafield tag="935" ind1=" " ind2=" "><subfield code="b">druck</subfield></datafield>
+                    <datafield tag="935" ind1=" " ind2=" "><subfield code="d">sfansi</subfield></datafield>
+                    <datafield tag="935" ind1=" " ind2=" "><subfield code="d">sfiso</subfield></datafield>
+                    <leader>000  xxxxxcx  a22     zn 4500</leader>
+                    <leader>001 837507529</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  427229413</leader>
+                    <leader>005  20150504122235</leader>
+                    <leader>008  150410||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        Dieses Ex.: Publ. on demand</leader>
+                    <leader>852
+                        DE-21</leader>
+                    <leader>852 1
+                        55 A 3238
+                        00</leader>
+                    <leader>938
+                        1505
+                        35</leader>
+                    <leader>000  xxxxxcx  a22     zn 4500</leader>
+                    <leader>001 861605993</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  427229413</leader>
+                    <leader>005  20151006114331</leader>
+                    <leader>008  150824||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        DE-25</leader>
+                    <leader>852 1
+                        GE 2015/6708
+                        00</leader>
+                    <leader>938
+                        1541
+                        37</leader>
+                    <leader>000  xxxxxcx  a22     zn 4500</leader>
+                    <leader>001 876197322</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  427229413</leader>
+                    <leader>005  20160509143828</leader>
+                    <leader>008  151216||||||||||||||||ger|||||||</leader>
+                    <leader>852
+                        426920921</leader>
+                    <leader>852
+                        DE-16-122</leader>
+                    <leader>852 1
+                        HD1537.C5 S85 2014
+                        p
+                        00</leader>
+                    <leader>938
+                        14</leader>
+                    <leader>000  xxxxxnx  a22     zn 4500</leader>
+                    <leader>001 849234018</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  427229413</leader>
+                    <leader>005  20150715154522</leader>
+                    <leader>008  150715||||||||||||||||ger|||||||</leader>
+                    <leader>035
+                        (DE-615)00915751</leader>
+                    <leader>689
+                        s
+                        Volksrepublik China; Binnenwanderung; Regionale Mobilität; Land-Stadt-Wanderung; Kultur; Technologische Kultur; Mediennutzung; Information und Kommunikation; Politische Partizipation; Menschenrechte; Politisch-gesellschaftliches Verhalten</leader>
+                    <leader>689
+                        s
+                        People's Republic of China; Domestic migration; Regional mobility; Rural-urban migration; Culture; Technological culture; Use of media; Information and communication; Political participation; Human rights; Socio-political behaviour</leader>
+                    <leader>689
+                        s
+                        Literatur; Soziokultureller Wandel; Gesellschaftliche Prozesse; Materielle Kultur; Elektronische Medien; Kommunikationsmittel</leader>
+                    <leader>689
+                        s
+                        Literature; Socio-cultural change; Social processes; Material culture; Electronic media; Means of communication</leader>
+                    <leader>852
+                        DE-615</leader>
+                    <leader>852 1
+                        p
+                        00</leader>
+                    <leader>935
+                        CFIV</leader>
+                    <leader>936ln
+                        SG02.04 Migration</leader>
+                    <leader>936ln
+                        SG08 Kultur/Sprache/Kunst</leader>
+                    <leader>936ln
+                        RI03.03 Volksrepublik China</leader>
+                    <leader>936ln
+                        SG08 Culture/Language/Arts</leader>
+                    <leader>000  xxxxxnx  a22     zn 4500</leader>
+                    <leader>001 849234026</leader>
+                    <leader>003  DE-576</leader>
+                    <leader>004  427229413</leader>
+                    <leader>005  20150715154522</leader>
+                    <leader>008  150715||||||||||||||||ger|||||||</leader>
+                    <leader>035
+                        (DE-H222)00915751</leader>
+                    <leader>852
+                        DE-H222</leader>
+                    <leader>852 1
+                        CHN-G/48
+                        00</leader>
+                    <leader>935
+                        CFIV</leader></record></srw:recordData><srw:recordPosition>1</srw:recordPosition></srw:record>
+    </srw:records>
+    <srw:echoedSearchRetrieveRequest>
+        <srw:version>1.1</srw:version>
+        <srw:query>pica.ppn+%3D+427229413</srw:query>
+        <srw:xQuery><xcql:searchClause><xcql:index>pica.ppn</xcql:index><xcql:relation><xcql:value>=</xcql:value></xcql:relation><xcql:term>427229413</xcql:term></xcql:searchClause></srw:xQuery>
+        <startRecord>1</startRecord>
+        <maximumRecords>5</maximumRecords>
+        <srw:recordPacking>xml</srw:recordPacking>
+        <srw:recordSchema>marc21</srw:recordSchema>
+
+        <srw:stylesheet>http://swb.bsz-bw.de/sru/?xsl=searchRetrieveResponse</srw:stylesheet>
+    </srw:echoedSearchRetrieveRequest>
+    <diag:diagnostics>
+        <diag:uri>info:srw/diagnostic/1/0</diag:uri>
+
+
+    </diag:diagnostics>
+    <srw:extraResponseData>
+        <rob:authenticationToken xmlns:rob="info:srw/extension/2/auth-1.0">U998,Pbszgast,I17,B0728+,SY,NRecherche-DB,D2.1,E4e4438a9-0,A,H,R193.197.31.15,FY</rob:authenticationToken>
+        <mg:resultGrouping xmlns:mg="info:srw/extension/5/metadata-grouping-v1.0">
+
+            <mg:grouping key="9008" description="Sysflag"></mg:grouping>
+
+            <mg:grouping key="9001" description="Materialart"></mg:grouping>
+
+            <mg:grouping key="9000" description="Erscheinungsjahr"></mg:grouping>
+
+            <mg:grouping key="9030" description="LibID-ADI"></mg:grouping>
+
+            <mg:grouping key="9005" description="jetzt AUI"></mg:grouping>
+
+            <mg:grouping key="9002" description="Region"></mg:grouping>
+
+            <mg:grouping key="9004" description="Sprache"></mg:grouping>
+
+            <mg:grouping key="9015" description="Erschliessungsmaterial"></mg:grouping>
+
+
+        </mg:resultGrouping>
+    </srw:extraResponseData>
+</srw:searchRetrieveResponse>

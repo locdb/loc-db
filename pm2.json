@@ -24,6 +24,39 @@
       "LOCDB_DB_SCHEMA": "locdb-prod",
       "LOCDB_HOST": "locdb.bib.uni-mannheim.de",
       "LOCDB_BASEPATH": "/locdb"
+    },
+    "env_demo": {
+      "NODE_ENV": "demo",
+      "LOCDB_PORT": 3102,
+      "LOCDB_DB_SCHEMA": "locdb-demo",
+      "LOCDB_HOST": "locdb.bib.uni-mannheim.de",
+      "LOCDB_BASEPATH": "/demo"
+    }
+  },
+  {
+    "name"      : "loc-db-jobs",
+    "script"    : "./api/jobs/jobs.js",
+    "append_env_to_name": true,
+    "env_development": {
+      "NODE_ENV": "development",
+      "LOCDB_PORT": 3101,
+      "LOCDB_DB_SCHEMA": "locdb-dev",
+      "LOCDB_HOST": "locdb.bib.uni-mannheim.de",
+      "LOCDB_BASEPATH": "/locdb-dev"
+    },
+    "env_production" : {
+      "NODE_ENV": "production",
+      "LOCDB_PORT": 3100,
+      "LOCDB_DB_SCHEMA": "locdb-prod",
+      "LOCDB_HOST": "locdb.bib.uni-mannheim.de",
+      "LOCDB_BASEPATH": "/locdb"
+    },
+    "env_demo": {
+      "NODE_ENV": "demo",
+      "LOCDB_PORT": 3102,
+      "LOCDB_DB_SCHEMA": "locdb-demo",
+      "LOCDB_HOST": "locdb.bib.uni-mannheim.de",
+      "LOCDB_BASEPATH": "/demo"
     }
   }],
   // Deployment part
@@ -47,7 +80,7 @@
     "development" : {
       "user" : "anlausch",
       "host" : "locdb",
-      "ref"  : "remotes/origin/dev",
+      "ref"  : "remotes/origin/datamodel",
       "repo" : "git@github.com:locdb/loc-db.git",
       "path" : "~/locdb-dev",
       "post-deploy" : "npm install && pm2 startOrRestart pm2.json --env development --output /dev/null --error /dev/null",

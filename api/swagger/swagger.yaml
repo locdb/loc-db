@@ -212,97 +212,100 @@ paths:
           schema:
             $ref: "#/definitions/ErrorResponse"
 
-  /getPublisherUrl:
-    x-swagger-router-controller: bibliographicResource
-    get:
-      tags: [BibliographicResource]
-      description: |
-        Given a unique identifier of a bibliographic resource from a union catalog, such as for example an SWB-PICA-Prod-Nr. (PPN), as well as the type of the resource,
-        this service retrieves the URL to the publisher website if available.
-        This services is intended for use in the workflow for electronic resources.
-        TODO: Shall we extend that service such that the BR is also written into the db and the whole br is returned?
-      operationId: getPublisherUrl
-      parameters:
-        - name: ppn
-          in: query
-          description: The identifier of the bibliographic resource in the union catalog for which the publisher URL shall be retrieved
-          required: true
-          type: string
-        - name: resourceType
-          in: query
-          description: The type of the bibliographic resource
-          required: true
-          type: string
-      responses:
-        "200":
-          description: Success
-          schema:
-            $ref: "#/definitions/Identifier"
-        default:
-          description: Error
-          schema:
-            $ref: "#/definitions/ErrorResponse"
-
-
-  /saveElectronicJournal:
-    x-swagger-router-controller: bibliographicResource
-    get:
-      tags: [BibliographicResource]
-      description: |
-        Given an article doi this service retrieves meta data from Crossref and save a new bibliographic resource in our db.
-      operationId: saveElectronicJournal
-      parameters:
-        - name: doi
-          in: query
-          description: The doi of the article for which the meta data shall be retrieved.
-          required: false
-          type: string
-        - name: ppn
-          in: query
-          description: The PPN of the article for retrieval via OLCSSG
-          required: false
-          type: string
-      responses:
-        "200":
-          description: Success
-          schema:
-            $ref: "#/definitions/Identifier"
-        default:
-          description: Error
-          schema:
-            $ref: "#/definitions/ErrorResponse"
-
-
-
-  /getCrossrefReferences:
-    x-swagger-router-controller: bibliographicResource
+  /saveResource:
+    x-swagger-router-controller: scan
     post:
-      tags: [BibliographicResource]
-      description: |
-        Returns the br including a list of bibliographic entries retrieved via Crossref. If there is a doi
-        given in the br, the search will be performed based on the identifier and at max one br will be returned.
-        Is no doi given, the search will be fuzzy based on a combination of several br fields (title, subtitle, author,..).
-        The br returned is not the one in our mongo. You only get Crossref data. A working doi example in the domain of sociology is "10.1007/s11617-006-0056-1".
-      operationId: getCrossrefReferences
+      tags: [Scan]
+      description: Saves a bibliographic Resource given it's identifier and resourceType as well as additional information
+      operationId: saveResource
       parameters:
-        - name: bibliographicResource
-          in: body
-          description: A bibliographic resource for which the Crossref references should be retrieved
+        - name: identifierScheme
+          in: formData
+          description: The scheme of the identifier of the resource
           required: true
+          type: string
+          enum: [SWB_PPN, ZDB_PPN, DOI, OLC_PPN]
+        - name: identifierLiteralValue
+          in: formData
+          description: The literal value of the identifier of the resource
+          required: true
+          type: string
+        - name: firstPage
+          in: formData
+          description: The number of the first page of the resource (for journal articles, book chapters etc).
+          required: false
+          type: number
+        - name: lastPage
+          in: formData
+          description: The number of the last page of the resource.
+          required: false
+          type: number
+        - name: textualPdf
+          in: formData
+          description: Whether the references file (if given) is a PDF with textual content
+          required: false
+          type: boolean
+        - name: binaryFile
+          in: formData
+          description: The reference page (binary file)
+          required: false
+          type: file
+        - name: stringFile
+          in: formData
+          description: The reference page (string), e.g. the html code of an online reference page
+          required: false
+          type: string
+        - name: embodimentType
+          in: formData
+          description: The embodiment type (PRINT or DIGITAL) of the resource
+          required: false
+          type: string
+          enum: [PRINT, DIGITAL]
+        - name: resourceType
+          in: formData
+          description: The type of the resource.
+          required: true
+          type: string
+          enum: [BOOK, BOOK_CHAPTER, BOOK_PART, BOOK_SECTION, BOOK_SERIES, BOOK_SET,
+           BOOK_TRACK, COMPONENT, DATASET, DISSERTATION, EDITED_BOOK, JOURNAL_ARTICLE, JOURNAL_ISSUE, JOURNAL_VOLUME,
+            MONOGRAPH, JOURNAL, PROCEEDINGS_ARTICLE, PROCEEDINGS, REFERENCE_BOOK, REFERENCE_ENTRY, REPORT_SERIES, REPORT, STANDARD_SERIES, STANDARD]
+      responses:
+        "200":
+          description: Success
           schema:
             $ref: "#/definitions/BibliographicResource"
-      responses:
-        "200":
-          description: Success
-          schema:
-            type: array
-            items:
-              $ref: "#/definitions/BibliographicResource"
         default:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
 
+  /bibliographicEntries:
+    x-swagger-router-controller: bibliographicEntry
+    post:
+      tags: [BibliographicEntry]
+      description: creates a bibliographic entry for the given bibliographic resource
+      operationId: create
+      parameters:
+        - name: bibliographicResourceId
+          in: query
+          description: The _id of the bibliographic resource to which the new bibliographic entry should be appended
+          required: true
+          type: string
+        - name: bibliographicEntry
+          in: body
+          description: A bibliographic entry which should be saved
+          required: true
+          schema:
+            $ref: "#/definitions/BibliographicEntry"
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/BibliographicEntry"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
 
   /bibliographicEntries/{id}:
     x-swagger-router-controller: bibliographicEntry
@@ -476,93 +479,6 @@ paths:
           schema:
             $ref: "#/definitions/ErrorResponse"
             
-  /saveScan:
-    x-swagger-router-controller: scan
-    post:
-      tags: [Scan]
-      description: Saves a scan in the file system and retrieves a biliographic ressource from SWB-BSZ by PICA-Prod-Nr.The br is saved in the DB.
-      operationId: saveScan
-      parameters:
-        - name: ppn
-          in: formData
-          description: The PICA-Prod-Nr. assigned by SWB
-          required: true
-          type: string
-        - name: firstPage
-          in: formData
-          description: The number of the first page of the resource.
-          required: false
-          type: number
-        - name: lastPage
-          in: formData
-          description: The number of the last page of the resource.
-          required: false
-          type: number
-        - name: textualPdf
-          in: formData
-          description: Whether the file is a PDF with textual content
-          required: true
-          type: boolean
-        - name: scan
-          in: formData
-          description: The scanned image of the reference page (binary file)
-          required: true
-          type: file
-        - name: resourceType
-          in: formData
-          description: The type of the resource.
-          required: true
-          type: string
-          enum: [BOOK, BOOK_CHAPTER, BOOK_PART, BOOK_SECTION, BOOK_SERIES, BOOK_SET,
-           BOOK_TRACK, COMPONENT, DATASET, DISSERTATION, EDITED_BOOK, JOURNAL_ARTICLE, JOURNAL_ISSUE, JOURNAL_VOLUME,
-            MONOGRAPH, JOURNAL, PROCEEDINGS_ARTICLE, PROCEEDINGS, REFERENCE_BOOK, REFERENCE_ENTRY, REPORT_SERIES, REPORT, STANDARD_SERIES, STANDARD]
-      responses:
-        "200":
-          description: Success
-          schema:
-            $ref: "#/definitions/BibliographicResource"
-        default:
-          description: Error
-          schema:
-            $ref: "#/definitions/ErrorResponse"
-
-  /saveScanForElectronicJournal:
-      x-swagger-router-controller: scan
-      post:
-        tags: [Scan]
-        description: Saves a scan in the file system
-        operationId: saveScanForElectronicJournal
-        parameters:
-          - name: doi
-            in: formData
-            description: The doi of the article to which the scan should be appended
-            required: false
-            type: string
-          - name: ppn
-            in: formData
-            description: The ppn of the article to which the scan should be appended
-            required: false
-            type: string
-          - name: textualPdf
-            in: formData
-            description: Whether the file is a PDF with textual content
-            required: true
-            type: boolean
-          - name: scan
-            in: formData
-            description: The scanned image of the reference page (binary file)
-            required: true
-            type: file
-        responses:
-          "200":
-            description: Success
-            schema:
-              $ref: "#/definitions/BibliographicResource"
-          default:
-            description: Error
-            schema:
-              $ref: "#/definitions/ErrorResponse"
-            
   /getToDo:
     x-swagger-router-controller: scan
     get:
@@ -572,13 +488,16 @@ paths:
       parameters:
         - name: status
           in: query
-          description: The status for which the ToDo-list shall be retrieved
+          description: The list of status for which the ToDo-list shall be retrieved
           required: true
-          type: string
-          enum:
-            - NOT_OCR_PROCESSED
-            - OCR_PROCESSED
-            - EXTERNAL
+          type: array
+          items:
+            type: string
+            enum:
+              - NOT_OCR_PROCESSED
+              - OCR_PROCESSED
+              - EXTERNAL
+              - OCR_PROCESSING
       responses:
         "200":
           description: Success
@@ -705,32 +624,6 @@ paths:
           schema:
             $ref: "#/definitions/ErrorResponse"
 
-  /getInternalSuggestions:
-    x-swagger-router-controller: bibliographicEntry
-    post:
-      tags: [BibliographicEntry]
-      description: Retrieves internal br suggestions for a given (probably messy) be.
-      operationId: getInternalSuggestions
-      parameters:
-        - name: bibliographicEntry
-          in: body
-          description: The be for which the suggestions shall be retrieved
-          required: true
-          schema:
-            $ref: "#/definitions/BibliographicEntry"
-      responses:
-        "200":
-          description: Success
-          schema:
-            type: array
-            items:
-              $ref: "#/definitions/BibliographicResource"
-        default:
-          description: Error
-          schema:
-            $ref: "#/definitions/ErrorResponse"
-
-
   /getInternalSuggestionsByQueryString:
     x-swagger-router-controller: bibliographicEntry
     get:
@@ -743,9 +636,9 @@ paths:
           description: The query string for which the suggestions shall be retrieved
           required: true
           type: string
-        - name: threshold
+        - name: k
           in: query
-          description: The elastic relevance score for above which entrys shall be retrieved
+          description: Top k results that shall be retrieved (the default value is 10)
           required: false
           type: number
       responses:
@@ -754,32 +647,9 @@ paths:
           schema:
             type: array
             items:
-              $ref: "#/definitions/BibliographicResource"
-        default:
-          description: Error
-          schema:
-            $ref: "#/definitions/ErrorResponse"
-
-  /getExternalSuggestions:
-    x-swagger-router-controller: bibliographicEntry
-    post:
-      tags: [BibliographicEntry]
-      description: Retrieves external br suggestions for a given (probably messy) be.
-      operationId: getExternalSuggestions
-      parameters:
-        - name: bibliographicEntry
-          in: body
-          description: The be for which the suggestions shall be retrieved
-          required: true
-          schema:
-            $ref: "#/definitions/BibliographicEntry"
-      responses:
-        "200":
-          description: Success
-          schema:
-            type: array
-            items:
-              $ref: "#/definitions/BibliographicResource"
+              type: array
+              items:
+                $ref: "#/definitions/BibliographicResource"
         default:
           description: Error
           schema:
@@ -797,9 +667,9 @@ paths:
           description: The query string for which the suggestions shall be retrieved
           required: true
           type: string
-        - name: threshold
+        - name: k
           in: query
-          description: The sring similarity (dice coefficient) between the query string and the title + subtile + contributors above which suggestions shall be retrieved
+          description: Top k results that shall be retrieved (the default value is 10)
           required: false
           type: number
       responses:
@@ -808,7 +678,9 @@ paths:
           schema:
             type: array
             items:
-              $ref: "#/definitions/BibliographicResource"
+              type: array
+              items:
+                $ref: "#/definitions/BibliographicResource"
         default:
           description: Error
           schema:
@@ -837,14 +709,79 @@ paths:
           schema:
             $ref: "#/definitions/ErrorResponse"
 
+  /get:
+    x-swagger-router-controller: utils
+    get:
+      tags: [Utils]
+      description: Gets marc from k10+zentral (needed for debugging)
+      operationId: get
+      parameters:
+        - name: query
+          in: query
+          description: The query string
+          required: false
+          type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /bibliographicResourcesOC:
+    x-swagger-router-controller: bibliographicResource
+    get:
+      tags: [BibliographicResource]
+      description: Returns a list of bibliographic resources in OC format
+      operationId: listOC
+      responses:
+        "200":
+          description: Success
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/BibliographicResourceOpenCitations"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /getPrecalculatedSuggestions/{id}:
+    x-swagger-router-controller: bibliographicEntry
+    get:
+      tags: [BibliographicEntry]
+      description: Retrieves external br suggestions (precalculated) for a given bibliographic entry.
+      operationId: getPrecalculatedSuggestions
+      parameters:
+        - name: id
+          in: path
+          description: The id of the be for which the precalculated suggestions shall be retrieved
+          required: true
+          type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            type: array
+            items:
+              type: array
+              items:
+                $ref: "#/definitions/BibliographicResource"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
   /swagger:
     x-swagger-pipe: swagger_raw
 
 
 
 definitions:
-
-  BibliographicResource:
+  BibliographicResourceOpenCitations:
     properties:
       _id:
         type: string
@@ -866,8 +803,432 @@ definitions:
         type: array
         items:
           $ref: "#/definitions/AgentRole"
-      publicationYear:
+      publicationDate:
         type: string
+        format: date
+      #status:
+      #  type: string
+      cites:
+        type: array
+        items:
+          type: string
+      partOf:
+        type: string
+      parts:
+        type: array
+        items:
+          $ref: "#/definitions/BibliographicEntry"
+      embodiedAs:
+        type: array
+        items:
+          $ref: "#/definitions/ResourceEmbodiment"
+      #relatedDocument:
+      #  type: any
+
+  BibliographicResource:
+    required:
+      - type
+    properties:
+      _id:
+        type: string
+      journal_identifiers:
+        type: array
+        items:
+          $ref: "#/definitions/Identifier"
+      journalVolume_identifiers:
+        type: array
+        items:
+          $ref: "#/definitions/Identifier"
+      journalIssue_identifiers:
+        type: array
+        items:
+          $ref: "#/definitions/Identifier"
+      journalArticle_identifiers:
+        type: array
+        items:
+          $ref: "#/definitions/Identifier"
+      monograph_identifiers:
+        type: array
+        items:
+          $ref: "#/definitions/Identifier"
+      editedBook_identifiers:
+        type: array
+        items:
+          $ref: "#/definitions/Identifier"
+      bookSeries_identifiers:
+        type: array
+        items:
+          $ref: "#/definitions/Identifier"
+      bookSet_identifiers:
+        type: array
+        items:
+          $ref: "#/definitions/Identifier"
+      bookChapter_identifiers:
+        type: array
+        items:
+          $ref: "#/definitions/Identifier"
+      bookSection_identifiers:
+        type: array
+        items:
+          $ref: "#/definitions/Identifier"
+      bookPart_identifiers:
+        type: array
+        items:
+          $ref: "#/definitions/Identifier"
+      bookTrack_identifiers:
+        type: array
+        items:
+          $ref: "#/definitions/Identifier"
+      component_identifiers:
+        type: array
+        items:
+          $ref: "#/definitions/Identifier"
+      dissertation_identifiers:
+        type: array
+        items:
+          $ref: "#/definitions/Identifier"
+      proceedingsArticle_identifiers:
+        type: array
+        items:
+          $ref: "#/definitions/Identifier"
+      proceedings_identifiers:
+        type: array
+        items:
+          $ref: "#/definitions/Identifier"
+      dataset_identifiers:
+        type: array
+        items:
+          $ref: "#/definitions/Identifier"
+      report_identifiers:
+        type: array
+        items:
+          $ref: "#/definitions/Identifier"
+      reportSeries_identifiers:
+        type: array
+        items:
+          $ref: "#/definitions/Identifier"
+      book_identifiers:
+        type: array
+        items:
+          $ref: "#/definitions/Identifier"
+      referenceBook_identifiers:
+        type: array
+        items:
+          $ref: "#/definitions/Identifier"
+      referenceEntry_identifiers:
+        type: array
+        items:
+          $ref: "#/definitions/Identifier"
+      standard_identifiers:
+        type: array
+        items:
+          $ref: "#/definitions/Identifier"
+      standardSeries_identifiers:
+        type: array
+        items:
+          $ref: "#/definitions/Identifier"
+      type:
+        type: string
+      journal_title:
+        type: string
+      journalVolume_title:
+        type: string
+      journalIssue_title:
+        type: string
+      journalArticle_title:
+        type: string
+      monograph_title:
+        type: string
+      editedBook_title:
+        type: string
+      bookSeries_title:
+        type: string
+      bookSet_title:
+        type: string
+      bookChapter_title:
+        type: string
+      bookSection_title:
+        type: string
+      bookPart_title:
+        type: string
+      bookTrack_title:
+        type: string
+      component_title:
+        type: string
+      report_title:
+        type: string
+      proceedingsArticle_title:
+        type: string
+      proceedings_title:
+        type: string
+      dataset_title:
+        type: string
+      reportSeries_title:
+        type: string
+      book_title:
+        type: string
+      referenceBook_title:
+        type: string
+      referenceEntry_title:
+        type: string
+      standard_title:
+        type: string
+      standardSeries_title:
+        type: string
+      editedBook_subtitle:
+        type: string
+      report_subtitle:
+        type: string
+      dissertation_subtitle:
+        type: string
+      proceedingsArticle_subtitle:
+        type: string
+      standard_subtitle:
+        type: string
+      standardSeries_subtitle:
+        type: string
+      journal_subtitle:
+        type: string
+      journalArticle_subtitle:
+        type: string
+      bookSeries_subtitle:
+        type: string
+      monograph_subtitle:
+        type: string
+      bookSet_subtitle:
+        type: string
+      bookPart_subtitle:
+        type: string
+      bookChapter_subtitle:
+        type: string
+      bookSection_subtitle:
+        type: string
+      bookTrack_subtitle:
+        type: string
+      component_subtitle:
+        type: string
+      proceedings_subtitle:
+        type: string
+      dataset_subtitle:
+        type: string
+      reportSeries_subtitle:
+        type: string
+      book_subtitle:
+        type: string
+      referenceBook_subtitle:
+        type: string
+      referenceEntry_subtitle:
+        type: string
+      monograph_edition:
+        type: string
+      editedBook_edition:
+        type: string
+      dissertation_edition:
+        type: string
+      proceedings_edition:
+        type: string
+      report_edition:
+        type: string
+      book_edition:
+        type: string
+      referenceBook_edition:
+        type: string
+      standard_edition:
+        type: string
+      journalVolume_number:
+        type: string
+      journalIssue_number:
+        type: string
+      journalArticle_number:
+        type: string
+      bookPart_number:
+        type: string
+      monograph_number:
+        type: string
+      editedBook_number:
+        type: string
+      component_number:
+        type: string
+      bookSet_number:
+        type: string
+      bookChapter_number:
+        type: string
+      bookSection_number:
+        type: string
+      bookTrack_number:
+        type: string
+      proceedings_number:
+        type: string
+      report_number:
+        type: string
+      book_number:
+        type: string
+      standard_number:
+        type: string
+      referenceBook_number:
+        type: string
+      referenceEntry_number:
+        type: string
+      journal_contributors:
+        type: array
+        items:
+          $ref: "#/definitions/AgentRole"
+      report_contributors:
+        type: array
+        items:
+          $ref: "#/definitions/AgentRole"
+      journalVolume_contributors:
+        type: array
+        items:
+          $ref: "#/definitions/AgentRole"
+      journalIssue_contributors:
+        type: array
+        items:
+          $ref: "#/definitions/AgentRole"
+      journalArticle_contributors:
+        type: array
+        items:
+          $ref: "#/definitions/AgentRole"
+      monograph_contributors:
+        type: array
+        items:
+          $ref: "#/definitions/AgentRole"
+      editedBook_contributors:
+        type: array
+        items:
+          $ref: "#/definitions/AgentRole"
+      bookSeries_contributors:
+        type: array
+        items:
+          $ref: "#/definitions/AgentRole"
+      proceedingsArticle_contributors:
+        type: array
+        items:
+          $ref: "#/definitions/AgentRole"
+      bookSet_contributors:
+        type: array
+        items:
+          $ref: "#/definitions/AgentRole"
+      bookChapter_contributors:
+        type: array
+        items:
+          $ref: "#/definitions/AgentRole"
+      dataset_contributors:
+        type: array
+        items:
+          $ref: "#/definitions/AgentRole"
+      bookTrack_contributors:
+        type: array
+        items:
+          $ref: "#/definitions/AgentRole"
+      component_contributors:
+        type: array
+        items:
+          $ref: "#/definitions/AgentRole"
+      dissertation_contributors:
+        type: array
+        items:
+          $ref: "#/definitions/AgentRole"
+      proceedings_contributors:
+        type: array
+        items:
+          $ref: "#/definitions/AgentRole"
+      reportSeries_contributors:
+        type: array
+        items:
+          $ref: "#/definitions/AgentRole"
+      book_contributors:
+        type: array
+        items:
+          $ref: "#/definitions/AgentRole"
+      referenceBook_contributors:
+        type: array
+        items:
+          $ref: "#/definitions/AgentRole"
+      referenceEntry_contributors:
+        type: array
+        items:
+          $ref: "#/definitions/AgentRole"
+      standard_contributors:
+        type: array
+        items:
+          $ref: "#/definitions/AgentRole"
+      standardSeries_contributors:
+        type: array
+        items:
+          $ref: "#/definitions/AgentRole"
+      journalArticle_publicationDate:
+        type: string
+        format: date
+      journalIssue_publicationDate:
+        type: string
+        format: date
+      journalVolume_publicationDate:
+        type: string
+        format: date
+      journal_publicationDate:
+        type: string
+        format: date
+      monograph_publicationDate:
+        type: string
+        format: date
+      report_publicationDate:
+        type: string
+        format: date
+      reportSeries_publicationDate:
+        type: string
+        format: date
+      bookChapter_publicationDate:
+        type: string
+        format: date
+      bookSeries_publicationDate:
+        type: string
+        format: date
+      bookSet_publicationDate:
+        type: string
+        format: date
+      editedBook_publicationDate:
+        type: string
+        format: date
+      dissertation_publicationDate:
+        type: string
+        format: date
+      proceedingsArticle_publicationDate:
+        type: string
+        format: date
+      dataset_publicationDate:
+        type: string
+        format: date
+      proceedings_publicationDate:
+        type: string
+        format: date
+      book_publicationDate:
+        type: string
+        format: date
+      referenceBook_publicationDate:
+        type: string
+        format: date
+      referenceEntry_publicationDate:
+        type: string
+        format: date
+      standard_publicationDate:
+        type: string
+        format: date
+      standardSeries_publicationDate:
+        type: string
+        format: date
+      bookPart_publicationDate:
+        type: string
+        format: date
+      bookSection_publicationDate:
+        type: string
+        format: date
+      bookTrack_publicationDate:
+        type: string
+        format: date
+      component_publicationDate:
+        type: string
+        format: date
       status:
         type: string
       parts:
@@ -876,17 +1237,101 @@ definitions:
           $ref: "#/definitions/BibliographicEntry"
       partOf:
         type: string
-      containerTitle:
-        type: string
       cites:
         type: array
         items:
           type: string
-      embodiedAs:
+      monograph_embodiedAs:
         type: array
         items:
           $ref: "#/definitions/ResourceEmbodiment"
-  
+      editedBook_embodiedAs:
+          type: array
+          items:
+            $ref: "#/definitions/ResourceEmbodiment"
+      bookSeries_embodiedAs:
+        type: array
+        items:
+          $ref: "#/definitions/ResourceEmbodiment"
+      bookSet_embodiedAs:
+        type: array
+        items:
+          $ref: "#/definitions/ResourceEmbodiment"
+      bookPart_embodiedAs:
+        type: array
+        items:
+          $ref: "#/definitions/ResourceEmbodiment"
+      bookTrack_embodiedAs:
+          type: array
+          items:
+            $ref: "#/definitions/ResourceEmbodiment"
+      component_embodiedAs:
+        type: array
+        items:
+          $ref: "#/definitions/ResourceEmbodiment"
+      dissertation_embodiedAs:
+        type: array
+        items:
+          $ref: "#/definitions/ResourceEmbodiment"
+      proceedingsArticle_embodiedAs:
+        type: array
+        items:
+          $ref: "#/definitions/ResourceEmbodiment"
+      proceedings_embodiedAs:
+          type: array
+          items:
+            $ref: "#/definitions/ResourceEmbodiment"
+      journal_embodiedAs:
+        type: array
+        items:
+          $ref: "#/definitions/ResourceEmbodiment"
+      journalVolume_embodiedAs:
+        type: array
+        items:
+          $ref: "#/definitions/ResourceEmbodiment"
+      journalIssue_embodiedAs:
+        type: array
+        items:
+          $ref: "#/definitions/ResourceEmbodiment"
+      journalArticle_embodiedAs:
+          type: array
+          items:
+            $ref: "#/definitions/ResourceEmbodiment"
+      dataset_embodiedAs:
+        type: array
+        items:
+          $ref: "#/definitions/ResourceEmbodiment"
+      report_embodiedAs:
+        type: array
+        items:
+          $ref: "#/definitions/ResourceEmbodiment"
+      reportSeries_embodiedAs:
+        type: array
+        items:
+          $ref: "#/definitions/ResourceEmbodiment"
+      book_embodiedAs:
+        type: array
+        items:
+          $ref: "#/definitions/ResourceEmbodiment"
+      referenceBook_embodiedAs:
+        type: array
+        items:
+          $ref: "#/definitions/ResourceEmbodiment"
+      referenceEntry_embodiedAs:
+          type: array
+          items:
+            $ref: "#/definitions/ResourceEmbodiment"
+      standard_embodiedAs:
+        type: array
+        items:
+          $ref: "#/definitions/ResourceEmbodiment"
+      standardSeries_embodiedAs:
+        type: array
+        items:
+          $ref: "#/definitions/ResourceEmbodiment"
+      source:
+        type: string
+
   Identifier:
     required:
       - scheme
@@ -937,18 +1382,7 @@ definitions:
       scans:
         type: array
         items:
-          $ref: "#/definitions/ToDoParts"
-
-#  Scan:
-#    required:
-#      - scanName
-#    properties:
-#      scanName:
-#        type: string
-#      xmlName:
-#        type: string
-#      status:
-#        type: string
+          $ref: "#/definitions/Scan"
 
   BibliographicEntry:
     properties:
@@ -992,55 +1426,537 @@ definitions:
         type: string
 
   ToDo:
-    required:
-      - _id
     properties:
       _id:
         type: string
-      identifiers:
+      journal_identifiers:
+        type: array
+        items:
+          $ref: "#/definitions/Identifier"
+      journalVolume_identifiers:
+        type: array
+        items:
+          $ref: "#/definitions/Identifier"
+      journalIssue_identifiers:
+        type: array
+        items:
+          $ref: "#/definitions/Identifier"
+      journalArticle_identifiers:
+        type: array
+        items:
+          $ref: "#/definitions/Identifier"
+      monograph_identifiers:
+        type: array
+        items:
+          $ref: "#/definitions/Identifier"
+      editedBook_identifiers:
+        type: array
+        items:
+          $ref: "#/definitions/Identifier"
+      bookSeries_identifiers:
+        type: array
+        items:
+          $ref: "#/definitions/Identifier"
+      bookSet_identifiers:
+        type: array
+        items:
+          $ref: "#/definitions/Identifier"
+      bookChapter_identifiers:
+        type: array
+        items:
+          $ref: "#/definitions/Identifier"
+      bookSection_identifiers:
+        type: array
+        items:
+          $ref: "#/definitions/Identifier"
+      bookPart_identifiers:
+        type: array
+        items:
+          $ref: "#/definitions/Identifier"
+      bookTrack_identifiers:
+        type: array
+        items:
+          $ref: "#/definitions/Identifier"
+      component_identifiers:
+        type: array
+        items:
+          $ref: "#/definitions/Identifier"
+      dissertation_identifiers:
+        type: array
+        items:
+          $ref: "#/definitions/Identifier"
+      proceedingsArticle_identifiers:
+        type: array
+        items:
+          $ref: "#/definitions/Identifier"
+      proceedings_identifiers:
+        type: array
+        items:
+          $ref: "#/definitions/Identifier"
+      dataset_identifiers:
+        type: array
+        items:
+          $ref: "#/definitions/Identifier"
+      report_identifiers:
+        type: array
+        items:
+          $ref: "#/definitions/Identifier"
+      reportSeries_identifiers:
+        type: array
+        items:
+          $ref: "#/definitions/Identifier"
+      book_identifiers:
+        type: array
+        items:
+          $ref: "#/definitions/Identifier"
+      referenceBook_identifiers:
+        type: array
+        items:
+          $ref: "#/definitions/Identifier"
+      referenceEntry_identifiers:
+        type: array
+        items:
+          $ref: "#/definitions/Identifier"
+      standard_identifiers:
+        type: array
+        items:
+          $ref: "#/definitions/Identifier"
+      standardSeries_identifiers:
         type: array
         items:
           $ref: "#/definitions/Identifier"
       type:
         type: string
-      title:
+      journal_title:
         type: string
-      subtitle:
+      journalVolume_title:
         type: string
-      edition:
+      journalIssue_title:
         type: string
-      number:
-        type: number
-      contributors:
+      journalArticle_title:
+        type: string
+      monograph_title:
+        type: string
+      editedBook_title:
+        type: string
+      bookSeries_title:
+        type: string
+      bookSet_title:
+        type: string
+      bookChapter_title:
+        type: string
+      bookSection_title:
+        type: string
+      bookPart_title:
+        type: string
+      bookTrack_title:
+        type: string
+      component_title:
+        type: string
+      report_title:
+        type: string
+      proceedingsArticle_title:
+        type: string
+      proceedings_title:
+        type: string
+      dataset_title:
+        type: string
+      reportSeries_title:
+        type: string
+      book_title:
+        type: string
+      referenceBook_title:
+        type: string
+      referenceEntry_title:
+        type: string
+      standard_title:
+        type: string
+      standardSeries_title:
+        type: string
+      editedBook_subtitle:
+        type: string
+      report_subtitle:
+        type: string
+      dissertation_subtitle:
+        type: string
+      proceedingsArticle_subtitle:
+        type: string
+      standard_subtitle:
+        type: string
+      standardSeries_subtitle:
+        type: string
+      journal_subtitle:
+        type: string
+      journalArticle_subtitle:
+        type: string
+      bookSeries_subtitle:
+        type: string
+      monograph_subtitle:
+        type: string
+      bookSet_subtitle:
+        type: string
+      bookPart_subtitle:
+        type: string
+      bookChapter_subtitle:
+        type: string
+      bookSection_subtitle:
+        type: string
+      bookTrack_subtitle:
+        type: string
+      component_subtitle:
+        type: string
+      proceedings_subtitle:
+        type: string
+      dataset_subtitle:
+        type: string
+      reportSeries_subtitle:
+        type: string
+      book_subtitle:
+        type: string
+      referenceBook_subtitle:
+        type: string
+      referenceEntry_subtitle:
+        type: string
+      monograph_edition:
+        type: string
+      editedBook_edition:
+        type: string
+      dissertation_edition:
+        type: string
+      proceedings_edition:
+        type: string
+      report_edition:
+        type: string
+      book_edition:
+        type: string
+      referenceBook_edition:
+        type: string
+      standard_edition:
+        type: string
+      journalVolume_number:
+        type: string
+      journalIssue_number:
+        type: string
+      journalArticle_number:
+        type: string
+      bookPart_number:
+        type: string
+      monograph_number:
+        type: string
+      editedBook_number:
+        type: string
+      component_number:
+        type: string
+      bookSet_number:
+        type: string
+      bookChapter_number:
+        type: string
+      bookSection_number:
+        type: string
+      bookTrack_number:
+        type: string
+      proceedings_number:
+        type: string
+      report_number:
+        type: string
+      book_number:
+        type: string
+      standard_number:
+        type: string
+      referenceBook_number:
+        type: string
+      referenceEntry_number:
+        type: string
+      journal_contributors:
         type: array
         items:
           $ref: "#/definitions/AgentRole"
-      publicationYear:
+      report_contributors:
+        type: array
+        items:
+          $ref: "#/definitions/AgentRole"
+      journalVolume_contributors:
+        type: array
+        items:
+          $ref: "#/definitions/AgentRole"
+      journalIssue_contributors:
+        type: array
+        items:
+          $ref: "#/definitions/AgentRole"
+      journalArticle_contributors:
+        type: array
+        items:
+          $ref: "#/definitions/AgentRole"
+      monograph_contributors:
+        type: array
+        items:
+          $ref: "#/definitions/AgentRole"
+      editedBook_contributors:
+        type: array
+        items:
+          $ref: "#/definitions/AgentRole"
+      bookSeries_contributors:
+        type: array
+        items:
+          $ref: "#/definitions/AgentRole"
+      proceedingsArticle_contributors:
+        type: array
+        items:
+          $ref: "#/definitions/AgentRole"
+      bookSet_contributors:
+        type: array
+        items:
+          $ref: "#/definitions/AgentRole"
+      bookChapter_contributors:
+        type: array
+        items:
+          $ref: "#/definitions/AgentRole"
+      dataset_contributors:
+        type: array
+        items:
+          $ref: "#/definitions/AgentRole"
+      bookTrack_contributors:
+        type: array
+        items:
+          $ref: "#/definitions/AgentRole"
+      component_contributors:
+        type: array
+        items:
+          $ref: "#/definitions/AgentRole"
+      dissertation_contributors:
+        type: array
+        items:
+          $ref: "#/definitions/AgentRole"
+      proceedings_contributors:
+        type: array
+        items:
+          $ref: "#/definitions/AgentRole"
+      reportSeries_contributors:
+        type: array
+        items:
+          $ref: "#/definitions/AgentRole"
+      book_contributors:
+        type: array
+        items:
+          $ref: "#/definitions/AgentRole"
+      referenceBook_contributors:
+        type: array
+        items:
+          $ref: "#/definitions/AgentRole"
+      referenceEntry_contributors:
+        type: array
+        items:
+          $ref: "#/definitions/AgentRole"
+      standard_contributors:
+        type: array
+        items:
+          $ref: "#/definitions/AgentRole"
+      standardSeries_contributors:
+        type: array
+        items:
+          $ref: "#/definitions/AgentRole"
+      journalArticle_publicationDate:
         type: string
+        format: date
+      journalIssue_publicationDate:
+        type: string
+        format: date
+      journalVolume_publicationDate:
+        type: string
+        format: date
+      journal_publicationDate:
+        type: string
+        format: date
+      monograph_publicationDate:
+        type: string
+        format: date
+      report_publicationDate:
+        type: string
+        format: date
+      reportSeries_publicationDate:
+        type: string
+        format: date
+      bookChapter_publicationDate:
+        type: string
+        format: date
+      bookSeries_publicationDate:
+        type: string
+        format: date
+      bookSet_publicationDate:
+        type: string
+        format: date
+      editedBook_publicationDate:
+        type: string
+        format: date
+      dissertation_publicationDate:
+        type: string
+        format: date
+      proceedingsArticle_publicationDate:
+        type: string
+        format: date
+      dataset_publicationDate:
+        type: string
+        format: date
+      proceedings_publicationDate:
+        type: string
+        format: date
+      book_publicationDate:
+        type: string
+        format: date
+      referenceBook_publicationDate:
+        type: string
+        format: date
+      referenceEntry_publicationDate:
+        type: string
+        format: date
+      standard_publicationDate:
+        type: string
+        format: date
+      standardSeries_publicationDate:
+        type: string
+        format: date
+      bookPart_publicationDate:
+        type: string
+        format: date
+      bookSection_publicationDate:
+        type: string
+        format: date
+      bookTrack_publicationDate:
+        type: string
+        format: date
+      component_publicationDate:
+        type: string
+        format: date
+      status:
+        type: string
+      parts:
+        type: array
+        items:
+          $ref: "#/definitions/BibliographicEntry"
+      partOf:
+        type: string
+      cites:
+        type: array
+        items:
+          type: string
+      monograph_embodiedAs:
+        type: array
+        items:
+          $ref: "#/definitions/ResourceEmbodiment"
+      editedBook_embodiedAs:
+          type: array
+          items:
+            $ref: "#/definitions/ResourceEmbodiment"
+      bookSeries_embodiedAs:
+        type: array
+        items:
+          $ref: "#/definitions/ResourceEmbodiment"
+      bookSet_embodiedAs:
+        type: array
+        items:
+          $ref: "#/definitions/ResourceEmbodiment"
+      bookPart_embodiedAs:
+        type: array
+        items:
+          $ref: "#/definitions/ResourceEmbodiment"
+      bookTrack_embodiedAs:
+          type: array
+          items:
+            $ref: "#/definitions/ResourceEmbodiment"
+      component_embodiedAs:
+        type: array
+        items:
+          $ref: "#/definitions/ResourceEmbodiment"
+      dissertation_embodiedAs:
+        type: array
+        items:
+          $ref: "#/definitions/ResourceEmbodiment"
+      proceedingsArticle_embodiedAs:
+        type: array
+        items:
+          $ref: "#/definitions/ResourceEmbodiment"
+      proceedings_embodiedAs:
+          type: array
+          items:
+            $ref: "#/definitions/ResourceEmbodiment"
+      journal_embodiedAs:
+        type: array
+        items:
+          $ref: "#/definitions/ResourceEmbodiment"
+      journalVolume_embodiedAs:
+        type: array
+        items:
+          $ref: "#/definitions/ResourceEmbodiment"
+      journalIssue_embodiedAs:
+        type: array
+        items:
+          $ref: "#/definitions/ResourceEmbodiment"
+      journalArticle_embodiedAs:
+          type: array
+          items:
+            $ref: "#/definitions/ResourceEmbodiment"
+      dataset_embodiedAs:
+        type: array
+        items:
+          $ref: "#/definitions/ResourceEmbodiment"
+      report_embodiedAs:
+        type: array
+        items:
+          $ref: "#/definitions/ResourceEmbodiment"
+      reportSeries_embodiedAs:
+        type: array
+        items:
+          $ref: "#/definitions/ResourceEmbodiment"
+      book_embodiedAs:
+        type: array
+        items:
+          $ref: "#/definitions/ResourceEmbodiment"
+      referenceBook_embodiedAs:
+        type: array
+        items:
+          $ref: "#/definitions/ResourceEmbodiment"
+      referenceEntry_embodiedAs:
+          type: array
+          items:
+            $ref: "#/definitions/ResourceEmbodiment"
+      standard_embodiedAs:
+        type: array
+        items:
+          $ref: "#/definitions/ResourceEmbodiment"
+      standardSeries_embodiedAs:
+        type: array
+        items:
+          $ref: "#/definitions/ResourceEmbodiment"
       children:
         type: array
         items:
-          $ref: "#/definitions/ToDoParts"
+          $ref: "#/definitions/BibliographicResource"
 
-  ToDoParts:
+#  ToDoParts:
+#    required:
+#      - _id
+#    properties:
+#      _id:
+#        type: string
+#      status:
+#        type: string
+#      scans:
+#        type: array
+#        items:
+#          $ref: "#/definitions/ToDoScans"
+#
+  Scan:
     required:
       - _id
     properties:
       _id:
         type: string
-      status:
+      scanName:
         type: string
-      scans:
-        type: array
-        items:
-          $ref: "#/definitions/ToDoScans"
-
-  ToDoScans:
-    required:
-      - _id
-    properties:
-      _id:
+      xmlName:
         type: string
+      textualPdf:
+        type: boolean
       status:
         type: string
 

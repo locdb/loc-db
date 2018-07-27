@@ -1,0 +1,16 @@
+[
+    {
+        "book_title": "Markovian",
+        "type": "BOOK"
+    },
+    {
+        "bookChapter_title": "Child",
+        "bookChapter_identifiers": [
+            {
+                "scheme": "DOI",
+                "literalValue": "10.1080/00313830802184608"
+            }
+        ],
+        "type": "BOOK_CHAPTER"
+    }
+]

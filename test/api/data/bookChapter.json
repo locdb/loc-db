@@ -1,0 +1,188 @@
+[
+  {
+    "_id": "5a1e8ce850476a3db575b9f0",
+    "partOf": "5a1e8ce650476a3db575b9c1",
+    "__v": 1,
+    "bookChapter_edition": "",
+    "bookChapter_number": "",
+    "bookChapter_publicationYear": "",
+    "bookChapter_subtitle": "",
+    "bookChapter_title": "",
+    "type": "BOOK_CHAPTER",
+    "bookChapter_embodiedAs": [
+      {
+        "type": "PRINT",
+        "firstPage": 94,
+        "lastPage": 95,
+        "_id": "5a1e8ce850476a3db575b9f1",
+        "scans": [
+          {
+            "scanName": "5a1e8ce850476a3db575b9f2.png",
+            "textualPdf": false,
+            "status": "OCR_PROCESSED",
+            "_id": "5a1e8ce850476a3db575b9f2"
+          }
+        ],
+        "identifiers": []
+      }
+    ]
+  },
+  {
+  "_id": "5a1e8ce650476a3db575b9c1",
+  "editedBook_title": "Kritische politische Bildung: Standpunkte und Perspektiven /",
+  "editedBook_publicationYear": "2017",
+  "type": "EDITED_BOOK",
+  "__v": 0,
+  "editedBook_embodiedAs": [],
+  "parts": [],
+  "cites": [],
+  "editedBook_contributors": [
+    {
+      "roleType": "PUBLISHER",
+      "_id": "5a1e8ce650476a3db575b9d0",
+      "heldBy": {
+        "nameString": "Wochenschau, ",
+        "identifiers": []
+      },
+      "identifiers": []
+    },
+    {
+      "roleType": "AUTHOR",
+      "_id": "5a1e8ce650476a3db575b9ce",
+      "heldBy": {
+        "givenName": "Michael",
+        "familyName": "Görtler",
+        "identifiers": [
+          {
+            "scheme": "SWB_GND_ID",
+            "literalValue": "187881928",
+            "_id": "5a1e8ce650476a3db575b9cf"
+          }
+        ]
+      },
+      "identifiers": []
+    },
+    {
+      "roleType": "AUTHOR",
+      "_id": "5a1e8ce650476a3db575b9cb",
+      "heldBy": {
+        "givenName": "Mathias",
+        "familyName": "Lotz",
+        "identifiers": [
+          {
+            "scheme": "GND_ID",
+            "literalValue": "142367486",
+            "_id": "5a1e8ce650476a3db575b9cd"
+          },
+          {
+            "scheme": "SWB_GND_ID",
+            "literalValue": "330344153",
+            "_id": "5a1e8ce650476a3db575b9cc"
+          }
+        ]
+      },
+      "identifiers": []
+    },
+    {
+      "roleType": "AUTHOR",
+      "_id": "5a1e8ce650476a3db575b9c8",
+      "heldBy": {
+        "givenName": "Marc",
+        "familyName": "Partetzke",
+        "identifiers": [
+          {
+            "scheme": "GND_ID",
+            "literalValue": "1082255203",
+            "_id": "5a1e8ce650476a3db575b9ca"
+          },
+          {
+            "scheme": "SWB_GND_ID",
+            "literalValue": "45529058X",
+            "_id": "5a1e8ce650476a3db575b9c9"
+          }
+        ]
+      },
+      "identifiers": []
+    },
+    {
+      "roleType": "AUTHOR",
+      "_id": "5a1e8ce650476a3db575b9c5",
+      "heldBy": {
+        "givenName": "Sara",
+        "familyName": "Poma Poma",
+        "identifiers": [
+          {
+            "scheme": "GND_ID",
+            "literalValue": "1126992925",
+            "_id": "5a1e8ce650476a3db575b9c7"
+          },
+          {
+            "scheme": "SWB_GND_ID",
+            "literalValue": "48481432X",
+            "_id": "5a1e8ce650476a3db575b9c6"
+          }
+        ]
+      },
+      "identifiers": []
+    },
+    {
+      "roleType": "AUTHOR",
+      "_id": "5a1e8ce650476a3db575b9c2",
+      "heldBy": {
+        "givenName": "Marie",
+        "familyName": "Winckler",
+        "identifiers": [
+          {
+            "scheme": "GND_ID",
+            "literalValue": "1068875666",
+            "_id": "5a1e8ce650476a3db575b9c4"
+          },
+          {
+            "scheme": "SWB_GND_ID",
+            "literalValue": "428234402",
+            "_id": "5a1e8ce650476a3db575b9c3"
+          }
+        ]
+      },
+      "identifiers": []
+    }
+  ],
+  "editedBook_identifiers": [
+    {
+      "literalValue": "965630188",
+      "scheme": "OCLC_ID",
+      "_id": "5a1e8ce650476a3db575b9d7"
+    },
+    {
+      "literalValue": "9783734404191",
+      "scheme": "ISBN",
+      "_id": "5a1e8ce650476a3db575b9d6"
+    },
+    {
+      "literalValue": "3734404193",
+      "scheme": "ISBN",
+      "_id": "5a1e8ce650476a3db575b9d5"
+    },
+    {
+      "literalValue": "http://www.wochenschau-verlag.de/kritische-politische-bildung-standpunkte-und-perspektiven-2113.html",
+      "scheme": "URI",
+      "_id": "5a1e8ce650476a3db575b9d4"
+    },
+    {
+      "literalValue": "http://d-nb.info/1120520355/04",
+      "scheme": "URI",
+      "_id": "5a1e8ce650476a3db575b9d3"
+    },
+    {
+      "literalValue": "48525302X",
+      "scheme": "SWB_PPN",
+      "_id": "5a1e8ce650476a3db575b9d2"
+    },
+    {
+      "scheme": "PPN",
+      "literalValue": "48525302X",
+      "_id": "5a1e8ce650476a3db575b9d1"
+    }
+  ]
+}
+]

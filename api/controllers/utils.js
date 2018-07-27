@@ -3,7 +3,7 @@
  */
 'use strict';
 const logger = require('./../util/logger.js');
-
+const solrHelper = require('./../helpers/solrHelper').createSolrHelper();
 
 
 function log(req, res){
@@ -19,7 +19,22 @@ function log(req, res){
     return response.json({message: "Logging suceeded."});
 }
 
+function get(req, res){
+    var response = res;
+    var query = req.swagger.params.query.value;
+    solrHelper.queryK10plusByQueryString(query, function(err,res){
+        if(err){
+            logger.error(err);
+            return response.json(err);
+        }
+        logger.log(res);
+        return response.json(res);
+    });
+
+}
+
 
 module.exports = {
-    log: log
+    log: log,
+    get: get
 };
