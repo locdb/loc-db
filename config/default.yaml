@@ -17,11 +17,6 @@ swagger:
       mockControllersDirs: [ api/mocks ]
       controllersDirs: [ api/controllers ]
 
-    swagger_params_parser:
-      name: swagger_params_parser
-      jsonOptions:
-        limit: '200kb'
-
     _swagger_validate:
       name: swagger_validator
       validateResponse: true
