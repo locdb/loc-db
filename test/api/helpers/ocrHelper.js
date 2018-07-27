@@ -59,7 +59,7 @@ describe('helpers', function() {
 
         describe('parseXMLString', function () {
             it('should return bibliographicEntries given the ocr output', function (done) {
-                fs.readFile("/ocr_output_v2.xml", function(err,res){
+                fs.readFile("./../data/ocr_data/ocr_output_v2.xml", function(err,res){
                     if(err){
                         done(err);
                     }
