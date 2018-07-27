@@ -276,7 +276,7 @@ brSchema.pre('save', function (next) {
     if(br.type === enums.resourceType.journalIssue){
         var volumeNumber = br.getNumberForType(enums.resourceType.journalVolume);
         var journalTitle = br.getTitleForType(enums.resourceType.journal);
-        var journalIdentifiers = self.transformIdentifiers(br.getIdentifiersForType(enums.resourceType.journal));
+        var journalIdentifiers = brSchema.transformIdentifiers(br.getIdentifiersForType(enums.resourceType.journal));
 
         mongoBr.where(propertyPrefix.concat("title"), title)
             .where(propertyPrefix.concat("number"), number)
