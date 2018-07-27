@@ -10,7 +10,7 @@ const fileHelper = require('./fileHelper').createFileHelper();
 const enums = require('./../schema/enum.json');
 const async = require('async');
 const BibliographicResource = require('./../schema/bibliographicResource.js');
-const Scan = require('./../schema/Scan');
+const Scan = require('./../schema/scan');
 
 
 var OcrHelper = function(){
