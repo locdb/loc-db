@@ -38,7 +38,7 @@
     "node-unzip-2": "^0.2.7",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
-    "request": "^2.80.0",
+    "request": "^2.88.0",
     "schema-object": "^4.0.10",
     "solr-client": "^0.7.0",
     "sparql-http-client": "^1.0.2",
