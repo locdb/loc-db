@@ -6,6 +6,7 @@ const enums = require('./../schema/enum.json');
 const logger = require('./../util/logger');
 const async = require('async');
 const Identifier = require('./../schema/identifier');
+const luceneEscapeQuery = require('lucene-escape-query');
 
 
 var SolrHelper = function(){
@@ -30,6 +31,7 @@ SolrHelper.prototype.queryGVIByQueryString = function(query, callback){
     //    logger.log("No quotation marks");
     //    query =query.replace(":","");
     //}
+    query = luceneEscapeQuery.escape(query);
     query = encodeURIComponent(query);
     // Lucene query
     // add start=0?
@@ -103,9 +105,7 @@ SolrHelper.prototype.queryK10plusByQueryString = function(query, callback){
         path: config.K10plus.PATH
     });
 
-    if(query.indexOf('\"') < 0){
-        query =query.replace(":","");
-    }
+    query = luceneEscapeQuery.escape(query);
     query = encodeURIComponent(query);
 
 
