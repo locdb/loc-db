@@ -5,7 +5,7 @@ const should = require('should');
 const fileHelper = require('./../../../api/helpers/fileHelper').createFileHelper();
 const setup = require('./../setup.js').createSetup();
 
-describe.only('helpers', function() {
+describe('helpers', function() {
     describe('fileHelper', function() {
         before(function (done) {
             setup.dropDB(function (err) {
