@@ -12,7 +12,7 @@ const ResourceEmbodiment = require('./../../../api/schema/resourceEmbodiment');
 const mongoose = require('mongoose');
 const enums = require('./../../../api/schema/enum');
 
-describe.only('helpers', function() {
+describe('helpers', function() {
     describe('ocrHelper', function() {
         before(function (done) {
             setup.dropDB(function (err) {
