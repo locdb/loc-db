@@ -35,20 +35,20 @@ SuggestionHelper.prototype.sort= function(query, suggestions, callback){
     });
 };
 
-
+/** As we are currently using Levensthein to rank, we need to invert the ranking **/
 SuggestionHelper.prototype.compare = function(parentChildA,parentChildB){
 
-    function getMaxScore(parentChild){
+    function getMinScore(parentChild){
         var scores = [];
         for(var brScore of parentChild){
             scores.push(brScore.score);
         }
-        return Math.max.apply(Math, scores);;
+        return Math.min.apply(Math, scores);
 
     };
 
-    var scoreA = getMaxScore(parentChildA);
-    var scoreB = getMaxScore(parentChildB);
+    var scoreA = getMinScore(parentChildA);
+    var scoreB = getMinScore(parentChildB);
 
     if(scoreA == scoreB)
         return 0;
