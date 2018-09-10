@@ -5,7 +5,7 @@ const should = require('should');
 const fileHelper = require('./../../../api/helpers/fileHelper').createFileHelper();
 const setup = require('./../setup.js').createSetup();
 
-describe('helpers', function() {
+describe.only('helpers', function() {
     describe('fileHelper', function() {
         before(function (done) {
             setup.dropDB(function (err) {
@@ -23,7 +23,7 @@ describe('helpers', function() {
 
         describe('extractZip', function () {
             it('should extract the zip file', function (done) {
-                fileHelper.extractZip("./response.zip", "./response", function (err, result) {
+                fileHelper.extractZip("./response", "./response", function (err, result) {
                     should.not.exists(err);
                     done();
                 });
