@@ -127,7 +127,8 @@ SuggestionHelper.prototype.getExternalSuggestionsByQueryString = function(query,
             function (callback) {
                 swbHelper.queryByQueryString(query, function (err, res) {
                     if (err) {
-                        err.message = "[SWB]" + err.message;
+                        err.message = "[SWB] " + err.message;
+                        logger.error(err);
                         return callback(err, null);
                     }
                     for(var parentChild of res){
@@ -141,7 +142,8 @@ SuggestionHelper.prototype.getExternalSuggestionsByQueryString = function(query,
             function (callback) {
                 solrHelper.queryGVIByQueryString(query, function (err, res) {
                     if (err) {
-                        err.message = "[GVI]" + err.message;
+                        err.message = "[GVI] Query:" + query + "; " + err.message;
+                        logger.error(err);
                         return callback(err, null);
                     }
                     for(var parentChild of res){
@@ -155,7 +157,8 @@ SuggestionHelper.prototype.getExternalSuggestionsByQueryString = function(query,
             function (callback) {
                 solrHelper.queryK10plusByQueryString(query, function (err, res) {
                     if (err) {
-                        err.message = "[K10Plus]" + err.message;
+                        err.message = "[K10Plus] Query:" + query + "; " + err.message;
+                        logger.error(err);
                         return callback(err, null);
                     }
                     for(var parentChild of res){
@@ -169,7 +172,8 @@ SuggestionHelper.prototype.getExternalSuggestionsByQueryString = function(query,
             function (callback) {
                 crossrefHelper.query(query, function (err, res) {
                     if (err) {
-                        err.message = "[Crossref]" + err.message;
+                        err.message = "[Crossref] Query:" + query + "; " + err.message;
+                        logger.error(err);
                         return callback(err, null);
                     }
                     for(var parentChild of res){
