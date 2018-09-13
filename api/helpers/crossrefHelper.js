@@ -183,6 +183,10 @@ CrossrefHelper.prototype.parseObjects = function(objects, callback){
             });
         }
     }, function(err, results) {
+        if(err){
+            logger.error(err);
+            return callback(err, results);
+        }
         return callback(null, results);
     });
 };
