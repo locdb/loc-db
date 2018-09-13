@@ -107,6 +107,8 @@ SuggestionHelper.prototype.getExternalSuggestionsByDOI = function(doi, cb){
             function (callback) {
                 crossrefHelper.queryByDOI(doi, function (err, res) {
                     if (err) {
+                        err.message = "[Crossref DOI]: " + doi + "; " + err.message;
+                        logger.error(err);
                         return callback(err, null);
                     }
                     for(var br of res){
