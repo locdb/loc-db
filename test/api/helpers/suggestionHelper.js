@@ -36,7 +36,7 @@ describe('helpers', function() {
             });
         });
 
-        describe.only('rankSuggestions', function() {
+        describe('rankSuggestions', function() {
             it('should rank the suggestions in an appropriate way', function (done) {
                 var suggestionsUnranked = require('./../data/suggestions/suggestionsUnranked.json');
                 var suggestionsTransformed = [];
