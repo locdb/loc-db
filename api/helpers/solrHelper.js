@@ -27,12 +27,12 @@ SolrHelper.prototype.queryGVIByQueryString = function(query, callback){
         core: config.GVI.CORE,
     });
 
-
-    //query = query.replace('“','\"');
-    query = query.replace('(','');
-    query = query.replace(')','');
-    query = query.replace('[','');
-    query = query.replace(']','');
+    query = "Robert (). Keohane. and Stephen l). Krasner. 1998. “International Organization and the Study of World Politics Katzenstein";
+    //query = query.replaceAll('“','\"');
+    query = query.replace(/\(/g,'');
+    query = query.replace(/\)/g,'');
+    query = query.replace(/\[/g,'');
+    query = query.replace(/\]/g,'');
     query = luceneEscapeQuery.escape(query);
     query = encodeURIComponent(query);
     // Lucene query
