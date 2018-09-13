@@ -27,9 +27,12 @@ SolrHelper.prototype.queryGVIByQueryString = function(query, callback){
         core: config.GVI.CORE,
     });
 
-    if(query.indexOf('“') > 0){
-        query = query.replace('“','\"');
-    }
+
+    //query = query.replace('“','\"');
+    query = query.replace('(','');
+    query = query.replace(')','');
+    query = query.replace('[','');
+    query = query.replace(']','');
     query = luceneEscapeQuery.escape(query);
     query = encodeURIComponent(query);
     // Lucene query
