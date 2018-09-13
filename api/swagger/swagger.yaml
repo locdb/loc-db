@@ -851,6 +851,7 @@ definitions:
     properties:
       _id:
         type: string
+        pattern: '^[a-f\d]{24}$'
       identifiers:
         type: array
         items:
@@ -878,8 +879,10 @@ definitions:
         type: array
         items:
           type: string
+          pattern: '^[a-f\d]{24}$'
       partOf:
         type: string
+        pattern: '^[a-f\d]{24}$'
       parts:
         type: array
         items:
@@ -897,6 +900,7 @@ definitions:
     properties:
       _id:
         type: string
+        pattern: '^[a-f\d]{24}$'
       journal_identifiers:
         type: array
         items:
@@ -1303,10 +1307,12 @@ definitions:
           $ref: "#/definitions/BibliographicEntry"
       partOf:
         type: string
+        pattern: '^[a-f\d]{24}$'
       cites:
         type: array
         items:
           type: string
+          pattern: '^[a-f\d]{24}$'
       monograph_embodiedAs:
         type: array
         items:
@@ -1454,6 +1460,7 @@ definitions:
     properties:
       _id:
         type: string
+        pattern: '^[a-f\d]{24}$'
       identifiers:
         type: array
         items:
@@ -1462,8 +1469,10 @@ definitions:
         type: string
       references:
         type: string
+        pattern: '^[a-f\d]{24}$'
       scanId:
         type: string
+        pattern: '^[a-f\d]{24}$'
       status:
         type: string
       ocrData:
@@ -1495,6 +1504,7 @@ definitions:
     properties:
       _id:
         type: string
+        pattern: '^[a-f\d]{24}$'
       journal_identifiers:
         type: array
         items:
@@ -1901,10 +1911,12 @@ definitions:
           $ref: "#/definitions/BibliographicEntry"
       partOf:
         type: string
+        pattern: '^[a-f\d]{24}$'
       cites:
         type: array
         items:
           type: string
+          pattern: '^[a-f\d]{24}$'
       monograph_embodiedAs:
         type: array
         items:
@@ -2017,6 +2029,7 @@ definitions:
     properties:
       _id:
         type: string
+        pattern: '^[a-f\d]{24}$'
       scanName:
         type: string
       xmlName:
@@ -2041,6 +2054,7 @@ definitions:
     properties:
       _id:
         type: string
+        pattern: '^[a-f\d]{24}$'
       name:
         type: string
       url:
