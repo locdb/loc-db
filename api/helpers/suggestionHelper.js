@@ -127,6 +127,7 @@ SuggestionHelper.prototype.getExternalSuggestionsByQueryString = function(query,
             function (callback) {
                 swbHelper.queryByQueryString(query, function (err, res) {
                     if (err) {
+                        err.message = "[SWB]" + err.message;
                         return callback(err, null);
                     }
                     for(var parentChild of res){
@@ -140,6 +141,7 @@ SuggestionHelper.prototype.getExternalSuggestionsByQueryString = function(query,
             function (callback) {
                 solrHelper.queryGVIByQueryString(query, function (err, res) {
                     if (err) {
+                        err.message = "[GVI]" + err.message;
                         return callback(err, null);
                     }
                     for(var parentChild of res){
@@ -153,6 +155,7 @@ SuggestionHelper.prototype.getExternalSuggestionsByQueryString = function(query,
             function (callback) {
                 solrHelper.queryK10plusByQueryString(query, function (err, res) {
                     if (err) {
+                        err.message = "[K10Plus]" + err.message;
                         return callback(err, null);
                     }
                     for(var parentChild of res){
@@ -166,6 +169,7 @@ SuggestionHelper.prototype.getExternalSuggestionsByQueryString = function(query,
             function (callback) {
                 crossrefHelper.query(query, function (err, res) {
                     if (err) {
+                        err.message = "[Crossref]" + err.message;
                         return callback(err, null);
                     }
                     for(var parentChild of res){
