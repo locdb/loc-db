@@ -158,6 +158,8 @@ OcrHelper.prototype.parseXMLString = function(xmlString, callback) {
                 var citations = algorithm.BibStructured;
                 if (citations) {
                     for (var citation of citations) {
+                        var namer = citation.$ && citation.$.namer ? citation.$.namer : "";
+                        var detector = citation.$ && citation.$.detector ? citation.$.detector : "";
 
                         var title = citation.title ? citation.title[0] : "";
                         var date = citation.date ? citation.date[0] : "";
@@ -184,7 +186,9 @@ OcrHelper.prototype.parseXMLString = function(xmlString, callback) {
                                 marker: marker,
                                 authors: authors,
                                 journal: journal,
-                                volume: volume
+                                volume: volume,
+                                namer: namer,
+                                detector: detector
                             },
                             scanName: algorithm.$.fname
                         });

@@ -110,7 +110,7 @@ Setup.prototype.loadSearchData = function(cb){
 Setup.prototype.mockOCRFileUpload = function(){
     nock("https://locdb-dev.opendfki.de")
         .post('/fileupload/')
-        .replyWithFile(200, __dirname + '/data/ocr_data/ocr_output_v2.xml')
+        .replyWithFile(200, __dirname + '/data/ocr_data/ocrOutput.xml')
         .persist();
 };
 

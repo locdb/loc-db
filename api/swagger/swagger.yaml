@@ -1499,6 +1499,10 @@ definitions:
         type: string
       volume:
         type: string
+      namer:
+        type: string
+      detector:
+        type: string
 
   ToDo:
     properties:

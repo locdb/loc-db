@@ -1,0 +1,1100 @@
+<LOCDBViewResults>
+    <FilesFound>
+        <filename>20180917164308_references-1.jpg</filename>
+        <filename>20180917164308_references-2.jpg</filename>
+        <filename>20180917164308_references-0.jpg</filename>
+        <filename>20180917164308_references-3.jpg</filename>
+    </FilesFound>
+    <FilesNotFound/>
+    <algorithm fname="references-1.jpg" name="LOCDB Web service">
+        <BibStructured detector="Image" namer="Grobid">
+            <authors>
+                <author>D Farrington</author>
+                <author>D Jolliffe</author>
+                <author>J Hawkins</author>
+                <author>R Catalan</author>
+                <author>Hill K Kosterman</author>
+                <author>R</author>
+            </authors>
+            <title>
+                Comparing delinquency careers in court records and self-reports
+            </title>
+            <journal>Criminology</journal>
+            <date>2003</date>
+            <volume>41</volume>
+            <issue>3</issue>
+            <pages>933-958</pages>
+            <rawString coordinates="155 269 1877 360">
+                Farrington D, Jolliffe D, Hawkins J, Catalan R, Hill K and Kosterman R (2003) Comparing delinquency careers in court records and self-reports. Criminology 41(3): 933—958.
+            </rawString>
+        </BibStructured>
+        <BibStructured detector="Image" namer="Grobid">
+            <authors>
+                <author>T Galloway</author>
+                <author>T Skarohamar</author>
+            </authors>
+            <title>Does Parental Income Matter for Onset of Oﬂending?</title>
+            <date>2009</date>
+            <rawString coordinates="155 376 1877 468">
+                Galloway T and Skarohamar T (2009) Does Parental Income Matter for Onset of Oﬂending? Statistics Norway Discussion Paper No. 558. Oslo: Statistics Norway.
+            </rawString>
+        </BibStructured>
+        <BibStructured detector="Image" namer="Grobid">
+            <authors>
+                <author>M Gottfredson</author>
+                <author>T Hirschi</author>
+            </authors>
+            <title>
+                Youth problem: What’s the problem?: A longitudinal study of incomes and economic hardships among Swedish youth
+            </title>
+            <journal>Hallerod B and Westberg A</journal>
+            <date>1990</date>
+            <publisher>Stanford University Press</publisher>
+            <volume>49</volume>
+            <issue>1</issue>
+            <pages>83-102</pages>
+            <rawString coordinates="155 484 1882 630">
+                Gottfredson M and Hirschi T (1990) A General Theory of Crime. Stanford, CA: Stanford University Press. Hallerod B and Westberg A (2006) Youth problem: What’s the problem?: A longitudinal study of incomes and economic hardships among Swedish youth. Acta Sociologica 49(1): 83—102.
+            </rawString>
+        </BibStructured>
+        <BibStructured detector="Image" namer="Grobid">
+            <authors>
+                <author>K Herttua</author>
+                <author>P Mäkelä</author>
+                <author>P Martikainen</author>
+            </authors>
+            <title>
+                Changes in alcohol-related mortality and its socioeco-nomic differences after a large reduction in alcohol prices: A natural experiment based on register data
+            </title>
+            <journal>American Journal opridemiology</journal>
+            <date>2008</date>
+            <volume>168</volume>
+            <issue>10</issue>
+            <pages>1110-1118</pages>
+            <rawString coordinates="155 646 1878 792">
+                Herttua K, Mäkelä P and Martikainen P (2008) Changes in alcohol-related mortality and its socioeco- nomic differences after a large reduction in alcohol prices: A natural experiment based on register data. American Journal opridemiology 168(10): 1110—1118.
+            </rawString>
+        </BibStructured>
+        <BibStructured detector="Image" namer="Grobid">
+            <authors>
+                <author>O Kivinen</author>
+                <author>J Hedman</author>
+                <author>P Kaipainen</author>
+            </authors>
+            <title>
+                From elite university to mass higher education. Educational expansion, equality of opportunity and returns to university education
+            </title>
+            <date>1960</date>
+            <publisher>Cambridge University Press</publisher>
+            <volume>168</volume>
+            <pages>1383-1399</pages>
+            <rawString coordinates="155 754 1878 1656">
+                data. American Journal opridemiology 168(10): 1110—1118. Keltikangas-Jarvinen L (2008) Kayttaytymistieteet ja yliopiston kolmas tehtävä [Behavioural sciences and the third role of the university]. Tieteessa" tapahtuu 26(5): 37—40. Kivinen O, Hedman J and Kaipainen P (2007) From elite university to mass higher education. Educational expansion, equality of opportunity and returns to university education. Acta Sociologica 50(3): 231—247. Kivivuori J (2007) Delinquent Behaviour in Nordic Capital Cities. Scandinavian Research Council for Criminology and National Research Institute of Legal Policy, Publication 227. Helsinki: National Research Institute of Legal Policy. Kivivuori J and Lehti M (2006) The social composition of homicide in Finland, 1960—2000. Acta Socio- logica 49(1): 67—82. Kivivuori J and Salmi V (2009) The challenge of special needs education in school-based delinquency research. Journal ofScandinavian Studies in Criminology and Crime Prevention 10(1): 2—17. Kyvsgaard B (2003) The Criminal Career. The Danish Longitudinal Study. Cambridge University Press: Cambridge. Lahelma E, Laaksonen M, Martikainen P, Rahkonen 0 and Sarlio-Lähteenkorva S (2006) Multiple measures of socioeconomic circumstances and common mental disorders. Social Science and Medicine 63(5): 1383—1399.
+            </rawString>
+        </BibStructured>
+        <BibStructured detector="Image" namer="Grobid">
+            <authors>
+                <author>L Keltikangas-Jarvinen</author>
+            </authors>
+            <title>Kayttaytymistieteet ja yliopiston kolmas tehtävä</title>
+            <journal>Tieteessa" tapahtuu</journal>
+            <date>2008</date>
+            <volume>26</volume>
+            <issue>5</issue>
+            <pages>37-40</pages>
+            <rawString coordinates="155 808 1877 900">
+                Keltikangas-Jarvinen L (2008) Kayttaytymistieteet ja yliopiston kolmas tehtävä [Behavioural sciences and the third role of the university]. Tieteessa" tapahtuu 26(5): 37—40.
+            </rawString>
+        </BibStructured>
+        <BibStructured detector="Image" namer="Grobid">
+            <authors>
+                <author>O Kivinen</author>
+                <author>J Hedman</author>
+                <author>P Kaipainen</author>
+            </authors>
+            <title>
+                From elite university to mass higher education. Educational expansion, equality of opportunity and returns to university education
+            </title>
+            <journal>Acta Sociologica</journal>
+            <date>2007</date>
+            <volume>50</volume>
+            <issue>3</issue>
+            <pages>231-247</pages>
+            <rawString coordinates="155 916 1877 1008">
+                Kivinen O, Hedman J and Kaipainen P (2007) From elite university to mass higher education. Educational expansion, equality of opportunity and returns to university education. Acta Sociologica 50(3): 231—247.
+            </rawString>
+        </BibStructured>
+        <BibStructured detector="Image" namer="Grobid">
+            <authors>
+                <author>J Kivivuori</author>
+            </authors>
+            <title>Delinquent Behaviour in Nordic Capital Cities</title>
+            <date>2007</date>
+            <rawString coordinates="155 1024 1878 1170">
+                Kivivuori J (2007) Delinquent Behaviour in Nordic Capital Cities. Scandinavian Research Council for Criminology and National Research Institute of Legal Policy, Publication 227. Helsinki: National Research Institute of Legal Policy.
+            </rawString>
+        </BibStructured>
+        <BibStructured detector="Image" namer="Grobid">
+            <authors>
+                <author>J Kivivuori</author>
+                <author>M Lehti</author>
+            </authors>
+            <title>The social composition of homicide in Finland</title>
+            <journal>Acta Socio-logica</journal>
+            <date>1960</date>
+            <volume>49</volume>
+            <issue>1</issue>
+            <pages>67-82</pages>
+            <rawString coordinates="155 1186 1876 1278">
+                Kivivuori J and Lehti M (2006) The social composition of homicide in Finland, 1960—2000. Acta Socio- logica 49(1): 67—82.
+            </rawString>
+        </BibStructured>
+        <BibStructured detector="Image" namer="Grobid">
+            <authors>
+                <author>J Kivivuori</author>
+                <author>V Salmi</author>
+            </authors>
+            <title>
+                The challenge of special needs education in school-based delinquency research
+            </title>
+            <journal>
+                Journal ofScandinavian Studies in Criminology and Crime Prevention
+            </journal>
+            <date>2009</date>
+            <volume>10</volume>
+            <issue>1</issue>
+            <pages>2-17</pages>
+            <rawString coordinates="155 1294 1877 1386">
+                Kivivuori J and Salmi V (2009) The challenge of special needs education in school-based delinquency research. Journal ofScandinavian Studies in Criminology and Crime Prevention 10(1): 2—17.
+            </rawString>
+        </BibStructured>
+        <BibStructured detector="Image" namer="Grobid">
+            <authors>
+                <author>B Kyvsgaard</author>
+            </authors>
+            <title>The Criminal Career. The Danish Longitudinal Study</title>
+            <date>2003</date>
+            <publisher>Cambridge University Press</publisher>
+            <location>Cambridge</location>
+            <rawString coordinates="155 1402 1874 1494">
+                Kyvsgaard B (2003) The Criminal Career. The Danish Longitudinal Study. Cambridge University Press: Cambridge.
+            </rawString>
+        </BibStructured>
+        <BibStructured detector="Image" namer="Grobid">
+            <authors>
+                <author>E Lahelma</author>
+                <author>M Laaksonen</author>
+                <author>P Martikainen</author>
+                <author>Rahkonen Sarlio-Lähteenkorva</author>
+                <author>S</author>
+            </authors>
+            <title>
+                Multiple measures of socioeconomic circumstances and common mental disorders
+            </title>
+            <journal>Social Science and Medicine</journal>
+            <date>2006</date>
+            <volume>63</volume>
+            <issue>5</issue>
+            <pages>1383-1399</pages>
+            <rawString coordinates="155 1510 1877 1656">
+                Lahelma E, Laaksonen M, Martikainen P, Rahkonen 0 and Sarlio-Lähteenkorva S (2006) Multiple measures of socioeconomic circumstances and common mental disorders. Social Science and Medicine 63(5): 1383—1399.
+            </rawString>
+        </BibStructured>
+        <BibStructured detector="Image" namer="Grobid">
+            <authors>
+                <author>T Lappi-Seppala</author>
+            </authors>
+            <title>
+                Crime, Punishment, and Politics in Comparative Perspective. Crime and Justice-A Review of Research 36
+            </title>
+            <date>2007</date>
+            <publisher>University of Chicago Press</publisher>
+            <location>Chicago, IL</location>
+            <pages>217-296</pages>
+            <rawString coordinates="155 1672 1877 1818">
+                Lappi-Seppala T (2007) Penal policy in Scandinavia. In: Tonry M (ed.) Crime, Punishment, and Politics in Comparative Perspective. Crime and Justice — A Review of Research 36. Chicago, IL: University of Chicago Press, 217—296.
+            </rawString>
+        </BibStructured>
+        <BibStructured detector="Image" namer="Grobid">
+            <authors>
+                <author>J Laub</author>
+                <author>R Sampson</author>
+            </authors>
+            <title>
+                Shared Beginnings, Divergent Lives. Delinquent Boys to Age 70
+            </title>
+            <date>2003</date>
+            <publisher>Harvard University Press</publisher>
+            <location>Cambridge, MA</location>
+            <rawString coordinates="155 1833 1876 1925">
+                Laub J and Sampson R (2003) Shared Beginnings, Divergent Lives. Delinquent Boys to Age 70. Cambridge, MA: Harvard University Press.
+            </rawString>
+        </BibStructured>
+        <BibStructured detector="Image" namer="Grobid">
+            <authors>
+                <author>V Lorant</author>
+                <author>D Deliege</author>
+                <author>W Eaton</author>
+                <author>A Robert</author>
+                <author>P Philippot</author>
+                <author>M Ansseau</author>
+            </authors>
+            <title>
+                Socioeconomic inequalities in depression: A meta-analysis
+            </title>
+            <journal>American Journal of Epidemiology</journal>
+            <date>2003</date>
+            <volume>157</volume>
+            <issue>2</issue>
+            <pages>98-112</pages>
+            <rawString coordinates="155 1941 1877 2033">
+                Lorant V, Deliege D, Eaton W, Robert A, Philippot P and Ansseau M (2003) Socioeconomic inequalities in depression: A meta-analysis. American Journal of Epidemiology 157(2): 98—112.
+            </rawString>
+        </BibStructured>
+        <BibStructured detector="Image" namer="Grobid">
+            <authors>
+                <author>E Maguin</author>
+                <author>R Loeber</author>
+            </authors>
+            <title>Crime and Justice-A Review of Research 20</title>
+            <date>1996</date>
+            <publisher>Chicago University Press</publisher>
+            <location>Chicago, IL</location>
+            <pages>145-264</pages>
+            <rawString coordinates="155 2049 1879 2141">
+                Maguin E and Loeber R (1996) Academic performance and delinquency. In: Tonry M (ed.) Crime and Justice — A Review of Research 20. Chicago, IL: Chicago University Press, 145—264.
+            </rawString>
+        </BibStructured>
+        <BibStructured detector="Image" namer="Grobid">
+            <authors>
+                <author>J Murray</author>
+                <author>D Farrington</author>
+                <author>M Eisner</author>
+            </authors>
+            <title>
+                Drawing conclusions about causes from systematic reviews of risk factors: The Cambridge quality checklists
+            </title>
+            <journal>Journal of Experimental Criminology</journal>
+            <date>2009</date>
+            <volume>5</volume>
+            <issue>1</issue>
+            <pages>1-23</pages>
+            <rawString coordinates="155 2211 1877 2303">
+                Murray J, Farrington D and Eisner M (2009) Drawing conclusions about causes from systematic reviews of risk factors: The Cambridge quality checklists. Journal of Experimental Criminology 5(1): 1—23.
+            </rawString>
+        </BibStructured>
+        <BibStructured detector="Image" namer="ParsCit">
+            <authors>
+                <author>J Murray</author>
+                <author>D Farrington</author>
+                <author>M Eisner</author>
+            </authors>
+            <title>
+                Drawing conclusions about causes from systematic reviews of risk factors: The Cambridge quality checklists.
+            </title>
+            <date>2009</date>
+            <journal>Journal of Experimental Criminology</journal>
+            <volume>5</volume>
+            <issue>1</issue>
+            <pages>1--23</pages>
+            <marker>Murray, Farrington, Eisner, 2009</marker>
+            <rawString coordinates="155 2211 1877 2303">
+                Murray J, Farrington D and Eisner M (2009) Drawing conclusions about causes from systematic reviews of risk factors: The Cambridge quality checklists. Journal of Experimental Criminology 5(1): 1—23.
+            </rawString>
+        </BibStructured>
+        <BibStructured detector="Image" namer="Grobid">
+            <authors>
+                <author>D Nagin</author>
+                <author>R Tremblay</author>
+            </authors>
+            <title>
+                Parental and early childhood predictors of persistent physical aggression in boys from kindergarten to high school
+            </title>
+            <journal>Archives of General Psychiatry</journal>
+            <date>2001</date>
+            <volume>58</volume>
+            <issue>4</issue>
+            <pages>389-392</pages>
+            <rawString coordinates="154 2319 1876 2411">
+                Nagin D and Tremblay R (2001) Parental and early childhood predictors of persistent physical aggression in boys from kindergarten to high school. Archives of General Psychiatry 58(4): 389—3 94.
+            </rawString>
+        </BibStructured>
+        <BibStructured detector="Image" namer="ParsCit">
+            <authors>
+                <author>D Nagin</author>
+                <author>R Tremblay</author>
+            </authors>
+            <title>
+                Parental and early childhood predictors of persistent physical aggression in boys from kindergarten to high school.
+            </title>
+            <date>2001</date>
+            <journal>Archives of General Psychiatry</journal>
+            <volume>58</volume>
+            <issue>4</issue>
+            <pages>389--3</pages>
+            <marker>Nagin, Tremblay, 2001</marker>
+            <rawString coordinates="154 2319 1876 2411">
+                Nagin D and Tremblay R (2001) Parental and early childhood predictors of persistent physical aggression in boys from kindergarten to high school. Archives of General Psychiatry 58(4): 389—3 94.
+            </rawString>
+        </BibStructured>
+        <BibStructured detector="Image" namer="Grobid">
+            <authors>
+                <author>A Nilsson</author>
+                <author>F Estrada</author>
+            </authors>
+            <title>
+                Criminality and Life-Chances. A Longitudinal Study of Crime, Childhood Circumstances and Living Conditions up to Age 48
+            </title>
+            <journal>Department of Criminology Report Series</journal>
+            <date>2009</date>
+            <pages>3</pages>
+            <rawString coordinates="154 2427 1877 2573">
+                Nilsson A and Estrada F (2009) Criminality and Life-Chances. A Longitudinal Study of Crime, Childhood Circumstances and Living Conditions up to Age 48. Stockholm University, Department of Criminology Report Series 2009: 3. Stockholm: Stockholm University.
+            </rawString>
+        </BibStructured>
+        <BibStructured detector="Image" namer="ParsCit">
+            <authors>
+                <author>A Nilsson</author>
+                <author>F Estrada</author>
+            </authors>
+            <title>
+                Criminality and Life-Chances. A Longitudinal Study of Crime, Childhood Circumstances and Living Conditions up to Age 48.
+            </title>
+            <date>2009</date>
+            <pages>3</pages>
+            <institution>
+                Stockholm University, Department of Criminology Report Series
+            </institution>
+            <location>Stockholm: Stockholm University.</location>
+            <marker>Nilsson, Estrada, 2009</marker>
+            <rawString coordinates="154 2427 1877 2573">
+                Nilsson A and Estrada F (2009) Criminality and Life-Chances. A Longitudinal Study of Crime, Childhood Circumstances and Living Conditions up to Age 48. Stockholm University, Department of Criminology Report Series 2009: 3. Stockholm: Stockholm University.
+            </rawString>
+        </BibStructured>
+        <BibStructured detector="ParsCit" namer="ParsCit">
+            <title>
+                PISA 2006: Science Competencies for Tomorrow’s World Volume ].
+            </title>
+            <date>2007</date>
+            <publisher>OECD.</publisher>
+            <location>Pisa</location>
+            <contexts>
+                <context citStr="(2007)" endWordPosition="162" position="1127" startWordPosition="162">
+                    blem: What’s the problem?: A longitudinal study of incomes and economic hardships among Swedish youth. Acta Sociologica 49(1): 83—102. Herttua K, Mäkelä P and Martikainen P (2008) Changes in alcohol-related mortality and its socioeconomic differences after a large reduction in alcohol prices: A natural experiment based on register data. American Journal opridemiology 168(10): 1110—1118. Keltikangas-Jarvinen L (2008) Kayttaytymistieteet ja yliopiston kolmas tehtävä [Behavioural sciences and the third role of the university]. Tieteessaandquot; tapahtuu 26(5): 37—40. Kivinen O, Hedman J and Kaipainen P (2007) From elite university to mass higher education. Educational expansion, equality of opportunity and returns to university education. Acta Sociologica 50(3): 231—247. Kivivuori J (2007) Delinquent Behaviour in Nordic Capital Cities. Scandinavian Research Council for Criminology and National Research Institute of Legal Policy, Publication 227. Helsinki: National Research Institute of Legal Policy. Kivivuori J and Lehti M (2006) The social composition of homicide in Finland, 1960—2000. Acta Sociologica 49(1): 67—82. Kivivuori J and Salmi V (2009) The challenge of special needs education in school-b
+                </context>
+            </contexts>
+            <marker>2007</marker>
+            <rawString coordinates="155 2589 1650 2627">
+                Pisa (2007) PISA 2006: Science Competencies for Tomorrow’s World Volume ]. OECD.
+            </rawString>
+        </BibStructured>
+        <BibStructured detector="Image" namer="Grobid">
+            <authors>
+                <author>H Remes</author>
+                <author>P Martikainen</author>
+                <author>T Valkonen</author>
+            </authors>
+            <title>
+                Mortality inequalities by parental education among children and young adults in Finland
+            </title>
+            <journal>Journal of Epidemiology and Community Health</journal>
+            <date>1990</date>
+            <volume>64</volume>
+            <issue>2</issue>
+            <pages>130-135</pages>
+            <rawString coordinates="155 2643 1877 2735">
+                Remes H, Martikainen P and Valkonen T (2010) Mortality inequalities by parental education among children and young adults in Finland 1990—2004. Journal of Epidemiology and Community Health 64(2): 130—135.
+            </rawString>
+        </BibStructured>
+        <BibStructured detector="Image" namer="ParsCit">
+            <authors>
+                <author>H Remes</author>
+                <author>P Martikainen</author>
+                <author>T Valkonen</author>
+            </authors>
+            <title>
+                Mortality inequalities by parental education among children and young adults in Finland 1990—2004.
+            </title>
+            <date>2010</date>
+            <journal>Journal of Epidemiology and Community Health</journal>
+            <volume>64</volume>
+            <issue>2</issue>
+            <pages>130--135</pages>
+            <marker>Remes, Martikainen, Valkonen, 2010</marker>
+            <rawString coordinates="155 2643 1877 2735">
+                Remes H, Martikainen P and Valkonen T (2010) Mortality inequalities by parental education among children and young adults in Finland 1990—2004. Journal of Epidemiology and Community Health 64(2): 130—135.
+            </rawString>
+        </BibStructured>
+        <BibStructured detector="ParsCit" namer="ParsCit">
+            <title>
+                Downloaded from asjsagepubcom at Universilael Mannheim on
+            </title>
+            <date>2016</date>
+            <marker>2016</marker>
+            <rawString coordinates="629 2868 1401 2888">
+                Downloaded from asjsagepubcom at Universilael Mannheim on November 9, 2016
+            </rawString>
+        </BibStructured>
+    </algorithm>
+    <algorithm fname="references-2.jpg" name="LOCDB Web service">
+        <BibStructured detector="Image" namer="Grobid">
+            <authors>
+                <author>K Riala</author>
+                <author>I Isohanni</author>
+                <author>J Jokelainen</author>
+                <author>A Taanila</author>
+                <author>M Isohanni</author>
+                <author>P Rasanen</author>
+            </authors>
+            <title>
+                Low educational performance is associated with drunk driving: A 31-year follow-up of the northern Finland 1966 birth cohort
+            </title>
+            <journal>Alcohol and Alcoholism</journal>
+            <date>2003</date>
+            <volume>38</volume>
+            <issue>3</issue>
+            <pages>219-323</pages>
+            <rawString coordinates="155 269 1877 414">
+                Riala K, Isohanni I, Jokelainen J, Taanila A, Isohanni M and Rasanen P (2003) Low educational performance is associated with drunk driving: A 31-year follow-up of the northern Finland 1966 birth cohort. Alcohol and Alcoholism 38(3): 219—323.
+            </rawString>
+        </BibStructured>
+        <BibStructured detector="Image" namer="Grobid">
+            <authors>
+                <author>J Ring</author>
+            </authors>
+            <title>Hem och skola, kamrater och brott</title>
+            <date>1999</date>
+            <publisher>Kriminologiska Institutionen</publisher>
+            <location>Stockholm</location>
+            <rawString coordinates="155 430 1877 514">
+                Ring J (1999) Hem och skola, kamrater och brott. Stockholm: Kriminologiska Institutionen, Stockholms Universitet.
+            </rawString>
+        </BibStructured>
+        <BibStructured detector="Image" namer="Grobid">
+            <authors>
+                <author>J Ring</author>
+                <author>R Svensson</author>
+            </authors>
+            <title>
+                Social class and criminality among young people: A study considering the effects of school achievement as a mediating factor on the basis of Swedish register and self-report data
+            </title>
+            <journal>
+                Journal of Scandinavian Studies in Criminology and Crime Prevention
+            </journal>
+            <date>2007</date>
+            <volume>8</volume>
+            <issue>2</issue>
+            <pages>210-233</pages>
+            <rawString coordinates="155 538 1877 684">
+                Ring J and Svensson R (2007) Social class and criminality among young people: A study considering the effects of school achievement as a mediating factor on the basis of Swedish register and self-report data. Journal of Scandinavian Studies in Criminology and Crime Prevention 8(2): 210—233.
+            </rawString>
+        </BibStructured>
+        <BibStructured detector="Image" namer="Grobid">
+            <authors>
+                <author>V Salmi</author>
+                <author>J Kivivuori</author>
+            </authors>
+            <title>
+                The association between social capital and juvenile crime: The role of individual and structural factors
+            </title>
+            <journal>European Journal of Criminology</journal>
+            <date>2006</date>
+            <volume>3</volume>
+            <issue>2</issue>
+            <pages>123-148</pages>
+            <rawString coordinates="157 700 1882 792">
+                Salmi V and Kivivuori J (2006) The association between social capital and juvenile crime: The role of individual and structural factors. European Journal of Criminology 3(2): 123—148.
+            </rawString>
+        </BibStructured>
+        <BibStructured detector="Image" namer="Grobid">
+            <authors>
+                <author>J Savolainen</author>
+            </authors>
+            <title>
+                Work, family, and criminal desistance: Adult social bonds in a Nordic welfare state
+            </title>
+            <journal>British Journal of Criminology</journal>
+            <date>2009</date>
+            <volume>49</volume>
+            <issue>3</issue>
+            <pages>285-304</pages>
+            <rawString coordinates="157 808 1875 900">
+                Savolainen J (2009) Work, family, and criminal desistance: Adult social bonds in a Nordic welfare state. British Journal of Criminology 49(3): 285—304.
+            </rawString>
+        </BibStructured>
+        <BibStructured detector="Image" namer="Grobid">
+            <authors>
+                <author>T Skarohamar</author>
+            </authors>
+            <title>Family dissolution and children’s criminal careers</title>
+            <journal>European Journal of Crimin-ology</journal>
+            <date>2009</date>
+            <volume>6</volume>
+            <issue>3</issue>
+            <pages>203-223</pages>
+            <rawString coordinates="157 916 1876 1008">
+                Skarohamar T (2009) Family dissolution and children’s criminal careers. European Journal of Crimin- ology 6(3): 203—223.
+            </rawString>
+        </BibStructured>
+        <BibStructured detector="Image" namer="Grobid">
+            <authors>
+                <author>T Skarohamar</author>
+                <author>K Telle</author>
+            </authors>
+            <title>
+                Life After Prison. The Relationship Between Re-Incarceration and Employment
+            </title>
+            <journal>
+                Statistics Norway Discussion Paper No. 558. Oslo: Statistics Norway
+            </journal>
+            <date>2009</date>
+            <rawString coordinates="157 1024 1879 1116">
+                Skarohamar T and Telle K (2009) Life After Prison. The Relationship Between Re-Incarceration and Employment. Statistics Norway Discussion Paper No. 558. Oslo: Statistics Norway.
+            </rawString>
+        </BibStructured>
+        <BibStructured detector="Image" namer="Grobid">
+            <authors>
+                <author>A Sourander</author>
+                <author>H Elonheimo</author>
+                <author>S Niemela</author>
+                <author>A-M Nuutila</author>
+                <author>H Helenius</author>
+                <author>L Sillanmaki</author>
+            </authors>
+            <title>
+                Childhood predictors of male criminality: A prospective population-based follow-up study from age 8 to late adolescence
+            </title>
+            <journal>
+                Journal of the American Academy of Child and Adolescent Psychiatry
+            </journal>
+            <date>2006</date>
+            <volume>45</volume>
+            <issue>5</issue>
+            <pages>578-586</pages>
+            <rawString coordinates="157 1132 1877 1278">
+                Sourander A, Elonheimo H, Niemela S, Nuutila A-M, Helenius H, Sillanmaki L, et al. (2006) Childhood predictors of male criminality: A prospective population-based follow-up study from age 8 to late adolescence. Journal of the American Academy of Child and Adolescent Psychiatry 45(5): 578—586.
+            </rawString>
+        </BibStructured>
+        <BibStructured detector="Image" namer="Grobid">
+            <authors>
+                <author>C Html Tittle</author>
+                <author>Villemez W Smith</author>
+                <author>D ; Valkonen</author>
+                <author>T Martikainen</author>
+                <author>P Jalovaara</author>
+                <author>M Koskinen</author>
+                <author>S Martelin</author>
+                <author>T Makela</author>
+                <author>P ; Wei</author>
+                <author>E</author>
+                <author>Loeber R Stouthamer-Loeber</author>
+                <author>M ; Vold</author>
+                <author>G</author>
+                <author>Bernard T Snipes</author>
+                <author>J ; Wright</author>
+                <author>B Caspi</author>
+                <author>A Mofﬁtt</author>
+                <author>T Miech</author>
+                <author>R Silva</author>
+                <author>P</author>
+            </authors>
+            <title>
+                Changes in socio-economic inequalities in mortality during an economic boom and recession among middle-aged men and women in Finland
+            </title>
+            <date>1978</date>
+            <publisher>Oxford University Press</publisher>
+            <volume>45</volume>
+            <pages>479-514</pages>
+            <rawString coordinates="155 1240 1877 2338">
+                adolescence. Journal of the American Academy of Child and Adolescent Psychiatry 45(5): 578—586. Statistics Finland (2009) Peruskoulun koulupudokkaat lukuvuosina 1999/2000—2007/2008 [Compulsory school drop-outs during years 1999/2000—2007/2008]. Available at: http://www.stat.ﬁ/til/kkesld 2007/kkesk_2007_2009-03 -1 1_tau_005.html Tittle C, Villemez W and Smith D (1978) The myth of social class and criminality: An empirical assess- ment of the empirical evidence. American Sociological Review 43(5): 643—656. Valkonen T, Martikainen P, Jalovaara M, Koskinen S, Martelin T and Makela P (2000) Changes in socio-economic inequalities in mortality during an economic boom and recession among middle- aged men and women in Finland. European Journal of Public Health 10: 274—280. Wei E, Loeber R and Stouthamer—Loeber M (2002) How many of the offspring born to teenage fathers are produced by repeat serious delinquents? Criminal Behaviour and Mental Health 12(1): 83—98. Vold G, Bernard T and Snipes J (1998) Theoretical Criminology. Oxford: Oxford University Press. Wright B, Caspi A, Mofﬁtt T, Miech R and Silva P (1999a) Reconsidering the relationship between ses and delinquency: Causation but not correlation. Criminology 37(1): 175—194. Wright B, Caspi A, Mofﬁtt T and Silva P (1999b) Low self-control, social bonds, and crime: Social causation, social selection, or both? Criminology 37(3): 479—514. Mikko Aaltonen is currently working on his doctoral thesis at the Department of Social Studies, University of Helsinki. His thesis is on socio-economic differences and intergenerational transmission in violent offending and victimization in Finland. He recently co-authored an article published in Criminology, a leading international journal in criminology.
+            </rawString>
+        </BibStructured>
+        <BibStructured detector="Image" namer="Grobid">
+            <authors>
+                <author>Statistics Finland</author>
+            </authors>
+            <title>Compulsory school drop-outs during years</title>
+            <date>1999</date>
+            <rawString coordinates="157 1294 1877 1436">
+                Statistics Finland (2009) Peruskoulun koulupudokkaat lukuvuosina 1999/2000—2007/2008 [Compulsory school drop-outs during years 1999/2000—2007/2008]. Available at: http://www.stat.ﬁ/til/kkesld 2007/kkesk_2007_2009-03 -1 1_tau_005.html
+            </rawString>
+        </BibStructured>
+        <BibStructured detector="Image" namer="Grobid">
+            <authors>
+                <author>C Tittle</author>
+                <author>W Villemez</author>
+                <author>D Smith</author>
+            </authors>
+            <title>
+                The myth of social class and criminality: An empirical assess-ment of the empirical evidence
+            </title>
+            <journal>American Sociological Review</journal>
+            <date>1978</date>
+            <volume>43</volume>
+            <issue>5</issue>
+            <pages>643-656</pages>
+            <rawString coordinates="155 1456 1876 1548">
+                Tittle C, Villemez W and Smith D (1978) The myth of social class and criminality: An empirical assess- ment of the empirical evidence. American Sociological Review 43(5): 643—656.
+            </rawString>
+        </BibStructured>
+        <BibStructured detector="Image" namer="Grobid">
+            <authors>
+                <author>T Valkonen</author>
+                <author>P Martikainen</author>
+                <author>M Jalovaara</author>
+                <author>S Koskinen</author>
+                <author>T Martelin</author>
+                <author>P Makela</author>
+            </authors>
+            <title>
+                Changes in socio-economic inequalities in mortality during an economic boom and recession among middle-aged men and women in Finland
+            </title>
+            <journal>European Journal of Public Health</journal>
+            <date>2000</date>
+            <volume>10</volume>
+            <pages>274-280</pages>
+            <rawString coordinates="155 1564 1877 1710">
+                Valkonen T, Martikainen P, Jalovaara M, Koskinen S, Martelin T and Makela P (2000) Changes in socio-economic inequalities in mortality during an economic boom and recession among middle- aged men and women in Finland. European Journal of Public Health 10: 274—280.
+            </rawString>
+        </BibStructured>
+        <BibStructured detector="Image" namer="Grobid">
+            <authors>
+                <author>E Wei</author>
+                <author>R Loeber</author>
+                <author>M ; Stouthamer-Loeber</author>
+                <author>G Vold</author>
+                <author>Bernard T Snipes</author>
+                <author>J</author>
+            </authors>
+            <title>
+                How many of the offspring born to teenage fathers are produced by repeat serious delinquents?
+            </title>
+            <journal>Criminal Behaviour and Mental Health</journal>
+            <date>1998</date>
+            <publisher>Oxford University Press</publisher>
+            <volume>12</volume>
+            <issue>1</issue>
+            <pages>83-98</pages>
+            <rawString coordinates="155 1725 1877 1871">
+                Wei E, Loeber R and Stouthamer—Loeber M (2002) How many of the offspring born to teenage fathers are produced by repeat serious delinquents? Criminal Behaviour and Mental Health 12(1): 83—98. Vold G, Bernard T and Snipes J (1998) Theoretical Criminology. Oxford: Oxford University Press.
+            </rawString>
+        </BibStructured>
+        <BibStructured detector="Image" namer="Grobid">
+            <authors>
+                <author>B Wright</author>
+                <author>A Caspi</author>
+                <author>T Mofﬁtt</author>
+                <author>R Miech</author>
+                <author>P Silva</author>
+            </authors>
+            <title>
+                Reconsidering the relationship between ses and delinquency: Causation but not correlation
+            </title>
+            <journal>Criminology</journal>
+            <date>1999</date>
+            <volume>37</volume>
+            <issue>1</issue>
+            <pages>175-194</pages>
+            <rawString coordinates="155 1887 1877 1979">
+                Wright B, Caspi A, Mofﬁtt T, Miech R and Silva P (1999a) Reconsidering the relationship between ses and delinquency: Causation but not correlation. Criminology 37(1): 175—194.
+            </rawString>
+        </BibStructured>
+        <BibStructured detector="Image" namer="Grobid">
+            <authors>
+                <author>B Wright</author>
+                <author>A Caspi</author>
+                <author>T Mofﬁtt</author>
+                <author>P Silva</author>
+            </authors>
+            <title>
+                Low self-control, social bonds, and crime: Social causation, social selection, or both?
+            </title>
+            <journal>Criminology</journal>
+            <date>1999</date>
+            <volume>37</volume>
+            <issue>3</issue>
+            <pages>479-514</pages>
+            <rawString coordinates="155 1995 1876 2087">
+                Wright B, Caspi A, Mofﬁtt T and Silva P (1999b) Low self-control, social bonds, and crime: Social causation, social selection, or both? Criminology 37(3): 479—514.
+            </rawString>
+        </BibStructured>
+        <BibStructured detector="Image" namer="Grobid">
+            <title>
+                Mikko Aaltonen is currently working on his doctoral thesis at the Department of Social Studies, University of Helsinki. His thesis is on socio-economic differences and intergenerational transmission
+            </title>
+            <rawString coordinates="155 2151 1877 2239">
+                Mikko Aaltonen is currently working on his doctoral thesis at the Department of Social Studies, University of Helsinki. His thesis is on socio-economic differences and intergenerational transmission
+            </rawString>
+        </BibStructured>
+        <BibStructured detector="Image" namer="Grobid">
+            <title>
+                in violent offending and victimization in Finland. He recently co-authored an article published in Criminology, a leading international journal in criminology
+            </title>
+            <rawString coordinates="155 2251 1877 2338">
+                in violent offending and victimization in Finland. He recently co-authored an article published in Criminology, a leading international journal in criminology.
+            </rawString>
+        </BibStructured>
+        <BibStructured detector="Image" namer="Grobid">
+            <title>
+                Janne Kivivuori is Research Director at the National Research Institute of Legal Policy and Adjunct Professor (Docent) in sociology at the University of Helsinki. His work has centred on studies of juvenile
+            </title>
+            <rawString coordinates="154 2371 1877 2459">
+                Janne Kivivuori is Research Director at the National Research Institute of Legal Policy and Adjunct Professor (Docent) in sociology at the University of Helsinki. His work has centred on studies of juvenile
+            </rawString>
+        </BibStructured>
+        <BibStructured detector="Image" namer="Grobid">
+            <title>His recent work has appeared in, among others</title>
+            <journal>
+                European Journal of Criminology and Journal of Scandinavian Studies in Criminology and Crime Prevention
+            </journal>
+            <rawString coordinates="152 2470 1876 2608">
+                delinquency and homicide. His recent work has appeared in, among others, Acta Sociologica, British Journal of Criminology, European Journal of Criminology and Journal of Scandinavian Studies in Criminology and Crime Prevention.
+            </rawString>
+        </BibStructured>
+        <BibStructured detector="Image" namer="ParsCit">
+            <title>
+                Pekka Martikainen is Professor of Demography at the Department of Social Studies,
+            </title>
+            <date>1994</date>
+            <booktitle>
+                He obtained his PhD at the London School of Economics and Political Science in
+            </booktitle>
+            <institution>University of Helsinki.</institution>
+            <marker>1994</marker>
+            <rawString coordinates="155 2641 1882 2721">
+                Pekka Martikainen is Professor of Demography at the Department of Social Studies, University of Helsinki. He obtained his PhD at the London School of Economics and Political Science in 1994.
+            </rawString>
+        </BibStructured>
+        <BibStructured detector="Image" namer="Grobid">
+            <title>
+                Pekka Martikainen is Professor of Demography at the Department of Social Studies, University of Helsinki. He obtained his PhD at the London School of Economics and Political Science
+            </title>
+            <date>1994</date>
+            <rawString coordinates="155 2641 1882 2721">
+                Pekka Martikainen is Professor of Demography at the Department of Social Studies, University of Helsinki. He obtained his PhD at the London School of Economics and Political Science in 1994.
+            </rawString>
+        </BibStructured>
+        <BibStructured detector="ParsCit" namer="ParsCit">
+            <title>
+                Downloaded from asjsagepubcom at Universitael Mannheim on
+            </title>
+            <date>2016</date>
+            <marker>2016</marker>
+            <rawString coordinates="629 2868 1401 2888">
+                Downloaded from asjsagepubcom at Universitael Mannheim on November 9, 2016
+            </rawString>
+        </BibStructured>
+    </algorithm>
+    <algorithm fname="references-0.jpg" name="LOCDB Web service">
+        <BibStructured detector="Image" namer="Grobid">
+            <title>
+                well developed that variation in crime only reﬂects risk factors related to individual behavioural propensity and continuity. More speciﬁcally, the ﬁndings point to the paramount importance of educa-tional attainment in crime causation
+            </title>
+            <rawString coordinates="154 269 1876 406">
+                so well developed that variation in crime only reﬂects risk factors related to individual behavioural propensity and continuity. More speciﬁcally, the ﬁndings point to the paramount importance of educa- tional attainment in crime causation. If not possible even sooner, efforts aimed at preventing criminal
+            </rawString>
+        </BibStructured>
+        <BibStructured detector="Image" namer="Grobid">
+            <title>
+                which the overall educational level has been rising steadily, those without qualiﬁcations are in an increasingly weak position in the labour market. This may in turn con-tribute to the increasing risk of marginalization and social exclusion for those remaining outside further education
+            </title>
+            <rawString coordinates="154 617 1878 797">
+                least in the Finnish context, in which the overall educational level has been rising steadily, those without qualiﬁcations are in an increasingly weak position in the labour market. This may in turn con- tribute to the increasing risk of marginalization and social exclusion for those remaining outside further education.
+            </rawString>
+        </BibStructured>
+        <BibStructured detector="Image" namer="Grobid">
+            <title>
+                We thank Ville Hinkkanen and Reino Siren for creating the data ﬁle and the two anonymous reviewers for their helpful comments
+            </title>
+            <rawString coordinates="155 915 1877 1004">
+                We thank Ville Hinkkanen and Reino Siren for creating the data ﬁle and the two anonymous reviewers for their helpful comments.
+            </rawString>
+        </BibStructured>
+        <BibStructured detector="Image" namer="Grobid">
+            <title>
+                We replicated this analysis using number of prior crimes rather than crime-type speciﬁc variables as a measure. This was done in order to assess whether those on more persistent criminal careers would
+            </title>
+            <rawString coordinates="159 1066 1877 1153">
+                1. We replicated this analysis using number of prior crimes rather than crime-type speciﬁc variables as a measure. This was done in order to assess whether those on more persistent criminal careers would
+            </rawString>
+        </BibStructured>
+        <BibStructured detector="Image" namer="Grobid">
+            <title>
+                We replicated this analysis using number of prior crimes rather than crime-type speciﬁc variables as a measure. This was done in order to assess whether those on more persistent criminal careers would have a particularly elevated risk compared to those with only one offence
+            </title>
+            <rawString coordinates="159 1066 1877 1253">
+                1. We replicated this analysis using number of prior crimes rather than crime-type speciﬁc variables as a measure. This was done in order to assess whether those on more persistent criminal careers would have a particularly elevated risk compared to those with only one offence. This proved to be true. Those with several offences in the past had a particularly high crime probability. However, the results
+            </rawString>
+        </BibStructured>
+        <BibStructured detector="Image" namer="Grobid">
+            <title>
+                This proved to be true. Those with several offences in the past had a particularly high crime probability. However, the results for the effects of SES variables were similar in both analyses
+            </title>
+            <rawString coordinates="206 1165 1877 1352">
+                have a particularly elevated risk compared to those with only one offence. This proved to be true. Those with several offences in the past had a particularly high crime probability. However, the results for the effects of SES variables were similar in both analyses, so we decided to keep the original crime-type speciﬁc controls.
+            </rawString>
+        </BibStructured>
+        <BibStructured detector="Image" namer="Grobid">
+            <authors>
+                <author>R ; Agnew</author>
+                <author>R Agnew</author>
+                <author>S Matthews</author>
+                <author>J Bucher</author>
+                <author>A Welcher</author>
+                <author>C Keyes</author>
+            </authors>
+            <title>
+                Foundation for a general strain theory of crime and delinquency
+            </title>
+            <journal>Youth and Society</journal>
+            <date>1992</date>
+            <volume>30</volume>
+            <issue>1</issue>
+            <pages>159-181</pages>
+            <rawString coordinates="155 1466 1876 1612">
+                Agnew R (1992) Foundation for a general strain theory of crime and delinquency. Criminology 30(1): 47—87. Agnew R, Matthews S, Bucher J, Welcher A and Keyes C (2008) Socioeconomic status, economic problems, and delinquency. Youth and Society 40(2): 159—181.
+            </rawString>
+        </BibStructured>
+        <BibStructured detector="Image" namer="Grobid">
+            <authors>
+                <author>O Backman</author>
+                <author>A Nilsson</author>
+            </authors>
+            <title>Pathways to social exclusion-a life-course study</title>
+            <journal>European Sociological Review</journal>
+            <date>2011</date>
+            <volume>26</volume>
+            <pages>107-123</pages>
+            <rawString coordinates="155 1628 1876 1720">
+                Backman O and Nilsson A (2011) Pathways to social exclusion — a life-course study. European Sociological Review 26: 107—123.
+            </rawString>
+        </BibStructured>
+        <BibStructured detector="Image" namer="Grobid">
+            <authors>
+                <author>D Bjerk</author>
+            </authors>
+            <title>
+                Measuring the relationship between youth criminal participation and household economic resources
+            </title>
+            <journal>Journal of Quantitative Criminology</journal>
+            <date>2007</date>
+            <volume>23</volume>
+            <issue>1</issue>
+            <pages>23-39</pages>
+            <rawString coordinates="155 1736 1877 1828">
+                Bjerk D (2007) Measuring the relationship between youth criminal participation and household economic resources. Journal of Quantitative Criminology 23(1): 23—39.
+            </rawString>
+        </BibStructured>
+        <BibStructured detector="Image" namer="Grobid">
+            <authors>
+                <author>S Cemkovich</author>
+                <author>Giordano P Pugh</author>
+                <author>M</author>
+            </authors>
+            <title>
+                Chronic offenders: The missing cases in self-report delinquency research
+            </title>
+            <journal>Journal of Criminal Law and Criminology</journal>
+            <date>1985</date>
+            <volume>76</volume>
+            <issue>3</issue>
+            <pages>705-732</pages>
+            <rawString coordinates="155 1844 1877 1936">
+                Cemkovich S, Giordano P and Pugh M (1985) Chronic offenders: The missing cases in self-report delinquency research. Journal of Criminal Law and Criminology 76(3): 705—732.
+            </rawString>
+        </BibStructured>
+        <BibStructured detector="Image" namer="Grobid">
+            <authors>
+                <author>M Christoffersen</author>
+                <author>K Soothill</author>
+                <author>B Francis</author>
+            </authors>
+            <title>
+                Violent life events and social disadvantage: A systematic study of the social back-ground of various kinds of lethal violence, other violent crime, suicide, and suicide attempts
+            </title>
+            <journal>
+                Journal of Scandinavian Studies in Criminology and Crime Prevention
+            </journal>
+            <date>2007</date>
+            <volume>8</volume>
+            <issue>2</issue>
+            <pages>157-184</pages>
+            <rawString coordinates="155 1952 1876 2152">
+                Christoffersen M, Soothill K and Francis B (2007) Violent life events and social disadvantage: A systematic study of the social back-ground of various kinds of lethal violence, other violent crime, suicide, and suicide attempts. Journal of Scandinavian Studies in Criminology and Crime Prevention 8(2): 157—184.
+            </rawString>
+        </BibStructured>
+        <BibStructured detector="Image" namer="Grobid">
+            <authors>
+                <author>M Christoffersen</author>
+                <author>K Soothill</author>
+                <author>B Francis</author>
+            </authors>
+            <title>
+                Violent life events and social disadvantage: A systematic study of the social back-ground of various kinds of lethal violence
+            </title>
+            <date>2007</date>
+            <rawString coordinates="155 1952 1875 2044">
+                Christoffersen M, Soothill K and Francis B (2007) Violent life events and social disadvantage: A systematic study of the social back-ground of various kinds of lethal violence, other violent crime,
+            </rawString>
+        </BibStructured>
+        <BibStructured detector="Image" namer="Grobid">
+            <title>suicide, and suicide attempts</title>
+            <journal>
+                Journal of Scandinavian Studies in Criminology and Crime Prevention
+            </journal>
+            <volume>8</volume>
+            <issue>2</issue>
+            <pages>157-184</pages>
+            <rawString coordinates="205 2060 1876 2152">
+                suicide, and suicide attempts. Journal of Scandinavian Studies in Criminology and Crime Prevention 8(2): 157—184.
+            </rawString>
+        </BibStructured>
+        <BibStructured detector="Image" namer="Grobid">
+            <authors>
+                <author>M Christoffersen</author>
+                <author>K Soothill</author>
+                <author>B Francis</author>
+            </authors>
+            <title>
+                Risk factors for a ﬁrst-time drink-driving conviction among young men: A birth cohort study of all men born in Denmark in 1966
+            </title>
+            <journal>Journal of Substance Abuse Treatment</journal>
+            <date>2008</date>
+            <volume>34</volume>
+            <issue>4</issue>
+            <pages>415-425</pages>
+            <rawString coordinates="155 2168 1877 2314">
+                Christoffersen M, Soothill K and Francis B (2008) Risk factors for a ﬁrst-time drink-driving conviction among young men: A birth cohort study of all men born in Denmark in 1966. Journal of Substance Abuse Treatment 34(4): 415—425.
+            </rawString>
+        </BibStructured>
+        <BibStructured detector="ParsCit" namer="ParsCit">
+            <authors>
+                <author>A H Sourander</author>
+                <author>S Niemela</author>
+                <author>H Helenius</author>
+            </authors>
+            <title>
+                Generic and crime type speciﬁc correlates of youth crime. A Finnish population-based study.
+            </title>
+            <date>2010</date>
+            <journal>Abuse Treatment</journal>
+            <volume>34</volume>
+            <issue>4</issue>
+            <pages>415--425</pages>
+            <note>Elonheimo</note>
+            <marker>Sourander, Niemela, Helenius, 2010</marker>
+            <rawString coordinates="155 2276 1877 2475">
+                Abuse Treatment 34(4): 415—425. Elonheimo H, Sourander A, Niemela S and Helenius H (2010) Generic and crime type speciﬁc correlates of youth crime. A Finnish population-based study. Social Psychiatry and Physiatric Epidemiology 00 (accessed 18 April 2011).
+            </rawString>
+        </BibStructured>
+        <BibStructured detector="Image" namer="Grobid">
+            <authors>
+                <author>H Elonheimo</author>
+                <author>A Sourander</author>
+                <author>S Niemela</author>
+                <author>H Helenius</author>
+            </authors>
+            <title>
+                Generic and crime type speciﬁc correlates of youth crime. A Finnish population-based study
+            </title>
+            <journal>Social Psychiatry and Physiatric Epidemiology</journal>
+            <date>2010-04</date>
+            <volume>00</volume>
+            <issue>18</issue>
+            <rawString coordinates="155 2329 1877 2475">
+                Elonheimo H, Sourander A, Niemela S and Helenius H (2010) Generic and crime type speciﬁc correlates of youth crime. A Finnish population-based study. Social Psychiatry and Physiatric Epidemiology 00 (accessed 18 April 2011).
+            </rawString>
+        </BibStructured>
+        <BibStructured detector="Image" namer="ParsCit">
+            <authors>
+                <author>G Esping-Andersen</author>
+            </authors>
+            <title>Social Foundations of Postindustrial Economies.</title>
+            <date>1999</date>
+            <publisher>University Press.</publisher>
+            <location>Oxford: Oxford</location>
+            <marker>Esping-Andersen, 1999</marker>
+            <rawString coordinates="155 2491 1877 2575">
+                Esping-Andersen G (1999) Social Foundations of Postindustrial Economies. Oxford: Oxford University Press.
+            </rawString>
+        </BibStructured>
+        <BibStructured detector="Image" namer="Grobid">
+            <authors>
+                <author>G Esping-Andersen</author>
+            </authors>
+            <title>Social Foundations of Postindustrial Economies</title>
+            <date>1999</date>
+            <publisher>Oxford University Press</publisher>
+            <location>Oxford</location>
+            <rawString coordinates="155 2491 1877 2575">
+                Esping-Andersen G (1999) Social Foundations of Postindustrial Economies. Oxford: Oxford University Press.
+            </rawString>
+        </BibStructured>
+        <BibStructured detector="Image" namer="ParsCit">
+            <authors>
+                <author>M Famworth</author>
+                <author>T Thomberry</author>
+                <author>M Krohn</author>
+                <author>A Lizotte</author>
+            </authors>
+            <title>
+                Measurement in the study of class and delinquency: Integrating theory and research.
+            </title>
+            <date>1994</date>
+            <journal>Journal of Research in Crime and Delinquency</journal>
+            <volume>31</volume>
+            <issue>1</issue>
+            <pages>32--61</pages>
+            <marker>Famworth, Thomberry, Krohn, Lizotte, 1994</marker>
+            <rawString coordinates="155 2599 1877 2745">
+                Famworth M, Thomberry T, Krohn M and Lizotte A (1994) Measurement in the study of class and delinquency: Integrating theory and research. Journal of Research in Crime and Delinquency 31(1): 32—61.
+            </rawString>
+        </BibStructured>
+        <BibStructured detector="Image" namer="Grobid">
+            <authors>
+                <author>M Famworth</author>
+                <author>T Thomberry</author>
+                <author>M Krohn</author>
+                <author>A Lizotte</author>
+            </authors>
+            <title>
+                Measurement in the study of class and delinquency: Integrating theory and research
+            </title>
+            <journal>Journal of Research in Crime and Delinquency</journal>
+            <date>1994</date>
+            <volume>31</volume>
+            <issue>1</issue>
+            <pages>32-61</pages>
+            <rawString coordinates="155 2599 1877 2745">
+                Famworth M, Thomberry T, Krohn M and Lizotte A (1994) Measurement in the study of class and delinquency: Integrating theory and research. Journal of Research in Crime and Delinquency 31(1): 32—61.
+            </rawString>
+        </BibStructured>
+        <BibStructured detector="ParsCit" namer="ParsCit">
+            <title>Downloaded from asjsagepubcom ai Universitaet</title>
+            <date>2016</date>
+            <location>Mannheim on</location>
+            <marker>2016</marker>
+            <rawString coordinates="629 2868 1401 2888">
+                Downloaded from asjsagepubcom ai Universitaet Mannheim on November 9, 2016
+            </rawString>
+        </BibStructured>
+    </algorithm>
+    <algorithm fname="references-3.jpg" name="LOCDB Web service">
+        <BibStructured detector="Image" namer="Grobid">
+            <title>
+                He has written on socio-demographic differences in mortality, and on the effects on mortality of the death of a spouse, of unemployment and of living arrangements. His current research interests include
+            </title>
+            <rawString coordinates="155 269 1876 356">
+                He has written on socio-demographic differences in mortality, and on the effects on mortality of the death of a spouse, of unemployment and of living arrangements. His current research interests include
+            </rawString>
+        </BibStructured>
+        <BibStructured detector="Image" namer="Grobid">
+            <title>
+                changes and causes of socio-economic differences in cause-speciﬁc mortality, and sources and use of care in ageing populations. He has also been involved in cross-national comparisons of health inequalities
+            </title>
+            <rawString coordinates="155 368 1882 506">
+                changes and causes of socio-economic differences in cause-speciﬁc mortality, and sources and use of care in ageing populations. He has also been involved in cross-national comparisons of health inequalities.
+            </rawString>
+        </BibStructured>
+    </algorithm>
+</LOCDBViewResults>

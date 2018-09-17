@@ -17,7 +17,9 @@ var bibliographicEntry = new SchemaObject({
         marker: String,
         comments: String,
         journal: String,
-        volume: String
+        volume: String,
+        namer: String,
+        detector: String
     },
     scanId: String,
     scanName: String,
