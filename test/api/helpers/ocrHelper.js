@@ -57,7 +57,7 @@ describe('helpers', function() {
             });
         });
 
-        describe.only('parseXMLString', function () {
+        describe('parseXMLString', function () {
             it('should return bibliographicEntries given the ocr output', function (done) {
                 fs.readFile("./test/api/data/ocr_data/ocrOutput.xml", function(err,res){
                     if(err){
