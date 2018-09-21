@@ -526,7 +526,54 @@ function convertMonograph(){
     fs.writeFileSync("./scripts/converter/analysis/ty_MONOGRAPHS_NEU.txt", monographs_neu);
 }
 
+function convertBOOK_CHAPTER(){
+    // BOOK_CHAPTER have no containerTitle
+    // They are really just chapters but with also the PPNs as identifiers
+    // CONVERT PPN to SWB PPN
+    // no page numbers given :(
+    var chapters = JSON.parse(fs.readFileSync('./scripts/converter/analysis/ty_BOOK_CHAPTER.txt'));
+    var chapters_neu = [];
 
+    for(var br of chapters){
+        var type = enums.resourceType.bookChapter;
+        var status = "OLD_" + br.status;
+        //var pages = br.number.split("pp. ")[1] ? br.number.split("pp. ")[1] : br.number.split("p. ")[1];
+
+        var child = new BibliographicResource({
+            _id: br._id,
+            status: status, // Eventually we need to map this somehow
+            parts: br.parts,
+            type: type
+        });
+
+        child.setTitleForType(type, br.title);
+        child.setSubtitleForType(type, br.subtitle);
+        child.setEditionForType(type, br.edition);
+        //child.setNumberForType(type, this.number);
+
+        child.setContributorsForType(type, br.contributors);
+        child.setPublicationDateForType(type, br.publicationYear);
+
+
+
+        // now we split the identifiers according to the hierarchy
+        var identifiers = [];
+        for (var identifier of br.identifiers) {
+            if (identifier.scheme == enums.identifier.swbPpn || identifier.scheme == "PPN") {
+                identifier.scheme = enums.identifier.swbPpn;
+            }
+            identifiers.push(identifier);
+        }
+
+        child.setIdentifiersForType(type, identifiers);
+
+        chapters_neu.push([child]);
+    }
+
+    console.log(chapters_neu.flatten().length);
+    chapters_neu = JSON.stringify(chapters_neu, null, 2);
+    fs.writeFileSync("./scripts/converter/analysis/ty_BOOK_CHAPTERS_NEU.txt", chapters_neu);
+}
 
 function convertAufsatzsammlung() {
     // There is only one example --> easy
@@ -651,32 +698,144 @@ function typeAnalysis(path){
 
 }
 
-function convert(path){
-    var data_old = require(path);
-    var data_new = []
-    console.log(data_old.length);
-    for(var br of data_old){
-        var schemedBr = new BibliographicResourceOld(br);
-        var newBrs = schemedBr.convertToNewScheme();
 
-        console.log(newBrs[0].getErrors());
-        console.log(schemedBr.getErrors());
-        data_new.push(newBrs);
-    }
-    fs.writeFile("./test.txt", data_new, function(err) {
-        if (err) {
-            console.log(err);
-        }
+function convertEditedBook(){
+    var brs = JSON.parse(fs.readFileSync('./scripts/converter/analysis/ty_Edited book.txt'));
+    // es handelt sich hierbei nur um eine resource
+    var br = brs[0]
+    var br_neu = []
+
+    var parentType = enums.resourceType.editedBook;
+    var childType = enums.resourceType.bookChapter;
+    var status = "OLD_" + br.status;
+    var pages = br.number.split("pp. ")[1];
+
+    var child = new BibliographicResource({
+        _id: br._id,
+        //identifiers: this.identifiers, // Here we definitely need to distinguish between parent and child
+        status: status, // Eventually we need to map this somehow
+        parts: br.parts,
+        type: childType
     });
-    return;
-};
 
+    var firstPage = pages.split("-")[0];
+    var lastPage = pages.split("-")[1];
+
+    child.setResourceEmbodimentsForType(childType, [new ResourceEmbodiment({firstPage: firstPage, lastPage: lastPage})]);
+
+
+    child.setTitleForType(childType, br.title);
+    child.setSubtitleForType(childType, br.subtitle);
+    child.setEditionForType(childType, br.edition);
+
+    child.setContributorsForType(childType, br.contributors);
+    child.setPublicationDateForType(childType, br.publicationYear);
+
+    if (br.containerTitle){
+        var parent = new BibliographicResource({type: parentType, status: status});
+        parent.setTitleForType(parentType, br.containerTitle)
+
+
+        // now we split the identifiers according to the hierarchy
+        var parentIdentifiers = [];
+        var childIdentifiers = [];
+        for (var identifier of br.identifiers) {
+            // if there exists a series identifier, than the series should be the parent independent
+            // of the resource type
+            if (identifier.scheme == enums.identifier.issn) {
+                parentIdentifiers.push(identifier);
+                // if there exists a zdb identifier, than it should be the parent identifier
+            }
+            /*                    else if (identifier.scheme == enums.identifier.zdbId) {
+             parentIdentifiers.push(identifier);
+             // now we are dealing with a book chapter?
+             }*/
+            else if (identifier.scheme == enums.identifier.swbPpn || identifier.scheme == "PPN") {
+                identifier.scheme = enums.identifier.swbPpn;
+                parentIdentifiers.push(identifier);
+            } else if (identifier.scheme == enums.identifier.isbn) {
+                parentIdentifiers.push(identifier);
+            } else {
+                // everything else should belong to the child
+                childIdentifiers.push(identifier);
+            }
+        }
+        child.setIdentifiersForType(childType, childIdentifiers);
+        parent.setIdentifiersForType(parentType, parentIdentifiers);
+
+        // generate new id for new parent
+        parent._id = mongoose.Types.ObjectId().toString();
+        child.partOf = parent._id;
+        br_neu.push([child, parent]);
+    }
+
+
+    console.log(br_neu.flatten().length);
+    br_neu = JSON.stringify(br_neu, null, 2);
+    fs.writeFileSync("./scripts/converter/analysis/ty_Edited book_NEU.txt", br_neu);
+}
+
+
+function convertComponent(){
+    // COMPONENTS seem to be videos or music or similar
+    // 2 have the same container title
+    // There is no part of
+
+    var components = JSON.parse(fs.readFileSync('./scripts/converter/analysis/ty_Component.txt'));
+    var groups = groupBy(components, "containerTitle");
+    var groupsPartOf = groupBy(components, "partOf");
+
+    var components_neu = [];
+
+    for(var br of components){
+        var type = enums.resourceType.bookChapter;
+        var status = "OLD_" + br.status;
+        //var pages = br.number.split("pp. ")[1] ? br.number.split("pp. ")[1] : br.number.split("p. ")[1];
+
+        var child = new BibliographicResource({
+            _id: br._id,
+            status: status, // Eventually we need to map this somehow
+            parts: br.parts,
+            type: type
+        });
+
+        child.setTitleForType(type, br.title);
+        child.setSubtitleForType(type, br.subtitle);
+        child.setEditionForType(type, br.edition);
+        //child.setNumberForType(type, this.number);
+
+        child.setContributorsForType(type, br.contributors);
+        child.setPublicationDateForType(type, br.publicationYear);
+
+
+
+        // now we split the identifiers according to the hierarchy
+        var identifiers = [];
+        for (var identifier of br.identifiers) {
+            if (identifier.scheme == enums.identifier.swbPpn || identifier.scheme == "PPN") {
+                identifier.scheme = enums.identifier.swbPpn;
+            }
+            identifiers.push(identifier);
+        }
+
+        child.setIdentifiersForType(type, identifiers);
+
+        chapters_neu.push([child]);
+    }
+
+    console.log(chapters_neu.flatten().length);
+    chapters_neu = JSON.stringify(chapters_neu, null, 2);
+    fs.writeFileSync("./scripts/converter/analysis/ty_BOOK_CHAPTERS_NEU.txt", chapters_neu);
+}
 
 //typeAnalysis('./bibliographicResources.json');
 //convertCOLLECTION();
 //convertAufsatzsammlung();
 //convertBookChapter();
-convertMonograph()
+//convertMonograph()
+// convertBOOK_CHAPTER()
+//convertEditedBook()
+convertComponent()
 //convert('./bibliographicResources.json');
 
 
