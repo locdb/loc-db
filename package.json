@@ -12,7 +12,7 @@
     "agenda": "^1.0.3",
     "agendash": "^0.4.0",
     "ajax-request": "^1.2.1",
-    "bcrypt": "^2.0.0",
+    "bcrypt": "^3.0.1",
     "cached-request": "^1.1.4",
     "cors": "^2.8.4",
     "crossref": "^1.2.1",
