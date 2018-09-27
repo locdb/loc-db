@@ -320,8 +320,6 @@ var br = mongoose.model('br', brSchema)
         ,stream = br.synchronize()
         ,count = 0;
 
-stream = br.synchronize();
-
 stream.on('data', function(err, doc){
     count++;
 });
