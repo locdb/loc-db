@@ -10,6 +10,7 @@ var config = {
     },
     PATHS: {
         UPLOAD: (process.env.LOCDB_UPLOAD_PATH || "./test/api/data/ocr_data/"),
+        TESTSTRING: 'this is nonesense',
     }
 };
 
