@@ -110,7 +110,7 @@ Setup.prototype.loadSearchData = function(cb){
 Setup.prototype.mockOCRFileUpload = function(){
     nock("https://locdb-dev.opendfki.de")
         .post('/fileupload/')
-        .replyWithFile(200, __dirname + '/data/ocr_data/ocr_output_v2.xml')
+        .replyWithFile(200, __dirname + '/data/ocr_data/ocrOutput.xml')
         .persist();
 };
 
@@ -131,7 +131,7 @@ Setup.prototype.mockOCRGetImage = function(){
 Setup.prototype.mockGVI = function(){
     nock("http://gvi.bsz-bw.de")
         .get('/solr/GVI/select')
-        .query({q: 'allfields:test', rows:5, wt:'json'})
+        .query({q: 'allfields:test', rows:10, wt:'json'})
         .replyWithFile(200, __dirname + '/data/gvi/queryTest.txt')
         .persist();
 };

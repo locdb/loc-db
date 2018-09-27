@@ -205,6 +205,7 @@ describe('controllers', function () {
         });
 
         describe('GET /fetchFeeds', function() {
+            this.timeout(4000);
             it('should fetch the new feeds related to the users subscriptions', function (done) {
                 dummyUser
                     .get('/fetchFeeds')

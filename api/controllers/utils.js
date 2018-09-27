@@ -4,6 +4,8 @@
 'use strict';
 const logger = require('./../util/logger.js');
 const solrHelper = require('./../helpers/solrHelper').createSolrHelper();
+const crossrefHelper = require('./../helpers/crossrefHelper').createCrossrefHelper();
+const swbHelper = require('./../helpers/swbHelper').createSwbHelper();
 
 
 function log(req, res){
@@ -19,7 +21,7 @@ function log(req, res){
     return response.json({message: "Logging suceeded."});
 }
 
-function get(req, res){
+function getK10Plus(req, res){
     var response = res;
     var query = req.swagger.params.query.value;
     solrHelper.queryK10plusByQueryString(query, function(err,res){
@@ -30,11 +32,52 @@ function get(req, res){
         logger.log(res);
         return response.json(res);
     });
+}
 
+function getGVI(req, res){
+    var response = res;
+    var query = req.swagger.params.query.value;
+    solrHelper.queryGVIByQueryString(query, function(err,res){
+        if(err){
+            logger.error(err);
+            return response.json(err);
+        }
+        logger.log(res);
+        return response.json(res);
+    });
+}
+
+function getCrossref(req, res){
+    var response = res;
+    var query = req.swagger.params.query.value;
+    crossrefHelper.query(query, function(err,res){
+        if(err){
+            logger.error(err);
+            return response.json(err);
+        }
+        logger.log(res);
+        return response.json(res);
+    });
+}
+
+function getSWB(req, res){
+    var response = res;
+    var query = req.swagger.params.query.value;
+    swbHelper.queryByQueryString(query, function(err,res){
+        if(err){
+            logger.error(err);
+            return response.json(err);
+        }
+        logger.log(res);
+        return response.json(res);
+    });
 }
 
 
 module.exports = {
     log: log,
-    get: get
+    getK10Plus: getK10Plus,
+    getGVI: getGVI,
+    getCrossref: getCrossref,
+    getSWB: getSWB
 };

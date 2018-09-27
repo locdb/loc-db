@@ -35,20 +35,20 @@ SuggestionHelper.prototype.sort= function(query, suggestions, callback){
     });
 };
 
-
+/** As we are currently using Levensthein to rank, we need to invert the ranking **/
 SuggestionHelper.prototype.compare = function(parentChildA,parentChildB){
 
-    function getMaxScore(parentChild){
+    function getMinScore(parentChild){
         var scores = [];
         for(var brScore of parentChild){
             scores.push(brScore.score);
         }
-        return Math.max.apply(Math, scores);;
+        return Math.min.apply(Math, scores);
 
     };
 
-    var scoreA = getMaxScore(parentChildA);
-    var scoreB = getMaxScore(parentChildB);
+    var scoreA = getMinScore(parentChildA);
+    var scoreB = getMinScore(parentChildB);
 
     if(scoreA == scoreB)
         return 0;
@@ -107,6 +107,8 @@ SuggestionHelper.prototype.getExternalSuggestionsByDOI = function(doi, cb){
             function (callback) {
                 crossrefHelper.queryByDOI(doi, function (err, res) {
                     if (err) {
+                        err.message = "[Crossref DOI]: " + doi + "; " + err.message;
+                        logger.error(err);
                         return callback(err, null);
                     }
                     for(var br of res){
@@ -127,6 +129,8 @@ SuggestionHelper.prototype.getExternalSuggestionsByQueryString = function(query,
             function (callback) {
                 swbHelper.queryByQueryString(query, function (err, res) {
                     if (err) {
+                        err.message = "[SWB] " + err.message;
+                        logger.error(err);
                         return callback(err, null);
                     }
                     for(var parentChild of res){
@@ -140,6 +144,8 @@ SuggestionHelper.prototype.getExternalSuggestionsByQueryString = function(query,
             function (callback) {
                 solrHelper.queryGVIByQueryString(query, function (err, res) {
                     if (err) {
+                        err.message = "[GVI] Query:" + query + "; " + err.message;
+                        logger.error(err);
                         return callback(err, null);
                     }
                     for(var parentChild of res){
@@ -153,6 +159,8 @@ SuggestionHelper.prototype.getExternalSuggestionsByQueryString = function(query,
             function (callback) {
                 solrHelper.queryK10plusByQueryString(query, function (err, res) {
                     if (err) {
+                        err.message = "[K10Plus] Query:" + query + "; " + err.message;
+                        logger.error(err);
                         return callback(err, null);
                     }
                     for(var parentChild of res){
@@ -166,6 +174,8 @@ SuggestionHelper.prototype.getExternalSuggestionsByQueryString = function(query,
             function (callback) {
                 crossrefHelper.query(query, function (err, res) {
                     if (err) {
+                        err.message = "[Crossref] Query:" + query + "; " + err.message;
+                        logger.error(err);
                         return callback(err, null);
                     }
                     for(var parentChild of res){

@@ -146,7 +146,7 @@ CrossrefHelper.prototype.queryReferences = function(doi, query, callback){
  */
 CrossrefHelper.prototype.queryByDOI = function(doi, callback){
     var self = this;
-    crossref.work(doi, (err, obj, nextOpts, done) => {
+    crossref.work(doi + "?" + "mailto=anne@informatik.uni-mannheim.de", (err, obj, nextOpts, done) => {
         if (err) {
             logger.error(err);
             return callback(err, null);
@@ -183,6 +183,10 @@ CrossrefHelper.prototype.parseObjects = function(objects, callback){
             });
         }
     }, function(err, results) {
+        if(err){
+            logger.error(err);
+            return callback(err, results);
+        }
         return callback(null, results);
     });
 };

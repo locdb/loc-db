@@ -260,17 +260,51 @@ describe('controllers', function() {
 
           it('should not update the bibliographicResource', function(done){
               // add illegal property to data
-              data = data.toObject();
-              data.test = "Test";
+              dataCopy = data.toObject();
+              dataCopy.test = "Test";
               agent
                   .put('/bibliographicResources/' + id)
-                  .send(data)
+                  .send(dataCopy)
                   .set('Accept', 'application/json')
                   .expect('Content-Type', /json/)
                   .expect(200)
                   .end(function(err, res){
                       should.not.exist(err);
-                      res.body.should.not.containDeepOrdered(data);
+                      res.body.should.not.containDeepOrdered(dataCopy);
+                      done();
+                  });
+          });
+
+          it('it should not update the bibliographicResource because we have an invalid id', function(done){
+              // add illegal property to data
+              dataCopy = data.toObject();
+              dataCopy._id = "Invalid id";
+              agent
+                  .put('/bibliographicResources/' + id)
+                  .send(dataCopy)
+                  .set('Accept', 'application/json')
+                  .expect('Content-Type', /json/)
+                  .expect(400)
+                  .end(function(err, res){
+                      should.not.exist(err);
+                      res.body.should.not.containDeepOrdered(dataCopy);
+                      done();
+                  });
+          });
+
+          it('it should not update the bibliographicResource because we have an invalid partOf', function(done){
+              // add illegal property to data
+              dataCopy = data.toObject();
+              dataCopy.partOf = "Invalid id";
+              agent
+                  .put('/bibliographicResources/' + id)
+                  .send(dataCopy)
+                  .set('Accept', 'application/json')
+                  .expect('Content-Type', /json/)
+                  .expect(400)
+                  .end(function(err, res){
+                      should.not.exist(err);
+                      res.body.should.not.containDeepOrdered(dataCopy);
                       done();
                   });
           });

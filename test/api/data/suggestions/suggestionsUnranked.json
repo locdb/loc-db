@@ -1,0 +1,2098 @@
+[
+  [
+    {
+      "journalArticle_identifiers": [
+        {
+          "literalValue": "10.1007/s11069-017-2767-9",
+          "scheme": "DOI"
+        },
+        {
+          "literalValue": "http://dx.doi.org/10.1007/s11069-017-2767-9",
+          "scheme": "URI"
+        },
+        {
+          "literalValue": "1991125062",
+          "scheme": "ID_K10PLUS"
+        }
+      ],
+      "type": "JOURNAL_ARTICLE",
+      "journalArticle_title": "Modeling groundwater fluctuations by three different evolutionary neural network techniques using hydroclimatic data",
+      "journalArticle_contributors": [
+        {
+          "roleType": "AUTHOR",
+          "heldBy": {
+            "givenName": "Ozgur",
+            "familyName": "Kisi"
+          }
+        },
+        {
+          "roleType": "AUTHOR",
+          "heldBy": {
+            "givenName": "Meysam",
+            "familyName": "Alizamir"
+          }
+        },
+        {
+          "roleType": "AUTHOR",
+          "heldBy": {
+            "givenName": "Mohammad",
+            "familyName": "Zounemat-Kermani"
+          }
+        }
+      ],
+      "journalArticle_publicationDate": "2017-01-01T00:00:00.000Z"
+    },
+    {
+      "journal_identifiers": [
+        {
+          "literalValue": "0921-030X",
+          "scheme": "ISSN"
+        }
+      ],
+      "journalIssue_identifiers": [
+        {
+          "literalValue": "1991125062",
+          "scheme": "ID_K10PLUS"
+        }
+      ],
+      "type": "JOURNAL_ISSUE",
+      "journal_title": "Natural hazards : journal of the International Society for the Prevention and Mitigation of Natural Hazards",
+      "journalIssue_number": "(2017)"
+    }
+  ],
+  [
+    {
+      "journalArticle_identifiers": [
+        {
+          "literalValue": "10.1007/s11069-017-2767-9",
+          "scheme": "DOI"
+        },
+        {
+          "literalValue": "http://dx.doi.org/10.1007/s11069-017-2767-9",
+          "scheme": "URI"
+        },
+        {
+          "literalValue": "http://search.proquest.com/docview/1889308746",
+          "scheme": "URI"
+        },
+        {
+          "literalValue": "1993101748",
+          "scheme": "ID_K10PLUS"
+        }
+      ],
+      "type": "JOURNAL_ARTICLE",
+      "journalArticle_title": "Modeling groundwater fluctuations by three different evolutionary neural network techniques using hydroclimatic data",
+      "journalArticle_contributors": [
+        {
+          "roleType": "AUTHOR",
+          "heldBy": {
+            "givenName": "Ozgur",
+            "familyName": "Kisi"
+          }
+        },
+        {
+          "roleType": "AUTHOR",
+          "heldBy": {
+            "givenName": "Meysam",
+            "familyName": "Alizamir"
+          }
+        },
+        {
+          "roleType": "AUTHOR",
+          "heldBy": {
+            "givenName": "Mohammad",
+            "familyName": "Zounemat-Kermani"
+          }
+        }
+      ],
+      "journalArticle_publicationDate": "2017-01-01T00:00:00.000Z"
+    },
+    {
+      "journal_identifiers": [
+        {
+          "literalValue": "0921-030X",
+          "scheme": "ISSN"
+        }
+      ],
+      "journalIssue_identifiers": [
+        {
+          "literalValue": "1993101748",
+          "scheme": "ID_K10PLUS"
+        }
+      ],
+      "type": "JOURNAL_ISSUE",
+      "journal_title": "Natural hazards : journal of the International Society for the Prevention and Mitigation of Natural Hazards",
+      "journalIssue_number": "Vol. 87, No. 1 (2017), p. 367"
+    }
+  ],
+  [
+    {
+      "journalArticle_identifiers": [
+        {
+          "literalValue": "10.1007/s10836-017-5652-2",
+          "scheme": "DOI"
+        },
+        {
+          "literalValue": "http://dx.doi.org/10.1007/s10836-017-5652-2",
+          "scheme": "URL_CROSSREF"
+        }
+      ],
+      "type": "JOURNAL_ARTICLE",
+      "journalArticle_title": "Power-Aware Optimization of SoC Test Schedules Using Voltage and Frequency Scaling",
+      "journalArticle_subtitle": "",
+      "journalArticle_contributors": [
+        {
+          "roleType": "AUTHOR",
+          "heldBy": {
+            "givenName": "Vijay",
+            "familyName": "Sheshadri"
+          }
+        },
+        {
+          "roleType": "AUTHOR",
+          "heldBy": {
+            "givenName": "Vishwani D.",
+            "familyName": "Agrawal"
+          }
+        },
+        {
+          "roleType": "AUTHOR",
+          "heldBy": {
+            "givenName": "Prathima",
+            "familyName": "Agrawal"
+          }
+        },
+        {
+          "roleType": "PUBLISHER",
+          "heldBy": {
+            "nameString": "Springer Nature"
+          }
+        }
+      ],
+      "journalArticle_publicationDate": "2017-01-01T00:00:00.000Z",
+      "status": "EXTERNAL",
+      "parts": [
+        {
+          "identifiers": [
+            {
+              "literalValue": "10.1109/NOCS.2008.4492732",
+              "scheme": "DOI"
+            }
+          ],
+          "bibliographicEntryText": "Beigné E, Clermidy F, Miermont S, Vivet P (2008) Dynamic voltage and frequency scaling architecture for units integration within a GALS NoC. In: Proceeding Second ACM/IEEE international symp. networks-on-chip, pp 129–138",
+          "ocrData": {
+            "authors": [
+              ""
+            ],
+            "title": "",
+            "date": "",
+            "comments": "",
+            "journal": "",
+            "volume": ""
+          },
+          "status": "EXTERNAL"
+        },
+        {
+          "identifiers": [
+            {
+              "literalValue": "10.1109/TEST.1996.556983",
+              "scheme": "DOI"
+            }
+          ],
+          "bibliographicEntryText": "Chang J T Y, McCluskey E J (1996) Detecting delay flaws by very-low-voltage testing. In: Proceeding International test conf, pp 367–376",
+          "ocrData": {
+            "authors": [
+              ""
+            ],
+            "title": "",
+            "date": "",
+            "comments": "",
+            "journal": "",
+            "volume": ""
+          },
+          "status": "EXTERNAL"
+        },
+        {
+          "identifiers": [
+            {
+              "literalValue": "10.1109/VTEST.1996.510876",
+              "scheme": "DOI"
+            }
+          ],
+          "bibliographicEntryText": "Chang J T Y, McCluskey E J (1996) Quantitative analysis of very-low-voltage testing. In: Proceeding 14th IEEE VLSI test symp., pp 332–337",
+          "ocrData": {
+            "authors": [
+              ""
+            ],
+            "title": "",
+            "date": "",
+            "comments": "",
+            "journal": "",
+            "volume": ""
+          },
+          "status": "EXTERNAL"
+        },
+        {
+          "identifiers": [
+            {
+              "literalValue": "10.1109/ICVD.1994.282700",
+              "scheme": "DOI"
+            }
+          ],
+          "bibliographicEntryText": "Chou R M, Saluja K K, Agrawal V D (1994) Power constraint scheduling of tests. In: Proceeding 7th International conference VLSI design, pp 271–274",
+          "ocrData": {
+            "authors": [
+              ""
+            ],
+            "title": "",
+            "date": "",
+            "comments": "",
+            "journal": "",
+            "volume": ""
+          },
+          "status": "EXTERNAL"
+        },
+        {
+          "identifiers": [
+            {
+              "literalValue": "10.1109/92.585217",
+              "scheme": "DOI"
+            }
+          ],
+          "bibliographicEntryText": "Chou R M, Saluja K K, Agrawal V D (1997) Scheduling tests for VLSI systems under power constraints. IEEE Trans VLSI Syst 5(2):175–185",
+          "ocrData": {
+            "authors": [
+              "RM Chou"
+            ],
+            "title": "",
+            "date": "1997",
+            "comments": "First page: 175",
+            "journal": "IEEE Trans VLSI Syst",
+            "volume": "5"
+          },
+          "status": "EXTERNAL"
+        },
+        {
+          "identifiers": [
+            {
+              "literalValue": "10.1109/12.2260",
+              "scheme": "DOI"
+            }
+          ],
+          "bibliographicEntryText": "Craig G L, Kime C R, Saluja K K (1988) Test scheduling and control for VLSI built-in self-test. IEEE Trans Comput 37(9):1099–1109",
+          "ocrData": {
+            "authors": [
+              "GL Craig"
+            ],
+            "title": "",
+            "date": "1988",
+            "comments": "First page: 1099",
+            "journal": "IEEE Trans Comput",
+            "volume": "37"
+          },
+          "status": "EXTERNAL"
+        },
+        {
+          "identifiers": [
+            {
+              "literalValue": "10.1109/TEST.2007.4437598",
+              "scheme": "DOI"
+            }
+          ],
+          "bibliographicEntryText": "Devanathan V R, Ravikumar C P, Mehrotra R, Kamakoti V (2007) PMScan: a power-managed scan for simultaneous reduction of dynamic and leakage power during scan test. In: Proceeding International test conf., pp 1–10",
+          "ocrData": {
+            "authors": [
+              ""
+            ],
+            "title": "",
+            "date": "",
+            "comments": "",
+            "journal": "",
+            "volume": ""
+          },
+          "status": "EXTERNAL"
+        },
+        {
+          "identifiers": [
+            {
+              "literalValue": "10.1109/VTEST.2004.1299240",
+              "scheme": "DOI"
+            }
+          ],
+          "bibliographicEntryText": "Engelke P, Polian I, Renovell M, Seshadri B, Becker B (2004) The pros and cons of very-low-voltage testing: an analysis based on resistive bridging faults. In: Proceeding 22nd IEEE VLSI test symp., pp 171–178",
+          "ocrData": {
+            "authors": [
+              ""
+            ],
+            "title": "",
+            "date": "",
+            "comments": "",
+            "journal": "",
+            "volume": ""
+          },
+          "status": "EXTERNAL"
+        },
+        {
+          "identifiers": [
+            {
+              "literalValue": "10.1007/978-1-4419-0928-2",
+              "scheme": "DOI"
+            }
+          ],
+          "bibliographicEntryText": "Girard P, Nicolici N, Wen X (2010) Power-aware testing and test strategies for low power devices. Springer",
+          "ocrData": {
+            "authors": [
+              ""
+            ],
+            "title": "",
+            "date": "",
+            "comments": "",
+            "journal": "",
+            "volume": ""
+          },
+          "status": "EXTERNAL"
+        },
+        {
+          "bibliographicEntryText": "Guzdial M (2016) Introduction to computing and programming in python, 4th edn. Prentice-Hall",
+          "ocrData": {
+            "authors": [
+              ""
+            ],
+            "title": "",
+            "date": "",
+            "comments": "",
+            "journal": "",
+            "volume": ""
+          },
+          "status": "EXTERNAL"
+        },
+        {
+          "identifiers": [
+            {
+              "literalValue": "10.1109/TEST.1993.470686",
+              "scheme": "DOI"
+            }
+          ],
+          "bibliographicEntryText": "Hao H, McCluskey E J (1993) Very-low-voltage testing for weak CMOS logic ICs. In: Proceeding international test conf., pp 275–284",
+          "ocrData": {
+            "authors": [
+              ""
+            ],
+            "title": "",
+            "date": "",
+            "comments": "",
+            "journal": "",
+            "volume": ""
+          },
+          "status": "EXTERNAL"
+        },
+        {
+          "identifiers": [
+            {
+              "literalValue": "10.1142/S1469026806002052",
+              "scheme": "DOI"
+            }
+          ],
+          "bibliographicEntryText": "Harmanani H M, Salamy H A (2006) A simulated annealing algorithm for system-on-chip test scheduling with power and precedence constraints. Int J Comput Intell Appl 6(4):511–530",
+          "ocrData": {
+            "authors": [
+              "HM Harmanani"
+            ],
+            "title": "",
+            "date": "2006",
+            "comments": "First page: 511",
+            "journal": "Int J Comput Intell Appl",
+            "volume": "6"
+          },
+          "status": "EXTERNAL"
+        },
+        {
+          "identifiers": [
+            {
+              "literalValue": "10.1109/TEST.2002.1041747",
+              "scheme": "DOI"
+            }
+          ],
+          "bibliographicEntryText": "Huang Y, Reddy S M, Cheng W T, Reuter P, Mukherjee N, Tsai C C, Samman O, Zaidan Y (2002) Optimal core wrapper width selection and SOC test scheduling based on 3-D bin packing algorithm. In: Proceeding International test conference, pp 74–82",
+          "ocrData": {
+            "authors": [
+              ""
+            ],
+            "title": "",
+            "date": "",
+            "comments": "",
+            "journal": "",
+            "volume": ""
+          },
+          "status": "EXTERNAL"
+        },
+        {
+          "bibliographicEntryText": "International Technology Roadmap for Semiconductors 2008 Update Overview. http://www.itrs.net/Links/2008ITRS/Update/",
+          "ocrData": {
+            "authors": [
+              ""
+            ],
+            "title": "",
+            "date": "",
+            "comments": "",
+            "journal": "",
+            "volume": ""
+          },
+          "status": "EXTERNAL"
+        },
+        {
+          "bibliographicEntryText": "ITC 2002 SOC Benchmarking Initiative. http://www.extra.research.philips.com/itc02socbenchm",
+          "ocrData": {
+            "authors": [
+              ""
+            ],
+            "title": "",
+            "date": "",
+            "comments": "",
+            "journal": "",
+            "volume": ""
+          },
+          "status": "EXTERNAL"
+        },
+        {
+          "identifiers": [
+            {
+              "literalValue": "10.1109/VTS.2001.923464",
+              "scheme": "DOI"
+            }
+          ],
+          "bibliographicEntryText": "Iyengar V, Chakrabarty K (2001) Precedence-based, preemptive and power constrained test scheduling for system-on-chip. In: Proceeding 19th IEEE VLSI test symp., pp 368–374",
+          "ocrData": {
+            "authors": [
+              ""
+            ],
+            "title": "",
+            "date": "",
+            "comments": "",
+            "journal": "",
+            "volume": ""
+          },
+          "status": "EXTERNAL"
+        },
+        {
+          "identifiers": [
+            {
+              "literalValue": "10.1109/VTS.2002.1011146",
+              "scheme": "DOI"
+            }
+          ],
+          "bibliographicEntryText": "Iyengar V, Chakrabarty K, Marinissen E J (2002) On using rectangle packing for SOC wrapper/TAM co-optimization. In: Proceeding 20th IEEE VLSI test symp., pp 253–258",
+          "ocrData": {
+            "authors": [
+              ""
+            ],
+            "title": "",
+            "date": "",
+            "comments": "",
+            "journal": "",
+            "volume": ""
+          },
+          "status": "EXTERNAL"
+        },
+        {
+          "identifiers": [
+            {
+              "literalValue": "10.1023/A:1014916913577",
+              "scheme": "DOI"
+            }
+          ],
+          "bibliographicEntryText": "Iyengar V, Chakrabarty K, Marinissen E J (2002) Test wrapper and test access mechanism co-optimization for system-on-chip. J Electron Test Theory Appl 18:211–228",
+          "ocrData": {
+            "authors": [
+              "V Iyengar"
+            ],
+            "title": "",
+            "date": "2002",
+            "comments": "First page: 211",
+            "journal": "J Electron Test Theory Appl",
+            "volume": "18"
+          },
+          "status": "EXTERNAL"
+        },
+        {
+          "identifiers": [
+            {
+              "literalValue": "10.1109/ETS.2012.6233019",
+              "scheme": "DOI"
+            }
+          ],
+          "bibliographicEntryText": "Kavousianos X, Chakrabarty K, Jain A, Parekhji R (2012) Time-division multiplexing for testing SoCs with DVS and multiple voltage islands. In: Proceeding European test symposium, pp 1–6",
+          "ocrData": {
+            "authors": [
+              ""
+            ],
+            "title": "",
+            "date": "",
+            "comments": "",
+            "journal": "",
+            "volume": ""
+          },
+          "status": "EXTERNAL"
+        },
+        {
+          "identifiers": [
+            {
+              "literalValue": "10.1126/science.220.4598.671",
+              "scheme": "DOI"
+            }
+          ],
+          "bibliographicEntryText": "Kirkpatrick S Jr, Gelatt D, Vecchi M P (1983) Optimization by simulated annealing. Science 220 (4598):671–680",
+          "ocrData": {
+            "authors": [
+              "SJr Kirkpatrick"
+            ],
+            "title": "",
+            "date": "1983",
+            "comments": "First page: 671",
+            "journal": "Science",
+            "volume": "220"
+          },
+          "status": "EXTERNAL"
+        },
+        {
+          "identifiers": [
+            {
+              "literalValue": "10.1109/TVLSI.2003.817128",
+              "scheme": "DOI"
+            }
+          ],
+          "bibliographicEntryText": "Koranne S (2003) Design of reconfigurable access wrappers for embedded core based SoC test. IEEE Trans VLSI Syst 11(5):955–960",
+          "ocrData": {
+            "authors": [
+              "S Koranne"
+            ],
+            "title": "",
+            "date": "2003",
+            "comments": "First page: 955",
+            "journal": "IEEE Trans VLSI Syst",
+            "volume": "11"
+          },
+          "status": "EXTERNAL"
+        },
+        {
+          "bibliographicEntryText": "Larsson E (2005) Introduction to advanced system-on-chip test design and optimization. Springer",
+          "ocrData": {
+            "authors": [
+              ""
+            ],
+            "title": "",
+            "date": "",
+            "comments": "",
+            "journal": "",
+            "volume": ""
+          },
+          "status": "EXTERNAL"
+        },
+        {
+          "identifiers": [
+            {
+              "literalValue": "10.1109/ETW.2002.1029648",
+              "scheme": "DOI"
+            }
+          ],
+          "bibliographicEntryText": "Larsson E, Fujiwara H (2002) Power constrained preemptive TAM scheduling. In: Proceeding Seventh IEEE European test workshop, pp 119–126",
+          "ocrData": {
+            "authors": [
+              ""
+            ],
+            "title": "",
+            "date": "",
+            "comments": "",
+            "journal": "",
+            "volume": ""
+          },
+          "status": "EXTERNAL"
+        },
+        {
+          "bibliographicEntryText": "Larsson E, Peng Z (2002) An integrated framework for the design and optimization of SOC test solutions. J Electron Test Theory Appl Spec Issue Plug-and-Play Test Autom System-On-Chip 18:385–400",
+          "ocrData": {
+            "authors": [
+              "E Larsson"
+            ],
+            "title": "",
+            "date": "2002",
+            "comments": "First page: 385",
+            "journal": "J Electron Test Theory Appl Spec Issue Plug-and-Play Test Autom System-On-Chip",
+            "volume": "18"
+          },
+          "status": "EXTERNAL"
+        },
+        {
+          "identifiers": [
+            {
+              "literalValue": "10.1109/TEST.2001.966731",
+              "scheme": "DOI"
+            }
+          ],
+          "bibliographicEntryText": "Li J C M, Tseng C W, McCluskey E J (2001) Testing for resistive opens and stuck opens. In: Proceeding International test conf., pp 1049–1058",
+          "ocrData": {
+            "authors": [
+              ""
+            ],
+            "title": "",
+            "date": "",
+            "comments": "",
+            "journal": "",
+            "volume": ""
+          },
+          "status": "EXTERNAL"
+        },
+        {
+          "bibliographicEntryText": "Marinissen E J (2013) Private communication",
+          "ocrData": {
+            "authors": [
+              ""
+            ],
+            "title": "",
+            "date": "",
+            "comments": "",
+            "journal": "",
+            "volume": ""
+          },
+          "status": "EXTERNAL"
+        },
+        {
+          "bibliographicEntryText": "Millican S K, Saluja K K (2013) 3D-IC benchmarks. http://3dsocbench.ece.wisc.edu/ [Online: accessed 03-Jan-2014]",
+          "ocrData": {
+            "authors": [
+              ""
+            ],
+            "title": "",
+            "date": "",
+            "comments": "",
+            "journal": "",
+            "volume": ""
+          },
+          "status": "EXTERNAL"
+        },
+        {
+          "bibliographicEntryText": "Millican S K, Saluja K K (2013) Private communication",
+          "ocrData": {
+            "authors": [
+              ""
+            ],
+            "title": "",
+            "date": "",
+            "comments": "",
+            "journal": "",
+            "volume": ""
+          },
+          "status": "EXTERNAL"
+        },
+        {
+          "identifiers": [
+            {
+              "literalValue": "10.1007/s10836-014-5473-5",
+              "scheme": "DOI"
+            }
+          ],
+          "bibliographicEntryText": "Millican S K, Saluja K K (2014) Optimal test scheduling formulation under power constraints with dynamic voltage and frequency scaling. J Electron Test Theory Appl 30(5):569–580",
+          "ocrData": {
+            "authors": [
+              "SK Millican"
+            ],
+            "title": "",
+            "date": "2014",
+            "comments": "First page: 569",
+            "journal": "J Electron Test Theory Appl",
+            "volume": "30"
+          },
+          "status": "EXTERNAL"
+        },
+        {
+          "identifiers": [
+            {
+              "literalValue": "10.1109/TEST.2000.894299",
+              "scheme": "DOI"
+            }
+          ],
+          "bibliographicEntryText": "Muresan V, Wang X, Muresan V, Vladutiu M (2000) A comparison of classical scheduling approaches in power-constrained block-test scheduling. In: Proceeding International test conference, pp 882–891",
+          "ocrData": {
+            "authors": [
+              ""
+            ],
+            "title": "",
+            "date": "",
+            "comments": "",
+            "journal": "",
+            "volume": ""
+          },
+          "status": "EXTERNAL"
+        },
+        {
+          "bibliographicEntryText": "Nicolici N (2013) Private communication",
+          "ocrData": {
+            "authors": [
+              ""
+            ],
+            "title": "",
+            "date": "",
+            "comments": "",
+            "journal": "",
+            "volume": ""
+          },
+          "status": "EXTERNAL"
+        },
+        {
+          "bibliographicEntryText": "Nose K, Sakurai T (2000) Optimization of V D D and V T H for low-power and high-speed applications. In: Proceeding Asia and South Pacific design automation conference, pp 469–474",
+          "ocrData": {
+            "authors": [
+              ""
+            ],
+            "title": "",
+            "date": "",
+            "comments": "",
+            "journal": "",
+            "volume": ""
+          },
+          "status": "EXTERNAL"
+        },
+        {
+          "identifiers": [
+            {
+              "literalValue": "10.1109/ETW.2003.1231668",
+              "scheme": "DOI"
+            }
+          ],
+          "bibliographicEntryText": "Pouget J, Larsson E, Peng Z, Flottes M L, Rouzeyre B (2003) An efficient approach to SoC wrapper design, TAM configuration and test scheduling. In: Proceeding IEEE European test workshop, pp 51–56",
+          "ocrData": {
+            "authors": [
+              ""
+            ],
+            "title": "",
+            "date": "",
+            "comments": "",
+            "journal": "",
+            "volume": ""
+          },
+          "status": "EXTERNAL"
+        },
+        {
+          "bibliographicEntryText": "Ravi S (2007) Power-aware test: challenges and solutions. In: Proceeding International test conf., pp 1–10",
+          "ocrData": {
+            "authors": [
+              ""
+            ],
+            "title": "",
+            "date": "",
+            "comments": "",
+            "journal": "",
+            "volume": ""
+          },
+          "status": "EXTERNAL"
+        },
+        {
+          "identifiers": [
+            {
+              "literalValue": "10.1109/N-SSC.2004.6500052",
+              "scheme": "DOI"
+            }
+          ],
+          "bibliographicEntryText": "Sakurai T (2004) Alpha power-law MOS model. Solid-State Circ Soc Newslett 9(4):4–5",
+          "ocrData": {
+            "authors": [
+              "T Sakurai"
+            ],
+            "title": "",
+            "date": "2004",
+            "comments": "First page: 4",
+            "journal": "Solid-State Circ Soc Newslett",
+            "volume": "9"
+          },
+          "status": "EXTERNAL"
+        },
+        {
+          "identifiers": [
+            {
+              "literalValue": "10.1109/4.52187",
+              "scheme": "DOI"
+            }
+          ],
+          "bibliographicEntryText": "Sakurai T, Newton A R (1990) Alpha-power law MOSFET model and its applications to CMOS inverter delay and other formulas. IEEE J Solid-State Circ 25(2):584–594",
+          "ocrData": {
+            "authors": [
+              "T Sakurai"
+            ],
+            "title": "",
+            "date": "1990",
+            "comments": "First page: 584",
+            "journal": "IEEE J Solid-State Circ",
+            "volume": "25"
+          },
+          "status": "EXTERNAL"
+        },
+        {
+          "identifiers": [
+            {
+              "literalValue": "10.1109/TEST.2006.297693",
+              "scheme": "DOI"
+            }
+          ],
+          "bibliographicEntryText": "Samii S, Larsson E, Chakrabarty K, Peng Z (2006) Cycle-accurate test power modeling and its application to SoC test scheduling. In: Proceeding International test conf., pp 1–10",
+          "ocrData": {
+            "authors": [
+              ""
+            ],
+            "title": "",
+            "date": "",
+            "comments": "",
+            "journal": "",
+            "volume": ""
+          },
+          "status": "EXTERNAL"
+        },
+        {
+          "identifiers": [
+            {
+              "literalValue": "10.1109/ICCAD.2005.1560045",
+              "scheme": "DOI"
+            }
+          ],
+          "bibliographicEntryText": "Sehgal A, Chakrabarty K (2005) Test planning for the effective utilization of port-scalable testers for heterogeneous core-based SoCs. In: Proceeding IEEE International conference on CAD, pp 88–93",
+          "ocrData": {
+            "authors": [
+              ""
+            ],
+            "title": "",
+            "date": "",
+            "comments": "",
+            "journal": "",
+            "volume": ""
+          },
+          "status": "EXTERNAL"
+        },
+        {
+          "identifiers": [
+            {
+              "literalValue": "10.1145/1367045.1367062",
+              "scheme": "DOI"
+            }
+          ],
+          "bibliographicEntryText": "Sehgal A, Bahukudumbi S, Chakrabarty K (2008) Power-aware SoC test planning for effective utilization of port scalable testers. ACM Trans Des Autom Electron Syst 13(3):53–71",
+          "ocrData": {
+            "authors": [
+              "A Sehgal"
+            ],
+            "title": "",
+            "date": "2008",
+            "comments": "First page: 53",
+            "journal": "ACM Trans Des Autom Electron Syst",
+            "volume": "13"
+          },
+          "status": "EXTERNAL"
+        },
+        {
+          "bibliographicEntryText": "Sheshadri V (2014) Power-aware system-on-chip test optimization through frequency and voltage scaling. PhD thesis, Auburn University, ECE Department",
+          "ocrData": {
+            "authors": [
+              ""
+            ],
+            "title": "",
+            "date": "",
+            "comments": "",
+            "journal": "",
+            "volume": ""
+          },
+          "status": "EXTERNAL"
+        },
+        {
+          "identifiers": [
+            {
+              "literalValue": "10.1109/SOCC.2012.6398360",
+              "scheme": "DOI"
+            }
+          ],
+          "bibliographicEntryText": "Sheshadri V, Agrawal V D, Agrawal P (2012) Optimal power-constrained SoC test schedules with customizable clock rates. In: Proceeding 25th IEEE system-on-chip conference, pp 271–276",
+          "ocrData": {
+            "authors": [
+              ""
+            ],
+            "title": "",
+            "date": "",
+            "comments": "",
+            "journal": "",
+            "volume": ""
+          },
+          "status": "EXTERNAL"
+        },
+        {
+          "identifiers": [
+            {
+              "literalValue": "10.1109/VLSID.2013.199",
+              "scheme": "DOI"
+            }
+          ],
+          "bibliographicEntryText": "Sheshadri V, Agrawal V D, Agrawal P (2013) Optimum test schedule for SoC with specified clock frequencies and supply voltages. In: Proceeding 26th International conference on VLSI design, pp 267–272",
+          "ocrData": {
+            "authors": [
+              ""
+            ],
+            "title": "",
+            "date": "",
+            "comments": "",
+            "journal": "",
+            "volume": ""
+          },
+          "status": "EXTERNAL"
+        },
+        {
+          "identifiers": [
+            {
+              "literalValue": "10.1109/VLSI-SoC.2013.6673258",
+              "scheme": "DOI"
+            }
+          ],
+          "bibliographicEntryText": "Sheshadri V, Agrawal V D, Agrawal P (2013) Power-aware SoC Test optimization through dynamic voltage and frequency scaling. In: Proceeding 21st IFIP/IEEE International conf. very large scale integration (VLSI-SoC), pp 102–107",
+          "ocrData": {
+            "authors": [
+              ""
+            ],
+            "title": "",
+            "date": "",
+            "comments": "",
+            "journal": "",
+            "volume": ""
+          },
+          "status": "EXTERNAL"
+        },
+        {
+          "bibliographicEntryText": "Sheshadri V, Agrawal V D, Agrawal P (2013) Session-less SoC test scheduling with frequency scaling. In: Proceeding 22nd IEEE North atlantic test workshop (NATW)",
+          "ocrData": {
+            "authors": [
+              ""
+            ],
+            "title": "",
+            "date": "",
+            "comments": "",
+            "journal": "",
+            "volume": ""
+          },
+          "status": "EXTERNAL"
+        },
+        {
+          "identifiers": [
+            {
+              "literalValue": "10.1109/JSSC.2009.2013772",
+              "scheme": "DOI"
+            }
+          ],
+          "bibliographicEntryText": "Truong D N, Cheng W H, Mohsenin T, Yu Z, Jacobson A T, Landge G, Meeuwsen M J, Watnik C, Tran A T, Xiao Z, Work E W, Webb J W, Mejia P V, Baas B M (2009) A 167-processor computational platform in 65 nm CMOS. IEEE J Solid-State Circ 44(4):1130–1144",
+          "ocrData": {
+            "authors": [
+              "DN Truong"
+            ],
+            "title": "",
+            "date": "2009",
+            "comments": "First page: 1130",
+            "journal": "IEEE J Solid-State Circ",
+            "volume": "44"
+          },
+          "status": "EXTERNAL"
+        },
+        {
+          "bibliographicEntryText": "Venkataramani P (2014) Reducing ATE test time by voltage and frequency scaling. PhD thesis, Auburn University, ECE Department",
+          "ocrData": {
+            "authors": [
+              ""
+            ],
+            "title": "",
+            "date": "",
+            "comments": "",
+            "journal": "",
+            "volume": ""
+          },
+          "status": "EXTERNAL"
+        },
+        {
+          "identifiers": [
+            {
+              "literalValue": "10.1109/VLSID.2013.200",
+              "scheme": "DOI"
+            }
+          ],
+          "bibliographicEntryText": "Venkataramani P, Agrawal V D (2013) Reducing test time of power constrained test by optimal selection of supply voltage. In: Proceeding 26th International conference on VLSI design, pp 273–278",
+          "ocrData": {
+            "authors": [
+              ""
+            ],
+            "title": "",
+            "date": "",
+            "comments": "",
+            "journal": "",
+            "volume": ""
+          },
+          "status": "EXTERNAL"
+        },
+        {
+          "bibliographicEntryText": "Venkataramani P, Agrawal V D (2013) Test time reduction using aynchronous clocking. In: Proceeding International test conf., Paper 15.3",
+          "ocrData": {
+            "authors": [
+              ""
+            ],
+            "title": "",
+            "date": "",
+            "comments": "",
+            "journal": "",
+            "volume": ""
+          },
+          "status": "EXTERNAL"
+        },
+        {
+          "identifiers": [
+            {
+              "literalValue": "10.1109/LATW.2013.6562685",
+              "scheme": "DOI"
+            }
+          ],
+          "bibliographicEntryText": "Venkataramani P, Sindia S, Agrawal V D (2013) A test time theorem and its applications. In: Proceeding 14th IEEE Latin-American test workshop",
+          "ocrData": {
+            "authors": [
+              ""
+            ],
+            "title": "",
+            "date": "",
+            "comments": "",
+            "journal": "",
+            "volume": ""
+          },
+          "status": "EXTERNAL"
+        },
+        {
+          "identifiers": [
+            {
+              "literalValue": "10.1109/VTS.2013.6548882",
+              "scheme": "DOI"
+            }
+          ],
+          "bibliographicEntryText": "Venkataramani P, Sindia S, Agrawal V D (2013) Finding best voltage and frequency to shorten power-constrained test time. In: Proceeding 31st IEEE VLSI test symp., pp 19–24",
+          "ocrData": {
+            "authors": [
+              ""
+            ],
+            "title": "",
+            "date": "",
+            "comments": "",
+            "journal": "",
+            "volume": ""
+          },
+          "status": "EXTERNAL"
+        },
+        {
+          "identifiers": [
+            {
+              "literalValue": "10.1007/s10836-014-5447-7",
+              "scheme": "DOI"
+            }
+          ],
+          "bibliographicEntryText": "Venkataramani P, Sindia S, Agrawal V D (2014) A test time theorem and its applications. J Electron Test Theory Appl 30(2):229–236",
+          "ocrData": {
+            "authors": [
+              "P Venkataramani"
+            ],
+            "title": "",
+            "date": "2014",
+            "comments": "First page: 229",
+            "journal": "J Electron Test Theory Appl",
+            "volume": "30"
+          },
+          "status": "EXTERNAL"
+        },
+        {
+          "identifiers": [
+            {
+              "literalValue": "10.1109/ISCAS.2007.377866",
+              "scheme": "DOI"
+            }
+          ],
+          "bibliographicEntryText": "Zhao D, Huang R, Yoneda T, Fujiwara H (2007) Power-aware multi-frequency heterogeneous SoC test framework design with floor-ceiling packing. In: Proceeding IEEE ISCAS, pp 2942–2945",
+          "ocrData": {
+            "authors": [
+              ""
+            ],
+            "title": "",
+            "date": "",
+            "comments": "",
+            "journal": "",
+            "volume": ""
+          },
+          "status": "EXTERNAL"
+        },
+        {
+          "bibliographicEntryText": "Zhao D, Upadhyaya S (2003) Power constrained test scheduling with dynamically varied TAM. In: Proceeding 21st IEEE VLSI test symp., pp 273–278",
+          "ocrData": {
+            "authors": [
+              ""
+            ],
+            "title": "",
+            "date": "",
+            "comments": "",
+            "journal": "",
+            "volume": ""
+          },
+          "status": "EXTERNAL"
+        },
+        {
+          "identifiers": [
+            {
+              "literalValue": "10.1109/TED.2006.884077",
+              "scheme": "DOI"
+            }
+          ],
+          "bibliographicEntryText": "Zhao W, Cao Y (2006) New generation of predictive technology model for sub-45 nm early design exploration. IEEE Trans Electron Dev 53(11):2816–2823",
+          "ocrData": {
+            "authors": [
+              "W Zhao"
+            ],
+            "title": "",
+            "date": "2006",
+            "comments": "First page: 2816",
+            "journal": "IEEE Trans Electron Dev",
+            "volume": "53"
+          },
+          "status": "EXTERNAL"
+        },
+        {
+          "identifiers": [
+            {
+              "literalValue": "10.1109/VTEST.1993.313316",
+              "scheme": "DOI"
+            }
+          ],
+          "bibliographicEntryText": "Zorian Y (1993) A distributed control scheme for complex VLSI devices. In: Proceeding 11th IEEE VLSI test symp., pp 4–9",
+          "ocrData": {
+            "authors": [
+              ""
+            ],
+            "title": "",
+            "date": "",
+            "comments": "",
+            "journal": "",
+            "volume": ""
+          },
+          "status": "EXTERNAL"
+        },
+        {
+          "bibliographicEntryText": "Zou W, Reddy S M, Pomeranz I, Huang Y (2003) SOC Test scheduling using simulated annealing. In: Proceeding 21st IEEE VLSI test symp., pp 325–330",
+          "ocrData": {
+            "authors": [
+              ""
+            ],
+            "title": "",
+            "date": "",
+            "comments": "",
+            "journal": "",
+            "volume": ""
+          },
+          "status": "EXTERNAL"
+        }
+      ],
+      "journalArticle_embodiedAs": [
+        {
+          "firstPage": 171,
+          "lastPage": 187
+        }
+      ]
+    },
+    {
+      "journal_identifiers": [
+        {
+          "literalValue": "0923-8174",
+          "scheme": "ISSN"
+        },
+        {
+          "literalValue": "1573-0727",
+          "scheme": "ISSN"
+        }
+      ],
+      "type": "JOURNAL_ISSUE",
+      "journal_title": "Journal of Electronic Testing",
+      "journalVolume_number": "33",
+      "journalIssue_number": "2",
+      "journalIssue_contributors": [
+        {
+          "roleType": "PUBLISHER",
+          "heldBy": {
+            "nameString": "Springer Nature"
+          }
+        }
+      ],
+      "status": "EXTERNAL"
+    }
+  ],
+  [
+    {
+      "proceedingsArticle_identifiers": [
+        {
+          "literalValue": "10.1109/vlsi-soc.2013.6673258",
+          "scheme": "DOI"
+        },
+        {
+          "literalValue": "http://dx.doi.org/10.1109/vlsi-soc.2013.6673258",
+          "scheme": "URL_CROSSREF"
+        }
+      ],
+      "type": "PROCEEDINGS_ARTICLE",
+      "proceedingsArticle_title": "Power-aware SoC test optimization through dynamic voltage and frequency scaling",
+      "proceedingsArticle_subtitle": "",
+      "proceedingsArticle_contributors": [
+        {
+          "roleType": "AUTHOR",
+          "heldBy": {
+            "givenName": "Vijay",
+            "familyName": "Sheshadri"
+          }
+        },
+        {
+          "roleType": "AUTHOR",
+          "heldBy": {
+            "givenName": "Vishwani D.",
+            "familyName": "Agrawal"
+          }
+        },
+        {
+          "roleType": "AUTHOR",
+          "heldBy": {
+            "givenName": "Prathima",
+            "familyName": "Agrawal"
+          }
+        },
+        {
+          "roleType": "PUBLISHER",
+          "heldBy": {
+            "nameString": "IEEE"
+          }
+        }
+      ],
+      "proceedingsArticle_publicationDate": "2013-01-01T00:00:00.000Z",
+      "status": "EXTERNAL"
+    },
+    {
+      "proceedings_identifiers": [
+        {
+          "literalValue": "9781479905249",
+          "scheme": "ISBN"
+        }
+      ],
+      "type": "PROCEEDINGS",
+      "proceedings_title": "2013 IFIP/IEEE 21st International Conference on Very Large Scale Integration (VLSI-SoC)",
+      "proceedings_contributors": [
+        {
+          "roleType": "PUBLISHER",
+          "heldBy": {
+            "nameString": "IEEE"
+          }
+        }
+      ],
+      "status": "EXTERNAL"
+    }
+  ],
+  [
+    {
+      "proceedingsArticle_identifiers": [
+        {
+          "literalValue": "10.1109/isvdat.2014.6881089",
+          "scheme": "DOI"
+        },
+        {
+          "literalValue": "http://dx.doi.org/10.1109/isvdat.2014.6881089",
+          "scheme": "URL_CROSSREF"
+        }
+      ],
+      "type": "PROCEEDINGS_ARTICLE",
+      "proceedingsArticle_title": "Particle Swarm Optimization guided multi-frequency power-aware System-on-Chip test scheduling using window-based peak power model",
+      "proceedingsArticle_subtitle": "",
+      "proceedingsArticle_contributors": [
+        {
+          "roleType": "AUTHOR",
+          "heldBy": {
+            "givenName": "Rajit",
+            "familyName": "Karmakar"
+          }
+        },
+        {
+          "roleType": "AUTHOR",
+          "heldBy": {
+            "givenName": "Aditya",
+            "familyName": "Agarwal"
+          }
+        },
+        {
+          "roleType": "AUTHOR",
+          "heldBy": {
+            "givenName": "Santanu",
+            "familyName": "Chattopadhyay"
+          }
+        },
+        {
+          "roleType": "PUBLISHER",
+          "heldBy": {
+            "nameString": "IEEE"
+          }
+        }
+      ],
+      "proceedingsArticle_publicationDate": "2014-01-01T00:00:00.000Z",
+      "status": "EXTERNAL"
+    },
+    {
+      "proceedings_identifiers": [
+        {
+          "literalValue": "9781479940066",
+          "scheme": "ISBN"
+        },
+        {
+          "literalValue": "9781479950881",
+          "scheme": "ISBN"
+        },
+        {
+          "literalValue": "9781479940073",
+          "scheme": "ISBN"
+        }
+      ],
+      "type": "PROCEEDINGS",
+      "proceedings_title": "18th International Symposium on VLSI Design and Test",
+      "proceedings_contributors": [
+        {
+          "roleType": "PUBLISHER",
+          "heldBy": {
+            "nameString": "IEEE"
+          }
+        }
+      ],
+      "status": "EXTERNAL"
+    }
+  ],
+  [
+    {
+      "proceedingsArticle_identifiers": [
+        {
+          "literalValue": "10.1109/ats.2014.36",
+          "scheme": "DOI"
+        },
+        {
+          "literalValue": "http://dx.doi.org/10.1109/ats.2014.36",
+          "scheme": "URL_CROSSREF"
+        }
+      ],
+      "type": "PROCEEDINGS_ARTICLE",
+      "proceedingsArticle_title": "Exploit Dynamic Voltage and Frequency Scaling for SoC Test Scheduling under Thermal Constraints",
+      "proceedingsArticle_subtitle": "",
+      "proceedingsArticle_contributors": [
+        {
+          "roleType": "AUTHOR",
+          "heldBy": {
+            "givenName": "Li",
+            "familyName": "Ling"
+          }
+        },
+        {
+          "roleType": "AUTHOR",
+          "heldBy": {
+            "givenName": "Jianhui",
+            "familyName": "Jiang"
+          }
+        },
+        {
+          "roleType": "PUBLISHER",
+          "heldBy": {
+            "nameString": "IEEE"
+          }
+        }
+      ],
+      "proceedingsArticle_publicationDate": "2014-01-01T00:00:00.000Z",
+      "status": "EXTERNAL"
+    },
+    {
+      "proceedings_identifiers": [
+        {
+          "literalValue": "9781479960309",
+          "scheme": "ISBN"
+        }
+      ],
+      "type": "PROCEEDINGS",
+      "proceedings_title": "2014 IEEE 23rd Asian Test Symposium",
+      "proceedings_contributors": [
+        {
+          "roleType": "PUBLISHER",
+          "heldBy": {
+            "nameString": "IEEE"
+          }
+        }
+      ],
+      "status": "EXTERNAL"
+    }
+  ],
+  [
+    {
+      "bookChapter_identifiers": [
+        {
+          "literalValue": "10.1007/978-0-387-71819-4_9",
+          "scheme": "DOI"
+        },
+        {
+          "literalValue": "http://dx.doi.org/10.1007/978-0-387-71819-4_9",
+          "scheme": "URL_CROSSREF"
+        }
+      ],
+      "type": "BOOK_CHAPTER",
+      "bookChapter_title": "Frequency and Voltage Scaling Design",
+      "bookChapter_subtitle": "",
+      "bookChapter_contributors": [
+        {
+          "roleType": "PUBLISHER",
+          "heldBy": {
+            "nameString": "Springer US"
+          }
+        }
+      ],
+      "status": "EXTERNAL",
+      "bookChapter_embodiedAs": [
+        {
+          "firstPage": 121,
+          "lastPage": 137
+        }
+      ]
+    },
+    {
+      "editedBook_identifiers": [
+        {
+          "literalValue": "9780387718187",
+          "scheme": "ISBN"
+        }
+      ],
+      "type": "EDITED_BOOK",
+      "editedBook_title": "Low Power Methodology Manual",
+      "editedBook_contributors": [
+        {
+          "roleType": "PUBLISHER",
+          "heldBy": {
+            "nameString": "Springer US"
+          }
+        }
+      ],
+      "status": "EXTERNAL"
+    }
+  ],
+  [
+    {
+      "bookChapter_identifiers": [
+        {
+          "literalValue": "10.1007/978-0-387-71819-4_10",
+          "scheme": "DOI"
+        },
+        {
+          "literalValue": "http://dx.doi.org/10.1007/978-0-387-71819-4_10",
+          "scheme": "URL_CROSSREF"
+        }
+      ],
+      "type": "BOOK_CHAPTER",
+      "bookChapter_title": "Examples of Voltage and Frequency Scaling Design",
+      "bookChapter_subtitle": "",
+      "bookChapter_contributors": [
+        {
+          "roleType": "PUBLISHER",
+          "heldBy": {
+            "nameString": "Springer US"
+          }
+        }
+      ],
+      "status": "EXTERNAL",
+      "bookChapter_embodiedAs": [
+        {
+          "firstPage": 139,
+          "lastPage": 154
+        }
+      ]
+    },
+    {
+      "editedBook_identifiers": [
+        {
+          "literalValue": "9780387718187",
+          "scheme": "ISBN"
+        }
+      ],
+      "type": "EDITED_BOOK",
+      "editedBook_title": "Low Power Methodology Manual",
+      "editedBook_contributors": [
+        {
+          "roleType": "PUBLISHER",
+          "heldBy": {
+            "nameString": "Springer US"
+          }
+        }
+      ],
+      "status": "EXTERNAL"
+    }
+  ],
+  [
+    {
+      "proceedingsArticle_identifiers": [
+        {
+          "literalValue": "10.1145/1629911.1630039",
+          "scheme": "DOI"
+        },
+        {
+          "literalValue": "http://dx.doi.org/10.1145/1629911.1630039",
+          "scheme": "URL_CROSSREF"
+        }
+      ],
+      "type": "PROCEEDINGS_ARTICLE",
+      "proceedingsArticle_title": "On-line thermal aware dynamic voltage scaling for energy optimization with frequency/temperature dependency consideration",
+      "proceedingsArticle_subtitle": "",
+      "proceedingsArticle_contributors": [
+        {
+          "roleType": "AUTHOR",
+          "heldBy": {
+            "givenName": "Min",
+            "familyName": "Bao"
+          }
+        },
+        {
+          "roleType": "AUTHOR",
+          "heldBy": {
+            "givenName": "Alexandru",
+            "familyName": "Andrei"
+          }
+        },
+        {
+          "roleType": "AUTHOR",
+          "heldBy": {
+            "givenName": "Petru",
+            "familyName": "Eles"
+          }
+        },
+        {
+          "roleType": "AUTHOR",
+          "heldBy": {
+            "givenName": "Zebo",
+            "familyName": "Peng"
+          }
+        },
+        {
+          "roleType": "PUBLISHER",
+          "heldBy": {
+            "nameString": "ACM Press"
+          }
+        }
+      ],
+      "proceedingsArticle_publicationDate": "2009-01-01T00:00:00.000Z",
+      "status": "EXTERNAL"
+    },
+    {
+      "proceedings_identifiers": [
+        {
+          "literalValue": "9781605584973",
+          "scheme": "ISBN"
+        }
+      ],
+      "type": "PROCEEDINGS",
+      "proceedings_title": "Proceedings of the 46th Annual Design Automation Conference on ZZZ - DAC '09",
+      "proceedings_contributors": [
+        {
+          "roleType": "PUBLISHER",
+          "heldBy": {
+            "nameString": "ACM Press"
+          }
+        }
+      ],
+      "status": "EXTERNAL"
+    }
+  ],
+  [
+    {
+      "proceedingsArticle_identifiers": [
+        {
+          "literalValue": "10.1109/date.2009.5090795",
+          "scheme": "DOI"
+        },
+        {
+          "literalValue": "http://dx.doi.org/10.1109/date.2009.5090795",
+          "scheme": "URL_CROSSREF"
+        }
+      ],
+      "type": "PROCEEDINGS_ARTICLE",
+      "proceedingsArticle_title": "Process Variation Aware SRAM/Cache for aggressive voltage-frequency scaling",
+      "proceedingsArticle_subtitle": "",
+      "proceedingsArticle_contributors": [
+        {
+          "roleType": "AUTHOR",
+          "heldBy": {
+            "givenName": "A.",
+            "familyName": "Sasan"
+          }
+        },
+        {
+          "roleType": "AUTHOR",
+          "heldBy": {
+            "givenName": "H.",
+            "familyName": "Homayoun"
+          }
+        },
+        {
+          "roleType": "AUTHOR",
+          "heldBy": {
+            "givenName": "A.",
+            "familyName": "Eltawil"
+          }
+        },
+        {
+          "roleType": "AUTHOR",
+          "heldBy": {
+            "givenName": "F.",
+            "familyName": "Kurdahi"
+          }
+        },
+        {
+          "roleType": "PUBLISHER",
+          "heldBy": {
+            "nameString": "IEEE"
+          }
+        }
+      ],
+      "proceedingsArticle_publicationDate": "2009-01-01T00:00:00.000Z",
+      "status": "EXTERNAL"
+    },
+    {
+      "proceedings_identifiers": [
+        {
+          "literalValue": "9781424437818",
+          "scheme": "ISBN"
+        },
+        {
+          "literalValue": "9783981080155",
+          "scheme": "ISBN"
+        }
+      ],
+      "type": "PROCEEDINGS",
+      "proceedings_title": "2009 Design, Automation & Test in Europe Conference & Exhibition",
+      "proceedings_contributors": [
+        {
+          "roleType": "PUBLISHER",
+          "heldBy": {
+            "nameString": "IEEE"
+          }
+        }
+      ],
+      "status": "EXTERNAL"
+    }
+  ],
+  [
+    {
+      "book_identifiers": [
+        {
+          "literalValue": "http://www.isee2010.org/files/ISEE-Programm-Internet",
+          "scheme": "URI"
+        },
+        {
+          "literalValue": "(DE-601)660712733",
+          "scheme": "ID_GVI"
+        }
+      ],
+      "type": "BOOK",
+      "book_title": "Detecting data defects in material flow networks based on a fuzzy rough set (fuzzy set, rough set)",
+      "book_subtitle": "[abstract]",
+      "book_contributors": [
+        {
+          "roleType": "AUTHOR",
+          "heldBy": {
+            "givenName": "Nashida",
+            "familyName": "Barakat"
+          }
+        }
+      ],
+      "book_publicationDate": "2010-01-01T00:00:00.000Z"
+    },
+    {
+      "book_identifiers": [
+        {
+          "literalValue": "(DE-601)660712733",
+          "scheme": "ID_GVI"
+        }
+      ],
+      "type": "BOOK",
+      "book_title": "Advancing sustainability in a time of crisis : ISEE Conference 22 - 25 August 2010, Oldenburg - Bremen, Germany ; conference programme",
+      "book_number": "(2010), p. 243"
+    }
+  ],
+  [
+    {
+      "book_identifiers": [
+        {
+          "literalValue": "914928208",
+          "scheme": "OCLC_ID"
+        },
+        {
+          "literalValue": "http://www.goiam.org/images/articles/tcunion/constitution-and-bylaws/2009%20carmen%20division%20by%20laws%20signed.pdf",
+          "scheme": "URI"
+        },
+        {
+          "literalValue": "http://library.fes.de/emonos/2012.11/22564/2009carmen_division.pdf",
+          "scheme": "URI"
+        },
+        {
+          "literalValue": "(DE-602)b3kat_BV027634617",
+          "scheme": "ID_GVI"
+        }
+      ],
+      "type": "BOOK",
+      "book_title": "By-laws of the Brotherhood Railway Carmen Division",
+      "book_subtitle": "protective laws, government of joint protective boards & subordinate lodges",
+      "book_edition": "[Electronic ed.]",
+      "book_contributors": [
+        {
+          "roleType": "CORPORATE",
+          "heldBy": {
+            "nameString": "Transportation Communications Union"
+          }
+        }
+      ],
+      "book_publicationDate": "2009-01-01T00:00:00.000Z"
+    }
+  ],
+  [
+    {
+      "book_identifiers": [
+        {
+          "literalValue": "1004373838",
+          "scheme": "OCLC_ID"
+        },
+        {
+          "literalValue": "http://hdl.handle.net/10419/167594",
+          "scheme": "URI"
+        },
+        {
+          "literalValue": "https://www.econstor.eu/bitstream/10419/167594/1/%5bReview%20of%20Network%20Economics%5d%20Overcoming%20Data%20Limitations%20in%20Nonparametric%20Benchmarking%20Applying%20PCA-DEA%20to%20Natural%20Gas%20Transmission.pdf",
+          "scheme": "URI"
+        },
+        {
+          "literalValue": "(DE-601)898241162",
+          "scheme": "ID_GVI"
+        }
+      ],
+      "type": "BOOK",
+      "book_title": "Overcoming data limitations in nonparametric benchmarking",
+      "book_subtitle": "applying PCA-DEA to natural gas transmission",
+      "book_contributors": [
+        {
+          "roleType": "AUTHOR",
+          "heldBy": {
+            "givenName": "Maria",
+            "familyName": "Nieswand"
+          }
+        },
+        {
+          "roleType": "PUBLISHER",
+          "heldBy": {
+            "nameString": "ZBW"
+          }
+        },
+        {
+          "roleType": "AUTHOR",
+          "heldBy": {
+            "identifiers": [
+              {
+                "literalValue": "130260185",
+                "scheme": "GND_ID"
+              }
+            ],
+            "givenName": "Astrid",
+            "familyName": "Cullmann"
+          }
+        },
+        {
+          "roleType": "AUTHOR",
+          "heldBy": {
+            "identifiers": [
+              {
+                "literalValue": "133564223",
+                "scheme": "GND_ID"
+              }
+            ],
+            "givenName": "Anne",
+            "familyName": "Neumann"
+          }
+        }
+      ],
+      "book_publicationDate": "2010-01-01T00:00:00.000Z"
+    },
+    {
+      "book_identifiers": [
+        {
+          "literalValue": "(DE-601)898241162",
+          "scheme": "ID_GVI"
+        }
+      ],
+      "type": "BOOK",
+      "book_title": "Review of Network Economies, ISSN 1446-9022, Vol. 9, Iss. 2, pp. Article4,",
+      "book_contributors": [
+        {
+          "roleType": "PUBLISHER",
+          "heldBy": {
+            "nameString": "ZBW"
+          }
+        }
+      ]
+    }
+  ],
+  [
+    {
+      "monograph_identifiers": [
+        {
+          "literalValue": "1903228115 (print publ.)",
+          "scheme": "ISBN"
+        },
+        {
+          "literalValue": "833820403",
+          "scheme": "OCLC_ID"
+        },
+        {
+          "literalValue": "http://www.bs.uce.ac.uk/kmc/webdev/Papers/SME%20Strategic%20Networks%20-%20adobe.pdf",
+          "scheme": "URI"
+        },
+        {
+          "literalValue": "(DE-601)333483502",
+          "scheme": "ID_GVI"
+        }
+      ],
+      "type": "MONOGRAPH",
+      "monograph_title": "International and strategic networks",
+      "monograph_subtitle": "an SME perspective",
+      "monograph_contributors": [
+        {
+          "roleType": "AUTHOR",
+          "heldBy": {
+            "givenName": "Chris",
+            "familyName": "Martin"
+          }
+        },
+        {
+          "roleType": "PUBLISHER",
+          "heldBy": {
+            "nameString": "Univ. of Central England Business School, Knowledge Management Centre"
+          }
+        }
+      ],
+      "monograph_publicationDate": "2001-01-01T00:00:00.000Z"
+    }
+  ],
+  [
+    {
+      "book_identifiers": [
+        {
+          "literalValue": "https://na.theiia.org/standards-guidance/Public%20Documents/PP%20The%20Three%20Lines%20of%20Defense%20in%20Effective%20Risk%20Management%20and%20Control.pdf",
+          "scheme": "URI"
+        },
+        {
+          "literalValue": "(DE-605)HT018796987",
+          "scheme": "ID_GVI"
+        }
+      ],
+      "type": "BOOK",
+      "book_title": "The three lines of defense in effective risk management and control",
+      "book_contributors": [
+        {
+          "roleType": "CORPORATE",
+          "heldBy": {
+            "nameString": "Institute of Internal Auditors"
+          }
+        }
+      ],
+      "book_publicationDate": "2013-01-01T00:00:00.000Z"
+    }
+  ],
+  [
+    {
+      "book_identifiers": [
+        {
+          "literalValue": "931326294",
+          "scheme": "OCLC_ID"
+        },
+        {
+          "literalValue": "http://www.nuffield.ox.ac.uk/economics/papers/2013/Panel%20Data%20Demand%20-%20June%2020,%202013.pdf",
+          "scheme": "URI"
+        },
+        {
+          "literalValue": "(DE-601)756252032",
+          "scheme": "ID_GVI"
+        }
+      ],
+      "type": "BOOK",
+      "book_title": "Panel data discrete choice models of consumer demand",
+      "book_contributors": [
+        {
+          "roleType": "AUTHOR",
+          "heldBy": {
+            "givenName": "Michael P.",
+            "familyName": "Keane"
+          }
+        },
+        {
+          "roleType": "PUBLISHER",
+          "heldBy": {
+            "nameString": "Nuffield College"
+          }
+        }
+      ],
+      "book_publicationDate": "2013-01-01T00:00:00.000Z"
+    }
+  ],
+  [
+    {
+      "book_identifiers": [
+        {
+          "literalValue": "982943063",
+          "scheme": "OCLC_ID"
+        },
+        {
+          "literalValue": "http://elib.dlr.de/103875/1/2016%2C%20Seelbinder%2C%20Real-Time%20Atmospheric%20Entry%20Trajectory%20Computation%20Using%20Parametric%20Sensitivities.pdf",
+          "scheme": "URI"
+        },
+        {
+          "literalValue": "(DE-601)884600033",
+          "scheme": "ID_GVI"
+        }
+      ],
+      "type": "BOOK",
+      "book_title": "Real-time atmospheric entry trajectory computation using parametric sensitivities",
+      "book_contributors": [
+        {
+          "roleType": "AUTHOR",
+          "heldBy": {
+            "givenName": "David",
+            "familyName": "Seelbinder"
+          }
+        },
+        {
+          "roleType": "PUBLISHER",
+          "heldBy": {
+            "nameString": "[Verlag nicht ermittelbar]"
+          }
+        },
+        {
+          "roleType": "AUTHOR",
+          "heldBy": {
+            "identifiers": [
+              {
+                "literalValue": "120331497",
+                "scheme": "GND_ID"
+              }
+            ],
+            "givenName": "Christof",
+            "familyName": "Büskens"
+          }
+        }
+      ],
+      "book_publicationDate": "2016-01-01T00:00:00.000Z"
+    }
+  ],
+  [
+    {
+      "journalArticle_identifiers": [
+        {
+          "literalValue": "https://www.worldeconomics.com/Journal/Papers/The%20Data%20Quality%20Index.details?ID=672",
+          "scheme": "URI"
+        },
+        {
+          "literalValue": "(DE-601)898884357",
+          "scheme": "ID_GVI"
+        }
+      ],
+      "type": "JOURNAL_ARTICLE",
+      "journalArticle_title": "The Data Quality Index",
+      "journalArticle_publicationDate": "2017-01-01T00:00:00.000Z"
+    },
+    {
+      "journal_identifiers": [
+        {
+          "literalValue": "1474-3884",
+          "scheme": "ISSN"
+        }
+      ],
+      "journalIssue_identifiers": [
+        {
+          "literalValue": "(DE-601)898884357",
+          "scheme": "ID_GVI"
+        }
+      ],
+      "type": "JOURNAL_ISSUE",
+      "journal_title": "World economics : a journal of current economic analysis and policy",
+      "journalIssue_number": "Vol. 18, No. 2 (2017), p. 167-182"
+    }
+  ],
+  [
+    {
+      "book_identifiers": [
+        {
+          "literalValue": "838034606",
+          "scheme": "OCLC_ID"
+        },
+        {
+          "literalValue": "http://www.enelsyn.gr/papers/w13/Paper%20by%20Prof.%20German%20Alfonso%20Lopez%20Daza.pdf",
+          "scheme": "URI"
+        },
+        {
+          "literalValue": "(DE-601)641897715",
+          "scheme": "ID_GVI"
+        }
+      ],
+      "type": "BOOK",
+      "book_title": "Constitutionnalisation et protection judiciaire des droits sociaux en Amerique Latine",
+      "book_contributors": [
+        {
+          "roleType": "AUTHOR",
+          "heldBy": {
+            "givenName": "German Alfonso",
+            "familyName": "Lopez Daza"
+          }
+        },
+        {
+          "roleType": "PUBLISHER",
+          "heldBy": {
+            "nameString": "Enelsyn"
+          }
+        }
+      ],
+      "book_publicationDate": "2007-01-01T00:00:00.000Z"
+    }
+  ],
+  [
+    {
+      "book_identifiers": [
+        {
+          "literalValue": "838034606",
+          "scheme": "OCLC_ID"
+        },
+        {
+          "literalValue": "http://www.enelsyn.gr/papers/w13/Paper%20by%20Prof.%20German%20Alfonso%20Lopez%20Daza.pdf",
+          "scheme": "URI"
+        },
+        {
+          "literalValue": "(DE-602)gbv_641897715",
+          "scheme": "ID_GVI"
+        }
+      ],
+      "type": "BOOK",
+      "book_title": "Constitutionnalisation et protection judiciaire des droits sociaux en Amerique Latine",
+      "book_contributors": [
+        {
+          "roleType": "AUTHOR",
+          "heldBy": {
+            "givenName": "German Alfonso",
+            "familyName": "Lopez Daza"
+          }
+        },
+        {
+          "roleType": "PUBLISHER",
+          "heldBy": {
+            "nameString": "Enelsyn"
+          }
+        }
+      ],
+      "book_publicationDate": "2007-01-01T00:00:00.000Z"
+    }
+  ]
+]

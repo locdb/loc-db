@@ -331,7 +331,13 @@ var bibliographicResource = new SchemaObject({
         },
         pushContributorForType: function (type, value) {
             var prefix = this.getPropertyPrefixForType(type);
-            this[prefix + 'contributors'].push(value);
+            if(this[prefix + 'contributors']){
+                this[prefix + 'contributors'].push(value);
+            }else{
+                this[prefix + 'contributors'] = [];
+                this[prefix + 'contributors'].push(value);
+            }
+
         },
         getContributorsForType: function(type){
             var prefix = this.getPropertyPrefixForType(type);

@@ -709,12 +709,78 @@ paths:
           schema:
             $ref: "#/definitions/ErrorResponse"
 
-  /get:
+  /getK10Plus:
     x-swagger-router-controller: utils
     get:
       tags: [Utils]
-      description: Gets marc from k10+zentral (needed for debugging)
-      operationId: get
+      description: Gets parsed marc from k10+zentral (needed for debugging)
+      operationId: getK10Plus
+      parameters:
+        - name: query
+          in: query
+          description: The query string
+          required: false
+          type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /getCrossref:
+    x-swagger-router-controller: utils
+    get:
+      tags: [Utils]
+      description: Gets parsed data from Crossref (needed for debugging)
+      operationId: getCrossref
+      parameters:
+        - name: query
+          in: query
+          description: The query string
+          required: false
+          type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /getSWB:
+    x-swagger-router-controller: utils
+    get:
+      tags: [Utils]
+      description: Gets parsed marc from SWB (needed for debugging)
+      operationId: getSWB
+      parameters:
+        - name: query
+          in: query
+          description: The query string
+          required: false
+          type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /getGVI:
+    x-swagger-router-controller: utils
+    get:
+      tags: [Utils]
+      description: Gets parsed data from GVI (needed for debugging)
+      operationId: getGVI
       parameters:
         - name: query
           in: query
@@ -785,6 +851,7 @@ definitions:
     properties:
       _id:
         type: string
+        pattern: '^[a-f\d]{24}$'
       identifiers:
         type: array
         items:
@@ -812,8 +879,10 @@ definitions:
         type: array
         items:
           type: string
+          pattern: '^[a-f\d]{24}$'
       partOf:
         type: string
+        pattern: '^[a-f\d]{24}$'
       parts:
         type: array
         items:
@@ -831,6 +900,7 @@ definitions:
     properties:
       _id:
         type: string
+        pattern: '^[a-f\d]{24}$'
       journal_identifiers:
         type: array
         items:
@@ -1237,10 +1307,12 @@ definitions:
           $ref: "#/definitions/BibliographicEntry"
       partOf:
         type: string
+        pattern: '^[a-f\d]{24}$'
       cites:
         type: array
         items:
           type: string
+          pattern: '^[a-f\d]{24}$'
       monograph_embodiedAs:
         type: array
         items:
@@ -1388,6 +1460,7 @@ definitions:
     properties:
       _id:
         type: string
+        pattern: '^[a-f\d]{24}$'
       identifiers:
         type: array
         items:
@@ -1396,8 +1469,10 @@ definitions:
         type: string
       references:
         type: string
+        pattern: '^[a-f\d]{24}$'
       scanId:
         type: string
+        pattern: '^[a-f\d]{24}$'
       status:
         type: string
       ocrData:
@@ -1424,11 +1499,16 @@ definitions:
         type: string
       volume:
         type: string
+      namer:
+        type: string
+      detector:
+        type: string
 
   ToDo:
     properties:
       _id:
         type: string
+        pattern: '^[a-f\d]{24}$'
       journal_identifiers:
         type: array
         items:
@@ -1835,10 +1915,12 @@ definitions:
           $ref: "#/definitions/BibliographicEntry"
       partOf:
         type: string
+        pattern: '^[a-f\d]{24}$'
       cites:
         type: array
         items:
           type: string
+          pattern: '^[a-f\d]{24}$'
       monograph_embodiedAs:
         type: array
         items:
@@ -1951,6 +2033,7 @@ definitions:
     properties:
       _id:
         type: string
+        pattern: '^[a-f\d]{24}$'
       scanName:
         type: string
       xmlName:
@@ -1975,6 +2058,7 @@ definitions:
     properties:
       _id:
         type: string
+        pattern: '^[a-f\d]{24}$'
       name:
         type: string
       url:
