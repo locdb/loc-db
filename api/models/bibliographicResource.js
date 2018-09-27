@@ -1,4 +1,3 @@
-
 // The bibliographicResource model
 const mongoose = require('mongoose')
        ,Schema = mongoose.Schema
@@ -6,6 +5,7 @@ const mongoose = require('mongoose')
 const enums = require('./../schema/enum.json');
 const mongoosastic = require('mongoosastic');
 const config = require('./../../config/config');
+const logger = require('./../util/logger.js');
 
 
 const identifiersSchema = new Schema({
@@ -86,8 +86,21 @@ brSchema.plugin(mongoosastic,{
     protocol: config.SEARCHINDEX.PROTOCOL
 });
 
-
 var br = mongoose.model('br', brSchema)
-br.synchronize();
+        ,stream = br.synchronize()
+        ,count = 0;
+
+stream = br.synchronize();
+
+stream.on('data', function(err, doc){
+    count++;
+});
+stream.on('close', function(){
+    logger.log('indexed ' + count + ' documents!');
+});
+stream.on('error', function(err){
+    logger.error(err);
+});
+
 
 module.exports = br;
