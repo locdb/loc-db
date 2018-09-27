@@ -254,9 +254,9 @@ brSchema.plugin(mongoosastic,{
     protocol: config.SEARCHINDEX.PROTOCOL
 });
 
-var mongoBr = mongoose.model('br', brSchema)
-    ,stream = mongoBr.synchronize()
-    ,count = 0;
+var mongoBr = mongoose.model('br', brSchema);
+    // ,stream = mongoBr.synchronize()
+    // ,count = 0;
 
 brSchema.transformIdentifiers = function(identifiers){
     var literalValues = [];
@@ -320,15 +320,15 @@ brSchema.pre('save', function (next) {
 });
 
 
-stream.on('data', function(err, doc){
-    count++;
-});
-stream.on('close', function(){
-    logger.log('indexed ' + count + ' documents!');
-});
-stream.on('error', function(err){
-    logger.error(err);
-});
+// stream.on('data', function(err, doc){
+//     count++;
+// });
+// stream.on('close', function(){
+//     logger.log('indexed ' + count + ' documents!');
+// });
+// stream.on('error', function(err){
+//     logger.error(err);
+// });
 
 
 module.exports = {
