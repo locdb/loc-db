@@ -1,12 +1,13 @@
 'use strict';
 // The bibliographicResource model
 const mongoose = require('mongoose')
-       ,Schema = mongoose.Schema
-       ,ObjectId = Schema.ObjectId;
+    ,Schema = mongoose.Schema
+    ,ObjectId = Schema.ObjectId;
 const enums = require('./../schema/enum.json');
 const mongoosastic = require('mongoosastic');
 const config = require('./../../config/config');
-const logger = require('./../util/logger.js');
+const BibliographicResource = require('./../schema/bibliographicResource');
+const logger = require('./../util/logger');
 
 
 const identifiersSchema = new Schema({
@@ -253,72 +254,71 @@ brSchema.plugin(mongoosastic,{
     protocol: config.SEARCHINDEX.PROTOCOL
 });
 
+var mongoBr = mongoose.model('br', brSchema)
+    ,stream = mongoBr.synchronize()
+    ,count = 0;
 
+brSchema.transformIdentifiers = function(identifiers){
+    var literalValues = [];
+    for(var identifier of identifiers){
+        literalValues.push(identifier.literalValue);
+    }
+    return literalValues;
+};
 
-// brSchema.transformIdentifiers = function(identifiers){
-//     var literalValues = [];
-//     for(var identifier of identifiers){
-//         literalValues.push(identifier.literalValue);
-//     }
-//     return literalValues;
-// };
-//
-// brSchema.pre('save', function (next) {
-//     var self = this;
-//     var br = new BibliographicResource(self)
-//     var identifiers = brSchema.transformIdentifiers(br.getIdentifiersForType(br.type));
-//     var title = br.getTitleForType(br.type);
-//     var number = br.getNumberForType(br.type);
-//     var edition = br.getEditionForType(br.type);
-//     var propertyPrefix = br.getPropertyPrefixForType(br.type);
-//
-//     if(br.type === enums.resourceType.journalIssue){
-//         var volumeNumber = br.getNumberForType(enums.resourceType.journalVolume);
-//         var journalTitle = br.getTitleForType(enums.resourceType.journal);
-//         var journalIdentifiers = brSchema.transformIdentifiers(br.getIdentifiersForType(enums.resourceType.journal));
-//
-//         mongoBr.where(propertyPrefix.concat("title"), title)
-//             .where(propertyPrefix.concat("number"), number)
-//             .where(propertyPrefix.concat("edition"), edition)
-//             .all(propertyPrefix.concat("identifiers.literalValue"), identifiers)
-//             .where("journalVolume_number", volumeNumber)
-//             .where("journal_title", journalTitle)
-//             .all("journal_identifiers", journalIdentifiers)
-//             .exec(function (err, docs) {
-//                 if(err){
-//                     logger.error(err);
-//                     next();
-//                 }
-//                 if (docs.length !== 0){
-//                     logger.log('Br exists: ', docs[0]._id);
-//                     next(new Error("Br already exists."), docs[0]);
-//                 }else{
-//                     next();
-//                 }
-//             });
-//     }else{
-//         mongoBr.where(propertyPrefix.concat("title"), title)
-//             .where(propertyPrefix.concat("number"), number)
-//             .where(propertyPrefix.concat("edition"), edition)
-//             .all(propertyPrefix.concat("identifiers.literalValue"), identifiers)
-//             .exec(function (err, docs) {
-//                 if(err){
-//                     logger.error(err);
-//                     next();
-//                 }
-//                 if (docs.length !== 0){
-//                     logger.log('Br exists: ', docs[0]._id);
-//                     next(new Error("Br already exists."), docs[0]);
-//                 }else{
-//                     next();
-//                 }
-//             });
-//     }
-// }) ;
+brSchema.pre('save', function (next) {
+    var self = this;
+    var br = new BibliographicResource(self)
+    var identifiers = brSchema.transformIdentifiers(br.getIdentifiersForType(br.type));
+    var title = br.getTitleForType(br.type);
+    var number = br.getNumberForType(br.type);
+    var edition = br.getEditionForType(br.type);
+    var propertyPrefix = br.getPropertyPrefixForType(br.type);
 
-var br = mongoose.model('br', brSchema)
-        ,stream = br.synchronize()
-        ,count = 0;
+    if(br.type === enums.resourceType.journalIssue){
+        var volumeNumber = br.getNumberForType(enums.resourceType.journalVolume);
+        var journalTitle = br.getTitleForType(enums.resourceType.journal);
+        var journalIdentifiers = brSchema.transformIdentifiers(br.getIdentifiersForType(enums.resourceType.journal));
+
+        mongoBr.where(propertyPrefix.concat("title"), title)
+            .where(propertyPrefix.concat("number"), number)
+            .where(propertyPrefix.concat("edition"), edition)
+            .all(propertyPrefix.concat("identifiers.literalValue"), identifiers)
+            .where("journalVolume_number", volumeNumber)
+            .where("journal_title", journalTitle)
+            .all("journal_identifiers", journalIdentifiers)
+            .exec(function (err, docs) {
+                if(err){
+                    logger.error(err);
+                    next();
+                }
+                if (docs.length !== 0){
+                    logger.log('Br exists: ', docs[0]._id);
+                    next(new Error("Br already exists."), docs[0]);
+                }else{
+                    next();
+                }
+            });
+    }else{
+        mongoBr.where(propertyPrefix.concat("title"), title)
+            .where(propertyPrefix.concat("number"), number)
+            .where(propertyPrefix.concat("edition"), edition)
+            .all(propertyPrefix.concat("identifiers.literalValue"), identifiers)
+            .exec(function (err, docs) {
+                if(err){
+                    logger.error(err);
+                    next();
+                }
+                if (docs.length !== 0){
+                    logger.log('Br exists: ', docs[0]._id);
+                    next(new Error("Br already exists."), docs[0]);
+                }else{
+                    next();
+                }
+            });
+    }
+});
+
 
 stream.on('data', function(err, doc){
     count++;
