@@ -9,21 +9,27 @@
       "LOCDB_PORT": 3102,
       "LOCDB_DB_SCHEMA": "locdb-demo",
       "LOCDB_HOST": "locdb.bib.uni-mannheim.de",
-      "LOCDB_BASEPATH": "/demo"
+      "LOCDB_BASEPATH": "/demo",
+      "LOCDB_UPLOAD_PATH": "./../upload/",
+      "LOCDB_CACHE_PATH": "./../cache/"
     },
     "env_development": {
       "NODE_ENV": "development",
       "LOCDB_PORT": 3101,
       "LOCDB_DB_SCHEMA": "locdb-dev",
       "LOCDB_HOST": "locdb.bib.uni-mannheim.de",
-      "LOCDB_BASEPATH": "/locdb-dev"
+      "LOCDB_BASEPATH": "/locdb-dev",
+      "LOCDB_UPLOAD_PATH": "./../upload/",
+      "LOCDB_CACHE_PATH": "./../cache/"
     },
     "env_production" : {
       "NODE_ENV": "production",
       "LOCDB_PORT": 3100,
       "LOCDB_DB_SCHEMA": "locdb-prod",
       "LOCDB_HOST": "locdb.bib.uni-mannheim.de",
-      "LOCDB_BASEPATH": "/locdb"
+      "LOCDB_BASEPATH": "/locdb",
+      "LOCDB_UPLOAD_PATH": "./../upload/",
+      "LOCDB_CACHE_PATH": "./../cache/"
     },
     "env_tuebingen": {
       "NODE_ENV": "tuebingen",
@@ -42,21 +48,27 @@
       "LOCDB_PORT": 3101,
       "LOCDB_DB_SCHEMA": "locdb-dev",
       "LOCDB_HOST": "locdb.bib.uni-mannheim.de",
-      "LOCDB_BASEPATH": "/locdb-dev"
+      "LOCDB_BASEPATH": "/locdb-dev",
+      "LOCDB_UPLOAD_PATH": "./../upload/",
+      "LOCDB_CACHE_PATH": "./../cache/"
     },
     "env_production" : {
       "NODE_ENV": "production",
       "LOCDB_PORT": 3100,
       "LOCDB_DB_SCHEMA": "locdb-prod",
       "LOCDB_HOST": "locdb.bib.uni-mannheim.de",
-      "LOCDB_BASEPATH": "/locdb"
+      "LOCDB_BASEPATH": "/locdb",
+      "LOCDB_UPLOAD_PATH": "./../upload/",
+      "LOCDB_CACHE_PATH": "./../cache/"
     },
     "env_demo": {
       "NODE_ENV": "demo",
       "LOCDB_PORT": 3102,
       "LOCDB_DB_SCHEMA": "locdb-demo",
       "LOCDB_HOST": "locdb.bib.uni-mannheim.de",
-      "LOCDB_BASEPATH": "/demo"
+      "LOCDB_BASEPATH": "/demo",
+      "LOCDB_UPLOAD_PATH": "./../upload/",
+      "LOCDB_CACHE_PATH": "./../cache/"
     },
     "env_tuebingen": {
       "NODE_ENV": "tuebingen",
