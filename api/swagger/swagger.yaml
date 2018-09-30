@@ -709,6 +709,28 @@ paths:
           schema:
             $ref: "#/definitions/ErrorResponse"
 
+  /loadBibliographicResources:
+    x-swagger-router-controller: utils
+    post:
+      tags: [Utils]
+      description: Loads bibliographic resources into the database given a JSON file
+      operationId: loadBibliographicResources
+      parameters:
+        - name: file
+          in: formData
+          description: A textual file with bibliographic resources to store in the database (has to be json)
+          required: true
+          type: file
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
   /getK10Plus:
     x-swagger-router-controller: utils
     get:

@@ -6,7 +6,8 @@ const logger = require('./../util/logger.js');
 const solrHelper = require('./../helpers/solrHelper').createSolrHelper();
 const crossrefHelper = require('./../helpers/crossrefHelper').createCrossrefHelper();
 const swbHelper = require('./../helpers/swbHelper').createSwbHelper();
-
+const async = require('async');
+const mongoBr = require('./../models/bibliographicResource').mongoBr;
 
 function log(req, res){
     var response = res;
@@ -73,11 +74,35 @@ function getSWB(req, res){
     });
 }
 
+function loadBibliographicResources(req, res){
+    var file = req.swagger.params.file.value;
+    var brs = JSON.parse(file.buffer.toString('utf8'));
+    async.each(brs, function(br, cb){
+        br = new mongoBr(br);
+        br.save(function(err, result){
+            if(err){
+                logger.error(err);
+                return cb(err);
+            }else{
+                return cb(null);
+            }
+        })
+    }, function(err){
+        if(err){
+            logger.error(err);
+            return res.status(500).json(err);
+        }else{
+            return res.status(200).json("Successfully loaded BRs into DB");
+        }
+    });
+}
+
 
 module.exports = {
     log: log,
     getK10Plus: getK10Plus,
     getGVI: getGVI,
     getCrossref: getCrossref,
-    getSWB: getSWB
+    getSWB: getSWB,
+    loadBibliographicResources: loadBibliographicResources
 };
