@@ -479,7 +479,7 @@ describe('controllers', function() {
           });
       });
 
-      describe('GET /bibliographicResourcesOC', function() {
+      describe.only('GET /bibliographicResourcesOC', function() {
           it('should convert the brs in the database to OC', function (done) {
 
               agent
