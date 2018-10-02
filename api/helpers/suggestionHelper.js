@@ -307,7 +307,7 @@ SuggestionHelper.prototype.precalculateExternalSuggestionsForBE = function(be, c
             logger.error(err);
             return callback(err, null);
         }
-        self.getExternalSuggestions(queryString, 10, function (err, result) {
+        self.getExternalSuggestions(queryString, 30, function (err, result) {
             if (err) {
                 logger.error(err);
                 return callback(err, null);

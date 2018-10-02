@@ -246,7 +246,7 @@ function getExternalSuggestions(req, res) {
 
     var k = req.swagger.params.k.value;
     if(!k){
-        k = 10;
+        k = 30;
     }
     suggestionHelper.getExternalSuggestions(query, k, function(err,result){
         if(err){

@@ -496,7 +496,7 @@ describe('controllers', function() {
           });
       });
 
-      describe.only('GET /bibliographicResourcesOC', function() {
+      describe('GET /bibliographicResourcesOC', function() {
           it('should convert the brs in the database to OC', function (done) {
               var br = require('./../data/internal/brForValid.json');
               var br = new mongoBr(br);

@@ -381,7 +381,7 @@ describe('controllers', function() {
                         should.not.exist(err);
                         res.body.should.be.Array;
                         //res.body.should.have.lengthOf(2);
-                        res.body.should.have.lengthOf(10);
+                        res.body.should.have.lengthOf(25);
                         res.body[0][0].should.have.property("status", status.external);
                         done();
                     });
