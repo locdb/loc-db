@@ -23,7 +23,7 @@ var bibliographicEntry = new SchemaObject({
     },
     scanId: String,
     scanName: String,
-    status: {type: String, enum: [status.ocrProcessed, status.valid, status.external]},
+    status: {type: String, enum: [status.ocrProcessed, status.valid, status.external, status.obsolete]},
 });
 
 module.exports = bibliographicEntry;

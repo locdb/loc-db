@@ -32,7 +32,7 @@ const beSchema = new Schema({
     references: String,
     scanId: String,
     scanName: String,
-    status: {type: String, enum: [enums.status.ocrProcessed, enums.status.valid, enums.status.external]},
+    status: {type: String, enum: [enums.status.ocrProcessed, enums.status.valid, enums.status.external, enums.status.obsolete]},
     ocrData: ocrDataSchema
 });
 

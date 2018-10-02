@@ -4,6 +4,7 @@ const server = require('../../../app');
 const enums = require('./../../../api/schema/enum.json');
 const setup = require('./../setup.js').createSetup();
 const BibliographicResource = require('./../../../api/schema/bibliographicResource');
+const mongoBr = require('./../../../api/models/bibliographicResource').mongoBr;
 
 var agent = request.agent(server);
 
@@ -479,8 +480,8 @@ describe('controllers', function() {
           });
       });
 
-      describe.only('GET /bibliographicResourcesOC', function() {
-          it('should convert the brs in the database to OC', function (done) {
+      describe('GET /setValid', function() {
+          it('should set the br to valid', function (done) {
 
               agent
                   .get('/bibliographicResourcesOC')
@@ -492,6 +493,29 @@ describe('controllers', function() {
                       done();
                   });
 
+          });
+      });
+
+      describe.only('GET /bibliographicResourcesOC', function() {
+          it('should convert the brs in the database to OC', function (done) {
+              var br = require('./../data/internal/brForValid.json');
+              var br = new mongoBr(br);
+              br.save(function(err, res){
+                  agent
+                      .get('/setValid?id=' + br._id)
+                      .set('Accept', 'application/json')
+                      .expect('Content-Type', /json/)
+                      .expect(200)
+                      .end(function(err, res){
+                          should.not.exist(err);
+                          res.body.status.should.equal(enums.status.valid);
+                          res.body.bookChapter_embodiedAs[0].scans[0].status.should.equal(enums.status.obsolete);
+                          res.body.bookChapter_embodiedAs[0].scans[1].status.should.equal(enums.status.valid);
+                          res.body.parts[0].status.should.equal(enums.status.valid);
+                          res.body.parts[4].status.should.equal(enums.status.obsolete);
+                          done();
+                      });
+              });
           });
       });
 

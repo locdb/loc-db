@@ -1,0 +1,1324 @@
+{
+  "_id": "5b894254a8b2763a62cb9145",
+  "type": "BOOK_CHAPTER",
+  "partOf": "5b894254a8b2763a62cb9139",
+  "__v": 5,
+  "bookChapter_embodiedAs": [
+    {
+      "type": "PRINT",
+      "firstPage": 395,
+      "lastPage": 397,
+      "_id": "5b8942a0a8b2763a62cb92b5",
+      "scans": [
+        {
+          "_id": "5b894254a8b2763a62cb9148",
+          "scanName": "5b894254a8b2763a62cb9148.pdf",
+          "xmlName": "5b894254a8b2763a62cb9148.xml",
+          "textualPdf": false,
+          "status": "OBSOLETE"
+        },
+        {
+          "_id": "5b8942a0a8b2763a62cb9204",
+          "scanName": "5b894254a8b2763a62cb9148/20180831152748_5b894254a8b2763a62cb9148-0.jpg",
+          "xmlName": "5b894254a8b2763a62cb9148.xml",
+          "textualPdf": false,
+          "status": "OCR_PROCESSED"
+        },
+        {
+          "_id": "5b8942a0a8b2763a62cb9205",
+          "scanName": "5b894254a8b2763a62cb9148/20180831152748_5b894254a8b2763a62cb9148-1.jpg",
+          "xmlName": "5b894254a8b2763a62cb9148.xml",
+          "textualPdf": false,
+          "status": "OCR_PROCESSED"
+        },
+        {
+          "_id": "5b8942a0a8b2763a62cb9206",
+          "scanName": "5b894254a8b2763a62cb9148/20180831152748_5b894254a8b2763a62cb9148-2.jpg",
+          "xmlName": "5b894254a8b2763a62cb9148.xml",
+          "textualPdf": false,
+          "status": "OCR_PROCESSED"
+        }
+      ],
+      "identifiers": [
+
+      ]
+    }
+  ],
+  "parts": [
+    {
+      "_id": "5b8942a0a8b2763a62cb92b3",
+      "bibliographicEntryText": "Three Essays on the Sociology ofActt'on). The empirical material used by Boltanski and Thévenot to develop their ideas between 1987 and 1991 is a series of empirical studies conducted by various sociologists and grouped in the collective book they edited in 1989 and titled: Justesse et Justice dans 1e Travail (Paris, Presses Universitaires de France, not",
+      "references": "",
+      "ocrData": {
+        "title": "The empirical material used by Boltanski and Thévenot to develop their ideas between 1987 and 1991 is a series of empirical studies conducted by various sociologists and grouped in the collective book they edited in 1989 and titled",
+        "date": "1008",
+        "marker": "",
+        "comments": "",
+        "journal": "",
+        "volume": "",
+        "_id": "5b8e9f9d40632e4fa9065db5",
+        "authors": [
+
+        ]
+      },
+      "status": "VALID",
+      "identifiers": [
+
+      ]
+    },
+    {
+      "bibliographicEntryText": "cept of worth is interesting because it conotes values and value, esteem and estimation. See Stark (2009), pp. 7—10.",
+      "ocrData": {
+        "coordinates": "146 973 1476 1064",
+        "title": "cept of worth is interesting because it conotes values and value, esteem and estimation",
+        "date": "2009",
+        "marker": "",
+        "journal": "",
+        "volume": "",
+        "_id": "5b8942a0a8b2763a62cb92b2",
+        "authors": [
+
+        ]
+      },
+      "scanId": "5b8942a0a8b2763a62cb9204",
+      "scanName": "5b894254a8b2763a62cb9148-0.jpg",
+      "status": "VALID",
+      "_id": "5b8942a0a8b2763a62cb92b1",
+      "identifiers": [
+
+      ]
+    },
+    {
+      "bibliographicEntryText": "5. The preoccupation With uncertainty stems from their close involvement with the French group working on the economics of Convention. See Stark (2009, pp. 10—15). For more on the Conventions School see Jagd (2007). _ . .",
+      "ocrData": {
+        "coordinates": "148 1052 1478 1179",
+        "title": "The preoccupation With uncertainty stems from their close involvement with the French group working on the economics of Convention",
+        "date": "2007",
+        "marker": "",
+        "journal": "Jagd",
+        "volume": "",
+        "_id": "5b8942a0a8b2763a62cb92b0",
+        "authors": [
+          "_"
+        ]
+      },
+      "scanId": "5b8942a0a8b2763a62cb9204",
+      "scanName": "5b894254a8b2763a62cb9148-0.jpg",
+      "status": "VALID",
+      "_id": "5b8942a0a8b2763a62cb92af",
+      "identifiers": [
+
+      ]
+    },
+    {
+      "bibliographicEntryText": "selves organizations; and, as a social fOrm, they can be quite stable: The U.S. Constitution enscribes a heterarchical form in the relationship among the branches of the federal government, Their multiple principles of justiﬁcation are not an organiza- tional or conceptual hierarchy (Stark, 2009, p. 31)-",
+      "ocrData": {
+        "coordinates": "147 1329 1482 1501",
+        "title": "selves organizations; and, as a social fOrm, they can be quite stable: The U.S. Constitution enscribes a heterarchical form in the relationship among the branches of the federal government, Their multiple principles of justiﬁcation are not an organiza- tional or conceptual hierarchy (Stark",
+        "date": "2009",
+        "marker": "",
+        "journal": "",
+        "volume": "",
+        "_id": "5b8942a0a8b2763a62cb92ae",
+        "authors": [
+
+        ]
+      },
+      "scanId": "5b8942a0a8b2763a62cb9204",
+      "scanName": "5b894254a8b2763a62cb9148-0.jpg",
+      "status": "OCR_PROCESSED",
+      "_id": "5b8942a0a8b2763a62cb92ad",
+      "identifiers": [
+
+      ]
+    },
+    {
+      "bibliographicEntryText": "7. The same argument applies not only at the or level as well (Stark, 2009, “Reprise,” pp. 204—212). ganizational level but at the societal",
+      "ocrData": {
+        "coordinates": "148 1487 1479 1580",
+        "title": "The same argument applies not only at the or level as well (Stark",
+        "date": "2009",
+        "marker": "",
+        "journal": "",
+        "volume": "",
+        "_id": "5b8942a0a8b2763a62cb92ac",
+        "authors": [
+
+        ]
+      },
+      "scanId": "5b8942a0a8b2763a62cb9204",
+      "scanName": "5b894254a8b2763a62cb9148-0.jpg",
+      "status": "OCR_PROCESSED",
+      "_id": "5b8942a0a8b2763a62cb92ab",
+      "identifiers": [
+
+      ]
+    },
+    {
+      "bibliographicEntryText": "8. See especially Kreiner’s (2012) study of architectural competitions. His ﬁnding that judges ﬁrst select winners and only then formulate selection criteria is a valuable insight",
+      "ocrData": {
+        "coordinates": "144 1566 1479 1661",
+        "title": "See especially Kreiner’s (2012) study of architectural competitions. His ﬁnding that judges ﬁrst select winners and only then formulate selection criteria is a valuable insight",
+        "date": "",
+        "marker": "",
+        "journal": "",
+        "volume": "",
+        "_id": "5b8942a0a8b2763a62cb92aa",
+        "authors": [
+
+        ]
+      },
+      "scanId": "5b8942a0a8b2763a62cb9204",
+      "scanName": "5b894254a8b2763a62cb9148-0.jpg",
+      "status": "OCR_PROCESSED",
+      "_id": "5b8942a0a8b2763a62cb92a9",
+      "identifiers": [
+
+      ]
+    },
+    {
+      "bibliographicEntryText": "applicable to an important subset of competitions. Solaroli (2015) studies the World Press Photo Competition, Showing that the competition does not simply judge contest-",
+      "ocrData": {
+        "coordinates": "148 1645 1479 1739",
+        "title": "Solaroli (2015) studies the World Press Photo Competition",
+        "date": "",
+        "marker": "",
+        "journal": "",
+        "volume": "",
+        "_id": "5b8942a0a8b2763a62cb92a8",
+        "authors": [
+
+        ]
+      },
+      "scanId": "5b8942a0a8b2763a62cb9204",
+      "scanName": "5b894254a8b2763a62cb9148-0.jpg",
+      "status": "OCR_PROCESSED",
+      "_id": "5b8942a0a8b2763a62cb92a7",
+      "identifiers": [
+
+      ]
+    },
+    {
+      "bibliographicEntryText": "ants according to stable criteria but instead consecrates evolving standards. McCormick’s (2009) study 0f international music competitions points to the mixed char- acter as contests and rituals.",
+      "ocrData": {
+        "coordinates": "148 1724 1479 1854",
+        "title": "ants according to stable criteria but instead consecrates evolving standards. McCormick’s (2009) study 0f international music competitions points to the mixed char- acter as contests and rituals",
+        "date": "",
+        "marker": "",
+        "journal": "",
+        "volume": "",
+        "_id": "5b8942a0a8b2763a62cb92a6",
+        "authors": [
+
+        ]
+      },
+      "scanId": "5b8942a0a8b2763a62cb9204",
+      "scanName": "5b894254a8b2763a62cb9148-0.jpg",
+      "status": "OCR_PROCESSED",
+      "_id": "5b8942a0a8b2763a62cb92a5",
+      "identifiers": [
+
+      ]
+    },
+    {
+      "bibliographicEntryText": "This work was supported by the European Research Council (ERC) under grant agreement no. 695256. My thanks to Simon Bittmann, Elena Esposito, (Y Geoff F ougere, and Istvz’m Gabor for their comments and suggestions.",
+      "ocrData": {
+        "coordinates": "148 2097 1481 2257",
+        "title": "This work was supported by the European Research Council (ERC) under grant agreement no. 695256. My thanks to Simon Bittmann",
+        "date": "",
+        "marker": "",
+        "journal": "",
+        "volume": "",
+        "_id": "5b8942a0a8b2763a62cb92a4",
+        "authors": [
+
+        ]
+      },
+      "scanId": "5b8942a0a8b2763a62cb9204",
+      "scanName": "5b894254a8b2763a62cb9148-0.jpg",
+      "status": "OCR_PROCESSED",
+      "_id": "5b8942a0a8b2763a62cb92a3",
+      "identifiers": [
+
+      ]
+    },
+    {
+      "bibliographicEntryText": "Beckert, J. (2011). Where do prices come from? Sociological approaches to price formation. MPIfG Discussion Paper 11/3, Cologne.",
+      "ocrData": {
+        "coordinates": "290 431 1660 503",
+        "title": "Where do prices come from? Sociological approaches to price formation",
+        "date": "2011",
+        "marker": "",
+        "journal": "MPIfG Discussion Paper",
+        "volume": "11",
+        "_id": "5b8942a0a8b2763a62cb92a2",
+        "authors": [
+          "J Beckert"
+        ]
+      },
+      "scanId": "5b8942a0a8b2763a62cb9205",
+      "scanName": "5b894254a8b2763a62cb9148-1.jpg",
+      "status": "OCR_PROCESSED",
+      "_id": "5b8942a0a8b2763a62cb92a1",
+      "identifiers": [
+
+      ]
+    },
+    {
+      "bibliographicEntryText": "Beckert, J. (2011). Where do prices come from? Sociological approaches to price formation. MPIfG Discussion Paper 11/3, Cologne.",
+      "ocrData": {
+        "coordinates": "290 431 1660 503",
+        "title": "Where do prices come from? Sociological approaches to price formation. MPIfG Discussion Paper 11/3,",
+        "date": "2011",
+        "marker": "Beckert, 2011",
+        "journal": "",
+        "volume": "",
+        "_id": "5b8942a0a8b2763a62cb92a0",
+        "authors": [
+          "J Beckert"
+        ]
+      },
+      "scanId": "5b8942a0a8b2763a62cb9205",
+      "scanName": "5b894254a8b2763a62cb9148-1.jpg",
+      "status": "OCR_PROCESSED",
+      "_id": "5b8942a0a8b2763a62cb929f",
+      "identifiers": [
+
+      ]
+    },
+    {
+      "bibliographicEntryText": "Beunza, D., & Stark, D. (2012). From dissonance to resonance: Cognitive interdependence in quantitative ﬁnance. Economy and Society, 41(3), 1—35.",
+      "ocrData": {
+        "coordinates": "286 511 1654 585",
+        "title": "From dissonance to resonance: Cognitive interdependence in quantitative ﬁnance",
+        "date": "2012",
+        "marker": "",
+        "journal": "Economy and Society",
+        "volume": "41",
+        "_id": "5b8942a0a8b2763a62cb929e",
+        "authors": [
+          "D Beunza"
+        ]
+      },
+      "scanId": "5b8942a0a8b2763a62cb9205",
+      "scanName": "5b894254a8b2763a62cb9148-1.jpg",
+      "status": "OCR_PROCESSED",
+      "_id": "5b8942a0a8b2763a62cb929d",
+      "identifiers": [
+
+      ]
+    },
+    {
+      "bibliographicEntryText": "Beunza, D., & Stark, D. (2012). From dissonance to resonance: Cognitive interdependence in quantitative ﬁnance. Economy and Society, 41(3), 1—35.",
+      "ocrData": {
+        "coordinates": "286 511 1654 585",
+        "title": "From dissonance to resonance: Cognitive interdependence in quantitative ﬁnance.",
+        "date": "2012",
+        "marker": "Beunza, Stark, 2012",
+        "journal": "Economy and Society,",
+        "volume": "41",
+        "_id": "5b8942a0a8b2763a62cb929c",
+        "authors": [
+          "D Beunza"
+        ]
+      },
+      "scanId": "5b8942a0a8b2763a62cb9205",
+      "scanName": "5b894254a8b2763a62cb9148-1.jpg",
+      "status": "OCR_PROCESSED",
+      "_id": "5b8942a0a8b2763a62cb929b",
+      "identifiers": [
+
+      ]
+    },
+    {
+      "bibliographicEntryText": "Boltanski, L., & Thévenot, L. (2006). On justiﬁcation: Economies of worth (C. Porter, Trans).",
+      "ocrData": {
+        "coordinates": "283 591 1647 632",
+        "title": "On justiﬁcation: Economies of worth (C.",
+        "date": "2006",
+        "marker": "Boltanski, Thévenot, 2006",
+        "journal": "",
+        "volume": "",
+        "_id": "5b8942a0a8b2763a62cb929a",
+        "authors": [
+          "L Boltanski"
+        ]
+      },
+      "scanId": "5b8942a0a8b2763a62cb9205",
+      "scanName": "5b894254a8b2763a62cb9148-1.jpg",
+      "status": "OCR_PROCESSED",
+      "_id": "5b8942a0a8b2763a62cb9299",
+      "identifiers": [
+
+      ]
+    },
+    {
+      "bibliographicEntryText": "Boltanski, L., & Thévenot, L. (2006). On justiﬁcation: Economies of worth (C. Porter, Trans). Princeton, NJ: Princeton University Press. Original publication: De la justiﬁcation: Les econ- omies de la grandeur. (1991). Paris, Gallimard.",
+      "ocrData": {
+        "coordinates": "283 591 1647 708",
+        "title": "Original publication: De la justiﬁcation: Les econ- omies de la grandeur",
+        "date": "1991",
+        "marker": "",
+        "journal": "",
+        "volume": "",
+        "_id": "5b8942a0a8b2763a62cb9298",
+        "authors": [
+          "L Boltanski"
+        ]
+      },
+      "scanId": "5b8942a0a8b2763a62cb9205",
+      "scanName": "5b894254a8b2763a62cb9148-1.jpg",
+      "status": "OCR_PROCESSED",
+      "_id": "5b8942a0a8b2763a62cb9297",
+      "identifiers": [
+
+      ]
+    },
+    {
+      "bibliographicEntryText": "Princeton, NJ: Princeton University Press. Original publication: De la justiﬁcation: Les economies de la grandeur. (1991). Paris, Gallimard.",
+      "ocrData": {
+        "coordinates": "379 634 1646 708",
+        "title": "Press. Original publication: De la justiﬁcation: Les economies de la grandeur.",
+        "date": "1991",
+        "marker": "1991",
+        "journal": "",
+        "volume": "",
+        "_id": "5b8942a0a8b2763a62cb9296",
+        "authors": [
+
+        ]
+      },
+      "scanId": "5b8942a0a8b2763a62cb9205",
+      "scanName": "5b894254a8b2763a62cb9148-1.jpg",
+      "status": "OCR_PROCESSED",
+      "_id": "5b8942a0a8b2763a62cb9295",
+      "identifiers": [
+
+      ]
+    },
+    {
+      "bibliographicEntryText": "Coleman, J. (1988). Social capital in the creation of human Capital. American Journal ofSoeio/ogy, 94, 395—5120.",
+      "ocrData": {
+        "coordinates": "268 916 1629 988",
+        "title": "Social capital in the creation of human Capital.",
+        "date": "1988",
+        "marker": "Coleman, 1988",
+        "journal": "American Journal ofSoeio/ogy,",
+        "volume": "94",
+        "_id": "5b8942a0a8b2763a62cb9294",
+        "authors": [
+          "J Coleman"
+        ]
+      },
+      "scanId": "5b8942a0a8b2763a62cb9205",
+      "scanName": "5b894254a8b2763a62cb9148-1.jpg",
+      "status": "OCR_PROCESSED",
+      "_id": "5b8942a0a8b2763a62cb9293",
+      "identifiers": [
+
+      ]
+    },
+    {
+      "bibliographicEntryText": "Coleman, J. (1988). Social capital in the creation of human Capital. American Journal ofSoeio/ogy, 94, 395—5120.",
+      "ocrData": {
+        "coordinates": "268 916 1629 988",
+        "title": "Social capital in the creation of human Capital",
+        "date": "1988",
+        "marker": "",
+        "journal": "American Journal ofSoeio/ogy",
+        "volume": "94",
+        "_id": "5b8942a0a8b2763a62cb9292",
+        "authors": [
+          "J Coleman"
+        ]
+      },
+      "scanId": "5b8942a0a8b2763a62cb9205",
+      "scanName": "5b894254a8b2763a62cb9148-1.jpg",
+      "status": "OCR_PROCESSED",
+      "_id": "5b8942a0a8b2763a62cb9291",
+      "identifiers": [
+
+      ]
+    },
+    {
+      "bibliographicEntryText": "Davies, W. (2014). The limits of neoiibera/ism: Authority, sovereignty & the logic of competition. Thousand Oaks, California: Sage.",
+      "ocrData": {
+        "coordinates": "261 997 1625 1123",
+        "title": "The limits of neoiibera/ism: Authority, sovereignty & the logic of competition. Thousand Oaks,",
+        "date": "2014",
+        "marker": "Davies, 2014",
+        "journal": "",
+        "volume": "",
+        "_id": "5b8942a0a8b2763a62cb9290",
+        "authors": [
+          "W Davies"
+        ]
+      },
+      "scanId": "5b8942a0a8b2763a62cb9205",
+      "scanName": "5b894254a8b2763a62cb9148-1.jpg",
+      "status": "OCR_PROCESSED",
+      "_id": "5b8942a0a8b2763a62cb928f",
+      "identifiers": [
+
+      ]
+    },
+    {
+      "bibliographicEntryText": "Déjean, F. & Gond, J.-P.‚ & Leca, B. (2004). Measuring the unmeasured: An institutional entrepreneur strategy in an emerging industry. Human Relations, 57(6), 741—764.",
+      "ocrData": {
+        "coordinates": "261 1078 1622 1158",
+        "title": "Measuring the unmeasured: An institutional entrepreneur strategy in an emerging industry.",
+        "date": "2004",
+        "marker": "Déjean, Gond, Leca, 2004",
+        "journal": "Human Relations,",
+        "volume": "57",
+        "_id": "5b8942a0a8b2763a62cb928e",
+        "authors": [
+          "F Déjean"
+        ]
+      },
+      "scanId": "5b8942a0a8b2763a62cb9205",
+      "scanName": "5b894254a8b2763a62cb9148-1.jpg",
+      "status": "OCR_PROCESSED",
+      "_id": "5b8942a0a8b2763a62cb928d",
+      "identifiers": [
+
+      ]
+    },
+    {
+      "bibliographicEntryText": "Déjean, F. & Gond, J.-P.‚ & Leca, B. (2004). Measuring the unmeasured: An institutional entrepreneur strategy in an emerging industry. Human Relations, 57(6), 741—764.",
+      "ocrData": {
+        "coordinates": "261 1078 1622 1158",
+        "title": "Measuring the unmeasured: An institutional entrepreneur strategy in an emerging industry",
+        "date": "2004",
+        "marker": "",
+        "journal": "Human Relations",
+        "volume": "57",
+        "_id": "5b8942a0a8b2763a62cb928c",
+        "authors": [
+          "F Déjean"
+        ]
+      },
+      "scanId": "5b8942a0a8b2763a62cb9205",
+      "scanName": "5b894254a8b2763a62cb9148-1.jpg",
+      "status": "OCR_PROCESSED",
+      "_id": "5b8942a0a8b2763a62cb928b",
+      "identifiers": [
+
+      ]
+    },
+    {
+      "bibliographicEntryText": "de Vaan, M., Vedrcs, B., & Stark, D. (2015). Game changer: The topology of creativity. American Journal of Sociology, 120(4), 1144—1194.",
+      "ocrData": {
+        "coordinates": "256 1160 1617 1239",
+        "title": "Game changer: The topology of creativity.",
+        "date": "2015",
+        "marker": "de Vaan, Vedrcs, Stark, 2015",
+        "journal": "American Journal of Sociology,",
+        "volume": "120",
+        "_id": "5b8942a0a8b2763a62cb928a",
+        "authors": [
+          "M de Vaan"
+        ]
+      },
+      "scanId": "5b8942a0a8b2763a62cb9205",
+      "scanName": "5b894254a8b2763a62cb9148-1.jpg",
+      "status": "OCR_PROCESSED",
+      "_id": "5b8942a0a8b2763a62cb9289",
+      "identifiers": [
+
+      ]
+    },
+    {
+      "bibliographicEntryText": "de Vaan, M., Vedrcs, B., & Stark, D. (2015). Game changer: The topology of creativity. American Journal of Sociology, 120(4), 1144—1194.",
+      "ocrData": {
+        "coordinates": "256 1160 1617 1239",
+        "title": "Game changer: The topology of creativity",
+        "date": "2015",
+        "marker": "",
+        "journal": "American Journal of Sociology",
+        "volume": "120",
+        "_id": "5b8942a0a8b2763a62cb9288",
+        "authors": [
+          "M De Vaan"
+        ]
+      },
+      "scanId": "5b8942a0a8b2763a62cb9205",
+      "scanName": "5b894254a8b2763a62cb9148-1.jpg",
+      "status": "OCR_PROCESSED",
+      "_id": "5b8942a0a8b2763a62cb9287",
+      "identifiers": [
+
+      ]
+    },
+    {
+      "bibliographicEntryText": "Dewey, J. ([1938] 1998). Analysis of reﬂective thinking. In L. A. Hickman & T. M. Alexander (Eds), The Essential John Dewey, volume 2: Ethics, logic, psychology (pp. 137—144). Bloomington, IN: Indiana University Press.",
+      "ocrData": {
+        "coordinates": "253 1242 1612 1362",
+        "title": "Analysis of reﬂective thinking. In",
+        "date": "1938",
+        "marker": "Dewey, 1938",
+        "journal": "",
+        "volume": "2",
+        "_id": "5b8942a0a8b2763a62cb9286",
+        "authors": [
+          "J Dewey"
+        ]
+      },
+      "scanId": "5b8942a0a8b2763a62cb9205",
+      "scanName": "5b894254a8b2763a62cb9148-1.jpg",
+      "status": "OCR_PROCESSED",
+      "_id": "5b8942a0a8b2763a62cb9285",
+      "identifiers": [
+
+      ]
+    },
+    {
+      "bibliographicEntryText": "Dewey, J. ([1938] 1998). Analysis of reﬂective thinking. In L. A. Hickman & T. M. Alexander (Eds), The Essential John Dewey, volume 2: Ethics, logic, psychology (pp. 137—144). Bloomington, IN: Indiana University Press.",
+      "ocrData": {
+        "coordinates": "253 1242 1612 1362",
+        "title": "Analysis of reﬂective thinking",
+        "date": "1998",
+        "marker": "",
+        "journal": "",
+        "volume": "2",
+        "_id": "5b8942a0a8b2763a62cb9284",
+        "authors": [
+          "J Dewey"
+        ]
+      },
+      "scanId": "5b8942a0a8b2763a62cb9205",
+      "scanName": "5b894254a8b2763a62cb9148-1.jpg",
+      "status": "OCR_PROCESSED",
+      "_id": "5b8942a0a8b2763a62cb9283",
+      "identifiers": [
+
+      ]
+    },
+    {
+      "bibliographicEntryText": "GUyer, J. (2009). Composites, ﬁctions and risk: Toward an ethnography of price. In C. Hann & K. Hart (Eds) Market and society (pp. 203—220). Cambridge: Cambridge University Press.",
+      "ocrData": {
+        "coordinates": "247 1367 1607 1449",
+        "title": "Composites, ﬁctions and risk: Toward an ethnography of price. In",
+        "date": "2009",
+        "marker": "GUyer, 2009",
+        "journal": "",
+        "volume": "",
+        "_id": "5b8942a0a8b2763a62cb9282",
+        "authors": [
+          "J GUyer"
+        ]
+      },
+      "scanId": "5b8942a0a8b2763a62cb9205",
+      "scanName": "5b894254a8b2763a62cb9148-1.jpg",
+      "status": "OCR_PROCESSED",
+      "_id": "5b8942a0a8b2763a62cb9281",
+      "identifiers": [
+
+      ]
+    },
+    {
+      "bibliographicEntryText": "GUyer, J. (2009). Composites, ﬁctions and risk: Toward an ethnography of price. In C. Hann & K. Hart (Eds) Market and society (pp. 203—220). Cambridge: Cambridge University Press.",
+      "ocrData": {
+        "coordinates": "247 1367 1607 1449",
+        "title": "Composites, ﬁctions and risk: Toward an ethnography of price",
+        "date": "2009",
+        "marker": "",
+        "journal": "",
+        "volume": "",
+        "_id": "5b8942a0a8b2763a62cb9280",
+        "authors": [
+          "J Guyer"
+        ]
+      },
+      "scanId": "5b8942a0a8b2763a62cb9205",
+      "scanName": "5b894254a8b2763a62cb9148-1.jpg",
+      "status": "OCR_PROCESSED",
+      "_id": "5b8942a0a8b2763a62cb927f",
+      "identifiers": [
+
+      ]
+    },
+    {
+      "bibliographicEntryText": "Hennion, A. (2015). Paying attention: What is tasting wine about. In A. Antal, M. Hutter, & D. Stark (Eds.)‚ Moments of valuation: Exploring sites of dissonance (PP. 37—56). Oxford: Oxford University Press.",
+      "ocrData": {
+        "coordinates": "244 1449 1603 1567",
+        "title": "Paying attention: What is tasting wine about. In",
+        "date": "2015",
+        "marker": "Hennion, 2015",
+        "journal": "",
+        "volume": "",
+        "_id": "5b8942a0a8b2763a62cb927e",
+        "authors": [
+          "A Hennion"
+        ]
+      },
+      "scanId": "5b8942a0a8b2763a62cb9205",
+      "scanName": "5b894254a8b2763a62cb9148-1.jpg",
+      "status": "OCR_PROCESSED",
+      "_id": "5b8942a0a8b2763a62cb927d",
+      "identifiers": [
+
+      ]
+    },
+    {
+      "bibliographicEntryText": "Hennion, A. (2015). Paying attention: What is tasting wine about. In A. Antal, M. Hutter, & D. Stark (Eds.)‚ Moments of valuation: Exploring sites of dissonance (PP. 37—56). Oxford: Oxford University Press.",
+      "ocrData": {
+        "coordinates": "244 1449 1603 1567",
+        "title": "Moments of valuation: Exploring sites of dissonance",
+        "date": "2015",
+        "marker": "",
+        "journal": "",
+        "volume": "",
+        "_id": "5b8942a0a8b2763a62cb927c",
+        "authors": [
+          "A Hennion"
+        ]
+      },
+      "scanId": "5b8942a0a8b2763a62cb9205",
+      "scanName": "5b894254a8b2763a62cb9148-1.jpg",
+      "status": "OCR_PROCESSED",
+      "_id": "5b8942a0a8b2763a62cb927b",
+      "identifiers": [
+
+      ]
+    },
+    {
+      "bibliographicEntryText": "Hutter, M., & Stark, D. (2015). Pragmatist perspectives on valuation: An introduction. In A. Antal, M. Hutter, & D. Stark (Eds.), Moments of valuation: Exploring sites of dissonance (pp. 1—14). Oxford: Oxford University Press.",
+      "ocrData": {
+        "coordinates": "237 1573 1595 1692",
+        "title": "Pragmatist perspectives on valuation: An introduction. In",
+        "date": "2015",
+        "marker": "Hutter, Stark, 2015",
+        "journal": "",
+        "volume": "",
+        "_id": "5b8942a0a8b2763a62cb927a",
+        "authors": [
+          "M Hutter"
+        ]
+      },
+      "scanId": "5b8942a0a8b2763a62cb9205",
+      "scanName": "5b894254a8b2763a62cb9148-1.jpg",
+      "status": "OCR_PROCESSED",
+      "_id": "5b8942a0a8b2763a62cb9279",
+      "identifiers": [
+
+      ]
+    },
+    {
+      "bibliographicEntryText": "Hutter, M., & Stark, D. (2015). Pragmatist perspectives on valuation: An introduction. In A. Antal, M. Hutter, & D. Stark (Eds.), Moments of valuation: Exploring sites of dissonance (pp. 1—14). Oxford: Oxford University Press.",
+      "ocrData": {
+        "coordinates": "237 1573 1595 1692",
+        "title": "Pragmatist perspectives on valuation: An introduction",
+        "date": "2015",
+        "marker": "",
+        "journal": "",
+        "volume": "",
+        "_id": "5b8942a0a8b2763a62cb9278",
+        "authors": [
+          "M Hutter"
+        ]
+      },
+      "scanId": "5b8942a0a8b2763a62cb9205",
+      "scanName": "5b894254a8b2763a62cb9148-1.jpg",
+      "status": "OCR_PROCESSED",
+      "_id": "5b8942a0a8b2763a62cb9277",
+      "identifiers": [
+
+      ]
+    },
+    {
+      "bibliographicEntryText": "Jagd, S. (2007). Economics of convention and new economic sociology: Mutual inspiration and dialogue. Current Sociology, 55(1), 75—91.",
+      "ocrData": {
+        "coordinates": "230 1698 1589 1774",
+        "title": "Economics of convention and new economic sociology: Mutual inspiration and dialogue.",
+        "date": "2007",
+        "marker": "Jagd, 2007",
+        "journal": "Current Sociology,",
+        "volume": "55",
+        "_id": "5b8942a0a8b2763a62cb9276",
+        "authors": [
+          "S Jagd"
+        ]
+      },
+      "scanId": "5b8942a0a8b2763a62cb9205",
+      "scanName": "5b894254a8b2763a62cb9148-1.jpg",
+      "status": "OCR_PROCESSED",
+      "_id": "5b8942a0a8b2763a62cb9275",
+      "identifiers": [
+
+      ]
+    },
+    {
+      "bibliographicEntryText": "Jagd, S. (2007). Economics of convention and new economic sociology: Mutual inspiration and dialogue. Current Sociology, 55(1), 75—91.",
+      "ocrData": {
+        "coordinates": "230 1698 1589 1774",
+        "title": "Economics of convention and new economic sociology: Mutual inspiration and dialogue",
+        "date": "2007",
+        "marker": "",
+        "journal": "Current Sociology",
+        "volume": "55",
+        "_id": "5b8942a0a8b2763a62cb9274",
+        "authors": [
+          "S Jagd"
+        ]
+      },
+      "scanId": "5b8942a0a8b2763a62cb9205",
+      "scanName": "5b894254a8b2763a62cb9148-1.jpg",
+      "status": "OCR_PROCESSED",
+      "_id": "5b8942a0a8b2763a62cb9273",
+      "identifiers": [
+
+      ]
+    },
+    {
+      "bibliographicEntryText": "Knorr-Cetina, K. (1981). Introduction: The micro-sociological challenge of macro-sociology: Towards a reconstruction of social theory and methodology. In K. Knorr-Cetina & A. V. Cicourel (Eds), Advances in social theory and methodology: Tothrd an integration ofmicroand macro-sociologies (pp. 1—47). London: Routledge & Kegan Paul.",
+      "ocrData": {
+        "coordinates": "227 1781 1584 1941",
+        "title": "Introduction: The micro-sociological challenge of macro-sociology: Towards a reconstruction of social theory and methodology.",
+        "date": "1981",
+        "marker": "Knorr-Cetina, 1981",
+        "journal": "",
+        "volume": "",
+        "_id": "5b8942a0a8b2763a62cb9272",
+        "authors": [
+          "K Knorr-Cetina"
+        ]
+      },
+      "scanId": "5b8942a0a8b2763a62cb9205",
+      "scanName": "5b894254a8b2763a62cb9148-1.jpg",
+      "status": "OCR_PROCESSED",
+      "_id": "5b8942a0a8b2763a62cb9271",
+      "identifiers": [
+
+      ]
+    },
+    {
+      "bibliographicEntryText": "Knorr-Cetina, K. (1981). Introduction: The micro-sociological challenge of macro-sociology: Towards a reconstruction of social theory and methodology. In K. Knorr-Cetina & A. V. Cicourel (Eds), Advances in social theory and methodology: Tothrd an integration ofmicroand macro-sociologies (pp. 1—47). London: Routledge & Kegan Paul.",
+      "ocrData": {
+        "coordinates": "227 1781 1584 1941",
+        "title": "Introduction: The micro-sociological challenge of macro-sociology: Towards a reconstruction of social theory and methodology",
+        "date": "1981",
+        "marker": "",
+        "journal": "",
+        "volume": "",
+        "_id": "5b8942a0a8b2763a62cb9270",
+        "authors": [
+          "K Knorr-Cetina"
+        ]
+      },
+      "scanId": "5b8942a0a8b2763a62cb9205",
+      "scanName": "5b894254a8b2763a62cb9148-1.jpg",
+      "status": "OCR_PROCESSED",
+      "_id": "5b8942a0a8b2763a62cb926f",
+      "identifiers": [
+
+      ]
+    },
+    {
+      "bibliographicEntryText": "Kreiner, K. (2012). Organizational decision mechanisms in an architectural competition. In A. Lomi & J. Richard Harrison (Eds), The garbage can model of organizational choice: Looking forward atforty (Vol. 36, pp. 399—429). Research in the Sociology of Organizations. Bingley: Emerald Group Publishing Limited.",
+      "ocrData": {
+        "coordinates": "220 1946 1579 2105",
+        "title": "Organizational decision mechanisms in an architectural competition. In",
+        "date": "2012",
+        "marker": "Kreiner, 2012",
+        "journal": "Looking forward atforty",
+        "volume": "36",
+        "_id": "5b8942a0a8b2763a62cb926e",
+        "authors": [
+          "K Kreiner"
+        ]
+      },
+      "scanId": "5b8942a0a8b2763a62cb9205",
+      "scanName": "5b894254a8b2763a62cb9148-1.jpg",
+      "status": "OCR_PROCESSED",
+      "_id": "5b8942a0a8b2763a62cb926d",
+      "identifiers": [
+
+      ]
+    },
+    {
+      "bibliographicEntryText": "Kreiner, K. (2012). Organizational decision mechanisms in an architectural competition. In A. Lomi & J. Richard Harrison (Eds), The garbage can model of organizational choice: Looking forward atforty (Vol. 36, pp. 399—429). Research in the Sociology of Organizations. Bingley: Emerald Group Publishing Limited.",
+      "ocrData": {
+        "coordinates": "220 1946 1579 2105",
+        "title": "Organizational decision mechanisms in an architectural competition",
+        "date": "2012",
+        "marker": "",
+        "journal": "",
+        "volume": "36",
+        "_id": "5b8942a0a8b2763a62cb926c",
+        "authors": [
+          "K Kreiner"
+        ]
+      },
+      "scanId": "5b8942a0a8b2763a62cb9205",
+      "scanName": "5b894254a8b2763a62cb9148-1.jpg",
+      "status": "OCR_PROCESSED",
+      "_id": "5b8942a0a8b2763a62cb926b",
+      "identifiers": [
+
+      ]
+    },
+    {
+      "bibliographicEntryText": "Latour, B., & Lepinay, V. (2009). The science of passionate interests: An introduction to Gabriel T arde’s Economic Anthropology. Chicago, IL: Prickly Paradigm Press.",
+      "ocrData": {
+        "coordinates": "212 2112 1572 2189",
+        "title": "The science of passionate interests: An introduction to Gabriel T arde’s Economic Anthropology.",
+        "date": "2009",
+        "marker": "Latour, Lepinay, 2009",
+        "journal": "",
+        "volume": "",
+        "_id": "5b8942a0a8b2763a62cb926a",
+        "authors": [
+          "B Latour"
+        ]
+      },
+      "scanId": "5b8942a0a8b2763a62cb9205",
+      "scanName": "5b894254a8b2763a62cb9148-1.jpg",
+      "status": "OCR_PROCESSED",
+      "_id": "5b8942a0a8b2763a62cb9269",
+      "identifiers": [
+
+      ]
+    },
+    {
+      "bibliographicEntryText": "Latour, B., & Lepinay, V. (2009). The science of passionate interests: An introduction to Gabriel T arde’s Economic Anthropology. Chicago, IL: Prickly Paradigm Press.",
+      "ocrData": {
+        "coordinates": "212 2112 1572 2189",
+        "title": "The science of passionate interests: An introduction to Gabriel T arde’s Economic Anthropology",
+        "date": "2009",
+        "marker": "",
+        "journal": "",
+        "volume": "",
+        "_id": "5b8942a0a8b2763a62cb9268",
+        "authors": [
+          "B Latour"
+        ]
+      },
+      "scanId": "5b8942a0a8b2763a62cb9205",
+      "scanName": "5b894254a8b2763a62cb9148-1.jpg",
+      "status": "OCR_PROCESSED",
+      "_id": "5b8942a0a8b2763a62cb9267",
+      "identifiers": [
+
+      ]
+    },
+    {
+      "bibliographicEntryText": "Levine, S. S., Apfelbaum, E. P., Bernard, M., Bartelt, V. L., Zajac, E. J., & Stark, D. (2014, December 30). Ethnic diversity deilates price bubbles. Proceedings of the National Academy ofSeiences, 111(52), 185240-18529.",
+      "ocrData": {
+        "coordinates": "202 2194 1564 2356",
+        "title": "30). Ethnic diversity deilates price bubbles.",
+        "date": "2014",
+        "marker": "Levine, Apfelbaum, Bernard, Bartelt, Zajac, Stark, 2014",
+        "journal": "",
+        "volume": "111",
+        "_id": "5b8942a0a8b2763a62cb9266",
+        "authors": [
+          "S S Levine"
+        ]
+      },
+      "scanId": "5b8942a0a8b2763a62cb9205",
+      "scanName": "5b894254a8b2763a62cb9148-1.jpg",
+      "status": "OCR_PROCESSED",
+      "_id": "5b8942a0a8b2763a62cb9265",
+      "identifiers": [
+
+      ]
+    },
+    {
+      "bibliographicEntryText": "McCormick, L. (2009). Higher, faster, louder: Representations of the international music competition. Cultural Sociology, 3(1), 5—30.",
+      "ocrData": {
+        "coordinates": "202 2320 1559 2394",
+        "title": "Higher, faster, louder: Representations of the international music competition.",
+        "date": "2009",
+        "marker": "McCormick, 2009",
+        "journal": "Cultural Sociology,",
+        "volume": "3",
+        "_id": "5b8942a0a8b2763a62cb9264",
+        "authors": [
+          "L McCormick"
+        ]
+      },
+      "scanId": "5b8942a0a8b2763a62cb9205",
+      "scanName": "5b894254a8b2763a62cb9148-1.jpg",
+      "status": "OCR_PROCESSED",
+      "_id": "5b8942a0a8b2763a62cb9263",
+      "identifiers": [
+
+      ]
+    },
+    {
+      "bibliographicEntryText": "McCormick, L. (2009). Higher, faster, louder: Representations of the international music competition. Cultural Sociology, 3(1), 5—30.",
+      "ocrData": {
+        "coordinates": "202 2320 1559 2394",
+        "title": "Higher, faster, louder: Representations of the international music competition",
+        "date": "2009",
+        "marker": "",
+        "journal": "Cultural Sociology",
+        "volume": "3",
+        "_id": "5b8942a0a8b2763a62cb9262",
+        "authors": [
+          "L Mccormick"
+        ]
+      },
+      "scanId": "5b8942a0a8b2763a62cb9205",
+      "scanName": "5b894254a8b2763a62cb9148-1.jpg",
+      "status": "OCR_PROCESSED",
+      "_id": "5b8942a0a8b2763a62cb9261",
+      "identifiers": [
+
+      ]
+    },
+    {
+      "bibliographicEntryText": "McCulloch, W. (1945). A heterarchy of values determined by the topology of neural nets. Bulletin of Mathematical Biophysics, 7(2), 89—93.",
+      "ocrData": {
+        "coordinates": "199 2402 1562 2477",
+        "title": "A heterarchy of values determined by the topology of neural nets.",
+        "date": "1945",
+        "marker": "McCulloch, 1945",
+        "journal": "Bulletin of Mathematical Biophysics,",
+        "volume": "7",
+        "_id": "5b8942a0a8b2763a62cb9260",
+        "authors": [
+          "W McCulloch"
+        ]
+      },
+      "scanId": "5b8942a0a8b2763a62cb9205",
+      "scanName": "5b894254a8b2763a62cb9148-1.jpg",
+      "status": "OCR_PROCESSED",
+      "_id": "5b8942a0a8b2763a62cb925f",
+      "identifiers": [
+
+      ]
+    },
+    {
+      "bibliographicEntryText": "McCulloch, W. (1945). A heterarchy of values determined by the topology of neural nets. Bulletin of Mathematical Biophysics, 7(2), 89—93.",
+      "ocrData": {
+        "coordinates": "199 2402 1562 2477",
+        "title": "A heterarchy of values determined by the topology of neural nets",
+        "date": "1945",
+        "marker": "",
+        "journal": "Bulletin of Mathematical Biophysics",
+        "volume": "7",
+        "_id": "5b8942a0a8b2763a62cb925e",
+        "authors": [
+          "W Mcculloch"
+        ]
+      },
+      "scanId": "5b8942a0a8b2763a62cb9205",
+      "scanName": "5b894254a8b2763a62cb9148-1.jpg",
+      "status": "OCR_PROCESSED",
+      "_id": "5b8942a0a8b2763a62cb925d",
+      "identifiers": [
+
+      ]
+    },
+    {
+      "bibliographicEntryText": "Muniesa, F. (2007). Market technologies and the pragmatics of prices. Economy and Society, 36(3), 377—395.",
+      "ocrData": {
+        "coordinates": "194 2485 1551 2553",
+        "title": "Market technologies and the pragmatics of prices",
+        "date": "2007",
+        "marker": "",
+        "journal": "Economy and Society",
+        "volume": "36",
+        "_id": "5b8942a0a8b2763a62cb925c",
+        "authors": [
+          "F Muniesa"
+        ]
+      },
+      "scanId": "5b8942a0a8b2763a62cb9205",
+      "scanName": "5b894254a8b2763a62cb9148-1.jpg",
+      "status": "OCR_PROCESSED",
+      "_id": "5b8942a0a8b2763a62cb925b",
+      "identifiers": [
+
+      ]
+    },
+    {
+      "bibliographicEntryText": "Muniesa, F. (2007). Market technologies and the pragmatics of prices. Economy and Society, 36(3), 377—395.",
+      "ocrData": {
+        "coordinates": "194 2485 1551 2553",
+        "title": "Market technologies and the pragmatics of prices.",
+        "date": "2007",
+        "marker": "Muniesa, 2007",
+        "journal": "Economy and Society,",
+        "volume": "36",
+        "_id": "5b8942a0a8b2763a62cb925a",
+        "authors": [
+          "F Muniesa"
+        ]
+      },
+      "scanId": "5b8942a0a8b2763a62cb9205",
+      "scanName": "5b894254a8b2763a62cb9148-1.jpg",
+      "status": "OCR_PROCESSED",
+      "_id": "5b8942a0a8b2763a62cb9259",
+      "identifiers": [
+
+      ]
+    },
+    {
+      "bibliographicEntryText": "Sander, M., & Espeland, W. N. (2009). The discipline of rankings: Tight coupling and organizational change. American Sociological Review, 74(1), 63—82.",
+      "ocrData": {
+        "coordinates": "274 428 1611 504",
+        "title": "The discipline of rankings: Tight coupling and organizational change",
+        "date": "2009",
+        "marker": "",
+        "journal": "American Sociological Review",
+        "volume": "74",
+        "_id": "5b8942a0a8b2763a62cb9258",
+        "authors": [
+          "M Sander"
+        ]
+      },
+      "scanId": "5b8942a0a8b2763a62cb9206",
+      "scanName": "5b894254a8b2763a62cb9148-2.jpg",
+      "status": "OCR_PROCESSED",
+      "_id": "5b8942a0a8b2763a62cb9257",
+      "identifiers": [
+
+      ]
+    },
+    {
+      "bibliographicEntryText": "Simmel, G. (2008). Sociology ofcompetition. Canadian Journal ofSocio/ogy, 33(4), 957—978. Solaroli, M. (2015). Toward a new visual culture of the news: Professional photojournalism, digital post-production, and the symbolic struggle for distinction. Digital Journalism, 3(4), 513—532.",
+      "ocrData": {
+        "coordinates": "268 510 1605 627",
+        "title": "Toward a new visual culture of the news: Professional photojournalism, digital post-production, and the symbolic struggle for distinction",
+        "date": "2008",
+        "marker": "",
+        "journal": "Canadian Journal ofSocio/ogy",
+        "volume": "33",
+        "_id": "5b8942a0a8b2763a62cb9256",
+        "authors": [
+          "G Simmel"
+        ]
+      },
+      "scanId": "5b8942a0a8b2763a62cb9206",
+      "scanName": "5b894254a8b2763a62cb9148-2.jpg",
+      "status": "OCR_PROCESSED",
+      "_id": "5b8942a0a8b2763a62cb9255",
+      "identifiers": [
+
+      ]
+    },
+    {
+      "bibliographicEntryText": "Solaroli, M. (2015). Toward a new visual culture of the news: Professional photojournalism, digital post-production, and the symbolic struggle for distinction. Digital Journalism, 3(4), 513—532. Stark, D. (1990a). La valeur du travail et sa retribution en Hongrie. Acres de la Recherche en Sciences Sociales (Paris) #85, November 1990, pp. 3—19.",
+      "ocrData": {
+        "coordinates": "264 549 1605 707",
+        "title": "Toward a new visual culture of the news: Professional photojournalism, digital post-production, and the symbolic struggle for distinction",
+        "date": "1990-11",
+        "marker": "",
+        "journal": "",
+        "volume": "3",
+        "_id": "5b8942a0a8b2763a62cb9254",
+        "authors": [
+          "M Solaroli"
+        ]
+      },
+      "scanId": "5b8942a0a8b2763a62cb9206",
+      "scanName": "5b894254a8b2763a62cb9148-2.jpg",
+      "status": "OCR_PROCESSED",
+      "_id": "5b8942a0a8b2763a62cb9253",
+      "identifiers": [
+
+      ]
+    },
+    {
+      "bibliographicEntryText": "Stark, D. (1990a). La valeur du travail et sa retribution en Hongrie. Acres de la Recherche en Sciences Sociales (Paris) #85, November 1990, pp. 3—19.",
+      "ocrData": {
+        "coordinates": "264 630 1601 707",
+        "title": "La valeur du travail et sa retribution en Hongrie. Acres de la Recherche en Sciences Sociales (Paris) #85",
+        "date": "1990-11",
+        "marker": "",
+        "journal": "",
+        "volume": "",
+        "_id": "5b8942a0a8b2763a62cb9252",
+        "authors": [
+          "D Stark"
+        ]
+      },
+      "scanId": "5b8942a0a8b2763a62cb9206",
+      "scanName": "5b894254a8b2763a62cb9148-2.jpg",
+      "status": "OCR_PROCESSED",
+      "_id": "5b8942a0a8b2763a62cb9251",
+      "identifiers": [
+
+      ]
+    },
+    {
+      "bibliographicEntryText": "Stark, D. (1990b). Work, worth, and justice in a socialist mixed economy. Harvard University, Center for European Studies, Program on Central and East Europe Working Paper Series, #5, 1990.",
+      "ocrData": {
+        "coordinates": "260 711 1596 822",
+        "title": "Work, worth, and justice in a socialist mixed economy",
+        "date": "1990",
+        "marker": "",
+        "journal": "",
+        "volume": "",
+        "_id": "5b8942a0a8b2763a62cb9250",
+        "authors": [
+          "D Stark"
+        ]
+      },
+      "scanId": "5b8942a0a8b2763a62cb9206",
+      "scanName": "5b894254a8b2763a62cb9148-2.jpg",
+      "status": "OCR_PROCESSED",
+      "_id": "5b8942a0a8b2763a62cb924f",
+      "identifiers": [
+
+      ]
+    },
+    {
+      "bibliographicEntryText": "Stark, D. (1996). Recombinant property in east european capitalism. American Journal of Sociology, 101(4), 993—1027.",
+      "ocrData": {
+        "coordinates": "254 834 1591 905",
+        "title": "Recombinant property in east european capitalism",
+        "date": "1996",
+        "marker": "",
+        "journal": "American Journal of Sociology",
+        "volume": "101",
+        "_id": "5b8942a0a8b2763a62cb924e",
+        "authors": [
+          "D Stark"
+        ]
+      },
+      "scanId": "5b8942a0a8b2763a62cb9206",
+      "scanName": "5b894254a8b2763a62cb9148-2.jpg",
+      "status": "OCR_PROCESSED",
+      "_id": "5b8942a0a8b2763a62cb924d",
+      "identifiers": [
+
+      ]
+    },
+    {
+      "bibliographicEntryText": "Stark, D. (2009). The sense of dissonance.‘ Accounts of worth in economic life. London: Princeton University Press.",
+      "ocrData": {
+        "coordinates": "250 914 1588 986",
+        "title": "The sense of dissonance.‘ Accounts of worth in economic life",
+        "date": "2009",
+        "marker": "",
+        "journal": "",
+        "volume": "",
+        "_id": "5b8942a0a8b2763a62cb924c",
+        "authors": [
+          "D Stark"
+        ]
+      },
+      "scanId": "5b8942a0a8b2763a62cb9206",
+      "scanName": "5b894254a8b2763a62cb9148-2.jpg",
+      "status": "OCR_PROCESSED",
+      "_id": "5b8942a0a8b2763a62cb924b",
+      "identifiers": [
+
+      ]
+    },
+    {
+      "bibliographicEntryText": "Stark, D. (2011). What‘s valuable. In P. Aspers & J. Beckert (Eds), The worth ofgoods: Valuation and pricing in markets (pp. 319-338). Oxford University Press.",
+      "ocrData": {
+        "coordinates": "247 995 1584 1072",
+        "title": "The worth ofgoods: Valuation and pricing in markets",
+        "date": "2011",
+        "marker": "",
+        "journal": "",
+        "volume": "",
+        "_id": "5b8942a0a8b2763a62cb924a",
+        "authors": [
+          "D Stark"
+        ]
+      },
+      "scanId": "5b8942a0a8b2763a62cb9206",
+      "scanName": "5b894254a8b2763a62cb9148-2.jpg",
+      "status": "OCR_PROCESSED",
+      "_id": "5b8942a0a8b2763a62cb9249",
+      "identifiers": [
+
+      ]
+    },
+    {
+      "bibliographicEntryText": "Trébuchet-Breitwiller, A. S. (2015). Making things precious: A pragmatist inquiry into the valuation Of luxury. In A. Antal, M. Hutter, & D. Stark (Eds.), Moments of valuation: Exploring sires of dissonance (pp. 168—188). Oxford: Oxford University Press.",
+      "ocrData": {
+        "coordinates": "243 1075 1580 1195",
+        "title": "Making things precious: A pragmatist inquiry into the valuation Of luxury",
+        "date": "2015",
+        "marker": "",
+        "journal": "",
+        "volume": "",
+        "_id": "5b8942a0a8b2763a62cb9248",
+        "authors": [
+          "A S Trébuchet-Breitwiller"
+        ]
+      },
+      "scanId": "5b8942a0a8b2763a62cb9206",
+      "scanName": "5b894254a8b2763a62cb9148-2.jpg",
+      "status": "OCR_PROCESSED",
+      "_id": "5b8942a0a8b2763a62cb9247",
+      "identifiers": [
+
+      ]
+    },
+    {
+      "bibliographicEntryText": "Vedres, B., & Stark, D. (2010). Structural folds: Generative disruption in overlapping groups. American Journal ofSocio/ogy, 115(4), 1150—1190.",
+      "ocrData": {
+        "coordinates": "237 1160 1573 1277",
+        "title": "Structural folds: Generative disruption in overlapping groups.",
+        "date": "2010",
+        "marker": "Vedres, Stark, 2010",
+        "journal": "American Journal ofSocio/ogy,",
+        "volume": "115",
+        "_id": "5b8942a0a8b2763a62cb9246",
+        "authors": [
+          "B Vedres"
+        ]
+      },
+      "scanId": "5b8942a0a8b2763a62cb9206",
+      "scanName": "5b894254a8b2763a62cb9148-2.jpg",
+      "status": "OCR_PROCESSED",
+      "_id": "5b8942a0a8b2763a62cb9245",
+      "identifiers": [
+
+      ]
+    },
+    {
+      "bibliographicEntryText": "Velthuis, O. (2005). Talking prices: Symbolic meanings of prices on the mar/(et for contemporary art. Princeton, NJ : Princeton University Press.",
+      "ocrData": {
+        "coordinates": "229 1281 1570 1400",
+        "title": "Talking prices: Symbolic meanings of prices on the mar/(et for contemporary art.",
+        "date": "2005",
+        "marker": "Velthuis, 2005",
+        "journal": "",
+        "volume": "",
+        "_id": "5b8942a0a8b2763a62cb9244",
+        "authors": [
+          "O Velthuis"
+        ]
+      },
+      "scanId": "5b8942a0a8b2763a62cb9206",
+      "scanName": "5b894254a8b2763a62cb9148-2.jpg",
+      "status": "OCR_PROCESSED",
+      "_id": "5b8942a0a8b2763a62cb9243",
+      "identifiers": [
+
+      ]
+    },
+    {
+      "bibliographicEntryText": "Williamson, 0. E. (1981). The economics of organization: The transaction cost approach. The American Journal of Sociology, 87(3), 548—577.",
+      "ocrData": {
+        "coordinates": "229 1323 1568 1440",
+        "title": "The economics of organization: The transaction cost approach.",
+        "date": "1981",
+        "marker": "Williamson, 1981",
+        "journal": "The American Journal of Sociology,",
+        "volume": "87",
+        "_id": "5b8942a0a8b2763a62cb9242",
+        "authors": [
+          "Williamson"
+        ]
+      },
+      "scanId": "5b8942a0a8b2763a62cb9206",
+      "scanName": "5b894254a8b2763a62cb9148-2.jpg",
+      "status": "OCR_PROCESSED",
+      "_id": "5b8942a0a8b2763a62cb9241",
+      "identifiers": [
+
+      ]
+    }
+  ]
+}

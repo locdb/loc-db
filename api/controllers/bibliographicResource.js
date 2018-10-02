@@ -1,6 +1,7 @@
 "use strict";
 const swbHelper = require('./../helpers/swbHelper.js').createSwbHelper();
 const br = require('./../models/bibliographicResource.js').mongoBr;
+const BibliographicResource = require('./../schema/bibliographicResource.js');
 const logger = require('./../util/logger');
 const _ = require('lodash');
 const mongoose = require('mongoose');
@@ -9,6 +10,7 @@ const openCitationsHelper = require('./../helpers/openCitationsHelper.js').creat
 const enums = require('./../schema/enum.json');
 const Identifier = require('./../schema/identifier');
 const async = require("async");
+const databaseHelper = require('./../helpers/databaseHelper').createDatabaseHelper();
 
 
 function list(req, res){
@@ -82,6 +84,66 @@ function update(req, res){
                 return res.status(500).json(err);
             }
             res.status(200).json(doc);
+        });
+    });
+}
+
+
+function setValid(req, res){
+    var id = req.swagger.params.id.value;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        logger.error("Invalid value for parameter id.", {id: id});
+        return res.status(400).json({"message": "Invalid parameter id."});
+    }
+
+    br.findById(id, function (err, doc) {
+        if (err){
+            logger.error(err);
+            return res.status(500).json(err);
+        }
+
+        if(doc.status == enums.status.valid){
+            return res.status(400).json("The resource status is already VALID");
+        }
+
+        // we set the status of the BR to valid
+        doc.status = enums.status.valid;
+
+        // we can assume that the status is valid in case the be is linked, as we do this internally
+        // all unlinked bes should be obsolete
+        for(var be of doc.parts){
+            if(be.status !== enums.status.valid){
+                be.status = enums.status.obsolete;
+            }
+        }
+
+        // Convert to schema resource for helper functions
+        var helperBr = new BibliographicResource(doc);
+
+        // all scans should be valid except if they are explicitely marked obsolete
+        var resourceEmbodiments = helperBr.getResourceEmbodimentsForType(helperBr.type);
+        for(var re of resourceEmbodiments){
+            for(var scan of re.scans){
+                if(scan.status !== enums.status.obsolete && scan.status !== enums.status.notOcrProcessed && scan.status !== enums.status.ocrProcessing){
+                    scan.status = enums.status.valid;
+                }
+            }
+        }
+        // convert schema helper to mongo instance
+        databaseHelper.convertSchemaResourceToMongoose(helperBr, function(err, doc){
+            if (err){
+                logger.error(err);
+                return res.status(500).json(err);
+            }
+            // finally, save the doc
+            doc.save(function (err, doc) {
+                if (err){
+                    logger.error(err);
+                    return res.status(500).json(err);
+                }
+                res.status(200).json(doc);
+            });
         });
     });
 }
@@ -520,6 +582,7 @@ module.exports = {
         createByPPN: createByPPN,
         save: save,
         update: update,
+        setValid: setValid,
         //getCrossrefReferences: getCrossrefReferences,
         //getPublisherUrl: getPublisherUrl,
         saveElectronicJournal: saveElectronicJournal,

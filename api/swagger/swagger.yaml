@@ -212,6 +212,33 @@ paths:
           schema:
             $ref: "#/definitions/ErrorResponse"
 
+  /setValid:
+    x-swagger-router-controller: bibliographicResource
+    get:
+      tags: [BibliographicResource]
+      description: Sets a bibliographic resource to VALID, i.e. "completely linked",
+       given it's internal identifier. The system internally sets all bibliographic entries
+       of the bibliographic resources to OBSOLETE that are not linked and therefore not valid.
+       We do this in order to deal with duplicate reference extractions.
+      operationId: setValid
+      parameters:
+        - name: id
+          in: query
+          description: The internal identifier of the resource
+          required: true
+          type: string
+          pattern: '^[a-f\d]{24}$'
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/BibliographicResource"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+
   /saveResource:
     x-swagger-router-controller: scan
     post:
