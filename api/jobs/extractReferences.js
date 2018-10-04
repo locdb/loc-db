@@ -76,10 +76,10 @@ module.exports = function(agenda) {
                             if(err){
                                 logger.error(err);
                                 done(err);
-                                return job.remove();
+                                return job.disable();
                             }
                             done();
-                            return job.remove();
+                            return job.disable();
                         });
                     }
                 });
