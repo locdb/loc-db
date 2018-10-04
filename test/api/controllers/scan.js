@@ -468,7 +468,7 @@ describe('controllers', function () {
             });*/
 
             it('should trigger OCR processing', function (done) {
-                setup.mockOCRFileUpload();
+                //setup.mockOCRFileUpload();
                 this.timeout(1000000);
                 agent
                     .get('/triggerOcrProcessing')
@@ -505,8 +505,8 @@ describe('controllers', function () {
 
             it('should trigger OCR processing for a pdf and download the image', function (done) {
                 this.timeout(100000000000000);
-                setup.mockOCRGetImage();
-                setup.mockOCRFileUpload();
+                //setup.mockOCRGetImage();
+                //setup.mockOCRFileUpload();
                 agent
                     .get('/triggerOcrProcessing')
                     .query({id: idPdf})

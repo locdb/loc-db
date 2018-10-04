@@ -107,16 +107,17 @@ Setup.prototype.loadSearchData = function(cb){
     });
 };
 
-Setup.prototype.mockOCRFileUpload = function(){
+// commented, because it does not match the reference extraction interface anymore
+/*Setup.prototype.mockOCRFileUpload = function(){
     nock("https://locdb-dev.opendfki.de")
         .post('/fileupload/')
         .replyWithFile(200, __dirname + '/data/ocr_data/ocrOutput.xml')
         .persist();
-};
+};*/
 
 Setup.prototype.mockOCRError = function(){
     nock("https://locdb-dev.opendfki.de")
-        .post('/fileupload/')
+        .get('/fileupload/')
         .reply('500');
 };
 
@@ -126,6 +127,24 @@ Setup.prototype.mockOCRGetImage = function(){
         .post('/getimage/')
         .replyWithFile(200, __dirname + '/data/ocr_data/references.png')
         .persist();
+};
+
+Setup.prototype.mockOCRGetResults = function(token){
+    nock("https://locdb-dev.opendfki.de/results")
+        .get("/" + token)
+        .reply(202, "In Processing!");
+};
+
+Setup.prototype.mockOCRGetResultsProcessingFinished = function(token){
+    nock("https://locdb-dev.opendfki.de/results")
+        .get("/" + token)
+        .replyWithFile(200, __dirname + '/data/ocr_data/ocrOutput.xml');
+};
+
+Setup.prototype.mockOCRGetResultsAll = function(token){
+    nock("https://locdb-dev.opendfki.de/results")
+        .get("/" + token).times(2).reply(202, "In Processing!")
+        .replyWithFile(200, __dirname + '/data/ocr_data/ocrOutput.xml');
 };
 
 Setup.prototype.mockGVI = function(){

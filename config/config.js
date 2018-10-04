@@ -35,9 +35,11 @@ var config = {
         SWB: "http://swb.bsz-bw.de/sru/DB=2.1/username=/password=/",
         ZDB: "http://services.dnb.de/sru/zdb",
         OLCSSGSOZ: "http://sru.gbv.de/olcssg-soz",
-        OCR_FILEUPLOAD: "https://locdb.opendfki.de/fileupload/",
-        OCR_FILEVIEW: "https://locdb.opendfki.de/fileview/",
-        OCR_IMAGEVIEW: "https://locdb.opendfki.de/getimage/"
+        OCR_FILEUPLOAD: "https://locdb-dev.opendfki.de/fileupload/",
+        OCR_FILEVIEW: "https://locdb-dev.opendfki.de/fileview/",
+        OCR_IMAGEVIEW: "https://locdb-dev.opendfki.de/getimage/",
+        OCR_RESULTS: "https://locdb-dev.opendfki.de/results/",
+        OCR_SEGMENTREFERENCE: "https://locdb-dev.opendfki.de/segmentReference/"
     },
     PATHS: {
         UPLOAD: (process.env.LOCDB_UPLOAD_PATH || "./../upload/"),

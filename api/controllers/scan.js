@@ -163,6 +163,7 @@ function saveResource(req, res) {
                                     logger.error(err);
                                     return response.status(500).json(err);
                                 }
+                                // TODO: What if parent does not exist?
                                 var parent = resources[0];
                                 crossrefHelper.queryChapterMetaData(parent.getTitleForType(parent.type), firstPage, lastPage, function(err, res) {
                                     if (err) {
@@ -246,12 +247,6 @@ function saveResource(req, res) {
                                     return response.status(500).json(err);
                                 }
 
-                                // TODO: Hook for precalculation of suggestions?
-                                //suggestionHelper.precalculateExternalSuggestions(resource, function(err,res){
-                                //    if(err){
-                                //        logger.error(err);
-                                //    }
-                                //});
                                 agenda.now('precalculate suggestions', {br: resource});
                                 if (binaryFile || stringFile) {
                                     return databaseHelper.saveReferencesPageForResource(resource, binaryFile, textualPdf, stringFile, embodimentType, function (err, result) {
