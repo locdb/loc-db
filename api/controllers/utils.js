@@ -97,6 +97,10 @@ function loadBibliographicResources(req, res){
     });
 }
 
+function stats(req, res){
+    return res.status(200).json("TBI");
+}
+
 
 module.exports = {
     log: log,
@@ -104,5 +108,6 @@ module.exports = {
     getGVI: getGVI,
     getCrossref: getCrossref,
     getSWB: getSWB,
-    loadBibliographicResources: loadBibliographicResources
+    loadBibliographicResources: loadBibliographicResources,
+    stats: stats
 };

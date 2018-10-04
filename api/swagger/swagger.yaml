@@ -846,6 +846,22 @@ paths:
           schema:
             $ref: "#/definitions/ErrorResponse"
 
+  /stats:
+    x-swagger-router-controller: utils
+    get:
+      tags: [Utils]
+      description: Returns a bunch of statistics reflecting the current status of the system
+      operationId: stats
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
   /bibliographicResourcesOC:
     x-swagger-router-controller: bibliographicResource
     get:
