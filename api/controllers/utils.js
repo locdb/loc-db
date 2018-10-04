@@ -8,6 +8,7 @@ const crossrefHelper = require('./../helpers/crossrefHelper').createCrossrefHelp
 const swbHelper = require('./../helpers/swbHelper').createSwbHelper();
 const async = require('async');
 const mongoBr = require('./../models/bibliographicResource').mongoBr;
+const statsHelper = require('./../helpers/statsHelper').createStatsHelper();
 
 function log(req, res){
     var response = res;
@@ -98,7 +99,13 @@ function loadBibliographicResources(req, res){
 }
 
 function stats(req, res){
-    return res.status(200).json("TBI");
+    statsHelper.brStats(function(err,result){
+        if(err){
+            logger.error(err);
+            return res.status(500);
+        }
+        return res.status(200).json(result);
+    });
 }
 
 
