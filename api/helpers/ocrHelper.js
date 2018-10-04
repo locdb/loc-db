@@ -22,121 +22,142 @@ OcrHelper.prototype.triggerOcrProcessing = function(scan, id, br, callback){
         if (err) {
             logger.error(err);
             logger.info("We try to set back the status of the scan");
-            return databaseHelper.setScanStatus(id, enums.status.notOcrProcessed, null, function(err, result){
-                if(err){
+            return databaseHelper.setScanStatus(id, enums.status.notOcrProcessed, null, function (err, result) {
+                if (err) {
                     logger.error(err);
                     return callback(new Error("Something went wrong with setting back the scan status"), result);
                 }
                 return callback(new Error("Set back scan status: Something went wrong when OCR processing"), result);
             });
         }
-        var xmlName = scan._id.toString() + ".xml";
-        async.parallel([
-            // Do two functions in parallel: 1) parse xml string 2) save xml string in file
-            function (callback) {
-                self.parseXMLString(result, function (err, bes) {
-                    if (err) {
-                        logger.error(err);
-                        return callback(new Error("XML parsing failed"), bes);
-                    }
+        return callback(null, result);
+    });
+};
 
-                    bes.map(function (be) {
-                        console.log(be);
-                        be.scanId = id;
-                        be.status = enums.status.ocrProcessed;
-                        br.parts.push(be);
-                    });
+OcrHelper.prototype.getReferenceExtractionResults = function(token, callback){
+    request.get({baseUrl: config.URLS.OCR_RESULTS, uri: "/" + token}, function(err, res, body) {
+        if (err) {
+            logger.error(err);
+            return callback(err, null);
+        }else if (res.statusCode!= 200 && res.statusCode!= 202){
+            logger.error("Request to OCR component failed.");
+            return callback("Request to OCR component failed.", null);
+        }
+        logger.info("Request to OCR component successful.", {body: body});
+        callback(null, [body, res.statusCode]);
+    });
+};
 
-                    var helperBr = new BibliographicResource(br);
-                    var embodiments = helperBr.getResourceEmbodimentsForType(br.type);
-                    for (var embodiment of embodiments) {
-                        for (var scan of embodiment.scans) {
-                            if (scan._id == id) {
-                                scan.xmlName = xmlName;
-                                var embodimentIndex = embodiments.indexOf(embodiment);
-                                var scanIndex = embodiment.scans.indexOf(scan);
-                                embodiments[embodimentIndex].scans[scanIndex] = scan;
 
-                                databaseHelper.convertSchemaResourceToMongoose(helperBr, function (err, br) {
-                                    if(!br){
-                                        var err = new Error("Br is null")
+// TODO: How does this have to look like exactly?
+OcrHelper.prototype.processOcrResult = function(scan, id, br, result, callback){
+    var self = this;
+    var xmlName = scan._id.toString() + ".xml";
+    async.parallel([
+        // Do two functions in parallel: 1) parse xml string 2) save xml string in file
+        function (callback) {
+            self.parseXMLString(result, function (err, bes) {
+                if (err) {
+                    logger.error(err);
+                    return callback(new Error("XML parsing failed"), bes);
+                }
+
+                bes.map(function (be) {
+                    console.log(be);
+                    be.scanId = id;
+                    be.status = enums.status.ocrProcessed;
+                    br.parts.push(be);
+                });
+
+                var helperBr = new BibliographicResource(br);
+                var embodiments = helperBr.getResourceEmbodimentsForType(br.type);
+                for (var embodiment of embodiments) {
+                    for (var scan of embodiment.scans) {
+                        if (scan._id == id) {
+                            scan.xmlName = xmlName;
+                            var embodimentIndex = embodiments.indexOf(embodiment);
+                            var scanIndex = embodiment.scans.indexOf(scan);
+                            embodiments[embodimentIndex].scans[scanIndex] = scan;
+
+                            databaseHelper.convertSchemaResourceToMongoose(helperBr, function (err, br) {
+                                if(!br){
+                                    var err = new Error("Br is null")
+                                    logger.error(err);
+                                    return callback(err, null);
+                                }
+                                return br.save(function (err, br) {
+                                    if (err) {
                                         logger.error(err);
-                                        return callback(err, null);
+                                        return callback(err, null)
                                     }
-                                    return br.save(function (err, br) {
-                                        if (err) {
-                                            logger.error(err);
-                                            return callback(err, null)
-                                        }
-                                        return callback(null, br);
-                                    });
+                                    return callback(null, br);
                                 });
-                            }
+                            });
                         }
                     }
-                });
-            },
-            function (callback) {
-                fileHelper.saveStringFile(xmlName, result, function (err, res) {
-                    if (err) {
-                        logger.error(err);
-                        return callback(err, null);
-                    }
-                    callback(null, xmlName);
-                });
-            },
-            function (callback) {
-                self.getImagesForPDF(scan.scanName, function (err, res) {
-                    if (err) {
-                        logger.error(err);
-                        return callback(err, null);
-                    }
-                    callback(null, res);
-                });
-            }
-        ], function (err, results) {
-            if (err) {
-                logger.error(err);
-                return callback(err, results);
-            }
-            if(results[2]){
-                //fileHelper.saveBinaryFile(scan._id.toString(), results[2], function(err, res){
-                self.saveAndUnpackZipFile(results[2], scan, br, function(err, res){
-                    if (err) {
-                        logger.error(err);
-                        return callback(err, res);
-                    }
-                    let splitted_scans = [];
-                    for(let file of res){
-                        let splitted_scan = new Scan({
-                            scanName: id + "/" + file,
-                            xmlName: xmlName,
-                            textualPdf: scan.textualPdf,
-                            status: enums.status.ocrProcessed})
-                        logger.log(file)
-                        splitted_scans.push(splitted_scan);
-                    }
+                }
+            });
+        },
+        function (callback) {
+            fileHelper.saveStringFile(xmlName, result, function (err, res) {
+                if (err) {
+                    logger.error(err);
+                    return callback(err, null);
+                }
+                callback(null, xmlName);
+            });
+        },
+        function (callback) {
+            self.getImagesForPDF(scan.scanName, function (err, res) {
+                if (err) {
+                    logger.error(err);
+                    return callback(err, null);
+                }
+                callback(null, res);
+            });
+        }
+    ], function (err, results) {
+        if (err) {
+            logger.error(err);
+            return callback(err, results);
+        }
+        if(results[2]){
+            //fileHelper.saveBinaryFile(scan._id.toString(), results[2], function(err, res){
+            self.saveAndUnpackZipFile(results[2], scan, br, function(err, res){
+                if (err) {
+                    logger.error(err);
+                    return callback(err, res);
+                }
+                let splitted_scans = [];
+                for(let file of res){
+                    let splitted_scan = new Scan({
+                        scanName: id + "/" + file,
+                        xmlName: xmlName,
+                        textualPdf: scan.textualPdf,
+                        status: enums.status.ocrProcessed})
+                    logger.log(file)
+                    splitted_scans.push(splitted_scan);
+                }
 
-                    databaseHelper.replaceScanWithScanPages(id, splitted_scans, function(err, result){
-                        if(err){
-                            logger.error(err);
-                            return callback(err, result);
-                        }
-                        var br = result[0];
-                        return callback(null, br);
-                    });
-                });
-            }else{
-                databaseHelper.setScanStatus(id, enums.status.ocrProcessed, null, function(err, result){
+                databaseHelper.replaceScanWithScanPages(id, splitted_scans, function(err, result){
                     if(err){
                         logger.error(err);
-                        return callback(err, null);
+                        return callback(err, result);
                     }
                     var br = result[0];
                     return callback(null, br);
                 });
-            }
-        });
+            });
+        }else{
+            databaseHelper.setScanStatus(id, enums.status.ocrProcessed, null, function(err, result){
+                if(err){
+                    logger.error(err);
+                    return callback(err, null);
+                }
+                var br = result[0];
+                return callback(null, br);
+            });
+        }
     });
 };
 
