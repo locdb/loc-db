@@ -599,29 +599,29 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
-            
-  /createBibliographicResourceByPPN:
-    x-swagger-router-controller: bibliographicResource
+
+  /correctReferencePosition:
+    x-swagger-router-controller: scan
     get:
-      tags: [BibliographicResource]
-      description: Get bibliographic resource by PICA-Prod-Nr.
-      operationId: createByPPN
+      tags: [Scan]
+      description: Send a processing request to the reference extraction component for a single reference with human-corrected bounding box position
       parameters:
-        - name: ppn
+        - name: id
           in: query
-          description: The PICA-Prod-Nr. assigned by SWB
+          description: The unique id of the scan which should be send to the reference extraction component
           required: true
           type: string
-        - name: resourceType
+        - name: coordinates
           in: query
-          description: The type of the resource
+          description: The new coordinates of the bounding box separated by single space, i.e. format x1 y1 x2 y2
           required: true
           type: string
+      operationId: correctReferencePosition
       responses:
         "200":
           description: Success
           schema:
-            $ref: "#/definitions/BibliographicResource"
+            $ref: "#/definitions/BibliographicEntry"
         default:
           description: Error
           schema:
@@ -2079,19 +2079,6 @@ definitions:
         items:
           $ref: "#/definitions/BibliographicResource"
 
-#  ToDoParts:
-#    required:
-#      - _id
-#    properties:
-#      _id:
-#        type: string
-#      status:
-#        type: string
-#      scans:
-#        type: array
-#        items:
-#          $ref: "#/definitions/ToDoScans"
-#
   Scan:
     required:
       - _id

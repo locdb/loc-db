@@ -77,6 +77,34 @@ describe('helpers', function() {
             });
         });
 
+        describe('parseSingleReference', function () {
+            it('should return bibliographicEntries given the ocr output', function (done) {
+                fs.readFile("./test/api/data/ocr_data/ocrOutputSingleReference.xml", function(err,res){
+                    if(err){
+                        done(err);
+                    }
+                    ocrHelper.parseXMLSingleReference(res, function (err, result) {
+                        console.log(result);
+                        should.not.exists(err);
+                        result.should.be.Array().and.have.lengthOf(1);
+                        result[0].should.be.Object();
+                        result[0].should.have.property("bibliographicEntryText");
+                        result[0].should.have.property("ocrData").which.is.an.Object();
+                        result[0].ocrData.should.have.property("coordinates");
+                        result[0].ocrData.should.have.property("date");
+                        result[0].ocrData.should.have.property("journal");
+                        result[0].ocrData.should.have.property("marker");
+                        result[0].ocrData.should.have.property("title");
+                        result[0].ocrData.should.have.property("volume");
+                        result[0].ocrData.should.have.property("namer");
+                        result[0].ocrData.should.have.property("detector");
+                        //result[0].ocrData.authors.should.be.Array().and.have.lengthOf(0);
+                        done();
+                    });
+                });
+            });
+        });
+
         describe('triggerOCRProcessing', function () {
 
             it('should return a string token or an xml', function (done) {

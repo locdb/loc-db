@@ -14,6 +14,7 @@ const fs = require('fs');
 const path = require('path');
 const databaseHelper = require('./../helpers/databaseHelper.js').createDatabaseHelper();
 const crossrefHelper = require('./../helpers/crossrefHelper').createCrossrefHelper();
+const ocrHelper = require('./../helpers/ocrHelper').createOcrHelper();
 const agenda = require('./../jobs/jobs');
 
 function saveResource(req, res) {
@@ -305,7 +306,21 @@ function get(req, res) {
     }
 
     // retrieve corresponding entry from the db
-    return databaseHelper.createSimpleEqualsConditions('embodiedAs', id, '.scans._id', function(err,conditions) {
+    return databaseHelper.getScanById(id, function(err, scan){
+        if (err) {
+            logger.error(err);
+            return response.status(500).json(err);
+        }
+        if(!scan){
+            return response.status(400).json({"message": "Scan cannot be found."});
+        }
+        // send file
+        var filePath = config.PATHS.UPLOAD + scan.scanName;
+        return response.sendFile(path.resolve(filePath), function (err) {
+            if (err) return logger.error(err);
+        });
+    });
+/*    return databaseHelper.createSimpleEqualsConditions('embodiedAs', id, '.scans._id', function(err,conditions) {
         if (err) {
             logger.error(err);
             return response.status(500).json({"message": "Something weird happened."});
@@ -330,7 +345,7 @@ function get(req, res) {
                 }
             }
         });
-    });
+    });*/
 };
 
 
@@ -414,11 +429,68 @@ function triggerOcrProcessing(req, res) {
     });
 };
 
+function correctReferencePosition(req, res){
+    var response = res;
+    var id = req.swagger.params.id.value;
+    var coordinates = req.swagger.params.coordinates.value;
+
+    // check if id is valid
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        logger.error("Invalid value for parameter id.", {id: id});
+        return response.status(400).json({"message": "Invalid parameter."});
+    }
+
+    databaseHelper.getScanById(id, function(err, scan){
+        if(err){
+            logger.error(err);
+            return response.status(500).json(err);
+        }
+
+        if(!scan){
+            return response.status(400).json({"message": "Scan cannot be found."});
+        }
+        ocrHelper.segmentReference(scan.scanName, coordinates, function(err, body){
+            if(err){
+                logger.error(err);
+                return response.status(500).json(err);
+            }
+            ocrHelper.parseXMLSingleReference(body, function(err, result){
+                if(err){
+                   logger.error(err);
+                   return response.status(500).json(err);
+                }
+                if(result.length === 0 || !result[0]){
+                    // TODO: Is it okay to return null if the ocr returned nothing?
+                    return response.status(200).json(null);
+                }
+                var be = result[0];
+                be.scanId = scan._id;
+                be.scanName = scan.scanName;
+                be.status = enums.status.ocrProcessed;
+                databaseHelper.getBrByScanId(scan._id, function(err, br){
+                    if(err){
+                        logger.error(err);
+                        return response.status(500).json(err);
+                    }
+                    br.parts.push(be);
+                    br.save(function(err, br){
+                        if(err){
+                            logger.error(err);
+                            return response.status(500).json(err);
+                        }
+                        return response.status(200).json(be);
+                    });
+                });
+            });
+        });
+    });
+}
 
 module.exports = {
     saveResource: saveResource,
     getToDo: getToDo,
     triggerOcrProcessing: triggerOcrProcessing,
     get: get,
-    remove: remove
+    remove: remove,
+    correctReferencePosition: correctReferencePosition
 };

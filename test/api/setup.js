@@ -141,6 +141,12 @@ Setup.prototype.mockOCRGetResultsProcessingFinished = function(token){
         .replyWithFile(200, __dirname + '/data/ocr_data/ocrOutput.xml');
 };
 
+Setup.prototype.mockOCRGetSegmentReference = function(){
+    nock('https://locdb-dev.opendfki.de')
+        .post("/segmentReference/")
+        .replyWithFile(200, __dirname + '/data/ocr_data/ocrOutputSingleReference.xml');
+};
+
 Setup.prototype.mockOCRGetResultsAll = function(token){
     nock("https://locdb-dev.opendfki.de/results")
         .get("/" + token).times(2).reply(202, "In Processing!")

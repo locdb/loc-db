@@ -163,9 +163,10 @@ OcrHelper.prototype.processOcrResult = function(scan, id, br, result, callback){
 
 
 /**
- * Should return a list of bibliographic entries for a given filename
+ * Should return a list of bibliographic entries for a given string
  */
 OcrHelper.prototype.parseXMLString = function(xmlString, callback) {
+    var self = this;
     xml2js.parseString(xmlString, function (err, ocrResult) {
         if (err) {
             logger.error(err);
@@ -174,54 +175,74 @@ OcrHelper.prototype.parseXMLString = function(xmlString, callback) {
 
         var bes = [];
         if(ocrResult.LOCDBViewResults && ocrResult.LOCDBViewResults.algorithm) {
-            for (var algorithm of ocrResult.LOCDBViewResults.algorithm) {
-                //if(algorithm.$.fname === fileName){
-                var citations = algorithm.BibStructured;
-                if (citations) {
-                    for (var citation of citations) {
-                        var namer = citation.$ && citation.$.namer ? citation.$.namer : "";
-                        var detector = citation.$ && citation.$.detector ? citation.$.detector : "";
-
-                        var title = citation.title ? citation.title[0] : "";
-                        var date = citation.date ? citation.date[0] : "";
-                        var marker = citation.marker ? citation.marker[0] : "";
-                        var journal = citation.journal ? citation.journal[0] : "";
-                        var volume = citation.volume ? citation.volume[0] : "";
-                        var authors = [];
-                        var coordinates = (citation.rawString && citation.rawString[0] && citation.rawString[0]['$']) ? citation.rawString[0]['$'].coordinates : "";
-
-
-                        if (citation.authors) {
-                            for (var a of citation.authors) {
-                                var author = a.author ? a.author[0] : "";
-                                authors.push(author);
-                            }
-                        }
-
-                        var be = new BibliographicEntry({
-                            bibliographicEntryText: citation.rawString[0]._,
-                            ocrData: {
-                                coordinates: coordinates,
-                                title: title,
-                                date: date,
-                                marker: marker,
-                                authors: authors,
-                                journal: journal,
-                                volume: volume,
-                                namer: namer,
-                                detector: detector
-                            },
-                            scanName: algorithm.$.fname
-                        });
-                        bes.push(be.toObject())
-                    }
-                }
-            }
+            async.map(ocrResult.LOCDBViewResults.algorithm, self.parseXMLAlgorithmTag, function (err, result) {
+                return callback(null, result.flatten());
+            });
         }
         return callback(null, bes);
     });
-}
+};
 
+OcrHelper.prototype.parseXMLSingleReference = function(xmlString, callback) {
+    var self = this;
+    xml2js.parseString(xmlString, function (err, ocrResult) {
+        if (err) {
+            logger.error(err);
+            return callback(err, null)
+        }
+        if(ocrResult.algorithm) {
+            self.parseXMLAlgorithmTag(ocrResult.algorithm, function (err, result) {
+                return callback(null, result);
+            });
+        }else{
+            return callback(null, []);
+        }
+    });
+};
+
+OcrHelper.prototype.parseXMLAlgorithmTag = function(algorithm, callback){
+    var bes = [];
+    var citations = algorithm.BibStructured;
+    if (citations) {
+        for (var citation of citations) {
+            var namer = citation.$ && citation.$.namer ? citation.$.namer : "";
+            var detector = citation.$ && citation.$.detector ? citation.$.detector : "";
+
+            var title = citation.title ? citation.title[0] : "";
+            var date = citation.date ? citation.date[0] : "";
+            var marker = citation.marker ? citation.marker[0] : "";
+            var journal = citation.journal ? citation.journal[0] : "";
+            var volume = citation.volume ? citation.volume[0] : "";
+            var authors = [];
+            var coordinates = (citation.rawString && citation.rawString[0] && citation.rawString[0]['$']) ? citation.rawString[0]['$'].coordinates : "";
+
+            if (citation.authors) {
+                for (var a of citation.authors) {
+                    var author = a.author ? a.author[0] : "";
+                    authors.push(author);
+                }
+            }
+
+            var be = new BibliographicEntry({
+                bibliographicEntryText: citation.rawString[0]._,
+                ocrData: {
+                    coordinates: coordinates,
+                    title: title,
+                    date: date,
+                    marker: marker,
+                    authors: authors,
+                    journal: journal,
+                    volume: volume,
+                    namer: namer,
+                    detector: detector
+                },
+                scanName: algorithm.$.fname
+            });
+            bes.push(be.toObject())
+        }
+    }
+    return callback(null, bes);
+};
 
 OcrHelper.prototype.ocrFileUpload = function(fileName, textualPdf, callback){
     var path = config.PATHS.UPLOAD + fileName;
@@ -293,6 +314,25 @@ OcrHelper.prototype.getImagesForPDF = function(fileName, callback){
     }else{
         return callback(null, null);
     }
+};
+
+OcrHelper.prototype.segmentReference = function(filename, coordinates, callback){
+    var form = {
+        filename: filename,
+        coordinates: coordinates
+    };
+
+    return request.post({url: config.URLS.OCR_SEGMENTREFERENCE, formData: form}, function(err, res, body) {
+        if (err) {
+            logger.error(err);
+            return callback(err, null);
+        }else if (res.statusCode!= 200) {
+            logger.error("Request to reference segmentation failed.");
+            return callback("Request to reference segmentation failed.", null);
+        }
+        logger.info("Request to reference segmentation successful.");
+        return callback(null, body);
+    });
 };
 
 OcrHelper.prototype.saveAndUnpackZipFile = function(zipResponse, scan, br, callback){

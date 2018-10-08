@@ -11,7 +11,7 @@ const mongoBr = require('./../../../api/models/bibliographicResource').mongoBr;
 
 var agent = request.agent(server);
 
-describe('controllers', function () {
+describe.only('controllers', function () {
 
     describe('scan', function () {
         var id = "58c01713ea3c8d32f0f80a75";
@@ -564,6 +564,23 @@ describe('controllers', function () {
                     .expect(200)
                     .end(function (err, res) {
                         console.log(res.body);
+                        should.not.exist(err);
+                        done();
+                    });
+            });
+        });
+
+        describe('GET /correctReferencePosition', function () {
+            it('should query the ocr component again and retrieve data based on the new coordinates', function (done) {
+                setup.mockOCRGetSegmentReference();
+                agent
+                    .get('/correctReferencePosition')
+                    .query({'id': id, 'coordinates': '154 269 1876 406'})
+                    .set('Accept', 'application/json')
+                    .expect(200)
+                    .end(function (err, res) {
+                        console.log(res.body);
+                        res.body.should.have.property("ocrData");
                         should.not.exist(err);
                         done();
                     });
