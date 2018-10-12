@@ -947,7 +947,7 @@ definitions:
           pattern: '^[a-f\d]{24}$'
       partOf:
         type: string
-        pattern: '^[a-f\d]{24}$'
+        pattern: '^$|^[a-f\d]{24}$'
       parts:
         type: array
         items:
@@ -1372,7 +1372,7 @@ definitions:
           $ref: "#/definitions/BibliographicEntry"
       partOf:
         type: string
-        pattern: '^[a-f\d]{24}$'
+        pattern: '^$|^[a-f\d]{24}$'
       cites:
         type: array
         items:
@@ -1980,7 +1980,7 @@ definitions:
           $ref: "#/definitions/BibliographicEntry"
       partOf:
         type: string
-        pattern: '^[a-f\d]{24}$'
+        pattern: '^$|^[a-f\d]{24}$'
       cites:
         type: array
         items:
