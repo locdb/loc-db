@@ -430,16 +430,17 @@ function triggerOcrProcessing(req, res) {
 
 function correctReferencePosition(req, res){
     var response = res;
-    var id = req.swagger.params.id.value;
+    var scanId = req.swagger.params.scanId.value;
     var coordinates = req.swagger.params.coordinates.value;
+    var bibliographicEntryId = req.swagger.params.bibliographicEntryId.value;
 
     // check if id is valid
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        logger.error("Invalid value for parameter id.", {id: id});
+    if (!mongoose.Types.ObjectId.isValid(scanId) || (bibliographicEntryId && !mongoose.Types.ObjectId.isValid(bibliographicEntryId))) {
+        logger.error("Invalid value for parameter id.", {scanId: scanId, bibliographicEntryId: bibliographicEntryId});
         return response.status(400).json({"message": "Invalid parameter."});
     }
 
-    databaseHelper.getScanById(id, function(err, scan){
+    databaseHelper.getScanById(scanId, function(err, scan){
         if(err){
             logger.error(err);
             return response.status(500).json(err);
@@ -466,10 +467,19 @@ function correctReferencePosition(req, res){
                 be.scanId = scan._id;
                 be.scanName = scan.scanName;
                 be.status = enums.status.ocrProcessed;
+                var id = mongoose.Types.ObjectId();
+                be._id = id;
                 databaseHelper.getBrByScanId(scan._id, function(err, br){
                     if(err){
                         logger.error(err);
                         return response.status(500).json(err);
+                    }
+                    if(bibliographicEntryId){
+                        for(let part of br.parts){
+                            if(part._id == bibliographicEntryId){
+                                part.status = enums.status.obsolete;
+                            }
+                        }
                     }
                     br.parts.push(be);
                     br.save(function(err, br){
@@ -477,7 +487,11 @@ function correctReferencePosition(req, res){
                             logger.error(err);
                             return response.status(500).json(err);
                         }
-                        return response.status(200).json(be);
+                        for(let be of br.parts){
+                            if(be._id == id){
+                                return response.status(200).json(be);
+                            }
+                        }
                     });
                 });
             });

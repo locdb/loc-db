@@ -16,6 +16,8 @@ describe('controllers', function () {
     describe.only('scan', function () {
         var id = "58c01713ea3c8d32f0f80a75";
         var idPdf = "";
+        var idBr ="";
+        var idBe ="";
 
         before(function (done) {
             setup.dropDB(function(err){
@@ -379,6 +381,7 @@ describe('controllers', function () {
                         res.body[0].should.have.property("children");
                         res.body[0].children.should.have.lengthOf(1);
                         id = res.body[0].children[0].journalArticle_embodiedAs[0].scans[0]._id;
+                        idBr = res.body[0].children[0]._id;
                         idPdf = res.body[1].children[0].bookChapter_embodiedAs[0].scans[0]._id;
                         done();
                     });
@@ -575,14 +578,37 @@ describe('controllers', function () {
                 setup.mockOCRGetSegmentReference();
                 agent
                     .get('/correctReferencePosition')
-                    .query({'id': id, 'coordinates': '154 269 1876 406'})
+                    .query({'scanId': id, 'coordinates': '154 269 1876 406'})
+                    .set('Accept', 'application/json')
+                    .expect(200)
+                    .end(function (err, res) {
+                        console.log(res.body);
+                        res.body.should.have.property("ocrData");
+                        idBe = res.body._id;
+                        should.not.exist(err);
+                        done();
+                    });
+            });
+
+            it('should query the ocr component again and retrieve data based on the new coordinates, ' +
+                'but this time we also want the old be to be set to obsolete', function (done) {
+                setup.mockOCRGetSegmentReference();
+                agent
+                    .get('/correctReferencePosition')
+                    .query({'scanId': id, 'coordinates': '154 269 1876 406', 'bibliographicEntryId': idBe})
                     .set('Accept', 'application/json')
                     .expect(200)
                     .end(function (err, res) {
                         console.log(res.body);
                         res.body.should.have.property("ocrData");
                         should.not.exist(err);
-                        done();
+                        mongoBr.findById(idBr, function(err,doc){
+                            doc.parts.should.be.Array().and.have.lengthOf(2);
+                            doc.parts[0].should.have.property("status", status.obsolete);
+                            doc.parts[0].should.have.property("_id", idBe);
+                            done();
+                        });
+
                     });
             });
         });

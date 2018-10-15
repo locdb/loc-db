@@ -606,7 +606,7 @@ paths:
       tags: [Scan]
       description: Send a processing request to the reference extraction component for a single reference with human-corrected bounding box position
       parameters:
-        - name: id
+        - name: scanId
           in: query
           description: The unique id of the scan which should be send to the reference extraction component
           required: true
@@ -615,6 +615,11 @@ paths:
           in: query
           description: The new coordinates of the bounding box separated by single space, i.e. format x1 y1 x2 y2
           required: true
+          type: string
+        - name: bibliographicEntryId
+          in: query
+          description: The id of the bibliographic entry that should be set to obsolete
+          required: false
           type: string
       operationId: correctReferencePosition
       responses:
