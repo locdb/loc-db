@@ -193,19 +193,18 @@ function saveResource(req, res) {
                                         // jetzt müssen wir gucken, ob man noch einen Scan speichern muss oder nicht
                                         if (!binaryFile && !stringFile) {
                                             return response.json(resources);
+                                        }else{
+                                            child = resources[0];
+                                            parent = resources[1];
+                                            databaseHelper.saveReferencesPageForResource(child, binaryFile, textualPdf, stringFile, embodimentType, function (err, result) {
+                                                if (err) {
+                                                    logger.error(err);
+                                                    return response.status(500).json(err);
+                                                }
+                                                result = [result[0], parent, result[1]];
+                                                return response.json(result);
+                                            });
                                         }
-                                        child = resources[0];
-                                        parent = resources[1];
-                                        databaseHelper.saveReferencesPageForResource(child, binaryFile, textualPdf, stringFile, embodimentType, function (err, result) {
-                                            if (err) {
-                                                logger.error(err);
-                                                return response.status(500).json(err);
-                                            }
-                                            result = [result[0], parent, result[1]];
-                                            return response.json(result);
-                                        });
-
-
                                     });
                                 });
                             });

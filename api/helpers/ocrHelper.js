@@ -55,11 +55,11 @@ OcrHelper.prototype.processOcrResult = function(scan, id, br, result, callback){
     var xmlName = scan._id.toString() + ".xml";
     async.parallel([
         // Do two functions in parallel: 1) parse xml string 2) save xml string in file
-        function (callback) {
-            self.parseXMLString(result, function (err, bes) {
+        function (cb) {
+            return self.parseXMLString(result, function (err, bes) {
                 if (err) {
                     logger.error(err);
-                    return callback(new Error("XML parsing failed"), bes);
+                    return cb(new Error("XML parsing failed"), bes);
                 }
 
                 bes.map(function (be) {
@@ -73,24 +73,25 @@ OcrHelper.prototype.processOcrResult = function(scan, id, br, result, callback){
                 var embodiments = helperBr.getResourceEmbodimentsForType(br.type);
                 for (var embodiment of embodiments) {
                     for (var scan of embodiment.scans) {
+                        // this weak equal is on purpose
                         if (scan._id == id) {
                             scan.xmlName = xmlName;
                             var embodimentIndex = embodiments.indexOf(embodiment);
                             var scanIndex = embodiment.scans.indexOf(scan);
                             embodiments[embodimentIndex].scans[scanIndex] = scan;
 
-                            databaseHelper.convertSchemaResourceToMongoose(helperBr, function (err, br) {
+                            return databaseHelper.convertSchemaResourceToMongoose(helperBr, function (err, br) {
                                 if(!br){
-                                    var err = new Error("Br is null")
+                                    var err = new Error("Br is null");
                                     logger.error(err);
-                                    return callback(err, null);
+                                    return cb(err, null);
                                 }
                                 return br.save(function (err, br) {
                                     if (err) {
                                         logger.error(err);
-                                        return callback(err, null)
+                                        return cb(err, null)
                                     }
-                                    return callback(null, br);
+                                    return cb(null, br);
                                 });
                             });
                         }
@@ -98,22 +99,22 @@ OcrHelper.prototype.processOcrResult = function(scan, id, br, result, callback){
                 }
             });
         },
-        function (callback) {
-            fileHelper.saveStringFile(xmlName, result, function (err, res) {
+        function (cb) {
+            return fileHelper.saveStringFile(xmlName, result, function (err, res) {
                 if (err) {
                     logger.error(err);
-                    return callback(err, null);
+                    return cb(err, null);
                 }
-                callback(null, xmlName);
+                cb(null, xmlName);
             });
         },
-        function (callback) {
-            self.getImagesForPDF(scan.scanName, function (err, res) {
+        function (cb) {
+            return self.getImagesForPDF(scan.scanName, function (err, res) {
                 if (err) {
                     logger.error(err);
-                    return callback(err, null);
+                    return cb(err, null);
                 }
-                callback(null, res);
+                cb(null, res);
             });
         }
     ], function (err, results) {
@@ -167,7 +168,7 @@ OcrHelper.prototype.processOcrResult = function(scan, id, br, result, callback){
  */
 OcrHelper.prototype.parseXMLString = function(xmlString, callback) {
     var self = this;
-    xml2js.parseString(xmlString, function (err, ocrResult) {
+    return xml2js.parseString(xmlString, function (err, ocrResult) {
         if (err) {
             logger.error(err);
             return callback(err, null)
@@ -175,7 +176,7 @@ OcrHelper.prototype.parseXMLString = function(xmlString, callback) {
 
         var bes = [];
         if(ocrResult.LOCDBViewResults && ocrResult.LOCDBViewResults.algorithm) {
-            async.map(ocrResult.LOCDBViewResults.algorithm, self.parseXMLAlgorithmTag, function (err, result) {
+            return async.map(ocrResult.LOCDBViewResults.algorithm, self.parseXMLAlgorithmTag, function (err, result) {
                 return callback(null, result.flatten());
             });
         }
