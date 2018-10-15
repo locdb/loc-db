@@ -12,6 +12,7 @@ const dataToDo = require('./data/todo.json');
 const dataSearch = require('./data/searchEngine.json');
 const nock = require('nock');
 const async = require('async');
+const agenda = require('./../../api/jobs/jobs');
 
 
 var Setup = function(){};
@@ -207,16 +208,19 @@ Setup.prototype.mockK10PlusSuggestions = function(){
 };
 
 
-Setup.prototype.dropDB = function(callback){
-    brSuggestions.remove({}, function(err) {
-        console.log('Collection BR removed');
+Setup.prototype.dropDB = function (callback) {
+    brSuggestions.remove({}, function (err) {
+        console.log('Collection BR suggestions removed');
         br.remove({}, function (err) {
             console.log('Collection BR removed');
             br.esTruncate(function (err) {
                 console.log('Elastic BR index cleaned.');
-                user.remove({}, function (err) {
-                    console.log('Collection User removed');
-                    callback(err)
+                agenda.purge(function (err, numRemoved) {
+                    console.log('Agenda purged');
+                    user.remove({}, function (err) {
+                        console.log('Collection User removed');
+                        callback(err);
+                    });
                 });
             });
         });
