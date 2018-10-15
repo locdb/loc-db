@@ -49,7 +49,7 @@ OcrHelper.prototype.getReferenceExtractionResults = function(token, callback){
 };
 
 
-// TODO: How does this have to look like exactly?
+
 OcrHelper.prototype.processOcrResult = function(scan, id, br, result, callback){
     var self = this;
     var xmlName = scan._id.toString() + ".xml";
@@ -318,6 +318,8 @@ OcrHelper.prototype.getImagesForPDF = function(fileName, callback){
 };
 
 OcrHelper.prototype.segmentReference = function(filename, coordinates, callback){
+    filename = filename.replace(/^.*[\\\/]/, '');
+
     var form = {
         filename: filename,
         coordinates: coordinates
