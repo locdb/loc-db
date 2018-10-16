@@ -11,19 +11,12 @@ const logger = new winston.Logger({
             }
         }),
         new winston.transports.File({
-            filename: 'error.log',
-            level: 'error',
+            filename: 'combined.log',
+            level: level,
             timestamp: function () {
                 return (new Date()).toISOString();
             }
-        }),
-        new winston.transports.File({
-            filename: 'info.log',
-            level: 'info',
-            timestamp: function () {
-                return (new Date()).toISOString();
-            }
-        }),
+        })
     ]
 });
 
