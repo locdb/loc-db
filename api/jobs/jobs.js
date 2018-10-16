@@ -7,6 +7,7 @@ const config = require('./../../config/config');
 const logger = require('./../util/logger');
 const mongoUri = "mongodb://" + config.DB.HOST + ":" + config.DB.PORT + "/" + config.DB.SCHEMA;
 const agenda = new Agenda({db: {address: mongoUri, collection: 'agenda'}});
+const MongoClient = require('mongodb').MongoClient;
 const util = require('util');
 
 require('./precalculateSuggestions')(agenda);
@@ -14,7 +15,13 @@ require('./extractReferences')(agenda);
 
 
 agenda.on('ready', function() {
-    agenda.start();
+    agenda.unlockAgendaJobs(function(err, res){
+        if(err){
+            logger.error(err);
+        }
+        agenda.start();
+    });
+
 });
 
 // Error reporting and retry logic
@@ -56,6 +63,53 @@ function secondsFromNowDate(seconds) {
     return new Date(new Date().getTime() + (seconds * 1000));
 }
 
+/**
+ * Attempt to unlock Agenda jobs that were stuck due server restart
+ * See https://github.com/agenda/agenda/issues/410
+ */
+agenda.unlockAgendaJobs = function (callback) {
+    logger.info('Attempting to unlock locked Agenda jobs...');
+
+    // Use connect method to connect to the server
+    MongoClient.connect(mongoUri, function (err, db) {
+        if (err) {
+            logger.error(err);
+            return callback(err);
+        }
+
+
+        // Re-use Agenda's MongoDB connection
+        // var agendaJobs = agenda._mdb.collection('agendaJobs');
+        var agendaJobs = db.collection('agenda');
+
+        agendaJobs.update({
+            lockedAt: {
+                $exists: true
+            },
+            lastFinishedAt: {
+                $exists: false
+            }
+        }, {
+            $unset: {
+                lockedAt: undefined,
+                lastModifiedBy: undefined,
+                lastRunAt: undefined
+            },
+            $set: {
+                nextRunAt: new Date()
+            }
+        }, {
+            multi: true
+        }, function (err, numUnlocked) {
+            if (err) {
+                logger.error(err);
+            }
+            logger.info('[Worker] Unlocked %d Agenda jobs.', numUnlocked);
+            db.close(callback);
+        });
+
+    });
+};
 
 
 

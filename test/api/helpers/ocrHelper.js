@@ -27,7 +27,7 @@ describe('helpers', function() {
             });
         });
 
-        describe('OCR: fileupload', function () {
+/*        describe('OCR: fileupload', function () {
             it('should return a string for a png', function (done) {
                 this.timeout(1000000000);
                 ocrHelper.ocrFileUpload("/02_input.png", false, function (err, result) {
@@ -47,7 +47,7 @@ describe('helpers', function() {
                     done();
                 });
             });
-        });
+        });*/
 
         describe('parseXMLString', function () {
             it('should return bibliographicEntries given the ocr output', function (done) {

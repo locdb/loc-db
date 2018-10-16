@@ -74,7 +74,7 @@ describe('controllers', function () {
             });
         });
 
-        describe.only('GET /stats', function () {
+        describe('GET /stats', function () {
             it('should get statistics', function (done) {
                 agent
                     .get('/stats')
