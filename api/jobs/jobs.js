@@ -15,12 +15,13 @@ require('./extractReferences')(agenda);
 
 
 agenda.on('ready', function() {
-    agenda.unlockAgendaJobs(function(err, res){
+/*    agenda.unlockAgendaJobs(function(err, res){
         if(err){
             logger.error(err);
         }
         agenda.start();
-    });
+    });*/
+    agenda.start();
 
 });
 
