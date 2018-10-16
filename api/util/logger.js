@@ -9,7 +9,11 @@ const logger = new winston.Logger({
             timestamp: function () {
                 return (new Date()).toISOString();
             }
-        })
+        })//,
+        //new winston.transports.File({
+        //    filename: 'efficiency.log',
+        //    level: 'efficiency'
+        //}),
     ]
 });
 

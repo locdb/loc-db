@@ -56,6 +56,17 @@ StatsHelper.prototype.brStats = function(callback){
     });
 };
 
+StatsHelper.prototype.logStats = function(callback){
+    var self = this;
+    var stats = {};
+    logger.query({limit: 10},function(err, results){
+        return callback(null, results);
+    });
+
+    // read log
+    // filter log according to old stats script
+};
+
 
 /**
  * Factory function
