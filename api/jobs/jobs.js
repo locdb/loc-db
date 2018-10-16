@@ -15,13 +15,13 @@ require('./extractReferences')(agenda);
 
 
 agenda.on('ready', function() {
-/*    agenda.unlockAgendaJobs(function(err, res){
+    agenda.unlockAgendaJobs(function(err, res){
         if(err){
             logger.error(err);
         }
         agenda.start();
-    });*/
-    agenda.start();
+    });
+    //agenda.start();
 
 });
 
@@ -103,7 +103,7 @@ agenda.unlockAgendaJobs = function (callback) {
                 logger.error(err);
             }
             logger.info('[Worker] Unlocked %d Agenda jobs.', numUnlocked);
-            db.close(callback);
+            client.close(callback);
         });
 
     });
