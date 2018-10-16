@@ -71,11 +71,12 @@ agenda.unlockAgendaJobs = function (callback) {
     logger.info('Attempting to unlock locked Agenda jobs...');
 
     // Use connect method to connect to the server
-    MongoClient.connect(mongoUri, function (err, db) {
+    MongoClient.connect(mongoUri, function (err, client) {
         if (err) {
             logger.error(err);
             return callback(err);
         }
+        var db = client.db;
 
 
         // Re-use Agenda's MongoDB connection
