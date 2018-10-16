@@ -15,13 +15,13 @@ require('./extractReferences')(agenda);
 
 
 agenda.on('ready', function() {
-/*    agenda.unlockAgendaJobs(function(err, res){
+    agenda.unlockAgendaJobs(function(err, res){
         if(err){
             logger.error(err);
         }
         agenda.start();
-    });*/
-    agenda.start();
+    });
+    //agenda.start();
 
 });
 
@@ -77,12 +77,8 @@ agenda.unlockAgendaJobs = function (callback) {
             logger.error(err);
             return callback(err);
         }
-        var db = client.db;
 
-
-        // Re-use Agenda's MongoDB connection
-        // var agendaJobs = agenda._mdb.collection('agendaJobs');
-        var agendaJobs = db.collection('agenda');
+        var agendaJobs = client.db().collection('agenda');
 
         agendaJobs.update({
             lockedAt: {
