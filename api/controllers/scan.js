@@ -128,7 +128,8 @@ function saveResource(req, res) {
                                 return response.status(400).json({"message": "Identifier type not implemented."});
                         }
                     }
-                case enums.resourceType.bookChapter || enums.resourceType.proceedingsArticle:
+                case enums.resourceType.bookChapter:
+                case enums.resourceType.proceedingsArticle:
                     //return response.status(400).json({"message": "Resource type not implemented yet."});
                     switch (identifier.scheme) {
                         case enums.identifier.doi:
@@ -209,7 +210,8 @@ function saveResource(req, res) {
                                 });
                             });
                     }
-                case enums.resourceType.monograph || enums.resourceType.book:
+                case enums.resourceType.monograph:
+                case enums.resourceType.book:
                     return swbHelper.query(identifier.literalValue, resourceType, function (err, resource) {
                         if (err) {
                             logger.error(err);
