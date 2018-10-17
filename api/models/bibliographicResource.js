@@ -23,7 +23,9 @@ const ocrDataSchema = new Schema({
     marker: String,
     comments: String,
     journal: String,
-    volume: String
+    volume: String,
+    namer: String,
+    detector: String
 });
 
 const beSchema = new Schema({
