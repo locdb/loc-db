@@ -15,6 +15,8 @@ require('./extractReferences')(agenda);
 
 
 agenda.on('ready', function() {
+    agenda.defaultLockLifetime(20000);
+    agenda.defaultConcurrency(10);
     agenda.unlockAgendaJobs(function(err, res){
         if(err){
             logger.error(err);
@@ -44,10 +46,10 @@ agenda.on('fail', function(err, job) {
         job.save();
     }
 
-    if (process.env.NODE_ENV !== 'test') {
-        logger.error('Agenda job [%s] %s failed with [%s] %s failCount:%s',
-            job.attrs.name, job.attrs._id, err.message || 'Unknown error', extraMessage, job.attrs.failCount);
-    }
+
+    logger.error('Agenda job [%s] %s failed with [%s] %s failCount:%s',
+        job.attrs.name, job.attrs._id, err.message || 'Unknown error', extraMessage, job.attrs.failCount);
+
 
 });
 
@@ -109,6 +111,13 @@ agenda.unlockAgendaJobs = function (callback) {
     });
 };
 
+function graceful() {
+    agenda.stop(function() {
+        process.exit(0);
+    });
+}
 
+process.on('SIGTERM', graceful);
+process.on('SIGINT' , graceful);
 
 module.exports = agenda;
