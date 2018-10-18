@@ -335,7 +335,9 @@ var bibliographicResource = new SchemaObject({
                 this[prefix + 'contributors'].push(value);
             }else{
                 this[prefix + 'contributors'] = [];
-                this[prefix + 'contributors'].push(value);
+                if(this[prefix + 'contributors']) {
+                    this[prefix + 'contributors'].push(value);
+                }
             }
 
         },
