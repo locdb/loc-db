@@ -10,11 +10,11 @@ var agent = request.agent(server);
 
 describe('controllers', function() {
 
-    describe.only('bibliographicEntry', function () {
+    describe('bibliographicEntry', function () {
         var id = "";
 
         before(function (done) {
-            this.timeout(8000);
+            this.timeout(10000);
             setup.dropDB(function(){
                 setup.loadBibliographicEntry(function(err, result){
                     if(err) return done(err);

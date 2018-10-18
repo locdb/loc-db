@@ -42,7 +42,26 @@ logger.info("Running config:", {config : JSON.stringify(config)});
 
 var uri = "mongodb://" + config.DB.HOST + ":" + config.DB.PORT + "/" + config.DB.SCHEMA;
 
-mongoose.connect(uri);
+//mongoose.connect(uri);
+const options = {
+    useNewUrlParser: true,
+    //useCreateIndex: true,
+    //useFindAndModify: false,
+    //autoIndex: false, // Don't build indexes
+    reconnectTries: Number.MAX_VALUE, // Never stop trying to reconnect
+    reconnectInterval: 500, // Reconnect every 500ms
+    poolSize: 10, // Maintain up to 10 socket connections
+    // If not connected, return errors immediately rather than waiting for reconnect
+    bufferMaxEntries: 0,
+    connectTimeoutMS: 10000, // Give up initial connection after 10 seconds
+    socketTimeoutMS: 45000, // Close sockets after 45 seconds of inactivity
+    family: 4,// Use IPv4, skip trying IPv6
+    useMongoClient: true
+};
+
+//     global.Promise;
+mongoose.Promise = require('bluebird');
+mongoose.connect(uri, options);
 
 var swaggerDocument = yaml.safeLoad(fs.readFileSync('./api/swagger/swagger.yaml', 'utf8'));
 swaggerDocument.host = config.HOST;
