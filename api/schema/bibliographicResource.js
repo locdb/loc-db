@@ -99,6 +99,7 @@ var bibliographicResource = new SchemaObject({
     bookSet_number: String,
     bookChapter_number: String,
     bookSection_number: String,
+    bookSeries_number: String,
     bookTrack_number: String,
     proceedings_number: String,
     report_number: String,

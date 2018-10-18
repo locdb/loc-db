@@ -159,6 +159,7 @@ var brSchema = new Schema({
     editedBook_number: String,
     component_number: String,
     bookSet_number: String,
+    bookSeries_number: String,
     bookChapter_number: String,
     bookSection_number: String,
     bookTrack_number: String,

@@ -1195,6 +1195,8 @@ definitions:
         type: string
       bookSection_number:
         type: string
+      bookSeries_number:
+        type: string
       bookTrack_number:
         type: string
       proceedings_number:
@@ -1798,6 +1800,8 @@ definitions:
       component_number:
         type: string
       bookSet_number:
+        type: string
+      bookSeries_number:
         type: string
       bookChapter_number:
         type: string
