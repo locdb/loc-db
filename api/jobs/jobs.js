@@ -13,6 +13,14 @@ const util = require('util');
 require('./precalculateSuggestions')(agenda);
 require('./extractReferences')(agenda);
 
+// basically agenda.every() but without setting the job type to "single" & multiple definition scheduling
+agenda.every = (interval, name, data, options) => {
+    return new Promise((resolve, reject) => {
+        agenda.create(name, data)
+            .repeatEvery(interval, options)
+            .save((err) => err ? reject(err) : resolve());
+    });
+};
 
 agenda.on('ready', function() {
     agenda.defaultLockLifetime(20000);

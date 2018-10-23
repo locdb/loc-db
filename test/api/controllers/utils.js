@@ -75,6 +75,7 @@ describe('controllers', function () {
         });
 
         describe('GET /stats', function () {
+            this.timeout(3000);
             it('should get statistics', function (done) {
                 agent
                     .get('/stats')
