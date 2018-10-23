@@ -5,7 +5,7 @@ const ocrHelper = require('./../helpers/ocrHelper').createOcrHelper();
 const logger = require('./../util/logger');
 
 module.exports = function(agenda) {
-    agenda.define('extract references', function(job, done) {
+    agenda.define('extract references', {priority: 'high'}, function(job, done) {
         var scan = job.attrs.data.scan;
         var id = job.attrs.data.id;
         var br = job.attrs.data.br;
@@ -37,7 +37,7 @@ module.exports = function(agenda) {
         });
     });
 
-    agenda.define('poll reference extraction',  {priority: 'high'}, function(job, done) {
+    agenda.define('poll reference extraction',  {priority: 'high', concurrency: 1, lockLimit: 1}, function(job, done) {
         var scan = job.attrs.data.scan;
         var id = job.attrs.data.id;
         var br = job.attrs.data.br;
