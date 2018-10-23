@@ -25,24 +25,14 @@ module.exports = function(agenda) {
                         return done(err);
                     }else{
                         // this should then be done later
-                        agenda.now('precalculate suggestions', {br: res}, function(err,res){
-                            if(err){
-                                logger.error(err);
-                                return done(err);
-                            }
-                            return done();
-                        });
+                        agenda.now('precalculate suggestions', {br: res});
+                        return done();
                     }
                 });
             }else{
                 // if the result is not cached by the reference extraction component, we start polling
-                return agenda.every('2 minutes', 'poll reference extraction', {token: res, scan: scan, id: id, br: br}, function(err,res){
-                    if(err){
-                        logger.error(err);
-                        return done(err);
-                    }
-                    return done();
-                });
+                agenda.every('2 minutes', 'poll reference extraction', {token: res, scan: scan, id: id, br: br});
+                return done();
             }
         });
     });
