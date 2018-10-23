@@ -45,7 +45,7 @@
     "solr-client": "^0.7.0",
     "sparql-http-client": "^1.0.2",
     "stream": "0.0.2",
-    "string-similarity": "^1.2.0",
+    "string-similarity": "^1.2.2",
     "supertest": "^3.3.0",
     "swagger-express-mw": "^0.7.0",
     "swagger-ui-express": "2.0.10",
