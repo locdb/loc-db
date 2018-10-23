@@ -8,7 +8,7 @@ const externalSources = require('./../../../api/schema/enum.json').externalSourc
 
 var agent = request.agent(server);
 
-describe.only('controllers', function() {
+describe('controllers', function() {
 
     describe('bibliographicEntry', function () {
         var id = "";
@@ -608,7 +608,7 @@ describe.only('controllers', function() {
         });
 
         describe('GET /getPrecalculatedSuggestions/<id>', function () {
-            this.timeout(3000000)
+            this.timeout(3000000);
             it('should get the precalculated suggestions for a given be', function (done) {
                     var be;
                     agent

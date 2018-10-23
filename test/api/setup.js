@@ -22,12 +22,13 @@ Setup.prototype.loadBibliographicResources = function(cb){
         async.each(dataBibliographicResource, function(bibliographicResource, callback){
             var bibliographicResource = new br(bibliographicResource);
             bibliographicResource.save(function(err, res){
-                if(err) console.log(err);
-                bibliographicResource.on('es-indexed', function(err, res){
+                if(err) return callback(err, null);
+/*                bibliographicResource.on('es-indexed', function(err, res){
                     if (err) console.log(err);
                     console.log('es-indexed');
                     callback(err,bibliographicResource);
-                });
+                });*/
+                return callback(null, res);
             });
         }, function(err, results) {
             console.log("Data loaded");
@@ -40,12 +41,13 @@ Setup.prototype.loadBookChapter = function(cb){
     async.each(dataBookChapter, function(bibliographicResource, callback){
         var bibliographicResource = new br(bibliographicResource);
         bibliographicResource.save(function(err, res){
-            if(err) console.log(err);
-            bibliographicResource.on('es-indexed', function(err, res){
-                if (err) console.log(err);
-                console.log('es-indexed');
-                callback(err,bibliographicResource);
-            });
+            if(err) return callback(err, null);
+            /*                bibliographicResource.on('es-indexed', function(err, res){
+             if (err) console.log(err);
+             console.log('es-indexed');
+             callback(err,bibliographicResource);
+             });*/
+            return callback(null, res);
         });
     }, function(err, results) {
         console.log("Data loaded");
@@ -59,11 +61,13 @@ Setup.prototype.loadBibliographicEntry = function(cb){
         async.each(dataBibliographicEntry, function(bibliographicResource, callback){
             var bibliographicResource = new br(bibliographicResource);
             bibliographicResource.save(function(err, res){
-                if(err) console.log(err);
-                bibliographicResource.on('es-indexed', function(err, res){
-                    if (err) console.log(err);
-                    callback(err, bibliographicResource);
-                });
+                if(err) return callback(err, null);
+                /*                bibliographicResource.on('es-indexed', function(err, res){
+                 if (err) console.log(err);
+                 console.log('es-indexed');
+                 callback(err,bibliographicResource);
+                 });*/
+                return callback(null, res);
             });
         }, function(err, results) {
             cb(err, results);
@@ -75,21 +79,20 @@ Setup.prototype.loadAdditionalToDo = function(cb){
     async.each(dataToDo, function(bibliographicResource, callback){
         var bibliographicResource = new br(bibliographicResource);
         bibliographicResource.save(function(err, res){
-            if(err) console.log(err);
-            bibliographicResource.on('es-indexed', function(err, res){
-                // this event idicates, that elasticsearch has received the indexing request,
-                // but according to [1] it only refreshes once per second, so the new elems might not be indexed yet
-                // [1] https://github.com/elastic/elasticsearch-js/issues/231
-                if (err) console.log(err);
-                callback(err, bibliographicResource);
-            });
+            if(err) return callback(err, null);
+            /*                bibliographicResource.on('es-indexed', function(err, res){
+             if (err) console.log(err);
+             console.log('es-indexed');
+             callback(err,bibliographicResource);
+             });*/
+            return callback(null, res);
         });
     }, function(err, results) {
         cb(err, results);
     });
 };
 
-Setup.prototype.loadSearchData = function(cb){
+Setup.prototype.loadSearchData = function(callback){
     var parent = new br(dataSearch[0]);
     parent.save(function (err, parent) {
         if (err) return console.log(err);
@@ -97,13 +100,14 @@ Setup.prototype.loadSearchData = function(cb){
 
         var child = new br(dataSearch[1]);
         child.partOf = id;
-        child.save(function (err, child) {
-            if (err) return console.log(err);
-            child.on('es-indexed', function (err, res) {
-                if (err) console.log(err);
-                console.log('es-indexed');
-                return cb(err, res);
-            });
+        child.save(function (err, res) {
+            if(err) return callback(err, null);
+            /*                bibliographicResource.on('es-indexed', function(err, res){
+             if (err) console.log(err);
+             console.log('es-indexed');
+             callback(err,bibliographicResource);
+             });*/
+            return callback(null, res);
         });
     });
 };

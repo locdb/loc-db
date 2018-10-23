@@ -16,7 +16,7 @@ describe('helpers', function() {
             });
         });
         
-        describe('query', function(){
+        describe.skip('query', function(){
             it('should return result for a given query', function(done) {
                 this.timeout(100000);
                 openCitationsHelper.query("Circulation Research", function(result){
