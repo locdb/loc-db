@@ -19,8 +19,8 @@ describe('helpers', function() {
         
         describe('parseFile', function(){
             it('should return a parsed bibliographic resource', function(done) {
+                this.timeout(5000);
                 aPlusPlusHelper.parseFile("./test/api/data/aPlusPlus/aPlusPlus.xml", function(result){
-                    //console.log(result.parts);
                     result.should.be.ok();
 //                    result.should.have.property("title", "Der soziologische Blick :");
 //                    result.should.have.property("subtitle", "vergangene Positionen und gegenwärtige Perspektiven /");

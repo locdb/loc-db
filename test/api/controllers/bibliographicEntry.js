@@ -8,24 +8,30 @@ const externalSources = require('./../../../api/schema/enum.json').externalSourc
 
 var agent = request.agent(server);
 
-describe('controllers', function() {
+describe.only('controllers', function() {
 
     describe('bibliographicEntry', function () {
         var id = "";
 
         before(function (done) {
-            this.timeout(10000);
+            this.timeout(1000000);
             setup.dropDB(function(){
+                console.info("DB dropped");
                 setup.loadBibliographicEntry(function(err, result){
                     if(err) return done(err);
+                    console.info("Bibliographic entry loaded");
                     setup.loadBibliographicResources(function(err, result){
                         if(err) return done(err);
+                        console.info("Bibliographic resource loaded");
                         setup.loadSearchData(function(err, result) {
                             if (err) return done(err);
+                            console.info("Search data loaded");
                             setup.login(agent, function (err, result) {
                                 if (err) return done(err);
+                                console.info("Agent logged in");
                                 setup.mockGVISuggestions();
                                 setup.mockK10PlusSuggestions();
+                                console.info("Mocked suggestions");
                                 setTimeout(function () {
                                     done();
                                 }, 2000);

@@ -108,6 +108,7 @@ describe('helpers', function() {
         describe('triggerOCRProcessing', function () {
 
             it('should return a string token or an xml', function (done) {
+                setup.mockOCRFileUpload();
                 this.timeout(1000000000);
                 let scan = new Scan({
                     _id: mongoose.Types.ObjectId(),

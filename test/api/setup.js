@@ -108,13 +108,13 @@ Setup.prototype.loadSearchData = function(cb){
     });
 };
 
-// commented, because it does not match the reference extraction interface anymore
-/*Setup.prototype.mockOCRFileUpload = function(){
+
+Setup.prototype.mockOCRFileUpload = function(){
     nock("https://locdb-dev.opendfki.de")
         .post('/fileupload/')
-        .replyWithFile(200, __dirname + '/data/ocr_data/ocrOutput.xml')
+        .reply(200, "34567890dfghjk")
         .persist();
-};*/
+};
 
 Setup.prototype.mockOCRError = function(){
     nock("https://locdb-dev.opendfki.de")

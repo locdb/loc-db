@@ -18,7 +18,7 @@ describe('helpers', function() {
         
         describe('query', function(){
             it('should return result for a given query', function(done) {
-                this.timeout(50000);
+                this.timeout(100000);
                 openCitationsHelper.query("Circulation Research", function(result){
                     console.log(result);
                     result.should.be.ok();
