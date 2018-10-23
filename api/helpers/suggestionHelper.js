@@ -254,7 +254,7 @@ SuggestionHelper.prototype.getExternalSuggestions = function(query, k, callback)
 SuggestionHelper.prototype.precalculateExternalSuggestions = function(br, cb) {
     var self = this;
     if(br.parts && br.parts.length > 0){
-        async.map(br.parts, function(be, callback){
+        async.mapSeries(br.parts, function(be, callback){
             self.precalculateExternalSuggestionsForBE(be, function(err, res){
                 if (err) {
                     logger.error(err);
@@ -267,7 +267,7 @@ SuggestionHelper.prototype.precalculateExternalSuggestions = function(br, cb) {
                 logger.error(err);
                 return cb(err, null);
             }
-            return cb(null, res);
+            return cb(null, []);
         });
     }else{
         return cb(null, []);
@@ -318,7 +318,7 @@ SuggestionHelper.prototype.precalculateExternalSuggestionsForBE = function(be, c
                     logger.error(err);
                     return callback(err, null);
                 }
-                return callback(null, result);
+                return callback(null, null);
             });
         });
     });
