@@ -98,16 +98,29 @@ function loadBibliographicResources(req, res){
     });
 }
 
-function stats(req, res){
-    // statsHelper.brStats(function(err,result){
-    //     if(err){
-    //         logger.error(err);
-    //         return res.status(500);
-    //     }
-    //     return res.status(200).json(result);
-    // });
-    statsHelper.logStats(function (err, result) {
-        return res.status(200).json(result);
+function stats(req, response){
+    async.series([
+        function(cb){
+            statsHelper.brStats(function(err,res){
+                cb(err, res);
+            });
+        },
+        function(cb){
+            statsHelper.mandatoryFieldsStats(function(err,res){
+                cb(err, res);
+            });
+        },
+        function(cb){
+            statsHelper.logStats(function(err,res){
+                cb(err, res);
+            });
+        },
+    ], function(err, res){
+        if(err){
+            logger.error(err);
+            return response.status(500).json(err);
+        }
+        return response.status(200).json(res);
     });
 }
 

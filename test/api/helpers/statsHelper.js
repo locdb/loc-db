@@ -8,7 +8,7 @@ const mongoBr = require('./../../../api/models/bibliographicResource').mongoBr;
 const enums = require('./../../../api/schema/enum.json');
 
 
-describe.only('helpers', function() {
+describe('helpers', function() {
     describe('statsHelper', function() {
         before(function (done) {
             this.timeout(1000000000);
@@ -51,7 +51,7 @@ describe.only('helpers', function() {
                 });
             });
 
-            it.only('should compute mandatory fields stats all types', function (done) {
+            it('should compute mandatory fields stats all types', function (done) {
                 statsHelper.mandatoryFieldsStats(function (err, res) {
                     should.not.exists(err);
                     res.should.have.property(enums.resourceType.book);
