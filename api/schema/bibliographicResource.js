@@ -228,6 +228,9 @@ var bibliographicResource = new SchemaObject({
          * @returns {string}
          */
         getPropertyPrefixForType: function (type) {
+            if(!type){
+                type = this.type;
+            }
             return type.split("_").length > 1 ?
                 _.camelize(type.split("_")[0].toLowerCase()+ "-" + type.split("_")[1].toLowerCase()) + "_" :
                 type.split("_")[0].toLowerCase() + "_";
