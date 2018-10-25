@@ -571,6 +571,25 @@ StatsHelper.prototype.mandatoryFieldsReportSeries = function(reportSeries, callb
     });
 };
 
+StatsHelper.prototype.mandatoryFieldsJournalVolume = function(journalVolumes, callback) {
+    let self = this;
+
+    async.map(journalVolumes, function(journalVolume, cb){
+        // check single resource for all the mandatory fields
+        journalVolume = new BibliographicResource(journalVolume);
+        let individualStats = {};
+        individualStats.missingJournalVolumeNumber = 0;
+        if(!journalVolume.getNumberForType() || journalVolume.getNumberForType() === "" || journalVolume.getNumberForType() === " "){
+            individualStats.missingJournalVolumeNumber = 1;
+        }
+        return cb(err, individualStats);
+    }, function(err, res){
+        let stats = res.reduce(self.sumMissingFields);
+        stats.total = res.length;
+        return callback(err, stats);
+    });
+};
+
 StatsHelper.prototype.mandatoryFieldsStandardSeries = function(standardSeries, callback) {
     let self = this;
 
