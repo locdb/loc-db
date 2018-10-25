@@ -272,7 +272,8 @@ OcrHelper.prototype.ocrFileUpload = function(fileName, textualPdf, callback){
         // for everything else, we also set this flag because Tahseen said so
         form = {
             files: fs.createReadStream(path),
-            pdfFlag: 'on'
+            pdfFlag: 'on',
+            Txt_Dummy: 'on'
         };
     }
 
