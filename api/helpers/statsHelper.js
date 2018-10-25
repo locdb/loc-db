@@ -316,7 +316,7 @@ StatsHelper.prototype.mandatoryFieldsBookPart = function(bookParts, callback) {
         if(!bookPart.getTitleForType()|| bookPart.getTitleForType() === "" || bookPart.getTitleForType() === " "){
             individualStats.missingTitle = 1;
         }
-        if(!bookChapter.partOf || bookChapter.partOf === "" || bookChapter.partOf === " "){
+        if(!bookPart.partOf || bookPart.partOf === "" || bookPart.partOf === " "){
             individualStats.missingPartOf = 1;
         }
         self.mandatoryFieldsResourceEmbodiments(bookPart.getResourceEmbodimentsForType(), function(err, embodimentStats){
