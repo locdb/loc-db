@@ -541,7 +541,7 @@ StatsHelper.prototype.mandatoryFieldsReferenceEntry = function(referenceEntries,
         if(!referenceEntry.partOf || referenceEntry.partOf === "" || referenceEntry.partOf === " "){
             individualStats.missingPartOf = 1;
         }
-        return cb(err, individualStats);
+        return cb(null, individualStats);
 
 
     }, function(err, res){
@@ -563,7 +563,7 @@ StatsHelper.prototype.mandatoryFieldsReportSeries = function(reportSeries, callb
         if(!reportSer.getTitleForType() || reportSer.getTitleForType() === "" || reportSer.getTitleForType() === " "){
             individualStats.missingTitle = 1;
         }
-        return cb(err, individualStats);
+        return cb(null, individualStats);
     }, function(err, res){
         let stats = res.reduce(self.sumMissingFields);
         stats.total = res.length;
@@ -582,7 +582,7 @@ StatsHelper.prototype.mandatoryFieldsJournalVolume = function(journalVolumes, ca
         if(!journalVolume.getNumberForType() || journalVolume.getNumberForType() === "" || journalVolume.getNumberForType() === " "){
             individualStats.missingJournalVolumeNumber = 1;
         }
-        return cb(err, individualStats);
+        return cb(null, individualStats);
     }, function(err, res){
         let stats = res.reduce(self.sumMissingFields);
         stats.total = res.length;
