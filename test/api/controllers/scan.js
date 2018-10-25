@@ -11,7 +11,7 @@ const mongoBr = require('./../../../api/models/bibliographicResource').mongoBr;
 
 var agent = request.agent(server);
 
-describe('controllers', function () {
+describe.only('controllers', function () {
 
     describe('scan', function () {
         var id = "58c01713ea3c8d32f0f80a75";
@@ -264,6 +264,28 @@ describe('controllers', function () {
                     .field('textualPdf', false)
                     .field('resourceType', resourceType.bookChapter)
                     .attach('binaryFile', './test/api/data/ocr_data/references.pdf')
+                    .set('Accept', 'application/json')
+                    .expect('Content-Type', /json/)
+                    .expect(200)
+                    .end(function (err, res) {
+                        should.not.exist(err);
+                        res.body.should.be.Array().and.have.lengthOf(3);
+                        res.body[0].bookChapter_embodiedAs[0].scans.should.have.lengthOf(2);
+                        done();
+                    });
+            });
+
+            it('should append a string file to the resource', function (done) {
+                agent
+                    .post('/saveResource')
+                    .type('form')
+                    .field('identifierScheme', 'SWB_PPN')
+                    .field('identifierLiteralValue', '012678775')
+                    .field('firstPage', '33')
+                    .field('lastPage', '41')
+                    .field('textualPdf', false)
+                    .field('resourceType', resourceType.bookChapter)
+                    .field('stringFile', 'text text text')
                     .set('Accept', 'application/json')
                     .expect('Content-Type', /json/)
                     .expect(200)

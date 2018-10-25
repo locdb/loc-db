@@ -52,7 +52,7 @@ OcrHelper.prototype.getReferenceExtractionResults = function(token, callback){
 
 OcrHelper.prototype.processOcrResult = function(scan, id, br, result, callback){
     var self = this;
-    var xmlName = scan._id.toString() + ".xml";
+    var xmlName = scan._id.toString()  + ".xml";
     async.parallel([
         // Do two functions in parallel: 1) parse xml string 2) save xml string in file
         function (cb) {
@@ -100,7 +100,7 @@ OcrHelper.prototype.processOcrResult = function(scan, id, br, result, callback){
             });
         },
         function (cb) {
-            return fileHelper.saveStringFile(xmlName, result, function (err, res) {
+            return fileHelper.saveStringFile(xmlName, result, "", function (err, res) {
                 if (err) {
                     logger.error(err);
                     return cb(err, null);

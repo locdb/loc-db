@@ -491,7 +491,7 @@ DatabaseHelper.prototype.saveStringScan = function(scan, callback){
     // get unique id from mongo which we use as filename
     var scanId = mongoose.Types.ObjectId().toString();
 
-    fileHelper.saveStringFile(scanId, scan, function (err, scanName) {
+    fileHelper.saveStringFile(scanId, scan, ".txt", function (err, scanName) {
         // if there is an error, log it and return
         if (err) {
             logger.error(err);
