@@ -1,0 +1,424 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "mongoosastic@4.4.1",
+        "scope": null,
+        "escapedName": "mongoosastic",
+        "name": "mongoosastic",
+        "rawSpec": "4.4.1",
+        "spec": "4.4.1",
+        "type": "version"
+      },
+      "C:\\Users\\anlausch\\workspace\\loc-db"
+    ]
+  ],
+  "_from": "mongoosastic@4.4.1",
+  "_id": "mongoosastic@4.4.1",
+  "_inCache": true,
+  "_location": "/mongoosastic",
+  "_nodeVersion": "8.9.4",
+  "_npmOperationalInternal": {
+    "host": "s3://npm-registry-packages",
+    "tmp": "tmp/mongoosastic_4.4.1_1518623627415_0.45023426526499644"
+  },
+  "_npmUser": {
+    "name": "guumaster",
+    "email": "gustavoandresmarin@gmail.com"
+  },
+  "_npmVersion": "5.6.0",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "mongoosastic@4.4.1",
+    "scope": null,
+    "escapedName": "mongoosastic",
+    "name": "mongoosastic",
+    "rawSpec": "4.4.1",
+    "spec": "4.4.1",
+    "type": "version"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/mongoosastic/-/mongoosastic-4.4.1.tgz",
+  "_shasum": "dd2d5ebdd30e828bf45af8f256dc26851e5820cb",
+  "_shrinkwrap": null,
+  "_spec": "mongoosastic@4.4.1",
+  "_where": "C:\\Users\\anlausch\\workspace\\loc-db",
+  "author": {
+    "name": "James R. Carr",
+    "email": "james.r.carr@gmail.com",
+    "url": "http://blog.james-carr.org"
+  },
+  "bugs": {
+    "url": "https://github.com/mongoosastic/mongoosastic/issues"
+  },
+  "contributors": [
+    {
+      "name": "Alban Mouton",
+      "email": "alban.mouton@gmail.com"
+    },
+    {
+      "name": "Alexandre-io",
+      "email": "alexandre@gotoserv.com"
+    },
+    {
+      "name": "Andreas Schmid",
+      "email": "andreas@nex9.com"
+    },
+    {
+      "name": "antoineverger",
+      "email": "antoine.verger@speicher210.com"
+    },
+    {
+      "name": "Antoine Verger",
+      "email": "antoine.verger@speicher210.com"
+    },
+    {
+      "name": "Arseny Zarechnev",
+      "email": "cyanidesign@gmail.com"
+    },
+    {
+      "name": "Astro",
+      "email": "astro@spaceboyz.net"
+    },
+    {
+      "name": "b96705008",
+      "email": "b96705008@gmail.com"
+    },
+    {
+      "name": "Bob Lauer",
+      "email": "rlauer@gmail.com"
+    },
+    {
+      "name": "Brady Brown",
+      "email": "bobrown101@gmail.com"
+    },
+    {
+      "name": "Can Kutlu Kinay",
+      "email": "ckkinay@gmail.com"
+    },
+    {
+      "name": "chapel",
+      "email": "jacob.chapel@gmail.com"
+    },
+    {
+      "name": "Charlie Tilt",
+      "email": "charlie@charlietilt.com"
+    },
+    {
+      "name": "Christian Sturm",
+      "email": "reezer@reezer.org"
+    },
+    {
+      "name": "Christophe Wagner",
+      "email": "jitowix@gmail.com"
+    },
+    {
+      "name": "cong88",
+      "email": "lecong1225@gmail.com"
+    },
+    {
+      "name": "Daniel Rafaj",
+      "email": "daniel.rafaj@gmail.com"
+    },
+    {
+      "name": "danteata",
+      "email": "danteata@gmail.com"
+    },
+    {
+      "name": "Dan Williams",
+      "email": "me@deedubs.com"
+    },
+    {
+      "name": "Eugeny Vlasenko",
+      "email": "mahnunchik@gmail.com"
+    },
+    {
+      "name": "Francesco Nero",
+      "email": "nerofrancesco@hotmail.com"
+    },
+    {
+      "name": "gabrielmancini",
+      "email": "gabriel.mancini@gmail.com"
+    },
+    {
+      "name": "Gary Pearman",
+      "email": "gpearman@gmail.com"
+    },
+    {
+      "name": "gazsp",
+      "email": "gpearman@gmail.com"
+    },
+    {
+      "name": "George",
+      "email": "shankga@gmail.com"
+    },
+    {
+      "name": "George Shank",
+      "email": "shankga@gmail.com"
+    },
+    {
+      "name": "Gustavo",
+      "email": "guumaster@users.noreply.github.com"
+    },
+    {
+      "name": "gustavo.marin",
+      "email": "gustavo.marin@intelygenz.com"
+    },
+    {
+      "name": "guumaster",
+      "email": "gustavoandresmarin@gmail.com"
+    },
+    {
+      "name": "guumaster",
+      "email": "guuweb@gmail.com"
+    },
+    {
+      "name": "Hüseyin BABAL",
+      "email": "huseyinbabal88@gmail.com"
+    },
+    {
+      "name": "Hüseyin BABAL",
+      "email": "huseyin.babal@eu.sony.com"
+    },
+    {
+      "name": "Ignacio Lago",
+      "email": "ignacio@glue.gl"
+    },
+    {
+      "name": "isayme",
+      "email": "isaymeorg@gmail.com"
+    },
+    {
+      "name": "jamescarr",
+      "email": "jamescarr@VirtualBox.(none)",
+      "url": "none"
+    },
+    {
+      "name": "James Carr",
+      "email": "james.r.carr@gmail.com"
+    },
+    {
+      "name": "James",
+      "email": "jdelibas@gmail.com"
+    },
+    {
+      "name": "James R. Carr",
+      "email": "james.r.carr@gmail.com"
+    },
+    {
+      "name": "Jason More",
+      "email": "Jason.More@gmail.com"
+    },
+    {
+      "name": "Jean-Baptiste Demonte",
+      "email": "jbdemonte@gmail.com"
+    },
+    {
+      "name": "jetNull",
+      "email": "james.tuttle@matrixinsights.com"
+    },
+    {
+      "name": "John Resig",
+      "email": "jeresig@gmail.com"
+    },
+    {
+      "name": "Jon Buckley",
+      "email": "jon@jbuckley.ca"
+    },
+    {
+      "name": "Jon Burgess",
+      "email": "jon.burgess@bundlestars.com"
+    },
+    {
+      "name": "Jon Burgess",
+      "email": "jonjburgess@gmail.com"
+    },
+    {
+      "name": "Jose Maza",
+      "email": "jose.maza@rulesware.com"
+    },
+    {
+      "name": "ksavidetove",
+      "email": "kev1_2_tob@msn.com"
+    },
+    {
+      "name": "Kyle Mathews",
+      "email": "mathews.kyle@gmail.com"
+    },
+    {
+      "name": "Marcos Sanz",
+      "email": "marcos.sanz@13genius.com"
+    },
+    {
+      "name": "Matt Audesse",
+      "email": "matt@mattaudesse.com"
+    },
+    {
+      "name": "Michael Hellein",
+      "email": "themichaek@gmail.com"
+    },
+    {
+      "name": "Nadeesha Cabral",
+      "email": "nadeesha.cabral@gmail.com"
+    },
+    {
+      "name": "Nicolas McCurdy",
+      "email": "thenickperson@gmail.com"
+    },
+    {
+      "name": "Nico Schlömer",
+      "email": "nico.schloemer@gmail.com"
+    },
+    {
+      "name": "nlko",
+      "email": "nospam1@thomasson.fr"
+    },
+    {
+      "name": "nvartolomei",
+      "email": "nvartolomei@gmail.com"
+    },
+    {
+      "name": "Phillip Rosen",
+      "email": "phill.rosen@gmail.com"
+    },
+    {
+      "name": "py09mb",
+      "email": "py09mb@users.noreply.github.com"
+    },
+    {
+      "name": "Renner",
+      "email": "kai-uwe.renner@hbv83032616.bauer-de.bauermedia.group"
+    },
+    {
+      "name": "Robert Katzki",
+      "email": "robert@bildungsweb.net"
+    },
+    {
+      "name": "root",
+      "email": "root@helloo-dev.home"
+    },
+    {
+      "name": "Ro Ramtohul",
+      "email": "yoitsro@hotmail.com"
+    },
+    {
+      "name": "Samy Pessé",
+      "email": "samypesse@gmail.com"
+    },
+    {
+      "name": "Sascha Schwabbauer",
+      "email": "sascha@evolved.io"
+    },
+    {
+      "name": "Srfrnk",
+      "email": "srfrnk@gmail.com"
+    },
+    {
+      "name": "stickycube",
+      "email": "will.jk01@gmail.com"
+    },
+    {
+      "name": "Sukru BEZEN",
+      "email": "sukru@sukrubezen.com"
+    },
+    {
+      "name": "taterbase",
+      "email": "shankga@gmail.com"
+    },
+    {
+      "name": "Vincent Boucher",
+      "email": "vin.boucher@gmail.com"
+    },
+    {
+      "name": "Warner Onstine",
+      "email": "warner@clipppr.com"
+    },
+    {
+      "name": "Will Knowles",
+      "email": "will.jk01@gmail.com"
+    },
+    {
+      "name": "xizhao",
+      "email": "kevin.wang@cloudera.com"
+    },
+    {
+      "name": "xren",
+      "email": "rex@bittorrent.com"
+    }
+  ],
+  "dependencies": {
+    "elasticsearch": "13.3.0",
+    "lodash.clonedeep": "4.5.0"
+  },
+  "description": "A mongoose plugin that indexes models into elastic search",
+  "devDependencies": {
+    "async": "2.5.0",
+    "changelog": "^1.0.7",
+    "co-mocha": "^1.1.3",
+    "coveralls": "2.13.1",
+    "eslint": "4.4.1",
+    "eslint-config-standard": "6.2.1",
+    "eslint-plugin-promise": "3.5.0",
+    "eslint-plugin-standard": "3.0.1",
+    "istanbul": "0.4.5",
+    "mocha": "3.2.0",
+    "mongoose": "4.11.8",
+    "should": "12.0.0",
+    "standard": "10.0.3"
+  },
+  "directories": {},
+  "dist": {
+    "integrity": "sha512-x9wIiI3Jd9TICN75uim3yVPX+vlk1ZpIKP3JJr6rNuULO2JSbGELqHO7RtnhM40Iw/ClXSlRh+dMggaE+EYLjA==",
+    "shasum": "dd2d5ebdd30e828bf45af8f256dc26851e5820cb",
+    "tarball": "https://registry.npmjs.org/mongoosastic/-/mongoosastic-4.4.1.tgz",
+    "fileCount": 48,
+    "unpackedSize": 182571
+  },
+  "engines": {
+    "node": ">= 4.0"
+  },
+  "gitHead": "87f9ef2ad51e3ce2f3ecb0a0f12aa3bfde5c1f9a",
+  "homepage": "https://github.com/mongoosastic/mongoosastic#readme",
+  "license": "MIT",
+  "main": "lib/mongoosastic.js",
+  "maintainers": [
+    {
+      "name": "guumaster",
+      "email": "gustavoandresmarin@gmail.com"
+    },
+    {
+      "name": "jamescarr",
+      "email": "james.r.carr@gmail.com"
+    },
+    {
+      "name": "taterbase",
+      "email": "shankga@gmail.com"
+    }
+  ],
+  "name": "mongoosastic",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mongoosastic/mongoosastic.git"
+  },
+  "scripts": {
+    "authors": "./scripts/update_authors.sh",
+    "changelog": "changelog mongoosastic/mongoosastic latest -m",
+    "coverage": "cat ./coverage/lcov.info | coveralls",
+    "lint": "eslint lib test",
+    "mocha": "mocha test/*-test.js",
+    "test": "npm run lint && istanbul cover _mocha --report lcovonly -- test/*-test.js"
+  },
+  "tags": [
+    "mongodb",
+    "elasticsearch",
+    "elastic search",
+    "mongoose",
+    "full text search"
+  ],
+  "version": "4.4.1"
+}
