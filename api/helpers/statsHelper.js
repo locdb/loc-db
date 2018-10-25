@@ -167,7 +167,6 @@ StatsHelper.prototype.mandatoryFieldsStats = function(callback) {
                         });
                         break;
                     case enums.resourceType.journalVolume:
-                        // TODO: Journal Volume is missing
                         self.mandatoryFieldsJournalVolume(tg, function(err, res){
                             cb(err, [tg[0].type, res]);
                         });
@@ -223,9 +222,22 @@ StatsHelper.prototype.mandatoryFieldsStats = function(callback) {
             }
         }, function(err, result){
             stats.wrongTypeFraction = stats.wrongType / stats.total;
-            for(let r of result){
+            result.map(function(r){
+                for(let key in r[1]){
+                    if(key !== "contributorStats" && key !== "embodimentStats" && key !== "total"){
+                        let fractionKey = key + "Fraction";
+                        r[1][fractionKey] = r[1][key] / r[1].total;
+                    }else{
+                        for(let subKey in r[1][key]){
+                            if(subKey !== "total" && subKey !== "missingEmbodiments" && subKey !== "missingContributors"){
+                                let fractionKey = subKey + "Fraction";
+                                r[1][key][fractionKey] = r[1][key][subKey] / r[1][key].total;
+                            }
+                        }
+                    }
+                }
                 stats[r[0]]= r[1];
-            }
+            });
             return callback(null, stats);
         });
     });
@@ -605,7 +617,7 @@ StatsHelper.prototype.sumMissingFields = function (total, item) {
     if (total.missingTitle  || total.missingTitle === 0) res.missingTitle = total.missingTitle + item.missingTitle;
     if (total.contributorStats) res.contributorStats = {
         missingContributors: total.contributorStats.missingContributors + item.contributorStats.missingContributors,
-        totalContributors: total.contributorStats.totalContributors + item.contributorStats.totalContributors,
+        total: total.contributorStats.total + item.contributorStats.total,
         missingIdentifierForContributors: total.contributorStats.missingIdentifierForContributors + item.contributorStats.missingIdentifierForContributors,
         missingRoleTypeForContributors: total.contributorStats.missingRoleTypeForContributors + item.contributorStats.missingRoleTypeForContributors,
         missingNameForContributors: total.contributorStats.missingNameForContributors + item.contributorStats.missingNameForContributors,
@@ -613,7 +625,7 @@ StatsHelper.prototype.sumMissingFields = function (total, item) {
 
     if (total.embodimentStats) res.embodimentStats = {
         missingEmbodiments: total.embodimentStats.missingEmbodiments + item.embodimentStats.missingEmbodiments,
-        totalEmbodiments: total.embodimentStats.totalEmbodiments + item.embodimentStats.totalEmbodiments,
+        total: total.embodimentStats.total + item.embodimentStats.total,
         missingFirstPage: total.embodimentStats.missingFirstPage + item.embodimentStats.missingFirstPage,
         missingLastPage: total.embodimentStats.missingLastPage + item.embodimentStats.missingLastPage,
     };
@@ -627,7 +639,7 @@ StatsHelper.prototype.sumMissingFields = function (total, item) {
 
 StatsHelper.prototype.mandatoryFieldsContributors = function(contributors, callback) {
     let individualStats = {};
-    individualStats.totalContributors = 0;
+    individualStats.total = 0;
     individualStats.missingContributors = 0;
     individualStats.missingIdentifierForContributors = 0;
     individualStats.missingRoleTypeForContributors = 0;
@@ -643,7 +655,7 @@ StatsHelper.prototype.mandatoryFieldsContributors = function(contributors, callb
         return callback(null, individualStats);
     }else {
         for(let contrib of contributors){
-            individualStats.totalContributors += 1;
+            individualStats.total += 1;
             if(!contrib.heldBy.identifiers || contrib.heldBy.identifiers.length === 0){
                 individualStats.missingIdentifierForContributors += 1;
             }
@@ -662,17 +674,17 @@ StatsHelper.prototype.mandatoryFieldsContributors = function(contributors, callb
 
 StatsHelper.prototype.mandatoryFieldsResourceEmbodiments = function(embodiments, callback) {
     let individualStats = {};
-    individualStats.totalEmbodiments = 0;
+    individualStats.total = 0;
     individualStats.missingEmbodiments = 0;
     individualStats.missingFirstPage = 0;
     individualStats.missingLastPage = 0;
 
     if(!embodiments || embodiments.length === 0){
-        individualStats.totalEmbodiments = 1;
+        individualStats.missingEmbodiments = 1;
         return callback(null, individualStats);
     }else {
         for(let embod of embodiments){
-            individualStats.totalEmbodiments += 1;
+            individualStats.total += 1;
             if(!embod.firstPage || embod.firstPage === " " || embod.firstPage === ""){
                 individualStats.missingFirstPage += 1;
             }
