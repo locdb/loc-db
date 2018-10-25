@@ -641,7 +641,7 @@ StatsHelper.prototype.mandatoryFieldsContributors = function(contributors, callb
     let individualStats = {};
     individualStats.total = 0;
     individualStats.missingContributors = 0;
-    individualStats.missingIdentifierForContributors = 0;
+    //individualStats.missingIdentifierForContributors = 0;
     individualStats.missingRoleTypeForContributors = 0;
     individualStats.missingNameForContributors = 0;
     let roleList = [];
@@ -656,9 +656,9 @@ StatsHelper.prototype.mandatoryFieldsContributors = function(contributors, callb
     }else {
         for(let contrib of contributors){
             individualStats.total += 1;
-            if(!contrib.heldBy.identifiers || contrib.heldBy.identifiers.length === 0){
-                individualStats.missingIdentifierForContributors += 1;
-            }
+            // if(!contrib.heldBy.identifiers || contrib.heldBy.identifiers.length === 0){
+            //     individualStats.missingIdentifierForContributors += 1;
+            // }
             if(!contrib.roleType || roleList.indexOf(contrib.roleType) < 0){
                 individualStats.missingRoleTypeForContributors += 1;
             }
