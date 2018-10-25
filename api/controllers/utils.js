@@ -110,11 +110,11 @@ function stats(req, response){
                 cb(err, res);
             });
         },
-        function(cb){
-            statsHelper.logStats(function(err,res){
-                cb(err, res);
-            });
-        },
+        // function(cb){
+        //     statsHelper.logStats(function(err,res){
+        //         cb(err, res);
+        //     });
+        // },
     ], function(err, res){
         if(err){
             logger.error(err);
