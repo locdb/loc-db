@@ -600,34 +600,28 @@ StatsHelper.prototype.mandatoryFieldsStandardSeries = function(standardSeries, c
 
 
 StatsHelper.prototype.sumMissingFields = function (total, item) {
-    let res = {
-        missingPublicationDate: total.missingPublicationDate + item.missingPublicationDate,
-        missingTitle: total.missingTitle + item.missingTitle,
+    let res = {};
+    if (total.missingPublicationDate  || total.missingPublicationDate === 0) res.missingPublicationDate = total.missingPublicationDate + item.missingPublicationDate;
+    if (total.missingTitle  || total.missingTitle === 0) res.missingTitle = total.missingTitle + item.missingTitle;
+    if (total.contributorStats) res.contributorStats = {
+        missingContributors: total.contributorStats.missingContributors + item.contributorStats.missingContributors,
+        totalContributors: total.contributorStats.totalContributors + item.contributorStats.totalContributors,
+        missingIdentifierForContributors: total.contributorStats.missingIdentifierForContributors + item.contributorStats.missingIdentifierForContributors,
+        missingRoleTypeForContributors: total.contributorStats.missingRoleTypeForContributors + item.contributorStats.missingRoleTypeForContributors,
+        missingNameForContributors: total.contributorStats.missingNameForContributors + item.contributorStats.missingNameForContributors,
     };
-    if (total.contributorStats){
-        res.contributorStats = {
-            missingContributors: total.contributorStats.missingContributors + item.contributorStats.missingContributors,
-            totalContributors: total.contributorStats.totalContributors + item.contributorStats.totalContributors,
-            missingIdentifierForContributors: total.contributorStats.missingIdentifierForContributors + item.contributorStats.missingIdentifierForContributors,
-            missingRoleTypeForContributors: total.contributorStats.missingRoleTypeForContributors + item.contributorStats.missingRoleTypeForContributors,
-            missingNameForContributors: total.contributorStats.missingNameForContributors + item.contributorStats.missingNameForContributors,
-        };
-    }
-    if(total.embodimentStats){
-        res.embodimentStats = {
-            missingEmbodiments: total.embodimentStats.missingEmbodiments + item.embodimentStats.missingEmbodiments,
-            totalEmbodiments: total.embodimentStats.totalEmbodiments + item.embodimentStats.totalEmbodiments,
-            missingFirstPage: total.embodimentStats.missingFirstPage + item.embodimentStats.missingFirstPage,
-            missingLastPage: total.embodimentStats.missingLastPage + item.embodimentStats.missingLastPage,
-        };
-    }
-    if(total.missingJournalIssueNumber){
-        res.missingJournalIssueNumber = total.missingJournalIssueNumber+ item.missingJournalIssueNumber;
-        res.missingJournalVolumeNumber = total.missingJournalVolumeNumber + item.missingJournalVolumeNumber;
-    }
-    if(total.missingPartOf){
-        res.missingPartOf = total.missingPartOf+ item.missingPartOf;
-    }
+
+    if (total.embodimentStats) res.embodimentStats = {
+        missingEmbodiments: total.embodimentStats.missingEmbodiments + item.embodimentStats.missingEmbodiments,
+        totalEmbodiments: total.embodimentStats.totalEmbodiments + item.embodimentStats.totalEmbodiments,
+        missingFirstPage: total.embodimentStats.missingFirstPage + item.embodimentStats.missingFirstPage,
+        missingLastPage: total.embodimentStats.missingLastPage + item.embodimentStats.missingLastPage,
+    };
+
+    if (total.missingJournalIssueNumber || total.missingJournalIssueNumber === 0) res.missingJournalIssueNumber = total.missingJournalIssueNumber + item.missingJournalIssueNumber;
+    if (total.missingJournalVolumeNumber || total.missingJournalVolumeNumber === 0) res.missingJournalVolumeNumber = total.missingJournalVolumeNumber + item.missingJournalVolumeNumber;
+    if (total.missingPartOf || total.missingPartOf === 0) res.missingPartOf = total.missingPartOf + item.missingPartOf;
+
     return res;
 };
 

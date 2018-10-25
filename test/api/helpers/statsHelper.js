@@ -51,11 +51,14 @@ describe('helpers', function() {
                 });
             });
 
-            it('should compute mandatory fields stats all types', function (done) {
-                statsHelper.mandatoryFieldsStats(function (err, res) {
-                    should.not.exists(err);
-                    res.should.have.property(enums.resourceType.book);
-                    done();
+            it.only('should compute mandatory fields stats all types', function (done) {
+                this.timeout(100000);
+                setup.loadBibliographicResourcesForStats(function(err, res){
+                    statsHelper.mandatoryFieldsStats(function (err, res) {
+                        should.not.exists(err);
+                        res.should.have.property(enums.resourceType.book);
+                        done();
+                    });
                 });
             });
         });
