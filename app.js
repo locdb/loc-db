@@ -26,7 +26,8 @@ db.once('open', function() {
 
 // Configuring Passport
 var passport = require('./api/util/passport.js');
-var expressSession = require('express-session');
+const expressSession = require('express-session');
+const MongoStore = require('connect-mongo')(expressSession);
 //app.use(expressSession({secret: 'mySecretKey'}));
 //app.use(passport.initialize());
 //app.use(passport.session());
@@ -88,7 +89,7 @@ SwaggerExpress.create({appRoot: __dirname, securityHandlers: {
     }
 }}, function(err, swaggerExpress) {
     if (err) { throw err; }
-    app.use(expressSession({secret: 'mySecretKey', resave: false, saveUninitialized: false}));
+    app.use(expressSession({secret: 'mySecretKey', resave: false, saveUninitialized: false, store: new MongoStore({mongooseConnection: mongoose.connection })}));
     app.use(passport.initialize());
     app.use(passport.session());
     app.use(cors({origin: "http://localhost:4200", credentials: true}));
