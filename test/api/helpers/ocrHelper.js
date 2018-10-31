@@ -112,7 +112,7 @@ describe('helpers', function() {
                 this.timeout(1000000000);
                 let scan = new Scan({
                     _id: mongoose.Types.ObjectId(),
-                    scanName: "references.pdf",
+                    scanName: "./../loc-db/test/api/data/ocr_data/references.pdf",
                     status: enums.status.notOCRProcessed,
                     textualPdf: true
                 });
