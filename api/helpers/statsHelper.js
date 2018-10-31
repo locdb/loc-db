@@ -250,19 +250,21 @@ StatsHelper.prototype.mandatoryFieldsBook = function(books, callback) {
         // check single resource for all the mandatory fields
         book = new BibliographicResource(book);
         let individualStats = {};
+        individualStats.illBr = [];
         individualStats.missingPublicationDate = 0;
         individualStats.missingTitle = 0;
 
         if(!book.getPublicationDateForType() || book.getPublicationDateForType() === "" || book.getPublicationDateForType() === " " || !book.getPublicationDateForType() instanceof Date){
             individualStats.missingPublicationDate = 1;
+            individualStats.illBr.push(book._id);
         }
         if(!book.getTitleForType() || book.getTitleForType() === "" || book.getTitleForType() === " "){
             individualStats.missingTitle = 1;
+            individualStats.illBr.push(book._id);
         }
 
         self.mandatoryFieldsContributors(book.getContributorsForType(), function(err, contributorStats){
             individualStats.contributorStats = contributorStats;
-
             return cb(err, individualStats);
         });
 
@@ -284,15 +286,19 @@ StatsHelper.prototype.mandatoryFieldsBookChapter = function(bookChapters, callba
         individualStats.missingPublicationDate = 0;
         individualStats.missingTitle = 0;
         individualStats.missingPartOf = 0;
+        individualStats.illBr = [];
 
         if(!bookChapter.getPublicationDateForType() || bookChapter.getPublicationDateForType() === "" || bookChapter.getPublicationDateForType() === " " || !bookChapter.getPublicationDateForType() instanceof Date){
             individualStats.missingPublicationDate = 1;
+            individualStats.illBr.push(bookChapter._id);
         }
         if(!bookChapter.getTitleForType() || bookChapter.getTitleForType() === "" || bookChapter.getTitleForType() === " "){
             individualStats.missingTitle = 1;
+            individualStats.illBr.push(bookChapter._id);
         }
         if(!bookChapter.partOf || bookChapter.partOf === "" || bookChapter.partOf === " "){
             individualStats.missingPartOf = 1;
+            individualStats.illBr.push(bookChapter._id);
         }
 
         self.mandatoryFieldsContributors(bookChapter.getContributorsForType(), function(err, contributorStats){
@@ -321,15 +327,19 @@ StatsHelper.prototype.mandatoryFieldsBookPart = function(bookParts, callback) {
         individualStats.missingPublicationDate = 0;
         individualStats.missingTitle = 0;
         individualStats.missingPartOf = 0;
+        individualStats.illBr = [];
 
         if(!bookPart.getPublicationDateForType() || bookPart.getPublicationDateForType() === "" || bookPart.getPublicationDateForType() === " " || !bookPart.getPublicationDateForType() instanceof Date){
             individualStats.missingPublicationDate = 1;
+            individualStats.illBr.push(bookPart._id);
         }
         if(!bookPart.getTitleForType()|| bookPart.getTitleForType() === "" || bookPart.getTitleForType() === " "){
             individualStats.missingTitle = 1;
+            individualStats.illBr.push(bookPart._id);
         }
         if(!bookPart.partOf || bookPart.partOf === "" || bookPart.partOf === " "){
             individualStats.missingPartOf = 1;
+            individualStats.illBr.push(bookPart._id);
         }
         self.mandatoryFieldsResourceEmbodiments(bookPart.getResourceEmbodimentsForType(), function(err, embodimentStats){
             individualStats.embodimentStats = embodimentStats;
@@ -357,8 +367,10 @@ StatsHelper.prototype.mandatoryFieldsBookSeries = function(bookSeries, callback)
         bookSer = new BibliographicResource(bookSer);
         let individualStats = {};
         individualStats.missingTitle = 0;
+        individualStats.illBr = [];
         if(!bookSer.getTitleForType() || bookSer.getTitleForType()  === "" || bookSer.getTitleForType()  === " "){
             individualStats.missingTitle = 1;
+            individualStats.illBr.push(bookSer._id);
         }
         return cb(null, individualStats);
     }, function(err, res){
@@ -377,8 +389,10 @@ StatsHelper.prototype.mandatoryFieldsBookSet = function(bookSets, callback) {
         bookSet = new BibliographicResource(bookSet);
         let individualStats = {};
         individualStats.missingTitle = 0;
+        individualStats.illBr = [];
         if(!bookSet.getTitleForType() || bookSet.getTitleForType() === "" || bookSet.getTitleForType() === " "){
             individualStats.missingTitle = 1;
+            individualStats.illBr.push(bookSet._id);
         }
         self.mandatoryFieldsContributors(bookSet.getContributorsForType(), function(err, contributorStats){
             individualStats.contributorStats = contributorStats;
@@ -511,14 +525,18 @@ StatsHelper.prototype.mandatoryFieldsJournalIssue = function(journalIssues, call
         individualStats.missingTitle = 0;
         individualStats.missingJournalIssueNumber = 0;
         individualStats.missingJournalVolumeNumber = 0;
+        individualStats.illBr = [];
         if(!journalIssue.journal_title || journalIssue.journal_title === "" || journalIssue.journal_title === " "){
             individualStats.missingTitle = 1;
+            individualStats.illBr.push(journalIssue._id);
         }
         if(!journalIssue.journalIssue_number || journalIssue.journalIssue_number  === "" || journalIssue.journalIssue_number  === " "){
             individualStats.missingJournalIssueNumber = 1;
+            individualStats.illBr.push(journalIssue._id);
         }
         if(!journalIssue.journalVolume_number || journalIssue.journalVolume_number  === "" || journalIssue.journalVolume_number  === " "){
             individualStats.missingJournalVolumeNumber = 1;
+            individualStats.illBr.push(journalIssue._id);
         }
         self.mandatoryFieldsContributors(journalIssue.journal_contributors, function(err, contributorStats){
             individualStats.contributorStats = contributorStats;
@@ -543,15 +561,19 @@ StatsHelper.prototype.mandatoryFieldsReferenceEntry = function(referenceEntries,
         individualStats.missingPublicationDate = 0;
         individualStats.missingTitle = 0;
         individualStats.missingPartOf = 0;
+        individualStats.illBr = [];
 
         if(!referenceEntry.getPublicationDateForType() || referenceEntry.getPublicationDateForType() === "" || referenceEntry.getPublicationDateForType() === " " || !referenceEntry.getPublicationDateForType() instanceof Date){
             individualStats.missingPublicationDate = 1;
+            individualStats.illBr.push(referenceEntry._id);
         }
         if(!referenceEntry.getTitleForType() || referenceEntry.getTitleForType() === "" || referenceEntry.getTitleForType() === " "){
             individualStats.missingTitle = 1;
+            individualStats.illBr.push(referenceEntry._id);
         }
         if(!referenceEntry.partOf || referenceEntry.partOf === "" || referenceEntry.partOf === " "){
             individualStats.missingPartOf = 1;
+            individualStats.illBr.push(referenceEntry._id);
         }
         return cb(null, individualStats);
 
@@ -572,8 +594,10 @@ StatsHelper.prototype.mandatoryFieldsReportSeries = function(reportSeries, callb
         reportSer = new BibliographicResource(reportSer);
         let individualStats = {};
         individualStats.missingTitle = 0;
+        individualStats.illBr = [];
         if(!reportSer.getTitleForType() || reportSer.getTitleForType() === "" || reportSer.getTitleForType() === " "){
             individualStats.missingTitle = 1;
+            individualStats.illBr.push(reportSer._id);
         }
         return cb(null, individualStats);
     }, function(err, res){
@@ -591,8 +615,10 @@ StatsHelper.prototype.mandatoryFieldsJournalVolume = function(journalVolumes, ca
         journalVolume = new BibliographicResource(journalVolume);
         let individualStats = {};
         individualStats.missingJournalVolumeNumber = 0;
+        individualStats.illBr = [];
         if(!journalVolume.getNumberForType() || journalVolume.getNumberForType() === "" || journalVolume.getNumberForType() === " "){
             individualStats.missingJournalVolumeNumber = 1;
+            individualStats.illBr.push(journalVolume._id);
         }
         return cb(null, individualStats);
     }, function(err, res){
@@ -634,6 +660,7 @@ StatsHelper.prototype.sumMissingFields = function (total, item) {
     if (total.missingJournalVolumeNumber || total.missingJournalVolumeNumber === 0) res.missingJournalVolumeNumber = total.missingJournalVolumeNumber + item.missingJournalVolumeNumber;
     if (total.missingPartOf || total.missingPartOf === 0) res.missingPartOf = total.missingPartOf + item.missingPartOf;
 
+    if(total.illBr) res.illBr = total.illBr.concat(item.illBr);
     return res;
 };
 
@@ -641,7 +668,7 @@ StatsHelper.prototype.mandatoryFieldsContributors = function(contributors, callb
     let individualStats = {};
     individualStats.total = 0;
     individualStats.missingContributors = 0;
-    //individualStats.missingIdentifierForContributors = 0;
+    individualStats.missingIdentifierForContributors = 0;
     individualStats.missingRoleTypeForContributors = 0;
     individualStats.missingNameForContributors = 0;
     let roleList = [];
@@ -656,9 +683,9 @@ StatsHelper.prototype.mandatoryFieldsContributors = function(contributors, callb
     }else {
         for(let contrib of contributors){
             individualStats.total += 1;
-            // if(!contrib.heldBy.identifiers || contrib.heldBy.identifiers.length === 0){
-            //     individualStats.missingIdentifierForContributors += 1;
-            // }
+            if(!contrib.heldBy.identifiers || contrib.heldBy.identifiers.length === 0){
+                 individualStats.missingIdentifierForContributors += 1;
+            }
             if(!contrib.roleType || roleList.indexOf(contrib.roleType) < 0){
                 individualStats.missingRoleTypeForContributors += 1;
             }
