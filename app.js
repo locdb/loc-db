@@ -17,7 +17,7 @@ module.exports = app; // for testing
 mongoose.set('debug', function (collectionName, method, query, doc){
     logger.info("MONGOOSE", collectionName + "." + method + "(" + JSON.stringify(query) + ")");
 });
-var db = mongoose.connection;
+let db = mongoose.connection;
 
 db.on('error', console.error);
 db.once('open', function() {
@@ -25,23 +25,19 @@ db.once('open', function() {
 });
 
 // Configuring Passport
-var passport = require('./api/util/passport.js');
+let passport = require('./api/util/passport.js');
 const expressSession = require('express-session');
 const MongoStore = require('connect-mongo')(expressSession);
-//app.use(expressSession({secret: 'mySecretKey'}));
-//app.use(passport.initialize());
-//app.use(passport.session());
 
-//var config = process.argv.indexOf("test") > 0 ? require("./test/api/config.js") : require("./config/config.js");
-var config = require("./config/config.js");
+let config = require("./config/config.js");
 
-if(process.argv.indexOf("test" >0)){
+if(process.argv.indexOf("test") > 0 ){
     config = Object.assign(config, require("./test/api/config.js"));
 }
 
 logger.info("Running config:", {config : JSON.stringify(config)});
 
-var uri = "mongodb://" + config.DB.HOST + ":" + config.DB.PORT + "/" + config.DB.SCHEMA;
+let uri = "mongodb://" + config.DB.HOST + ":" + config.DB.PORT + "/" + config.DB.SCHEMA;
 
 //mongoose.connect(uri);
 const options = {
@@ -64,7 +60,7 @@ const options = {
 mongoose.Promise = require('bluebird');
 mongoose.connect(uri, options);
 
-var swaggerDocument = yaml.safeLoad(fs.readFileSync('./api/swagger/swagger.yaml', 'utf8'));
+let swaggerDocument = yaml.safeLoad(fs.readFileSync('./api/swagger/swagger.yaml', 'utf8'));
 swaggerDocument.host = config.HOST;
 swaggerDocument.basePath = config.BASEPATH;
 swaggerDocument.securityDefinitions = null;
