@@ -866,6 +866,21 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
+  /triggerStats:
+    x-swagger-router-controller: utils
+    get:
+      tags: [Utils]
+      description: Triggers the expensive calculation of statistics
+      operationId: triggerStats
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
 
   /bibliographicResourcesOC:
     x-swagger-router-controller: bibliographicResource
