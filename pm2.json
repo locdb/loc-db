@@ -4,7 +4,7 @@
     "name"      : "loc-db",
     "script"    : "app.js",
     "append_env_to_name": true,
-    "node_args": "--max_old_space_size=16384 --trace-gc-verbose",
+    "node_args": "--trace-gc-verbose",
     "env_demo": {
       "NODE_ENV": "demo",
       "LOCDB_PORT": 3102,
@@ -46,7 +46,7 @@
     "name"      : "loc-db-jobs",
     "script"    : "./api/jobs/jobs.js",
     "append_env_to_name": true,
-    "node_args": "--max_old_space_size=16384 --trace-gc-verbose",
+    "node_args": "--trace-gc-verbose",
     "env_development": {
       "NODE_ENV": "development",
       "LOCDB_PORT": 3101,
