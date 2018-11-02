@@ -35,6 +35,7 @@ var config = {
         SWB: "http://swb.bsz-bw.de/sru/DB=2.1/username=/password=/",
         ZDB: "http://services.dnb.de/sru/zdb",
         OLCSSGSOZ: "http://sru.gbv.de/olcssg-soz",
+        OPEN_CITATIONS_SPARQL: "http://w3id.org/oc/sparql",
         OCR_FILEUPLOAD: "https://locdb-dev.opendfki.de/fileupload/",
         OCR_FILEVIEW: "https://locdb-dev.opendfki.de/fileview/",
         OCR_IMAGEVIEW: "https://locdb-dev.opendfki.de/getimage/",

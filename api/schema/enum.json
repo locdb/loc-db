@@ -22,6 +22,7 @@
     "uri": "URI",
     "gScholarUrl": "URL_GOOGLE_SCHOLAR",
     "crossrefUrl": "URL_CROSSREF",
+    "ocUri": "URI_OC",
     "swbUrl": "URL_SWB",
     "zdbUrl": "URL_ZDB",
     "olcSsgUrl": "URL_OLCSSG",

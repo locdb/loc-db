@@ -6,35 +6,99 @@ SparqlHttp.fetch = fetch;
 const parseXML = require('xml2js').parseString;
 const BibliographicResourceOC = require('./../schema/bibliographicResourceOpenCitations.js');
 const BibliographicResource = require('./../schema/bibliographicResource.js');
+const Identifier = require('./../schema/identifier');
 const logger = require('./../util/logger');
 const mongoose = require('mongoose');
+const request = require('request');
+const config = require('./../../config/config');
+const enums = require('./../schema/enum.json');
+const cachedRequest = require('cached-request')(request);
+const async = require('async');
+cachedRequest.setCacheDirectory(config.PATHS.CACHE);
+const endpoint = new SparqlHttp({endpointUrl: config.URLS.OPEN_CITATIONS_SPARQL});
 
 var OpenCitationsHelper = function(){
 };
 
+OpenCitationsHelper.prototype.queryByString = function(query, callback){
+    let self = this;
+    let sparqlQuery =
+        `
+        PREFIX cito:<http://purl.org/spar/cito/>
+        PREFIX dcterms:<http://purl.org/dc/terms/>
+        PREFIX datacite:<http://purl.org/spar/datacite/>
+        PREFIX literal:<http://www.essepuntato.it/2010/06/literalreification/>
+        PREFIX biro:<http://purl.org/spar/biro/>
+        PREFIX frbr:<http://purl.org/vocab/frbr/core#>
+        PREFIX c4o:<http://purl.org/spar/c4o/>
+        PREFIX bds:<http://www.bigdata.com/rdf/search#>
+        PREFIX fabio:<http://purl.org/spar/fabio/>
+        PREFIX pro:<http://purl.org/spar/pro/>
+        PREFIX oco:<https://w3id.org/oc/ontology/>
+        PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+        PREFIX prism:<http://prismstandard.org/namespaces/basic/2.0/>
+        SELECT DISTINCT ?iri ?doi ?short_iri ?short_iri_id ?browser_iri ?title ?subtitle ?year ?type ?short_type ?label ?author ?author_browser_iri 
+            (COUNT(distinct ?cites) AS ?out_cits) 
+            (COUNT(distinct ?cited_by) AS ?in_cits) 
+            (count(?next) as ?tot)   
+            Where{
+                { { ?lit bds:search '`
+                + query +
+                `' . 
+                ?lit bds:matchAllTerms 'true' . 
+                ?lit bds:relevance ?score . 
+                ?lit bds:minRelevance '0.2' . 
+                ?lit bds:maxRank '300' . 
+                {?iri dcterms:title  ?lit } 
+                UNION {?iri fabio:hasSubtitle ?lit} }}           
+                {              ?iri rdf:type ?type .
+                OPTIONAL {?iri cito:cites ?cites .}
+                OPTIONAL {?cited_by cito:cites ?iri .}
+                BIND(REPLACE(STR(?iri), 'https://w3id.org/oc/corpus/', '', 'i') as ?short_iri) .
+                BIND(REPLACE(STR(?iri), 'https://w3id.org/oc/corpus/br/', '', 'i') as ?short_iri_id) .
+                BIND(REPLACE(STR(?iri), '/corpus/', '/browser/', 'i') as ?browser_iri) .
+                OPTIONAL {?iri dcterms:title ?title .}
+                BIND(REPLACE(STR(?type), 'http://purl.org/spar/fabio/', '', 'i') as ?short_type) .
+                OPTIONAL {?iri fabio:hasSubtitle ?subtitle .}
+                OPTIONAL {?iri prism:publicationDate ?year .}
+                OPTIONAL {
+                ?iri datacite:hasIdentifier [
+                    datacite:usesIdentifierScheme datacite:doi ;
+                    literal:hasLiteralValue ?doi                       
+                    ]                
+                }           
+                }{?iri rdfs:label ?label .
+                OPTIONAL {
+                ?iri pro:isDocumentContextFor ?role . 
+                ?role pro:withRole pro:author ; pro:isHeldBy [
+                foaf:familyName ?f_name ;
+                foaf:givenName ?g_name
+                ] . 
+                ?role pro:isHeldBy ?author_iri .
+                OPTIONAL {
+                ?role oco:hasNext* ?next .} 
+                BIND(REPLACE(STR(?author_iri), '/corpus/', '/browser/', 'i') as ?author_browser_iri) .
+                BIND(CONCAT(?g_name,' ',?f_name) as ?author) .			               }           }   } 
+                GROUP BY ?iri ?doi ?short_iri ?short_iri_id ?browser_iri ?title ?subtitle ?year ?type ?short_type ?label ?author ?author_browser_iri ORDER BY DESC(?tot)
+`
+    endpoint.getQuery(sparqlQuery).then(function (res) {
+        return res.text();
+    }).then(function (body) {
+        self.parseOCResult(body, function(err, result){
+            if(err){
+                logger.error(err);
+                return callback(err, null)
+            }
+            return callback(null, result);
+        });
+    }).catch(function (err) {
+        return callback(err, null);
+    });
+};
 
-OpenCitationsHelper.prototype.query = function(title, callback){
-    var endpoint = new SparqlHttp({endpointUrl: 'http://w3id.org/oc/sparql'});
-    //title = title.toLowerCase();
-    
-    //    var queryString = 
-    //        `PREFIX cito: <http://purl.org/spar/cito/>
-    //        PREFIX fabio: <http://purl.org/spar/fabio/>
-    //        PREFIX dcterms: <http://purl.org/dc/terms/>
-    //        PREFIX datacite: <http://purl.org/spar/datacite/>
-    //        PREFIX literal: <http://www.essepuntato.it/2010/06/literalreification/>
-    //        PREFIX biro: <http://purl.org/spar/biro/>
-    //        PREFIX frbr: <http://purl.org/vocab/frbr/core#>
-    //        PREFIX c4o: <http://purl.org/spar/c4o/>
-    //        PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-    //        SELECT ?br ?title WHERE {
-    //        ?br rdf:type fabio:Expression;
-    //        dcterms:title ?title.
-    //        FILTER (CONTAINS(LCASE(?title), "`
-    //        + title +
-    //        `"))
-    //        }`;
-    var queryString = 
+OpenCitationsHelper.prototype.queryByTitle = function(title, callback){
+    let self = this;
+    let sparqlQuery =
             `PREFIX cito: <http://purl.org/spar/cito/>
             PREFIX fabio: <http://purl.org/spar/fabio/>
             PREFIX dcterms: <http://purl.org/dc/terms/>
@@ -52,23 +116,111 @@ OpenCitationsHelper.prototype.query = function(title, callback){
             `".
             }`;
 
-    endpoint.getQuery(queryString).then(function (res) {
+    endpoint.getQuery(sparqlQuery).then(function (res) {
         return res.text();
     }).then(function (body) {
-        console.log(body);
-        parseXML(body, function (err, result) {
-            if(err){
-                console.log(err);
-                return;
-            }
-            callback(result);
+        self.parseOCResult(body, function(err, result){
+            return callback(null, result);
         });
-        
     }).catch(function (err) {
-        console.error(err);
+        return callback(err, null);
     });
 };
 
+OpenCitationsHelper.prototype.parseOCResult = function(xmlString, callback){
+    var self = this;
+    parseXML(xmlString, function (err, result) {
+        if(err){
+            console.log(err);
+            return callback(err, null);
+        }
+        async.map(result.sparql.results[0].result[0].binding, function(binding, cb){
+            if(binding.$.name === 'br' || binding.$.name === "iri"){
+                // we found a bibliographic resource; now the tedious work: parsing and traversing the rdf graph
+                let identifier = new Identifier({scheme: enums.identifier.ocUri, literalValue: binding.uri[0]});
+                let url = identifier.literalValue + ".json";
+                return cachedRequest({'url': url}, function(err, res, body) {
+                    let jsonObject = JSON.parse(body);
+                    self.convertOCType(jsonObject[0]["@type"], function(err,type){
+                        if(err){
+                            logger.error(err);
+                            return cb(err, null);
+                        }
+                        if(type){
+                            // create bibliographic resource in "our" data format
+                            let br = new BibliographicResource({type: type});
+
+                            // don't forget to save the oc corpus uri
+                            br.pushIdentifierForType(br.type, identifier);
+
+                            // extract title
+                            let title = jsonObject[0]["http://purl.org/dc/terms/title"][0]["@value"];
+                            br.setTitleForType(br.type, title);
+
+                            // we furthermore extract the identifiers
+                            async.map(jsonObject[0]["http://purl.org/spar/datacite/hasIdentifier"], function(id, cb){
+                                let url = id["@id"] + ".json";
+                                cachedRequest({'url': url}, function(err, res, body) {
+                                    let identifierObject = JSON.parse(body);
+                                    let scheme = identifierObject[0]["http://purl.org/spar/datacite/usesIdentifierScheme"] ? identifierObject[0]["http://purl.org/spar/datacite/usesIdentifierScheme"] : identifierObject[1]["http://purl.org/spar/datacite/usesIdentifierScheme"];
+                                    self.convertOCType([scheme[0]["@id"]], function(err, scheme){
+                                        let literalValue = identifierObject[0]["http://www.essepuntato.it/2010/06/literalreification/hasLiteralValue"] ? identifierObject[0]["http://www.essepuntato.it/2010/06/literalreification/hasLiteralValue"][0]["@value"] : identifierObject[1]["http://www.essepuntato.it/2010/06/literalreification/hasLiteralValue"][0]["@value"];
+                                        let identifier = new Identifier({scheme: scheme, literalValue: literalValue});
+                                        return cb(null, identifier)
+                                    });
+                                });
+                            }, function(err, res){
+                                if(err){
+                                    logger.error(err);
+                                    return callback(err, null)
+                                }
+                                for(let identifier of res){
+                                    br.pushIdentifierForType(br.type, identifier);
+                                }
+                                return cb(err, br);
+                            });
+                        }else{
+                            return cb(null, null);
+                        }
+                    });
+                });
+            }else{
+                return cb(null, null);
+            }
+        }, function(err, result){
+           result = result.filter(x => x);
+           return callback(err,result);
+        });
+    });
+};
+
+OpenCitationsHelper.prototype.convertOCType = function(ocTypes, callback){
+    async.map(ocTypes, function(type, cb){
+        switch(type){
+            case "http://purl.org/spar/fabio/Journal":
+                return cb(null, enums.resourceType.journal);
+                break;
+            case "http://purl.org/spar/fabio/JournalArticle":
+                return cb(null, enums.resourceType.journalArticle);
+            case "http://purl.org/spar/datacite/issn":
+                return cb(null, enums.identifier.issn);
+                break;
+            default:
+                return cb(null, null);
+        }
+    }, function(err, result){
+        if(err){
+            logger.error(err);
+            return callback(err, null);
+        }
+        for(let res of result){
+            if(res){
+                return callback(null, res);
+            }
+        }
+        return callback(null, null);
+    });
+};
 
 OpenCitationsHelper.prototype.convertInternalBR2OC = function(br, callback){
     var self = this;
