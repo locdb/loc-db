@@ -20,7 +20,7 @@ const endpoint = new SparqlHttp({endpointUrl: config.URLS.OPEN_CITATIONS_SPARQL}
 var OpenCitationsHelper = function(){
 };
 
-OpenCitationsHelper.prototype.queryByString = function(query, callback){
+OpenCitationsHelper.prototype.queryByQueryString = function(query, callback){
     let self = this;
     let sparqlQuery =
         `
@@ -43,8 +43,8 @@ OpenCitationsHelper.prototype.queryByString = function(query, callback){
             (count(?next) as ?tot)   
             Where{
                 { { ?lit bds:search '`
-                + query +
-                `' . 
+        + query +
+        `' . 
                 ?lit bds:matchAllTerms 'true' . 
                 ?lit bds:relevance ?score . 
                 ?lit bds:minRelevance '0.2' . 
@@ -127,6 +127,7 @@ OpenCitationsHelper.prototype.queryByTitle = function(title, callback){
     });
 };
 
+// TODO: This is not efficient; We should use bindings instead of following the links
 OpenCitationsHelper.prototype.parseOCResult = function(xmlString, callback){
     var self = this;
     parseXML(xmlString, function (err, result) {
@@ -221,6 +222,7 @@ OpenCitationsHelper.prototype.convertOCType = function(ocTypes, callback){
         return callback(null, null);
     });
 };
+
 
 OpenCitationsHelper.prototype.convertInternalBR2OC = function(br, callback){
     var self = this;

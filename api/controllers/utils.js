@@ -6,6 +6,7 @@ const logger = require('./../util/logger.js');
 const solrHelper = require('./../helpers/solrHelper').createSolrHelper();
 const crossrefHelper = require('./../helpers/crossrefHelper').createCrossrefHelper();
 const swbHelper = require('./../helpers/swbHelper').createSwbHelper();
+const ocHelper = require('./../helpers/openCitationsHelper').createOpenCitationsHelper();
 const async = require('async');
 const mongoBr = require('./../models/bibliographicResource').mongoBr;
 const statsHelper = require('./../helpers/statsHelper').createStatsHelper();
@@ -69,6 +70,19 @@ function getSWB(req, res){
     var response = res;
     var query = req.swagger.params.query.value;
     swbHelper.queryByQueryString(query, function(err,res){
+        if(err){
+            logger.error(err);
+            return response.json(err);
+        }
+        logger.log(res);
+        return response.json(res);
+    });
+}
+
+function getOC(req, res){
+    var response = res;
+    var query = req.swagger.params.query.value;
+    ocHelper.queryByQueryString(query, function(err,res){
         if(err){
             logger.error(err);
             return response.json(err);
@@ -153,6 +167,7 @@ module.exports = {
     getGVI: getGVI,
     getCrossref: getCrossref,
     getSWB: getSWB,
+    getOC: getOC,
     loadBibliographicResources: loadBibliographicResources,
     stats: stats,
     triggerStats: triggerStats

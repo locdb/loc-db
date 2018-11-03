@@ -6,6 +6,7 @@ const levenshtein = require('fast-levenshtein');
 const googleScholarHelper = require('./googleScholarHelper.js').createGoogleScholarHelper();
 const crossrefHelper = require('./crossrefHelper.js').createCrossrefHelper();
 const swbHelper = require('./swbHelper.js').createSwbHelper();
+const openCitationsHelper = require('./openCitationsHelper.js').createOpenCitationsHelper();
 const solrHelper = require('./solrHelper.js').createSolrHelper();
 const enums = require('./../schema/enum.json');
 const async = require('async');
@@ -185,7 +186,23 @@ SuggestionHelper.prototype.getExternalSuggestionsByQueryString = function(query,
                     }
                     return callback(null, res);
                 });
-            }],
+            },
+            function (callback) {
+                openCitationsHelper.queryByQueryString(query, function (err, res) {
+                    if (err) {
+                        err.message = "[OC] Query:" + query + "; " + err.message;
+                        logger.error(err);
+                        return callback(err, null);
+                    }
+                    for(var parentChild of res){
+                        for(var br of parentChild){
+                            br.source = enums.externalSources.oc;
+                        }
+                    }
+                    return callback(null, res);
+                });
+            },
+        ],
         function (err, res) {
             return cb(err, res);
         });

@@ -851,6 +851,28 @@ paths:
           schema:
             $ref: "#/definitions/ErrorResponse"
 
+  /getOC:
+    x-swagger-router-controller: utils
+    get:
+      tags: [Utils]
+      description: Gets parsed data from OC (needed for debugging)
+      operationId: getOC
+      parameters:
+        - name: query
+          in: query
+          description: The query string
+          required: false
+          type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
   /stats:
     x-swagger-router-controller: utils
     get:
