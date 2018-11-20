@@ -12,6 +12,34 @@ const morgan = require('morgan');
 const agendash = require('agendash');
 const agenda = require('./api/jobs/jobs');
 
+// Searching a memory leak
+const memwatch = require('memwatch-next');
+const heapdump = require('heapdump');
+const util = require('util');
+let snapshotTaken = false,
+    hd;
+
+memwatch.on('leak', function(info) {
+    logger.info({leak: info});
+    var diff = hd.end();
+    snapshotTaken = false;
+    logger.info(util.inspect(diff, {showHidden:false, depth:4}));
+    heapdump.writeSnapshot(function(err, filename) {
+        console.log('dump written to', filename);
+    });
+});
+
+memwatch.on('stats', function(stats) {
+    logger.info({"stats": stats});
+    if(snapshotTaken===false){
+        hd = new memwatch.HeapDiff();
+        snapshotTaken = true;
+    }/* else {
+        var diff = hd.end();
+        snapshotTaken = false;
+        logger.info(util.inspect(diff, {showHidden:false, depth:4}));
+    }*/
+});
 
 module.exports = app; // for testing
 mongoose.set('debug', function (collectionName, method, query, doc){
