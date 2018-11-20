@@ -276,7 +276,7 @@ var bibliographicResource = new SchemaObject({
          */
         setTitleForType: function (type, value) {
             var prefix = this.getPropertyPrefixForType(type);
-            this[prefix + 'title'] = value;
+            this[prefix + 'title'] = value ? value.trim() : "";
         },
         getTitleForType: function(type){
             var prefix = this.getPropertyPrefixForType(type);
@@ -284,7 +284,7 @@ var bibliographicResource = new SchemaObject({
         },
         setSubtitleForType: function (type, value) {
             var prefix = this.getPropertyPrefixForType(type);
-            this[prefix + 'subtitle'] = value;
+            this[prefix + 'subtitle'] = value ? value.trim() : "";
         },
         getSubtitleForType: function(type){
             var prefix = this.getPropertyPrefixForType(type);
@@ -292,7 +292,7 @@ var bibliographicResource = new SchemaObject({
         },
         setEditionForType: function (type, value) {
             var prefix = this.getPropertyPrefixForType(type);
-            this[prefix + 'edition'] = value;
+            this[prefix + 'edition'] = value ? value.trim() : "";
         },
         getEditionForType: function(type){
             var prefix = this.getPropertyPrefixForType(type);
@@ -300,7 +300,7 @@ var bibliographicResource = new SchemaObject({
         },
         setNumberForType: function (type, value) {
             var prefix = this.getPropertyPrefixForType(type);
-            this[prefix + 'number'] = value;
+            this[prefix + 'number'] = value ? value.trim() : "";
         },
         getNumberForType: function(type){
             var prefix = this.getPropertyPrefixForType(type);
