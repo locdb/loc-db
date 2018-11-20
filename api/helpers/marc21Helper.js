@@ -241,10 +241,15 @@ Marc21Helper.prototype.extractIndependentResource = function(records, type, call
         //Titles
         if (field._tag === "245") {
             for (var subfield of field._subfields) {
-                if (subfield._code === "a") {
+                if (subfield._code !== "p") {
+                    if (subfield._code === "a") {
+                        resource.setTitleForType(resource.type, subfield._data);
+                    } else if (subfield._code === "b") {
+                        resource.setSubtitleForType(resource.type, subfield._data);
+                    }
+                }else{
+                    // this is the special case for book sets: p Name of part/section of a work
                     resource.setTitleForType(resource.type, subfield._data);
-                } else if (subfield._code === "b") {
-                    resource.setSubtitleForType(resource.type, subfield._data);
                 }
             }
             // Identifiers
@@ -509,10 +514,20 @@ Marc21Helper.prototype.extractDependentResource = function(records, type, callba
         var parent = new BibliographicResource({type: parentType[0]});
         var dataFields = records[1]._dataFields;
         for (var field of dataFields) {
-            if (field._tag === "773") {
+            if (field._tag === "245" && parent.type === enums.resourceType.bookSet) {
                 for (var subfield of field._subfields) {
-                    if (subfield._code === "g") {
+                    if (subfield._code === "a") {
+                        parent.setTitleForType(parent.type, subfield._data);
+                    } else if (subfield._code === "b") {
+                        parent.setSubtitleForType(parent.type, subfield._data);
+                    }
+                }
+            }else if (field._tag === "773") {
+                for (var subfield of field._subfields) {
+                    if (subfield._code === "g" && parent.type !== enums.resourceType.bookSet) {
                         parent.setNumberForType(parent.type, subfield._data);
+                    }else if (subfield._code === "g" && parent.type === enums.resourceType.bookSet){
+                        child.setNumberForType(child.type, subfield._data);
                     } else if (subfield._code === "x") {
                         var type;
                         if(child.type === enums.resourceType.journalArticle || child.type === enums.resourceType.journalIssue || child.type === enums.resourceType.journalVolume){
@@ -571,6 +586,21 @@ Marc21Helper.prototype.extractDependentResource = function(records, type, callba
                             roleType: enums.roleType.publisher,
                             heldBy: {
                                 nameString: subfield._data
+                            }
+                        });
+
+                        parent.pushContributorForType(parent.type, contributor);
+                    }
+                }
+            } else if (field._tag === "100" && parent.type === enums.resourceType.bookSet) {
+                for (var subfield of field._subfields) {
+                    if (subfield._code === "a") {
+                        var nameArray = subfield._data.split(',');
+                        var contributor = new AgentRole({
+                            roleType: enums.roleType.author,
+                            heldBy: {
+                                givenName: nameArray[1] ? nameArray[1].trim() : "",
+                                familyName: nameArray[1] ? nameArray[0].trim() : ""
                             }
                         });
 

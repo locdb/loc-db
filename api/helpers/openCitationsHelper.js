@@ -4,6 +4,7 @@ const BibliographicResourceOC = require('./../schema/bibliographicResourceOpenCi
 const BibliographicResource = require('./../schema/bibliographicResource.js');
 const logger = require('./../util/logger');
 const mongoose = require('mongoose');
+const async = require('async');
 
 var OpenCitationsHelper = function(){
 };
