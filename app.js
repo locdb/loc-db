@@ -20,17 +20,17 @@ let snapshotTaken = false,
     hd;
 
 memwatch.on('leak', function(info) {
-    logger.info({leak: info});
-    var diff = hd.end();
+    logger.error({"leak": info});
+    let diff = hd.end();
     snapshotTaken = false;
-    logger.info(util.inspect(diff, {showHidden:false, depth:4}));
+    logger.error({"leak": util.inspect(diff, {showHidden:false, depth:4})});
     heapdump.writeSnapshot(function(err, filename) {
-        console.log('dump written to', filename);
+        logger.error({"leak": "dump written to" + filename});
     });
 });
 
 memwatch.on('stats', function(stats) {
-    logger.info({"stats": stats});
+    logger.error({"stats": stats});
     if(snapshotTaken===false){
         hd = new memwatch.HeapDiff();
         snapshotTaken = true;
@@ -42,9 +42,7 @@ memwatch.on('stats', function(stats) {
 });
 
 module.exports = app; // for testing
-mongoose.set('debug', function (collectionName, method, query, doc){
-    logger.info("MONGOOSE", collectionName + "." + method + "(" + JSON.stringify(query) + ")");
-});
+
 let db = mongoose.connection;
 
 db.on('error', console.error);
@@ -62,6 +60,10 @@ let config = require("./config/config.js");
 if(process.argv.indexOf("test") > 0 ){
     config = Object.assign(config, require("./test/api/config.js"));
 }
+
+mongoose.set(config.LOG_LEVEL, function (collectionName, method, query, doc){
+    logger.info("MONGOOSE", collectionName + "." + method + "(" + JSON.stringify(query) + ")");
+});
 
 logger.info("Running config:", {config : JSON.stringify(config)});
 
