@@ -4,7 +4,7 @@
     "name"      : "loc-db",
     "script"    : "app.js",
     "append_env_to_name": true,
-    "node_args": "--trace-gc-verbose",
+    //"node_args": "--trace-gc-verbose",
     "env_demo": {
       "NODE_ENV": "demo",
       "LOCDB_PORT": 3102,
