@@ -51,7 +51,7 @@
     "string-similarity": "^1.2.2",
     "supertest": "^3.3.0",
     "swagger-express-mw": "^0.7.0",
-    "swagger-ui-express": "2.0.10",
+    "swagger-ui-express": "4.0.2",
     "underscore.string": "^3.3.4",
     "unzip": "^0.1.11",
     "utf8": "^2.1.2",
