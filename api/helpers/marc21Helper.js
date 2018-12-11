@@ -7,9 +7,10 @@ const logger = require('./../util/logger');
 const BibliographicResource = require('./../schema/bibliographicResource');
 const Identifier = require('./../schema/identifier');
 const AgentRole = require('./../schema/agentRole');
+const Readable = require('stream').Readable;
 
 let Marc21Helper = function(){
-}
+};
 
 
 /**
@@ -19,16 +20,32 @@ let Marc21Helper = function(){
  */
 Marc21Helper.prototype.parseBibliographicResource = function(xmlString, format, callback){
     let self = this;
-    marc4js.parse(xmlString, {format: format}, function(err, records) {
-        self.extractData(records, null, function(err, result){
-            if(err){
-                logger.error(err);
-                return callback(err, null);
-            }
-            return callback(null, result);
-        })
+    let stream = new Readable;
+    stream.push(xmlString);
+    stream.push(null);
+
+    let parser = marc4js.parse({objectMode: true, fromFormat: format});
+    stream.pipe(parser);
+
+    parser.on('error', function (error) {
+        logger.error(error);
     });
-}
+
+    let records = [];
+    parser.on('data', function (record) {
+        records.push(record);
+    });
+
+    parser.on('end', function () {
+       self.extractData(records, null, function(err, result){
+           if(err){
+               logger.error(err);
+               return callback(err, null);
+           }
+           return callback(null, result);
+       });
+    });
+};
 
 
 /**
@@ -40,7 +57,23 @@ Marc21Helper.prototype.parseBibliographicResources = function(xmlString, callbac
     // apparently, when having multiple resources in the xml, marc4js parses it such that every second
     // entry in the array really belongs to a bibliographic resource
     let self = this;
-    marc4js.parse(xmlString, {format: 'marcxml'}, function(err, records) {
+    let stream = new Readable;
+    stream.push(xmlString);
+    stream.push(null);
+
+    let parser = marc4js.parse({objectMode: true, fromFormat: 'marcxml'});
+    stream.pipe(parser);
+
+    parser.on('error', function (error) {
+        logger.error(error);
+    });
+
+    let records = [];
+    parser.on('data', function (record) {
+        records.push(record);
+    });
+
+    parser.on('end', function () {
         let temp = [];
         let chunk = 2;
         let splittedRecords = [];
@@ -63,7 +96,7 @@ Marc21Helper.prototype.parseBibliographicResources = function(xmlString, callbac
             }
         );
     });
-}
+};
 
 
 /**
@@ -611,7 +644,7 @@ Marc21Helper.prototype.extractDependentResource = function(records, type, callba
         }
         return callback(null, [child, parent]);
     });
-}
+};
 
 /**
  * Factory function

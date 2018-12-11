@@ -12,7 +12,7 @@ const morgan = require('morgan');
 const agendash = require('agendash');
 const agenda = require('./api/jobs/jobs');
 
-// Searching a memory leak
+/*// Searching a memory leak
 const memwatch = require('memwatch-next');
 const heapdump = require('heapdump');
 const util = require('util');
@@ -20,26 +20,29 @@ let snapshotTaken = false,
     hd;
 
 memwatch.on('leak', function(info) {
-    logger.error({"leak": info});
+    heapdump.writeSnapshot(function(err, filename) {
+        logger.error({leak: "dump written to " + filename});
+    });
+    logger.error({leak: info});
     let diff = hd.end();
     snapshotTaken = false;
-    logger.error({"leak": util.inspect(diff, {showHidden:false, depth:4})});
-    heapdump.writeSnapshot(function(err, filename) {
-        logger.error({"leak": "dump written to" + filename});
-    });
+    logger.error({leak: util.inspect(diff, {showHidden:false, depth:4})});
 });
 
 memwatch.on('stats', function(stats) {
-    logger.error({"stats": stats});
+    logger.error({stats: stats});
     if(snapshotTaken===false){
-        hd = new memwatch.HeapDiff();
-        snapshotTaken = true;
-    }/* else {
+        heapdump.writeSnapshot(function(err, filename) {
+            logger.error({stats: "dump written to " + filename});
+            hd = new memwatch.HeapDiff();
+            snapshotTaken = true;
+        });
+    }/!* else {
         var diff = hd.end();
         snapshotTaken = false;
         logger.info(util.inspect(diff, {showHidden:false, depth:4}));
-    }*/
-});
+    }*!/
+});*/
 
 module.exports = app; // for testing
 

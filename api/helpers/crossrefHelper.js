@@ -398,8 +398,8 @@ CrossrefHelper.prototype.getType = function(type){
  */
 CrossrefHelper.prototype.parseReferences = function(obj, callback){
     // Reference list
+    var bes = [];
     if(obj.reference){
-        var bes = [];
         for(var reference of obj.reference){
             var referenceTitle = reference['article-title'] ? reference['article-title'] : "";
             var referenceAuthor = reference.author ? reference.author : "";
