@@ -1,8 +1,7 @@
 const should = require('should');
 const setup = require('./../setup.js').createSetup();
 const marc21Helper = require('./../../../api/helpers/marc21Helper.js').createMarc21Helper();
-const fs = require('fs')
-const enums = require('./../../../api/schema/enum.json');
+const fs = require('fs');
 const async = require('async');
 
 describe('helpers', function() {
@@ -15,6 +14,7 @@ describe('helpers', function() {
     var monograph2;
     describe('marc21Helper', function() {
         before(function(done) {
+            this.timeout(10000);
             setup.dropDB(function(err){
                 async.parallel([
                     function(callback){

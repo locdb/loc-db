@@ -7,9 +7,10 @@ const logger = require('./../util/logger');
 const BibliographicResource = require('./../schema/bibliographicResource');
 const Identifier = require('./../schema/identifier');
 const AgentRole = require('./../schema/agentRole');
+const Readable = require('stream').Readable;
 
-var Marc21Helper = function(){
-}
+let Marc21Helper = function(){
+};
 
 
 /**
@@ -18,17 +19,33 @@ var Marc21Helper = function(){
  * @param fnCallback
  */
 Marc21Helper.prototype.parseBibliographicResource = function(xmlString, format, callback){
-    var self = this;
-    marc4js.parse(xmlString, {format: format}, function(err, records) {
-        self.extractData(records, null, function(err, result){
-            if(err){
-                logger.error(err);
-                return callback(err, null);
-            }
-            return callback(null, result);
-        })
+    let self = this;
+    let stream = new Readable;
+    stream.push(xmlString);
+    stream.push(null);
+
+    let parser = marc4js.parse({objectMode: true, fromFormat: format});
+    stream.pipe(parser);
+
+    parser.on('error', function (error) {
+        logger.error(error);
     });
-}
+
+    let records = [];
+    parser.on('data', function (record) {
+        records.push(record);
+    });
+
+    parser.on('end', function () {
+       self.extractData(records, null, function(err, result){
+           if(err){
+               logger.error(err);
+               return callback(err, null);
+           }
+           return callback(null, result);
+       });
+    });
+};
 
 
 /**
@@ -39,12 +56,28 @@ Marc21Helper.prototype.parseBibliographicResource = function(xmlString, format, 
 Marc21Helper.prototype.parseBibliographicResources = function(xmlString, callback){
     // apparently, when having multiple resources in the xml, marc4js parses it such that every second
     // entry in the array really belongs to a bibliographic resource
-    var self = this;
-    marc4js.parse(xmlString, {format: 'marcxml'}, function(err, records) {
-        var temp = [];
-        var chunk = 2;
-        var splittedRecords = [];
-        for (var i=0, j=records.length; i<j; i+=chunk) {
+    let self = this;
+    let stream = new Readable;
+    stream.push(xmlString);
+    stream.push(null);
+
+    let parser = marc4js.parse({objectMode: true, fromFormat: 'marcxml'});
+    stream.pipe(parser);
+
+    parser.on('error', function (error) {
+        logger.error(error);
+    });
+
+    let records = [];
+    parser.on('data', function (record) {
+        records.push(record);
+    });
+
+    parser.on('end', function () {
+        let temp = [];
+        let chunk = 2;
+        let splittedRecords = [];
+        for (let i=0, j=records.length; i<j; i+=chunk) {
             temp = records.slice(i,i+chunk);
             splittedRecords.push(temp);
         }
@@ -63,7 +96,7 @@ Marc21Helper.prototype.parseBibliographicResources = function(xmlString, callbac
             }
         );
     });
-}
+};
 
 
 /**
@@ -109,7 +142,7 @@ Marc21Helper.prototype.extractData = function(records, type, callback){
  * @returns {boolean}
  */
 Marc21Helper.prototype.isDependentResource = function(records){
-    for (var field of records[1]._dataFields) {
+    for (let field of records[1]._dataFields) {
         if (field._tag === "773") {
             return true;
         }
@@ -122,25 +155,25 @@ Marc21Helper.prototype.isDependentResource = function(records){
  * @param records
  */
 Marc21Helper.prototype.guessResourceType = function (records) {
-    var dataFields = records[1]._dataFields;
+    let dataFields = records[1]._dataFields;
 
     // here are all our features
-    var resourceHasNumber = false;
-    var resourceIsReport = false;
-    var parentHasISSN = false;
-    var parentHasISBN = true;
-    var isDependent = false;
-    var hasISBN = false;
-    var hasDOI = false;
-    var hasZDBId = false;
-    var hasEdition = false;
-    var hasEditor = false;
-    var hasISSN = false;
+    let resourceHasNumber = false;
+    let resourceIsReport = false;
+    let parentHasISSN = false;
+    let parentHasISBN = true;
+    let isDependent = false;
+    let hasISBN = false;
+    let hasDOI = false;
+    let hasZDBId = false;
+    let hasEdition = false;
+    let hasEditor = false;
+    let hasISSN = false;
 
-    for (var field of dataFields) {
+    for (let field of dataFields) {
         if (field._tag === "773") {
             isDependent = true;
-            for (var subfield of field._subfields) {
+            for (let subfield of field._subfields) {
                 if (subfield._code === "g") {
                     resourceHasNumber = true;
                 } else if (subfield._code === "x") {
@@ -153,7 +186,7 @@ Marc21Helper.prototype.guessResourceType = function (records) {
             }
         }
         else if (field._tag === "020") {
-            for (var subfield of field._subfields) {
+            for (let subfield of field._subfields) {
                 if (subfield._code === "a") {
                     hasISBN = true;
                 }
@@ -164,9 +197,9 @@ Marc21Helper.prototype.guessResourceType = function (records) {
                 hasZDBId = true;
             }
         } else if (field._tag === "024" && field._indicator1 && field._indicator1 === "7") {
-            for (var subfield of field._subfields) {
+            for (let subfield of field._subfields) {
                 if (subfield._code === "2" && subfield._data.toLowerCase() === "doi") {
-                    for (var subf of field._subfields) {
+                    for (let subf of field._subfields) {
                         if (subf._code === "a") {
                             hasDOI = true;
                         }
@@ -175,19 +208,19 @@ Marc21Helper.prototype.guessResourceType = function (records) {
             }
         }
         else if (field._tag === "250") {
-            for (var subfield of field._subfields) {
+            for (let subfield of field._subfields) {
                 if (subfield._code === "a") {
                     hasEdition = true;
                 }
             }
         } else if (field._tag === "700") {
-            for (var subfield of field._subfields) {
+            for (let subfield of field._subfields) {
                 if (subfield._code === "4" && subfield._data === "edt") {
                     hasEditor = true;
                 }
             }
         } else if (field._tag === "022") {
-            for (var subfield of field._subfields) {
+            for (let subfield of field._subfields) {
                 if (subfield._code === "a") {
                     hasISSN = true;
                 }
@@ -231,25 +264,30 @@ Marc21Helper.prototype.guessResourceType = function (records) {
 }
 
 Marc21Helper.prototype.extractIndependentResource = function(records, type, callback){
-    var resource = new BibliographicResource({type: type});
+    let resource = new BibliographicResource({type: type});
 
-    var dataFields = records[1]._dataFields;
-    var controlFields = records[1]._controlFields;
-    //var leader = records[1]._leader;
+    let dataFields = records[1]._dataFields;
+    let controlFields = records[1]._controlFields;
+    //let leader = records[1]._leader;
 
-    for (var field of dataFields) {
+    for (let field of dataFields) {
         //Titles
         if (field._tag === "245") {
-            for (var subfield of field._subfields) {
-                if (subfield._code === "a") {
+            for (let subfield of field._subfields) {
+                if (subfield._code !== "p") {
+                    if (subfield._code === "a") {
+                        resource.setTitleForType(resource.type, subfield._data);
+                    } else if (subfield._code === "b") {
+                        resource.setSubtitleForType(resource.type, subfield._data);
+                    }
+                }else{
+                    // this is the special case for book sets: p Name of part/section of a work
                     resource.setTitleForType(resource.type, subfield._data);
-                } else if (subfield._code === "b") {
-                    resource.setSubtitleForType(resource.type, subfield._data);
                 }
             }
             // Identifiers
         } else if (field._tag === "020") {
-            for (var subfield of field._subfields) {
+            for (let subfield of field._subfields) {
                 if (subfield._code === "a") {
                     resource.pushIdentifierForType(resource.type, new Identifier({
                         literalValue: subfield._data,
@@ -265,7 +303,7 @@ Marc21Helper.prototype.extractIndependentResource = function(records, type, call
                 }));
             }
         } else if (field._tag === "022") {
-            for (var subfield of field._subfields) {
+            for (let subfield of field._subfields) {
                 if (subfield._code === "a") {
                     resource.pushIdentifierForType(resource.type, new Identifier({
                         literalValue: subfield._data,
@@ -274,7 +312,7 @@ Marc21Helper.prototype.extractIndependentResource = function(records, type, call
                 }
             }
         } else if (field._tag === "010") {
-            for (var subfield of field._subfields) {
+            for (let subfield of field._subfields) {
                 if (subfield._code === "a") {
                     resource.pushIdentifierForType(resource.type, new Identifier({
                         literalValue: subfield._data,
@@ -283,9 +321,9 @@ Marc21Helper.prototype.extractIndependentResource = function(records, type, call
                 }
             }
         } else if (field._tag === "024" && field._indicator1 && field._indicator1 === "7") {
-            for (var subfield of field._subfields) {
+            for (let subfield of field._subfields) {
                 if (subfield._code === "2" && subfield._data.toLowerCase() === "doi") {
-                    for (var subf of field._subfields) {
+                    for (let subf of field._subfields) {
                         if (subf._code === "a") {
                             resource.pushIdentifierForType(resource.type, new Identifier({
                                 literalValue: subf._data,
@@ -296,7 +334,7 @@ Marc21Helper.prototype.extractIndependentResource = function(records, type, call
                 }
             }
         } else if (field._tag === "035") {
-            for (var subfield of field._subfields) {
+            for (let subfield of field._subfields) {
                 if (subfield._code === "a" && subfield._data.split("(OCoLC)").length === 2) {
                     resource.pushIdentifierForType(resource.type, new Identifier({
                         literalValue: subfield._data.split("(OCoLC)")[1],
@@ -305,7 +343,7 @@ Marc21Helper.prototype.extractIndependentResource = function(records, type, call
                 }
             }
         } else if (field._tag === "856") {
-            for (var subfield of field._subfields) {
+            for (let subfield of field._subfields) {
                 if (subfield._code === "u") {
                     resource.pushIdentifierForType(resource.type, new Identifier({
                         literalValue: subfield._data,
@@ -315,17 +353,17 @@ Marc21Helper.prototype.extractIndependentResource = function(records, type, call
             }
         }
         else if (field._tag === "250") {
-            for (var subfield of field._subfields) {
+            for (let subfield of field._subfields) {
                 if (subfield._code === "a") {
                     resource.setEditionForType(resource.type, subfield._data);
                 }
             }
             // Contributors
         } else if (field._tag === "100") {
-            for (var subfield of field._subfields) {
+            for (let subfield of field._subfields) {
                 if (subfield._code === "a") {
-                    var nameArray = subfield._data.split(',');
-                    var contributor = new AgentRole({
+                    let nameArray = subfield._data.split(',');
+                    let contributor = new AgentRole({
                         roleType: enums.roleType.author,
                         heldBy: {
                             givenName: nameArray[1] ? nameArray[1].trim() : "",
@@ -337,10 +375,10 @@ Marc21Helper.prototype.extractIndependentResource = function(records, type, call
                 }
             }
         } else if (field._tag === "110") {
-            for (var subfield of field._subfields) {
+            for (let subfield of field._subfields) {
                 if (subfield._code === "a") {
 
-                    var contributor = new AgentRole({
+                    let contributor = new AgentRole({
                         roleType: enums.roleType.corporate,
                         heldBy: {
                             nameString: subfield._data
@@ -351,9 +389,9 @@ Marc21Helper.prototype.extractIndependentResource = function(records, type, call
                 }
             }
         } else if (field._tag === "111") {
-            for (var subfield of field._subfields) {
+            for (let subfield of field._subfields) {
                 if (subfield._code === "a") {
-                    var contributor = new AgentRole({
+                    let contributor = new AgentRole({
                         roleType: enums.roleType.congress,
                         heldBy: {
                             nameString: subfield._data
@@ -364,9 +402,9 @@ Marc21Helper.prototype.extractIndependentResource = function(records, type, call
                 }
             }
         } else if (field._tag === "260") {
-            for (var subfield of field._subfields) {
+            for (let subfield of field._subfields) {
                 if (subfield._code === "b") {
-                    var contributor = new AgentRole({
+                    let contributor = new AgentRole({
                         roleType: enums.roleType.publisher,
                         heldBy: {
                             nameString: subfield._data
@@ -377,9 +415,9 @@ Marc21Helper.prototype.extractIndependentResource = function(records, type, call
                 }
             }
         } else if (field._tag === "264") {
-            for (var subfield of field._subfields) {
+            for (let subfield of field._subfields) {
                 if (subfield._code === "b") {
-                    var contributor = new AgentRole({
+                    let contributor = new AgentRole({
                         roleType: enums.roleType.publisher,
                         heldBy: {
                             nameString: subfield._data
@@ -390,8 +428,8 @@ Marc21Helper.prototype.extractIndependentResource = function(records, type, call
                 }
             }
         } else if (field._tag === "700") {
-            var contributor = new AgentRole();
-            for(var subfield of field._subfields){
+            let contributor = new AgentRole();
+            for(let subfield of field._subfields){
                 if(subfield._code === '4' && subfield._data === "edt"){
                     contributor.roleType = enums.roleType.editor;
                 }else if(subfield._code === 'e' && subfield._data === "aut"){
@@ -401,7 +439,7 @@ Marc21Helper.prototype.extractIndependentResource = function(records, type, call
                 }
             }
 
-            for (var subfield of field._subfields) {
+            for (let subfield of field._subfields) {
                 if (subfield._code === "0" && (subfield._data.split("(DE-588)").length === 2 || subfield._data.split("(DE-576)").length === 2)) {
                     if (subfield._data.split("(DE-588)").length === 2) {
                         contributor.heldBy.identifiers.push({
@@ -415,7 +453,7 @@ Marc21Helper.prototype.extractIndependentResource = function(records, type, call
                         });
                     }
                 } else if (subfield._code === "a" && subfield._data) {
-                    var nameArray = subfield._data.split(',');
+                    let nameArray = subfield._data.split(',');
                     if(nameArray && nameArray.length > 1){
                         contributor.heldBy.givenName = nameArray[1] ? nameArray[1].trim() : "";
                         contributor.heldBy.familyName = nameArray[1] ? nameArray[0].trim() : "";
@@ -427,11 +465,11 @@ Marc21Helper.prototype.extractIndependentResource = function(records, type, call
             }
             resource.pushContributorForType(resource.type, contributor);
         } else if (field._tag === "710") {
-            var contributor = new AgentRole({
+            let contributor = new AgentRole({
                 roleType: enums.roleType.corporate
             });
 
-            for (var subfield of field._subfields) {
+            for (let subfield of field._subfields) {
                 if (subfield._code === "0" && (subfield._data.split("(DE-588)").length === 2 || subfield._data.split("(DE-576)").length === 2)) {
                     if (subfield._data.split("(DE-588)").length === 2) {
                         contributor.heldBy.identifiers.push({
@@ -450,11 +488,11 @@ Marc21Helper.prototype.extractIndependentResource = function(records, type, call
             }
             resource.pushContributorForType(resource.type, contributor);
         } else if (field._tag === "711") {
-            var contributor = new AgentRole({
+            let contributor = new AgentRole({
                 roleType: enums.roleType.congress
             });
 
-            for (var subfield of field._subfields) {
+            for (let subfield of field._subfields) {
                 if (subfield._code === "0" && (subfield._data.split("(DE-588)").length === 2 || subfield._data.split("(DE-576)").length === 2)) {
                     if (subfield._data.split("(DE-588)").length === 2) {
                         contributor.heldBy.identifiers.push({
@@ -476,10 +514,10 @@ Marc21Helper.prototype.extractIndependentResource = function(records, type, call
     }
 
 
-    for (var field of controlFields) {
+    for (let field of controlFields) {
         if (field._tag === "001") {
             // ppn
-            for (var f of controlFields) {
+            for (let f of controlFields) {
                 if (f._tag === "003" && f._data === "DE-576") {
                     resource.pushIdentifierForType(resource.type, new Identifier({
                         literalValue: field._data,
@@ -504,17 +542,27 @@ Marc21Helper.prototype.extractIndependentResource = function(records, type, call
 Marc21Helper.prototype.extractDependentResource = function(records, type, callback){
 
     this.extractIndependentResource(records, type, function(err, res){
-        var child =res[0];
-        var parentType = child.getContainerTypeForType(child.type);
-        var parent = new BibliographicResource({type: parentType[0]});
-        var dataFields = records[1]._dataFields;
-        for (var field of dataFields) {
-            if (field._tag === "773") {
-                for (var subfield of field._subfields) {
-                    if (subfield._code === "g") {
+        let child =res[0];
+        let parentType = child.getContainerTypeForType(child.type);
+        let parent = new BibliographicResource({type: parentType[0]});
+        let dataFields = records[1]._dataFields;
+        for (let field of dataFields) {
+            if (field._tag === "245" && parent.type === enums.resourceType.bookSet) {
+                for (let subfield of field._subfields) {
+                    if (subfield._code === "a") {
+                        parent.setTitleForType(parent.type, subfield._data);
+                    } else if (subfield._code === "b") {
+                        parent.setSubtitleForType(parent.type, subfield._data);
+                    }
+                }
+            }else if (field._tag === "773") {
+                for (let subfield of field._subfields) {
+                    if (subfield._code === "g" && parent.type !== enums.resourceType.bookSet) {
                         parent.setNumberForType(parent.type, subfield._data);
+                    }else if (subfield._code === "g" && parent.type === enums.resourceType.bookSet){
+                        child.setNumberForType(child.type, subfield._data);
                     } else if (subfield._code === "x") {
-                        var type;
+                        let type;
                         if(child.type === enums.resourceType.journalArticle || child.type === enums.resourceType.journalIssue || child.type === enums.resourceType.journalVolume){
                             type = enums.resourceType.journal;
                         }else{
@@ -530,7 +578,7 @@ Marc21Helper.prototype.extractDependentResource = function(records, type, callba
                             scheme: enums.identifier.isbn
                         }));
                     } else if (subfield._code === "t") {
-                        var type;
+                        let type;
                         if(child.type === enums.resourceType.journalArticle || child.type === enums.resourceType.journalIssue || child.type === enums.resourceType.journalVolume){
                             type = enums.resourceType.journal;
                         }else{
@@ -538,7 +586,7 @@ Marc21Helper.prototype.extractDependentResource = function(records, type, callba
                         }
                         parent.setTitleForType(type, subfield._data);
                     } else if (subfield._code === "a") {
-                        var type;
+                        let type;
                         if(child.type === enums.resourceType.journalArticle || child.type === enums.resourceType.journalIssue || child.type === enums.resourceType.journalVolume){
                             type = enums.resourceType.journal;
                         }else{
@@ -552,9 +600,9 @@ Marc21Helper.prototype.extractDependentResource = function(records, type, callba
                 }
             // Contributors
             } else if (field._tag === "260") {
-                for (var subfield of field._subfields) {
+                for (let subfield of field._subfields) {
                     if (subfield._code === "b") {
-                        var contributor = new AgentRole({
+                        let contributor = new AgentRole({
                             roleType: enums.roleType.publisher,
                             heldBy: {
                                 nameString: subfield._data
@@ -565,12 +613,27 @@ Marc21Helper.prototype.extractDependentResource = function(records, type, callba
                     }
                 }
             } else if (field._tag === "264") {
-                for (var subfield of field._subfields) {
+                for (let subfield of field._subfields) {
                     if (subfield._code === "b") {
-                        var contributor = new AgentRole({
+                        let contributor = new AgentRole({
                             roleType: enums.roleType.publisher,
                             heldBy: {
                                 nameString: subfield._data
+                            }
+                        });
+
+                        parent.pushContributorForType(parent.type, contributor);
+                    }
+                }
+            } else if (field._tag === "100" && parent.type === enums.resourceType.bookSet) {
+                for (let subfield of field._subfields) {
+                    if (subfield._code === "a") {
+                        let nameArray = subfield._data.split(',');
+                        let contributor = new AgentRole({
+                            roleType: enums.roleType.author,
+                            heldBy: {
+                                givenName: nameArray[1] ? nameArray[1].trim() : "",
+                                familyName: nameArray[1] ? nameArray[0].trim() : ""
                             }
                         });
 
@@ -581,7 +644,7 @@ Marc21Helper.prototype.extractDependentResource = function(records, type, callba
         }
         return callback(null, [child, parent]);
     });
-}
+};
 
 /**
  * Factory function

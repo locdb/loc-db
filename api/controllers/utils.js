@@ -8,6 +8,10 @@ const crossrefHelper = require('./../helpers/crossrefHelper').createCrossrefHelp
 const swbHelper = require('./../helpers/swbHelper').createSwbHelper();
 const async = require('async');
 const mongoBr = require('./../models/bibliographicResource').mongoBr;
+const statsHelper = require('./../helpers/statsHelper').createStatsHelper();
+const fileHelper = require('./../helpers/fileHelper').createFileHelper();
+const config = require('./../../config/config.js');
+const fs = require('fs');
 
 function log(req, res){
     var response = res;
@@ -97,6 +101,51 @@ function loadBibliographicResources(req, res){
     });
 }
 
+function triggerStats(req, response){
+    response.status(200).json("Stats computation triggered.");
+    async.series([
+        function(cb){
+            statsHelper.brStats(function(err,res){
+                cb(err, res);
+            });
+        },
+        function(cb){
+            statsHelper.mandatoryFieldsStats(function(err,res){
+                cb(err, res);
+            });
+        },
+        // function(cb){
+        //     statsHelper.logStats(function(err,res){
+        //         cb(err, res);
+        //     });
+        // },
+    ], function(err, res){
+        if(err){
+            return logger.error(err);
+        }
+        fileHelper.saveStringFile("stats", JSON.stringify(res), ".json", function(err, res){
+            return res;
+        });
+    });
+}
+
+function stats(req, response){
+    let fileName = "stats.json";
+    let filePath = config.PATHS.UPLOAD + "/" + fileName;
+
+    // Check if file specified by the filePath exists
+    fs.exists(filePath, function(exists){
+        if (exists) {
+            let rawdata = fs.readFileSync(filePath);
+            let data = JSON.parse(rawdata);
+            return response.json(data);
+        } else {
+            response.writeHead(400, {"Content-Type": "text/plain"});
+            return response.end("ERROR File does not exist");
+        }
+    });
+}
+
 
 module.exports = {
     log: log,
@@ -104,5 +153,7 @@ module.exports = {
     getGVI: getGVI,
     getCrossref: getCrossref,
     getSWB: getSWB,
-    loadBibliographicResources: loadBibliographicResources
+    loadBibliographicResources: loadBibliographicResources,
+    stats: stats,
+    triggerStats: triggerStats
 };

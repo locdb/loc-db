@@ -49,13 +49,14 @@ FileHelper.prototype.saveBinaryFile = function(fileName, fileBuffer, callback){
     }
 };
 
-FileHelper.prototype.saveStringFile = function(fileName, fileString, callback){
+FileHelper.prototype.saveStringFile = function(fileName, fileString, fileExtension, callback){
+    fileName = fileName + fileExtension;
     fs.writeFile(config.PATHS.UPLOAD + fileName, fileString, 'utf-8', function(err){
         if(err){
             logger.error(err);
             return callback(err, null)
         }
-        callback(null,null);
+        return callback(null, fileName);
     });
 };
 

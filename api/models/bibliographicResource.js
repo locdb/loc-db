@@ -4,41 +4,43 @@ const mongoose = require('mongoose')
        ,Schema = mongoose.Schema
        ,ObjectId = Schema.ObjectId;
 const enums = require('./../schema/enum.json');
-const mongoosastic = require('mongoosastic');
+const mongoosastic = require('./../../custom_modules/mongoosastic');
 const config = require('./../../config/config');
 const BibliographicResource = require('./../schema/bibliographicResource');
 const logger = require('./../util/logger');
 
 
 const identifiersSchema = new Schema({
-    literalValue: String,
-    scheme: String
+    literalValue: { type: String, trim: true },
+    scheme: { type: String, trim: true }
 });
 
 const ocrDataSchema = new Schema({
-    coordinates: String,
+    coordinates: { type: String, trim: true },
     authors: [String], // maybe use contributors thingy later
-    title: String,
-    date: String,
-    marker: String,
-    comments: String,
-    journal: String,
-    volume: String
+    title: { type: String, trim: true },
+    date: { type: String, trim: true },
+    marker: { type: String, trim: true },
+    comments: { type: String, trim: true },
+    journal: { type: String, trim: true },
+    volume: { type: String, trim: true },
+    namer: { type: String, trim: true },
+    detector: { type: String, trim: true }
 });
 
 const beSchema = new Schema({
     identifiers: [identifiersSchema],
-    bibliographicEntryText: String,
-    references: String,
-    scanId: String,
-    scanName: String,
-    status: {type: String, enum: [enums.status.ocrProcessed, enums.status.valid, enums.status.external]},
+    bibliographicEntryText: { type: String, trim: true },
+    references: { type: String, trim: true },
+    scanId: { type: String, trim: true },
+    scanName: { type: String, trim: true },
+    status: {type: String, enum: [enums.status.ocrProcessed, enums.status.valid, enums.status.external, enums.status.obsolete]},
     ocrData: ocrDataSchema
 });
 
 const scanSchema = new Schema({
-    scanName: String,
-    xmlName: String,
+    scanName: { type: String, trim: true },
+    xmlName: { type: String, trim: true },
     textualPdf: Boolean,
     status: {type: String, enum: [enums.status.notOcrProcessed, enums.status.ocrProcessing, enums.status.ocrProcessed, enums.status.valid, enums.status.obsolete]},
 });
@@ -46,25 +48,25 @@ const scanSchema = new Schema({
 const resourceEmbodimentSchema = new Schema({ // Resource Embodiment
     identifiers: [identifiersSchema],
     type: {type: String}, // digital or print
-    format: String, // IANA media type
+    format: { type: String, trim: true }, // IANA media type
     firstPage: Number,
     lastPage: Number,
-    url: String,
+    url: { type: String, trim: true },
     scans:[scanSchema]
 });
 
 
 var responsibleAgentSchema = new Schema({
     identifiers: [identifiersSchema],
-    nameString: String,
-    givenName: String,
-    familyName: String
+    nameString: { type: String, trim: true },
+    givenName: { type: String, trim: true },
+    familyName: { type: String, trim: true }
 });
 
 
 const agentRoleSchema = new Schema({
     identifiers: [identifiersSchema],
-    roleType: String,
+    roleType: { type: String, trim: true },
     heldBy: responsibleAgentSchema//,
     //next: String // This is not necessary for now, as we are using an array
 });
@@ -95,77 +97,78 @@ var brSchema = new Schema({
     standard_identifiers: [identifiersSchema],
     standardSeries_identifiers: [identifiersSchema],
     type: {type: String},
-    journal_title: String,
-    journalVolume_title: String,
-    journalIssue_title: String,
-    journalArticle_title: String,
-    monograph_title: String,
-    editedBook_title: String,
-    bookSeries_title: String,
-    bookSet_title: String,
-    bookChapter_title: String,
-    bookSection_title: String,
-    bookPart_title: String,
-    bookTrack_title: String,
-    component_title: String,
-    report_title: String,
-    proceedingsArticle_title: String,
-    dissertation_title: String,
-    proceedings_title: String,
-    dataset_title: String,
-    reportSeries_title: String,
-    book_title: String,
-    referenceBook_title: String,
-    referenceEntry_title: String,
-    standard_title: String,
-    standardSeries_title: String,
-    editedBook_subtitle: String,
-    report_subtitle: String,
-    dissertation_subtitle: String,
-    proceedingsArticle_subtitle: String,
-    standard_subtitle: String,
-    standardSeries_subtitle: String,
-    journal_subtitle: String,
-    journalArticle_subtitle: String,
-    bookSeries_subtitle: String,
-    monograph_subtitle: String,
-    bookSet_subtitle: String,
-    bookPart_subtitle: String,
-    bookChapter_subtitle: String,
-    bookSection_subtitle: String,
-    bookTrack_subtitle: String,
-    component_subtitle: String,
-    proceedings_subtitle: String,
-    dataset_subtitle: String,
-    reportSeries_subtitle: String,
-    book_subtitle: String,
-    referenceBook_subtitle: String,
-    referenceEntry_subtitle: String,
-    monograph_edition: String,
-    editedBook_edition: String,
-    dissertation_edition: String,
-    proceedings_edition: String,
-    report_edition: String,
-    book_edition: String,
-    referenceBook_edition: String,
-    standard_edition: String,
-    journalVolume_number: String,
-    journalIssue_number: String,
-    journalArticle_number: String,
-    bookPart_number: String,
-    monograph_number: String,
-    editedBook_number: String,
-    component_number: String,
-    bookSet_number: String,
-    bookChapter_number: String,
-    bookSection_number: String,
-    bookTrack_number: String,
-    proceedings_number: String,
-    report_number: String,
-    book_number: String,
-    standard_number: String,
-    referenceBook_number: String,
-    referenceEntry_number: String,
+    journal_title: { type: String, trim: true },
+    journalVolume_title: { type: String, trim: true },
+    journalIssue_title: { type: String, trim: true },
+    journalArticle_title: { type: String, trim: true },
+    monograph_title: { type: String, trim: true },
+    editedBook_title: { type: String, trim: true },
+    bookSeries_title: { type: String, trim: true },
+    bookSet_title: { type: String, trim: true },
+    bookChapter_title: { type: String, trim: true },
+    bookSection_title: { type: String, trim: true },
+    bookPart_title: { type: String, trim: true },
+    bookTrack_title: { type: String, trim: true },
+    component_title: { type: String, trim: true },
+    report_title: { type: String, trim: true },
+    proceedingsArticle_title: { type: String, trim: true },
+    dissertation_title: { type: String, trim: true },
+    proceedings_title: { type: String, trim: true },
+    dataset_title: { type: String, trim: true },
+    reportSeries_title: { type: String, trim: true },
+    book_title: { type: String, trim: true },
+    referenceBook_title: { type: String, trim: true },
+    referenceEntry_title: { type: String, trim: true },
+    standard_title: { type: String, trim: true },
+    standardSeries_title: { type: String, trim: true },
+    editedBook_subtitle: { type: String, trim: true },
+    report_subtitle: { type: String, trim: true },
+    dissertation_subtitle: { type: String, trim: true },
+    proceedingsArticle_subtitle: { type: String, trim: true },
+    standard_subtitle: { type: String, trim: true },
+    standardSeries_subtitle: { type: String, trim: true },
+    journal_subtitle: { type: String, trim: true },
+    journalArticle_subtitle: { type: String, trim: true },
+    bookSeries_subtitle: { type: String, trim: true },
+    monograph_subtitle: { type: String, trim: true },
+    bookSet_subtitle: { type: String, trim: true },
+    bookPart_subtitle: { type: String, trim: true },
+    bookChapter_subtitle: { type: String, trim: true },
+    bookSection_subtitle: { type: String, trim: true },
+    bookTrack_subtitle: { type: String, trim: true },
+    component_subtitle: { type: String, trim: true },
+    proceedings_subtitle: { type: String, trim: true },
+    dataset_subtitle: { type: String, trim: true },
+    reportSeries_subtitle: { type: String, trim: true },
+    book_subtitle: { type: String, trim: true },
+    referenceBook_subtitle: { type: String, trim: true },
+    referenceEntry_subtitle: { type: String, trim: true },
+    monograph_edition: { type: String, trim: true },
+    editedBook_edition: { type: String, trim: true },
+    dissertation_edition: { type: String, trim: true },
+    proceedings_edition: { type: String, trim: true },
+    report_edition: { type: String, trim: true },
+    book_edition: { type: String, trim: true },
+    referenceBook_edition: { type: String, trim: true },
+    standard_edition: { type: String, trim: true },
+    journalVolume_number: { type: String, trim: true },
+    journalIssue_number: { type: String, trim: true },
+    journalArticle_number: { type: String, trim: true },
+    bookPart_number: { type: String, trim: true },
+    monograph_number: { type: String, trim: true },
+    editedBook_number: { type: String, trim: true },
+    component_number: { type: String, trim: true },
+    bookSet_number: { type: String, trim: true },
+    bookSeries_number: { type: String, trim: true },
+    bookChapter_number: { type: String, trim: true },
+    bookSection_number: { type: String, trim: true },
+    bookTrack_number: { type: String, trim: true },
+    proceedings_number: { type: String, trim: true },
+    report_number: { type: String, trim: true },
+    book_number: { type: String, trim: true },
+    standard_number: { type: String, trim: true },
+    referenceBook_number: { type: String, trim: true },
+    referenceEntry_number: { type: String, trim: true },
     journal_contributors: [agentRoleSchema],
     report_contributors: [agentRoleSchema],
     journalVolume_contributors: [agentRoleSchema],
@@ -212,8 +215,8 @@ var brSchema = new Schema({
     bookSection_publicationDate: Date,
     bookTrack_publicationDate: Date,
     component_publicationDate: Date,
-    cites: [String], // reference entries
-    partOf: String, // link to other br
+    cites: [{ type: String, trim: true }], // reference entries
+    partOf: { type: String, trim: true }, // link to other br
     status: {type: String, enum: [enums.status.external, enums.status.valid]},
     parts: [beSchema], // links to other brs
     monograph_embodiedAs: [resourceEmbodimentSchema],
@@ -240,7 +243,7 @@ var brSchema = new Schema({
     referenceEntry_embodiedAs: [resourceEmbodimentSchema],
     standard_embodiedAs: [resourceEmbodimentSchema],
     standardSeries_embodiedAs:[resourceEmbodimentSchema],
-    source: String
+    source: { type: String, trim: true }
 });
 
 

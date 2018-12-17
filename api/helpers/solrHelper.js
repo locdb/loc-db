@@ -27,7 +27,7 @@ SolrHelper.prototype.queryGVIByQueryString = function(query, callback){
         core: config.GVI.CORE,
     });
 
-    query = "Robert (). Keohane. and Stephen l). Krasner. 1998. “International Organization and the Study of World Politics Katzenstein";
+    //query = "Robert (). Keohane. and Stephen l). Krasner. 1998. “International Organization and the Study of World Politics Katzenstein";
     //query = query.replaceAll('“','\"');
     query = query.replace(/\(/g,'');
     query = query.replace(/\)/g,'');

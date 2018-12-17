@@ -99,6 +99,7 @@ var bibliographicResource = new SchemaObject({
     bookSet_number: String,
     bookChapter_number: String,
     bookSection_number: String,
+    bookSeries_number: String,
     bookTrack_number: String,
     proceedings_number: String,
     report_number: String,
@@ -227,6 +228,9 @@ var bibliographicResource = new SchemaObject({
          * @returns {string}
          */
         getPropertyPrefixForType: function (type) {
+            if(!type){
+                type = this.type;
+            }
             return type.split("_").length > 1 ?
                 _.camelize(type.split("_")[0].toLowerCase()+ "-" + type.split("_")[1].toLowerCase()) + "_" :
                 type.split("_")[0].toLowerCase() + "_";
@@ -272,7 +276,7 @@ var bibliographicResource = new SchemaObject({
          */
         setTitleForType: function (type, value) {
             var prefix = this.getPropertyPrefixForType(type);
-            this[prefix + 'title'] = value;
+            this[prefix + 'title'] = value ? value.trim() : "";
         },
         getTitleForType: function(type){
             var prefix = this.getPropertyPrefixForType(type);
@@ -280,7 +284,7 @@ var bibliographicResource = new SchemaObject({
         },
         setSubtitleForType: function (type, value) {
             var prefix = this.getPropertyPrefixForType(type);
-            this[prefix + 'subtitle'] = value;
+            this[prefix + 'subtitle'] = value ? value.trim() : "";
         },
         getSubtitleForType: function(type){
             var prefix = this.getPropertyPrefixForType(type);
@@ -288,7 +292,7 @@ var bibliographicResource = new SchemaObject({
         },
         setEditionForType: function (type, value) {
             var prefix = this.getPropertyPrefixForType(type);
-            this[prefix + 'edition'] = value;
+            this[prefix + 'edition'] = value ? value.trim() : "";
         },
         getEditionForType: function(type){
             var prefix = this.getPropertyPrefixForType(type);
@@ -296,7 +300,7 @@ var bibliographicResource = new SchemaObject({
         },
         setNumberForType: function (type, value) {
             var prefix = this.getPropertyPrefixForType(type);
-            this[prefix + 'number'] = value;
+            this[prefix + 'number'] = value ? value.trim() : "";
         },
         getNumberForType: function(type){
             var prefix = this.getPropertyPrefixForType(type);
@@ -335,7 +339,9 @@ var bibliographicResource = new SchemaObject({
                 this[prefix + 'contributors'].push(value);
             }else{
                 this[prefix + 'contributors'] = [];
-                this[prefix + 'contributors'].push(value);
+                if(this[prefix + 'contributors']) {
+                    this[prefix + 'contributors'].push(value);
+                }
             }
 
         },

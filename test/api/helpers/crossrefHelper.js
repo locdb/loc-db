@@ -420,6 +420,7 @@ describe('helpers', function() {
                     "journal_title": "Journal of the Chemical Society, Faraday Transactions",
                     "journalVolume_number": "93",
                     "journalIssue_number": "21",
+                    "journalIssue_publicationDate": new Date("1997"),
                     "journalIssue_contributors": [
                         {
                             "roleType": "PUBLISHER",

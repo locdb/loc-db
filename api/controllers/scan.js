@@ -14,6 +14,7 @@ const fs = require('fs');
 const path = require('path');
 const databaseHelper = require('./../helpers/databaseHelper.js').createDatabaseHelper();
 const crossrefHelper = require('./../helpers/crossrefHelper').createCrossrefHelper();
+const ocrHelper = require('./../helpers/ocrHelper').createOcrHelper();
 const agenda = require('./../jobs/jobs');
 
 function saveResource(req, res) {
@@ -127,7 +128,8 @@ function saveResource(req, res) {
                                 return response.status(400).json({"message": "Identifier type not implemented."});
                         }
                     }
-                case enums.resourceType.bookChapter || enums.resourceType.proceedingsArticle:
+                case enums.resourceType.bookChapter:
+                case enums.resourceType.proceedingsArticle:
                     //return response.status(400).json({"message": "Resource type not implemented yet."});
                     switch (identifier.scheme) {
                         case enums.identifier.doi:
@@ -163,6 +165,7 @@ function saveResource(req, res) {
                                     logger.error(err);
                                     return response.status(500).json(err);
                                 }
+                                // TODO: What if parent does not exist?
                                 var parent = resources[0];
                                 crossrefHelper.queryChapterMetaData(parent.getTitleForType(parent.type), firstPage, lastPage, function(err, res) {
                                     if (err) {
@@ -191,24 +194,24 @@ function saveResource(req, res) {
                                         // jetzt müssen wir gucken, ob man noch einen Scan speichern muss oder nicht
                                         if (!binaryFile && !stringFile) {
                                             return response.json(resources);
+                                        }else{
+                                            child = resources[0];
+                                            parent = resources[1];
+                                            databaseHelper.saveReferencesPageForResource(child, binaryFile, textualPdf, stringFile, embodimentType, function (err, result) {
+                                                if (err) {
+                                                    logger.error(err);
+                                                    return response.status(500).json(err);
+                                                }
+                                                result = [result[0], parent, result[1]];
+                                                return response.json(result);
+                                            });
                                         }
-                                        child = resources[0];
-                                        parent = resources[1];
-                                        databaseHelper.saveReferencesPageForResource(child, binaryFile, textualPdf, stringFile, embodimentType, function (err, result) {
-                                            if (err) {
-                                                logger.error(err);
-                                                return response.status(500).json(err);
-                                            }
-                                            result = [result[0], parent, result[1]];
-                                            return response.json(result);
-                                        });
-
-
                                     });
                                 });
                             });
                     }
-                case enums.resourceType.monograph || enums.resourceType.book:
+                case enums.resourceType.monograph:
+                case enums.resourceType.book:
                     return swbHelper.query(identifier.literalValue, resourceType, function (err, resource) {
                         if (err) {
                             logger.error(err);
@@ -246,12 +249,6 @@ function saveResource(req, res) {
                                     return response.status(500).json(err);
                                 }
 
-                                // TODO: Hook for precalculation of suggestions?
-                                //suggestionHelper.precalculateExternalSuggestions(resource, function(err,res){
-                                //    if(err){
-                                //        logger.error(err);
-                                //    }
-                                //});
                                 agenda.now('precalculate suggestions', {br: resource});
                                 if (binaryFile || stringFile) {
                                     return databaseHelper.saveReferencesPageForResource(resource, binaryFile, textualPdf, stringFile, embodimentType, function (err, result) {
@@ -310,7 +307,21 @@ function get(req, res) {
     }
 
     // retrieve corresponding entry from the db
-    return databaseHelper.createSimpleEqualsConditions('embodiedAs', id, '.scans._id', function(err,conditions) {
+    return databaseHelper.getScanById(id, function(err, scan){
+        if (err) {
+            logger.error(err);
+            return response.status(500).json(err);
+        }
+        if(!scan){
+            return response.status(400).json({"message": "Scan cannot be found."});
+        }
+        // send file
+        var filePath = config.PATHS.UPLOAD + scan.scanName;
+        return response.sendFile(path.resolve(filePath), function (err) {
+            if (err) return logger.error(err);
+        });
+    });
+/*    return databaseHelper.createSimpleEqualsConditions('embodiedAs', id, '.scans._id', function(err,conditions) {
         if (err) {
             logger.error(err);
             return response.status(500).json({"message": "Something weird happened."});
@@ -335,7 +346,7 @@ function get(req, res) {
                 }
             }
         });
-    });
+    });*/
 };
 
 
@@ -419,11 +430,82 @@ function triggerOcrProcessing(req, res) {
     });
 };
 
+function correctReferencePosition(req, res){
+    var response = res;
+    var scanId = req.swagger.params.scanId.value;
+    var coordinates = req.swagger.params.coordinates.value;
+    var bibliographicEntryId = req.swagger.params.bibliographicEntryId.value;
+
+    // check if id is valid
+    if (!mongoose.Types.ObjectId.isValid(scanId) || (bibliographicEntryId && !mongoose.Types.ObjectId.isValid(bibliographicEntryId))) {
+        logger.error("Invalid value for parameter id.", {scanId: scanId, bibliographicEntryId: bibliographicEntryId});
+        return response.status(400).json({"message": "Invalid parameter."});
+    }
+
+    databaseHelper.getScanById(scanId, function(err, scan){
+        if(err){
+            logger.error(err);
+            return response.status(500).json(err);
+        }
+
+        if(!scan){
+            return response.status(400).json({"message": "Scan cannot be found."});
+        }
+        ocrHelper.segmentReference(scan.scanName, coordinates, function(err, body){
+            if(err){
+                logger.error(err);
+                return response.status(500).json(err);
+            }
+            ocrHelper.parseXMLSingleReference(body, function(err, result){
+                if(err){
+                   logger.error(err);
+                   return response.status(500).json(err);
+                }
+                if(result.length === 0 || !result[0]){
+                    // TODO: Is it okay to return null if the ocr returned nothing?
+                    return response.status(200).json(null);
+                }
+                var be = result[0];
+                be.scanId = scan._id;
+                be.scanName = scan.scanName;
+                be.status = enums.status.ocrProcessed;
+                var id = mongoose.Types.ObjectId();
+                be._id = id;
+                databaseHelper.getBrByScanId(scan._id, function(err, br){
+                    if(err){
+                        logger.error(err);
+                        return response.status(500).json(err);
+                    }
+                    if(bibliographicEntryId){
+                        for(let part of br.parts){
+                            if(part._id == bibliographicEntryId){
+                                part.status = enums.status.obsolete;
+                            }
+                        }
+                    }
+                    br.parts.push(be);
+                    br.save(function(err, br){
+                        if(err){
+                            logger.error(err);
+                            return response.status(500).json(err);
+                        }
+                        for(let be of br.parts){
+                            if(be._id == id){
+                                return response.status(200).json(be);
+                            }
+                        }
+                    });
+                });
+            });
+        });
+    });
+}
 
 module.exports = {
     saveResource: saveResource,
     getToDo: getToDo,
     triggerOcrProcessing: triggerOcrProcessing,
     get: get,
-    remove: remove
+    remove: remove,
+    correctReferencePosition: correctReferencePosition
 };

@@ -5,7 +5,7 @@ const suggestionHelper = require('./../helpers/suggestionHelper').createSuggesti
 const logger = require('./../util/logger');
 
 module.exports = function(agenda) {
-    agenda.define('precalculate suggestions', function(job, done) {
+    agenda.define('precalculate suggestions', {priority: 'low', concurrency: 1}, function(job, done) {
         var br = job.attrs.data.br;
         suggestionHelper.precalculateExternalSuggestions(br, function(err,res){
             if(err){

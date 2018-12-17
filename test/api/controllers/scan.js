@@ -16,6 +16,8 @@ describe('controllers', function () {
     describe('scan', function () {
         var id = "58c01713ea3c8d32f0f80a75";
         var idPdf = "";
+        var idBr ="";
+        var idBe ="";
 
         before(function (done) {
             setup.dropDB(function(err){
@@ -273,6 +275,28 @@ describe('controllers', function () {
                     });
             });
 
+            it('should append a string file to the resource', function (done) {
+                agent
+                    .post('/saveResource')
+                    .type('form')
+                    .field('identifierScheme', 'SWB_PPN')
+                    .field('identifierLiteralValue', '012678775')
+                    .field('firstPage', '33')
+                    .field('lastPage', '41')
+                    .field('textualPdf', false)
+                    .field('resourceType', resourceType.bookChapter)
+                    .field('stringFile', 'text text text')
+                    .set('Accept', 'application/json')
+                    .expect('Content-Type', /json/)
+                    .expect(200)
+                    .end(function (err, res) {
+                        should.not.exist(err);
+                        res.body.should.be.Array().and.have.lengthOf(3);
+                        res.body[0].bookChapter_embodiedAs[0].scans.should.have.lengthOf(3);
+                        done();
+                    });
+            });
+
             it('should return 400', function (done) {
                 agent
                     .post('/saveResource')
@@ -294,7 +318,7 @@ describe('controllers', function () {
 
 
         describe('POST /saveResource - Resource Type: MONOGRAPH', function () {
-            this.timeout(10000);
+            this.timeout(20000);
             it('should save a scan in the file system and create a single br in the db', function (done) {
                 agent
                     .post('/saveResource')
@@ -379,6 +403,7 @@ describe('controllers', function () {
                         res.body[0].should.have.property("children");
                         res.body[0].children.should.have.lengthOf(1);
                         id = res.body[0].children[0].journalArticle_embodiedAs[0].scans[0]._id;
+                        idBr = res.body[0].children[0]._id;
                         idPdf = res.body[1].children[0].bookChapter_embodiedAs[0].scans[0]._id;
                         done();
                     });
@@ -468,7 +493,7 @@ describe('controllers', function () {
             });*/
 
             it('should trigger OCR processing', function (done) {
-                setup.mockOCRFileUpload();
+                //setup.mockOCRFileUpload();
                 this.timeout(1000000);
                 agent
                     .get('/triggerOcrProcessing')
@@ -505,8 +530,8 @@ describe('controllers', function () {
 
             it('should trigger OCR processing for a pdf and download the image', function (done) {
                 this.timeout(100000000000000);
-                setup.mockOCRGetImage();
-                setup.mockOCRFileUpload();
+                //setup.mockOCRGetImage();
+                //setup.mockOCRFileUpload();
                 agent
                     .get('/triggerOcrProcessing')
                     .query({id: idPdf})
@@ -566,6 +591,46 @@ describe('controllers', function () {
                         console.log(res.body);
                         should.not.exist(err);
                         done();
+                    });
+            });
+        });
+
+        describe('GET /correctReferencePosition', function () {
+            it('should query the ocr component again and retrieve data based on the new coordinates', function (done) {
+                setup.mockOCRGetSegmentReference();
+                agent
+                    .get('/correctReferencePosition')
+                    .query({'scanId': id, 'coordinates': '154 269 1876 406'})
+                    .set('Accept', 'application/json')
+                    .expect(200)
+                    .end(function (err, res) {
+                        console.log(res.body);
+                        res.body.should.have.property("ocrData");
+                        idBe = res.body._id;
+                        should.not.exist(err);
+                        done();
+                    });
+            });
+
+            it('should query the ocr component again and retrieve data based on the new coordinates, ' +
+                'but this time we also want the old be to be set to obsolete', function (done) {
+                setup.mockOCRGetSegmentReference();
+                agent
+                    .get('/correctReferencePosition')
+                    .query({'scanId': id, 'coordinates': '154 269 1876 406', 'bibliographicEntryId': idBe})
+                    .set('Accept', 'application/json')
+                    .expect(200)
+                    .end(function (err, res) {
+                        console.log(res.body);
+                        res.body.should.have.property("ocrData");
+                        should.not.exist(err);
+                        mongoBr.findById(idBr, function(err,doc){
+                            doc.parts.should.be.Array().and.have.lengthOf(2);
+                            doc.parts[0].should.have.property("status", status.obsolete);
+                            //doc.parts[0].should.have.property("_id", idBe);
+                            done();
+                        });
+
                     });
             });
         });

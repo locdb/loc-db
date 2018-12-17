@@ -12,12 +12,41 @@ const morgan = require('morgan');
 const agendash = require('agendash');
 const agenda = require('./api/jobs/jobs');
 
+/*// Searching a memory leak
+const memwatch = require('memwatch-next');
+const heapdump = require('heapdump');
+const util = require('util');
+let snapshotTaken = false,
+    hd;
+
+memwatch.on('leak', function(info) {
+    heapdump.writeSnapshot(function(err, filename) {
+        logger.error({leak: "dump written to " + filename});
+    });
+    logger.error({leak: info});
+    let diff = hd.end();
+    snapshotTaken = false;
+    logger.error({leak: util.inspect(diff, {showHidden:false, depth:4})});
+});
+
+memwatch.on('stats', function(stats) {
+    logger.error({stats: stats});
+    if(snapshotTaken===false){
+        heapdump.writeSnapshot(function(err, filename) {
+            logger.error({stats: "dump written to " + filename});
+            hd = new memwatch.HeapDiff();
+            snapshotTaken = true;
+        });
+    }/!* else {
+        var diff = hd.end();
+        snapshotTaken = false;
+        logger.info(util.inspect(diff, {showHidden:false, depth:4}));
+    }*!/
+});*/
 
 module.exports = app; // for testing
-mongoose.set('debug', function (collectionName, method, query, doc){
-    logger.info("MONGOOSE", collectionName + "." + method + "(" + JSON.stringify(query) + ")");
-});
-var db = mongoose.connection;
+
+let db = mongoose.connection;
 
 db.on('error', console.error);
 db.once('open', function() {
@@ -25,26 +54,46 @@ db.once('open', function() {
 });
 
 // Configuring Passport
-var passport = require('./api/util/passport.js');
-var expressSession = require('express-session');
-//app.use(expressSession({secret: 'mySecretKey'}));
-//app.use(passport.initialize());
-//app.use(passport.session());
+let passport = require('./api/util/passport.js');
+const expressSession = require('express-session');
+const MongoStore = require('connect-mongo')(expressSession);
 
-//var config = process.argv.indexOf("test") > 0 ? require("./test/api/config.js") : require("./config/config.js");
-var config = require("./config/config.js");
+let config = require("./config/config.js");
 
-if(process.argv.indexOf("test" >0)){
+if(process.argv.indexOf("test") > 0 ){
     config = Object.assign(config, require("./test/api/config.js"));
 }
 
+mongoose.set(config.LOG_LEVEL, function (collectionName, method, query, doc){
+    logger.info("MONGOOSE", collectionName + "." + method + "(" + JSON.stringify(query) + ")");
+});
+
 logger.info("Running config:", {config : JSON.stringify(config)});
 
-var uri = "mongodb://" + config.DB.HOST + ":" + config.DB.PORT + "/" + config.DB.SCHEMA;
+let uri = "mongodb://" + config.DB.HOST + ":" + config.DB.PORT + "/" + config.DB.SCHEMA;
 
-mongoose.connect(uri);
+//mongoose.connect(uri);
+const options = {
+    useNewUrlParser: true,
+    //useCreateIndex: true,
+    //useFindAndModify: false,
+    //autoIndex: false, // Don't build indexes
+    reconnectTries: Number.MAX_VALUE, // Never stop trying to reconnect
+    reconnectInterval: 500, // Reconnect every 500ms
+    poolSize: 10, // Maintain up to 10 socket connections
+    // If not connected, return errors immediately rather than waiting for reconnect
+    bufferMaxEntries: 0,
+    connectTimeoutMS: 10000, // Give up initial connection after 10 seconds
+    socketTimeoutMS: 45000, // Close sockets after 45 seconds of inactivity
+    family: 4,// Use IPv4, skip trying IPv6
+    useMongoClient: true
+};
 
-var swaggerDocument = yaml.safeLoad(fs.readFileSync('./api/swagger/swagger.yaml', 'utf8'));
+//     global.Promise;
+mongoose.Promise = require('bluebird');
+mongoose.connect(uri, options);
+
+let swaggerDocument = yaml.safeLoad(fs.readFileSync('./api/swagger/swagger.yaml', 'utf8'));
 swaggerDocument.host = config.HOST;
 swaggerDocument.basePath = config.BASEPATH;
 swaggerDocument.securityDefinitions = null;
@@ -69,7 +118,7 @@ SwaggerExpress.create({appRoot: __dirname, securityHandlers: {
     }
 }}, function(err, swaggerExpress) {
     if (err) { throw err; }
-    app.use(expressSession({secret: 'mySecretKey'}));
+    app.use(expressSession({secret: 'mySecretKey', resave: false, saveUninitialized: false, store: new MongoStore({mongooseConnection: mongoose.connection })}));
     app.use(passport.initialize());
     app.use(passport.session());
     app.use(cors({origin: "http://localhost:4200", credentials: true}));

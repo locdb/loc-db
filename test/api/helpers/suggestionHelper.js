@@ -6,6 +6,7 @@ const setup = require('./../setup.js').createSetup();
 const suggestionHelper = require('./../../../api/helpers/suggestionHelper.js').createSuggestionHelper();
 const bibliographicResource = require('./../data/bibliographicResourceWithParts.json');
 const BibliographicResource = require('./../../../api/schema/bibliographicResource');
+const mongoBrSuggestions = require('./../../../api/models/bibliographicResourceSuggestions').mongoBrSuggestions;
 
 describe('helpers', function() {
     describe('suggestionHelper', function() {
@@ -29,9 +30,17 @@ describe('helpers', function() {
                 this.timeout(1000000);
                 suggestionHelper.precalculateExternalSuggestions(bibliographicResource, function (err, res) {
                     should.not.exists(err);
-                    res.should.be.Array().and.have.lengthOf(2);
-                    res[0].suggestions.should.be.Array().and.have.lengthOf(10);
-                    done();
+                    res.should.be.Array().and.have.lengthOf(0);
+                    // create query string
+                    suggestionHelper.createQueryStringForBE(bibliographicResource.parts[0], function (err, queryString) {
+                        should.not.exists(err);
+                        // retrieve suggestions by query
+                        mongoBrSuggestions.findOne({queryString: queryString}, function (err, sug) {
+                            should.not.exists(err);
+                            sug.suggestions.should.have.lengthOf(23);
+                            done();
+                        });
+                    });
                 });
             });
         });

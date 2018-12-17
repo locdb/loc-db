@@ -23,7 +23,7 @@ describe('helpers', function() {
 
         describe('extractZip', function () {
             it('should extract the zip file', function (done) {
-                fileHelper.extractZip("./response", "./response", function (err, result) {
+                fileHelper.extractZip("./../loc-db/test/api/data/ocr_data/response", "./response", function (err, result) {
                     should.not.exists(err);
                     done();
                 });

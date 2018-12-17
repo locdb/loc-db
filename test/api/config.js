@@ -9,7 +9,7 @@ var config = {
         SCHEMA: (process.env.LOCDB_DB_SCHEMA || "test"),
     },
     PATHS: {
-        UPLOAD: (process.env.LOCDB_UPLOAD_PATH || "./test/api/data/ocr_data/"),
+        UPLOAD: (process.env.LOCDB_UPLOAD_PATH || "./../upload/"),
     }
 };
 

@@ -18,7 +18,7 @@ const ResourceEmbodiment = require('./../schema/resourceEmbodiment');
 var DatabaseHelper = function(){
 };
 
-DatabaseHelper.prototype.findScanByScanName = function(br, scanName, callback){
+/*DatabaseHelper.prototype.findScanByScanName = function(br, scanName, callback){
     // now search for the scanId
     for(var embodiment of br.embodiedAs){
         for(var scan of embodiment.scans){
@@ -28,7 +28,58 @@ DatabaseHelper.prototype.findScanByScanName = function(br, scanName, callback){
         }
     }
     return callback(null, null);
+};*/
+
+DatabaseHelper.prototype.getScanById = function(scanId, callback) {
+    var self = this;
+    // retrieve corresponding entry from the db
+    return self.createSimpleEqualsConditions('embodiedAs', scanId, '.scans._id', function (err, conditions) {
+        if (err) {
+            logger.error(err);
+            return callback(err, null);
+        }
+        return mongoBr.findOne({'$or': conditions}, function (err, br) {
+            if (err) {
+                logger.error(err);
+                return callback(err, null);
+            } else if (!br) {
+                logger.error("No entry found for parameter id.", {scanId: scanId});
+                return callback(null, null);
+            }
+            for (var embodiment of new BibliographicResource(br).getResourceEmbodimentsForType(br.type)) {
+                for (var scan of embodiment.scans) {
+                    if (scan._id.toString() === scanId) {
+                        // return scan
+                        return callback(null, scan);
+                    }
+                }
+            }
+        });
+    });
 };
+
+
+DatabaseHelper.prototype.getBrByScanId = function(scanId, callback) {
+    var self = this;
+    // retrieve corresponding entry from the db
+    return self.createSimpleEqualsConditions('embodiedAs', scanId, '.scans._id', function (err, conditions) {
+        if (err) {
+            logger.error(err);
+            return callback(err, null);
+        }
+        return mongoBr.findOne({'$or': conditions}, function (err, br) {
+            if (err) {
+                logger.error(err);
+                return callback(err, null);
+            } else if (!br) {
+                logger.error("No entry found for parameter id.", {scanId: scanId});
+                return callback(null, null);
+            }
+            return callback(null, br);
+        });
+    });
+};
+
 
 DatabaseHelper.prototype.saveScan = function(scan, textualPdf, callback){
     // get unique id from mongo which we use as filename
@@ -440,7 +491,7 @@ DatabaseHelper.prototype.saveStringScan = function(scan, callback){
     // get unique id from mongo which we use as filename
     var scanId = mongoose.Types.ObjectId().toString();
 
-    fileHelper.saveStringFile(scanId, scan, function (err, scanName) {
+    fileHelper.saveStringFile(scanId, scan, ".txt", function (err, scanName) {
         // if there is an error, log it and return
         if (err) {
             logger.error(err);

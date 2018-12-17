@@ -4,7 +4,7 @@
     "name"      : "loc-db",
     "script"    : "app.js",
     "append_env_to_name": true,
-    "node_args": "--max_old_space_size=16384",
+    //"node_args": "--trace-gc-verbose",
     "env_demo": {
       "NODE_ENV": "demo",
       "LOCDB_PORT": 3102,
@@ -37,14 +37,16 @@
       "LOCDB_PORT": 3103,
       "LOCDB_DB_SCHEMA": "locdb-tue",
       "LOCDB_HOST": "locdb.bib.uni-mannheim.de",
-      "LOCDB_BASEPATH": "/locdb-tue"
+      "LOCDB_BASEPATH": "/locdb-tue",
+      "LOCDB_UPLOAD_PATH": "./../upload/",
+      "LOCDB_CACHE_PATH": "./../cache/"
     }
   },
   {
     "name"      : "loc-db-jobs",
     "script"    : "./api/jobs/jobs.js",
     "append_env_to_name": true,
-    "node_args": "--max_old_space_size=16384",
+    "node_args": "--trace-gc-verbose",
     "env_development": {
       "NODE_ENV": "development",
       "LOCDB_PORT": 3101,
@@ -77,7 +79,9 @@
       "LOCDB_PORT": 3103,
       "LOCDB_DB_SCHEMA": "locdb-tue",
       "LOCDB_HOST": "locdb.bib.uni-mannheim.de",
-      "LOCDB_BASEPATH": "/locdb-tue"
+      "LOCDB_BASEPATH": "/locdb-tue",
+      "LOCDB_UPLOAD_PATH": "./../upload/",
+      "LOCDB_CACHE_PATH": "./../cache/"
     }
   }],
   // Deployment part

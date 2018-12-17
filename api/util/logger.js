@@ -1,6 +1,7 @@
 const winston = require('winston');
+const level = require('./../../config/config').LOG_LEVEL;
+const file = require('./../../config/config').LOG_FILE;
 
-const level = process.env.LOG_LEVEL || 'debug';
 
 const logger = new winston.Logger({
     transports: [
@@ -9,19 +10,27 @@ const logger = new winston.Logger({
             timestamp: function () {
                 return (new Date()).toISOString();
             }
+        }),
+        new winston.transports.File({
+            filename: file,
+            level: level,
+            timestamp: function () {
+                return (new Date()).toISOString();
+            }
         })
     ]
 });
 
-module.exports = logger;
-
-module.exports.streamInfo = {
+logger.streamInfo = {
     write: function(message, encoding){
         logger.info(message);
     }
 };
-module.exports.streamError = {
+logger.streamError = {
     write: function(message, encoding){
         logger.error(message);
     }
 };
+
+module.exports = logger;
+

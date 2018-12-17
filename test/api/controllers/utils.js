@@ -73,5 +73,21 @@ describe('controllers', function () {
                 });
             });
         });
+
+        describe('GET /stats', function () {
+            this.timeout(10000);
+            it('should get statistics', function (done) {
+                agent
+                    .get('/stats')
+                    .set('Accept', 'application/json')
+                    .set('Content-Type', 'application/json')
+                    .expect('Content-Type', /json/)
+                    .expect(200)
+                    .end(function (err, res) {
+                        should.not.exist(err);
+                        done();
+                    });
+            });
+        });
     });
 });

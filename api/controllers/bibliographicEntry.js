@@ -203,28 +203,40 @@ function getInternalSuggestionsByQueryString(req, res) {
                 result = brs.hits.hits.slice(0, k);
             }
             async.map(result, function (br, callback) {
-            if (br.partOf && br.partOf !== "") {
-                // br has parent, we want to retrieve this too
-                mongoBr.findById(br.partOf, function (err, parent) {
-                    if (err) {
-                        logger.error(err);
-                        return callback(err, null);
-                    }
-                    if (parent) {
-                        return callback(null, [br, parent]);
+                if(br){
+                    if (br.partOf && br.partOf !== "") {
+                        // br has parent, we want to retrieve this too
+                        mongoBr.findById(br.partOf, function (err, parent) {
+                            if (err) {
+                                logger.error(err);
+                                return callback(err, null);
+                            }
+                            if (parent) {
+                                return callback(null, [br, parent]);
+                            } else {
+                                return callback(null, [br]);
+                            }
+                        });
                     } else {
                         return callback(null, [br]);
                     }
-                });
-            } else {
-                return callback(null, [br]);
-            }
+                }else{
+                    logger.error(new Error("Index out of sync!"));
+                    // TODO: Perform indexing now
+                    return callback(null, null);
+                }
             }, function (err, groupedResults) {
+                let finalResult = [];
+                for(let group of groupedResults){
+                    if(group){
+                        finalResult.push(group);
+                    }
+                }
                 if (err) {
                     logger.error(err);
                     return response.status(500).json(err);
                 }
-                return response.status(200).json(groupedResults);
+                return response.status(200).json(finalResult);
             });
         });
     } catch (err) {
@@ -246,7 +258,7 @@ function getExternalSuggestions(req, res) {
 
     var k = req.swagger.params.k.value;
     if(!k){
-        k = 10;
+        k = 30;
     }
     suggestionHelper.getExternalSuggestions(query, k, function(err,result){
         if(err){

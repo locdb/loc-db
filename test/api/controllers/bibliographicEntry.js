@@ -14,18 +14,24 @@ describe('controllers', function() {
         var id = "";
 
         before(function (done) {
-            this.timeout(8000);
+            this.timeout(1000000);
             setup.dropDB(function(){
+                console.info("DB dropped");
                 setup.loadBibliographicEntry(function(err, result){
                     if(err) return done(err);
+                    console.info("Bibliographic entry loaded");
                     setup.loadBibliographicResources(function(err, result){
                         if(err) return done(err);
+                        console.info("Bibliographic resource loaded");
                         setup.loadSearchData(function(err, result) {
                             if (err) return done(err);
+                            console.info("Search data loaded");
                             setup.login(agent, function (err, result) {
                                 if (err) return done(err);
+                                console.info("Agent logged in");
                                 setup.mockGVISuggestions();
                                 setup.mockK10PlusSuggestions();
+                                console.info("Mocked suggestions");
                                 setTimeout(function () {
                                     done();
                                 }, 2000);
@@ -381,7 +387,7 @@ describe('controllers', function() {
                         should.not.exist(err);
                         res.body.should.be.Array;
                         //res.body.should.have.lengthOf(2);
-                        res.body.should.have.lengthOf(10);
+                        res.body.should.have.lengthOf(25);
                         res.body[0][0].should.have.property("status", status.external);
                         done();
                     });
@@ -602,7 +608,7 @@ describe('controllers', function() {
         });
 
         describe('GET /getPrecalculatedSuggestions/<id>', function () {
-            this.timeout(3000000)
+            this.timeout(3000000);
             it('should get the precalculated suggestions for a given be', function (done) {
                     var be;
                     agent
