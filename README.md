@@ -26,6 +26,8 @@ npm install
 
 ## Usage Instructions
 
+### Simple Setting (swagger)
+
 Start the backend with
 ```
 swagger project start
@@ -35,7 +37,9 @@ or run the tests
 swagger project test
 ```
 
-In the deployment setting we use pm2 as production manager in order to manage different versions and environments on our server. Applications can be listed with
+### Deployment Setting (pm2)
+
+In the deployment setting we use `pm2` as production manager in order to manage different versions and environments on our server. The currently running applications can be listed with
 ```
 pm2 list
 ```
@@ -44,11 +48,12 @@ Using the console, apps can be restarted with
 ```
 pm2 restart <app_name>
 ```
-Restart and start will keep the environment variables if you specify the app name correctly. Starting an app from scratch should be avoided. If you have to do so, make sure that you specify the concrete environment. In order to manage those, we use a specific json file, which is located in the root of our source code. 
+Restart and start will keep the environment variables if you specify the app name correctly. Starting an app from scratch should be avoided. If you have to do so, make sure that you specify the concrete environment. In order to manage those, we use a specific json file [pm2.json](pm2.json), which is located in the root of our source code. Starting the app in all three specified modes can be done with
 ```
-pm2 start pm2.json --env development (/demo/production)
+pm2 start pm2.json --env development
+pm2 start pm2.json --env demo
+pm2 start pm2.json --env production
 ```
-.. starts the app in the specified mode.
 Stopping an app can be done with
 ```
 pm2 stop <app_name>
