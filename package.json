@@ -24,7 +24,7 @@
     "extend": "^3.0.0",
     "extract-zip": "^1.6.7",
     "feedparser": "^2.2.1",
-    "file-type": "^6.2.0",
+    "file-type": "^10.7.0",
     "form-data": "^2.1.2",
     "fstream": "^1.0.11",
     "google-scholar": "^1.2.5",
