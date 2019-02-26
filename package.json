@@ -30,7 +30,7 @@
     "google-scholar": "^1.2.5",
     "heapdump": "^0.3.11",
     "isomorphic-fetch": "^2.2.1",
-    "js-yaml": "^3.8.3",
+    "js-yaml": "^3.12.2",
     "lucene-escape-query": "^1.0.1",
     "marc4js": "0.0.9",
     "marc8": "0.0.4",
