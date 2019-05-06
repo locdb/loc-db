@@ -37,7 +37,7 @@
     "memwatch-next": "^0.3.0",
     "mongodb": "^3.1.8",
     "mongoosastic": "^4.3.0",
-    "mongoose": "^4.7.2",
+    "mongoose": "^5.5.6",
     "morgan": "^1.9.0",
     "natural": "^0.5.0",
     "node-unzip-2": "^0.2.7",
