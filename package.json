@@ -35,7 +35,7 @@
     "marc4js": "0.0.9",
     "marc8": "0.0.4",
     "memwatch-next": "^0.3.0",
-    "mongodb": "^3.1.8",
+    "mongodb": "^3.2.5",
     "mongoosastic": "^4.3.0",
     "mongoose": "^4.7.2",
     "morgan": "^1.9.0",
