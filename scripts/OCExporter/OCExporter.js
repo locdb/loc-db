@@ -102,7 +102,7 @@ OCExporter.prototype.getJSONLD = function(nquads, callback) {
 }
 
 OCExporter.prototype.typeUri = function(type) {
-    for (var key in enums.resourceType.keys) {
+    for (var key in enums.resourceType) {
         if (enums.resourceType[key] == type) {
             return enums.ocType[key];
         }
