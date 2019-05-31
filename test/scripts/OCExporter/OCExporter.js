@@ -13,15 +13,16 @@ describe('scripts', function() {
             done();
         });
 
-        describe('parseFile', function(){
+        describe.only('parseFile', function(){
             it('should return result the content of a JS File', function(done) {
                 // this.timeout(1000000000);
-                OCExporter.parseFile('./test/api/data/bibliographicResources516.json', function(brs) {
+                OCExporter.parseFile('./test/api/data/bibliographicResources516.json', function(err, brs) {
+                    console.log(brs)
                     done();
                 });
             });
         });
-        describe.only('writeJSON', function(){
+        describe('writeJSON', function(){
             it('should write JSON to console', function(done) {
                 OCExporter.addTriple("http://example.org/1", "datacite:Identifier", "http://identifier");
                 OCExporter.addTriple("http://example.org/1", "dcterms:title", "Hallo");

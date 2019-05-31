@@ -4,6 +4,7 @@ const fs = require('fs');
 const pth = require('path');
 const async = require('async');
 const fh = require('../../api/helpers/fileHelper.js').createFileHelper();
+const BibliographicResource = require("./../../api/schema/bibliographicResource");
 
 const N3 = require('n3');
 const N3Util = N3.Util;
@@ -100,18 +101,22 @@ OCExporter.prototype.parseFile = function(path, callback) {
     console.log(brs.length);
 
     var count = 0;
-    var result = []
     for (var br of brs) {
-        var oc = {}
-        result.push(oc)
-        count++;
-        console.log(count + " " + JSON.stringify(oc));
+        br = new BibliographicResource(br);
+        var subj = "http://locdb.org/" + br._id;
+        this.addTriple(subj, "dcterms:title", br.getTitleForType(br.type))
         if (count > 10) {
             break;
         }
     }
+    this.writer.end(function(err,res){
+        console.log("Triples: " + res)
+        this.getJSONLD(res, function(err, doc){
+            callback(null, doc);
+        });
 
-    callback(result);
+    });
+
 };
 
 
