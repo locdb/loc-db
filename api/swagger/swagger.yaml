@@ -16,8 +16,8 @@ tags:
   - name: Utils
     description: Services that are not directly related to the application.
 schemes:
-  #- http
-  - https
+  - http
+  # - https
 consumes:
   - application/json
   - multipart/form-data

@@ -61,6 +61,32 @@
     "standardSeries": "STANDARD_SERIES",
     "standard": "STANDARD"
   },
+  "ocType": {
+    "book": "fabio:Book",
+    "bookChapter": "fabio:BookChapter",
+    "bookPart": "doco:Part",
+    "bookSection": "fabio:ExpressionCollection",
+    "bookSeries": "fabio:BookSeries",
+    "bookSet": "fabio:BookSet",
+    "bookTrack": "fabio:Expression",
+    "component": "fabio:Expression",
+    "dataset": "fabio:DataFile",
+    "dissertation": "fabio:Thesis",
+    "editedBook": "fabio:Book",
+    "journalArticle": "fabio:JournalArticle",
+    "journalIssue": "fabio:JournalIssue",
+    "journalVolume": "fabio:JournalVolume",
+    "journal": "fabio:Journal",
+    "monograph": "fabio:Book",
+    "proceedingsArticle": "fabio:ProceedingsPaper",
+    "proceedings": "fabio:AcademicProceedings",
+    "referenceBook": "fabio:ReferenceBook",
+    "referenceEntry": "fabio:ReferenceEntry",
+    "reportSeries": "fabio:Series",
+    "report": "fabio:ReportDocument",
+    "standardSeries": "fabio:Series",
+    "standard": "fabio:SpecificationDocument"
+  },
   "embodimentType": {
     "digital": "DIGITAL",
     "print": "PRINT"

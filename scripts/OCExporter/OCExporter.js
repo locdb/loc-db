@@ -5,6 +5,7 @@ const pth = require('path');
 const async = require('async');
 const fh = require('../../api/helpers/fileHelper.js').createFileHelper();
 const BibliographicResource = require("./../../api/schema/bibliographicResource");
+const enums = require("../../api/schema/enum.json");
 
 const N3 = require('n3');
 const N3Util = N3.Util;
@@ -19,6 +20,10 @@ var OCExporter = function(){
 
 
 OCExporter.prototype.addTriple = function(subject, predicate, object) {
+    if (!object) {
+        console.log("No value for " + subject + " / " + predicate);
+        return;
+    }
     subject = this.expand(subject);
     predicate = this.expand(predicate);
     object = this.expand(object);
@@ -96,14 +101,24 @@ OCExporter.prototype.getJSONLD = function(nquads, callback) {
 
 }
 
+OCExporter.prototype.typeUri = function(type) {
+    for (var key in enums.resourceType.keys) {
+        if (enums.resourceType[key] == type) {
+            return enums.ocType[key];
+        }
+    }
+}
+
 OCExporter.prototype.parseFile = function(path, callback) {
     var brs = JSON.parse(fs.readFileSync(path));
     console.log(brs.length);
 
     var count = 0;
     for (var br of brs) {
+        count++;
         br = new BibliographicResource(br);
-        var subj = "http://locdb.org/" + br._id;
+        var subj = "https://w3id.org/oc/corpus/br/0130-" + br._id;
+        this.addTriple(subj, a, this.typeUri(br.type))
         this.addTriple(subj, "dcterms:title", br.getTitleForType(br.type))
         if (count > 10) {
             break;
