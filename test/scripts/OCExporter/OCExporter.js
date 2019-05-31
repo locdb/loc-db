@@ -13,30 +13,32 @@ describe('scripts', function() {
             done();
         });
 
-        describe.only('parseFile', function(){
-            it('should return result the content of a JS File', function(done) {
+        describe.only('convertFile', function(){
+            it('should return OC data as n quads', function(done) {
                 // this.timeout(1000000000);
-                OCExporter.parseFile('./test/api/data/bibliographicResources516.json', function(err, brs) {
-                    console.log(brs)
-                    done();
+                OCExporter.clear();
+                OCExporter.convertFile('./test/api/data/bibliographicResources516.json', function(err) {
+                    if (!err) {
+                        OCExporter.getNQUADS(function(err, nquads){
+                            console.log(nquads);
+                            done();
+                        });
+                    }
                 });
             });
         });
-        describe('writeJSON', function(){
+        describe.only('writeJSON', function(){
             it('should write JSON to console', function(done) {
+                OCExporter.clear();
                 OCExporter.addTriple("http://example.org/1", "datacite:Identifier", "http://identifier");
                 OCExporter.addTriple("http://example.org/1", "dcterms:title", "Hallo");
                 OCExporter.addTriple("http://identifier", "literal:hasLiteralValue", "id123");
                 // this.writer.addQuad(N3.DataFactory.namedNode("http://example.org/1"), N3.DataFactory.namedNode(this.expand("datacite:identifier")), N3.DataFactory.literal("123"))
-                OCExporter.writer.end(function(err,res){
-                    console.log("Triples: " + res)
-                    OCExporter.getJSONLD(res, function(err, doc){
+                OCExporter.getJSONLD(function(err, doc){
                         doc.should.have.property("@graph");
                         doc["@graph"][0].should.have.property("title", "Hallo");
                         done();
                     });
-
-                });
             });
         });
     });

@@ -27,7 +27,7 @@ OCExporter.prototype.addTriple = function(subject, predicate, object) {
     subject = this.expand(subject);
     predicate = this.expand(predicate);
     object = this.expand(object);
-    return this.writer.addQuad(subject, predicate, object);
+    return this.store.addQuad(subject, predicate, object);
 };
 
 OCExporter.prototype.expand = function(qname) {
@@ -78,28 +78,18 @@ const prefixes = {
     "xsd": "http://www.w3.org/2001/XMLSchema#",
     "jl": "http://data.judaicalink.org/ontology/",
     "datacite": "http://purl.org/spar/datacite/",
-    "literal": "http://www.essepuntato.it/2010/06/literalreification/"
+    "literal": "http://www.essepuntato.it/2010/06/literalreification/",
+    "fabio": "http://purl.org/spar/fabio/",
+    "doco": "http://purl.org/spar/doco/"
 };
 
 
-OCExporter.prototype.writer = new N3.Writer({prefixes: prefixes, format: 'N-Quads'});
-
+OCExporter.prototype.store = new N3.Store({prefixes: prefixes});
 
 
 
 OCExporter.prototype.result = {};
 
-
-OCExporter.prototype.getJSONLD = function(nquads, callback) {
-
-    jsonld.fromRDF(nquads, {format: 'application/n-quads'}, function(err, doc) {
-           jsonld.compact(doc, require("./context.json"), function(err, doc) {
-               doc["@context"] = "https://w3id.org/oc/corpus/context.json";
-               callback(null, doc);
-           });
-        });
-
-}
 
 OCExporter.prototype.typeUri = function(type) {
     for (var key in enums.resourceType) {
@@ -107,12 +97,14 @@ OCExporter.prototype.typeUri = function(type) {
             return enums.ocType[key];
         }
     }
-}
+};
 
-OCExporter.prototype.parseFile = function(path, callback) {
+OCExporter.prototype.clear = function() {
+    this.store = new N3.Store({prefixes: prefixes});
+};
+
+OCExporter.prototype.convertFile = function(path, callback) {
     var brs = JSON.parse(fs.readFileSync(path));
-    console.log(brs.length);
-
     var count = 0;
     for (var br of brs) {
         count++;
@@ -120,20 +112,33 @@ OCExporter.prototype.parseFile = function(path, callback) {
         var subj = "https://w3id.org/oc/corpus/br/0130-" + br._id;
         this.addTriple(subj, a, this.typeUri(br.type))
         this.addTriple(subj, "dcterms:title", br.getTitleForType(br.type))
+        this.addTriple(subj, "dcterms:title", br.getTitleForType(br.type))
         if (count > 10) {
             break;
         }
     }
-    this.writer.end(function(err,res){
-        console.log("Triples: " + res)
-        this.getJSONLD(res, function(err, doc){
-            callback(null, doc);
-        });
-
-    });
-
+    callback(null);
 };
 
+OCExporter.prototype.getNQUADS = function(callback) {
+    var writer = new N3.Writer({prefixes: prefixes, format: "N-Quads"});
+    writer.addQuads(this.store.getQuads());
+    writer.end(function(err,res){
+        callback(null, res);
+
+    });
+};
+
+OCExporter.prototype.getJSONLD = function(callback) {
+    this.getNQUADS(function(err,nquads){
+        jsonld.fromRDF(nquads, {format: 'application/n-quads'}, function(err, doc) {
+            jsonld.compact(doc, require("./context.json"), function(err, doc) {
+                doc["@context"] = "https://w3id.org/oc/corpus/context.json";
+                callback(null, doc);
+            });
+        });
+    });
+};
 
 
 

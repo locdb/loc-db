@@ -4,7 +4,7 @@ var config = {
     LOG_LEVEL: (process.env.LOG_LEVEL || "error"),
     LOG_FILE: (process.env.LOG_FILE || "combined.log"),
     HOST: (process.env.LOCDB_HOST || "localhost"),
-    PORT: (process.env.LOCDB_PORT || 8080),
+    PORT: (process.env.LOCDB_PORT || 80),
     BASEPATH: (process.env.LOCDB_BASEPATH || "/"),
     DB: {
         HOST: (process.env.LOCDB_DB_HOST || "localhost"),
