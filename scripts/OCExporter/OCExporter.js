@@ -109,10 +109,30 @@ OCExporter.prototype.convertFile = function(path, callback) {
     for (var br of brs) {
         count++;
         br = new BibliographicResource(br);
+        console.log(JSON.stringify(br))
         var subj = "https://w3id.org/oc/corpus/br/0130-" + br._id;
         this.addTriple(subj, a, this.typeUri(br.type))
         this.addTriple(subj, "dcterms:title", br.getTitleForType(br.type))
         this.addTriple(subj, "dcterms:title", br.getTitleForType(br.type))
+        var prev = null;
+        for (var contr of br.getContributorsForType(br.type)) {
+            console.log("Hi " + JSON.stringify(contr));
+            var role = contr._id + "_role";
+            var agent = contr._id + "_agent";
+            var roleType = "http://purl.org/spar/pro/" + contr.roleType.toLowerCase();
+            this.addTriple(subj, "pro:isDocumentContextFor", role);
+            this.addTriple(role, "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "http://purl.org/spar/pro/RoleInTime");
+            this.addTriple(role, "http://www.w3.org/2000/01/rdf-schema#label", "Agent role for: " + contr._id);
+            this.addTriple(role, "http://purl.org/spar/pro/isHeldBy", agent);
+            this.addTriple(agent, "http://purl.org/spar/pro/withRole", roleType);
+            this.addTriple(agent, "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "http://xmlns.com/foaf/0.1/Agent");
+            this.addTriple(agent, "http://xmlns.com/foaf/0.1/givenName", contr.heldBy.givenName);
+            this.addTriple(agent, "http://xmlns.com/foaf/0.1/familyName", contr.heldBy.familyName);
+            if (prev != null) {
+                this.addTriple(prev, "https://w3id.org/oc/ontology/hasNext", role);
+                prev = role;
+            }
+        }
         if (count > 10) {
             break;
         }
