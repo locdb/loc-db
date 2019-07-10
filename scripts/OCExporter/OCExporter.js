@@ -5,6 +5,9 @@ const pth = require('path');
 const async = require('async');
 const fh = require('../../api/helpers/fileHelper.js').createFileHelper();
 const BibliographicResource = require("./../../api/schema/bibliographicResource");
+const BibliographicEntry = require("./../../api/schema/bibliographicEntry");
+const ResourceEmbodiment = require("./../../api/schema/resourceEmbodiment");
+const Identifier = require("./../../api/schema/identifier");
 const enums = require("../../api/schema/enum.json");
 
 const N3 = require('n3');
@@ -21,7 +24,7 @@ var OCExporter = function(){
 
 OCExporter.prototype.addTriple = function(subject, predicate, object) {
     if (!object) {
-        console.log("No value for " + subject + " / " + predicate);
+        // console.log("No value for " + subject + " / " + predicate);
         return;
     }
     subject = this.expand(subject);
@@ -34,6 +37,10 @@ OCExporter.prototype.expand = function(qname) {
     var uri;
     uri = qname;
     try {
+        // console.log(typeof(qname));
+        if (typeof(qname) == "object") {
+            return N3.DataFactory.literal("" + qname);
+        }
         var parts = qname.split(":");
         if (prefixes.hasOwnProperty(parts[0])) {
             uri = prefixes[parts[0]] + parts[1];
@@ -103,26 +110,81 @@ OCExporter.prototype.clear = function() {
     this.store = new N3.Store({prefixes: prefixes});
 };
 
+OCExporter.prototype.addIdentifiers = function(subject, identifiers) {
+    var idnum = 1;
+    for (var ident of identifiers){
+        ident = new Identifier(ident);
+        var ident_id = subject + "_id_" + idnum;
+        idnum += 1;
+        this.addTriple(subject, "http://purl.org/spar/datacite/hasIdentifier", ident_id);
+        this.addTriple(ident_id, "http://www.essepuntato.it/2010/06/literalreification/hasLiteralValue", ident.literalValue);
+        this.addTriple(ident_id, "http://purl.org/spar/datacite/usesIdentifierScheme", ident.scheme);
+    }
+
+}
+
 OCExporter.prototype.convertFile = function(path, callback) {
     var brs = JSON.parse(fs.readFileSync(path));
     var count = 0;
     for (var br of brs) {
         count++;
         br = new BibliographicResource(br);
-        console.log(JSON.stringify(br))
+        // console.log(JSON.stringify(br))
         var subj = "https://w3id.org/oc/corpus/br/0130-" + br._id;
-        this.addTriple(subj, a, this.typeUri(br.type))
-        this.addTriple(subj, "dcterms:title", br.getTitleForType(br.type))
-        this.addTriple(subj, "dcterms:title", br.getTitleForType(br.type))
+        this.addTriple(subj, a, this.typeUri(br.type));
+        this.addTriple(subj, "dcterms:title", br.getTitleForType(br.type));
+        this.addTriple(subj, "http://purl.org/spar/fabio/hasSubtitle", br.getSubtitleForType(br.type));
+        this.addTriple(subj, "http://prismstandard.org/namespaces/basic/2.0/edition", br.getEditionForType(br.type));
+        this.addTriple(subj, "http://purl.org/spar/fabio/hasSequenceIdentifier", br.getNumberForType(br.type));
+        this.addTriple(subj, "http://prismstandard.org/namespaces/basic/2.0/publicationDate", br.getPublicationDateForType(br.type));
+        this.addTriple(subj, "http://www.w3.org/ns/prov#hadPrimarySource", br.source);
+        if (br.partOf) {
+            this.addTriple(subj, "http://purl.org/vocab/frbr/core#partOf", "https://w3id.org/oc/corpus/br/0130-" +br.partOf._id);
+        }
+
+
+        var emb_no = 1;
+        for (var embod of br.getResourceEmbodimentsForType(br.type)) {
+            embod = new ResourceEmbodiment(embod);
+            var embid = subj + "_embodiment_" + emb_no;
+            emb_no += 1;
+            this.addTriple(subj, "http://purl.org/vocab/frbr/core#embodiment", embid);
+            this.addTriple(embid, a, "fabio:Manifestation");
+            this.addTriple(embid, "http://prismstandard.org/namespaces/basic/2.0/startingPage", embod.firstPage);
+            this.addTriple(embid, "http://prismstandard.org/namespaces/basic/2.0/endingPage", embod.lastPage);
+            this.addTriple(embid, "http://purl.org/dc/terms/format", embod.format);
+            this.addTriple(embid, "http://www.w3.org/ns/dcat#landingPage", embod.url);
+
+        }
+
+        this.addIdentifiers(subj, br.getIdentifiersForType(br.type));
+
+        for (var citation of br.cites) {
+            this.addTriple(subj, "http://purl.org/spar/cito/cites", "https://w3id.org/oc/corpus/br/0130-" + citation._id);
+        }
+
+        for (var part of br.parts){
+            part = new BibliographicEntry(part);
+            var partid = part._id + "_entry";
+            this.addTriple(subj, "http://purl.org/vocab/frbr/core#part", partid);
+            this.addTriple(partid, "http://purl.org/spar/c4o/hasContent", part.bibliographicEntryText);
+            this.addTriple(partid, "http://purl.org/spar/biro/references", part.references);
+            this.addIdentifiers(partid, part.identifiers);
+
+        }
+
+
         var prev = null;
+        var contr_nr = 1;
         for (var contr of br.getContributorsForType(br.type)) {
-            console.log("Hi " + JSON.stringify(contr));
-            var role = contr._id + "_role";
-            var agent = contr._id + "_agent";
+            var contr_id = subj + "_contributor_" + contr_nr;
+            contr_nr += 1;
+            var role = contr_id + "_role";
+            var agent = contr_id + "_agent";
             var roleType = "http://purl.org/spar/pro/" + contr.roleType.toLowerCase();
             this.addTriple(subj, "pro:isDocumentContextFor", role);
             this.addTriple(role, "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "http://purl.org/spar/pro/RoleInTime");
-            this.addTriple(role, "http://www.w3.org/2000/01/rdf-schema#label", "Agent role for: " + contr._id);
+            this.addTriple(role, "http://www.w3.org/2000/01/rdf-schema#label", "Agent role for: " + contr_id);
             this.addTriple(role, "http://purl.org/spar/pro/isHeldBy", agent);
             this.addTriple(agent, "http://purl.org/spar/pro/withRole", roleType);
             this.addTriple(agent, "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "http://xmlns.com/foaf/0.1/Agent");
@@ -132,9 +194,6 @@ OCExporter.prototype.convertFile = function(path, callback) {
                 this.addTriple(prev, "https://w3id.org/oc/ontology/hasNext", role);
                 prev = role;
             }
-        }
-        if (count > 10) {
-            break;
         }
     }
     callback(null);
