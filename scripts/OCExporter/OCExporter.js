@@ -35,9 +35,12 @@ OCExporter.prototype.addTriple = function(subject, predicate, object) {
 
 OCExporter.prototype.expand = function(qname) {
     var uri;
+    if(typeof qname == 'number'){
+        qname = qname.toString();
+    }
     uri = qname;
     try {
-        // console.log(typeof(qname));
+        //console.log(typeof(qname));
         if (typeof(qname) == "object") {
             return N3.DataFactory.literal("" + qname);
         }
@@ -47,6 +50,7 @@ OCExporter.prototype.expand = function(qname) {
         }
         // uri = N3Util.expandQName(uri, this.prefixes);
     } catch (_error) {
+        console.log(qname)
         throw(_error);
     }
     if (uri.indexOf(":") == -1) {
@@ -176,23 +180,25 @@ OCExporter.prototype.convertFile = function(path, callback) {
 
         var prev = null;
         var contr_nr = 1;
-        for (var contr of br.getContributorsForType(br.type)) {
-            var contr_id = subj + "_contributor_" + contr_nr;
-            contr_nr += 1;
-            var role = contr_id + "_role";
-            var agent = contr_id + "_agent";
-            var roleType = "http://purl.org/spar/pro/" + contr.roleType.toLowerCase();
-            this.addTriple(subj, "pro:isDocumentContextFor", role);
-            this.addTriple(role, "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "http://purl.org/spar/pro/RoleInTime");
-            this.addTriple(role, "http://www.w3.org/2000/01/rdf-schema#label", "Agent role for: " + contr_id);
-            this.addTriple(role, "http://purl.org/spar/pro/isHeldBy", agent);
-            this.addTriple(agent, "http://purl.org/spar/pro/withRole", roleType);
-            this.addTriple(agent, "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "http://xmlns.com/foaf/0.1/Agent");
-            this.addTriple(agent, "http://xmlns.com/foaf/0.1/givenName", contr.heldBy.givenName);
-            this.addTriple(agent, "http://xmlns.com/foaf/0.1/familyName", contr.heldBy.familyName);
-            if (prev != null) {
-                this.addTriple(prev, "https://w3id.org/oc/ontology/hasNext", role);
-                prev = role;
+        if(br.getContributorsForType(br.Type)){
+            for (var contr of br.getContributorsForType(br.type)) {
+                var contr_id = subj + "_contributor_" + contr_nr;
+                contr_nr += 1;
+                var role = contr_id + "_role";
+                var agent = contr_id + "_agent";
+                var roleType = "http://purl.org/spar/pro/" + contr.roleType.toLowerCase();
+                this.addTriple(subj, "pro:isDocumentContextFor", role);
+                this.addTriple(role, "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "http://purl.org/spar/pro/RoleInTime");
+                this.addTriple(role, "http://www.w3.org/2000/01/rdf-schema#label", "Agent role for: " + contr_id);
+                this.addTriple(role, "http://purl.org/spar/pro/isHeldBy", agent);
+                this.addTriple(agent, "http://purl.org/spar/pro/withRole", roleType);
+                this.addTriple(agent, "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "http://xmlns.com/foaf/0.1/Agent");
+                this.addTriple(agent, "http://xmlns.com/foaf/0.1/givenName", contr.heldBy.givenName);
+                this.addTriple(agent, "http://xmlns.com/foaf/0.1/familyName", contr.heldBy.familyName);
+                if (prev != null) {
+                    this.addTriple(prev, "https://w3id.org/oc/ontology/hasNext", role);
+                    prev = role;
+                }
             }
         }
     }
