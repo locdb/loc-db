@@ -10,6 +10,8 @@ const BibliographicResourceOld = require('./oldSchema/bibliographicResource.js')
 const fs = require('fs');
 const enums = require('./../../api/schema/enum.json');
 
+const assert = require('assert');
+
 const mongoose = require('mongoose');
 
 // TODO: Check on everything related to journal issues again
@@ -643,15 +645,18 @@ function convertAufsatzsammlung() {
 function typeAnalysis(path){
     var data_old = require(path);
     var groups = groupBy(data_old, "type");
-    console.log(groups.length);
     var overview = []
     for(var group of groups){
+        console.log(group[0].type)
         overview.push([group[0], group[1], group[4]]);
         var group_string = JSON.stringify(group, null, 2);
-        fs.writeFileSync("./scripts/converter/analysis/ty_" + group[0].type + ".txt", group_string);
+        if(group[0].type == "JOURNAL" || group[0].type == "MONOGRAPH"){
+            fs.writeFileSync("./scripts/converter/analysis_finding_missing/ty_missing_" + group[0].type + ".txt", group_string);
+        }
+        fs.writeFileSync("./scripts/converter/analysis_finding_missing/ty_" + group[0].type + ".txt", group_string);
     }
     overview = JSON.stringify(overview, null, 2);
-    fs.writeFileSync("./scripts/converter/analysis/overview.txt", overview);
+    fs.writeFileSync("./scripts/converter/analysis_finding_missing/overview_2.txt", overview);
 
 }
 
@@ -1815,6 +1820,422 @@ function convertNothing(){
 }
 
 
+function convertJOURNAL(){
+    // total 315
+    // grouping by containerTitle gives 137 groups, in the first group we have only one with partOf filled and 4 are journals
+    // grouping by partOf gives 5 groups --> 249 without partOf, 2 singletons, 9 linked to acta sociologica and 55 american behavioral scientist
+
+    var articles = JSON.parse(fs.readFileSync('./scripts/converter/analysis_finding_missing/ty_missing_JOURNAL.txt'));
+    var groups = groupBy(articles, "containerTitle");
+    var groupsPartOf = groupBy(articles, "partOf");
+
+    var leftovers = [];
+
+    var journals = [];
+    var journalArticles = [];
+
+    for(var br of articles) {
+        if (!br.partOf && !br.containerTitle && !br.number) {
+            /**
+             * here the actual journals
+             */
+            var journal = new BibliographicResource({
+                journal_identifiers: br.identifiers,
+                journal_title: br.title,
+                _id: br._id,
+                status: br.status, // Eventually we need to map this somehow
+                parts: br.parts,
+                type: enums.resourceType.journal,
+                cites: br.cites,
+                partOf: br.partOf,
+            });
+            journals.push([journal])
+        } else if (br.containerTitle && !br.partOf) {
+            /**
+             * here unlinked journalArticles
+             */
+            var childType = enums.resourceType.journalArticle;
+            var parentType = enums.resourceType.journalIssue;
+
+            var volume = br.number.split("(")[0];
+            var issue = br.number.split("(")[1] ? br.number.split("(")[1].split(")")[0] : "";
+            var firstPage = br.number.split("pp. ")[1] ? br.number.split("pp. ")[1].split("-")[0] : "";
+            var lastPage = br.number.split("pp. ")[1] ? br.number.split("pp. ")[1].split("-")[1] : "";
+
+            if(br.number.split("Autumn")[1] && firstPage == "" && lastPage == ""){
+                volume = br.number.split("),")[1].split(" (")[0] ? br.number.split("),")[1].split(" (")[0] : "";
+                issue = br.number.split(") ")[1].split(", ")[0] ? br.number.split(") ")[1].split(", ")[0] : "";
+                firstPage = br.number.split("S. ")[1] ? br.number.split("S. ")[1].split("-")[0] : "";
+                lastPage = br.number.split("S. ")[1] ? br.number.split("S. ")[1].split("-")[1] : "";
+            }
+
+            var status = br.status;
+
+            var child = new BibliographicResource({
+                _id: br._id,
+                status: status, // Eventually we need to map this somehow
+                parts: br.parts,
+                type: childType,
+                cites: br.cites,
+                partOf: br.partOf
+            });
+
+            child.setTitleForType(childType, br.title);
+            child.setSubtitleForType(childType, br.subtitle);
+            child.setEditionForType(childType, br.edition);
+            child.setContributorsForType(childType, br.contributors);
+            child.setPublicationDateForType(childType, br.publicationYear);
+
+            if(firstPage != "" && lastPage != ""){
+                child.setResourceEmbodimentsForType(childType, [new ResourceEmbodiment({
+                    firstPage: firstPage,
+                    lastPage: lastPage
+                })]);
+            }else{
+                child.setResourceEmbodimentsForType(childType, [new ResourceEmbodiment(br.embodiedAs[0])]);
+            }
+
+            var parent = new BibliographicResource({type: parentType, status: status});
+            parent.setTitleForType(enums.resourceType.journal, br.containerTitle);
+
+            parent.journalIssue_number = issue;
+            parent.journalVolume_number = volume;
+
+            // now we split the identifiers according to the hierarchy
+            var parentIdentifiers = [];
+            var childIdentifiers = [];
+
+            for (var identifier of br.identifiers) {
+                // if there exists a series identifier, than the series should be the parent independent
+                // of the resource type
+                if (identifier.scheme == enums.identifier.issn) {
+                    parentIdentifiers.push(identifier);
+                    // if there exists a zdb identifier, than it should be the parent identifier
+                } else if (identifier.scheme == enums.identifier.zdbId) {
+                    parentIdentifiers.push(identifier);
+                } else if (identifier.scheme == enums.identifier.swbPpn || identifier.scheme == "PPN") {
+                    identifier.scheme = enums.identifier.swbPpn;
+                    parentIdentifiers.push(identifier);
+                } else if (identifier.scheme == enums.identifier.isbn) {
+                    parentIdentifiers.push(identifier);
+                } else {
+                    // everything else should belong to the child
+                    childIdentifiers.push(identifier);
+                }
+            }
+            child.setIdentifiersForType(childType, childIdentifiers);
+            parent.setIdentifiersForType(parentType, parentIdentifiers);
+
+            parent._id = mongoose.Types.ObjectId().toString();
+            child.partOf = parent._id;
+            journalArticles.push([child, parent]);
+        }else if (!br.partOf && !br.containerTitle && br.number) {
+            /**
+             * article is not linked and has no container title, but a number
+             * 3 resources, which just should be transformed to parent + child
+             */
+
+            childType = enums.resourceType.journalArticle;
+            parentType = enums.resourceType.journalIssue;
+
+            volume = br.number.split('(')[0] ? br.number.split('(')[0] : "";
+            if(br.number.indexOf('S.')>-1){
+                year = br.number.split('(')[1] && br.number.split('(')[1].split(')')[0] ? br.number.split('(')[1].split(')')[0] : "";
+                issue = br.number.split('(')[1] && br.number.split('(')[1].split('), ')[1].split(',')[0] ? br.number.split('(')[1].split('), ')[1].split(',')[0] : "";
+                firstPage = br.number.split('(')[1] && br.number.split('S. ')[1].split('-')[0] ? br.number.split('S. ')[1].split('-')[0] : "";
+                lastPage = br.number.split('(')[1] && br.number.split('S. ')[1].split('-')[1] ? br.number.split('S. ')[1].split('-')[1] : "";
+            }else{
+                issue = br.number.split('(')[1] ?  br.number.split('(')[1].split(')')[0] : "";
+            }
+
+            status = br.status;
+
+            child = new BibliographicResource({
+                _id: br._id,
+                status: status, // Eventually we need to map this somehow
+                parts: br.parts,
+                type: childType,
+                cites: br.cites,
+                partOf: br.partOf
+            });
+
+            child.setTitleForType(childType, br.title);
+            child.setSubtitleForType(childType, br.subtitle);
+            child.setEditionForType(childType, br.edition);
+            child.setContributorsForType(childType, br.contributors);
+            child.setPublicationDateForType(childType, br.publicationYear);
+            if(firstPage != "" && lastPage != ""){
+                child.setResourceEmbodimentsForType(childType, [new ResourceEmbodiment({
+                    firstPage: firstPage,
+                    lastPage: lastPage
+                })]);
+            }else{
+                child.setResourceEmbodimentsForType(childType, [new ResourceEmbodiment(br.embodiedAs[0])]);
+            }
+            parent = new BibliographicResource({type: parentType, status: status});
+            parent.setTitleForType(enums.resourceType.journal, br.containerTitle);
+            parent.journalIssue_number = issue;
+            parent.journalVolume_number = volume;
+
+            // now we split the identifiers according to the hierarchy
+            parentIdentifiers = [];
+            childIdentifiers = [];
+
+            for (identifier of br.identifiers) {
+                // if there exists a series identifier, than the series should be the parent independent
+                // of the resource type
+                if (identifier.scheme == enums.identifier.issn) {
+                    parentIdentifiers.push(identifier);
+                    // if there exists a zdb identifier, than it should be the parent identifier
+                } else if (identifier.scheme == enums.identifier.zdbId) {
+                    parentIdentifiers.push(identifier);
+                } else if (identifier.scheme == enums.identifier.swbPpn || identifier.scheme == "PPN") {
+                    identifier.scheme = enums.identifier.swbPpn;
+                    parentIdentifiers.push(identifier);
+                } else if (identifier.scheme == enums.identifier.isbn) {
+                    parentIdentifiers.push(identifier);
+                } else {
+                    // everything else should belong to the child
+                    childIdentifiers.push(identifier);
+                }
+            }
+            child.setIdentifiersForType(childType, childIdentifiers);
+            parent.setIdentifiersForType(parentType, parentIdentifiers);
+
+            parent._id = mongoose.Types.ObjectId().toString();
+            child.partOf = parent._id;
+
+            journalArticles.push([child, parent]);
+            //leftovers.push([child, parent]);
+        }else if((br.containerTitle && br.partOf) || (!br.containerTitle && br.partOf)){
+            /**
+             * article is linked and has container title
+             * or article is linked and has no container title
+             */
+            // Did we forget anything? yes: the ones linked with container title
+            childType = enums.resourceType.journalArticle;
+
+            status = br.status;
+
+            child = new BibliographicResource({
+                _id: br._id,
+                status: status, // Eventually we need to map this somehow
+                parts: br.parts,
+                type: childType,
+                cites: br.cites,
+                partOf: br.partOf
+            });
+
+            child.setTitleForType(childType, br.title);
+            child.setSubtitleForType(childType, br.subtitle);
+            child.setEditionForType(childType, br.edition);
+            //child.setNumberForType(type, this.number);
+
+            child.setContributorsForType(childType, br.contributors);
+            child.setPublicationDateForType(childType, br.publicationYear);
+
+
+            child.setResourceEmbodimentsForType(childType, [new ResourceEmbodiment(br.embodiedAs[0])]);
+
+            if(br.number){
+                // no resource has any issue or volume information
+                volume = br.number.split("Vol. ")[1].split(",")[0];
+                issue = br.number.split("Vol. ")[1].split(",")[1].split("No. ")[1].split(" (")[0];
+                var year = br.number.split("Vol. ")[1].split(",")[1].split("No. ")[1].split(" (")[1].split(")")[0];
+                firstPage = br.number.split("Vol. ")[1].split(",")[2].split(" p. ")[1].split("-")[0];
+                lastPage = br.number.split("Vol. ")[1].split(",")[2].split(" p. ")[1].split("-")[1];
+
+                parentType = enums.resourceType.journalIssue;
+                parent = new BibliographicResource({type: parentType, status: status});
+                parent.setTitleForType(enums.resourceType.journal, br.containerTitle);
+
+                parent.journalIssue_number = issue;
+                parent.journalVolume_number = volume;
+
+                // now we split the identifiers according to the hierarchy
+                parentIdentifiers = [];
+                childIdentifiers = [];
+
+                for (var identifier of br.identifiers) {
+                    // if there exists a series identifier, than the series should be the parent independent
+                    // of the resource type
+                    if (identifier.scheme == enums.identifier.issn) {
+                        parentIdentifiers.push(identifier);
+                        // if there exists a zdb identifier, than it should be the parent identifier
+                    } else if (identifier.scheme == enums.identifier.zdbId) {
+                        parentIdentifiers.push(identifier);
+                    } else if (identifier.scheme == enums.identifier.swbPpn || identifier.scheme == "PPN") {
+                        identifier.scheme = enums.identifier.swbPpn;
+                        parentIdentifiers.push(identifier);
+                    } else if (identifier.scheme == enums.identifier.isbn) {
+                        parentIdentifiers.push(identifier);
+                    } else {
+                        // everything else should belong to the child
+                        childIdentifiers.push(identifier);
+                    }
+                }
+                parentType = enums.resourceType.journalIssue;
+                child.setIdentifiersForType(childType, childIdentifiers);
+                parent.setIdentifiersForType(parentType, parentIdentifiers);
+
+                parent._id = mongoose.Types.ObjectId().toString();
+                child.setPublicationDateForType(childType, year);
+                child.partOf = parent._id;
+                journalArticles.push([child, parent]);
+            }else{
+                child.setIdentifiersForType(childType, br.identifiers);
+                child.partOf = br.partOf;
+                journalArticles.push([child]);
+            }
+        }else{
+            // did we forget anything?
+            // NO :)
+            leftovers.push(br)
+        }
+    }
+
+    assert(leftovers.length == 0)
+
+    // Now we need to remove the duplicates
+    groups = groupBy(journalArticles.flatten(), "journal_title");
+
+    var articles_cleaned = [];
+    var duplicate_group = [];
+    for(var g of groups){
+        console.log(g[0].journal_title);
+        var volumeGroups = groupBy(g, "journalVolume_number");
+        for(var vg of volumeGroups){
+            var issueGroups = groupBy(vg, "journalIssue_number");
+            for(var ig of issueGroups){
+                // TODO: If it is of type journal and the identifiers are the same, then anyways we want to remove the duplicates
+                if(ig[0].journal_title && ig[0].type == enums.resourceType.journalIssue && ig.length > 1){
+                    // here we have our duplicates
+                    var corruptIdentifiers = [];
+                    for(var br of ig){
+                        corruptIdentifiers.push(br._id);
+                    }
+                    duplicate_group.push(corruptIdentifiers);
+                }
+            }
+        }
+
+    }
+    // select one of them, set all partOfs to that and delete the other two
+    for(var br of journalArticles.flatten()){
+        for(var corruptIdentifiers of duplicate_group){
+            if(br.partOf && corruptIdentifiers.indexOf(br.partOf)> -1 && br.partOf != corruptIdentifiers[0]){
+                br.partOf = corruptIdentifiers[0];
+                break;
+            }
+
+        }
+    }
+    for(var br of journalArticles.flatten()){
+        for(var corruptIdentifiers of duplicate_group){
+            var is_duplicate = false;
+            if(br._id != corruptIdentifiers[0] && corruptIdentifiers.indexOf(br._id)> -1){
+                is_duplicate = true;
+                break;
+            }
+        }
+        if(!is_duplicate){
+            articles_cleaned.push(br);
+        }
+    }
+
+    console.log(articles_cleaned.flatten().length);
+    articles_cleaned = JSON.stringify(articles_cleaned, null, 2);
+    fs.writeFileSync("./scripts/converter/analysis_finding_missing/ty_missing_JOURNAL_NEU.txt", articles_cleaned);
+}
+
+function convertMONOGRAPH(){
+    var monographs = JSON.parse(fs.readFileSync('./scripts/converter/analysis_finding_missing/ty_missing_MONOGRAPH.txt'));
+    // type is 'Monograph' for each of them
+    // grouping by container title shows that most of them have none: only one monograph in the last group is problematic regarding that
+    // partOf does not cause any trouble here
+    var groups = groupBy(monographs, "containerTitle");
+    var groupsPartOf = groupBy(monographs, "partOf");
+    var monographs_neu = [];
+
+    groups[0] = groups[0].concat(groups[1]);
+    for(var br of groups[0]){
+        var type = enums.resourceType.monograph;
+        var status = br.status;
+
+        var child = new BibliographicResource({
+            _id: br._id,
+            status: status, // Eventually we need to map this somehow
+            parts: br.parts,
+            type: type,
+            cites: br.cites
+        });
+
+        child.setTitleForType(type, br.title);
+        child.setSubtitleForType(type, br.subtitle);
+        child.setEditionForType(type, br.edition);
+        child.setContributorsForType(type, br.contributors);
+        child.setPublicationDateForType(type, br.publicationYear);
+        child.setIdentifiersForType(type, br.identifiers);
+
+        monographs_neu.push([child]);
+    }
+
+    // this is a book chapter in an edited book
+    for(var br of groups[2]){
+        var childType = enums.resourceType.bookChapter;
+        var parentType = enums.resourceType.editedBook;
+        var firstPage = 13;
+        var lastPage = 31;
+        var year = 2006;
+        var status = br.status;
+
+        var child = new BibliographicResource({
+            _id: br._id,
+            status: status, // Eventually we need to map this somehow
+            parts: br.parts,
+            type: childType,
+            cites: br.cites
+        });
+
+        child.setTitleForType(childType, br.title);
+        child.setSubtitleForType(childType, br.subtitle);
+        child.setEditionForType(childType, br.edition);
+        child.setContributorsForType(childType, br.contributors);
+        child.setPublicationDateForType(childType, year);
+
+        var parent = new BibliographicResource({type: parentType, status: status});
+
+        parent.setTitleForType(parentType, br.containerTitle);
+        child.setResourceEmbodimentsForType(childType, [new ResourceEmbodiment({firstPage: firstPage, lastPage: lastPage})]);
+
+
+        var parentIdentifiers = [];
+        var childIdentifiers = [];
+        for (var identifier of br.identifiers) {
+            if (identifier.scheme == enums.identifier.swbPpn) {
+                parentIdentifiers.push(identifier);
+            }
+            else{
+                childIdentifiers.push(identifier);
+            }
+        }
+
+        child.setIdentifiersForType(childType, childIdentifiers);
+        parent.setIdentifiersForType(parentType, parentIdentifiers);
+        parent._id = mongoose.Types.ObjectId().toString();
+        child.partOf = parent._id;
+        monographs_neu.push([child, parent]);
+    }
+
+
+    console.log(monographs_neu.flatten().length);
+    monographs_neu = JSON.stringify(monographs_neu, null, 2);
+    fs.writeFileSync("./scripts/converter/analysis_finding_missing/ty_missing_MONOGRAPH_NEU.txt", monographs_neu);
+}
+
+
+
+
 function convert(){
     convertCOLLECTION();
     convertAufsatzsammlung();
@@ -1902,7 +2323,8 @@ function analyzeResult(){
     fs.writeFileSync("./scripts/converter/analysis/all_NEU.txt", all);
 }
 
-analyzeResult()
+//analyzeResult()
+
 //convert();
 //typeAnalysis('./bibliographicResources.json');
 //convertCOLLECTION();
@@ -1919,5 +2341,7 @@ analyzeResult()
 //convertUndefined()
 //convertNothing()
 //convert('./bibliographicResources.json');
+//convertJOURNAL();
+convertMONOGRAPH();
 
 
