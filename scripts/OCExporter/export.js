@@ -14,7 +14,7 @@ function convert(inputFile, outputFile){
     OCExporter.clear();
     OCExporter.convertFile(inputFile, function(err) {
         if (!err) {
-            OCExporter.getNQUADS(function(err, nquads){
+            OCExporter.getJSONLD(function(err, nquads){
                 fs.writeFile(outputFile, nquads, function(err) {
                     if (err) {
                         console.log(err);
