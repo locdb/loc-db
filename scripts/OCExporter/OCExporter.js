@@ -127,11 +127,12 @@ OCExporter.prototype.addIdentifiers = function(subject, identifiers) {
 
 }
 
-OCExporter.prototype.convertFile = function(path, callback) {
+OCExporter.prototype.convertFile = function(path, maximum, callback) {
     var brs = JSON.parse(fs.readFileSync(path));
     var count = 0;
     for (var br of brs) {
         count++;
+        if (maximum && count > maximum) break;
         br = new BibliographicResource(br);
         // console.log(JSON.stringify(br))
         var subj = "https://w3id.org/oc/corpus/br/0130-" + br._id;
@@ -210,16 +211,15 @@ OCExporter.prototype.getNQUADS = function(callback) {
     writer.addQuads(this.store.getQuads());
     writer.end(function(err,res){
         callback(null, res);
-
     });
 };
 
 OCExporter.prototype.getJSONLD = function(callback) {
-    this.getNQUADS(function(err,nquads){
-        jsonld.fromRDF(nquads, {format: 'application/n-quads'}, function(err, doc) {
-            jsonld.compact(doc, require("./context.json"), function(err, doc) {
-                doc["@context"] = "https://w3id.org/oc/corpus/context.json";
-                callback(null, doc);
+    this.getNQUADS(function(err, nquads) {
+        jsonld.fromRDF(nquads, {format: 'application/n-quads'}, function(err, jsonDoc) {
+            jsonld.compact(jsonDoc, require("./context.json"), function(err, jsonCompactDoc) {
+                jsonCompactDoc["@context"] = "https://w3id.org/oc/corpus/context.json";
+                callback(null, jsonCompactDoc);
             });
         });
     });

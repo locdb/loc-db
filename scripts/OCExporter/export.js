@@ -5,23 +5,24 @@ const program = require('commander');
 
 program.option('-i, --input_file <f>', 'Input file');
 program.option('-o, --output_file <o>', 'Output file');
+program.option('-m, --maximum <N>', 'Process only first <N> entries');
 program.parse(process.argv);
 
 console.log("Started exporter script ... ");
 
-function convert(inputFile, outputFile){
+function convert(inputFile, outputFile, maximum) {
 
     OCExporter.clear();
-    OCExporter.convertFile(inputFile, function(err) {
+    OCExporter.convertFile(inputFile, maximum, function(err) {
         if (!err) {
-            OCExporter.getJSONLD(function(err, nquads) {
-                fs.writeFile(outputFile, JSON.stringify(nquads, null, 2), function(err) {
+            OCExporter.getJSONLD(function(err, jsonldData) {
+                fs.writeFile(outputFile, JSON.stringify(jsonldData, null, 2), function(err) {
                     if (err) {
                         console.log(err);
-                        console.log("Exiting ... ")
-                        process.exit()
+                        console.log("Exiting ... ");
+                        process.exit();
                     }
-                    console.log("Successfully written oc conversion to file ", outputFile);
+                    console.log("Successfully written oc conversion to file", outputFile);
                     process.exit();
                 });
             });
@@ -69,6 +70,6 @@ function convert(inputFile, outputFile){
     });
 }*/
 
-convert(program.input_file, program.output_file);
+convert(program.input_file, program.output_file, program.maximum);
 
 

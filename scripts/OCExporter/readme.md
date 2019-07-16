@@ -19,6 +19,7 @@ Usage: export [options]
 Options:
   -i, --input_file <f>   Input file
   -o, --output_file <o>  Output file
+  -m, --maximum <N>      Process only first <N> entries
   -h, --help             output usage information
 ```
   
@@ -26,5 +27,8 @@ For example:
 ```
 node export.js -i ~/export/bibliographicResources -o ~/export/bibliographicResourcesOC.jsonld
 ```
- 
+ Or process only the first 5 entries:
+ ```
+ node export.js -i ~/export/bibliographicResources -o ~/export/bibliographicResourcesOC.jsonld -m 5
+ ```
  
