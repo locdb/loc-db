@@ -116,7 +116,7 @@ OCExporter.prototype.clear = function() {
 
 OCExporter.prototype.addIdentifiers = function(subject, identifiers) {
     var idnum = 1;
-    for (var ident of identifiers){
+    for (var ident of identifiers) {
         ident = new Identifier(ident);
         var ident_id = subject + "_id_" + idnum;
         idnum += 1;
@@ -134,7 +134,10 @@ OCExporter.prototype.convertFile = function(path, maximum, callback) {
         count++;
         if (maximum && count > maximum) break;
         br = new BibliographicResource(br);
-        // console.log(JSON.stringify(br))
+        if (!br._id) {
+          console.log("WARNING: No _id found\n", JSON.stringify(br));
+          continue;
+        }
         var subj = "https://w3id.org/oc/corpus/br/0130-" + br._id;
         this.addTriple(subj, a, this.typeUri(br.type));
         this.addTriple(subj, "dcterms:title", br.getTitleForType(br.type));
@@ -144,7 +147,7 @@ OCExporter.prototype.convertFile = function(path, maximum, callback) {
         this.addTriple(subj, "http://prismstandard.org/namespaces/basic/2.0/publicationDate", br.getPublicationDateForType(br.type));
         this.addTriple(subj, "http://www.w3.org/ns/prov#hadPrimarySource", br.source);
         if (br.partOf) {
-            this.addTriple(subj, "http://purl.org/vocab/frbr/core#partOf", "https://w3id.org/oc/corpus/br/0130-" +br.partOf._id);
+            this.addTriple(subj, "http://purl.org/vocab/frbr/core#partOf", "https://w3id.org/oc/corpus/br/0130-" + br.partOf);
         }
 
 
@@ -168,14 +171,15 @@ OCExporter.prototype.convertFile = function(path, maximum, callback) {
             this.addTriple(subj, "http://purl.org/spar/cito/cites", "https://w3id.org/oc/corpus/br/0130-" + citation._id);
         }
 
-        for (var part of br.parts){
+        for (var part of br.parts) {
             part = new BibliographicEntry(part);
-            var partid = part._id + "_entry";
-            this.addTriple(subj, "http://purl.org/vocab/frbr/core#part", partid);
-            this.addTriple(partid, "http://purl.org/spar/c4o/hasContent", part.bibliographicEntryText);
-            this.addTriple(partid, "http://purl.org/spar/biro/references", part.references);
-            this.addIdentifiers(partid, part.identifiers);
-
+            if (part._id) { // TODO handle these cases properly; what are the cases w/o an _id?
+                var partid = part._id + "_entry";
+                this.addTriple(subj, "http://purl.org/vocab/frbr/core#part", partid);
+                this.addTriple(partid, "http://purl.org/spar/c4o/hasContent", part.bibliographicEntryText);
+                this.addTriple(partid, "http://purl.org/spar/biro/references", part.references);
+                this.addIdentifiers(partid, part.identifiers);
+            }
         }
 
 
@@ -209,15 +213,23 @@ OCExporter.prototype.convertFile = function(path, maximum, callback) {
 OCExporter.prototype.getNQUADS = function(callback) {
     var writer = new N3.Writer({prefixes: prefixes, format: "N-Quads"});
     writer.addQuads(this.store.getQuads());
-    writer.end(function(err,res){
+    writer.end(function(err, res) {
+        if (err) console.log("ERROR in getNQUADS-writer\n", err);
         callback(null, res);
     });
 };
 
 OCExporter.prototype.getJSONLD = function(callback) {
     this.getNQUADS(function(err, nquads) {
-        jsonld.fromRDF(nquads, {format: 'application/n-quads'}, function(err, jsonDoc) {
-            jsonld.compact(jsonDoc, require("./context.json"), function(err, jsonCompactDoc) {
+        if (err) console.log("ERROR in getJSONLD-getNQUADS\n", err);
+        // debug messages start
+        var lines = nquads.split("\n");
+        console.log(lines.slice(66782, 66802).join("\n"));
+        // debug messages end
+        jsonld.fromRDF(nquads, {format: 'application/n-quads'}, function(err2, jsonDoc) {
+            if (err2) console.log("ERROR in getJSONLD-getNQUADS-fromRDF\n", err2);
+            jsonld.compact(jsonDoc, require("./context.json"), function(err3, jsonCompactDoc) {
+                if (err3) console.log("ERROR in getJSONLD-getNQUADS-fromRDF-compact\n", err3);
                 jsonCompactDoc["@context"] = "https://w3id.org/oc/corpus/context.json";
                 callback(null, jsonCompactDoc);
             });
