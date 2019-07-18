@@ -35,6 +35,14 @@ OCExporter.prototype.addTriple = function(subject, predicate, object) {
 
 OCExporter.prototype.expand = function(qname) {
     var uri;
+    if (typeof qname.getFullYear === 'function') {
+        // years are entered as dates with fixed month=1 and date=1
+        if (qname.getMonth() == 0 && qname.getDate() == 1) {
+            qname = qname.getFullYear();
+        } else {
+            qname = qname.toISOString().split('T')[0];
+        }
+    }
     if(typeof qname == 'number'){
         qname = qname.toString();
     }
