@@ -61,7 +61,7 @@ OCExporter.prototype.expand = function(qname) {
         console.log(qname)
         throw(_error);
     }
-    if (uri.indexOf(":") == -1) {
+    if (!uri.match(/^https?:/)) {
         return N3.DataFactory.literal(uri);
     }
     return N3.DataFactory.namedNode(uri);
@@ -99,7 +99,8 @@ const prefixes = {
     "datacite": "http://purl.org/spar/datacite/",
     "literal": "http://www.essepuntato.it/2010/06/literalreification/",
     "fabio": "http://purl.org/spar/fabio/",
-    "doco": "http://purl.org/spar/doco/"
+    "doco": "http://purl.org/spar/doco/",
+    "pro": "http://purl.org/spar/pro/"
 };
 
 
