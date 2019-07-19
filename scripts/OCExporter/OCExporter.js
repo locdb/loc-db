@@ -159,6 +159,23 @@ OCExporter.prototype.convertFile = function(path, maximum, callback) {
             this.addTriple(subj, "http://purl.org/vocab/frbr/core#partOf", "https://w3id.org/oc/corpus/br/0130-" + br.partOf);
         }
 
+        if (br.type === "JOURNAL_ISSUE") {
+            var current = subj;
+            if (br.journalVolume_number) {
+                var volume = subj + "_volume";
+                this.addTriple(subj, "http://purl.org/vocab/frbr/core#partOf", volume);
+                this.addTriple(volume, a, "http://purl.org/spar/fabio/JournalVolume");
+                this.addTriple(volume, "http://purl.org/spar/fabio/hasSequenceIdentifier", br.journalVolume_number);
+                current = volume;
+            }
+            if (br.journal_title) {
+                var journal = subj + "_journal";
+                this.addTriple(current, "http://purl.org/vocab/frbr/core#partOf", journal);
+                this.addTriple(journal, a, "http://purl.org/spar/fabio/Journal");
+                this.addTriple(journal, "dcterms:title", br.journal_title);
+            }
+        }
+
 
         var emb_no = 1;
         for (var embod of br.getResourceEmbodimentsForType(br.type)) {
