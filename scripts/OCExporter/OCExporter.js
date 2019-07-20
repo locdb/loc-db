@@ -64,6 +64,10 @@ OCExporter.prototype.expand = function(qname) {
     if (!uri.match(/^https?:/)) {
         return N3.DataFactory.literal(uri);
     }
+    // Because the uri is represented within <...>, it cannot
+    // itself contain these symbols and we have to escape them,
+    // e.g. uri = "http://dx.doi.org/10.1002/(sici)1520-6793(199609)13:6<571::aid-mar3>3.0.co;2-5"
+    uri = uri.replace("<", "%3C").replace(">", "%3E");
     return N3.DataFactory.namedNode(uri);
 };
 
@@ -194,7 +198,7 @@ OCExporter.prototype.convertFile = function(path, maximum, callback) {
         this.addIdentifiers(subj, br.getIdentifiersForType(br.type));
 
         for (var citation of br.cites) {
-            this.addTriple(subj, "http://purl.org/spar/cito/cites", "https://w3id.org/oc/corpus/br/0130-" + citation._id);
+            this.addTriple(subj, "http://purl.org/spar/cito/cites", "https://w3id.org/oc/corpus/br/0130-" + citation);
         }
 
         for (var part of br.parts) {
@@ -248,10 +252,6 @@ OCExporter.prototype.getNQUADS = function(callback) {
 OCExporter.prototype.getJSONLD = function(callback) {
     this.getNQUADS(function(err, nquads) {
         if (err) console.log("ERROR in getJSONLD-getNQUADS\n", err);
-        // debug messages start
-        var lines = nquads.split("\n");
-        console.log(lines.slice(66782, 66802).join("\n"));
-        // debug messages end
         jsonld.fromRDF(nquads, {format: 'application/n-quads'}, function(err2, jsonDoc) {
             if (err2) console.log("ERROR in getJSONLD-getNQUADS-fromRDF\n", err2);
             jsonld.compact(jsonDoc, require("./context.json"), function(err3, jsonCompactDoc) {
