@@ -134,6 +134,7 @@ OCExporter.prototype.addIdentifiers = function(subject, identifiers) {
         var ident_id = subject + "_id_" + idnum;
         idnum += 1;
         this.addTriple(subject, "http://purl.org/spar/datacite/hasIdentifier", ident_id);
+        this.addTriple(ident_id, a, "http://purl.org/spar/datacite/ResourceIdentifier");
         this.addTriple(ident_id, "http://www.essepuntato.it/2010/06/literalreification/hasLiteralValue", ident.literalValue);
         this.addTriple(ident_id, "http://purl.org/spar/datacite/usesIdentifierScheme", ident.scheme);
     }
@@ -215,7 +216,7 @@ OCExporter.prototype.convertFile = function(path, maximum, callback) {
 
         var prev = null;
         var contr_nr = 1;
-        if(br.getContributorsForType(br.Type)){
+        if (br.getContributorsForType(br.Type)) {
             for (var contr of br.getContributorsForType(br.type)) {
                 var contr_id = subj + "_contributor_" + contr_nr;
                 contr_nr += 1;
@@ -230,9 +231,19 @@ OCExporter.prototype.convertFile = function(path, maximum, callback) {
                 this.addTriple(agent, "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "http://xmlns.com/foaf/0.1/Agent");
                 this.addTriple(agent, "http://xmlns.com/foaf/0.1/givenName", contr.heldBy.givenName);
                 this.addTriple(agent, "http://xmlns.com/foaf/0.1/familyName", contr.heldBy.familyName);
-                if (prev != null) {
+                if (!contr.heldBy.familyName) {
+                    this.addTriple(agent, "http://xmlns.com/foaf/0.1/name", contr.heldBy.nameString);
+                }
+                if (prev !== null) {
                     this.addTriple(prev, "https://w3id.org/oc/ontology/hasNext", role);
-                    prev = role;
+                }
+                prev = role;
+                for (let contrIdentifier of contr.identifiers) {
+                    let agent_id = contrIdentifier._id;
+                    this.addTriple(contr, "http://purl.org/spar/datacite/hasIdentifier", agent_id);
+                    this.addTriple(agent_id, a, "http://purl.org/spar/datacite/AgentIdentifier");
+                    this.addTriple(agent_id, "http://www.essepuntato.it/2010/06/literalreification/hasLiteralValue", ident.literalValue);
+                    this.addTriple(agent_id, "http://purl.org/spar/datacite/usesIdentifierScheme", ident.scheme);
                 }
             }
         }
