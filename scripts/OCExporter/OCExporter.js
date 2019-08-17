@@ -158,14 +158,32 @@ OCExporter.prototype.addIdentifiers = function(subject, identifiers) {
     for (var ident of identifiers) {
         this.exportId.id++;
         var ident_id = urlBase.gid + this.exportId.id;
-        if (ident_id) {
+        if (ident.literalValue && ident.literalValue !== "") {
+            ident.literalValue = ident.literalValue.replace(/https?:\/\/(dx\.)?doi.org\//, '');
+            var dataciteSchemas = ["ark", "arxiv", "bibcode", "doi",
+                "ean13", "eissn", "handle", "infouri", "isbn", "issn",
+                "istc", "lissn", "local-resource-identifier-scheme",
+                "lsid", "nihmsid", "oci", "pii", "pmcid", "pmid",
+                "purl", "sici", "upc", "uri", "url", "urn"];
+            if (dataciteSchemas.includes(ident.scheme.toLowerCase())) {
+                this.addTriple(ident_id, "http://purl.org/spar/datacite/usesIdentifierScheme", "http://purl.org/spar/datacite/" + ident.scheme.toLowerCase());
+                this.addTriple(ident_id, "http://www.essepuntato.it/2010/06/literalreification/hasLiteralValue", ident.literalValue);
+            } else {
+                var sigel = {
+                    "SWB_PPN": "(DE-576)",
+                    "ZDB_ID": "(DE-600)"
+                };
+                if (sigel[ident.scheme]) {
+                    this.addTriple(ident_id, "http://purl.org/spar/datacite/usesIdentifierScheme", "http://purl.org/spar/datacite/local-resource-identifier-scheme");
+                    this.addTriple(ident_id, "http://www.essepuntato.it/2010/06/literalreification/hasLiteralValue", sigel[ident.scheme] + ident.literalValue);
+                } else {
+                    console.log("WARNING: Unhandled identifier scheme", ident.scheme);
+                    continue;
+                }
+            }
             this.addTriple(subject, "http://purl.org/spar/datacite/hasIdentifier", ident_id);
             this.addTriple(ident_id, a, "http://purl.org/spar/datacite/Identifier");
-            this.addTriple(ident_id, "rdfs:label", "identifier 0130" + this.exportId.id + " [br/0130" + this.exportId.id + "]");
-            this.addTriple(ident_id, "http://www.essepuntato.it/2010/06/literalreification/hasLiteralValue", ident.literalValue);
-            this.addTriple(ident_id, "http://purl.org/spar/datacite/usesIdentifierScheme", ident.scheme);
-        } else {
-            console.log("WARNING: No id found for identifier", ident);
+            this.addTriple(ident_id, "rdfs:label", "identifier 0130" + this.exportId.id + " [id/0130" + this.exportId.id + "]" + ident._id);
         }
     }
 }
@@ -315,11 +333,27 @@ OCExporter.prototype.convertFile = function(path, maximum, callback) {
                 for (let contrIdentifier of contr.identifiers) {
                     this.exportId.id++;
                     var agent_id = urlBase.gid + this.exportId.id;
+                    ident.literalValue = ident.literalValue.replace(/https?:\/\/orcid.org\//, '');
+                    var dataciteSchemas = ["dia", "isni", "jst", "nii",
+                        "openid", "orcid", "researcherid", "viaf"];
+                    if (dataciteSchemas.includes(ident.scheme.toLowerCase())) {
+                        this.addTriple(agent_id, "http://purl.org/spar/datacite/usesIdentifierScheme", "http://purl.org/spar/datacite/" + ident.scheme.toLowerCase());
+                        this.addTriple(agent_id, "http://www.essepuntato.it/2010/06/literalreification/hasLiteralValue", ident.literalValue);
+                    } else {
+                        var sigel = {
+                            "GND_ID": "(DE-588)"
+                        };
+                        if (sigel[ident.scheme]) {
+                            this.addTriple(agent_id, "http://purl.org/spar/datacite/usesIdentifierScheme", "http://purl.org/spar/datacite/local-personal-identifier-scheme");
+                            this.addTriple(agent_id, "http://www.essepuntato.it/2010/06/literalreification/hasLiteralValue", sigel[ident.scheme] + ident.literalValue);
+                        } else {
+                            console.log("WARNING: Unhandled identifier scheme", ident.scheme);
+                            continue;
+                        }
+                    }
                     this.addTriple(contr, "http://purl.org/spar/datacite/hasIdentifier", agent_id);
                     this.addTriple(agent_id, a, "http://purl.org/spar/datacite/Identifier");
                     this.addTriple(agent_id, "rdfs:label", "identifier 0130" + this.exportId.id + " [br/0130" + this.exportId.id + "]");
-                    this.addTriple(agent_id, "http://www.essepuntato.it/2010/06/literalreification/hasLiteralValue", ident.literalValue);
-                    this.addTriple(agent_id, "http://purl.org/spar/datacite/usesIdentifierScheme", ident.scheme);
                 }
             }
         }
