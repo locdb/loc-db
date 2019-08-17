@@ -165,7 +165,7 @@ OCExporter.prototype.addIdentifiers = function(subject, identifiers) {
         var ident_id = this.convertLocalId(ident._id, "id");
         if (ident_id) {
             this.addTriple(subject, "http://purl.org/spar/datacite/hasIdentifier", ident_id);
-            this.addTriple(ident_id, a, "http://purl.org/spar/datacite/ResourceIdentifier");
+            this.addTriple(ident_id, a, "http://purl.org/spar/datacite/Identifier");
             this.addTriple(ident_id, "http://www.essepuntato.it/2010/06/literalreification/hasLiteralValue", ident.literalValue);
             this.addTriple(ident_id, "http://purl.org/spar/datacite/usesIdentifierScheme", ident.scheme);
         } else {
@@ -194,6 +194,7 @@ OCExporter.prototype.convertFile = function(path, maximum, callback) {
         });
         
         this.addTriple(subj, a, this.typeUri(br.type));
+        this.addTriple(subj, a, "fabio:Expression");
         this.addTriple(subj, "dcterms:title", br.getTitleForType(br.type));
         this.addTriple(subj, "http://purl.org/spar/fabio/hasSubtitle", br.getSubtitleForType(br.type));
         this.addTriple(subj, "http://prismstandard.org/namespaces/basic/2.0/edition", br.getEditionForType(br.type));
@@ -209,6 +210,7 @@ OCExporter.prototype.convertFile = function(path, maximum, callback) {
             if (br.journalVolume_number) {
                 var volume = subj + this.idSuffix("volume");
                 this.addTriple(subj, "http://purl.org/vocab/frbr/core#partOf", volume);
+                this.addTriple(volume, a, "fabio:Expression");
                 this.addTriple(volume, a, "http://purl.org/spar/fabio/JournalVolume");
                 this.addTriple(volume, "http://purl.org/spar/fabio/hasSequenceIdentifier", br.journalVolume_number);
                 current = volume;
@@ -216,22 +218,29 @@ OCExporter.prototype.convertFile = function(path, maximum, callback) {
             if (br.journal_title) {
                 var journal = subj + this.idSuffix("journal");
                 this.addTriple(current, "http://purl.org/vocab/frbr/core#partOf", journal);
+                this.addTriple(journal, a, "fabio:Expression");
                 this.addTriple(journal, a, "http://purl.org/spar/fabio/Journal");
                 this.addTriple(journal, "dcterms:title", br.journal_title);
+                // the identifiers for a journal issue are only ISSN which
+                // should be attached to the journal rather than the issue
+                this.addIdentifiers(journal, rawBr[prefixForType + "_identifiers"]);
             }
+        } else {
+            // add the identifiers for all other types directly to the subject
+            this.addIdentifiers(subj, rawBr[prefixForType + "_identifiers"]);
         }
         
         for (var embod of rawBr[prefixForType + "_embodiedAs"]) {
-            var embid = this.convertLocalId(embod._id, "re");
-            this.addTriple(subj, "http://purl.org/vocab/frbr/core#embodiment", embid);
-            this.addTriple(embid, a, "fabio:Manifestation");
-            this.addTriple(embid, "http://prismstandard.org/namespaces/basic/2.0/startingPage", embod.firstPage);
-            this.addTriple(embid, "http://prismstandard.org/namespaces/basic/2.0/endingPage", embod.lastPage);
-            this.addTriple(embid, "http://purl.org/dc/terms/format", embod.format);
-            this.addTriple(embid, "http://www.w3.org/ns/dcat#landingPage", embod.url);
+            if (embod.firstPage || embod.lastPage || embod.format || embod.url) {
+                var embid = this.convertLocalId(embod._id, "re");
+                this.addTriple(subj, "http://purl.org/vocab/frbr/core#embodiment", embid);
+                this.addTriple(embid, a, "fabio:Manifestation");
+                this.addTriple(embid, "http://prismstandard.org/namespaces/basic/2.0/startingPage", embod.firstPage);
+                this.addTriple(embid, "http://prismstandard.org/namespaces/basic/2.0/endingPage", embod.lastPage);
+                this.addTriple(embid, "http://purl.org/dc/terms/format", embod.format);
+                this.addTriple(embid, "http://www.w3.org/ns/dcat#landingPage", embod.url);
+            }
         }
-
-        this.addIdentifiers(subj, rawBr[prefixForType + "_identifiers"]);
 
         for (var citation of br.cites) {
             this.addTriple(subj, "http://purl.org/spar/cito/cites", this.convertLocalId(citation, "br"));
@@ -241,6 +250,7 @@ OCExporter.prototype.convertFile = function(path, maximum, callback) {
             if (part._id) {
                 var partid = this.convertLocalId(part._id, "be");
                 this.addTriple(subj, "http://purl.org/vocab/frbr/core#part", partid);
+                this.addTriple(partid, a, "http://purl.org/spar/biro/BibliographicReference");
                 this.addTriple(partid, "http://purl.org/spar/c4o/hasContent", part.bibliographicEntryText);
                 if (part.references) {
                     this.addTriple(partid, "http://purl.org/spar/biro/references",
@@ -262,7 +272,7 @@ OCExporter.prototype.convertFile = function(path, maximum, callback) {
                 this.addTriple(role, "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "http://purl.org/spar/pro/RoleInTime");
                 this.addTriple(role, "http://www.w3.org/2000/01/rdf-schema#label", "agent role 0130" + this.convertLocalId(contr._id));
                 this.addTriple(role, "http://purl.org/spar/pro/isHeldBy", agent);
-                this.addTriple(agent, "http://purl.org/spar/pro/withRole", roleType);
+                this.addTriple(role, "http://purl.org/spar/pro/withRole", roleType);
                 this.addTriple(agent, "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "http://xmlns.com/foaf/0.1/Agent");
                 this.addTriple(agent, "http://xmlns.com/foaf/0.1/givenName", contr.heldBy.givenName);
                 this.addTriple(agent, "http://xmlns.com/foaf/0.1/familyName", contr.heldBy.familyName);
