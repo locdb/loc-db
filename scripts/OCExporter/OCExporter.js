@@ -127,32 +127,72 @@ OCExporter.prototype.clear = function() {
     this.store = new N3.Store({prefixes: prefixes});
 };
 
-OCExporter.prototype.addIdentifiers = function(subject, identifiers) {
-    var idnum = 1;
-    for (var ident of identifiers) {
-        ident = new Identifier(ident);
-        var ident_id = subject + "_id_" + idnum;
-        idnum += 1;
-        this.addTriple(subject, "http://purl.org/spar/datacite/hasIdentifier", ident_id);
-        this.addTriple(ident_id, a, "http://purl.org/spar/datacite/ResourceIdentifier");
-        this.addTriple(ident_id, "http://www.essepuntato.it/2010/06/literalreification/hasLiteralValue", ident.literalValue);
-        this.addTriple(ident_id, "http://purl.org/spar/datacite/usesIdentifierScheme", ident.scheme);
+/*
+  This converts the local id consisting of a 24-digit hexadecimal number in 
+  a string into a 48-digital decimal representation (each digit is converted).
+  Example: convertLocalId("5bab9d7ec3bd212c24356330")
+  = "051110110913071412031113020102120204030506030300"
+  Moreover, with base parameter it prefixes it correctly.
+*/
+OCExporter.prototype.convertLocalId = function(id, base) {
+    if (!id) return false;
+    var localId = id.split('') // split into digits
+                .map(x => parseInt(x, 16)) // convert each digit
+                .map(y => ('0' + y).slice(-2)) // fill with a zero if needed
+                .join('');
+    if (base) {
+        localId = "https://w3id.org/oc/corpus/"+ base + "/0130" + localId;
     }
+    return localId;
+}
 
+OCExporter.prototype.idSuffix = function(type) {
+    switch (type) {
+        case "volume":
+            return "01";
+            break;
+        case "journal":
+            return "02";
+            break;
+        default:
+            console.log("WARNING: Unknown type", type);
+            return "TODO";
+    };
+}
+
+OCExporter.prototype.addIdentifiers = function(subject, identifiers) {
+    for (var ident of identifiers) {
+        var ident_id = this.convertLocalId(ident._id, "id");
+        if (ident_id) {
+            this.addTriple(subject, "http://purl.org/spar/datacite/hasIdentifier", ident_id);
+            this.addTriple(ident_id, a, "http://purl.org/spar/datacite/ResourceIdentifier");
+            this.addTriple(ident_id, "http://www.essepuntato.it/2010/06/literalreification/hasLiteralValue", ident.literalValue);
+            this.addTriple(ident_id, "http://purl.org/spar/datacite/usesIdentifierScheme", ident.scheme);
+        } else {
+            console.log("WARNING: No id found for identifier", ident);
+        }
+    }
 }
 
 OCExporter.prototype.convertFile = function(path, maximum, callback) {
     var brs = JSON.parse(fs.readFileSync(path));
     var count = 0;
     for (var br of brs) {
+        // example data for two journal articles
+        // if (!["5a2180069052ca4625c5bcb5", "5bab9d7ec3bd212c24356330", "5a21811d9052ca4625c5bd0c", "5c17531db803eb229c526a72"].includes(br._id)) continue;
         count++;
         if (maximum && count > maximum) break;
+        var rawBr = br;
         br = new BibliographicResource(br);
         if (!br._id) {
           console.log("WARNING: No _id found\n", JSON.stringify(br));
           continue;
         }
-        var subj = "https://w3id.org/oc/corpus/br/0130-" + br._id;
+        var subj = this.convertLocalId(br._id, "br");
+        var prefixForType = br.type.toLowerCase().replace(/(_[a-z])/, function(c) {
+            return c.replace('_', '').toUpperCase();
+        });
+        
         this.addTriple(subj, a, this.typeUri(br.type));
         this.addTriple(subj, "dcterms:title", br.getTitleForType(br.type));
         this.addTriple(subj, "http://purl.org/spar/fabio/hasSubtitle", br.getSubtitleForType(br.type));
@@ -161,71 +201,66 @@ OCExporter.prototype.convertFile = function(path, maximum, callback) {
         this.addTriple(subj, "http://prismstandard.org/namespaces/basic/2.0/publicationDate", br.getPublicationDateForType(br.type));
         this.addTriple(subj, "http://www.w3.org/ns/prov#hadPrimarySource", br.source);
         if (br.partOf) {
-            this.addTriple(subj, "http://purl.org/vocab/frbr/core#partOf", "https://w3id.org/oc/corpus/br/0130-" + br.partOf);
+            this.addTriple(subj, "http://purl.org/vocab/frbr/core#partOf", this.convertLocalId(br.partOf, "br"));
         }
 
         if (br.type === "JOURNAL_ISSUE") {
             var current = subj;
             if (br.journalVolume_number) {
-                var volume = subj + "_volume";
+                var volume = subj + this.idSuffix("volume");
                 this.addTriple(subj, "http://purl.org/vocab/frbr/core#partOf", volume);
                 this.addTriple(volume, a, "http://purl.org/spar/fabio/JournalVolume");
                 this.addTriple(volume, "http://purl.org/spar/fabio/hasSequenceIdentifier", br.journalVolume_number);
                 current = volume;
             }
             if (br.journal_title) {
-                var journal = subj + "_journal";
+                var journal = subj + this.idSuffix("journal");
                 this.addTriple(current, "http://purl.org/vocab/frbr/core#partOf", journal);
                 this.addTriple(journal, a, "http://purl.org/spar/fabio/Journal");
                 this.addTriple(journal, "dcterms:title", br.journal_title);
             }
         }
-
-
-        var emb_no = 1;
-        for (var embod of br.getResourceEmbodimentsForType(br.type)) {
-            embod = new ResourceEmbodiment(embod);
-            var embid = subj + "_embodiment_" + emb_no;
-            emb_no += 1;
+        
+        for (var embod of rawBr[prefixForType + "_embodiedAs"]) {
+            var embid = this.convertLocalId(embod._id, "re");
             this.addTriple(subj, "http://purl.org/vocab/frbr/core#embodiment", embid);
             this.addTriple(embid, a, "fabio:Manifestation");
             this.addTriple(embid, "http://prismstandard.org/namespaces/basic/2.0/startingPage", embod.firstPage);
             this.addTriple(embid, "http://prismstandard.org/namespaces/basic/2.0/endingPage", embod.lastPage);
             this.addTriple(embid, "http://purl.org/dc/terms/format", embod.format);
             this.addTriple(embid, "http://www.w3.org/ns/dcat#landingPage", embod.url);
-
         }
 
-        this.addIdentifiers(subj, br.getIdentifiersForType(br.type));
+        this.addIdentifiers(subj, rawBr[prefixForType + "_identifiers"]);
 
         for (var citation of br.cites) {
-            this.addTriple(subj, "http://purl.org/spar/cito/cites", "https://w3id.org/oc/corpus/br/0130-" + citation);
+            this.addTriple(subj, "http://purl.org/spar/cito/cites", this.convertLocalId(citation, "br"));
         }
 
-        for (var part of br.parts) {
-            part = new BibliographicEntry(part);
-            if (part._id) { // TODO handle these cases properly; what are the cases w/o an _id?
-                var partid = part._id + "_entry";
+        for (var part of rawBr.parts) {
+            if (part._id) {
+                var partid = this.convertLocalId(part._id, "be");
                 this.addTriple(subj, "http://purl.org/vocab/frbr/core#part", partid);
                 this.addTriple(partid, "http://purl.org/spar/c4o/hasContent", part.bibliographicEntryText);
-                this.addTriple(partid, "http://purl.org/spar/biro/references", part.references);
+                if (part.references) {
+                    this.addTriple(partid, "http://purl.org/spar/biro/references",
+                        this.convertLocalId(part.references, "br"));
+                }
                 this.addIdentifiers(partid, part.identifiers);
+            } else {
+                console.log("WARNING: no id for part", part);
             }
         }
 
-
         var prev = null;
-        var contr_nr = 1;
-        if (br.getContributorsForType(br.Type)) {
-            for (var contr of br.getContributorsForType(br.type)) {
-                var contr_id = subj + "_contributor_" + contr_nr;
-                contr_nr += 1;
-                var role = contr_id + "_role";
-                var agent = contr_id + "_agent";
+        if (rawBr[prefixForType + "_contributors"]) {
+            for (var contr of rawBr[prefixForType + "_contributors"]) {
+                var role = this.convertLocalId(contr._id, "ar");
+                var agent = this.convertLocalId(contr.heldBy._id, "ra");
                 var roleType = "http://purl.org/spar/pro/" + contr.roleType.toLowerCase();
                 this.addTriple(subj, "pro:isDocumentContextFor", role);
                 this.addTriple(role, "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "http://purl.org/spar/pro/RoleInTime");
-                this.addTriple(role, "http://www.w3.org/2000/01/rdf-schema#label", "Agent role for: " + contr_id);
+                this.addTriple(role, "http://www.w3.org/2000/01/rdf-schema#label", "agent role 0130" + this.convertLocalId(contr._id));
                 this.addTriple(role, "http://purl.org/spar/pro/isHeldBy", agent);
                 this.addTriple(agent, "http://purl.org/spar/pro/withRole", roleType);
                 this.addTriple(agent, "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "http://xmlns.com/foaf/0.1/Agent");
