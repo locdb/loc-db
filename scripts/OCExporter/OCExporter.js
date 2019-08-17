@@ -243,17 +243,20 @@ OCExporter.prototype.convertFile = function(path, maximum, callback) {
                 this.addTriple(volume, "http://purl.org/spar/fabio/hasSequenceIdentifier", br.journalVolume_number);
                 current = volume;
             }
+            this.exportId.br++;
+            var journal = urlBase.gbr + this.exportId.br;
+            
+            this.addTriple(current, "http://purl.org/vocab/frbr/core#partOf", journal);
+            this.addTriple(journal, a, "fabio:Expression");
+            this.addTriple(journal, a, "http://purl.org/spar/fabio/Journal");
+            this.addTriple(journal, "rdfs:label", "bibliographic resource 0130" + this.exportId.br + " [br/0130" + this.exportId.br + "]");
+            // the identifiers for a journal issue are only ISSN which
+            // should be attached to the journal rather than the issue
+            this.addIdentifiers(journal, rawBr[prefixForType + "_identifiers"]);
             if (br.journal_title) {
-                this.exportId.br++;
-                var journal = urlBase.gbr + this.exportId.br;
-                this.addTriple(current, "http://purl.org/vocab/frbr/core#partOf", journal);
-                this.addTriple(journal, a, "fabio:Expression");
-                this.addTriple(journal, a, "http://purl.org/spar/fabio/Journal");
-                this.addTriple(journal, "rdfs:label", "bibliographic resource 0130" + this.exportId.br + " [br/0130" + this.exportId.br + "]");
                 this.addTriple(journal, "dcterms:title", br.journal_title);
-                // the identifiers for a journal issue are only ISSN which
-                // should be attached to the journal rather than the issue
-                this.addIdentifiers(journal, rawBr[prefixForType + "_identifiers"]);
+            } else {
+                console.log("WARNING: Journal name is missing for", br._id)
             }
         } else {
             // add the identifiers for all other types directly to the subject
