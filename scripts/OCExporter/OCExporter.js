@@ -161,6 +161,7 @@ OCExporter.prototype.addIdentifiers = function(subject, identifiers) {
         if (ident_id) {
             this.addTriple(subject, "http://purl.org/spar/datacite/hasIdentifier", ident_id);
             this.addTriple(ident_id, a, "http://purl.org/spar/datacite/Identifier");
+            this.addTriple(ident_id, "rdfs:label", "identifier 0130" + this.exportId.id + " [br/0130" + this.exportId.id + "]");
             this.addTriple(ident_id, "http://www.essepuntato.it/2010/06/literalreification/hasLiteralValue", ident.literalValue);
             this.addTriple(ident_id, "http://purl.org/spar/datacite/usesIdentifierScheme", ident.scheme);
         } else {
@@ -199,6 +200,7 @@ OCExporter.prototype.convertFile = function(path, maximum, callback) {
         
         this.addTriple(subj, a, this.typeUri(br.type));
         this.addTriple(subj, a, "fabio:Expression");
+        this.addTriple(subj, "rdfs:label", "bibliographic resource 0130" + this.exportId.br + " [br/0130" + this.exportId.br + "]");
         // okay?
         this.addTriple(subj, "owl:sameAs", "https://locdb.bib.uni-mannheim.de/locdb/bibliographicResources/" + br._id);
         this.addTriple(subj, "dcterms:title", br.getTitleForType(br.type));
@@ -219,6 +221,7 @@ OCExporter.prototype.convertFile = function(path, maximum, callback) {
                 this.addTriple(subj, "http://purl.org/vocab/frbr/core#partOf", volume);
                 this.addTriple(volume, a, "fabio:Expression");
                 this.addTriple(volume, a, "http://purl.org/spar/fabio/JournalVolume");
+                this.addTriple(volume, "rdfs:label", "bibliographic resource 0130" + this.exportId.br + " [br/0130" + this.exportId.br + "]");
                 this.addTriple(volume, "http://purl.org/spar/fabio/hasSequenceIdentifier", br.journalVolume_number);
                 current = volume;
             }
@@ -228,6 +231,7 @@ OCExporter.prototype.convertFile = function(path, maximum, callback) {
                 this.addTriple(current, "http://purl.org/vocab/frbr/core#partOf", journal);
                 this.addTriple(journal, a, "fabio:Expression");
                 this.addTriple(journal, a, "http://purl.org/spar/fabio/Journal");
+                this.addTriple(journal, "rdfs:label", "bibliographic resource 0130" + this.exportId.br + " [br/0130" + this.exportId.br + "]");
                 this.addTriple(journal, "dcterms:title", br.journal_title);
                 // the identifiers for a journal issue are only ISSN which
                 // should be attached to the journal rather than the issue
@@ -244,6 +248,7 @@ OCExporter.prototype.convertFile = function(path, maximum, callback) {
                 var embid = urlBase.gre + this.exportId.re;
                 this.addTriple(subj, "http://purl.org/vocab/frbr/core#embodiment", embid);
                 this.addTriple(embid, a, "fabio:Manifestation");
+                this.addTriple(embid, "rdfs:label", "resource embodiment 0130" + this.exportId.re + " [re/0130" + this.exportId.re + "]");
                 this.addTriple(embid, "http://prismstandard.org/namespaces/basic/2.0/startingPage", embod.firstPage);
                 this.addTriple(embid, "http://prismstandard.org/namespaces/basic/2.0/endingPage", embod.lastPage);
                 this.addTriple(embid, "http://purl.org/dc/terms/format", embod.format);
@@ -266,6 +271,7 @@ OCExporter.prototype.convertFile = function(path, maximum, callback) {
                 var partid = urlBase.gbe + this.exportId.be;
                 this.addTriple(subj, "http://purl.org/vocab/frbr/core#part", partid);
                 this.addTriple(partid, a, "http://purl.org/spar/biro/BibliographicReference");
+                this.addTriple(partid, "rdfs:label", "bibliographic entry 0130" + this.exportId.be + " [be/0130" + this.exportId.be + "]");
                 this.addTriple(partid, "http://purl.org/spar/c4o/hasContent", part.bibliographicEntryText);
                 if (part.references) {
                     if (this.mappingIds[part.references]) {
@@ -291,11 +297,12 @@ OCExporter.prototype.convertFile = function(path, maximum, callback) {
                 var agent = urlBase.gra + this.exportId.ra;
                 var roleType = "http://purl.org/spar/pro/" + contr.roleType.toLowerCase();
                 this.addTriple(subj, "pro:isDocumentContextFor", role);
-                this.addTriple(role, "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "http://purl.org/spar/pro/RoleInTime");
-                this.addTriple(role, "http://www.w3.org/2000/01/rdf-schema#label", "agent role 0130" + this.exportId.ar);
+                this.addTriple(role, a, "http://purl.org/spar/pro/RoleInTime");
+                this.addTriple(role, "rdfs:label", "agent role 0130" + this.exportId.ar + " [ar/0130" + this.exportId.ar + "]");
                 this.addTriple(role, "http://purl.org/spar/pro/isHeldBy", agent);
                 this.addTriple(role, "http://purl.org/spar/pro/withRole", roleType);
-                this.addTriple(agent, "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "http://xmlns.com/foaf/0.1/Agent");
+                this.addTriple(agent, a, "http://xmlns.com/foaf/0.1/Agent");
+                this.addTriple(agent, "rdfs:label", "responsible agent 0130" + this.exportId.ra + " [ra/0130" + this.exportId.ra + "]");
                 this.addTriple(agent, "http://xmlns.com/foaf/0.1/givenName", contr.heldBy.givenName);
                 this.addTriple(agent, "http://xmlns.com/foaf/0.1/familyName", contr.heldBy.familyName);
                 if (!contr.heldBy.familyName) {
@@ -309,7 +316,8 @@ OCExporter.prototype.convertFile = function(path, maximum, callback) {
                     this.exportId.id++;
                     var agent_id = urlBase.gid + this.exportId.id;
                     this.addTriple(contr, "http://purl.org/spar/datacite/hasIdentifier", agent_id);
-                    this.addTriple(agent_id, a, "http://purl.org/spar/datacite/AgentIdentifier");
+                    this.addTriple(agent_id, a, "http://purl.org/spar/datacite/Identifier");
+                    this.addTriple(agent_id, "rdfs:label", "identifier 0130" + this.exportId.id + " [br/0130" + this.exportId.id + "]");
                     this.addTriple(agent_id, "http://www.essepuntato.it/2010/06/literalreification/hasLiteralValue", ident.literalValue);
                     this.addTriple(agent_id, "http://purl.org/spar/datacite/usesIdentifierScheme", ident.scheme);
                 }
