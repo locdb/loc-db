@@ -290,7 +290,16 @@ OCExporter.prototype.convertFile = function(path, maximum, callback) {
                 this.addTriple(subj, "http://purl.org/vocab/frbr/core#part", partid);
                 this.addTriple(partid, a, "http://purl.org/spar/biro/BibliographicReference");
                 this.addTriple(partid, "rdfs:label", "bibliographic entry 0130" + this.exportId.be + " [be/0130" + this.exportId.be + "]");
-                this.addTriple(partid, "http://purl.org/spar/c4o/hasContent", part.bibliographicEntryText);
+                if (part.bibliographicEntryText) {
+                    this.addTriple(partid, "http://purl.org/spar/c4o/hasContent", part.bibliographicEntryText);
+                } else {
+                    delete part.ocrData._id;
+                    part.ocrData.authors = part.ocrData.authors.join(', ');
+                    var constructedString = Object.values(part.ocrData).filter(x => x.length > 0).join(' ; ');
+                    if (constructedString.length > 0) {
+                        this.addTriple(partid, "http://purl.org/spar/c4o/hasContent", constructedString);
+                    }
+                }
                 if (part.references) {
                     if (this.mappingIds[part.references]) {
                         this.addTriple(partid, "http://purl.org/spar/biro/references",
