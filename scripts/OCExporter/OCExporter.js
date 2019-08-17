@@ -108,11 +108,37 @@ const prefixes = {
 };
 
 
+const urlBase = {
+    "gar": "https://w3id.org/oc/corpus/ar/0130",
+    "gbe": "https://w3id.org/oc/corpus/be/0130",
+    "gbr": "https://w3id.org/oc/corpus/br/0130",
+    "gcr": "https://w3id.org/oc/corpus/cr/0130",
+    "gdi": "https://w3id.org/oc/corpus/di/0130",
+    "gid": "https://w3id.org/oc/corpus/id/0130",
+    "gra": "https://w3id.org/oc/corpus/ra/0130",
+    "gre": "https://w3id.org/oc/corpus/re/0130"
+};
+
+
 OCExporter.prototype.store = new N3.Store({prefixes: prefixes});
 
 
 
 OCExporter.prototype.result = {};
+
+OCExporter.prototype.mappingIds = {};
+
+// initial values of OpenCitations export IDs
+OCExporter.prototype.exportId = {
+    ar: 0,
+    be: 0,
+    br: 0,
+    cr: 0,
+    di: 0,
+    id: 0,
+    ra: 0,
+    re: 0
+};
 
 
 OCExporter.prototype.typeUri = function(type) {
@@ -127,42 +153,11 @@ OCExporter.prototype.clear = function() {
     this.store = new N3.Store({prefixes: prefixes});
 };
 
-/*
-  This converts the local id consisting of a 24-digit hexadecimal number in 
-  a string into a 48-digital decimal representation (each digit is converted).
-  Example: convertLocalId("5bab9d7ec3bd212c24356330")
-  = "051110110913071412031113020102120204030506030300"
-  Moreover, with base parameter it prefixes it correctly.
-*/
-OCExporter.prototype.convertLocalId = function(id, base) {
-    if (!id) return false;
-    var localId = id.split('') // split into digits
-                .map(x => parseInt(x, 16)) // convert each digit
-                .map(y => ('0' + y).slice(-2)) // fill with a zero if needed
-                .join('');
-    if (base) {
-        localId = "https://w3id.org/oc/corpus/"+ base + "/0130" + localId;
-    }
-    return localId;
-}
-
-OCExporter.prototype.idSuffix = function(type) {
-    switch (type) {
-        case "volume":
-            return "01";
-            break;
-        case "journal":
-            return "02";
-            break;
-        default:
-            console.log("WARNING: Unknown type", type);
-            return "TODO";
-    };
-}
 
 OCExporter.prototype.addIdentifiers = function(subject, identifiers) {
     for (var ident of identifiers) {
-        var ident_id = this.convertLocalId(ident._id, "id");
+        this.exportId.id++;
+        var ident_id = urlBase.gid + this.exportId.id;
         if (ident_id) {
             this.addTriple(subject, "http://purl.org/spar/datacite/hasIdentifier", ident_id);
             this.addTriple(ident_id, a, "http://purl.org/spar/datacite/Identifier");
@@ -178,23 +173,34 @@ OCExporter.prototype.convertFile = function(path, maximum, callback) {
     var brs = JSON.parse(fs.readFileSync(path));
     var count = 0;
     for (var br of brs) {
+        if (!br._id) {
+          console.log("WARNING: No _id found\n", JSON.stringify(br));
+          continue;
+        }
+        count++;
+        this.mappingIds[br._id] = count;
+    }
+    // any new bibliographic resource has to have an exportId following the
+    // others already mapped to any br in the previous loop
+    this.exportId.br = Object.keys(this.mappingIds).length;
+    count = 0;
+    for (var br of brs) {
         // example data for two journal articles
         // if (!["5a2180069052ca4625c5bcb5", "5bab9d7ec3bd212c24356330", "5a21811d9052ca4625c5bd0c", "5c17531db803eb229c526a72"].includes(br._id)) continue;
         count++;
         if (maximum && count > maximum) break;
         var rawBr = br;
         br = new BibliographicResource(br);
-        if (!br._id) {
-          console.log("WARNING: No _id found\n", JSON.stringify(br));
-          continue;
-        }
-        var subj = this.convertLocalId(br._id, "br");
+        if (!br._id) continue;
+        var subj = urlBase.gbr + this.mappingIds[br._id];
         var prefixForType = br.type.toLowerCase().replace(/(_[a-z])/, function(c) {
             return c.replace('_', '').toUpperCase();
         });
         
         this.addTriple(subj, a, this.typeUri(br.type));
         this.addTriple(subj, a, "fabio:Expression");
+        // okay?
+        this.addTriple(subj, "owl:sameAs", "https://locdb.bib.uni-mannheim.de/locdb/bibliographicResources/" + br._id);
         this.addTriple(subj, "dcterms:title", br.getTitleForType(br.type));
         this.addTriple(subj, "http://purl.org/spar/fabio/hasSubtitle", br.getSubtitleForType(br.type));
         this.addTriple(subj, "http://prismstandard.org/namespaces/basic/2.0/edition", br.getEditionForType(br.type));
@@ -202,13 +208,14 @@ OCExporter.prototype.convertFile = function(path, maximum, callback) {
         this.addTriple(subj, "http://prismstandard.org/namespaces/basic/2.0/publicationDate", br.getPublicationDateForType(br.type));
         this.addTriple(subj, "http://www.w3.org/ns/prov#hadPrimarySource", br.source);
         if (br.partOf) {
-            this.addTriple(subj, "http://purl.org/vocab/frbr/core#partOf", this.convertLocalId(br.partOf, "br"));
+            this.addTriple(subj, "http://purl.org/vocab/frbr/core#partOf", urlBase.gbr + this.mappingIds[br.partOf]);
         }
 
         if (br.type === "JOURNAL_ISSUE") {
             var current = subj;
             if (br.journalVolume_number) {
-                var volume = subj + this.idSuffix("volume");
+                this.exportId.br++;
+                var volume = urlBase.gbr + this.exportId.br;
                 this.addTriple(subj, "http://purl.org/vocab/frbr/core#partOf", volume);
                 this.addTriple(volume, a, "fabio:Expression");
                 this.addTriple(volume, a, "http://purl.org/spar/fabio/JournalVolume");
@@ -216,7 +223,8 @@ OCExporter.prototype.convertFile = function(path, maximum, callback) {
                 current = volume;
             }
             if (br.journal_title) {
-                var journal = subj + this.idSuffix("journal");
+                this.exportId.br++;
+                var journal = urlBase.gbr + this.exportId.br;
                 this.addTriple(current, "http://purl.org/vocab/frbr/core#partOf", journal);
                 this.addTriple(journal, a, "fabio:Expression");
                 this.addTriple(journal, a, "http://purl.org/spar/fabio/Journal");
@@ -232,7 +240,8 @@ OCExporter.prototype.convertFile = function(path, maximum, callback) {
         
         for (var embod of rawBr[prefixForType + "_embodiedAs"]) {
             if (embod.firstPage || embod.lastPage || embod.format || embod.url) {
-                var embid = this.convertLocalId(embod._id, "re");
+                this.exportId.re++;
+                var embid = urlBase.gre + this.exportId.re;
                 this.addTriple(subj, "http://purl.org/vocab/frbr/core#embodiment", embid);
                 this.addTriple(embid, a, "fabio:Manifestation");
                 this.addTriple(embid, "http://prismstandard.org/namespaces/basic/2.0/startingPage", embod.firstPage);
@@ -243,18 +252,29 @@ OCExporter.prototype.convertFile = function(path, maximum, callback) {
         }
 
         for (var citation of br.cites) {
-            this.addTriple(subj, "http://purl.org/spar/cito/cites", this.convertLocalId(citation, "br"));
+            if (this.mappingIds[citation]) {
+                this.addTriple(subj, "http://purl.org/spar/cito/cites", urlBase.gbr + this.mappingIds[citation]);
+            } else {
+                // TODO: why does this happen?
+                console.log("WARNING: citation not found among the bibliographic resources", citation, "cited by", br._id);
+            }
         }
 
         for (var part of rawBr.parts) {
             if (part._id) {
-                var partid = this.convertLocalId(part._id, "be");
+                this.exportId.be++;
+                var partid = urlBase.gbe + this.exportId.be;
                 this.addTriple(subj, "http://purl.org/vocab/frbr/core#part", partid);
                 this.addTriple(partid, a, "http://purl.org/spar/biro/BibliographicReference");
                 this.addTriple(partid, "http://purl.org/spar/c4o/hasContent", part.bibliographicEntryText);
                 if (part.references) {
-                    this.addTriple(partid, "http://purl.org/spar/biro/references",
-                        this.convertLocalId(part.references, "br"));
+                    if (this.mappingIds[part.references]) {
+                        this.addTriple(partid, "http://purl.org/spar/biro/references",
+                            urlBase.gbr + this.mappingIds[part.references]);
+                    } else {
+                        // TODO: why does this happen?
+                        console.log("WARNING: reference not found among the bibliographic resources", part.references, "referenced by", br._id);
+                    }
                 }
                 this.addIdentifiers(partid, part.identifiers);
             } else {
@@ -265,12 +285,14 @@ OCExporter.prototype.convertFile = function(path, maximum, callback) {
         var prev = null;
         if (rawBr[prefixForType + "_contributors"]) {
             for (var contr of rawBr[prefixForType + "_contributors"]) {
-                var role = this.convertLocalId(contr._id, "ar");
-                var agent = this.convertLocalId(contr.heldBy._id, "ra");
+                this.exportId.ar++;
+                var role = urlBase.gar + this.exportId.ar;
+                this.exportId.ra++;
+                var agent = urlBase.gra + this.exportId.ra;
                 var roleType = "http://purl.org/spar/pro/" + contr.roleType.toLowerCase();
                 this.addTriple(subj, "pro:isDocumentContextFor", role);
                 this.addTriple(role, "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "http://purl.org/spar/pro/RoleInTime");
-                this.addTriple(role, "http://www.w3.org/2000/01/rdf-schema#label", "agent role 0130" + this.convertLocalId(contr._id));
+                this.addTriple(role, "http://www.w3.org/2000/01/rdf-schema#label", "agent role 0130" + this.exportId.ar);
                 this.addTriple(role, "http://purl.org/spar/pro/isHeldBy", agent);
                 this.addTriple(role, "http://purl.org/spar/pro/withRole", roleType);
                 this.addTriple(agent, "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "http://xmlns.com/foaf/0.1/Agent");
@@ -284,7 +306,8 @@ OCExporter.prototype.convertFile = function(path, maximum, callback) {
                 }
                 prev = role;
                 for (let contrIdentifier of contr.identifiers) {
-                    let agent_id = contrIdentifier._id;
+                    this.exportId.id++;
+                    var agent_id = urlBase.gid + this.exportId.id;
                     this.addTriple(contr, "http://purl.org/spar/datacite/hasIdentifier", agent_id);
                     this.addTriple(agent_id, a, "http://purl.org/spar/datacite/AgentIdentifier");
                     this.addTriple(agent_id, "http://www.essepuntato.it/2010/06/literalreification/hasLiteralValue", ident.literalValue);
@@ -293,6 +316,7 @@ OCExporter.prototype.convertFile = function(path, maximum, callback) {
             }
         }
     }
+    console.log("This exports used up to the following export IDs", this.exportId);
     callback(null);
 };
 
