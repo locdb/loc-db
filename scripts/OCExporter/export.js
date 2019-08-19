@@ -15,17 +15,34 @@ function convert(inputFile, outputFile, maximum) {
     OCExporter.clear();
     OCExporter.convertFile(inputFile, maximum, function(err) {
         if (!err) {
-            OCExporter.getJSONLD(function(err, jsonldData) {
-                fs.writeFile(outputFile, JSON.stringify(jsonldData, null, 2), function(err) {
-                    if (err) {
-                        console.log(err);
-                        console.log("Exiting ... ");
+            if (!outputFile) {
+                console.log("No output file given and therefore finishing now.");
+                process.exit();
+            } else if (outputFile.endsWith(".nquads")) {
+                OCExporter.getNQUADS(function(err, nquadsData) {
+                    fs.writeFile(outputFile, nquadsData, function(err) {
+                      if (err) {
+                            console.log(err);
+                            console.log("Exiting ... ");
+                            process.exit();
+                        }
+                        console.log("Successfully written oc conversion to file", outputFile);
                         process.exit();
-                    }
-                    console.log("Successfully written oc conversion to file", outputFile);
-                    process.exit();
+                    });
                 });
-            });
+            } else {
+                OCExporter.getJSONLD(function(err, jsonldData) {
+                    fs.writeFile(outputFile, JSON.stringify(jsonldData, null, 2), function(err) {
+                        if (err) {
+                            console.log(err);
+                            console.log("Exiting ... ");
+                            process.exit();
+                        }
+                        console.log("Successfully written oc conversion to file", outputFile);
+                        process.exit();
+                    });
+                });
+            }
         }
     });
 }

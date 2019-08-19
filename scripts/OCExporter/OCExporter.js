@@ -171,19 +171,27 @@ OCExporter.prototype.addIdentifiers = function(subject, identifiers) {
             } else {
                 var sigel = {
                     "SWB_PPN": "(DE-576)",
-                    "ZDB_ID": "(DE-600)"
+                    "GBV_PPN": "(DE-601)",
+                    "ZDB_ID": "(DE-600)",
+                    "ID_K10PLUS": "(DE-627)",
+                    "ID_GVI": "(gvi)",
+                    "OLC_PPN": "(olc)",
+                    "OCLC_ID": "(oclc)",
+                    "LCCN": "(US-DLC)"
                 };
                 if (sigel[ident.scheme]) {
                     this.addTriple(ident_id, "http://purl.org/spar/datacite/usesIdentifierScheme", "http://purl.org/spar/datacite/local-resource-identifier-scheme");
                     this.addTriple(ident_id, "http://www.essepuntato.it/2010/06/literalreification/hasLiteralValue", sigel[ident.scheme] + ident.literalValue);
                 } else {
-                    console.log("WARNING: Unhandled identifier scheme", ident.scheme);
+                    if (!["URL_CROSSREF", "URL_SWB"].includes(ident.scheme)) {
+                        //console.log("WARNING: Unhandled identifier scheme", ident.scheme);
+                    }
                     continue;
                 }
             }
             this.addTriple(subject, "http://purl.org/spar/datacite/hasIdentifier", ident_id);
             this.addTriple(ident_id, a, "http://purl.org/spar/datacite/Identifier");
-            this.addTriple(ident_id, "rdfs:label", "identifier 0130" + this.exportId.id + " [id/0130" + this.exportId.id + "]" + ident._id);
+            this.addTriple(ident_id, "rdfs:label", "identifier 0130" + this.exportId.id + " [id/0130" + this.exportId.id + "]");
         }
     }
 }
@@ -219,13 +227,20 @@ OCExporter.prototype.convertFile = function(path, maximum, callback) {
         this.addTriple(subj, a, this.typeUri(br.type));
         this.addTriple(subj, a, "fabio:Expression");
         this.addTriple(subj, "rdfs:label", "bibliographic resource 0130" + this.exportId.br + " [br/0130" + this.exportId.br + "]");
-        // okay?
+        // TODO ask if that is okay?
         this.addTriple(subj, "owl:sameAs", "https://locdb.bib.uni-mannheim.de/locdb/bibliographicResources/" + br._id);
         this.addTriple(subj, "dcterms:title", br.getTitleForType(br.type));
         this.addTriple(subj, "http://purl.org/spar/fabio/hasSubtitle", br.getSubtitleForType(br.type));
         this.addTriple(subj, "http://prismstandard.org/namespaces/basic/2.0/edition", br.getEditionForType(br.type));
         this.addTriple(subj, "http://purl.org/spar/fabio/hasSequenceIdentifier", br.getNumberForType(br.type));
-        this.addTriple(subj, "http://prismstandard.org/namespaces/basic/2.0/publicationDate", br.getPublicationDateForType(br.type));
+        if (br.getPublicationDateForType(br.type)) {
+            this.addTriple(subj, "http://prismstandard.org/namespaces/basic/2.0/publicationDate", br.getPublicationDateForType(br.type));
+        } else {
+            if (!["JOURNAL_ISSUE", "REPORT_SERIES", "EDITED_BOOK", "BOOK_SET", "JOURNAL_VOLUME", "JOURNAL", "BOOK_SERIES"].includes(br.type)) {
+                // TODO add missing dates at least for the most important publication types
+                console.log("WARNING: no publication date found for", br._id, "of type", br.type);
+            }
+        }
         this.addTriple(subj, "http://www.w3.org/ns/prov#hadPrimarySource", br.source);
         if (br.partOf) {
             this.addTriple(subj, "http://purl.org/vocab/frbr/core#partOf", urlBase.gbr + this.mappingIds[br.partOf]);
@@ -256,6 +271,7 @@ OCExporter.prototype.convertFile = function(path, maximum, callback) {
             if (br.journal_title) {
                 this.addTriple(journal, "dcterms:title", br.journal_title);
             } else {
+                // TODO fix missing journal names
                 console.log("WARNING: Journal name is missing for", br._id)
             }
         } else {
@@ -277,15 +293,22 @@ OCExporter.prototype.convertFile = function(path, maximum, callback) {
             }
         }
 
+        var citationErrors = 0;
         for (var citation of br.cites) {
             if (this.mappingIds[citation]) {
                 this.addTriple(subj, "http://purl.org/spar/cito/cites", urlBase.gbr + this.mappingIds[citation]);
             } else {
                 // TODO: why does this happen?
-                console.log("WARNING: citation not found among the bibliographic resources", citation, "cited by", br._id);
+                //console.log("WARNING: citation not found among the bibliographic resources", citation, "cited by", br._id);
+                citationErrors++;
             }
         }
+        if (citationErrors > 0) {
+            //console.log("WARNING:", citationErrors, "citations of", br._id, "not found among the bibliographic resources");
+        }
 
+        var referenceErrors = 0;
+        var partsWithReferenceError = [];
         for (var part of rawBr.parts) {
             if (part._id) {
                 this.exportId.be++;
@@ -309,13 +332,19 @@ OCExporter.prototype.convertFile = function(path, maximum, callback) {
                             urlBase.gbr + this.mappingIds[part.references]);
                     } else {
                         // TODO: why does this happen?
-                        console.log("WARNING: reference not found among the bibliographic resources", part.references, "referenced by", br._id);
+                        referenceErrors++;
+                        partsWithReferenceError.push(part);
+                        //console.log("WARNING: reference not found among the bibliographic resources", part.references, "referenced by", br._id);
                     }
                 }
                 this.addIdentifiers(partid, part.identifiers);
             } else {
                 console.log("WARNING: no id for part", part);
             }
+        }
+        if (referenceErrors > 0) {
+            //console.log("WARNING:", referenceErrors, "references of", br._id, "not found among the bibliographic resources");
+            //console.log(JSON.stringify(partsWithReferenceError, null, 2));
         }
 
         var prev = null;
