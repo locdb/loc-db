@@ -16,7 +16,7 @@ tags:
   - name: Utils
     description: Services that are not directly related to the application.
 schemes:
-  #- http
+  # - http
   - https
 consumes:
   - application/json
