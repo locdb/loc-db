@@ -39,8 +39,10 @@ OCExporter.prototype.expand = function(qname) {
         // years are entered as dates with fixed month=1 and date=1
         if (qname.getMonth() == 0 && qname.getDate() == 1) {
             qname = qname.getFullYear();
+            return N3.DataFactory.literal("" + qname, N3.DataFactory.namedNode("http://www.w3.org/2001/XMLSchema#gYear"));
         } else {
             qname = qname.toISOString().split('T')[0];
+            return N3.DataFactory.literal("" + qname, N3.DataFactory.namedNode("http://www.w3.org/2001/XMLSchema#date"));
         }
     }
     if(typeof qname == 'number'){
@@ -227,8 +229,7 @@ OCExporter.prototype.convertFile = function(path, maximum, callback) {
         this.addTriple(subj, a, this.typeUri(br.type));
         this.addTriple(subj, a, "fabio:Expression");
         this.addTriple(subj, "rdfs:label", "bibliographic resource 0130" + this.exportId.br + " [br/0130" + this.exportId.br + "]");
-        // TODO ask if that is okay?
-        this.addTriple(subj, "owl:sameAs", "https://locdb.bib.uni-mannheim.de/locdb/bibliographicResources/" + br._id);
+        this.addTriple(subj, "dcterms:relation", "https://locdb.bib.uni-mannheim.de/locdb/bibliographicResources/" + br._id);
         this.addTriple(subj, "dcterms:title", br.getTitleForType(br.type));
         this.addTriple(subj, "http://purl.org/spar/fabio/hasSubtitle", br.getSubtitleForType(br.type));
         this.addTriple(subj, "http://prismstandard.org/namespaces/basic/2.0/edition", br.getEditionForType(br.type));
@@ -367,10 +368,13 @@ OCExporter.prototype.convertFile = function(path, maximum, callback) {
                 if (!contr.heldBy.familyName) {
                     this.addTriple(agent, "http://xmlns.com/foaf/0.1/name", contr.heldBy.nameString);
                 }
-                if (prev !== null) {
-                    this.addTriple(prev, "https://w3id.org/oc/ontology/hasNext", role);
+                // add next relation only between authors
+                if (contr.roleType == "AUTHOR") {
+                    if (prev !== null) {
+                        this.addTriple(prev, "https://w3id.org/oc/ontology/hasNext", role);
+                    }
+                    prev = role;
                 }
-                prev = role;
                 for (let contrIdentifier of contr.identifiers) {
                     this.exportId.id++;
                     var agent_id = urlBase.gid + this.exportId.id;
